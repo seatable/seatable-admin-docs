@@ -1,0 +1,76 @@
+site_name: SeaTable admin manual
+site_author: SeaTable
+docs_dir: ./manual
+site_url: https://manual.seatable.io/
+
+repo_name: seatable/seatable-admin-docs
+repo_url: https://github.com/seatable/seatable-admin-docs/
+edit_uri: blob/main/manual
+
+copyright: Copyright &copy; 2020 seafile
+
+theme:
+  name: material
+  palette:
+    primary: white
+    accent:
+
+plugins:
+  - search
+  - awesome-pages
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/seatable/seatable-admin-docs
+
+extra_css:
+  - stylesheets/extra.css
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.codehilite:
+      guess_lang: true
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+      toc_depth: "1-4"
+
+# Page tree
+nav:
+  - Overview: home.md
+  - Deploy SeaTable with Docker:
+    - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
+    - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
+    - Cluster: docker/Cluster/SeaTable Cluster.md
+  - Server Configuration and Customization:
+    - ccnet.conf: config/ccnet-conf.md
+    - seafile.conf: config/seafile-conf.md
+    - dtable_web_settings.py: config/dtable_web_settings.md
+    - dtable-events.conf: config/dtable-events-conf.md
+    - dtable_server_config: config/dtable_server_config.md
+    - Integrate with Seafile: config/integrate-with-seafile.md
+    - Templates and manual: config/templates_and_manual.md
+    - Email sending: config/sending_email.md
+    - Enterprise:
+      - Roles and Permissions: config/enterprise/roles_permissions.md
+      - LDAP: config/enterprise/ldap.md
+      - OAuth: config/enterprise/oauth.md
+      - S3: config/enterprise/S3.md
+  - Administration:
+    - Account: maintain/account.md
+    - Logs: maintain/logs.md
+    - Backup and recovery: maintain/backup_recovery.md
+    - Clean database: maintain/clean_database.md
+  - Upgrade SeaTable server:
+    - Upgrade manual: upgrade/upgrade_manual.md
+  - ChangeLog:
+    - SeaTable Developer Edition: changelog/server-changelog.md
+    - SeaTable Professional Edition: changelog/changelog-for-seatable-professional-server.md
+  - Roadmap: changelog/roadmap.md
+  - dtable-server-license: dtable-server-license.md
