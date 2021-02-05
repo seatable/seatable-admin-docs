@@ -7,7 +7,7 @@ repo_name: seatable/seatable-admin-docs
 repo_url: https://github.com/seatable/seatable-admin-docs/
 edit_uri: blob/main/manual
 
-copyright: Copyright &copy; 2020 seafile
+copyright: Copyright &copy; 2020 SeaTable
 
 theme:
   name: material
@@ -74,6 +74,6 @@ nav:
     - Upgrade manual: upgrade/upgrade_manual.md
   - ChangeLog:
     - SeaTable Developer Edition: changelog/server-changelog.md
-    - SeaTable Professional Edition: changelog/changelog-for-seatable-professional-server.md
+    - SeaTable Enterprise Edition: changelog/changelog-for-seatable-professional-server.md
   - Roadmap: changelog/roadmap.md
   - dtable-server-license: dtable-server-license.md
