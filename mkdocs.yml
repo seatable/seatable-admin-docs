@@ -1,4 +1,4 @@
-site_name: SeaTable admin manual
+site_name: SeaTable Admin Manual
 site_author: SeaTable
 docs_dir: ./manual
 site_url: https://manual.seatable.io/
@@ -7,7 +7,7 @@ repo_name: seatable/seatable-admin-docs
 repo_url: https://github.com/seatable/seatable-admin-docs/
 edit_uri: blob/main/manual
 
-copyright: Copyright &copy; 2020 SeaTable
+copyright: Copyright &copy; 2020, 2021 SeaTable
 
 theme:
   name: material
@@ -20,7 +20,6 @@ theme:
 
 plugins:
   - search
-  - awesome-pages
 
 # Customization
 extra:
@@ -43,6 +42,7 @@ markdown_extensions:
   - markdown.extensions.toc:
       permalink: true
       toc_depth: "1-4"
+  - pymdownx.superfences
 
 # Page tree
 nav:
