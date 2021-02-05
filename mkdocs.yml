@@ -7,7 +7,7 @@ repo_name: seatable/seatable-admin-docs
 repo_url: https://github.com/seatable/seatable-admin-docs/
 edit_uri: blob/main/manual
 
-copyright: Copyright &copy; 2020 SeaTable
+copyright: Copyright &copy; 2020, 2021 SeaTable
 
 theme:
   name: material
