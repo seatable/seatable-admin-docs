@@ -11,6 +11,9 @@ copyright: Copyright &copy; 2020 seafile
 
 theme:
   name: material
+  # icon:
+  logo: media/SeaTable256-256.png
+  favicon: media/seatable-favicon.ico
   palette:
     primary: white
     accent:
