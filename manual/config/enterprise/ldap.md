@@ -66,4 +66,15 @@ Some tips on how to select LDAP_BASE_DN and LDAP_ADMIN_EMAIL:
   * If you only want people in a certain department to be able to access, you can limit the scope to a certain OU (Organization Unit). You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is'staffs', you can run `dsquery ou -name staff`. More information can be found [here](https://technet.microsoft.com/en-us/library/cc770509.aspx).
 * AD supports the use of usernames in the format of'user@domain.com' as `LDAP_ADMIN_EMAIL`. For example, you can use administrator@example.com as `LDAP_ADMIN_EMAIL`. Sometimes AD cannot correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is'seatableuser', run `dsquery user -name seatableuser` to find the user. More information can be found [here](https://technet.microsoft.com/en-us/library/cc725702.aspx).
 
+## LDAP SYNC disable deleted users
+
+When a user is deleted in LDAP, the user in SeaTable is auto disabled by LDAP SYNC. Add the following configuration to dtable-event.conf and restart SeaTable.
+
+```
+[LDAP_SYNC]
+enabled = true
+sync_interval = 60  # The unit is seconds
+
+```
+
 
