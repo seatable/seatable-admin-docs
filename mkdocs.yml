@@ -64,6 +64,7 @@ nav:
       - Roles and Permissions: config/enterprise/roles_permissions.md
       - LDAP: config/enterprise/ldap.md
       - OAuth: config/enterprise/oauth.md
+      - SAML: config/enterprise/saml.md
       - S3: config/enterprise/S3.md
   - Administration:
     - Account: maintain/account.md
