@@ -18,7 +18,6 @@ SeaTable consists of following component
 * dtable-server: Store the tables and provide collaborating feature.
 * dtable-events: Background tasks likes email sending and so on.
 * seaf-server: Store attachments (files and images)
-* ccnet-server: Will be removed later.
 
 The following picture shows how the different components work together:
 
