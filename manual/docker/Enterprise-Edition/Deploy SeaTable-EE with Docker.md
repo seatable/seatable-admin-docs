@@ -21,15 +21,11 @@ apt-get install docker-compose -y
 
 ### Download the SeaTable Image
 
-Login our private registry and pull the SeaTable image:
+Pull the SeaTable image with the following command:
 
 ```sh
-docker login
 docker pull seatable/seatable-ee:latest
-
 ```
-
-Contact SeaTable sales to obtain username and password.
 
 ### Download and Modify docker-compose.yml
 
