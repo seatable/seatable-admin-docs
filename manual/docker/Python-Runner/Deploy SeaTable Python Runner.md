@@ -10,11 +10,11 @@ Python scripts operation in SeaTable contains multiple parts, such as SeaTable, 
 
 Python Runner and SeaTable FAAS Scheduler can be deployed to the same machine, the structure diagram is as follows
 
-![structure](./structure.png)
+![python-runner](../../images/auto-upload/python-runner.png)
 
 If you need to run a large number of Python scripts, you can deploy more Python Runners and arrange a load balance component before them. The structure diagram is as follows
 
-![cluster-structure](./cluster-structure.png)
+![python-runner-cluster](../../images/auto-upload/python-runner-cluster.png)
 
 ## Deploy Python Runner
 
