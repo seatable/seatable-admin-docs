@@ -1,18 +1,18 @@
-# Deploy SeaTable Python Runner with Docker
+# Deploy SeaTable Python Runner
 
-## Architecture
+## Structure
 
-Python scripts operation in SeaTable contains multiple parts, such as SeaTable, Python Runner, SeaTable FAAS Scheduler, etc. Their functions and relationships are as follows
+The running of Python scripts contains multiple parts in SeaTable, such as SeaTable, Python Runner, SeaTable FAAS Scheduler. Their functions and relationships are as follows
 
-* SeaTable: create/save/modify scripts, initiate running requests, etc.
-* SeaTable FAAS Scheduler: the scheduler is mainly responsible for scheduling the requests for running script from SeaTable, arranging timed tasks, save and count the results of script running. Equivalent to a master node.
-* Python Runner: actually runs the scripts. It is equivalent to a worker node. After Python Runner receives a script execution request, it will download the script content and start a docker container to run the script. After the script completed, the container is automatically destroyed to ensure safety.
+* SeaTable: create/save/modify scripts, send requests, etc.
+* SeaTable FAAS Scheduler: handle requests, schedule timed tasks, save and count the results of script running. Equivalent to a master node.
+* Python Runner: actually run the scripts. When Python Runner receives a request for running script, it will download the script content and start a docker container to run the script. After the script is complete, the container is automatically destroyed to ensure safety. Equivalent to a worker node.
 
-Python Runner and SeaTable FAAS Scheduler can be deployed to the same machine, the structure diagram is as follows
+Python Runner and SeaTable FAAS Scheduler can be deployed to the same machine. The structure diagram is as follows
 
 ![python-runner](../../images/auto-upload/python-runner.png)
 
-If you need to run a large number of Python scripts, you can deploy more Python Runners and arrange a load balance component before them. The structure diagram is as follows
+If you need to run a large number of Python scripts, you can deploy more Python Runners and arrange a load balance component between them. The structure diagram is as follows
 
 ![python-runner-cluster](../../images/auto-upload/python-runner-cluster.png)
 
@@ -22,18 +22,18 @@ The default directory for Python Runner is `/opt/seatable-python-runner`. The di
 
 ``` text
 /opt/seatable-python-runner
-├── logs                     （log files）
-├── conf                     （configuration files）
-├── init.sh                  （init script）
-├── start.sh                 （startup script）
-├── stop.sh                  （shutdown script）
+├── logs                     (log files)
+├── conf                     (configuration files)
+├── init.sh                  (init script)
+├── start.sh                 (start script)
+├── stop.sh                  (stop script)
 └── Other code files
 
 ```
 
 ### Download package
 
-The service of Python Runner needs to run directly on the host, so you need to download it manually [releases](https://github.com/seatable/seatable-admin-docs/releases), unzip and enter the project directory:
+Python Runner needs to run directly on the host, download the [latest package](https://github.com/seatable/seatable-admin-docs/releases), then unzip and enter the project directory:
 
 ``` bash
 unzip seatable-python-runner-1.x.x.zip -d /opt && cd /opt/seatable-python-runner
@@ -51,9 +51,9 @@ sudo pip3 install -r server_requirements.txt
 docker pull seatable/python-runner:latest
 ```
 
-You can find all versions of SeaTable Python Runner images in the [Docker repository](https://hub.docker.com/r/seatable/python-runner/tags).
+You can find all versions of Python Runner images in [Docker repository](https://hub.docker.com/r/seatable/python-runner/tags).
 
-### Initialize the service
+### Initialize Python Runner
 
 ``` bash
 sudo ./init.sh
@@ -85,9 +85,9 @@ The default configuration as follows
 
 ``` ini
 [uwsgi]
-http = :8080  （port）
-process = 4   （processes）
-threads = 2   （threads）
+http = :8080  # port
+process = 4   # processes
+threads = 2   # threads
 ```
 
 ### Star Python Runner
@@ -96,13 +96,13 @@ threads = 2   （threads）
 sudo ./start.sh
 ```
 
-### Shutdown
+The stop command is as follows
 
 ``` bash
 sudo ./stop.sh
 ```
 
-The startup/shutdown script is a collection of a series of operations, you can edit it again according to your needs.
+The start/stop script is a collection of a series of operations, you can edit it according to your needs.
 
 ## Deploy SeaTable FAAS Scheduler by Docker
 
@@ -110,7 +110,6 @@ The default directory for Scheduler is `/opt/seatable-faas-scheduler`. Create th
 
 ``` bash
 mkdir /opt/seatable-faas-scheduler
-
 ```
 
 The directory structure is as follows
@@ -120,13 +119,12 @@ The directory structure is as follows
 ├── docker-compose.yml
 ├── shared
 │   ├── seatable-faas-scheduler
-│   │   ├── conf     （配置文件）
-│   │   ├── scripts  （脚本文件）
-│   │   └── logs     （日志文件）
-│   ├── nginx-logs   （Nginx 日志）
-│   └── ssl          （SSL 证书）
-└── mysql-data       （数据库持久化目录）
-
+│   │   ├── conf     (configuration files)
+│   │   ├── scripts  (script files)
+│   │   └── logs     (log files)
+│   ├── nginx-logs   (Nginx logs)
+│   └── ssl          (SSL certificate)
+└── mysql-data       (MariaDB data)
 ```
 
 ### Install Docker-compose
@@ -139,7 +137,6 @@ yum install docker-compose -y
 
 # for Ubuntu
 apt-get install docker-compose -y
-
 ```
 
 ### Download the Scheduler Image
@@ -156,7 +153,7 @@ Download the [docker-compose.yml](./docker-compose.yml) sample file to `/opt/sea
 
 * The password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
 * The volume directory of MariaDB data (volumes)
-* The volume directory of SeaTable FAAS Scheduler data (volumes)
+* The volume directory of Scheduler data (volumes)
 * The host name (SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME)
 * The time zone (Optional)
 
@@ -166,7 +163,6 @@ Initialize database with the following command:
 
 ``` bash
 docker-compose up
-
 ```
 
 **NOTE: You should run the above command in a directory with the**`docker-compose.yml`**.**
@@ -178,7 +174,7 @@ Press keyboard `Control + C`  to finish this step.
 ### Modify the configuration file of Scheduler
 
 ``` bash
-vim /path to the volume directory of SeaTable FAAS Scheduler/seatable-faas-scheduler/conf/seatable_faas_scheduler_settings.py
+vim /path to the volume directory of Scheduler/seatable-faas-scheduler/conf/seatable_faas_scheduler_settings.py
 ```
 
 Edit the configuration as follows
@@ -187,21 +183,21 @@ Edit the configuration as follows
 DTABLE_WEB_SERVICE_URL = 'https://demo.seatable.com'  # SeaTable URL
 
 FAAS_URL = 'https://demo.faas.seatable.com'  # Python Runner URL
-# If the Python runner and SeaTable FAAS Scheduler are running on the same host, Then it needs to be configured as 'http://host.docker.internal:8080'(Can not be 'http://localhost:8080'), or 'http://<intranet address>:port'
+# If the Python runner and the Scheduler are running on the same host, then it needs to be configured as 'http://host.docker.internal:8080'(Can not be 'http://localhost:8080'), or 'http://<intranet address>:port'
 
-SEATABLE_FAAS_AUTH_TOKEN = '***'  # Only copy this configuration item to modify the SeaTable configuration file
+SEATABLE_FAAS_AUTH_TOKEN = '***'  # Only copy this item to modify the SeaTable configuration file
 ```
 
 ### Modify the configuration file of SeaTable
 
 ``` bash
-vim /path to the volume directory of SeaTable/seatable/conf/dtable_web_settings.py  
+vim /path to the volume directory of SeaTable/seatable/conf/dtable_web_settings.py
 ```
 
 Edit the configuration as follows
 
 ``` py
-SEATABLE_FAAS_URL = '***'  # seatable-faas-scheduler URL
+SEATABLE_FAAS_URL = '***'  # Scheduler URL
 SEATABLE_FAAS_AUTH_TOKEN = '***'  # same as the item in seatable_faas_scheduler_settings.py
 ```
 
@@ -217,9 +213,9 @@ docker-compose up -d
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 ```
 
-Next, you can test the Python Runner through SeaTable web page.
+Now, you can test the Python Runner through the SeaTable web page.
 
-### Scheduler More Configuration Options
+### More Configuration Options of Scheduler
 
 #### Deploy the https
 
@@ -242,13 +238,13 @@ Next, you can test the Python Runner through SeaTable web page.
       - SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=demo.faas-scheduler.seatable.com  # Specifies your host name if https is enabled
   ```
 
-  **Note**：Since the nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME = True` before executing the `docker-compose up -d` command for the first time.
+  **Note**：Since the nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=True` before executing the `docker-compose up -d` command for the first time.
 
 If you want to use your own SSL certificate, you can refer to the following steps.
 
 * Add your own SSL certificate
-  1. Upload the SSL certificate file to the SeaTable FAAS Scheduler data directory : `/Your SeaTable FAAS Scheduler data volume/ssl/`
-  2. Modify the nginx configuration file : `/Your SeaTable FAAS Scheduler data volume/seatable-faas-scheduler/conf/nginx.conf`
+  1. Upload the SSL certificate file to the Scheduler data directory : `/Your Scheduler data volume/ssl/`
+  2. Modify the nginx configuration file : `/Your Scheduler data volume/seatable-faas-scheduler/conf/nginx.conf`
   3. Reload the Nginx configuration file：`docker exec -it seatable-faas-scheduler /usr/sbin/nginx -s reload`
 
   e.g.
@@ -282,4 +278,4 @@ Just remove the directory `/opt/seatable-faas-scheduler` and start again.
 
 **LetsEncrypt SSL certificate is about to expire.**
 
-If the certificate is not renewed automatically, you can execute the command `/scripts/renew_cert.sh` to manually renew the certificate.
+If the certificate is not renewed automatically, you can execute the command `docker exec -it seatable-faas-scheduler /scripts/renew_cert.sh` to manually renew the certificate.
