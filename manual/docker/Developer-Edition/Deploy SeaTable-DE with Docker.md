@@ -80,9 +80,9 @@ Now you can start the SeaTable service.
 
 ```sh
 # Start SeaTable service.
-docker exec -d seatable /shared/seatable/scripts/seatable.sh start
+docker exec -d seatable //bin/bash /shared/seatable/scripts/seatable.sh start
 # Create an admin account.
-docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser  
+docker exec -it seatable //bin/bash /shared/seatable/scripts/seatable.sh superuser  
 
 ```
 
