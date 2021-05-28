@@ -13,8 +13,8 @@
     "redis_port": 6379,
     "redis_password": ""
     "enable_notification_publish": true/false,
-    "rows_api_minute_max": 10,
-    "rows_api_hour_max": 60
+    "rows_api_minute_max": 100,
+    "rows_api_hour_max": 600
 }
 
 ```
