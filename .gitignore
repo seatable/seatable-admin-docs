@@ -1,2 +1,3 @@
 # Mkdocs build directory
 /site/
+/.idea

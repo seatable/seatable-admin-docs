@@ -51,7 +51,10 @@ nav:
     - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
     - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
     - Cluster: docker/Cluster/SeaTable Cluster.md
-    - Python Runner: docker/Python-Runner/Deploy SeaTable Python Runner.md
+    - Python Runner:
+      - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
+      - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
+      - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
   - Server Configuration and Customization:
     - ccnet.conf: config/ccnet-conf.md
     - seafile.conf: config/seafile-conf.md
