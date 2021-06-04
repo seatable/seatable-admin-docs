@@ -1,4 +1,6 @@
-# SAML
+# SAML SSO
+
+In this document, we use Azure SAML to show the steps to connect SeaTable with SAML. Other SAML provider should be similiar.
 
 ## Prepare Certs File
 
@@ -18,7 +20,6 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout sp.key -out sp.crt
 ```
 
 ## Configure Azure SAML
-Add the following configuration to dtable_web_settings.py.
 
 Add application: <https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal>
 
@@ -37,6 +38,7 @@ Download base64 format signing certificate and metadata XML file, put them under
 ![](../../images/auto-upload/001.png)
 
 ## Configure SeaTable
+
 Add the following configuration to dtable_web_settings.py
 
 ```
@@ -111,4 +113,4 @@ Restart SeaTable, enter the entity id URL of SeaTable in the browser, e.g. <http
 
 ![](../../images/auto-upload/002.png)
 
-Log in to the seatable homepage, click single sign-on, and use the user assigned to Azure SAML to perform a SAML login test.
+Log in to the SeaTable homepage, click single sign-on, and use the user assigned to Azure SAML to perform a SAML login test.
