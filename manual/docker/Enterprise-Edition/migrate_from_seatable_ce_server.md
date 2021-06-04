@@ -2,8 +2,7 @@
 
 ## Preparation
 
-1. Purchase SeaTable Professional license file.
-2. Ask the salesperson for the SeaTable EE docker hub account and password
+Purchase SeaTable Professional license file or get a trial license file
 
 ## Migrate
 
