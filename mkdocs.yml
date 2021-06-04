@@ -55,6 +55,7 @@ nav:
       - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
       - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
       - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
+    - Migrate SeaTable CE to EE: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
   - Server Configuration and Customization:
     - ccnet.conf: config/ccnet-conf.md
     - seafile.conf: config/seafile-conf.md
