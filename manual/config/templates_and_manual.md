@@ -1,13 +1,13 @@
-# Manual, Templates and Plugins Config
+#Configuration of Manual, Templates, and Plugins
 
-## Config of manual 
+## Configuration of the Manual 
 
 ```
 HELP_LINK = 'https://seatable.io/help/?lang=auto'
 
 ```
 
-## Config of templates
+## Configuration of Templates
 
 Using templates requires a version above 1.6.0 of SeaTable.  Here are several steps:
 
@@ -17,7 +17,7 @@ Using templates requires a version above 1.6.0 of SeaTable.  Here are several st
 
 We suggest that the base of template list and templates be put together in one group.
 
-An example of the "templates" table is shown as bellow:
+An example of the "templates" table is shown as below:
 
 ![](../images/auto-upload/image-1609905818016.png)
 
@@ -46,6 +46,23 @@ Note that the "TEMPLATE_BASE_API_TOKEN" can be generated from "Advanced --> API 
 
 You can either choose downloading our public templates formatted as “.dtable“ and import it to your own SeaTable server, or make a template according to your own interests by yourself. 
 
-## Config of plugins
+## Configuration of Plugins
 
-You can download plugins from <https://market.seatable.io/plugins/> and upload it to your SeaTable in the admin panel. Note that the Map plugin requires a Google Map developer account to work.
+With the exception of the calendar plugin (which is bundled with SeaTable Server), SeaTable plugins must be separately installed.
+
+Plugins can be downloaded from <https://market.seatable.io/plugins/> as ZIP files.
+
+Once uploaded to the SeaTable Server via system administration in the web interface, users can add them to their bases via the plugin manager.
+
+![grafik](https://user-images.githubusercontent.com/41058728/121181052-e0924f80-c861-11eb-930a-e0e13d6ea31e.png)
+
+
+### Map plugin
+The map plugin currently supports only the Google Maps Platform. For the map plugin to access Google Maps data, a <a href="https://developers.google.com/maps/documentation/javascript/get-api-key?hl=de">Google API Key</a> is required.
+
+Add the following line to `dtable_web_settings.py` :
+
+````
+DTABLE_GOOGLE_MAP_KEY = ‘xxxx’ 
+````
+
