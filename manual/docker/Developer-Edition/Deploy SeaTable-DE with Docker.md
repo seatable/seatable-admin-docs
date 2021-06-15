@@ -90,6 +90,31 @@ Note, the first command use `-d` parameter to mean the service to run in the bac
 
 Next you can access SeaTable via the web side.
 
+### Note!!! If you encounter "Network error" when loading a base
+
+Use Chrome's debug mode to check the detailed error. Normally, it is caused by wrong URLs in `dtable_web_settings.py`. As SeaTable server is composed of multiple components, it must read the correct URLs that users will use to access the service from settings. The configs will only be read from docker-compose.yml and write to the config file when you start SeaTable for the first time. If you modify the URLs in docker-compose.yml later, you must change them in `dtable_web_settings.py` manually.
+
+The four URLs that used are below:
+
+```python
+# The URL that users used to access a base
+DTABLE_SERVER_URL = 'https://seatable.yourdomain.com/dtable-server/'
+DTABLE_SOCKET_URL = 'https://seatable.yourdomain.com/'
+
+# The URL that users used to access the service
+DTABLE_WEB_SERVICE_URL = 'https://seatable.yourdomain.com/'
+
+# The URL for the file server
+FILE_SERVER_ROOT = 'https://seatable.yourdomain.com/seafhttp/'
+```
+
+Don't forget to restart the service after modification:
+
+```
+docker exec -d seatable /shared/seatable/scripts/seatable.sh stop
+docker exec -d seatable /shared/seatable/scripts/seatable.sh start
+```
+
 ## More Configuration Options
 
 ### Deploy the https
