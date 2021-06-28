@@ -1,5 +1,14 @@
 # Upgrade manual
 
+In general, to upgrade to a new version, you need to
+
+1. Pull a new docker image version
+2. Stop the service and do the database migration manually
+3. Restart the service 
+
+If there are extra notes for a specific version, you can find it here: [extra notices](./extra-upgrade-notice.md)
+
+
 ## Get latest SeaTable
 
 You can find all versions of SeaTable from [Docker Hub](https://hub.docker.com/r/seatable/seatable/tags).
