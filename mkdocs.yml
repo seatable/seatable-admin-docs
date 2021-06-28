@@ -78,6 +78,7 @@ nav:
     - Clean database: maintain/clean_database.md
   - Upgrade SeaTable server:
     - Upgrade manual: upgrade/upgrade_manual.md
+    - Extra upgrade notices: upgrade/extra-upgrade-notice.md
   - ChangeLog:
     - SeaTable Developer Edition: changelog/server-changelog.md
     - SeaTable Enterprise Edition: changelog/changelog-for-seatable-professional-server.md
