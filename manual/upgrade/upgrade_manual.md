@@ -27,7 +27,7 @@ docker-compose down
 
 ```
 
-Then modify the tag in "docker-compose.yml". And start a new SeaTable container.
+Then modify SeaTable version in "docker-compose.yml". And start a new SeaTable container.
 
 ```
 docker-compose up -d
