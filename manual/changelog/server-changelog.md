@@ -1,3 +1,3 @@
-# Server Changelog
+# SeaTable Developer Edition Changelog
 
-Please check: <https://seatable.io/docs/changelog/>
+Please see <https://seatable.io/docs/changelog/>

@@ -1,54 +1,60 @@
-# Migrate SeaTable CE to EE
+# Migrate SeaTable DE to EE
 
-## Preparation
+## Requirements
 
-Purchase SeaTable Professional license file or get a trial license file
+You need a SeaTable license file to migrate from SeaTable Developer Edition (SeaTable DE) to SeaTable Enterprise Edition (SeaTable EE).
 
-## Migrate
+NOTE: To protect your data, it is strongly recommended to back up the database prior to the migration. See the section on [backup and recovery](https://manual.seatable.io/maintain/backup_recovery/) for details.
 
-### Stop the SeaTable CE
+## Migration
+
+### Stopping the SeaTable DE
+
+Stop all containers started by Docker Compose:
 
 ```sh
 docker-compose down
 ```
 
-**To ensure data security, it is recommended that you back up your MySQL data.**
+### Copying the Licence File
 
-### Put your licence file
+Save the `seatable-license.txt` in the [volume of the container `seatable`](https://manual.seatable.io/docker/Developer-Edition/Deploy%20SeaTable-DE%20with%20Docker/). 
 
-Copy the `seatable-license.txt` to the volume directory of the SeaTable CE's data. If the directory is `/opt/seatable-data`, so you should put it in the `/opt/seatable-data/seatable/`.
+If you use the volume's default path, save the file in the directory `/opt/seatable/seatable-data/seatable/`.
 
-### Modify the docker-compose.yml
+### Downloading the SeaTable EE Image
 
-Modify seatable image
+Pull the SeaTable EE image from Docker Hub::
+
+```sh
+docker pull seatable/seatable-ee:latest
+```
+
+### Modifying the docker-compose.yml
+
+Adjust the used Seatable image in the docker-compose.yml:
 
 ```yml
   seatable:
     image: seatable/seatable-ee:latest
 ```
 
-### Run SeaTable EE
+### Starting SeaTable
 
-Download SeaTable EE image:
-
-```sh
-docker pull seatable/seatable-ee:latest
-```
-
-Start SeaTable container with the following command:
+Start the SeaTable container:
 
 ```sh
 docker-compose up -d
 ```
 
-Start SeaTable service.
+Start the SeaTable service:
 
 ```sh
 docker exec -d seatable /shared/seatable/scripts/seatable.sh start
 ```
 
-## Upgrade database
+## Upgrading the Database
 
-If the upgrade from the developer version to the enterprise version is a cross-version upgrade, for example, from seatable: 1.6.0 to seatable-ee: 2.0.0, database upgrade is required after image is changed.
+If you migrate from one minor release of SeaTable DE to SeaTable EE (i.e., from SeaTable DE 1.6.0 to SeaTable EE 1.6.4), no further action is required.
 
-For details, see: [Upgrade manual](https://manual.seatable.io/upgrade/upgrade_manual/)
+If the upgrade from the Developer Edition to the Enterprise Edition involves a version change (i.e., from SeaTable DE 1.6 to SeaTable EE 2.0), then a database upgrade is required like after changing an image. See the [upgrade manual](https://manual.seatable.io/upgrade/upgrade_manual/) for details.
