@@ -45,7 +45,7 @@ docker pull seatable/seatable-ee:latest
 
 ### Downloading and Modifying docker-compose.yml
 
-Download the [docker-compose.yml](https://docs.seatable.io/f/58f1f83e5ac34258806b/?dl=1) sample file into the SeaTable's directory and modify the file to fit your environment and settings.
+Download the [docker-compose.yml](https://docs.seatable.io/f/58f1f83e5ac34258806b/?dl=1) sample file into SeaTable's directory and modify the file to fit your environment and settings.
 
 ```bash
 mkdir /opt/seatable
