@@ -119,7 +119,7 @@ NOTE: The first command uses the option `-d` which starts the service in the bac
 
 Now you can access SeaTable via the web interface.
 
-Without a license file, you can use SeaTable EE with up to three users.
+Without a license file, you can run SeaTable EE with up to three users. (But some enterprise features may not be available in the UI)
 
 ### Activating SeaTable license
 
