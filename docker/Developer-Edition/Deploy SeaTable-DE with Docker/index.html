@@ -1,0 +1,1367 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="SeaTable">
+      
+      
+        <link rel="canonical" href="https://manual.seatable.io/docker/Developer-Edition/Deploy%20SeaTable-DE%20with%20Docker/">
+      
+      <link rel="icon" href="../../../media/seatable-favicon.ico">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.10">
+    
+    
+      
+        <title>Developer Edition - SeaTable Admin Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1fe995fd.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffffff">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deploy-seatable-developer-edition-de-with-docker" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="SeaTable Admin Manual" class="md-header__button md-logo" aria-label="SeaTable Admin Manual" data-md-component="logo">
+      
+  <img src="../../../media/SeaTable256-256.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SeaTable Admin Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Developer Edition
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/seatable/seatable-admin-docs/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seatable/seatable-admin-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="SeaTable Admin Manual" class="md-nav__button md-logo" aria-label="SeaTable Admin Manual" data-md-component="logo">
+      
+  <img src="../../../media/SeaTable256-256.png" alt="logo">
+
+    </a>
+    SeaTable Admin Manual
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/seatable/seatable-admin-docs/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seatable/seatable-admin-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../home/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Deploy SeaTable with Docker
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Deploy SeaTable with Docker" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deploy SeaTable with Docker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Developer Edition
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Developer Edition
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-docker-compose" class="md-nav__link">
+    Install docker-compose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-the-seatable-image" class="md-nav__link">
+    Download the SeaTable Image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-and-modify-docker-composeyml" class="md-nav__link">
+    Download and Modify docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize-database" class="md-nav__link">
+    Initialize Database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-docker-container" class="md-nav__link">
+    Start Docker Container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-seatable-server" class="md-nav__link">
+    Start SeaTable Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-if-you-encounter-network-error-when-loading-a-base" class="md-nav__link">
+    Note!!! If you encounter "Network error" when loading a base
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-configuration-options" class="md-nav__link">
+    More Configuration Options
+  </a>
+  
+    <nav class="md-nav" aria-label="More Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-the-https" class="md-nav__link">
+    Deploy the https
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-features" class="md-nav__link">
+    Advanced Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seatable-directory-structure" class="md-nav__link">
+    SeaTable Directory Structure
+  </a>
+  
+    <nav class="md-nav" aria-label="SeaTable Directory Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volumes" class="md-nav__link">
+    Volumes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-logs" class="md-nav__link">
+    Find Logs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    FAQ
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Enterprise-Edition/Deploy%20SeaTable-EE%20with%20Docker/" class="md-nav__link">
+        Enterprise Edition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cluster/SeaTable%20Cluster/" class="md-nav__link">
+        Cluster
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Python Runner
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Python Runner" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Python Runner
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python-Runner/Deploy%20SeaTable%20Python%20Runner/" class="md-nav__link">
+        Deploy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python-Runner/Update%20SeaTable%20Python%20Runner/" class="md-nav__link">
+        Upgrading
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python-Runner/Customize%20SeaTable%20Python%20Runner/" class="md-nav__link">
+        Customization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Enterprise-Edition/migrate_from_seatable_ce_server/" class="md-nav__link">
+        Migrate SeaTable CE to EE
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Server Configuration and Customization
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Server Configuration and Customization" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Server Configuration and Customization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/ccnet-conf/" class="md-nav__link">
+        ccnet.conf
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/seafile-conf/" class="md-nav__link">
+        seafile.conf
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/dtable_web_settings/" class="md-nav__link">
+        dtable_web_settings.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/dtable-events-conf/" class="md-nav__link">
+        dtable-events.conf
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/dtable_server_config/" class="md-nav__link">
+        dtable_server_config
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/integrate-with-seafile/" class="md-nav__link">
+        Integrate with Seafile
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/templates_and_manual/" class="md-nav__link">
+        Templates and manual
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/sending_email/" class="md-nav__link">
+        Email sending
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+      
+      <label class="md-nav__link" for="__nav_3_9">
+        Enterprise
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Enterprise" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_9">
+          <span class="md-nav__icon md-icon"></span>
+          Enterprise
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/enterprise/roles_permissions/" class="md-nav__link">
+        Roles and Permissions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/enterprise/ldap/" class="md-nav__link">
+        LDAP
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/enterprise/oauth/" class="md-nav__link">
+        OAuth
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/enterprise/saml/" class="md-nav__link">
+        SAML
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/enterprise/S3/" class="md-nav__link">
+        S3
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Administration
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Administration" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Administration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maintain/account/" class="md-nav__link">
+        Account
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maintain/logs/" class="md-nav__link">
+        Logs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maintain/backup_recovery/" class="md-nav__link">
+        Backup and recovery
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../maintain/clean_database/" class="md-nav__link">
+        Clean database
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Upgrade SeaTable server
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Upgrade SeaTable server" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Upgrade SeaTable server
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../upgrade/upgrade_manual/" class="md-nav__link">
+        Upgrade manual
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../upgrade/extra-upgrade-notice/" class="md-nav__link">
+        Extra upgrade notices
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        ChangeLog
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="ChangeLog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          ChangeLog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/server-changelog/" class="md-nav__link">
+        SeaTable Developer Edition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/changelog-for-seatable-professional-server/" class="md-nav__link">
+        SeaTable Enterprise Edition
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/roadmap/" class="md-nav__link">
+        Roadmap
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dtable-server-license/" class="md-nav__link">
+        dtable-server-license
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-docker-compose" class="md-nav__link">
+    Install docker-compose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-the-seatable-image" class="md-nav__link">
+    Download the SeaTable Image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-and-modify-docker-composeyml" class="md-nav__link">
+    Download and Modify docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize-database" class="md-nav__link">
+    Initialize Database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-docker-container" class="md-nav__link">
+    Start Docker Container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-seatable-server" class="md-nav__link">
+    Start SeaTable Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-if-you-encounter-network-error-when-loading-a-base" class="md-nav__link">
+    Note!!! If you encounter "Network error" when loading a base
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-configuration-options" class="md-nav__link">
+    More Configuration Options
+  </a>
+  
+    <nav class="md-nav" aria-label="More Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-the-https" class="md-nav__link">
+    Deploy the https
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-features" class="md-nav__link">
+    Advanced Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seatable-directory-structure" class="md-nav__link">
+    SeaTable Directory Structure
+  </a>
+  
+    <nav class="md-nav" aria-label="SeaTable Directory Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volumes" class="md-nav__link">
+    Volumes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-logs" class="md-nav__link">
+    Find Logs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    FAQ
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/seatable/seatable-admin-docs/blob/main/manual/docker/Developer-Edition/Deploy SeaTable-DE with Docker.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="deploy-seatable-developer-edition-de-with-docker">Deploy SeaTable Developer Edition (DE) with Docker<a class="headerlink" href="#deploy-seatable-developer-edition-de-with-docker" title="Permanent link">&para;</a></h1>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>SeaTable DE requires 4 cores and 8GB RAM. These resources guarantee good performance for most applications with several hundred concurrent connections.  When the bases become large, more RAM may be needed since SeaTable stores the bases in memory.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<h3 id="install-docker-compose">Install docker-compose<a class="headerlink" href="#install-docker-compose" title="Permanent link">&para;</a></h3>
+<p>SeaTable uses docker-compose. Install the docker-compose package:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># for CentOS</span>
+yum install docker-compose -y
+
+<span class="c1"># Debian/Ubuntu</span>
+apt-get install docker-compose -y
+</code></pre></div>
+<h3 id="download-the-seatable-image">Download the SeaTable Image<a class="headerlink" href="#download-the-seatable-image" title="Permanent link">&para;</a></h3>
+<p>Pull the SeaTable image:</p>
+<div class="highlight"><pre><span></span><code>docker pull seatable/seatable:<span class="o">{</span>tag<span class="o">}</span>
+</code></pre></div>
+<p>You find the current and previous versions of SeaTable DE on <a href="https://hub.docker.com/r/seatable/seatable/tags">Docker Hub</a>.</p>
+<h3 id="download-and-modify-docker-composeyml">Download and Modify docker-compose.yml<a class="headerlink" href="#download-and-modify-docker-composeyml" title="Permanent link">&para;</a></h3>
+<p>The default directory for SeaTable is <code>/opt/seatable</code>. Create the directory:</p>
+<div class="highlight"><pre><span></span><code>mkdir /opt/seatable
+</code></pre></div>
+<p>Download the <a href="https://docs.seatable.io/f/6a99ce4147d1411ab873/?dl=1">docker-compose.yml</a> sample file to <code>/opt/seatable</code> and modify the file to fit your environment and settings. The following fields must be modified:</p>
+<ul>
+<li>The password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)</li>
+<li>The volume directory of MariaDB data (volumes)</li>
+<li>The SeaTable image's tag</li>
+<li>The volume directory of SeaTable data (volumes)</li>
+<li>The host name (SEATABLE_SERVER_HOSTNAME)</li>
+<li>The time zone (Optional)</li>
+</ul>
+<h3 id="initialize-database">Initialize Database<a class="headerlink" href="#initialize-database" title="Permanent link">&para;</a></h3>
+<p>Initialize database with the following command:</p>
+<div class="highlight"><pre><span></span><code>docker-compose up
+</code></pre></div>
+<p><strong>NOTE: You should run the above command in a directory with the </strong><code>docker-compose.yml</code><strong>.</strong></p>
+<p>Wait for a while. When you see <code>This is a idle script (infinite loop) to keep container running.</code>  in the output log, the database initialized successfully.</p>
+<p>Press keyboard <code>Control + C</code>  to finish this step.</p>
+<h3 id="start-docker-container">Start Docker Container<a class="headerlink" href="#start-docker-container" title="Permanent link">&para;</a></h3>
+<p>Start SeaTable container with the following command:</p>
+<div class="highlight"><pre><span></span><code>docker-compose up -d
+</code></pre></div>
+<p><strong>NOTE: You should run the above command in a directory with the </strong><code>docker-compose.yml</code><strong>.</strong></p>
+<h3 id="start-seatable-server">Start SeaTable Server<a class="headerlink" href="#start-seatable-server" title="Permanent link">&para;</a></h3>
+<p>Now you can start the SeaTable service.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start SeaTable service.</span>
+docker <span class="nb">exec</span> -d seatable /shared/seatable/scripts/seatable.sh start
+<span class="c1"># Create an admin account.</span>
+docker <span class="nb">exec</span> -it seatable /shared/seatable/scripts/seatable.sh superuser  
+</code></pre></div>
+<p>Note, the first command use <code>-d</code> parameter to mean the service to run in the background. The second command use <code>-it</code> parameter to mean it is an interactive command.</p>
+<p>Next you can access SeaTable via the web side.</p>
+<h3 id="note-if-you-encounter-network-error-when-loading-a-base">Note!!! If you encounter "Network error" when loading a base<a class="headerlink" href="#note-if-you-encounter-network-error-when-loading-a-base" title="Permanent link">&para;</a></h3>
+<p>Use Chrome's debug mode to check the detailed error. Normally, it is caused by wrong URLs in <code>dtable_web_settings.py</code>. As SeaTable server is composed of multiple components, it must read the correct URLs that users will use to access the service from settings. The configs will only be read from docker-compose.yml and write to the config file when you start SeaTable for the first time. If you modify the URLs in docker-compose.yml later, you must change them in <code>dtable_web_settings.py</code> manually.</p>
+<p>The four URLs that used are below:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># The URL that users used to access a base</span>
+<span class="n">DTABLE_SERVER_URL</span> <span class="o">=</span> <span class="s1">&#39;https://seatable.yourdomain.com/dtable-server/&#39;</span>
+<span class="n">DTABLE_SOCKET_URL</span> <span class="o">=</span> <span class="s1">&#39;https://seatable.yourdomain.com/&#39;</span>
+
+<span class="c1"># The URL that users used to access the service</span>
+<span class="n">DTABLE_WEB_SERVICE_URL</span> <span class="o">=</span> <span class="s1">&#39;https://seatable.yourdomain.com/&#39;</span>
+
+<span class="c1"># The URL for the file server</span>
+<span class="n">FILE_SERVER_ROOT</span> <span class="o">=</span> <span class="s1">&#39;https://seatable.yourdomain.com/seafhttp/&#39;</span>
+</code></pre></div>
+<p>Don't forget to restart the service after modification:</p>
+<div class="highlight"><pre><span></span><code>docker exec -d seatable /shared/seatable/scripts/seatable.sh stop
+docker exec -d seatable /shared/seatable/scripts/seatable.sh start
+</code></pre></div>
+<h2 id="more-configuration-options">More Configuration Options<a class="headerlink" href="#more-configuration-options" title="Permanent link">&para;</a></h2>
+<h3 id="deploy-the-https">Deploy the https<a class="headerlink" href="#deploy-the-https" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Let's encrypt SSL certificate</li>
+</ul>
+<p>If you set <code>SEATABLE_SERVER_LETSENCRYP</code> to <code>true</code> in "docker-compose.yml", the container would request a letsencrypt-signed SSL certificate for you automatically.</p>
+<p>e.g.</p>
+<div class="highlight"><pre><span></span><code>seatable:
+  ...
+  ports:
+    - &quot;80:80&quot;
+    - &quot;443:443&quot;
+    ...
+  environment:
+    ...
+    - SEATABLE_SERVER_LETSENCRYPT=True # Default is False. Whether to use let&#39;s encrypt certificate.
+    - SEATABLE_SERVER_HOSTNAME=example.seatable.com # Specifies your host name if https is enabled
+</code></pre></div>
+<p><strong>Note</strong>：Since the nginx configuration file is only generated automatically when you run the container for the first time, you'd better set <code>SEATABLE_SERVER_LETSENCRYPT = True</code> before executing the <code>docker-compose up -d</code> command for the first time.</p>
+<p>If you want to use your own SSL certificate, you can refer to the following steps.</p>
+<ul>
+<li>Add your own SSL certificate</li>
+<li>Upload the SSL certificate file to the SeaTable data directory : <code>/Your SeaTable data volume/ssl/</code></li>
+<li>Change the "http" of each SERVER_URL in ccnet.conf, dtable_web_settings.py and dtable_server_config.json to "https".</li>
+<li>Restart the SeaTable service : <code>docker exec -it seatable /shared/seatable/scripts/seatable.sh restart</code></li>
+<li>Restart the Memcached service：<code>docker restart seatable-memcached</code></li>
+<li>
+<p>Modify the nginx configuration file : <code>/Your SeaTable data volume/seatable/conf/nginx.conf</code></p>
+<p>e.g.</p>
+<div class="highlight"><pre><span></span><code>server {
+    if ($host = example.seatable.com) {
+        return 301 https://$host$request_uri;
+    }
+    listen 80;
+    server_name example.seatable.com;
+    return 404;
+}
+
+server {
+    server_name example.seatable.com;
+
+    listen 443 ssl;
+    ssl_certificate /shared/ssl/&lt;your-ssl.cer&gt;;
+    ssl_certificate_key /shared/ssl/&lt;your-ssl.key&gt;;
+
+    proxy_set_header X-Forwarded-For $remote_addr;
+    ......
+</code></pre></div>
+</li>
+<li>
+<p>Reload the nginx configuration file : <code>docker exec -it seatable /usr/sbin/nginx -s reload</code></p>
+</li>
+</ul>
+<h3 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">&para;</a></h3>
+<p>All config files are under <code>/Your SeaTable data volume/seatable/conf/</code>. </p>
+<ul>
+<li>ccnet : <code>/Your SeaTable data volume/seatable/conf/ccnet.conf</code></li>
+<li>seafile : <code>/Your SeaTable data volume/seatable/conf/seafile.conf</code></li>
+<li>dtable-web : <code>/Your SeaTable data volume/seatable/conf/dtable_web_settings.py</code></li>
+<li>dtable-server : <code>/Your SeaTable data volume/seatable/conf/dtable_server_config.json</code></li>
+<li>dtable-events : <code>/Your SeaTable data volume/seatable/conf/dtable-events.conf</code></li>
+<li>Nginx : <code>/Your SeaTable data volume/seatable/conf/nginx.conf</code></li>
+</ul>
+<p>After modification, you need to restart the SeaTable server.</p>
+<div class="highlight"><pre><span></span><code>docker <span class="nb">exec</span> -d seatable /shared/seatable/scripts/seatable.sh restart
+</code></pre></div>
+<h2 id="seatable-directory-structure">SeaTable Directory Structure<a class="headerlink" href="#seatable-directory-structure" title="Permanent link">&para;</a></h2>
+<h3 id="volumes">Volumes<a class="headerlink" href="#volumes" title="Permanent link">&para;</a></h3>
+<p>Placeholder spot for shared volumes. You may elect to store certain persistent information outside of a container, in our case we keep various logfiles and upload directory outside. This allows you to rebuild containers easily without losing important information.</p>
+<ul>
+<li>/shared/seatable: This is the directory for SeaTable server configuration and data.</li>
+<li>/shared/nginx-logs: This is the directory for Nginx logs.</li>
+<li>/shared/ssl: This is directory for SSL certificate.</li>
+</ul>
+<h3 id="find-logs">Find Logs<a class="headerlink" href="#find-logs" title="Permanent link">&para;</a></h3>
+<p>The SeaTable logs are under <code>/shared/seatable/logs</code> in the docker, or <code>/Your SeaTable data volume/seatable/logs</code> in the server that run the docker.</p>
+<p>The Nginx logs are under <code>/shared/nginx-logs</code>, or <code>/Your SeaTable data volume/nginx-logs</code> in the server that run the docker.</p>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<p><strong>If for some reasons, the installation failed, how to start from clean state again?</strong></p>
+<p>Just remove the directory <code>/opt/seatable</code> and start again.</p>
+<p>you can xxx</p>
+<p><strong>LetsEncrypt SSL certificate is about to expire.</strong></p>
+<p>If the certificate is not renewed automatically, you can execute the command <code>/templates/renew_cert.sh</code> to manually renew the certificate.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../../home/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Overview
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../Enterprise-Edition/Deploy%20SeaTable-EE%20with%20Docker/" class="md-footer__link md-footer__link--next" aria-label="Next: Enterprise Edition" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Enterprise Edition
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020, 2021 SeaTable
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/seatable/seatable-admin-docs" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      
+    
+  </body>
+</html>
