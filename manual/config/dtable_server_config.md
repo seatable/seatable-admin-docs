@@ -35,7 +35,7 @@ It is used for dtable-server to access dtable-web. It is optional since 1.1.0. I
 
 It is used for publishing the notification to the "notification-added" channel of redis, default by false.  This is designed for the integration to the third-party application which will be able to receive the real-time notification.
 
-### api_req_max
+#### api_req_max
 
 The maximum number of API calls for for base within 1 minute. The default value is 6000.
 
