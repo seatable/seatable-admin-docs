@@ -47,7 +47,7 @@ markdown_extensions:
 # Page tree
 nav:
   - Overview: home.md
-  - Deploy SeaTable with Docker:
+  - Setup:
     - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
     - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
     - Cluster: docker/Cluster/SeaTable Cluster.md
@@ -55,8 +55,8 @@ nav:
       - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
       - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
       - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
-    - Migrate SeaTable CE to EE: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
-  - Server Configuration and Customization:
+    - Migrate SeaTable DE to EE: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
+  - Configuration and Customization:
     - ccnet.conf: config/ccnet-conf.md
     - seafile.conf: config/seafile-conf.md
     - dtable_web_settings.py: config/dtable_web_settings.md
@@ -76,7 +76,7 @@ nav:
     - Logs: maintain/logs.md
     - Backup and recovery: maintain/backup_recovery.md
     - Clean database: maintain/clean_database.md
-  - Upgrade SeaTable server:
+  - Upgrade:
     - Upgrade manual: upgrade/upgrade_manual.md
     - Extra upgrade notices: upgrade/extra-upgrade-notice.md
   - ChangeLog:
