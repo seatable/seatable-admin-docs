@@ -10,7 +10,7 @@
 |                            | Max number of rows modification in a single call | 1000                                          |                                                              |
 |                            | Max numbers of rows deletion in a single call     | 10000                                         |                                                              |
 |                            | Max numbers of rows moving in a single call       | 1000                                          |                                                              |
-| API calling times          | API calling for single base              | 300/min for cloud edition                     | Limitations can be set by yourself for developer edition.    |
+| API calling rate          | API calling for single base              | 300/min for cloud edition                     | Limitations can be set by yourself for developer edition.    |
 |                            | API calling for getting rows of a table | 100/min for a single table,  600/hour maximum | Limitations can be set by yourself for developer edition. However, we strongly suggested that you add some cache in your code if the API calling is frequent. |
 | External links viewing     | Viewing times of a base's external link  | 300/min maximum                               |                                                              |
 | Import / export operations | Export the whole base                    | 100MB                                         |                                                              |
