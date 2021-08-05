@@ -6,7 +6,7 @@
 |                            | Row numbers 2                            | 150000                                        | Base will not be load to memory if exceeding 150000 rows. |
 |                            | Table numbers                        | 200                                           |                                                              |
 | Table                     | Column numbers                           | 500                                           |                                                              |
-| API calls                | Max number of rows appending in a single call    | 1000                                          | No limitations through web page                              |
+| API calls                | Max number of rows appending in a single call    | 1000                                          |                                                                |
 |                            | Max number of rows modification in a single call | 1000                                          |                                                              |
 |                            | Max numbers of rows deletion in a single call     | 10000                                         |                                                              |
 |                            | Max numbers of rows moving in a single call       | 1000                                          |                                                              |
