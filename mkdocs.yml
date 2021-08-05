@@ -83,4 +83,5 @@ nav:
     - SeaTable Developer Edition: changelog/server-changelog.md
     - SeaTable Enterprise Edition: changelog/changelog-for-seatable-professional-server.md
   - Roadmap: changelog/roadmap.md
+  - System Limitations: limitations/system_limitations.md
   - dtable-server-license: dtable-server-license.md
