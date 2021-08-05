@@ -62,6 +62,7 @@ nav:
     - dtable_web_settings.py: config/dtable_web_settings.md
     - dtable-events.conf: config/dtable-events-conf.md
     - dtable_server_config: config/dtable_server_config.md
+    - seatable-controller.conf: config/seatable-controller-conf.md
     - Integrate with Seafile: config/integrate-with-seafile.md
     - Templates and manual: config/templates_and_manual.md
     - Email sending: config/sending_email.md
