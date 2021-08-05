@@ -1,8 +1,8 @@
 # seatable-controller.conf
 
-The seatable-controller.conf is applied for the lauching / monitoring configuration of different SeaTable module, which should be added manually.
+seatable-controller lauches and monitors different components of SeaTable server.
 
-The configuration item includes:
+seatable-controller.conf is not created by default. If you need to modifiy default behaviour of seatable-controller, you can add the config file manually with contents like below:
 
 ```
 DTABLE_SERVER_MEMORY_SIZE=8192
