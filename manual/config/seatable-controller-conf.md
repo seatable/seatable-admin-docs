@@ -9,7 +9,7 @@ DTABLE_SERVER_MEMORY_SIZE=8192
 DTABLE_SERVER_PING_TIMEOUT=20
 ```
 
-* DTABLE_SERVER_MEMORY_SIZE: the memory configuration of dtable-server node
+* DTABLE_SERVER_MEMORY_SIZE: the memory size of dtable-server node
 
 * DTABLE_SERVER_PING_TIMEOUT: maximum seconds after which the system will reboot if there is no response from dtable-server, you can set a relative higher number if you handle a big table.
 
