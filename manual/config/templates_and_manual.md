@@ -1,4 +1,4 @@
-#Configuration of Manual, Templates, and Plugins
+# Configuration of Manual, Templates, and Plugins
 
 ## Configuration of the Manual 
 
