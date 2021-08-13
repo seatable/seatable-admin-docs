@@ -18,6 +18,7 @@ SeaTable consists of following component
 * dtable-server: Store the tables and provide collaborating feature.
 * dtable-events: Background tasks likes email sending and so on.
 * seaf-server: Store attachments (files and images)
+* dtable-db: Provides SQL interface and archiving
 
 The following picture shows how the different components work together:
 
@@ -46,6 +47,7 @@ The different components of SeaTable developer edition are released under differ
 * dtable-events: Apache License v2
 * dtable-server: [Proprietary License](dtable-server-license.md)
 * seaf-server: AGPLv3
+* dtable-db: [Proprietary License](dtable-server-license.md)
 
 SeaTabe developer edition should not be used to provide SaaS service or as a part of your SaaS service. Other kinds of usage are okay, including
 

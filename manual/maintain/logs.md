@@ -14,6 +14,10 @@ The SeaTable logs are under `/shared/seatable/logs` in the docker, or `/Your Sea
 * slow_logs: Slow request logs, which can be used to debug performance issues
 * monitor.log: Monitor logs, monitor.sh can auto restart the unexpectedly closed server
 * init.log:  Logs for docker initialization script
+* dtable-db.log: logs for dtable-db
+* dtable-db-error.log: error logs for dtable-db
+* dtable-db-access.log: query log for dtable-db
+* dtable-db-slow.log: slow query log for dtable-db
 
 ## Log files of Nginx server
 
