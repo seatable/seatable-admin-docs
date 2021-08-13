@@ -44,7 +44,7 @@ It's also suggested to change the `total_cache_size` option to a larger value (e
 ```
 [dtable cache]
 ......
-totla_cache_size = 100
+total_cache_size = 100
 
 ......
 ```
