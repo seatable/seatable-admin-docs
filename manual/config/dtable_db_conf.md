@@ -22,6 +22,13 @@ Section `[dtable cache]` contains options for caching bases from dtable-server:
 * `total_cache_size`: How much memory shall be used for caching bases. After this threshold is reached, cached bases will be cleaned with LRU algorithm. Cleaning stops when memory consumption reduces to 70% of this threshold. Unit is in MB. Defaults to 500MB.
 * `clean_cache_interval`: Interval between cache cleaning. Unit is in seconds. Defaults to 300.
 
+Section `[database]` contains options for accessing the MySQL database used by dtable-server.
+* `host`: Address of database. You must provide this option.
+* `port`: Port of database. Defaults to 3306.
+* `user`: Username for login to the database. You must provide this option.
+* `password`: Password for the database user. You must provide this option.
+* `db_name`: Database name used by dtable-server. You must provide this option.
+
 In section `[SQL]`:
 * `max_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100.
 
@@ -36,8 +43,16 @@ log_dir = /shared/seatable/logs
 [storage]
 data_dir = /opt/seatable/db-data
 
+# You have to change private_key and dtable_server_url based on your conf/dtable-server.json
 [dtable cache]
 private_key = "my private key"
 dtable_server_url = "http://127.0.0.1:5000"
 total_cache_size = 100
+
+# You have to change below options based on your conf/dtable-server.json
+[database]
+host = 127.0.0.1
+user = root
+password = mypass
+db_name = dtable
 ```
