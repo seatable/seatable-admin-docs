@@ -48,3 +48,13 @@ total_cache_size = 100
 
 ......
 ```
+
+You also need to add access information to dtable-server MySQL database. (You have to change below options based on your conf/dtable-server.json)
+
+```
+[database]
+host = 127.0.0.1
+user = root
+password = mypass
+db_name = dtable
+```
