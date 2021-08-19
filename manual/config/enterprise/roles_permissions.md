@@ -27,7 +27,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_use_external_app': False,
         'can_schedule_run_script': False,
         'can_use_automation_rules': False,
-        '_archiving_rows': False
+        'can_archiving_rows': False
     },
     'guest': {
         'can_add_dtable': False,
