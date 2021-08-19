@@ -15,7 +15,8 @@
     "enable_notification_publish": true/false,
     "api_req_max": 6000,
     "rows_api_minute_max": 100,
-    "rows_api_hour_max": 6000
+    "rows_api_hour_max": 6000,
+    "worker_threads_num": 2
 }
 
 ```
@@ -43,6 +44,9 @@ The maximum number of API calls for for base within 1 minute. The default value 
 
 The maximum number of listing rows API calls within 1 minute / hour. Listing rows in a large base involving converting internal representation to end-user friendly representation, which will cost a few seconds for 10K+ rows. So the API should be limited more than other APIs. 
 
+#### worker_threads_num
+
+Number of worker threads serving list rows API
 
 ## Notice
 
