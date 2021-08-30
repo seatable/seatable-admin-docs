@@ -24,6 +24,10 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_use_advanced_permissions': False,  # The default is False, set to the True to enable advanced permissions, such as view sharing and column permissions
         'snapshot_days': 180
         'scripts_running_limit': -1, # The limits for calling the script, -1 means no limit
+        'can_use_external_app': False,
+        'can_schedule_run_script': False,
+        'can_use_automation_rules': False,
+        'can_archive_rows': False
     },
     'guest': {
         'can_add_dtable': False,
