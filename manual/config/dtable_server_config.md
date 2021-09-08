@@ -11,7 +11,7 @@
     "dtable_web_service_url": "https://example.seatable.com/",
     "redis_host": "redis",
     "redis_port": 6379,
-    "redis_password": ""
+    "redis_password": "",
     "enable_notification_publish": true/false,
     "api_req_max": 6000,
     "rows_api_minute_max": 100,
@@ -55,5 +55,4 @@ You should restart the SeaTable after the modification of these settings by run 
 ```
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 ```
-
 

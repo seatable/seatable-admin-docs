@@ -45,7 +45,7 @@ docker pull seatable/seatable-ee:latest
 
 ### Downloading and Modifying docker-compose.yml
 
-Download the [docker-compose.yml](./docker-compose.yml) sample file into the default directory and modify the file to fit your environment and settings.
+Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable's directory and modify the file to fit your environment and settings.
 
 ```bash
 mkdir /opt/seatable
@@ -55,7 +55,7 @@ nano docker-compose.yml
 
 ```
 
-The following options must be modified in the YAML file:
+The following options must be modified in the `docker-compose.yml` YAML file:
 
 
 
@@ -86,7 +86,7 @@ docker-compose up
 
 ```
 
-NOTE: You should run the above command in a directory with the `docker-compose.yml`.
+NOTE: You should run the above command in the directory with the `docker-compose.yml`.
 
 Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.`  in the output log, the database has been initialized successfully. Press keyboard `Control + C`  to return to the prompt.
 
@@ -117,9 +117,9 @@ docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 
 NOTE: The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
 
-Now you can access SeaTable via the web interface.
+You can now access SeaTable at the host name.
 
-Without a license file, you can run SeaTable EE with up to three users. (But some enterprise features may not be available in the UI)
+Without a license file, you can run SeaTable EE with up to three users. (Some enterprise features may not be available in the web interface.)
 
 ### Activating SeaTable license
 
@@ -136,7 +136,7 @@ The licensed users are now available.
 
  The command `docker container list` should list the four containers specified in the docker-compose file:
 
-![image-20210710010101017](C:\Users\RDB\AppData\Roaming\Typora\typora-user-images\image-20210710010101017.png)
+![grafik](https://user-images.githubusercontent.com/41058728/125533593-476822e1-9322-4fd4-8b41-99a40a7afff1.png)
 
 The directory layout of the SeaTable container's volume should look as follows:
 
