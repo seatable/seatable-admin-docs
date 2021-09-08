@@ -141,10 +141,12 @@ The licensed users are now available.
 The directory layout of the SeaTable container's volume should look as follows:
 
 ```bash
-# tree /opt/seatable/seatable-data -L 2
+tree /opt/seatable/seatable-data -L 2
 /opt/seatable/seatable-data
 ├── nginx-logs
 │   ├── access.log
+│   ├── dtable-db.access.log
+│   ├── dtable-db.error.log
 │   ├── dtable-server.access.log
 │   ├── dtable-server.error.log
 │   ├── dtable-web.access.log
@@ -173,7 +175,7 @@ The directory layout of the SeaTable container's volume should look as follows:
 
 ```
 
-NOTE: The directory `ssl` is empty if Let's Encrypt is not used for SSL.
+NOTE: The directory `ssl` is empty if Let's Encrypt is not used for HTTPS.
 
 All config files are under stored in `/opt/seatable/seatable-data/seatable/conf`.
 
