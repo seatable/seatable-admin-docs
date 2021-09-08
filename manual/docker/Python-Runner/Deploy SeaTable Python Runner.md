@@ -44,7 +44,7 @@ Additionally, the following assumptions and conventions are used in the rest of 
 
 ## Setup of SeaTable Python Runner
 
-### Downloading the Python Runner package
+### Downloading the Python Runner Package
 
 Download the install package from [Github](https://github.com/seatable/seatable-admin-docs/releases) using wget and unzip the archive. Delete the ZIP file after unzipping. Using Python Runner version 2.0.1 as an example, this are the commands:
 
@@ -57,7 +57,7 @@ rm seatable-python-runner-2.0.1.zip
 
 
 
-### Installing the prerequisites
+### Installing the Prerequisites
 
 SeaTable's Python Runner uses some pip packages. Install pip first:
 
@@ -100,9 +100,9 @@ sudo ./init.sh
 
 
 
-### Modifying the configuration file
+### Modifying the Configuration File
 
-Open the Python Runner's conf file in an editor and add the address of SeaTable's FAAS Scheduler to the configuration. 
+Open the Python Runner's conf file in an editor and add the address of SeaTable's FAAS Scheduler to the configuration:
 
 ``` bash
 cd /opt/seatable-python-runner/conf
@@ -110,7 +110,7 @@ nano seatable_python_runner_settings.py
 
 ```
 
-Edit the configuration as follows
+Edit the configuration as follows:
 
 ``` py
 SCHEDULER_URL = 'https://faas.seatable.com'  # The URL of seatable-faas-scheduler, if you use an IP address, please add http://
@@ -181,15 +181,15 @@ procname-prefix = run-python
 logformat = [%(ltime)] %(method) %(uri) => generated %(size) bytes in %(secs) seconds
 ```
 
-
+NOTE: The configuration may look different for other versions of SeaTable Python Runner.
 
 
 
 ## Setup SeaTable FAAS Scheduler
 
-### Installing Docker-compose
+### Installing Docker Compose
 
-Scheduler uses docker-compose. Install the docker-compose package:
+Scheduler uses Docker Dompose. Install the docker-compose package:
 
 ```bash
 # CentOS
@@ -213,9 +213,9 @@ You can find all versions of SeaTable FAAS Scheduler images in the [Docker repos
 
 
 
-### Download and Modify docker-compose.yml
+### Downloading and Modifying docker-compose.yml
 
-Download the [docker-compose.yml](./docker-compose.yml) sample file to the FAAS Scheduler's directory and modify the file to fit your environment and settings.
+Download the [docker-compose.yml](./docker-compose.yml) sample file to the FAAS Scheduler's directory and modify the file to fit your environment and settings:
 
 ```bash
 mkdir /opt/seatable-faas-scheduler
@@ -241,7 +241,7 @@ Optional customizable option in the docker-compose.yml are:
 
 
 
-### Initialize Database
+### Initializing the Database
 
 Initialize the database with the following command:
 
@@ -273,7 +273,7 @@ $ tree /opt/seatable-faas-scheduler -L 2
 
 
 
-### Modifying the configuration file of the FAAS Scheduler
+### Modifying the Configuration File of the FAAS Scheduler
 
 Being the middle component between the SeaTable server and the Python Runner, the FAAS Scheduler's configuration must be added the addresses of both.
 
@@ -285,7 +285,7 @@ nano seatable_faas_scheduler_settings.py
 
 ```
 
-Edit the configuration as follows
+Edit the configuration as follows:
 
 ``` py
 # faas
@@ -301,7 +301,7 @@ SEATABLE_FAAS_AUTH_TOKEN = '***'                       # Token to copy to SeaTab
 
 ### Starting the FAAS Scheduler
 
-Now start the SeaTable FAAS Scheduler in detached mode.
+Now start the SeaTable FAAS Scheduler in detached mode:
 
 ``` bash
 docker-compose up -d
@@ -311,7 +311,7 @@ NOTE: You should run the above command in the directory with the `docker-compose
 
 
 
-### Modifying the configuration file of SeaTable
+### Modifying the Configuration File of SeaTable
 
 Open SeaTable's `dtable_web_setttings.py` configuration file in a text editor to add the FAAS Scheduler's address:
 
@@ -319,7 +319,7 @@ Open SeaTable's `dtable_web_setttings.py` configuration file in a text editor to
 nano /opt/seatable/seatable-data/seatable/conf/dtable_web_settings.py
 ```
 
-Paste the following lines in the configuration file, paste the token from the seatable_faas_scheduler_settings.py and modify the SEATABLE_FAAS_URL:
+Paste the following lines in the configuration file, paste the token from the `seatable_faas_scheduler_settings.py` and modify the parameter SEATABLE_FAAS_URL:
 
 ``` py
 # for seatable-faas
@@ -329,9 +329,9 @@ SEATABLE_FAAS_URL = 'https://faas.seatable.com'         # URL of the SeaTable FA
 
 
 
-### Restart SeaTable Server
+### Restarting SeaTable
 
-For the modifications in the `dtable_web_settings.py` to take effect, restart the SeaTable server.
+For the modifications in the `dtable_web_settings.py` to take effect, restart the SeaTable server:
 
 ``` bash
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
@@ -339,7 +339,7 @@ docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 
 
 
-## Testing
+### Testing
 
 Create a simple Python script in SeaTable. The simplest is a hello world:
 
@@ -408,11 +408,13 @@ If you want to use your own SSL certificate, you can refer to the following step
 
 
 
-### Scheduler FAQ
+### Python Runner and FAAS Scheduler FAQ
 
 **If, for whatever reason, the installation fails, how to start from a clean state again?**
 
 Remove the directory `/opt/seatable-faas-scheduler` and start again.
+
+
 
 **What's the reason for the following output in SeaTable's Python?**
 
@@ -423,13 +425,17 @@ at e/</<
 
 SeaTable cannot communicate with the FAAS Scheduler. Check the configuration and start the FAAS Scheduler via docker-compose.
 
-**What's the reasons when the Hello World example to not complete and only outputting:**
+
+
+**What's the reasons when the Hello World example to not complete and only outputting?**
 
 ```
 Running...
 ```
 
 The FAAS Scheduler cannot communicate with the Python Runner. Check the configuration and start the FAAS Scheduler via the SH-script.
+
+
 
 **The Let's Encrypt SSL certificate is about to expire, how do I renew it?**
 
