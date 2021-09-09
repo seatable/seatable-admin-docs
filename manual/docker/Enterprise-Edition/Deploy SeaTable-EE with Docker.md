@@ -52,12 +52,9 @@ mkdir /opt/seatable
 cd /opt/seatable
 wget -O "docker-compose.yml" "https://manual.seatable.io/docker/Enterprise-Edition/docker-compose.yml"
 nano docker-compose.yml
-
 ```
 
 The following options must be modified in the `docker-compose.yml` YAML file:
-
-
 
 * The password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
 * The use of Let's Encrypt for SSL (SEATABLE_SERVER_LETSENCRYPT)
