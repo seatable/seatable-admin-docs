@@ -85,7 +85,7 @@ Enter into the directory of /opt/seatable-python-runner
 The seatable-python-runnder service should be running in the host machine. After downloading the package manually, please unzip it and enter into the project directory
 
 ```bash
-unzip seatable-python-runner-1.x.x.zip -d /opt
+unzip seatable-python-runner-2.x.x.zip -d /opt
 ```
 
 If a query pop up during unziping process about whether or not replace the file, generally choose 'yes'.  If you edit the code, make your own choices  based on your interests  
