@@ -6,22 +6,20 @@ SeaTable Enterprise Edition (SeaTable EE) requires 4 cores and 8GB RAM. These re
 
 These instructions assume that no other services are installed on the server, especially no other services listening on port 80 and 443.
 
+SeaTable uses Docker and Docker Compose. If your platform does not support Docker, you cannot install SeaTable.
+
 ## Setup
 
-SeaTable uses docker-compose. This makes setting up your own SeaTable server a matter of a few steps.
+The following assumptions and conventions are used in the rest of this document:
 
-To begin with, a few conventions which are worth noting:
-
-
-
-* `/opt/seatable` is SeaTable's default directory, which we assume in these instructions. If you decide to put SeaTable in a different directory - which you can - adjust all paths accordingly. 
+* `/opt/seatable` is the directory of SeaTable. If you decide to put SeaTable in a different directory - which you can - adjust all paths accordingly. 
 * SeaTable uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable/mysql-data and /opt/seatable/seatable-data, respectively.  It is not recommended to change these paths. If you do, keep that in mind when following these instructions.
 * All configuration and log files for SeaTable and the webserver Nginx are stored in the volume of the SeaTable container.
 * Due to SeaTable's cloud first approach, these instructions only elaborate explicitly on the deployment of SeaTable's latest version. (An earlier version of SeaTable EE can be installed using these instructions. Just download its image from [Docker Hub](https://hub.docker.com/r/seatable/seatable-ee/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may not be compatible with the SeaTable plugins available on SeaTable's Market though.)
 
-### Installing docker-compose
+### Installing Docker Compose
 
-Install the docker-compose package:
+Install the Docker Compose package:
 
 ```bash
 # CentOS
@@ -55,7 +53,7 @@ nano docker-compose.yml
 
 ```
 
-The following options must be modified in the `docker-compose.yml` YAML file:
+The following options must be modified in the `docker-compose.yml` file:
 
 
 
@@ -65,7 +63,7 @@ The following options must be modified in the `docker-compose.yml` YAML file:
 
 
 
-Optional customizable options in the docker-compose.yml are:
+Optional customizable options in the `docker-compose.yml` are:
 
 
 
@@ -88,23 +86,23 @@ docker-compose up
 
 NOTE: You should run the above command in the directory with the `docker-compose.yml`.
 
-Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.`  in the output log, the database has been initialized successfully. Press keyboard `Control + C`  to return to the prompt.
+Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.`  in the output log, the database has been initialized successfully. Press keyboard `CTRL + C` (Windows) or `Control + C` (Mac) to return to the prompt.
 
 
-### Starting the Docker Container
+### Starting the Docker Containers
 
-Start the SeaTable container again, this time in detached mode:
+Run docker-compose again, this time in detached mode:
 
 ```bash
 docker-compose up -d
 
 ```
 
-NOTE: You should run the above command in a directory with the `docker-compose.yml`.
+NOTE: You should run the above command in the directory with the `docker-compose.yml`.
 
-### Starting SeaTable Server
+### Starting SeaTable
 
-Now you start the SeaTable service and create the first admin user.
+Now you start SeaTable and create the first admin user.
 
 ```bash
 # Start SeaTable service
@@ -121,9 +119,9 @@ You can now access SeaTable at the host name.
 
 Without a license file, you can run SeaTable EE with up to three users. (Some enterprise features may not be available in the web interface.)
 
-### Activating SeaTable license
+### Activating the SeaTable License
 
-Save the license file in the directory /opt/seatable/seatable-data/seatable. Make sure that the name is seatable-license.txt. Then restart SeaTable.
+Save the license file in the directory `/opt/seatable/seatable-data/seatable`. Make sure that the name is seatable-license.txt. Then restart SeaTable.
 
 ```
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
@@ -132,16 +130,16 @@ docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 
 The licensed users are now available.
 
-### Reviewing the deployment
+### Reviewing the Deployment
 
- The command `docker container list` should list the four containers specified in the docker-compose file:
+The command `docker container list` should list the four containers specified in the docker-compose file:
 
 ![grafik](https://user-images.githubusercontent.com/41058728/125533593-476822e1-9322-4fd4-8b41-99a40a7afff1.png)
 
 The directory layout of the SeaTable container's volume should look as follows:
 
 ```bash
-tree /opt/seatable/seatable-data -L 2
+$tree /opt/seatable/seatable-data -L 2
 /opt/seatable/seatable-data
 ├── nginx-logs
 │   ├── access.log
@@ -177,9 +175,9 @@ tree /opt/seatable/seatable-data -L 2
 
 NOTE: The directory `ssl` is empty if Let's Encrypt is not used for HTTPS.
 
-All config files are under stored in `/opt/seatable/seatable-data/seatable/conf`.
+All config files are stored in `/opt/seatable/seatable-data/seatable/conf`.
 
-Any modification of a configuration file requires a restart of the SeaTable server to take effect:
+Any modification of a configuration file requires a restart of SeaTable to take effect:
 
 ```bash
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
