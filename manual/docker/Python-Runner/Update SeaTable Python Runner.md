@@ -1,10 +1,15 @@
 # Upgrade of SeaTable Python Runner
 
-Upgrade of the SeaTable python runner includes the upgrade of **FASS Scheduler, Python Runner Docker image,  and Python Runner service**, and please refer the following content for details.
+Upgrade of the SeaTable python runner includes the upgrade of **FAAS Scheduler, Python Runner service** and **Python Runner Docker image**.
 
 The different version of components and compatibility of SeaTable Python Runner are listed in the tables bellow:
 
-<https://cloud.seatable.cn/dtable/external-links/fdb974df3321405bb41c/> 
+| SeaTable version | faas-scheduler version | Python runner/Python runner Docker version |
+| :--------------- | :--------------------- | :----------------------------------------- |
+| 2.1              | 2.1                    | 2.0                                        |
+| 2.2              | 2.1                    | 2.0                                        |
+| 2.3              | 2.1                    | 2.0                                        |
+
 
 ## Upgrade of SeaTable FAAS Scheduler
 
@@ -55,14 +60,6 @@ docker-compose down
 docker-compose up -d
 ```
 
-## Upgrade of Python Runner Docker
-
-Please pull the latest image
-
-```bash
-docker pull seatable/python-runner:latest
-```
-
 ## Upgrade of Python Runner service
 
 > Generally, you need to download the settable-python-runner package after we update the code.
@@ -80,7 +77,7 @@ Enter into the directory of /opt/seatable-python-runner
 The seatable-python-runnder service should be running in the host machine. After downloading the package manually, please unzip it and enter into the project directory
 
 ```bash
-unzip seatable-python-runner-1.x.x.zip -d /opt
+unzip seatable-python-runner-2.x.x.zip -d /opt
 ```
 
 If a query pop up during unziping process about whether or not replace the file, generally choose 'yes'.  If you edit the code, make your own choices  based on your interests  
@@ -90,3 +87,12 @@ If a query pop up during unziping process about whether or not replace the file,
 ```bash
 ./start.sh
 ```
+
+## Upgrade of Python Runner Docker
+
+Please pull the latest image
+
+```bash
+docker pull seatable/python-runner:latest
+```
+

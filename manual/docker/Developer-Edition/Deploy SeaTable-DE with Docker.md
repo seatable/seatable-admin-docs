@@ -41,17 +41,16 @@ docker pull seatable/seatable:latest
 
 ### Downloading and Modifying docker-compose.yml
 
-Download the [docker-compose.yml](https://docs.seatable.io/f/6a99ce4147d1411ab873/?dl=1) sample file into SeaTable's directory and modify the file to fit your environment and settings.
+Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable's directory and modify the file to fit your environment and settings.
 
-```
+```bash
 mkdir /opt/seatable
 cd /opt/seatable
-wget -O "docker-compose.yml" "https://docs.seatable.io/f/6a99ce4147d1411ab873/?dl=1"
+wget -O "docker-compose.yml" "https://manual.seatable.io/docker/Developer-Edition/docker-compose.yml"
 nano docker-compose.yml
-
 ```
 
-Download the [docker-compose.yml](./docker-compose.yml) sample file to `/opt/seatable` and modify the file to fit your environment and settings. The following fields must be modified:
+The following fields must be modified:
 
 * The password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
 * The use of Let's Encrypt for HTTPS (SEATABLE_SERVER_LETSENCRYPT)
@@ -231,8 +230,6 @@ The Nginx logs are under `/shared/nginx-logs`, or `/Your SeaTable data volume/ng
 **If for some reasons, the installation failed, how to start from clean state again?**
 
 Just remove the directory `/opt/seatable` and start again.
-
- you can xxx
 
 **LetsEncrypt SSL certificate is about to expire.**
 
