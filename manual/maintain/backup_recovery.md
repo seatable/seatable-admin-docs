@@ -76,8 +76,8 @@ docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtab
 
 ```
 docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD ccnet_db < /opt/seatable-backup/databases/ccnet_db.sql
-docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD seafile_db < /opt/seatable-backup/databases/ccnet_db.sql
-docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD dtable_db < /opt/seatable-backup/databases/ccnet_db.sql
+docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD seafile_db < /opt/seatable-backup/databases/seafile_db.sql
+docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD dtable_db < /opt/seatable-backup/databases/dtable_db.sql
 
 ```
 
