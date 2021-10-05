@@ -14,17 +14,16 @@ SeaTable version 2.3 supports 17 permissions:
 
 | Permission                   | Added in version | Description                                                  | Additional information                                       |
 | ---------------------------- | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| can_add_dtable               | 1.x              | Permission to create bases.                                  |                                                              |
-| can_add_group                | 1.x              | Permission to create goups.                                  | The user creating a group becomes automatically the group's owner. The permission can_add_dtable is necessary to create bases inside a group. |
-| can_use_global_address_book  | 1.x              | Enables autocomplete of names and emails of other users in the system. | If cloud_mode = True in `dtable_web_settings.py`, autocomplete is disabled for personal accounts and autocomplete is enabled inside teams. |
-| can_generate_share_link      | 1.x              | Permission  to create invite links.                          |                                                              |
-| can_generate_external_link   | 1.x              | Permission to create external links.                         |                                                              |
-| can_invite_guest             | 1.x              |                                                              |                                                              |
-| role_asset_quota             | 1.x              | Storage  quota for files and images inside a user's bases. '1G' means a storage quota of one gigabyte; an empty value '' means no storage quota. | Files in shared bases owned by other users do not count against the user's storage quota. |
-| row_limit                    | 1.x              | Row  limit for all bases of the user. '10000' (with quotes) means a limit of 10.000 rows; '-1' (with quotes) means no row limit. | Rows in shared bases owned by other users do not count against the row limit.  Archived rows does not count against the limit either. |
-| can_create_common_dataset    | 1.x              | Permission to create common datasets (CDS). If set to False, the user cannot CDS, but the user can access existing CDS. |                                                              |
-| can_run_python_script        | 1.x              | Permission to run Python scripts.                            | The execution of Python scripts requires [the installation of FAAS Sccheduler and Python Runner](https://manual.seatable.io/docker/Python-Runner/Deploy%20SeaTable%20Python%20Runner/) |
-| can_use_advanced_permissions | 1.5              | Permission to use advanced permissions.                      | Advanced  permissions include table permissions, column permissions, view share, custom  sharing permissions, row locking, and base security settings. |
+| can_add_dtable               | 1.0              | Permission to create bases.                                  |                                                              |
+| can_add_group                | 1.0              | Permission to create groups.                                 | The user creating a group becomes automatically the group's owner. The permission can_add_dtable is necessary to create bases inside a group. |
+| can_use_global_address_book  | 1.0              | Enables autocomplete of names and emails of other users in the system. | If cloud_mode = True in `dtable_web_settings.py`, autocomplete is disabled for personal accounts and autocomplete is enabled inside teams. |
+| can_generate_share_link      | 1.0              | Permission  to create invite links.                          |                                                              |
+| can_generate_external_link   | 1.0              | Permission to create external links.                         |                                                              |
+| role_asset_quota             | 1.0              | Storage  quota for files and images inside a user's bases. '1G' means a storage quota of one gigabyte; an empty value '' means no storage quota. | Files in shared bases owned by other users do not count against the user's storage quota. |
+| row_limit                    | 1.0              | Row limit for all bases of the user. '10000' (with quotes) means a limit of 10.000 rows; '-1' (with quotes) means no row limit. | Rows in shared bases owned by other users do not count against the row limit.  Archived rows does not count against the limit either. |
+| can_create_common_dataset    | 1.0              | Permission to create common datasets (CDS). If set to False, the user cannot create CDS, but the user can access existing CDS. |                                                              |
+| can_use_advanced_permissions | 1.1              | Permission to use advanced permissions.                      | Advanced  permissions include table permissions, column permissions, view share, custom  sharing permissions, row locking, and base security settings. |
+| can_run_python_script        | 1.4              | Permission to run Python scripts.                            | The execution of Python scripts requires [the installation of FAAS Scheduler and Python Runner](https://manual.seatable.io/docker/Python-Runner/Deploy%20SeaTable%20Python%20Runner/). |
 | snapshot_days                | 2.1              | Retention period for snapshots in days. 180 (without quotes) means a storage period of 180 days; no value means an unlimited retention period. | Snapshots older than the retention period are automatically removed. |
 | can_use_external_app         | 2.2              | Permission to use external apps. If set to False, the menu is not shown. |                                                              |
 | can_use_automation_rules     | 2.2              | Permission to create and run automation rules.               |                                                              |
@@ -44,7 +43,6 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_use_global_address_book': True,
         'can_generate_share_link': True,
         'can_generate_external_link': True,
-        'can_invite_guest': False,
         'role_asset_quota': '',
         'row_limit': -1,
         'can_create_common_dataset': True,
@@ -64,7 +62,6 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_use_global_address_book': False,
         'can_generate_share_link': False,
         'can_generate_external_link': True,
-        'can_invite_guest': False,
         'role_asset_quota': '',
         'row_limit': -1,
         'can_create_common_dataset': False,
