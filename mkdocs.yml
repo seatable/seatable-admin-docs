@@ -57,6 +57,7 @@ nav:
       - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
     - Migrate SeaTable DE to EE: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
   - Configuration and Customization:
+    - Autostart: config/Autostart.md
     - ccnet.conf: config/ccnet-conf.md
     - seafile.conf: config/seafile-conf.md
     - dtable_web_settings.py: config/dtable_web_settings.md
