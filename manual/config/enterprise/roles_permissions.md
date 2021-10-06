@@ -50,6 +50,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_create_common_dataset': True,
         'can_run_python_script': True,
         'can_use_advanced_permissions': True,
+        'can_use_advanced_customization': True,
         'snapshot_days': 180,
         'can_use_external_app': True,
         'can_use_automation_rules': True,
