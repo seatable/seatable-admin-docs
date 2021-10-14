@@ -68,6 +68,7 @@ nav:
     - Integrate with Seafile: config/integrate-with-seafile.md
     - Templates and manual: config/templates_and_manual.md
     - Email sending: config/sending_email.md
+    - Base export max size: config/dtable_export_max_size.md
     - Enterprise:
       - Roles and Permissions: config/enterprise/roles_permissions.md
       - LDAP: config/enterprise/ldap.md
