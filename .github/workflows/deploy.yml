@@ -12,6 +12,15 @@ jobs:
         with:
           python-version: 3.x
 
-      - run: |
-          pip install -r requirements.txt
-          mkdocs gh-deploy --force
+      - name: install
+        run: pip install -r requirements.txt
+
+      - name: version
+        run: mkdocs --version
+
+      - name: build
+        run: mkdocs build --strict --verbose
+
+      - name: gh-deploy
+        if: github.ref == 'refs/heads/master'
+        run: mkdocs gh-deploy --force
