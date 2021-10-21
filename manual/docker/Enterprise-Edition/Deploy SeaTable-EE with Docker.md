@@ -131,7 +131,7 @@ The licensed users are now available.
 
 The command `docker container list` should list the four containers specified in the docker-compose file:
 
-![grafik](https://user-images.githubusercontent.com/41058728/125533593-476822e1-9322-4fd4-8b41-99a40a7afff1.png)
+![picture](https://user-images.githubusercontent.com/41058728/125533593-476822e1-9322-4fd4-8b41-99a40a7afff1.png)
 
 The directory layout of the SeaTable container's volume should look as follows:
 

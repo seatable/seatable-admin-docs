@@ -12,7 +12,7 @@ During upgrading, Seafile upgrade script will create symbolic link automatically
 2. Overwrite `LOGO_PATH` in `seahub_settings.py`
 
    ```python
-   LOGO_PATH = 'custom/mylogo.png'
+   LOGO_PATH = 'custom/my-logo.png'
 
    ```
 

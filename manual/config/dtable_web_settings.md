@@ -35,7 +35,7 @@ Refer to [email sending documentation](sending_email.md).
 The following options affect user registration, password and session.
 
 ```python
-# Enalbe or disalbe registration on web. Default is `False`.
+# Enable or disable registration on web. Default is `False`.
 ENABLE_SIGNUP = False
 
 # Activate or deactivate user when registration complete. Default is `True`.
@@ -68,7 +68,7 @@ LOGIN_ATTEMPT_LIMIT = 3
 # deactivate user account when login attempts exceed limit
 FREEZE_USER_ON_LOGIN_FAILED = False
 
-# mininum length for user's password
+# minimum length for user's password
 USER_PASSWORD_MIN_LENGTH = 6
 
 # LEVEL based on four types of input:
@@ -149,10 +149,10 @@ REST_FRAMEWORK = {
     'UNICODE_JSON': False,
 }
 
-# Throtting whitelist used to disable throttle for certain IPs.
-# e.g. REST_FRAMEWORK_THROTTING_WHITELIST = ['127.0.0.1', '192.168.1.1']
+# Throttling whitelist used to disable throttle for certain IPs.
+# e.g. REST_FRAMEWORK_THROTTLING_WHITELIST = ['127.0.0.1', '192.168.1.1']
 # Please make sure `REMOTE_ADDR` header is configured in Nginx conf
-REST_FRAMEWORK_THROTTING_WHITELIST = []
+REST_FRAMEWORK_THROTTLING_WHITELIST = []
 
 ```
 

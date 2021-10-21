@@ -1,6 +1,6 @@
 # SAML SSO
 
-In this document, we use Azure SAML to show the steps to connect SeaTable with SAML. Other SAML provider should be similiar.
+In this document, we use Azure SAML to show the steps to connect SeaTable with SAML. Other SAML provider should be similar.
 
 ## Prepare Certs File
 

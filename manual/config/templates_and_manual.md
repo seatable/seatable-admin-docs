@@ -54,7 +54,7 @@ In System Admin->Plugins->Import plugins from market, you can import plugins fro
 
 Once uploaded to the SeaTable Server via system administration in the web interface, users can add them to their bases via the plugin manager.
 
-![grafik](https://user-images.githubusercontent.com/41058728/121181052-e0924f80-c861-11eb-930a-e0e13d6ea31e.png)
+![picture](https://user-images.githubusercontent.com/41058728/121181052-e0924f80-c861-11eb-930a-e0e13d6ea31e.png)
 
 
 ### Map plugin

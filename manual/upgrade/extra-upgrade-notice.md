@@ -57,7 +57,7 @@ Add dtable-db configuration to nginx.conf
 
 ## 2.1
 
-2.1 add another component dtable-db, which is used to provide SQL query API (more features will be provided based on this component). For newly installation, the config file will be generated automatically. For upgrade from 2.0, you need to add the config file manully.
+2.1 add another component dtable-db, which is used to provide SQL query API (more features will be provided based on this component). For newly installation, the config file will be generated automatically. For upgrade from 2.0, you need to add the config file manually.
 
 Add a new file conf/dtable-db.conf with the following contents and modify `private_key` according to your instance:
 

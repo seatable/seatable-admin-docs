@@ -61,7 +61,7 @@ Seafile is entitled to amend this EULA. SeaTable posts the amended EULA on the w
    * the Software's version and
    * the operating system and version. 
 
-   If a Defect occured when accessing the Software via a browser, the report must additionally include
+   If a Defect occurred when accessing the Software via a browser, the report must additionally include
 
    * browser type and version,
    * screenshots of the defect and
