@@ -45,6 +45,11 @@ ACTIVATE_AFTER_REGISTRATION = False
 # Whether allow user to delete its account
 ENABLE_DELETE_ACCOUNT = True
 
+# Enforce all users to use 2-factor-authentication. Default is 'False'.
+# Changing 'True' to 'False' will deactivate 2FA for all users (they could still activate it
+# in their personal settings).
+ENABLE_FORCE_2FA_TO_ALL_USERS = True
+
 # Whether to send email when a system admin adding a new member. Default is `True`.
 SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER = True
 
