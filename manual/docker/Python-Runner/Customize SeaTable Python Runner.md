@@ -33,7 +33,7 @@ Install the third-party package or do some other modification, quit the containe
 Commit the new image
 
 ```shell
-$ docker commit -m "add qrcode" add-libs seatable/python-runner:qrcode
+$ docker commit -m "add qrcode" --change "CMD null" add-libs seatable/python-runner:qrcode
 ```
 
 Apply the new image
