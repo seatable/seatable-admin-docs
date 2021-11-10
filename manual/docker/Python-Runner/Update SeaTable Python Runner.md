@@ -6,9 +6,8 @@ The different version of components and compatibility of SeaTable Python Runner 
 
 | SeaTable version | faas-scheduler version | Python runner/Python runner Docker version |
 | :--------------- | :--------------------- | :----------------------------------------- |
-| 2.1              | 2.1                    | 2.0                                        |
-| 2.2              | 2.1                    | 2.0                                        |
-| 2.3              | 2.1                    | 2.0                                        |
+| 2.4              | 2.1                    | 2.4                                        |
+| 2.5              | 2.2                    | 2.5                                        |
 
 
 ## Upgrade of SeaTable FAAS Scheduler
