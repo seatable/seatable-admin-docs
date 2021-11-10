@@ -289,7 +289,8 @@ Edit the configuration as follows:
 
 ``` py
 # faas
-FAAS_URL = 'http://host.docker.internal:8080           # Internal address of the Python Runner
+RUNNER_URL = 'http://host.docker.internal:8080'        # Internal address of the Python Runner
+FAAS_URL = ''                                          # Old parameter name for internal address of the Python Runner, is kept for compatability reasons
 
 # seatable
 DTABLE_WEB_SERVICE_URL = 'https://cloud.seatable.com'  # URL of SeaTable server
