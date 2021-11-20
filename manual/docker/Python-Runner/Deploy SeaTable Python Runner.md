@@ -446,3 +446,45 @@ The SSL certificate shoud be renewed automatically 30 days prior to it expiratio
 docker exec -it seatable-faas-scheduler /scripts/renew_cert.sh
 ```
 
+
+
+**How to run Python Runner Package using non-root user**
+
+Assume that the runner user runs the package and the package has been downloaded to /root/seatable-python-runner-x.x.x.zip.
+
+Create runner user and home directory.
+
+```
+# useradd runner -m
+```
+
+Since the package program needs to call docker, but the new user runner may not have permission to use docker, the verification method is as follows.
+
+```
+# su - runner       # Switch to runner user
+$ docker version    # Try to call docker
+```
+
+If you see permission denied or similar words, the runner user cannot call docker, ctrl + D exit the current session, and then use the following command to make the runner join the docker user group.
+
+```
+# usermod -aG docker runner
+```
+
+After running, you can use the su command again to switch to retry whether you can call docker.
+
+If you still need to deploy seatable-python-runner to the /opt directory, please switch back from user runner and execute the following command.
+
+```
+# unzip /root/seatable-python-runner-x.x.x.zip -d /opt
+# chown runner:runner /opt/seatable-python-runner -R
+```
+
+Use the su command again to switch to the runner user.
+
+```
+# su - runner
+$ cd /opt/seatable-python-runner
+```
+
+Then follow the documentation to continue setup and deployment.
