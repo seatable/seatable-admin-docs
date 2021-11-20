@@ -354,15 +354,11 @@ If the output console prints "Hello World!", you have successfully configured Se
 
 ### More Configuration Options of Scheduler
 
-#### Deploy the https
+If you set `SEATABLE_FAAS_SCHEDULER_SERVER_LETSENCRYPT` to `true` in "docker-compose.yml", the container would request a letsencrypt-signed SSL certificate for you automatically.
 
-* Let's encrypt SSL certificate
+e.g.
 
-  If you set `SEATABLE_FAAS_SCHEDULER_SERVER_LETSENCRYPT` to `true` in "docker-compose.yml", the container would request a letsencrypt-signed SSL certificate for you automatically.
-
-  e.g.
-
-  ``` yml
+```yml
   seatable-faas-scheduler:
     ...
     ports:
@@ -373,20 +369,19 @@ If the output console prints "Hello World!", you have successfully configured Se
       ...
       - SEATABLE_FAAS_SCHEDULER_SERVER_LETSENCRYPT=True  # Default is False. Whether to use let's encrypt certificate.
       - SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=demo.faas-scheduler.seatable.com  # Specifies your host name if https is enabled
-  ```
+```
 
-  **Note**：Since the nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=True` before executing the `docker-compose up -d` command for the first time.
+**Note**：Since the nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=True` before executing the `docker-compose up -d` command for the first time.
 
-If you want to use your own SSL certificate, you can refer to the following steps.
+If you want to use your own SSL certificate, you can refer to the following steps:
 
-* Add your own SSL certificate
-  1. Upload the SSL certificate file to the Scheduler data directory : `/Your Scheduler data volume/ssl/`
-  2. Modify the nginx configuration file : `/Your Scheduler data volume/seatable-faas-scheduler/conf/nginx.conf`
-  3. Reload the Nginx configuration file：`docker exec -it seatable-faas-scheduler /usr/sbin/nginx -s reload`
+1. Upload the SSL certificate file to the Scheduler data directory : `/Your Scheduler data volume/ssl/`
+2. Modify the nginx configuration file : `/Your Scheduler data volume/seatable-faas-scheduler/conf/nginx.conf`
+3. Reload the Nginx configuration file：`docker exec -it seatable-faas-scheduler /usr/sbin/nginx -s reload`
 
-  e.g.
+e.g.
 
-  ``` nginx
+```nginx
   server {
       if ($host = demo.faas-scheduler.seatable.com) {
           return 301 https://$host$request_uri;
@@ -405,11 +400,10 @@ If you want to use your own SSL certificate, you can refer to the following step
   
       proxy_set_header X-Forwarded-For $remote_addr;
       ......
-  ```
+```
 
 
-
-### Python Runner and FAAS Scheduler FAQ
+## Python Runner and FAAS Scheduler FAQ
 
 **If, for whatever reason, the installation fails, how to start from a clean state again?**
 
