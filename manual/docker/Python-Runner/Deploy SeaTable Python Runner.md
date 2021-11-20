@@ -488,3 +488,45 @@ $ cd /opt/seatable-python-runner
 ```
 
 Then follow the documentation to continue setup and deployment.
+
+
+
+**How to run script as non-root user inside Python Runner container**
+
+Suppose you want to run the script as the runner user in the container.
+
+First you need to determine the uid of the runner on the host using following command.
+
+```
+# id runner
+uid=1000(runner) gid=1001(runner) groups=1001(runner),999(docker)
+```
+
+1000 is the uid of user runner and 1001 is the gid of group runner
+
+Then you need to modify the code in the function.py file.
+
+```
+# vim /opt/seatable-python-runner/function.py
+```
+
+Find the following code snippet
+
+```
+command = ['docker', 'run', '--name', container_name,
+           '--env-file', env_file,
+           '-v', '{}:/scripts'.format(scripts_path)]
+```
+
+Replace it with following snippet
+
+```
+command = ['docker', 'run', '--name', container_name,
+           '--env-file', env_file,
+           '--user', '<uid>:<gid>',
+           '-v', '{}:/scripts'.format(scripts_path)]
+```
+
+Fill uid and gid with the uid and gid above. Save it and quit.
+
+All completed and restart Python Runner Package.
