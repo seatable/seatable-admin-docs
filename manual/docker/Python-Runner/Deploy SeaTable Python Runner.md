@@ -405,13 +405,12 @@ e.g.
 
 ## Python Runner and FAAS Scheduler FAQ
 
-**If, for whatever reason, the installation fails, how to start from a clean state again?**
+### If, for whatever reason, the installation fails, how to start from a clean state again?
 
 Remove the directory `/opt/seatable-faas-scheduler` and start again.
 
 
-
-**What's the reason for the following output in SeaTable's Python?**
+### What's the reason for the following output in SeaTable's Python?
 
 ```
 error: Internal Server Error.
@@ -422,7 +421,7 @@ SeaTable cannot communicate with the FAAS Scheduler. Check the configuration and
 
 
 
-**What's the reasons when the Hello World example to not complete and only outputting?**
+### What's the reasons when the Hello World example to not complete and only outputting?
 
 ```
 Running...
@@ -432,7 +431,7 @@ The FAAS Scheduler cannot communicate with the Python Runner. Check the configur
 
 
 
-**The Let's Encrypt SSL certificate is about to expire, how do I renew it?**
+### The Let's Encrypt SSL certificate is about to expire, how do I renew it?
 
 The SSL certificate shoud be renewed automatically 30 days prior to it expiration. If the automatic renewal fails, this command renews the certificate manually:
 
@@ -442,7 +441,7 @@ docker exec -it seatable-faas-scheduler /scripts/renew_cert.sh
 
 
 
-**How to run Python Runner Package using non-root user**
+### How to run Python Runner Package using non-root user
 
 Assume that the runner user runs the package and the package has been downloaded to /root/seatable-python-runner-x.x.x.zip.
 
@@ -485,7 +484,7 @@ Then follow the documentation to continue setup and deployment.
 
 
 
-**How to run script as non-root user inside Python Runner container**
+### How to run script as non-root user inside Python Runner container
 
 Suppose you want to run the script as the runner user in the container.
 
