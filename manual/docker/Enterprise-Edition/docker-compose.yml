@@ -37,7 +37,7 @@ services:
       - DB_ROOT_PASSWD=PASSWORD                         # Root password of MySQL -- must be changed to the value set above
       - SEATABLE_SERVER_LETSENCRYPT=False               # Decision on whether or not to use Let's Encrypt for HTTPS, default is False -- must be changed to True if a Let's Encrypt SSL certificate is to be used
       - SEATABLE_SERVER_HOSTNAME=example.seatable.com   # Host name -- must be changed
-      - TIME_ZONE=Etc/UTC                               # Time zone for SeaTable, default is UTC -- should be changed to your time zone
+      - TIME_ZONE=Etc/UTC                               # Optional, default is UTC. Example: Europe/Berlin. Choices can be found here: http://en.wikipedia.org/wiki/List_of_tz_zones_by_name  
     depends_on:
       - db
       - memcached
