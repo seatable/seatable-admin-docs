@@ -4,6 +4,7 @@
 | :------------------------- | :--------------------------------------- | :-------------------------------------------- | :----------------------------------------------------------- |
 | Base                      | Row numbers                              | 100000                                        | Base become read-only when exceeding 100000 rows.            |
 |                            | Row numbers 2                            | 150000                                        | Base will not be load to memory if exceeding 150000 rows. |
+|                            | Number of archived rows                  | no limit                                    |     |
 |                            | Table numbers                        | 200                                           |                                                              |
 | Table                     | Column numbers                           | 500                                           |                                                              |
 | API calls                | Max number of rows appending in a single call    | 1000                                          |                                                                |
