@@ -24,7 +24,7 @@ If you setup SeaTable server according to our manual, you should have a director
 
 All your tables data is stored under the `/Your SeaTable data volume/seatable/seafile-data/` directory.
 
-SeaTable also stores some important metadata data in a few databases. 
+SeaTable also stores some important metadata data in a few databases.
 
 MySQL databases:
 
@@ -70,6 +70,12 @@ docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtab
 
   ```
 
+### Setup automatic backup for dtable-db (optional)
+
+_available since Enterprise Edition 2.7.0_
+
+Automatic backup can be enabled for dtable-db. It will take a snapshot for each base and upload to the dtable storage server. See configuration options in [dtable_db_conf.md](../config/dtable_db_conf.md)
+
 ## Recovery
 
 ### Restore the databases
@@ -87,5 +93,3 @@ docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD dtable
 cp -R /opt/seatable-backup/data/* /opt/seatable/seatable-data/
 
 ```
-
-
