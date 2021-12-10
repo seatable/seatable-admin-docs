@@ -12,10 +12,6 @@ In `[general]` section:
 - `port`: The port that dtable-storage-server listens on. Default is `6666`.
 - `log_dir`: The directory that dtable-storage-server writes logs to. Default is the dir of configuration file.
 
-In `[snapshot]` section:
-
-- `interval`: The interval of snapshot. Default is `86400` seconds (24 hours).
-
 In `[storage backend]` section:
 
 - `type`: The type of storage backend. Options are `filesystem`, `oss`, and `s3`. Default is `filesystem`.
