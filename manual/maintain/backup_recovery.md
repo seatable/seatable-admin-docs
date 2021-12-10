@@ -72,7 +72,7 @@ docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtab
 
 ### Setup automatic backup for dtable-db (optional)
 
-_available since Enterprise Edition 2.7.0_
+_available since version 2.7.0_
 
 Automatic backup can be enabled for dtable-db. It will take a snapshot for each base and upload to the dtable storage server. See configuration options in [dtable_db_conf.md](../config/dtable_db_conf.md)
 

@@ -37,10 +37,10 @@ In section `[SQL]`:
 
 - `max_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100.
 
-Section `[import]` contains options to configure import and backup functions:
+Section `[import]` contains options to configure backup functions:
 
-- `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. (available since Enterprise Edition 2.7.0)
-- `backup_interval`: The interval between each backup. Unit is in minutes. The default value is 1440 minutes.
+- `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. (available since version 2.7.0)
+- `backup_interval`: The interval between each backup. Unit is in minutes. The default value is 1440 minutes (24 hours).
 - `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
 
 Below is an example configuration:
