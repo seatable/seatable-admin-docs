@@ -10,7 +10,7 @@ NOTE: Admin privileges are not part of the user role.
 
 ## Available Permissions
 
-SeaTable version 2.3 supports 17 permissions:
+SeaTable supports the following permissions since Version 2.6:
 
 | Permission                   | Added in version | Description                                                  | Additional information                                       |
 | ---------------------------- | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -41,7 +41,6 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_add_dtable': True,
         'can_add_group': True,
         'can_use_global_address_book': True,
-        'can_generate_share_link': True,
         'can_generate_external_link': True,
         'role_asset_quota': '',
         'row_limit': -1,
@@ -60,7 +59,6 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_add_dtable': False,
         'can_add_group': False,
         'can_use_global_address_book': False,
-        'can_generate_share_link': False,
         'can_generate_external_link': True,
         'role_asset_quota': '',
         'row_limit': -1,
