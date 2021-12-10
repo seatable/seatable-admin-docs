@@ -37,6 +37,12 @@ In section `[SQL]`:
 
 - `max_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100.
 
+Section `[import]` contains options to configure backup functions:
+
+- `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. For configuration of dtable storage server, please refer to [this documentation](./dtable_storage_server_conf.md). (available since version 2.7.0)
+- `backup_interval`: The interval between each backup. Unit is in minutes. The default value is 1440 minutes (24 hours).
+- `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
+
 Below is an example configuration:
 
 ```
@@ -60,4 +66,9 @@ host = 127.0.0.1
 user = root
 password = mypass
 db_name = dtable
+
+[import]
+dtable_storage_server_url = http://127.0.0.1:6666
+backup_interval = 1440
+keep_backup_num = 3
 ```
