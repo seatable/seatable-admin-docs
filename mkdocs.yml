@@ -65,6 +65,7 @@ nav:
     - dtable_server_config: config/dtable_server_config.md
     - seatable-controller.conf: config/seatable-controller-conf.md
     - dtable-db.conf: config/dtable_db_conf.md
+    - dtable-storage-server.conf: config/dtable_storage_server_conf.md
     - Integrate with Seafile: config/integrate-with-seafile.md
     - Templates and manual: config/templates_and_manual.md
     - Email sending: config/sending_email.md
