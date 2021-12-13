@@ -1,6 +1,6 @@
 # DTable Storage Server Config
 
-DTable storage server provides backup service in SeaTable server.
+DTable storage server provides backup service for dtable-db in SeaTable server. You can store files in various kinds of storage backends.
 
 ## Configuration
 
@@ -20,7 +20,7 @@ For filesystem storage backend:
 
 - `path`: The filepath of storage backend.
 
-For OSS storage backend:
+For Alibaba Cloud OSS storage backend:
 
 - `bucket`: The bucket name of OSS backend.
 - `key_id`: The access key id of OSS backend.
