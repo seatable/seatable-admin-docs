@@ -2,7 +2,7 @@
 
 ## Requirements
 
-SeaTable Enterprise Edition (SeaTable EE) requires 4 cores and 8GB RAM. These resources guarantee good performance for most applications with several hundred concurrent connections.  When the bases become large, more RAM may be needed since SeaTable stores the bases in memory.
+SeaTable Enterprise Edition (SeaTable EE) requires 4 cores and 8GB RAM. These resources guarantee good performance for most applications with several hundred concurrent connections. When the bases become large, more RAM may be needed since SeaTable stores open bases in memory.
 
 These instructions assume that no other services are installed on the server, especially no other services listening on port 80 and 443.
 
@@ -15,7 +15,7 @@ The following assumptions and conventions are used in the rest of this document:
 * `/opt/seatable` is the directory of SeaTable. If you decide to put SeaTable in a different directory - which you can - adjust all paths accordingly. 
 * SeaTable uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable/mysql-data and /opt/seatable/seatable-data, respectively.  It is not recommended to change these paths. If you do, keep that in mind when following these instructions.
 * All configuration and log files for SeaTable and the webserver Nginx are stored in the volume of the SeaTable container.
-* Due to SeaTable's cloud first approach, these instructions only elaborate explicitly on the deployment of SeaTable's latest version. (An earlier version of SeaTable EE can be installed using these instructions. Just download its image from [Docker Hub](https://hub.docker.com/r/seatable/seatable-ee/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may not be compatible with the SeaTable plugins available on SeaTable's Market though.)
+* Due to SeaTable's cloud first approach, these instructions only elaborate on the deployment of SeaTable's latest version. (Earlier versions of SeaTable EE can be installed using these instructions. Just download the image of the version in question from [Docker Hub](https://hub.docker.com/r/seatable/seatable-ee/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may not be compatible with the SeaTable plugins available on SeaTable's Market though.)
 
 ### Installing Docker Compose
 
@@ -43,7 +43,7 @@ docker pull seatable/seatable-ee:latest
 
 ### Downloading and Modifying docker-compose.yml
 
-Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable's directory and modify the file to fit your environment and settings.
+Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable's directory and modify the Compose file to fit your environment and settings.
 
 ```bash
 mkdir /opt/seatable
@@ -52,17 +52,14 @@ wget -O "docker-compose.yml" "https://manual.seatable.io/docker/Enterprise-Editi
 nano docker-compose.yml
 ```
 
-The following options must be modified in the `docker-compose.yml` file:
+The following options must be modified in the Compose file:
 
 * The password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
 * The use of Let's Encrypt for SSL (SEATABLE_SERVER_LETSENCRYPT)
 * The host name (SEATABLE_SERVER_HOSTNAME)
 
 
-
-Optional customizable options in the `docker-compose.yml` are:
-
-
+Optional customizable options in the Compose file are:
 
 * The volume paths for the container db
 * The volume path for the container seatable
@@ -97,6 +94,16 @@ docker-compose up -d
 
 NOTE: You should run the above command in the directory with the `docker-compose.yml`.
 
+
+### Activating the SeaTable License
+
+Save the license file in the directory `/opt/seatable/seatable-data/seatable`. Make sure that the name is seatable-license.txt.
+
+You obtain a license file from SeaTable Sales. A free license for three users can be obtained at https://seatable.io/on-premises. If you need a larger trial license, use the request form after obtaining the three user license.
+
+NOTE: In versions through 2.5, SeaTable Server EE could be started without a license file.
+
+
 ### Starting SeaTable
 
 Now you start SeaTable and create the first admin user.
@@ -114,18 +121,6 @@ NOTE: The first command uses the option `-d` which starts the service in the bac
 
 You can now access SeaTable at the host name.
 
-Without a license file, you can run SeaTable EE with up to three users. (Some enterprise features may not be available in the web interface.)
-
-### Activating the SeaTable License
-
-Save the license file in the directory `/opt/seatable/seatable-data/seatable`. Make sure that the name is seatable-license.txt. Then restart SeaTable.
-
-```
-docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
-
-```
-
-The licensed users are now available.
 
 ### Reviewing the Deployment
 
@@ -162,15 +157,18 @@ $tree /opt/seatable/seatable-data -L 2
 │   ├── seahub-data
 │   └── seatable-license.txt
 └── ssl
-    ├── cert.pem
-    ├── chain.pem
-    ├── fullchain.pem
-    ├── privkey.pem
+    ├── account.conf
+    ├── ca
+    ├── http.header
+    ├── renew_cert
+    ├── SEATABLE_SERVER_HOSTNAME
+    ├── SEATABLE_SERVER_HOSTNAME.crt
+    ├── SEATABLE_SERVER_HOSTNAME.key
     └── README
 
 ```
 
-NOTE: The directory `ssl` is empty if Let's Encrypt is not used for HTTPS.
+NOTE: The directory `ssl` is empty if Let's Encrypt is not used for HTTPS. SEATABLE_SERVER_HOSTNAME substitutes for the host name used in the docker-compose.yml file.
 
 All config files are stored in `/opt/seatable/seatable-data/seatable/conf`.
 
