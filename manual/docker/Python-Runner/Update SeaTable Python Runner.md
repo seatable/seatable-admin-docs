@@ -5,9 +5,10 @@ Upgrade of the SeaTable python runner includes the upgrade of **FAAS Scheduler, 
 The different version of components and compatibility of SeaTable Python Runner are listed in the tables bellow:
 
 | SeaTable version | faas-scheduler version | Python runner | Python runner Docker version |
-| :--------------- | :--------------------- | :-------------| :---------------------------- |
-| 2.4              | 2.1                    | 2.0           | 2.4                           |
-| 2.5              | 2.2                    | 2.0           | 2.5 (latest)                  |
+| :--------------- | :--------------------- | :-------------| :----------------------------|
+| 2.4              | 2.1                    | 2.0           | 2.4                          |
+| 2.5              | 2.2                    | 2.0           | 2.5                          |
+| 2.6              | 2.2.1                  | 2.0           | 2.5.1 (Latest)               |
 
 
 ## Upgrade of SeaTable FAAS Scheduler
