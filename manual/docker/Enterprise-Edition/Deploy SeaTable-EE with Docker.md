@@ -2,9 +2,9 @@
 
 ## Requirements
 
-SeaTable Enterprise Edition (SeaTable EE) requires 4 cores and 8GB RAM. These resources guarantee good performance for most applications with several hundred concurrent connections. When the bases become large, more RAM may be needed since SeaTable stores open bases in memory.
+SeaTable Enterprise Edition (SeaTable EE) requires 4 cores and 8GB RAM. These resources guarantee good performance for most applications with several hundred concurrent connections. When bases become large, more RAM may be needed as SeaTable stores open bases in memory.
 
-These instructions assume that no other services are installed on the server, especially no other services listening on port 80 and 443.
+This tutorial assumes that no other services are installed on the server, especially no other services listening on port 80 and 443.
 
 SeaTable uses Docker and Docker Compose. If your platform does not support Docker, you cannot install SeaTable.
 
@@ -52,18 +52,18 @@ nano docker-compose.yml
 
 The following options must be modified in the Compose file:
 
-* The password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
-* The use of Let's Encrypt for SSL (SEATABLE_SERVER_LETSENCRYPT)
-* The host name (SEATABLE_SERVER_HOSTNAME)
+* Password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
+* Use of Let's Encrypt for SSL (SEATABLE_SERVER_LETSENCRYPT)
+* Host name (SEATABLE_SERVER_HOSTNAME)
 
 
 Optional customizable options in the Compose file are:
 
-* The volume paths for the container db
-* The volume path for the container seatable
+* Volume paths for the container db
+* Volume path for the container seatable
 
-* The image tag of the SeaTable version to install (image)
-* The time zone (TIME_ZONE)
+* Image tag of the SeaTable version to install (image)
+* Time zone (TIME_ZONE)
 
 ### Initializing the Database
 
@@ -92,11 +92,11 @@ NOTE: You should run the above command in the directory with the `docker-compose
 
 ### Activating the SeaTable License
 
-Save the license file in the directory `/opt/seatable/seatable-data/seatable`. Make sure that the name is seatable-license.txt.
+Save the license file in the directory `/opt/seatable/seatable-data/seatable`. Make sure that the file's name is seatable-license.txt.
 
-You obtain a license file from SeaTable Sales. A free license for three users can be obtained at https://seatable.io/on-premises. If you need a larger trial license, use the request form after obtaining the three user license.
+You obtain a license file from SeaTable Sales. A free license for three users can be obtained at https://seatable.io/on-premises. If you need a trial license with more users, utilize the request form after obtaining the three user license.
 
-NOTE: In versions through 2.5, SeaTable Server EE could be started without a license file.
+NOTE: In all versions including 2.5, SeaTable Server EE could be started without a license file.
 
 ### Starting SeaTable
 
@@ -113,11 +113,11 @@ docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 
 NOTE: The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
 
-You can now access SeaTable at the host name.
+You can now access SeaTable at the host name specified in the Compose file.
 
 ### Reviewing the Deployment
 
-The command `docker container list` should list the four containers specified in the docker-compose file:
+The command `docker container list` should list the four containers specified in the `docker-compose.yml`:
 
 ![picture](https://user-images.githubusercontent.com/41058728/125533593-476822e1-9322-4fd4-8b41-99a40a7afff1.png)
 
