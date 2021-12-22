@@ -30,7 +30,6 @@ apt-get install docker-compose -y
 
 ```
 
-
 ### Downloading the SeaTable Image
 
 Pull the SeaTable image from Docker Hub:
@@ -39,7 +38,6 @@ Pull the SeaTable image from Docker Hub:
 docker pull seatable/seatable-ee:latest
 
 ```
-
 
 ### Downloading and Modifying docker-compose.yml
 
@@ -67,7 +65,6 @@ Optional customizable options in the Compose file are:
 * The image tag of the SeaTable version to install (image)
 * The time zone (TIME_ZONE)
 
-
 ### Initializing the Database
 
 Initialize the database by running docker-compose:
@@ -82,7 +79,6 @@ NOTE: You should run the above command in the directory with the `docker-compose
 
 Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.`  in the output log, the database has been initialized successfully. Press keyboard `CTRL + C` (Windows) or `Control + C` (Mac) to return to the prompt.
 
-
 ### Starting the Docker Containers
 
 Run docker-compose again, this time in detached mode:
@@ -94,7 +90,6 @@ docker-compose up -d
 
 NOTE: You should run the above command in the directory with the `docker-compose.yml`.
 
-
 ### Activating the SeaTable License
 
 Save the license file in the directory `/opt/seatable/seatable-data/seatable`. Make sure that the name is seatable-license.txt.
@@ -102,7 +97,6 @@ Save the license file in the directory `/opt/seatable/seatable-data/seatable`. M
 You obtain a license file from SeaTable Sales. A free license for three users can be obtained at https://seatable.io/on-premises. If you need a larger trial license, use the request form after obtaining the three user license.
 
 NOTE: In versions through 2.5, SeaTable Server EE could be started without a license file.
-
 
 ### Starting SeaTable
 
@@ -120,7 +114,6 @@ docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 NOTE: The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
 
 You can now access SeaTable at the host name.
-
 
 ### Reviewing the Deployment
 
@@ -168,7 +161,7 @@ $tree /opt/seatable/seatable-data -L 2
 
 ```
 
-NOTE: The directory `ssl` is empty if Let's Encrypt is not used for HTTPS. SEATABLE_SERVER_HOSTNAME substitutes for the host name used in the docker-compose.yml file.
+NOTE: The directory `ssl` is empty if Let's Encrypt is not used for HTTPS. SEATABLE_SERVER_HOSTNAME substitutes for the host name used in the `docker-compose.yml` file.
 
 All config files are stored in `/opt/seatable/seatable-data/seatable/conf`.
 
@@ -178,8 +171,6 @@ Any modification of a configuration file requires a restart of SeaTable to take 
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 
 ```
-
-
 
 ## SSL/TLS
 
@@ -203,7 +194,7 @@ docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
   
   ```
 
-  **Note**：Since the Nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_SERVER_LETSENCRYPT = True` before executing the `docker-compose up -d` command for the first time.
+NOTE：Since the Nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_SERVER_LETSENCRYPT = True` before executing the `docker-compose up -d` command for the first time.
 
 If you want to use your own SSL certificate, you can refer to the following steps.
 
