@@ -96,7 +96,7 @@ Save the license file in the directory `/opt/seatable/seatable-data/seatable`. M
 
 You obtain a license file from SeaTable Sales. A free license for three users can be obtained at https://seatable.io/on-premises. If you need a trial license with more users, utilize the request form after obtaining the three user license.
 
-NOTE: In all versions including 2.5, SeaTable Server EE could be started without a license file.
+NOTE: In all versions including 2.5, SeaTable Server EE could be started without a license file. Newer versions do not start without a license file.
 
 ### Starting SeaTable
 
