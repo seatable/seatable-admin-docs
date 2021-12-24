@@ -97,7 +97,7 @@ vim /opt/seatable/docker-compose.yml
 version: '2.0'
 services:
   seatable:
-    image: docker.seafile.top/seafileltd/seatable-pro-server:1.6.5
+    image: seatable/seatable-enterprise:latest
     container_name: seatable
     ports:
       - "80:80"
