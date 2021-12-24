@@ -25,7 +25,7 @@ services:
       - seatable-net
           
   seatable:
-    image: seatable/seatable-ee:latest
+    image: seatable/seatable-enterprise:latest
     container_name: seatable
     ports:
       - "80:80"                                         # HTTP port on the Docker host and the port in the container -- must be changed if port 80 is already in use on Docker host
