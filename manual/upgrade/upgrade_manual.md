@@ -11,12 +11,12 @@ If there are extra notes for a specific version, you can find it here: [extra no
 
 ## Get latest SeaTable
 
-You can find all versions of SeaTable from [Docker Hub](https://hub.docker.com/r/seatable/seatable/tags).
+You can find all versions of SeaTable from [Docker Hub](https://hub.docker.com/r/seatable/seatable-developer/tags).
 
 Run the following command to get the latest version of Seatable.
 
 ```
-docker pull seatable/seatable:{tag}
+docker pull seatable/seatable-developer:{tag}
 
 ```
 
