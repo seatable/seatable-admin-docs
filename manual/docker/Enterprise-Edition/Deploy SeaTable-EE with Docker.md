@@ -35,7 +35,7 @@ apt-get install docker-compose -y
 Pull the SeaTable image from Docker Hub:
 
 ```bash
-docker pull seatable/seatable-ee:latest
+docker pull seatable/seatable-enterprise:latest
 
 ```
 
