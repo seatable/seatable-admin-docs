@@ -15,7 +15,7 @@ To begin with, a few conventions which are worth noting:
 - `/opt/seatable` is SeaTable's default directory, which we assume in these instructions. If you decide to put SeaTable in a  different directory - which you can - adjust all paths accordingly. 
 - SeaTable uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable/mysql-data and /opt/seatable/seatable-data,  respectively.  It is not recommended to change these paths. If you do,  keep that in mind when following these instructions.
 - All configuration and log files for SeaTable and the webserver Nginx are stored in the volume of the SeaTable container.
-- Due to SeaTable's cloud first approach, these instructions only  elaborate explicitly on the deployment of SeaTable's latest version. (An earlier version of SeaTable EE can be installed using these  instructions. Just download its image from [Docker Hub](https://hub.docker.com/r/seatable/seatable-ee/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may  not be compatible with the SeaTable plugins available on SeaTable's Market though.)
+- Due to SeaTable's cloud first approach, these instructions only  elaborate explicitly on the deployment of SeaTable's latest version. (An earlier version of SeaTable EE can be installed using these  instructions. Just download its image from [Docker Hub](https://hub.docker.com/r/seatable/seatable-enterprise/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may  not be compatible with the SeaTable plugins available on SeaTable's Market though.)
 
 ### Installing docker-compose
 
@@ -35,7 +35,7 @@ apt-get install docker-compose -y
 Pull the SeaTable image from Docker Hub:
 
 ```sh
-docker pull seatable/seatable:latest
+docker pull seatable/seatable-developer:latest
 
 ```
 
