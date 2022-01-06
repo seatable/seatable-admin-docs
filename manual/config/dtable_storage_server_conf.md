@@ -8,9 +8,10 @@ A configuration file which specified by command-line flag can use following opti
 
 In `[general]` section:
 
-- `host`: The address that dtable-storage-server listens on. Default is `0.0.0.0`.
+- `host`: The address that dtable-storage-server listens on. Default is `127.0.0.1`.
 - `port`: The port that dtable-storage-server listens on. Default is `6666`.
 - `log_dir`: The directory that dtable-storage-server writes logs to. Default is the dir of configuration file.
+- `temp_file_dir`: The directory that dtable-storage-server create buffers in. _Required_
 
 In `[storage backend]` section:
 
@@ -38,19 +39,32 @@ For S3 storage backend:
 - `path_style_request`: Whether to use path style requests. For a S3-compatible storage, it should be `true`.
 - `use_https`: Whether to use https.
 
+In `[database]` section:
+
+- `addr`: The network address of database. For example `127.0.0.1:3306` . _Required_
+- `user`: The username used to connect database. _Required_
+- `password`: The password used to connect database. Default is empty.
+- `db_name`: The database name that will be connected to. _Required_
+- `collation`: The connection collation that will be used. Default is `utf8mb4_general_ci`.
+
 ### Configuration Example
 
 ```
 [general]
-host = 0.0.0.0
+host = 127.0.0.1
 port = 6666
 log_dir = .
-
-[snapshot]
-interval = 86400
+temp_file_dir = ./tmp
 
 [storage backend]
 type = filesystem
 path = /path/to/storage
+
+[database]
+addr = 127.0.0.1:3306
+user = root
+password = PASSWORD
+db_name = dtable_storage_server
+collation = utf8mb4_general_ci
 
 ```
