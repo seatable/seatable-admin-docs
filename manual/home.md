@@ -27,7 +27,6 @@ The following picture shows how the different components work together:
 Some explanation:
 
 * MariaDB, Memcache, Redis are running in their own docker containers.
-* ccnet-server is currently only used for query users/groups from database, which will be merged into seaf-server.
 * Redis is used for sending messages from dtable-web/dtable-server to dtable-events
 * All the components use Memcache for storing cache and MariaDB for storing permanent information
 * Bases are maintained in dtable-server and periodically saved to file/objects storage for persistent storage.
