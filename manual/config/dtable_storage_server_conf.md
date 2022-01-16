@@ -1,6 +1,6 @@
 # DTable Storage Server Config
 
-DTable storage server provides backup service for dtable-db in SeaTable server. You can store files in various kinds of storage backends. This component is added since version 2.7.0.
+DTable storage server provides backup service for dtable-db in SeaTable server. You can store files in various kinds of storage backends. This component will be added in version 2.8.
 
 ## Configuration
 
