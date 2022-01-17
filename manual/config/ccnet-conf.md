@@ -1,24 +1,17 @@
 # ccnet.conf
 
-Ccnet is the internal RPC framework used by Seafile server and also manages the user database. A few useful options are in ccnet.conf.
+This config file is needed for history reason. The only used section is `[Database]` section.
 
-```
-[General]
-# The config has no effect. But is needed now.
-SERVICE_URL=http://www.example.com
+## Example
 
-```
-
-## Changing MariaDB Connection Pool Size
-
-When you configure ccnet to use MariaDB, the default connection pool size is 100, which should be enough for most use cases. You can change this value by adding following options to ccnet.conf:
 
 ```
 [Database]
-......
-# Use larger connection pool
-MAX_CONNECTIONS = 200
-
+ENGINE = mysql
+HOST = xxxx
+PORT = 3306
+USER = seafile
+PASSWD = xxxxxx
+DB = ccnet_db
+CONNECTION_CHARSET = utf8
 ```
-
-
