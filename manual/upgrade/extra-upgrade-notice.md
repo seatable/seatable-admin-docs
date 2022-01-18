@@ -1,5 +1,25 @@
 # Extra upgrade notice
 
+## 2.7
+
+The configuration of the embedded base to other webpages (iframe mode) needs to be modified as follows
+
+In dtable_web_settings.py
+
+```
+SESSION_COOKIE_SAMESITE = None
+              |
+              V
+SESSION_COOKIE_SAMESITE = 'None'
+
+
+CSRF_COOKIE_SAMESITE = None
+              |
+              V
+CSRF_COOKIE_SAMESITE = 'None'
+
+```
+
 ## 2.3
 
 In 2.3 version, we made a small change to dtable-db configuration. If you're upgrading from older versions, you have to manually add below option to conf/dtable-db.conf:
