@@ -11,6 +11,7 @@ In section `[general]`:
 - `host`: The address dtable-db listens on. Defaults to 0.0.0.0.
 - `port`: The port dtable-db listens on. Defaults to 7777.
 - `log_dir`: Location for the logs. Defaults to the directory specified in `-c` command line option. (Added in 2.3.0)
+- `log_level`: Only log messages with level priority higher than this will be logged. Supported levels are "debug", "info", "warn", "error", with ascending priority. The default is "info".
 - `slow_query_threshold`: If the processing time exceeds this threshold, a slow log will be recorded. Unit is in milliseconds. Defaults to 1000. (Added in 2.3.0)
 
 In section `[storage]`:
@@ -25,7 +26,7 @@ Section `[dtable cache]` contains options for caching bases from dtable-server:
 - `total_cache_size`: How much memory shall be used for caching bases. After this threshold is reached, cached bases will be cleaned with LRU algorithm. Cleaning stops when memory consumption reduces to 70% of this threshold. Unit is in MB. Defaults to 500MB.
 - `clean_cache_interval`: Interval between cache cleaning. Unit is in seconds. Defaults to 300.
 
-Section `[database]` contains options for accessing the MySQL database used by dtable-server.
+Section `[database]` contains options for accessing the MySQL database used by dtable-server. Note: Since 2.7 version this section is no longer used. dtable-db will use the database settings in conf/dtable-server.json.
 
 - `host`: Address of database. You must provide this option.
 - `port`: Port of database. Defaults to 3306.
