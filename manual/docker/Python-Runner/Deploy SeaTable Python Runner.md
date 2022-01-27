@@ -46,13 +46,13 @@ Additionally, the following assumptions and conventions are used in the rest of 
 
 ### Downloading the Python Runner Package
 
-Download the install package from [Github](https://github.com/seatable/seatable-admin-docs/releases) using wget and unzip the archive. Delete the ZIP file after unzipping. Using Python Runner version 2.0.1 as an example, this are the commands:
+Download the install package from [Github](https://github.com/seatable/seatable-admin-docs/releases) using wget and unzip the archive. Delete the ZIP file after unzipping. Using Python Runner version 2.0.2 as an example, this are the commands:
 
 ``` bash
 cd /opt
-wget https://github.com/seatable/seatable-admin-docs/releases/download/seatable-python-runner-2.0.1/seatable-python-runner-2.0.1.zip
-unzip seatable-python-runner-2.0.1.zip
-rm seatable-python-runner-2.0.1.zip
+wget https://github.com/seatable/seatable-admin-docs/releases/download/seatable-python-runner-2.0.2/seatable-python-runner-2.0.2.zip
+unzip seatable-python-runner-2.0.2.zip
+rm seatable-python-runner-2.0.2.zip
 ```
 
 
@@ -164,7 +164,7 @@ NOTE: The start and stop scripts are a collection of a series of operations, you
 
 The SeaTable Python Runner uses uWSGI. uWSGI's configuration is saved in the INI-file `seatable_python_runner.ini` in `/opt/seatable-python-runner/conf`.
 
-The default configuration for SeaTable Python Runner 2.0.1 is:
+The default configuration for SeaTable Python Runner 2.0.2 is:
 
 ``` ini
 [uwsgi]
@@ -486,7 +486,9 @@ Then follow the documentation to continue setup and deployment.
 
 ### How to run script as non-root user inside Python Runner container
 
-Suppose you want to run the script as the runner user in the container.
+Please deploy version 2.0.2 or later of Python Runner package.
+
+Suppose you want to run scripts as the runner user in the container.
 
 First you need to determine the uid of the runner on the host using following command.
 
@@ -495,31 +497,22 @@ First you need to determine the uid of the runner on the host using following co
 uid=1000(runner) gid=1001(runner) groups=1001(runner),999(docker)
 ```
 
-1000 is the uid of user runner and 1001 is the gid of group runner
+1000 is the uid of user runner and 1001 is the gid of group runner.
 
-Then you need to modify the code in the function.py file.
+Edit file seatable_python_runner_settings.py.
 
-```
-# vim /opt/seatable-python-runner/function.py
-```
-
-Find the following code snippet
-
-```
-command = ['docker', 'run', '--name', container_name,
-           '--env-file', env_file,
-           '-v', '{}:/scripts'.format(scripts_path)]
+``` bash
+cd /opt/seatable-python-runner/conf
+nano seatable_python_runner_settings.py
 ```
 
-Replace it with following snippet
+Add configurations as follows:
 
-```
-command = ['docker', 'run', '--name', container_name,
-           '--env-file', env_file,
-           '--user', '<uid>:<gid>',
-           '-v', '{}:/scripts'.format(scripts_path)]
+``` py
+UID = '1000'
+GID = '1001'
 ```
 
-Fill uid and gid with the uid and gid above. Save it and quit.
+Save it and quit.
 
 All completed and restart Python Runner Package.
