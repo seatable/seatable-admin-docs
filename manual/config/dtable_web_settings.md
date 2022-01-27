@@ -129,6 +129,18 @@ TERMS_OF_SERVICE_LINK = ''
 
 ```
 
+## Embed Bases into other webpages
+
+Embed Bases into other webpages (iframe mode), the following options need to be added to support user login
+
+```
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+
+```
+
 ## RESTful API
 
 ```
