@@ -4,9 +4,9 @@ You can use a custom CSS to customize the look of your SeaTable installation. Yo
 
 ## Customize SeaTable CSS
 
-Create a `custom` folder under `/<your SeaTable Docker volumn>/seatable/seahub-data`:
+Create a `custom` folder under `/<your SeaTable Docker volume>/seatable/seahub-data`:
 > ```
-> cd /<your SeaTable Docker volumn>/seatable/seahub-data
+> cd /<your SeaTable Docker volume>/seatable/seahub-data
 > mkdir custom
 > ```
 
@@ -17,9 +17,9 @@ Create a symbolic link for `custom` in the SeaTable container. When upgrading, t
 > ln -s /shared/seatable/seahub-data/custom custom
 > ```
 
-Under `/<your SeaTable Docker volumn>/seatable/seahub-data/custom`, create the new CSS file and custom the style, for example, with a `custom.css` file:
+Under `/<your SeaTable Docker volume>/seatable/seahub-data/custom`, create the new CSS file and custom the style, for example, with a `custom.css` file:
 > ```
-> cd /<your SeaTable Docker volumn>/seatable/seahub-data/custom
+> cd /<your SeaTable Docker volume>/seatable/seahub-data/custom
 > nano custom.css
 > ```
 
