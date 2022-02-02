@@ -22,12 +22,12 @@ Save the `seatable-license.txt` in the [volume of the container `seatable`](http
 
 If you use the volume's default path, save the file in the directory `/opt/seatable/seatable-data/seatable/`.
 
-### Downloading the SeaTable EE Image
+### Downloading the SeaTable Enterprise Edition Image
 
-Pull the SeaTable EE image from Docker Hub::
+Pull the SeaTable Enterprise image from Docker Hub::
 
 ```sh
-docker pull seatable/seatable-ee:latest
+docker pull seatable/seatable-enterprise:latest
 ```
 
 ### Modifying the docker-compose.yml
@@ -36,7 +36,7 @@ Adjust the used Seatable image in the docker-compose.yml:
 
 ```yml
   seatable:
-    image: seatable/seatable-ee:latest
+    image: seatable/seatable-enterprise:latest
 ```
 
 ### Starting SeaTable
