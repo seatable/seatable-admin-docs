@@ -17,6 +17,10 @@ The following assumptions and conventions are used in the rest of this document:
 * All configuration and log files for SeaTable and the webserver Nginx are stored in the volume of the SeaTable container.
 * Due to SeaTable's cloud first approach, these instructions only elaborate on the deployment of SeaTable's latest version. (Earlier versions of SeaTable EE can be installed using these instructions. Just download the image of the version in question from [Docker Hub](https://hub.docker.com/r/seatable/seatable-enterprise/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may not be compatible with the SeaTable plugins available on SeaTable's Market though.)
 
+### Installing docker
+
+Use the [official installation guide](https://docs.docker.com/engine/install/) for your OS to install Docker. 
+
 ### Installing Docker Compose
 
 Install the Docker Compose package:
