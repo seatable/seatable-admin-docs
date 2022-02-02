@@ -1,6 +1,6 @@
 # SeaTable Cluster
 
-SeaTable EE support cluster for better performance.
+SeaTable Enterprise Edition support cluster for better performance.
 
 A general architecture is like following:
 
