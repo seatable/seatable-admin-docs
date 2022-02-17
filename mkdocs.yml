@@ -82,6 +82,7 @@ nav:
     - Logs: maintain/logs.md
     - Backup and recovery: maintain/backup_recovery.md
     - Clean database: maintain/clean_database.md
+    - Clean storage: maintain/seatable_gc.md
   - Upgrade:
     - Upgrade manual: upgrade/upgrade_manual.md
     - Extra upgrade notices: upgrade/extra-upgrade-notice.md
