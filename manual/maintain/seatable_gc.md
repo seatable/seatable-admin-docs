@@ -6,7 +6,7 @@ To release the storage space occupied by unused blocks, you have to run a **garb
 
 ## Configuration
 
-seafile.conf
+Add following lines to `seafile.conf` to keep deleted files for only 60 days:
 
 ```
 [history]
