@@ -60,7 +60,7 @@ For S3 storage backend:
 - `path_style_request`: Whether to use path style requests. For a S3-compatible storage, it should be `true`.
 - `use_https`: Whether to use https.
 
-### snapshot
+### Snapshot
 
 Configurations for snapshots of bases
 
