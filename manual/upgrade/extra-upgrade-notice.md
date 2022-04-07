@@ -2,9 +2,9 @@
 
 ## 3.0
 
-3.0 adds an another component, dtable-storage-server, which provides better performance for persistent storage of Base data. A Base in SeaTable is saved as a file, which is automatically saved every 5 minutes. In 2.x, this file saved in seaf-server, but seaf-server will keep a version for each save, which will take up a lot of disk space. In 3.0, only one version is actually saved when a historical image is generated every 24 hours, which saves space. dtable-storage-server is a simple abstract encapsulation of traditional file system and object storage.
+3.0 adds another component, dtable-storage-server, which provides better performance for persistent storage of bases. A base in SeaTable is saved as a file, which is automatically saved every 5 minutes. In 2.x, this file saved in seaf-server, but seaf-server will keep a version for each save, which will take up a lot of disk space. In 3.0, only one version is actually saved when a snapshot is generated every 24 hours, which saves space. dtable-storage-server is a simple abstract layer of traditional file system and object storage.
 
-1.For newly installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
+1) For newly installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
 
 ```
 docker exec -d seatable /shared/seatable/scripts/seatable.sh init
@@ -26,7 +26,7 @@ interval = 86400
 keep_days = 180
 ```
 
-2.Add configuration in dtable_web_settings.py so that the newly created Base is saved to the dtable-storage-server, and the old Base is still read and written from seaf-server.
+2) Add configuration in dtable_web_settings.py so that the newly created bases are saved to the dtable-storage-server, and the old bases are still read and written from seaf-server.
 
 In dtable_web_settings.py
 
@@ -34,7 +34,7 @@ In dtable_web_settings.py
 NEW_DTABLE_IN_STORAGE_SERVER = True
 ```
 
-3.The enterprise version needs to add configuration items in dtable-db.conf to automatically back up the archived data in the data storage.
+3) Enterprise edition needs to add configuration items in dtable-db.conf to automatically back up the archived data in the dtable-db.
 
 In dtable-db.conf
 
