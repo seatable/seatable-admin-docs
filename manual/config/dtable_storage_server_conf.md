@@ -1,10 +1,29 @@
 # DTable Storage Server Config
 
-DTable storage server provides backup service for dtable-db in SeaTable server. You can store files in various kinds of storage backends. This component will be added in version 2.8.
+DTable storage server provides persistent storage for bases and backup service for dtable-db. It supports file system, S3 storage backends. This component is added in version 3.0.
+
+## Configration example
+
+```
+[general]
+host = 127.0.0.1
+port = 6666
+log_dir = .
+temp_file_dir = ./tmp
+
+[storage backend]
+type = filesystem
+path = /path/to/storage
+
+[snapshot]
+interval = 86400
+keep_days = 180
+```
+
 
 ## Configuration
 
-A configuration file which specified by command-line flag can use following options:
+### general
 
 In `[general]` section:
 
@@ -12,6 +31,8 @@ In `[general]` section:
 - `port`: The port that dtable-storage-server listens on. Default is `6666`.
 - `log_dir`: The directory that dtable-storage-server writes logs to. Default is the dir of configuration file.
 - `temp_file_dir`: The directory that dtable-storage-server create buffers in. _Required_
+
+### Storage backend
 
 In `[storage backend]` section:
 
@@ -39,17 +60,9 @@ For S3 storage backend:
 - `path_style_request`: Whether to use path style requests. For a S3-compatible storage, it should be `true`.
 - `use_https`: Whether to use https.
 
-### Configuration Example
+### snapshot
 
-```
-[general]
-host = 127.0.0.1
-port = 6666
-log_dir = .
-temp_file_dir = ./tmp
+Configurations for snapshots of bases
 
-[storage backend]
-type = filesystem
-path = /path/to/storage
-
-```
+* interval: the interval for generating snapshots for a base
+* keep_days: the number of days to keep snapshots
