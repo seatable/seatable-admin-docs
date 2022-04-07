@@ -1,5 +1,50 @@
 # Extra upgrade notice
 
+## 3.0
+
+3.0 adds another component, dtable-storage-server, which provides better performance for persistent storage of bases. A base in SeaTable is saved as a file, which is automatically saved every 5 minutes. In 2.x, this file saved in seaf-server, but seaf-server will keep a version for each save, which will take up a lot of disk space. In 3.0, only one version is actually saved when a snapshot is generated every 24 hours, which saves space. dtable-storage-server is a simple abstract layer of traditional file system and object storage.
+
+1) For newly installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
+
+```
+docker exec -d seatable /shared/seatable/scripts/seatable.sh init
+```
+
+dtable-storage-server.conf is as follows
+
+```
+[general]
+log_dir = /opt/seatable/logs
+temp_file_dir = /tmp/tmp-storage-data
+
+[storage backend]
+type = filesystem
+path = /opt/seatable/storage-data
+
+[snapshot]
+interval = 86400
+keep_days = 180
+```
+
+2) Add configuration in dtable_web_settings.py so that the newly created bases are saved to the dtable-storage-server, and the old bases are still read and written from seaf-server.
+
+In dtable_web_settings.py
+
+```
+NEW_DTABLE_IN_STORAGE_SERVER = True
+```
+
+3) Enterprise edition needs to add configuration items in dtable-db.conf to automatically back up the archived data in the dtable-db.
+
+In dtable-db.conf
+
+```
+[backup]
+dtable_storage_server_url = http://127.0.0.1:6666
+backup_interval = 1440
+keep_backup_num = 3
+```
+
 ## 2.7
 
 The configuration of the embedded base to other webpages (iframe mode) needs to be modified as follows
