@@ -64,5 +64,5 @@ For S3 storage backend:
 
 Configurations for snapshots of bases
 
-* interval: the interval for generating snapshots for a base
-* keep_days: the number of days to keep snapshots
+* interval: the interval for generating snapshots for a base. The unit is seconds. Default is 24 hours.
+* keep_days: the number of days to keep snapshots. Default is 0, which means snapshots will be kept forever.
