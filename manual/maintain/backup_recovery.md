@@ -13,16 +13,23 @@ If you setup SeaTable server according to our manual, you should have a director
 /Your SeaTable data volume/seatable/
 ├── ccnet
 ├── conf
+├── db-data
 ├── logs
 ├── pids
 ├── scripts
 ├── seafile-data
 ├── seafile-license.txt
-└── seahub-data
+├── seahub-data
+└── storage-data
 
 ```
 
-All your tables data is stored under the `/Your SeaTable data volume/seatable/seafile-data/` directory.
+All your data is stored under the `/Your SeaTable data volume/seatable/` directory. Below are important sub-directories that contain user data:
+
+* seafile-data: contains uploaded files for file and image columns
+* seahub-data: contains data used by web front-end, such as avatars
+* db-data: contains archived rows in bases
+* storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
 
 SeaTable also stores some important metadata data in a few databases.
 
@@ -54,27 +61,30 @@ docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtab
 
 ### Backing up SeaTable data
 
-* To directly copy the whole data directory
-
-  ```
-  cp -R /opt/seatable/seatable-data/seatable /opt/seatable-backup/data/
-  cd /opt/seatable-backup/data && rm -rf ccnet logs
-
-  ```
-
-* Use rsync to do incremental backup
+You can use rsync to do incremental backup for data directories (assuming /opt/seatable-backup/ already exists)
 
   ```bash
-  rsync -az /opt/seatable/seatable-data/seatable /opt/seatable-backup/data/
-  cd /opt/seatable-backup/data && rm -rf ccnet logs
-
+  rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable/seatable-data/seatable /opt/seatable-backup/seatable
   ```
 
-### Setup automatic backup for dtable-db (optional)
+You may notice that `db-data` directory is not backed up. The data in this directory is backed up in a different way. Please refer to the next sub-section.
 
-_available since version 2.7.0_
+#### Setup automatic backup for dtable-db
 
-Automatic backup can be enabled for dtable-db. It will take a snapshot for each base and upload to the dtable storage server. See configuration options in [dtable_db_conf.md](../config/dtable_db_conf.md)
+_available since Enterprise Edition 3.0.0_
+
+Data managed by dtable-db component is archived rows from bases. They should be backed up as well. Data for dtable-db sits in the `/opt/seatable/seatable-data/seatable/db-data` direcotry.
+
+Unlike other components, dtable-db provides built-in automatic backup mechanism. It will take a snapshot for each base and upload to dtable-storage-server. dtable-db only make new backup for a base if it detects changes to it. This makes the backup more efficient. dtable-storage-server also compresses the backups to make it more storage-efficient.
+
+To setup automatic backup for dtable-db:
+
+1. Setup and run dtable-storage-server. It should be started by default. Find more details in [dtable-storage-server documentation](../config/dtable_storage_server_conf.md).
+2. Set `[backup]` configuration options in dtable-db.conf as in [dtable-db ducumentation](../config/dtable_db_conf.md)
+
+If you configure dtable-storage-server with local file system as backend, dtable-storage-server saves its data to the path specified in dtable-storage-server.conf. By default it's set to `/opt/seatable/seatable-data/seatable/storage-data`. If you set up your backup as in the last section, you should have already backed up this directory as well. Since storage-data directory has already contained the backups for dtable-db, data in db-data directory doesn't need to backup.
+
+If you configure dtable-storage-server with object storage as backend, there will be no data saved to `/opt/seatable/seatable-data/seatable/storage-data`. So you don't have to backup storage-data directory either.
 
 ## Recovery
 
@@ -90,6 +100,6 @@ docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD dtable
 ### Restore the SeaTable data
 
 ```
-cp -R /opt/seatable-backup/data/* /opt/seatable/seatable-data/
+rsync -az /opt/seatable-backup/seatable /opt/seatable/seatable-data/seatable
 
 ```
