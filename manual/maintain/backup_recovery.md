@@ -28,7 +28,7 @@ All your data is stored under the `/Your SeaTable data volume/seatable/` directo
 
 * seafile-data: contains uploaded files for file and image columns
 * seahub-data: contains data used by web front-end, such as avatars
-* db-dta: contains archived rows in bases
+* db-data: contains archived rows in bases
 * storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
 
 SeaTable also stores some important metadata data in a few databases.
