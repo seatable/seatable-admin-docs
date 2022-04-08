@@ -24,12 +24,12 @@ If you setup SeaTable server according to our manual, you should have a director
 
 ```
 
-All your tables data is stored under the `/Your SeaTable data volume/seatable/seafile-data/` directory. Below are important directories that contain user data:
+All your data is stored under the `/Your SeaTable data volume/seatable/` directory. Below are important sub-directories that contain user data:
 
 * seafile-data: contains uploaded files for file and image columns
 * seahub-data: contains data used by web front-end, such as avatars
 * db-dta: contains archived rows in bases
-* storage-data: contains backups for archived bases in db-data (added in 2.8 version)
+* storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also store in this directory.
 
 SeaTable also stores some important metadata data in a few databases.
 
@@ -61,29 +61,17 @@ docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtab
 
 ### Backing up SeaTable data
 
-* To directly copy the data directories (assuming /opt/seatable-backup/data already exists)
-
-  ```
-  cp -R /opt/seatable/seatable-data/seatable/seafile-data /opt/seatable-backup/data/seafile-data
-  cp -R /opt/seatable/seatable-data/seatable/seahub-data /opt/seatable-backup/data/seahub-data
-  # added in 2.8 version
-  cp -R /opt/seatable/seatable-data/seatable/storage-data /opt/seatable-backup/data/storage-data
-  ```
-
-* Use rsync to do incremental backup for data directories (assuming /opt/seatable-backup/data already exists)
+You can use rsync to do incremental backup for data directories (assuming /opt/seatable-backup/data already exists)
 
   ```bash
-  rsync -az /opt/seatable/seatable-data/seatable/seafile-data /opt/seatable-backup/data/seafile-data
-  rsync -az /opt/seatable/seatable-data/seatable/seahub-data /opt/seatable-backup/data/seahub-data
-  # added in 2.8 version
-  rsync -az /opt/seatable/seatable-data/seatable/storage-data /opt/seatable-backup/data/storage-data
+  rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable/seatable-data/seatable /opt/seatable-backup/data/
   ```
 
-You may notice that `db-data` directory is not backed up. Read the next sub-section for more details.
+You may notice that `db-data` directory is not backed up. The data in this directory is backed up in a different way. Please refer to the next sub-section.
 
 #### Setup automatic backup for dtable-db
 
-_available since version 2.8.0_
+_available since Enterprise Edition 3.0.0_
 
 Data managed by dtable-db component is archived rows from bases. They should be backed up as well. Data for dtable-db sits in the `/opt/seatable/seatable-data/seatable/db-data` direcotry.
 
