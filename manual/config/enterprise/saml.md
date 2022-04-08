@@ -49,6 +49,8 @@ SAML_ATTRIBUTE_MAP = {
     'uid': 'uid',
     'ContactEmail': 'contact_email',
     'DisplayName': 'name',
+    'employeeid': 'employee_id',   # Syncing user's employee ID from SAML
+    'jobtitle': 'user_role',   # Syncing user's role from SAML
 }
 SAML_ENTITY_ID = 'https://test.seatable.cn/saml2/metadata/'
 
