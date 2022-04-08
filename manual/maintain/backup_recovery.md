@@ -29,7 +29,7 @@ All your data is stored under the `/Your SeaTable data volume/seatable/` directo
 * seafile-data: contains uploaded files for file and image columns
 * seahub-data: contains data used by web front-end, such as avatars
 * db-dta: contains archived rows in bases
-* storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also store in this directory.
+* storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
 
 SeaTable also stores some important metadata data in a few databases.
 
@@ -61,10 +61,10 @@ docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtab
 
 ### Backing up SeaTable data
 
-You can use rsync to do incremental backup for data directories (assuming /opt/seatable-backup/data already exists)
+You can use rsync to do incremental backup for data directories (assuming /opt/seatable-backup/ already exists)
 
   ```bash
-  rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable/seatable-data/seatable /opt/seatable-backup/data/
+  rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable/seatable-data/seatable /opt/seatable-backup/seatable
   ```
 
 You may notice that `db-data` directory is not backed up. The data in this directory is backed up in a different way. Please refer to the next sub-section.
@@ -100,6 +100,6 @@ docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD dtable
 ### Restore the SeaTable data
 
 ```
-cp -R /opt/seatable-backup/data/* /opt/seatable/seatable-data/
+rsync -az /opt/seatable-backup/seatable /opt/seatable/seatable-data/seatable
 
 ```
