@@ -4,7 +4,7 @@
 
 3.0 adds another component, dtable-storage-server, which provides better performance for persistent storage of bases. A base in SeaTable is saved as a file, which is automatically saved every 5 minutes. In 2.x, this file saved in seaf-server, but seaf-server will keep a version for each save, which will take up a lot of disk space. In 3.0, only one version is actually saved when a snapshot is generated every 24 hours, which saves space. dtable-storage-server is a simple abstract layer of traditional file system and object storage.
 
-1) For newly installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
+1) For new installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
 
 ```
 docker exec -d seatable /shared/seatable/scripts/seatable.sh init
