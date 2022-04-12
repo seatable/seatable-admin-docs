@@ -13,6 +13,8 @@ In section `[general]`:
 - `log_dir`: Location for the logs. Defaults to the directory specified in `-c` command line option. (Added in 2.3.0)
 - `log_level`: Only log messages with level priority higher than this will be logged. Supported levels are "debug", "info", "warn", "error", with ascending priority. The default is "info".
 - `slow_query_threshold`: If the processing time exceeds this threshold, a slow log will be recorded. Unit is in milliseconds. Defaults to 1000. (Added in 2.3.0)
+- `row_update_limit`: Controls the rate of row update/delete/insert per second for each base. Row update/delete/insert via SQL and APIs are all affected. The unit is in number of rows. Default is 0, which means no limit. (Added in 3.0.0)
+- `global_row_update_limit`: Controls the rate of row update/delete/insert per second for the entire system. Row update/delete/insert via SQL and APIs are all affected. This option controls the global rate when there are concurrent updates to multiple bases. The unit is in number of rows. Default is 0, which means no limit. (Added in 3.0.0)
 
 In section `[storage]`:
 
@@ -36,12 +38,14 @@ Section `[database]` contains options for accessing the MySQL database used by d
 
 In section `[SQL]`:
 
-- `max_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100.
+- `max_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100. (**Deprecated**: should use `default_result_rows` since 3.0 version)
+- `default_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100.
+- `result_rows_hard_limit`: Maximal number of rows that will be returned in one query. If the number of rows specified in `LIMIT` syntax is larger than this option, the system still returns at most the number of rows that specified in this option. The default is 10000.
 
 Section `[backup]` contains options to configure backup functions (available since Enterprise Edition 3.0.0):
 
 - `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. For configuration of dtable storage server, please refer to [this documentation](./dtable_storage_server_conf.md).
-- `backup_interval`: The interval between each backup. Unit is in minutes. The default value is 1440 minutes (24 hours).
+- `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (24 hours).
 - `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
 
 Below is an example configuration:
@@ -71,6 +75,6 @@ db_name = dtable
 
 [backup]
 dtable_storage_server_url = http://127.0.0.1:6666
-backup_interval = 1440
+backup_interval = 86400
 keep_backup_num = 3
 ```
