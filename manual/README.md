@@ -35,7 +35,7 @@ Some explanation:
 * Bases are maintained in dtable-server and periodically saved to dtable-storage-server for persistent storage.
 * Attachments are saved in seaf-server, which save to file storage/object storage
 
-A base in SeaTable is saved as a file, and when users access the table, it will be loaded into dtable-server. When the table is modified, dtable-server automatically saves it to dtable-storage-server every 5 minutes. dtable-storage-server mirrors the table every 24 hours.
+A base in SeaTable is saved as a file, and when users access the base, it will be loaded into dtable-server. When the base is modified, dtable-server automatically saves it to dtable-storage-server every 5 minutes. dtable-storage-server creates a snapshot of the base every 24 hours.
 
 The base cannot contain more than 100,000 rows. If the records are close to 100,000, the record can be transferred from the file (dtable-server is responsible for management) to the big data storage (dtable-db is responsible for management) through the archive operation. dtable-db periodically saves backups of big data storage to dtable-storage-server.
 
