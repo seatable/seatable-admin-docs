@@ -14,22 +14,31 @@ Main features includes:
 
 SeaTable consists of following component
 
-* dtable-web: The web site for manage tables.
-* dtable-server: Store the tables and provide collaborating feature.
+* dtable-web: The web site for manage bases.
+* dtable-server: Store the bases and provide collaborating feature.
+* dtable-db: Provide big data storage and SQL query interface.
 * dtable-events: Background tasks likes email sending and so on.
-* seaf-server: Store attachments (files and images)
+* seaf-server: Store attachments (files and images).
+* dtable-storage-serve: An simple abstract layer upon file storage and S3-like object storage.
 
 The following picture shows how the different components work together:
 
-![](./images/auto-upload/image-1609914364017.png)
+
+![seatable-architecture](./images/auto-upload/seatable-architecture.png)
+
 
 Some explanation:
 
 * MariaDB, Memcache, Redis are running in their own docker containers.
 * Redis is used for sending messages from dtable-web/dtable-server to dtable-events
 * All the components use Memcache for storing cache and MariaDB for storing permanent information
-* Bases are maintained in dtable-server and periodically saved to file/objects storage for persistent storage.
-* Attachments are saved in file/objects storage
+* Bases are maintained in dtable-server and periodically saved to dtable-storage-server for persistent storage.
+* Attachments are saved in seaf-server, which save to file storage/object storage
+
+A base in SeaTable is saved as a file, and when users access the table, it will be loaded into dtable-server. When the table is modified, dtable-server automatically saves it to dtable-storage-server every 5 minutes. dtable-storage-server mirrors the table every 24 hours.
+
+The base cannot contain more than 100,000 rows. If the records are close to 100,000, the record can be transferred from the file (dtable-server is responsible for management) to the big data storage (dtable-db is responsible for management) through the archive operation. dtable-db periodically saves backups of big data storage to dtable-storage-server.
+
 
 ## LICENSE
 
