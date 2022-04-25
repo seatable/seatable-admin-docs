@@ -2,7 +2,7 @@
 
 #### User Management
 
-When you setup seahub website, you should have setup a admin account. After you logged in a admin, you may add/delete users and file libraries.
+When you setup SeaTable, you should have setup a admin account. After you logged in a admin, you may add/delete users.
 
 #### Resetting User Password
 
