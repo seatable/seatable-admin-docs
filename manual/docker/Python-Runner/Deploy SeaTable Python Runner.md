@@ -116,7 +116,57 @@ Edit the configuration as follows:
 SCHEDULER_URL = 'https://faas.seatable.com'  # The URL of seatable-faas-scheduler, if you use an IP address, please add http://
 ```
 
+#### Customize time zone (optional)
 
+This feature requires runner packages on 2.0.3 and above, and runner image on 2.5.4 and above.
+
+Add time zone item to the configuration, indicating that the time zone in runner contianer.
+
+``` python
+TIME_ZONE = 'UTC'
+```
+
+If not configured, the default is the system time zone, if the system time zone is not read, it is the UTC time zone.
+
+If the version does not meet the requirements, the time zone is the UTC time zone.
+
+
+#### Other docker run options (optional)
+
+This feature requires runner packages on 2.0.3 and above, and runner image on 2.5.4 and above, experimental, please edit carefully.
+
+Add the following configuration to the configuration file to modify the parameters when starting the container
+
+``` python
+OTHER_OPTIONS = []
+```
+
+For example, you need to modify the network that the container is connected to when it starts
+
+``` python
+OTHER_OPTIONS = [
+    "--network=xxx"  # xxx need to exist
+]
+```
+
+Similarly, there are supported options for
+
+``` python
+VALID_OPTIONS = [
+    "--add-host",
+    "--dns",
+    "--dns-opt",
+    "--dns-option",
+    "--dns-search",
+    "--net",
+    "--net-alias",
+    "--network",
+    "--ipc",
+    "--label"
+]
+```
+
+For the specific meaning of each, see [the official docker documentation](https://docs.docker.com/engine/reference/commandline/run/#options)
 
 ### Starting SeaTable Python Runner
 
