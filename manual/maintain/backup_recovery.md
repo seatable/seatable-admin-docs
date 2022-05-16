@@ -86,6 +86,12 @@ If you configure dtable-storage-server with local file system as backend, dtable
 
 If you configure dtable-storage-server with object storage as backend, there will be no data saved to `/opt/seatable/seatable-data/seatable/storage-data`. So you don't have to backup storage-data directory either.
 
+You can also manually execute the command to backup dtable-db data immediately
+
+```
+docker exec -it seatable /opt/seatable/scripts/seatable.sh backup-all
+```
+
 ## Recovery
 
 ### Restore the databases
@@ -102,4 +108,10 @@ docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD dtable
 ```
 rsync -az /opt/seatable-backup/seatable /opt/seatable/seatable-data/seatable
 
+```
+
+### Restore the dtable-db data
+
+```
+docker exec -it seatable /opt/seatable/scripts/seatable.sh restore-all
 ```
