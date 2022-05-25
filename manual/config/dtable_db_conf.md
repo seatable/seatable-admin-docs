@@ -41,6 +41,7 @@ In section `[SQL]`:
 - `max_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100. (**Deprecated**: should use `default_result_rows` since 3.0 version)
 - `default_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100.
 - `result_rows_hard_limit`: Maximal number of rows that will be returned in one query. If the number of rows specified in `LIMIT` syntax is larger than this option, the system still returns at most the number of rows that specified in this option. The default is 10000.
+- `exec_cost_hard_limit`: Maximal execution cost of a query. If the estimated cost of a query exceeds this limit, the query is rejected. Default is 0, which means no limit.
 
 Section `[backup]` contains options to configure backup functions (available since Enterprise Edition 3.0.0):
 
