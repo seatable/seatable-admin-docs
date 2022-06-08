@@ -46,7 +46,7 @@ markdown_extensions:
 
 # Page tree
 nav:
-  - Overview: home.md
+  - Overview: README.md
   - Setup:
     - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
     - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
