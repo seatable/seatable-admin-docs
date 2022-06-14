@@ -5,7 +5,7 @@
 1\. It is recommended that you use docker to deploy the OnlyOffice service. Use the following command to pull the OnlyOffice docker image and start the container
 
 ```
-docker run -i -t -d -p 9000:80 --name=onlyoffice --dns={your OnlyOffice server's domain or IP} onlyoffice/documentserver-de
+docker run -i -t -d -p 9000:80 --name=onlyoffice --dns={your OnlyOffice server's domain or IP} onlyoffice/documentserver
 
 ```
 
