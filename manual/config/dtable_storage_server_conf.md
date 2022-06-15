@@ -36,7 +36,7 @@ In `[general]` section:
 
 In `[storage backend]` section:
 
-- `type`: The type of storage backend. Options are `filesystem`, `oss`, and `s3`. Default is `filesystem`.
+- `type`: The type of storage backend. Options are `filesystem`, and `s3`. Default is `filesystem`.
 
 For filesystem storage backend:
 
