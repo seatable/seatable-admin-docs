@@ -42,12 +42,6 @@ For filesystem storage backend:
 
 - `path`: The filepath of storage backend.
 
-For Alibaba Cloud OSS storage backend:
-
-- `bucket`: The bucket name of OSS backend.
-- `key_id`: The access key id of OSS backend.
-- `key`: The access key of OSS backend.
-- `endpoint`: The endpoint address of OSS backend.
 
 For S3 storage backend:
 
