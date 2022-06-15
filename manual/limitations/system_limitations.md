@@ -16,6 +16,7 @@
 |                            | API calling for getting rows of a table | 100/min for a single table,  600/hour maximum | This limit can be set by yourself for the Developer / Enterprise Edition. However, we strongly suggest that you add some cache in your code if the API calling is frequent. |
 | External links viewing     | Viewing rate of a base's external link  | 300/min maximum                               |                                                              |
 | Import / export operations | Size of a base being exported as a .dtable file  | 100MB                                         | This limit can be set by yourself for the Developer / Enterprise Edition. A base's attachments can be viewed and deleted in batch in the base's Attachments Management.         |
-|                            | Import of a .csv/.xlsx file                        | 10,000 records maximum                         |                                                              |
+|                            | Import of a .csv file                        | 10,000 records maximum                         |                                                              |
+|                            | Import of a .xlsx file                        | 50,000 records maximum                         |                                                              |
 | Scripts                    |                                          |                                               |                                                              |
 | Notification rules         |                                          |                                               |                                                              |
