@@ -238,3 +238,31 @@ Just remove the directory `/opt/seatable` and start again.
 **LetsEncrypt SSL certificate is about to expire.**
 
 If the certificate is not renewed automatically, you can execute the command `/templates/renew_cert.sh` to manually renew the certificate.
+
+**SEATABLE_SERVER_LETSENCRYPT=false change to true.**
+
+If you want to change to https after using http, first backup and move the nginx.conf.
+
+```sh
+mv /opt/seatable/shared/seatable/conf/nginx.conf /opt/seatable/shared/seatable/conf/nginx.conf.bak
+```
+
+Then run the following command to apply a certificate.
+
+```sh
+docker exec seatable /templates/seatable.sh init
+```
+
+You need to manually change http to https in other configuration files and restart SeaTable.
+
+```sh
+docker-compose down
+docker-compose up -d
+docker exec -d seatable /shared/seatable/scripts/seatable.sh start
+```
+
+If you have modified the old nginx.conf, now you can modify the new nginx.conf as you want. Then execute the following command to make the nginx configuration take effect.
+
+```sh
+docker exec seatable nginx -s reload
+```
