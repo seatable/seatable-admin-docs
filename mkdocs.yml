@@ -76,7 +76,7 @@ nav:
       - OAuth: config/enterprise/oauth.md
       - SAML: config/enterprise/saml.md
       - S3: config/enterprise/S3.md
-      - OnlyOffice: config/enterprise/OnlyOffice.md
+      - OnlyOffice: config/enterprise/deploy_onlyoffice_docker.md
   - Administration:
     - Account: maintain/account.md
     - Logs: maintain/logs.md
