@@ -2,7 +2,7 @@
 
 ## Requirements
 
-ONLYOFFICE Documentserver (ONLYOFFICE) can be installed on the same host as SeaTable Enterprise Edition (SeaTable EE). If ONLYOFFICE is used regularly and by many users, the host should be fitted with more cores and RAM:
+ONLYOFFICE Documentserver (ONLYOFFICE) can be installed on the same host as SeaTable Enterprise Edition (SeaTable EE). If ONLYOFFICE is used regularly and by many users, the host should be fitted with more cores and RAM.
 
 This tutorial assumes that [SeaTable EE was deployed following this manual](https://manual.seatable.io/docker/Enterprise-Edition/Deploy%20SeaTable-EE%20with%20Docker/) and is running. Docker and Docker Compose are installed and SeaTable is configured via the docker-compose.yml file.
 
@@ -10,7 +10,7 @@ This tutorial assumes that [SeaTable EE was deployed following this manual](http
 
 This manual describes the deployment of ONLYOFFICE with Docker. Thanks to Docker Compose, the deployment is straightforward and done with little effort.
 
-[Docker volumes](https://docs.docker.com/storage/volumes/) are utilized for saving configuration parameters and persisting data generated in the ONLYOFFICE Docker container. It is not recommended to change these paths. If you do, keep that in mind when following these instructions.
+[Docker volumes](https://docs.docker.com/storage/volumes/) are utilized for saving configuration parameters and persisting data generated in the ONLYOFFICE Docker container. It is not recommended to change their paths. If you do, account for that when following these instructions.
 
 ### Creating Folder Structure and Configuring ONLYOFFICE
 
@@ -20,7 +20,7 @@ When running, stop SeaTable and all associated Docker containers:
 docker-compose down
 ```
 
-All Docker volumes are mapped to `/opt/odds/DocumentServer`. Create this directory:
+All Docker volumes are mapped to `/opt/oods/DocumentServer`. Create this directory:
 
 ```bash
 mkdir -p /opt/oods/DocumentServer
@@ -55,7 +55,7 @@ Copy the following code block in this file:
 
 ### Modifying docker-compose.yml
 
-Open the docker-compose.yml in `/opt/seatable/` and copy-paste the following codeblock. Add it as last block before networks.
+Open the docker-compose.yml in `/opt/seatable/` and copy and paste the following codeblock. Add it as the last block before networks.
 
 ```yml
 oods:
@@ -153,7 +153,7 @@ cd /opt/seatable/seatable-data/seatable/conf
 nano dtable_web_settings.py
 ```
 
-Copy-paste the following code block at the end of the file:
+Copy and paste the following code block at the end of the file:
 
 ```python
 # onlyoffice
@@ -175,7 +175,7 @@ cd /opt/seatable/seatable-data/seatable/conf
 nano nginx.conf
 ```
 
-Copy-paste the following lines at the top of the configuration file:
+Copy and paste the following lines at the top of the configuration file:
 
 ```
 # Required for only office document server
@@ -228,7 +228,7 @@ ONLYOFFICE takes some time to start up. If you get an error message when clickin
 **SeaTable doesn't start anymore/SeaTable is no longer accessible, what can I do?**
 It is likely that there is a misconfiguration in either nginx.conf or dtable_web_settings.py.
 
-After docker-composing up, run 'docker exec -it seatable nginx -t`to check the nginx configuration. If the nginx configuration is invalid, the output will tell.
+After docker-composing up, run 'docker exec -it seatable nginx -t`to check the nginx configuration. If the nginx configuration is invalid, the output will tell you.
 
 If nginx shows no error, enter the seatable container and start seatable manually:
 
