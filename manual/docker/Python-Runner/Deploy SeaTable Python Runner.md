@@ -130,9 +130,13 @@ WARNING: Your kernel does not support swap limit capabilities. Limitation discar
 
 This warning does not occur on RPM-based systems, which enable these capabilities by default.
 
-If you don’t need these capabilities, you can ignore the warning.
+You can set CONTAINER_MEMORY to empty to avoid this warning:
 
-Or, in this case, you need to change some configuration on the host.
+``` py
+CONTAINER_MEMORY = ''
+```
+
+Or you can change some configuration on the host.
 
 ``` bash
 sudo nano /etc/default/grub
