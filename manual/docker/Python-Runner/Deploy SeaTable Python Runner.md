@@ -116,6 +116,55 @@ Edit the configuration as follows:
 SCHEDULER_URL = 'https://faas.seatable.com'  # The URL of seatable-faas-scheduler, if you use an IP address, please add http://
 ```
 
+#### Limit access to memory (optional)
+
+``` py
+CONTAINER_MEMORY = '2g'  # Up to 2GB of memory
+```
+
+On Ubuntu or Debian hosts, You may see messages similar to the following when working with an image.
+
+```
+WARNING: Your kernel does not support swap limit capabilities. Limitation discarded.
+```
+
+This warning does not occur on RPM-based systems, which enable these capabilities by default.
+
+If you don’t need these capabilities, you can ignore the warning.
+
+Or, in this case, you need to change some configuration on the host.
+
+``` bash
+sudo nano /etc/default/grub
+```
+
+Add or modify following configuration
+
+```
+GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+```
+
+Save and quit, and update GRUB
+
+``` bash
+sudo update-grub
+```
+
+If your GRUB configuration file has incorrect syntax, an error occurs. In this case, repeat above steps.
+
+The changes take effect when the system is rebooted.
+
+Additionally, default memory limit is 2GB, if you don't want to limit container to access memory, you can set it to empty string. In this way, above update about GRUB is not necessary.
+
+``` py
+CONTAINER_MEMORY = ''
+```
+
+**Related Documentation**
+
+* [docker runtime options with Memory](https://docs.docker.com/config/containers/resource_constraints/#memory)
+* [Kernel does not support warning](https://docs.docker.com/engine/install/linux-postinstall/#your-kernel-does-not-support-cgroup-swap-limit-capabilities)
+
 #### Customize time zone (optional)
 
 This feature requires runner packages on 2.0.3 and above, and runner image on 2.5.4 and above.
