@@ -26,6 +26,14 @@ FILE_SERVER_ROOT = 'https://seatable.yourdomain.com/seafhttp/'
 
 If you changed your domain, the URLs in above settings must be changed accordingly.
 
+## Universal APP
+
+Universal APP is suitable for use by a large number of external users. Typical examples include supplier management, dealer management and customer service system.
+
+```python
+ENABLE_UNIVERSAL_APP = True
+```
+
 ## Sending Email Notifications
 
 Refer to [email sending documentation](sending_email.md).
