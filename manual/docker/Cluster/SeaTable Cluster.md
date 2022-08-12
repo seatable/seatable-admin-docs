@@ -9,7 +9,6 @@ A general architecture is like following:
 Note
 
 * All nodes use the same docker image, with a different docker compose file and seatable-controller.conf to control the behaviour.
-* dtable-server does not support multiple instances yet
 
 In the following manual, we will show the steps to setup a two nodes deployment
 
@@ -226,4 +225,134 @@ SeaTable started
 
 ```
 
+## dtable-server Cluster
 
+You need to deploy at least two dtable-server nodes according to the `Setup dtable-server` chapter in the previous manual, for example dtable-server-01, dtable-server-02.
+
+### Deploy seatable-proxy
+
+You also need a new machine to deploy seatable-proxy.
+
+The following components need to be installed
+
+* docker
+* etcd
+* seatable-proxy
+
+#### Install etcd
+
+```bash
+# install
+sudo apt install -y etcd etcd-client
+
+# start
+service etcd start
+```
+
+#### Deploy seatable-proxy by docker
+
+Download the [docker-compose.yml](./docker-compose.yml) sample file into seatable-proxy's directory and modify the Compose file to fit your environment and settings.
+
+```bash
+mkdir /opt/seatable-proxy/
+```
+
+Optional customizable options in the Compose file are:
+
+* Volume path for the container seatable-proxy
+* Image tag of the seatable-proxy version to install (image)
+* Time zone (TIME_ZONE)
+
+Note: seatable-proxy only needs LAN communication, public domain is not required.
+
+**Create seatable-proxy configuration file**
+
+Prepare configuration file directory
+
+```bash
+mkdir -p /opt/seatable-proxy/shared/seatable-proxy/conf/
+```
+
+Create the seatable-proxy configuration file :  `/opt/seatable-proxy/shared/seatable-proxy/conf/dtable_server_config.json`
+
+```json
+{
+  "cluster_config": {
+    "etcd_host": "192.168.1.3:2379"  // IP of etcd
+  }
+}
+```
+
+**Start seatable-proxy**
+
+```bash
+docker-compose up -d
+```
+
+### Modify dtable-server-01 configuration file
+
+dtable_server_config.json
+
+```json
+{
+  "cluster_config": {
+    "etcd_host": "192.168.1.3:2379",  // IP of etcd
+    "node_id": "dtable-server-01",
+    "node_url": "http://192.168.1.101/",  // domain of dtable-server-01
+    "local_node_url": "http://192.168.1.101/"  // domain of dtable-server-01
+  }
+}
+```
+
+Then restart dtable-server-01
+
+```bash
+docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
+```
+
+### Modify dtable-server-02 configuration file
+
+dtable_server_config.json
+
+```json
+{
+  "cluster_config": {
+    "etcd_host": "192.168.1.3:2379",  // IP of etcd
+    "node_id": "dtable-server-02",
+    "node_url": "http://192.168.1.102/",  // domain of dtable-server-02
+    "local_node_url": "http://192.168.1.102/"  // domain of dtable-server-02
+  }
+}
+```
+
+Then restart dtable-server-02, the command is the same as before.
+
+### Modify dtable-web configuration files
+
+dtable_web_settings.py
+
+```python
+# etcd
+ENABLE_DTABLE_SERVER_CLUSTER = True
+ETCD_SERVER_HOST = '192.168.1.3'  # IP of etcd
+DTABLE_PROXY_SERVER_URL = 'http://192.168.1.3:5550/'  # IP of seatable-proxy
+```
+
+dtable-db.conf
+
+```conf
+[dtable cache]
+dtable_server_url = "http://192.168.1.3:5550/"  # IP of seatable-proxy
+```
+
+Then restart dtable-web, the command is the same as before.
+
+Now you can use the dtable-server cluster.
+
+### Load balance
+
+In some cases, you can manually load balancing
+
+``` bash
+curl -X POST http://192.168.1.3:5555/rebalance/  # IP of seatable-proxy
+```
