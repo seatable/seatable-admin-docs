@@ -1,20 +1,20 @@
 version: '2.0'
 services:
-  seatable-proxy:
-    image: seatable/seatable-proxy:latest
-    container_name: seatable-proxy
+  dtable-server-proxy:
+    image: seatable/dtable-server-proxy:latest
+    container_name: dtable-server-proxy
     ports:
       #- "80:80"
       #- "443:443"
       - "5550:5550"
       - "5555:5555"
     volumes:
-      - /opt/seatable-proxy/shared:/shared
+      - /opt/dtable-server-proxy/shared:/shared
     environment:
       #- SEATABLE_PROXY_SERVER_HOSTNAME=127.0.0.1
       - TIME_ZONE=Etc/UTC
     networks:
-      - seatable-proxy-net
+      - dtable-server-proxy-net
 
 networks:
-  seatable-proxy-net:
+  dtable-server-proxy-net:
