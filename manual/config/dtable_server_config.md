@@ -37,17 +37,16 @@ It is used for dtable-server to access dtable-web. It is optional since 1.1.0. I
 
 It is used for publishing the notification to the "notification-added" channel of redis, default by false.  This is designed for the integration to the third-party application which will be able to receive the real-time notification.
 
-#### api_req_max
-
-The maximum number of API calls for for base within 1 minute. The default value is 6000.
 
 #### rows_api_minute_max / rows_api_hour_max
 
 The maximum number of listing rows API calls within 1 minute / hour. Listing rows in a large base involving converting internal representation to end-user friendly representation, which will cost a few seconds for 10K+ rows. So the API should be limited more than other APIs. 
 
-#### api_base_day_max
 
-The maximum number of API calls to a single base within 1 day. The default value is 5000.
+#### api_req_max / api_base_day_max
+
+* api_req_max: The maximum number of API calls to a base within 1 minute. The default value is 600.
+* api_base_day_max: The maximum number of API calls to a base within 1 day. The default value is 5000.
 
 #### worker_threads_num
 
