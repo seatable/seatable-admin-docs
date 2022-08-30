@@ -13,10 +13,10 @@
     "redis_port": 6379,
     "redis_password": "",
     "enable_notification_publish": true/false,
-    "api_req_max": 6000,
     "rows_api_minute_max": 100,
     "rows_api_hour_max": 6000,
     "worker_threads_num": 2,
+    "api_req_max": 600,
     "api_base_day_max": 5000
 }
 
