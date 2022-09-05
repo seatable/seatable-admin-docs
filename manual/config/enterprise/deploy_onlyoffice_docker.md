@@ -158,15 +158,15 @@ Copy and paste the following code block at the end of the file:
 ```python
 # onlyoffice
 ENABLE_ONLYOFFICE = True
-ONLYOFFICE_APIJS_URL = "https://<SEATABLE_SERVER_HOSTNAME>/onlyofficeds/web-apps/apps/api/documents/api.js"
+ONLYOFFICE_APIJS_URL = "https://SEATABLE_SERVER_HOSTNAME/onlyofficeds/web-apps/apps/api/documents/api.js"
 ONLYOFFICE_FILE_EXTENSION = ('doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'odt', 'fodt', 'odp', 'fodp', 'ods', 'fods', 'csv', 'ppsx', 'pps')
 ONLYOFFICE_JWT_SECRET = 'secretjwttoken'
 ```
 
-Change <SEATABLE_SERVER_HOSTNAME> to reflect the hostname of your SeaTable server. Additionally, adjust the value for ONLYOFFICE_JWT_SECRET to correspond to the JWT_SECRET in the docker-compose.yml.
+Change SEATABLE_SERVER_HOSTNAME to reflect the hostname of your SeaTable server. Additionally, adjust the value for ONLYOFFICE_JWT_SECRET to correspond to the JWT_SECRET in the docker-compose.yml.
 
 
-### Modifying the nginx Configuration:
+### Modifying the nginx Configuration
 
 Open the nginx configuration file:
 
@@ -228,7 +228,7 @@ ONLYOFFICE takes some time to start up. If you get an error message when clickin
 **SeaTable doesn't start anymore/SeaTable is no longer accessible, what can I do?**
 It is likely that there is a misconfiguration in either nginx.conf or dtable_web_settings.py.
 
-After docker-composing up, run 'docker exec -it seatable nginx -t`to check the nginx configuration. If the nginx configuration is invalid, the output will tell you.
+After docker-composing up, run `docker exec -it seatable nginx -t` to check the nginx configuration. If the nginx configuration is invalid, the output will tell you.
 
 If nginx shows no error, enter the seatable container and start seatable manually:
 
