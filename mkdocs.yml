@@ -47,7 +47,7 @@ markdown_extensions:
 # Page tree
 nav:
   - Overview: README.md
-  - Setup:
+  - Basic Setup:
     - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
     - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
     - Cluster: docker/Cluster/SeaTable Cluster.md
@@ -56,39 +56,35 @@ nav:
       - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
       - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
     - Migrate SeaTable DE to EE: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
-  - Configuration and Customization:
+  - Advanced Setup (SeaTable EE):
+    - Roles and Permissions: config/enterprise/roles_permissions.md
+    - LDAP: config/enterprise/ldap.md
+    - OAuth: config/enterprise/oauth.md
+    - SAML: config/enterprise/saml.md
+    - S3: config/enterprise/S3.md
+    - OnlyOffice: config/enterprise/deploy_onlyoffice_docker.md
+  - Customization:
     - Autostart: config/autostart.md
-    - ccnet.conf: config/ccnet-conf.md
-    - seafile.conf: config/seafile-conf.md
-    - dtable_web_settings.py: config/dtable_web_settings.md
-    - dtable-events.conf: config/dtable-events-conf.md
-    - dtable_server_config: config/dtable_server_config.md
-    - seatable-controller.conf: config/seatable-controller-conf.md
-    - dtable-db.conf: config/dtable_db_conf.md
-    - dtable-storage-server.conf: config/dtable_storage_server_conf.md
-    - Integrate with Seafile: config/integrate-with-seafile.md
-    - Templates and manual: config/templates_and_manual.md
-    - Email sending: config/sending_email.md
+    - Configuration:
+      - ccnet.conf: config/ccnet-conf.md
+      - dtable-db.conf: config/dtable_db_conf.md
+      - dtable-events.conf: config/dtable-events-conf.md
+      - dtable_server_config: config/dtable_server_config.md
+      - dtable-storage-server.conf: config/dtable_storage_server_conf.md
+      - dtable_web_settings.py: config/dtable_web_settings.md
+      - seafile.conf: config/seafile-conf.md
+      - seatable-controller.conf: config/seatable-controller-conf.md
     - Custom CSS: config/custom_css.md
-    - Enterprise:
-      - Roles and Permissions: config/enterprise/roles_permissions.md
-      - LDAP: config/enterprise/ldap.md
-      - OAuth: config/enterprise/oauth.md
-      - SAML: config/enterprise/saml.md
-      - S3: config/enterprise/S3.md
-      - OnlyOffice: config/enterprise/deploy_onlyoffice_docker.md
-  - Administration:
-    - Account: maintain/account.md
-    - Logs: maintain/logs.md
+    - Email sending: config/sending_email.md
+    - Seafile integration: config/integrate-with-seafile.md
+    - Templates and manual: config/templates_and_manual.md
+  - Maintenance:
     - Backup and recovery: maintain/backup_recovery.md
     - Clean database: maintain/clean_database.md
     - Clean storage: maintain/seatable_gc.md
   - Upgrade:
     - Upgrade manual: upgrade/upgrade_manual.md
     - Extra upgrade notices: upgrade/extra-upgrade-notice.md
-  - ChangeLog:
-    - SeaTable Developer Edition: changelog/server-changelog.md
-    - SeaTable Enterprise Edition: changelog/changelog-for-seatable-professional-server.md
-  - Roadmap: changelog/roadmap.md
+  - ChangeLog: changelog/server-changelog.md
   - System Limitations: limitations/system_limitations.md
   - dtable-server-license: dtable-server-license.md
