@@ -13,11 +13,11 @@ SeaTable uses Docker and Docker Compose. If your platform does not support Docke
 The following assumptions and conventions are used in the rest of this document:
 
 * `/opt/seatable` is the directory of SeaTable. If you decide to put SeaTable in a different directory - which you can - adjust all paths accordingly. 
-* SeaTable uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable/mysql-data and /opt/seatable/seatable-data, respectively.  It is not recommended to change these paths. If you do, keep that in mind when following these instructions.
+* SeaTable uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable/mysql-data and /opt/seatable/seatable-data, respectively.  It is not recommended to change these paths. If you do, account for that when following these instructions.
 * All configuration and log files for SeaTable and the webserver Nginx are stored in the volume of the SeaTable container.
 * Due to SeaTable's cloud first approach, these instructions only elaborate on the deployment of SeaTable's latest version. (Earlier versions of SeaTable EE can be installed using these instructions. Just download the image of the version in question from [Docker Hub](https://hub.docker.com/r/seatable/seatable-enterprise/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may not be compatible with the SeaTable plugins available on SeaTable's Market though.)
 
-### Installing docker
+### Installing Docker
 
 Use the [official installation guide](https://docs.docker.com/engine/install/) for your OS to install Docker. 
 
@@ -43,9 +43,11 @@ docker pull seatable/seatable-enterprise:latest
 
 ```
 
+NOTE: Older SeaTable versions are also available on Docker Hub. To pull an older version, replace 'latest' by the desired version.
+
 ### Downloading and Modifying docker-compose.yml
 
-Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable's directory and modify the Compose file to fit your environment and settings.
+Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable's directory and modify the file to fit your environment and settings.
 
 ```bash
 mkdir /opt/seatable
@@ -54,16 +56,16 @@ wget -O "docker-compose.yml" "https://manual.seatable.io/docker/Enterprise-Editi
 nano docker-compose.yml
 ```
 
-The following options must be modified in the Compose file:
+The following fields merit particular attention:
 
 * Password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
 * Use of Let's Encrypt for SSL (SEATABLE_SERVER_LETSENCRYPT)
 * Host name (SEATABLE_SERVER_HOSTNAME)
 
 
-Optional customizable options in the Compose file are:
+Additional customizable options in the Compose file are:
 
-* Volume paths for the container db
+* Volume path for the container db
 * Volume path for the container seatable
 
 * Image tag of the SeaTable version to install (image)
@@ -104,7 +106,7 @@ NOTE: In all versions including 2.5, SeaTable Server EE could be started without
 
 ### Starting SeaTable
 
-Now you start SeaTable and create the first admin user.
+Now you start SeaTable and create the first admin user:
 
 ```bash
 # Start SeaTable service
@@ -176,6 +178,22 @@ docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 
 ```
 
+All of SeaTable's log files are stored in  `/opt/seatable/seatable-data/seatable/logs`:
+* dtable-db.log: log of dtable-db component
+* dtable-db-access.log: query log of dtable-db component
+* dtable-db-error.log: error log of dtable-db component
+* dtable-db-slow.log: slow query log of dtable-db component
+* dtable-events.log: log of the dtable-events component
+* dtable_events_io.log: special log for DTABLE import/export as well as Excel and CSV file import/export
+* dtable_events_message.log: special log for sending emails in the dtable-events background
+* dtable-server.log: log of dtable-server component
+* dtable_web.log: log of the dtable-web component
+* init.log: Log of Docker initialization script
+* monitor.log: Monitor logs, monitor.sh can auto restart the unexpectedly closed server
+* seafile.log: log of Seafile server
+
+Additionally, the slow_logs contain slow request logs which help debug performance issues.
+
 ## SSL/TLS
 
 * Let's encrypt SSL certificate
@@ -240,6 +258,18 @@ If you want to use your own SSL certificate, you can refer to the following step
 **If, for whatever reason, the installation fails, how do I to start from a clean slate again?**
 
 Remove the directory `/opt/seatable` and start again.
+
+**I forgot the SeaTable admin email address/password, how do I create a new admin account?**
+
+You can create a new admin account by running
+
+```bash
+# Create admin account
+docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser  
+
+```
+
+The SeaTable service must be up when running the superuser command.
 
 **The Let's Encrypt SSL certificate is about to expire, how do I renew it?**
 
