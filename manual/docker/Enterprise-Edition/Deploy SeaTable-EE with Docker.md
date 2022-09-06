@@ -179,6 +179,7 @@ docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 ```
 
 All of SeaTable's log files are stored in  `/opt/seatable/seatable-data/seatable/logs`:
+
 * dtable-db.log: log of dtable-db component
 * dtable-db-access.log: query log of dtable-db component
 * dtable-db-error.log: error log of dtable-db component
