@@ -1,3 +1,3 @@
-# SeaTable Developer Edition Changelog
+# SeaTable Changelog
 
-Please see <https://seatable.io/docs/changelog/>
+The complete changelog of SeaTable Server is available at <https://seatable.io/docs/changelog/>.
