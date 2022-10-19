@@ -129,6 +129,15 @@ TERMS_OF_SERVICE_LINK = ''
 
 ```
 
+## Archive view export row limit
+
+When exporting an archive view to Excel, you can set the maximum number of exported rows in the configuration file:
+
+```python
+ARCHIVE_VIEW_EXPORT_ROW_LIMIT = 10000
+
+```
+
 ## Embed Bases into other webpages
 
 Embed Bases into other webpages (iframe mode), the following options need to be added to support user login
