@@ -129,14 +129,16 @@ TERMS_OF_SERVICE_LINK = ''
 
 ```
 
-## Archive view export row limit
+## Big data view export row limit
 
-When exporting an archive view to Excel, you can set the maximum number of exported rows in the configuration file:
+When exporting an big data view to Excel, you can set the maximum number of exported rows in the configuration file:
 
 ```python
-ARCHIVE_VIEW_EXPORT_ROW_LIMIT = 10000
+ARCHIVE_VIEW_EXPORT_ROW_LIMIT = 100000
 
 ```
+
+The default is 100,000.
 
 ## Embed Bases into other webpages
 
