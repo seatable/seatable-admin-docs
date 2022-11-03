@@ -83,6 +83,12 @@ USER_STRONG_PASSWORD_REQUIRED = False
 # Force user to change password when admin add/reset a user.
 FORCE_PASSWORD_CHANGE = True
 
+# Whether to allow SSO users to set a local password; default True, admin or user can set a local password by 'Reset password'
+ENABLE_SSO_USER_CHANGE_PASSWORD = True
+
+# Whether to allow LDAP users to set a local password; default False, when True, admin or user can set a local password by 'Reset password'
+ENABLE_LDAP_USER_CHANGE_PASSWORD = False
+
 # Age of cookie, in seconds (default: 2 weeks).
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
 
