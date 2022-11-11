@@ -4,6 +4,8 @@
 
 SeaTable Enterprise Edition (SeaTable EE) requires 4 cores and 8GB RAM. These resources guarantee good performance for most applications with several hundred concurrent connections. When bases become large, more RAM may be needed as SeaTable stores open bases in memory.
 
+Since version 2.6, SeaTable EE requires a license to start. You obtain a license file from SeaTable Sales. A free license for three users can be obtained at https://seatable.io/on-premises. If you need a trial license with more users, utilize the request form after obtaining the 3-user license.
+
 This tutorial assumes that no other services are installed on the server, especially no other services listening on port 80 and 443.
 
 SeaTable uses Docker and Docker Compose. If your platform does not support Docker, you cannot install SeaTable.
@@ -45,12 +47,22 @@ docker pull seatable/seatable-enterprise:latest
 
 NOTE: Older SeaTable versions are also available on Docker Hub. To pull an older version, replace 'latest' by the desired version.
 
+### Activating the SeaTable License
+
+Create the directory `/opt/seatable/seatable-data/seatable` and save the license file it.
+
+```bash
+mkdir -p /opt/seatable/seatable-data/seatable
+nano seatable-license.txt
+```
+
+Paste the content of the license file in the newly created .txt file, save it, and close it.
+
 ### Downloading and Modifying docker-compose.yml
 
 Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable's directory and modify the file to fit your environment and settings.
 
 ```bash
-mkdir /opt/seatable
 cd /opt/seatable
 wget -O "docker-compose.yml" "https://manual.seatable.io/docker/Enterprise-Edition/docker-compose.yml"
 nano docker-compose.yml
@@ -96,13 +108,6 @@ docker-compose up -d
 
 NOTE: You should run the above command in the directory with the `docker-compose.yml`.
 
-### Activating the SeaTable License
-
-Save the license file in the directory `/opt/seatable/seatable-data/seatable`. Make sure that the file's name is seatable-license.txt.
-
-You obtain a license file from SeaTable Sales. A free license for three users can be obtained at https://seatable.io/on-premises. If you need a trial license with more users, utilize the request form after obtaining the three user license.
-
-NOTE: In all versions including 2.5, SeaTable Server EE could be started without a license file. Newer versions do not start without a license file.
 
 ### Starting SeaTable
 
@@ -262,7 +267,7 @@ Remove the directory `/opt/seatable` and start again.
 
 **I forgot the SeaTable admin email address/password, how do I create a new admin account?**
 
-You can create a new admin account by running
+You can create a new admin account by running the superuser command:
 
 ```bash
 # Create admin account
@@ -274,7 +279,7 @@ The SeaTable service must be up when running the superuser command.
 
 **The Let's Encrypt SSL certificate is about to expire, how do I renew it?**
 
-The SSL certificate should be renewed automatically 30 days prior to its expiration. If the automatic renewal fails, this command renews the certificate manually:
+The SSL certificate should renew itself automatically 30 days prior to its expiration. If the automatic renewal fails, this command renews the certificate manually:
 
 ```bash
 /templates/renew_cert.sh
@@ -282,13 +287,13 @@ The SSL certificate should be renewed automatically 30 days prior to its expirat
 
 **SEATABLE_SERVER_LETSENCRYPT=false change to true.**
 
-If you want to change to https after using http, first backup and move the nginx.conf.
+If you want to change to https after using http, first backup and move the nginx.conf:
 
 ```sh
 mv /opt/seatable/shared/seatable/conf/nginx.conf /opt/seatable/shared/seatable/conf/nginx.conf.bak
 ```
 
-Then run the following command to apply a certificate.
+Then run the following command to apply a certificate:
 
 ```sh
 docker exec seatable /templates/seatable.sh init
@@ -302,7 +307,7 @@ docker-compose up -d
 docker exec -d seatable /shared/seatable/scripts/seatable.sh start
 ```
 
-If you have modified the old nginx.conf, now you can modify the new nginx.conf as you want. Then execute the following command to make the nginx configuration take effect.
+If you have modified the old nginx.conf, now you can modify the new nginx.conf as you want. Then execute the following command to make the nginx configuration take effect:
 
 ```sh
 docker exec seatable nginx -s reload
