@@ -4,19 +4,13 @@ Upgrade of the SeaTable python runner includes the upgrade of **FAAS Scheduler, 
 
 The different version of components and compatibility of SeaTable Python Runner are listed in the tables bellow:
 
-| SeaTable version | faas-scheduler version | Python runner version | Python runner image version |
-| :--------------- | :--------------------- | :-------------------- | :-------------------------- |
-| 2.1              | 2.1                    | 2.0                   | 2.6.2 (latest)               |
-| 2.2              | 2.1                    | 2.0                   | 2.6.2 (latest)               |
-| 2.3              | 2.1                    | 2.0                   | 2.6.2 (latest)               |
-| 2.4              | 2.1                    | 2.0                   | 2.6.2 (latest)               |
-| 2.5 and above    | 2.2                    | 2.0                   | 2.6.2 (latest)               |
-| 2.5 and above    | 2.2.2 (latest)         | 2.0.1                 | 2.6.2 (latest)               |
-| 2.5 and above    | 2.2.2 (latest)         | 2.0.2                 | 2.6.2 (latest)               |
-| 2.5 and above    | 2.2.2 (latest)         | 2.0.3                 | 2.6.2 (latest)               |
-| 2.5 and above    | 2.2.2 (latest)         | 2.0.4                 | 2.6.2 (latest)               |
-| 2.5 and above    | 2.2.2 (latest)         | 2.0.5                 | 2.6.2 (latest)               |
-
+| SeaTable version | faas-scheduler version | Python runner | Python runner Docker version |
+| :--------------- | :--------------------- | :-------------| :----------------------------|
+| 2.4              | 2.1                    | 2.0           | 2.6.2 (latest)               |
+| 2.5              | 2.2                    | 2.0           | 2.6.2 (latest)               |
+| 2.6              | 2.2                    | 2.0           | 2.6.2 (latest)               |
+| 3.2              | 2.2                    | 2.0           | 2.6.2 (latest)               |
+| 3.3              | 2.2                    | 2.0           | 2.6.2 (latest)               |
 
 
 ## Upgrade of SeaTable FAAS Scheduler
