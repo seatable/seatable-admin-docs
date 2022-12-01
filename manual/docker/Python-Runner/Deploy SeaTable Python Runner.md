@@ -184,11 +184,20 @@ If not configured, the default is the system time zone, if the system time zone 
 If the version does not meet the requirements, the time zone is the UTC time zone.
 
 
+#### Set script running timeout
+
+``` py
+SUB_PROCESS_TIMEOUT = 60 * 15  # 15 mins
+```
+
+If not configured, the default is 15 minutes
+
+
 #### Other docker run options (optional)
 
-This feature requires runner packages on 2.0.3 and above, and runner image on 2.5.4 and above, experimental, please edit carefully.
+This feature requires runner packages on 2.0.5 and above, and runner image on 2.5.4 and above, experimental, please edit carefully.
 
-Add the following configuration to the configuration file to modify the parameters when starting the container
+Add the following configuration to the configuration file to modify the parameters when starting the container, the options must be set in the form of `--<option name>=<value>`
 
 ``` python
 OTHER_OPTIONS = []
@@ -196,26 +205,9 @@ OTHER_OPTIONS = []
 
 For example, you need to modify the network that the container is connected to when it starts
 
-``` python
+``` py
 OTHER_OPTIONS = [
-    "--network=xxx"  # xxx need to exist
-]
-```
-
-Similarly, there are supported options for
-
-``` python
-VALID_OPTIONS = [
-    "--add-host",
-    "--dns",
-    "--dns-opt",
-    "--dns-option",
-    "--dns-search",
-    "--net",
-    "--net-alias",
-    "--network",
-    "--ipc",
-    "--label"
+  "--network=xxx"  # xxx needs to exist
 ]
 ```
 
