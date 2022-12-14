@@ -28,11 +28,14 @@ LDAP_USER_UNIQUE_ID = 'objectGUID'
 LDAP_LOGIN_ATTR = 'mail'
 
 # The following options are used for group sync
+LDAP_SYNC_GROUP = True
 LDAP_GROUP_MEMBER_ATTR = 'member'
 LDAP_GROUP_MEMBER_UID_ATTR = 'uid'
 LDAP_USER_OBJECT_CLASS = 'person'
 LDAP_GROUP_OBJECT_CLASS = 'group'
 LDAP_GROUP_UUID_ATTR = 'objectGUID'
+SYNC_GROUP_AS_DEPARTMENT = False
+LDAP_DEPARTMENT_NAME_ATTR = ''
 
 # The following options are optional
 
@@ -71,11 +74,14 @@ The meaning of each configuration option is as follows:
 * LDAP_USER_FIRST_NAME_ATTR：Used to splice the user's nickname
 * LDAP_USER_LAST_NAME_ATTR：Used to splice the user's nickname
 * LDAP_USER_NAME_REVERSE：The above two properties whether to reverse splicing
+* LDAP_SYNC_GROUP: Whether enabled sync group.
 * LDAP_GROUP_MEMBER_ATTR: The attribute field to use when loading the group's members. For most directory servers, the attributes is "member", which is the default value. For "posixGroup", it should be set to "memberUid".
 * LDAP_GROUP_MEMBER_UID_ATTR: The user attribute set in 'memberUid' option, which is used in "posixGroup". The default value is "uid".
 * LDAP_USER_OBJECT_CLASS: This is the name of the class used to search for user objects. In Active Directory, it's usually "person". The default value is "person".
 * LDAP_GROUP_OBJECT_CLASS: This is the name of the class used to search for group objects. In Active Directory, it's usually "group"; in OpenLDAP or others, you may use "groupOfNames", "groupOfUniqueNames" or "posixGroup", depends on your LDAP server. The default value is "group".
 * LDAP_GROUP_UUID_ATTR: The default attribute is "ObjectGUID", which is available in AD. For other LDAP servers, please refer to https://ldapwiki.com/wiki/Universally%20Unique%20Identifier.
+* SYNC_GROUP_AS_DEPARTMENT: If this option is set to "True", the groups will be synced as top-level departments in SeaTable, instead of simple groups, a department in SeaTable is a special group. The sync process keeps the hierarchical structure of the OUs.
+* LDAP_DEPARTMENT_NAME_ATTR: Get the department name. You can set this configuration item to an AD field that represents the "department" name, such as "description". The name of the department created by SeaTable will be the department name set in the AD field instead of the OU name.
 
 **Note: If the configuration items include Chinese, need to ensure that the configuration file saved in UTF8 encoding.**
 
@@ -84,7 +90,7 @@ Some tips on how to select LDAP_BASE_DN and LDAP_ADMIN_EMAIL:
 * To determine your LDAP_BASE_DN attribute, you first need to open the graphical interface of the domain manager and browse your organizational structure.
   * If you want all users in the system to be able to access SeaTable, you can use'cn=users,dc=yourdomain,dc=com' as the BASE option (need to replace your domain name).
   * If you only want people in a certain department to be able to access, you can limit the scope to a certain OU (Organization Unit). You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is'staffs', you can run `dsquery ou -name staff`. More information can be found [here](https://technet.microsoft.com/en-us/library/cc770509.aspx).
-* AD supports the use of usernames in the format of'user@domain.com' as `LDAP_ADMIN_EMAIL`. For example, you can use administrator@example.com as `LDAP_ADMIN_EMAIL`. Sometimes AD cannot correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is'seatableuser', run `dsquery user -name seatableuser` to find the user. More information can be found [here](https://technet.microsoft.com/en-us/library/cc725702.aspx).
+* AD supports the use of usernames in the format of 'user@domain.com' as `LDAP_ADMIN_EMAIL`. For example, you can use administrator@example.com as `LDAP_ADMIN_EMAIL`. Sometimes AD cannot correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is'seatableuser', run `dsquery user -name seatableuser` to find the user. More information can be found [here](https://technet.microsoft.com/en-us/library/cc725702.aspx).
 
 ## LDAP SYNC users and groups
 
