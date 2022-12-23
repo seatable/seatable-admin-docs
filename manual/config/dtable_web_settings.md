@@ -135,6 +135,15 @@ TERMS_OF_SERVICE_LINK = ''
 
 ```
 
+## Group member limit
+
+The default is 500.
+
+```python
+GROUP_MEMBER_LIMIT = 500
+
+```
+
 ## Big data view export row limit
 
 When exporting an big data view to Excel, you can set the maximum number of exported rows in the configuration file:
