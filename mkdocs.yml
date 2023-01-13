@@ -76,6 +76,7 @@ nav:
       - seatable-controller.conf: config/seatable-controller-conf.md
     - Custom CSS: config/custom_css.md
     - Email sending: config/sending_email.md
+    - Base rows limit: config/base_rows_limit.md
     - Seafile integration: config/integrate-with-seafile.md
     - Templates and manual: config/templates_and_manual.md
   - Maintenance:
