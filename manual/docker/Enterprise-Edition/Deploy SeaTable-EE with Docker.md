@@ -126,6 +126,8 @@ NOTE: The first command uses the option `-d` which starts the service in the bac
 
 You can now access SeaTable at the host name specified in the Compose file.
 
+NOTE: By default SeaTable will **not** start automatically. To complish this see the [documentation on autostart](https://manual.seatable.io/config/autostart/)
+
 ### Reviewing the Deployment
 
 The command `docker container list` should list the four containers specified in the `docker-compose.yml`:
