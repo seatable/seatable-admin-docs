@@ -155,6 +155,16 @@ ARCHIVE_VIEW_EXPORT_ROW_LIMIT = 100000
 
 The default is 100,000.
 
+## Limit of collaborators loaded in a base
+
+After opening a base, the first 300 collaborators and the first 100 external application accounts are loaded by default. These data are used to select collaborators in the collaborator column. If you need to load more collaborators, you can modify the following parameters.
+
+```
+DTABLE_RELATED_USERS_PER_PAGE = 300
+DTABLE_APP_USERS_PER_PAGE = 100
+```
+
+
 ## Embed Bases into other webpages
 
 Embed Bases into other webpages (iframe mode), the following options need to be added to support user login
