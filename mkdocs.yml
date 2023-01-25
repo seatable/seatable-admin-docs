@@ -81,7 +81,7 @@ nav:
     - Templates and manual: config/templates_and_manual.md
   - Maintenance:
     - Backup and recovery: maintain/backup_recovery.md
-    - Clean database: maintain/clean_database.md
+    - Database maintenance: maintain/database_maintenance.md
     - Clean storage: maintain/seatable_gc.md
   - Upgrade:
     - Upgrade manual: upgrade/upgrade_manual.md
