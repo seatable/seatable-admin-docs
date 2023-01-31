@@ -7,7 +7,7 @@ Base rows are limited for the following technical reasons:
 * The base is read from the persistent storage (dtable-storage-server) into the memory of dtable-server, and the maximum support size is 600M. This is a limitation of Node.js technology, because a string in Node.js cannot exceed 600M. For safety reason, dtable-server will not attempt to load this base when it exceeds 300M. (Attachments in the base are not counted.)
 * When the base is too large, it takes too much time for the server to serialize it and send it to the network when the client loads the base. At this time, the server cannot respond to other requests.
 
-Starting from version 3.4, for private deployment users, if your application scenario needs to support more than 100,000 rows in a base, but the storage space occupied by the base itself is not large (for example, it contains a large number of blank cells), you can modify the server's configration, to support more than 100,000 rows.
+Starting from version 3.4, for private deployment users, if your application scenario needs to support more than 100,000 rows in a base, but the storage space occupied by the base itself is not large (for example, it contains a large number of blank cells), you can modify the server's configuration, to support more than 100,000 rows.
 
 #### dtable-server
 

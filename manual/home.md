@@ -14,7 +14,7 @@ Main features includes:
 
 SeaTable consists of following component
 
-* dtable-web: The web site for manage tables.
+* dtable-web: The website for manage tables.
 * dtable-server: Store the tables and provide collaborating feature.
 * dtable-events: Background tasks likes email sending and so on.
 * seaf-server: Store attachments (files and images)
@@ -38,7 +38,7 @@ SeaTable has three versions
 
 * Developer edition: for users that want to use SeaTable as database and heavy using APIs and scripts.  The developer edition has no limit on storage, row numbers and API calls, but can support at most 200 concurrent connections to dtable-server.
 * Cloud edition: for users that want to use SeaTable as a collaboration tool. It has limitation for storage, row numbers and API calls.
-* Enterprise edition: almost no limitation for storage, row numbers and API calls and have advanced permissions and user management features. It is meant for large teams to use SeaTable in both way. Users can use it in the cloud or self-hosted.
+* Enterprise edition: almost no limitation for storage, row numbers and API calls and have advanced permissions and user management features. It is meant for large teams to use SeaTable in both ways. Users can use it in the cloud or self-hosted.
 
 The different components of SeaTable developer edition are released under different licenses:
 
@@ -48,7 +48,7 @@ The different components of SeaTable developer edition are released under differ
 * seaf-server: AGPLv3
 * dtable-db: [Proprietary License](dtable-server-license.md)
 
-SeaTabe developer edition should not be used to provide SaaS service or as a part of your SaaS service. Other kinds of usage are okay, including
+SeaTable developer edition should not be used to provide SaaS service or as a part of your SaaS service. Other kinds of usage are okay, including
 
 * Use it internally in your company.
 * Personal or home use.

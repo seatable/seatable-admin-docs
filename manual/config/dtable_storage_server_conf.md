@@ -2,7 +2,7 @@
 
 DTable storage server provides persistent storage for bases and backup service for dtable-db. It supports file system, S3 storage backends. This component is added in version 3.0.
 
-## Configration example
+## Configuration example
 
 ```
 [general]

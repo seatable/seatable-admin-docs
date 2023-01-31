@@ -73,14 +73,14 @@ You may notice that `db-data` directory is not backed up. The data in this direc
 
 _available since Enterprise Edition 3.0.0_
 
-Data managed by dtable-db component is archived rows from bases. They should be backed up as well. Data for dtable-db sits in the `/opt/seatable/seatable-data/seatable/db-data` direcotry.
+Data managed by dtable-db component is archived rows from bases. They should be backed up as well. Data for dtable-db sits in the `/opt/seatable/seatable-data/seatable/db-data` directory.
 
 Unlike other components, dtable-db provides built-in automatic backup mechanism. It will take a snapshot for each base and upload to dtable-storage-server. dtable-db only make new backup for a base if it detects changes to it. This makes the backup more efficient. dtable-storage-server also compresses the backups to make it more storage-efficient.
 
 To setup automatic backup for dtable-db:
 
 1. Setup and run dtable-storage-server. It should be started by default. Find more details in [dtable-storage-server documentation](../config/dtable_storage_server_conf.md).
-2. Set `[backup]` configuration options in dtable-db.conf as in [dtable-db ducumentation](../config/dtable_db_conf.md)
+2. Set `[backup]` configuration options in dtable-db.conf as in [dtable-db documentation](../config/dtable_db_conf.md)
 
 If you configure dtable-storage-server with local file system as backend, dtable-storage-server saves its data to the path specified in dtable-storage-server.conf. By default it's set to `/opt/seatable/seatable-data/seatable/storage-data`. If you set up your backup as in the last section, you should have already backed up this directory as well. Since storage-data directory has already contained the backups for dtable-db, data in db-data directory doesn't need to backup.
 
