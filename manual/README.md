@@ -10,7 +10,7 @@ Main features includes:
 * Comprehensive API and SDK for adding extensions.
 * Filters, sorts, charts and pivotal tables to visualize and analyze data.
 
-## Software components
+## Software Components
 
 SeaTable consists of following component
 
@@ -64,11 +64,11 @@ SeaTable developer edition should not be used to provide SaaS service or as a pa
 
 The SeaTable enterprise edition is released under proprietary license.
 
-## Report issues
+## Report Issues
 
-Please report issues to our forum <https://forum.seatable.io/>
+Please report issues in our forum <https://forum.seatable.io/>
 
-## More information
+## More Information
 
 * GitHub: <https://github.com/seatable/seatable>
 
