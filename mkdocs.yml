@@ -20,6 +20,10 @@ theme:
 
 plugins:
   - search
+  - redirects:
+      redirect_maps:
+        'changelog/server-changelog.md': 'https://seatable.io/docs/changelog/'
+        'changelog/changelog-for-seatable-professional-server.md': 'https://seatable.io/docs/changelog/'
 
 # Customization
 extra:
