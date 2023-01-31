@@ -79,17 +79,17 @@ nav:
       - seafile.conf: config/seafile-conf.md
       - seatable-controller.conf: config/seatable-controller-conf.md
     - Custom CSS: config/custom_css.md
-    - Email sending: config/sending_email.md
-    - Base rows limit: config/base_rows_limit.md
-    - Seafile integration: config/integrate-with-seafile.md
-    - Templates and manual: config/templates_and_manual.md
+    - Email Sending: config/sending_email.md
+    - Base Rows Limit: config/base_rows_limit.md
+    - Seafile Integration: config/integrate-with-seafile.md
+    - Templates and Manual: config/templates_and_manual.md
   - Maintenance:
-    - Backup and recovery: maintain/backup_recovery.md
-    - Clean storage: maintain/seatable_gc.md
+    - Backup and Recovery: maintain/backup_recovery.md
     - Clean Database: maintain/clean_database.md
+    - Clean Storage: maintain/seatable_gc.md
   - Upgrade:
-    - Upgrade manual: upgrade/upgrade_manual.md
-    - Extra upgrade notices: upgrade/extra-upgrade-notice.md
+    - Upgrade Manual: upgrade/upgrade_manual.md
+    - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
   - ChangeLog: changelog/server-changelog.md
   - System Limitations: limitations/system_limitations.md
   - dtable-server-license: dtable-server-license.md
