@@ -39,6 +39,16 @@ MySQL databases:
 * seafile_db: contains library metadata
 * dtable_db: contains tables used by the web front end
 
+??? info "Database structure"
+
+    SeaTable stores the following data types in the SQL database in the `seatable-mysql` Docker container:
+
+    * user actions and inputs in bases (e.g. new/modified/deleted rows, new/modified/deleted columns, new/modified, deleted views)
+    * meta-information for bases (e.g. API-token, common datasets, links, row comments, snapshots, third-party accounts, webhooks)
+    * statistical and log information (e.g. automation rules execution, row count)
+    * user and group information (e.g. 2FA status, logins, user quota)
+    * versioning information for the assets (e.g. files and images) saved in bases
+
 ## Backup
 
 ### Steps
