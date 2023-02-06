@@ -1,5 +1,5 @@
 Autostart SeaTable
-When setting up SeaTable following the instructions in [this manual](https://manual.seatable.io/docker/Enterprise-Edition/Deploy%20SeaTable-EE%20with%20Docker/), SeaTable's Docker containers do not automatically start after a system reboot. Adding SeaTable to autostart minimizes system downtime and prevents service disruption.
+When setting up SeaTable following the instructions in [this manual](../docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md), SeaTable's Docker containers do not automatically start after a system reboot. Adding SeaTable to autostart minimizes system downtime and prevents service disruption.
 
 ## Requirements
 The autostart routine presented here utilizes [systemd](https://systemd.io/). systemd, the default init system in many Linux distributions, including CentOS, Debian, and Ubuntu, provides a convenient autostart function for the services it controls.
@@ -7,7 +7,7 @@ The autostart routine presented here utilizes [systemd](https://systemd.io/). sy
 
 ## Setup
 
-Autostarting SeaTable builds on three components: First, a start script that is capable of starting, stopping, and restarting SeaTable using the docker-compose.yml; second, a systemd unit file using the start script; third, systemd's native autostart capability.
+Autostart SeaTable builds on three components: First, a start script that is capable of starting, stopping, and restarting SeaTable using the docker-compose.yml; second, a systemd unit file using the start script; third, systemd's native autostart capability.
 
 ### Preparing the start script
 

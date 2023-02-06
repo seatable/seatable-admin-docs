@@ -126,7 +126,9 @@ NOTE: The first command uses the option `-d` which starts the service in the bac
 
 You can now access SeaTable at the host name specified in the Compose file.
 
-NOTE: By default SeaTable will **not** start automatically. To complish this see the [documentation on autostart](https://manual.seatable.io/config/autostart/)
+!!! note
+
+    By default SeaTable will **not** start automatically. To complish this see the [documentation on autostart](../../config/autostart.md)
 
 ### Reviewing the Deployment
 

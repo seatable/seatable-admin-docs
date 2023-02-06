@@ -4,7 +4,7 @@
 
 ONLYOFFICE Documentserver (ONLYOFFICE) can be installed on the same host as SeaTable Enterprise Edition (SeaTable EE). If ONLYOFFICE is used regularly and by many users, the host should be fitted with more cores and RAM.
 
-This tutorial assumes that [SeaTable EE was deployed following this manual](https://manual.seatable.io/docker/Enterprise-Edition/Deploy%20SeaTable-EE%20with%20Docker/) and is running. Docker and Docker Compose are installed and SeaTable is configured via the docker-compose.yml file.
+This tutorial assumes that [SeaTable EE was deployed following this manual](../../docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md) and is running. Docker and Docker Compose are installed and SeaTable is configured via the docker-compose.yml file.
 
 ## Setup
 
