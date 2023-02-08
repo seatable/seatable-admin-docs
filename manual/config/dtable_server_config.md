@@ -16,6 +16,7 @@
     "rows_api_minute_max": 100,
     "rows_api_hour_max": 6000,
     "worker_threads_num": 2,
+    "save_interval": 5 * 60 * 1000,
     "api_req_max": 600,
     "api_base_day_max": 5000
 }
@@ -51,6 +52,11 @@ The maximum number of listing rows API calls within 1 minute / hour. Listing row
 #### worker_threads_num
 
 Number of worker threads serving list rows API
+
+#### save_interval
+
+Interval for saving changed bases to persistent storage (dtable-storage-server). The default is 5 minutes.
+
 
 ## Notice
 
