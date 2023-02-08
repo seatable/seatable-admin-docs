@@ -55,7 +55,8 @@ Number of worker threads serving list rows API
 
 #### save_interval
 
-Base auto store period, the default is 5 minutes.
+Interval for saving changed bases to persistent storage (dtable-storage-server). The default is 5 minutes.
+
 
 ## Notice
 
