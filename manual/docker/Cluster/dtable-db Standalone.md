@@ -20,7 +20,7 @@ ENABLE_DTABLE_DB=false
 Modify dtable-web configuration file  `/Your SeaTable data volume/seatable/conf/dtable_web_settings.py`
 
 ```
-DTABLE_DB_URL = 'https://example.seatable.com/'  # dtable-db server's url
+DTABLE_DB_URL = 'https://dtable-db.example.com'  # dtable-db server's url
 
 ```
 
@@ -72,7 +72,7 @@ services:
     volumes:
       - /opt/seatable/shared:/shared  # Requested, specifies the path to Seafile data persistent store.
     environment:
-      - SEATABLE_SERVER_HOSTNAME=example.seatable.com # Specifies your host name if https is enabled
+      - SEATABLE_SERVER_HOSTNAME=dtable-db.example.com # Specifies your host name if https is enabled
       - SEATABLE_SERVER_LETSENCRYPT=True
       - TIME_ZONE=Asia/Shanghai # Optional, default is UTC. Should be uncomment and set to your local time zone.
     networks:
@@ -98,7 +98,7 @@ Modify the Nginx configuration file : `/Your SeaTable data volume/seatable/conf/
 
 ```
 server {
-    if ($host = example.seatable.com) {
+    if ($host = dtable-db.example.com) {
         return 301 https://$host$request_uri;
     }
     listen 80;
@@ -107,7 +107,7 @@ server {
 }
 
 server {
-    server_name example.seatable.com;
+    server_name dtable-db.example.com;
     listen 443 ssl;
     ssl_certificate /shared/ssl/<your-ssl.cer>;
     ssl_certificate_key /shared/ssl/<your-ssl.key>;
