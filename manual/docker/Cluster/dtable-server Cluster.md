@@ -87,7 +87,7 @@ dtable_server_config.json
   "cluster_config": {
     "etcd_host": "192.168.1.3:2379",  // IP of etcd
     "node_id": "dtable-server-01",
-    "node_url": "https://dtable-server-01.domain.com/",  // domain of dtable-server-01
+    "node_url": "https://dtable-server-01.example.com/",  // domain of dtable-server-01
     "local_node_url": "http://172.17.30.94/"  // intranet IP of dtable-server-01
   }
 }
@@ -110,7 +110,7 @@ dtable_server_config.json
   "cluster_config": {
     "etcd_host": "192.168.1.3:2379",  // IP of etcd
     "node_id": "dtable-server-02",
-    "node_url": "https://dtable-server-02.domain.com/",  // domain of dtable-server-02
+    "node_url": "https://dtable-server-02.example.com/",  // domain of dtable-server-02
     "local_node_url": "http://172.17.30.95/"  // intranet IP of dtable-server-02
   }
 }

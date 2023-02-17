@@ -42,8 +42,8 @@ Modify dtable-web configuration file  `/Your SeaTable data volume/seatable/conf/
 USE_INNER_FILESERVER_FOR_DTABLE_SERVER = False
 
 USE_INNER_DTABLE_SERVER = False
-DTABLE_SERVER_URL = 'https://example.seatable.com/'  # dtable-server's url
-DTABLE_SOCKET_URL = 'https://example.seatable.com/'  # dtable-server's url
+DTABLE_SERVER_URL = 'https://dtable-server.example.com/'  # dtable-server's url
+DTABLE_SOCKET_URL = 'https://dtable-server.example.com/'  # dtable-server's url
 
 ```
 
@@ -52,7 +52,7 @@ Modify dtable-db configuration file  `/Your SeaTable data volume/seatable/conf/d
 ```
 [dtable cache]
 private_key = "xxx"
-dtable_server_url = "https://example.seatable.com/"
+dtable_server_url = "https://dtable-server.example.com/"
 total_cache_size = 100
 ```
 
@@ -118,7 +118,7 @@ services:
     volumes:
       - /opt/seatable/shared:/shared  # Requested, specifies the path to Seafile data persistent store.
     environment:
-      - SEATABLE_SERVER_HOSTNAME=example.seatable.com # Specifies your host name if https is enabled
+      - SEATABLE_SERVER_HOSTNAME=dtable-server.example.com # Specifies your host name if https is enabled
       - SEATABLE_SERVER_LETSENCRYPT=True
       - TIME_ZONE=Asia/Shanghai # Optional, default is UTC. Should be uncomment and set to your local time zone.
     networks:
@@ -167,16 +167,16 @@ upstream dtable_servers {
 }
 
 server {
-    if ($host = example.seatable.com) {
+    if ($host = dtable-server.example.com) {
         return 301 https://$host$request_uri;
     }
     listen 80;
-    server_name example.seatable.com;
+    server_name dtable-server.example.com;
     return 404;
 }
 
 server {
-    server_name example.seatable.com;
+    server_name dtable-server.example.com;
     listen 443 ssl;
     ssl_certificate /shared/ssl/<your-ssl.cer>;
     ssl_certificate_key /shared/ssl/<your-ssl.key>;
@@ -200,7 +200,7 @@ server {
     ...
     }
 }
-    
+
 
 ```
 
@@ -231,7 +231,6 @@ seatable.sh
 When you see following in the output log, it means success:
 
 ```
-Skip ccnet-server
 Skip seafile-server
 Skip dtable-events
 Skip dtable-web

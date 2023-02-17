@@ -45,6 +45,38 @@ SeaTable started
 
 ```
 
+## Modify dtable-server server configuration file
+
+Modify dtable-server configuration file  `/Your SeaTable data volume/seatable/conf/dtable_server_config.json`
+
+```
+"dtable_db_service_url":  "https://dtable-db.example.com"  // dtable-db server's url
+
+```
+
+### Restart dtable-server server
+
+```sh
+docker-compose up -d
+
+docker exec -it seatable bash
+
+seatable.sh
+
+```
+
+When you see following in the output log, it means success:
+
+```
+Skip seafile-server
+Skip dtable-events
+Skip dtable-web
+Skip dtable-db
+
+SeaTable started
+
+```
+
 ## Setup dtable-db
 
 ### Copy and modify docker-compose.yml
@@ -102,7 +134,7 @@ server {
         return 301 https://$host$request_uri;
     }
     listen 80;
-    server_name example.seatable.com;
+    server_name dtable-db.example.com;
     return 404;
 }
 
@@ -126,7 +158,7 @@ server {
     ...
     }
 }
-    
+
 
 ```
 
@@ -157,7 +189,6 @@ seatable.sh
 When you see following in the output log, it means success:
 
 ```
-Skip ccnet-server
 Skip seafile-server
 Skip dtable-events
 Skip dtable-web
