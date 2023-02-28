@@ -67,7 +67,7 @@ Create the dtable-server-proxy configuration file :  `/opt/dtable-server-proxy/s
 ```json
 {
   "cluster_config": {
-    "etcd_host": "192.168.1.3:2379"  // IP of etcd
+    "etcd_host_list": ["etcd-01.example.com:2379", "etcd-02.example.com:2379", "etcd-03.example.com:2379"]  // domain of etcd servers
   }
 }
 ```
@@ -85,7 +85,7 @@ dtable_server_config.json
 ```json
 {
   "cluster_config": {
-    "etcd_host": "192.168.1.3:2379",  // IP of etcd
+    "etcd_host_list": ["etcd-01.example.com:2379", "etcd-02.example.com:2379", "etcd-03.example.com:2379"],  // domain of etcd servers
     "node_id": "dtable-server-01",
     "node_url": "https://dtable-server-01.example.com/",  // domain of dtable-server-01
     "local_node_url": "http://172.17.30.94/"  // intranet IP of dtable-server-01
@@ -108,7 +108,7 @@ dtable_server_config.json
 ```json
 {
   "cluster_config": {
-    "etcd_host": "192.168.1.3:2379",  // IP of etcd
+    "etcd_host_list": ["etcd-01.example.com:2379", "etcd-02.example.com:2379", "etcd-03.example.com:2379"],  // domain of etcd servers
     "node_id": "dtable-server-02",
     "node_url": "https://dtable-server-02.example.com/",  // domain of dtable-server-02
     "local_node_url": "http://172.17.30.95/"  // intranet IP of dtable-server-02
@@ -125,15 +125,15 @@ dtable_web_settings.py
 ```python
 # etcd
 ENABLE_DTABLE_SERVER_CLUSTER = True
-ETCD_SERVER_HOST = '192.168.1.3'  # IP of etcd
-DTABLE_PROXY_SERVER_URL = 'http://192.168.1.5:5550/'  # IP of dtable-server-proxy
+ETCD_SERVER_HOST_LIST = ['etcd-01.example.com', 'etcd-02.example.com', 'etcd-03.example.com']  # domain of etcd servers
+DTABLE_PROXY_SERVER_URL = 'http://dtable-server-proxy.example.com:5550/'  # domain of dtable-server-proxy
 ```
 
 dtable-db.conf
 
 ```conf
 [dtable cache]
-dtable_server_url = "http://192.168.1.5:5550/"  # IP of dtable-server-proxy
+dtable_server_url = "http://dtable-server-proxy.example.com:5550/"  # domain of dtable-server-proxy
 ```
 
 Then restart dtable-web, the command is the same as before.
@@ -145,5 +145,5 @@ Now you can use the dtable-server cluster.
 In some cases, you can manually load balancing
 
 ``` bash
-curl -X POST http://192.168.1.5:5555/rebalance/  # IP of dtable-server-proxy
+curl -X POST http://dtable-server-proxy.example.com:5555/rebalance/  # domain of dtable-server-proxy
 ```
