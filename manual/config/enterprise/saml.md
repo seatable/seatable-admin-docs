@@ -60,4 +60,4 @@ Download base64 format signing certificate, put it under the certs(/opt/seatable
 
 ![](../../images/auto-upload/1678343483221.jpg)
 
-5\.Log in to the SeaTable homepage, click single sign-on, and use the user assigned to Azure SAML to perform a SAML login test.
+5\. Log in to the SeaTable homepage, click single sign-on, and use the user assigned to Azure SAML to perform a SAML login test.
