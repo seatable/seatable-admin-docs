@@ -38,7 +38,7 @@ SAML_ATTRIBUTE_MAP = {
 `SAML_PROVIDER_IDENTIFIER` is used in SeaTable internally to distinguish different SSO provider for the same user.
 
 
-__Note__: If the certificate is **not placed in** the `/opt/seatable/seahub-data/certs` directory, you need to add the following configuration in dtable_web_settings.py:
+__Note__: If certificates are **not placed in** the `/opt/seatable/seahub-data/certs` directory, you need to add the following configuration in dtable_web_settings.py:
 
 ```python
 SAML_CERTS_DIR = '/path/to/certs'
