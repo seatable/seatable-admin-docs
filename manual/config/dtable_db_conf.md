@@ -63,6 +63,7 @@ data_dir = /opt/seatable/db-data
 
 # You have to change dtable_server_url based on your conf/dtable-server.json
 [dtable cache]
+private_key = "my private key"
 dtable_server_url = "http://127.0.0.1:5000"
 total_cache_size = 100
 
