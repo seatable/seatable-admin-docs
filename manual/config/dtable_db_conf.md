@@ -23,7 +23,7 @@ In section `[storage]`:
 
 Section `[dtable cache]` contains options for caching bases from dtable-server:
 
-- `private_key`: The same as `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py`. You must specify this option.
+- `private_key`: The same as `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py`. You must specify this option if your version is before "Enterprise edition 3.5.5". If your version is newer than that, you don't need to specify it here. It'll be read from dtable_server_config.json.
 - `dtable_server_url`: local address for dtable-server. You must specify this option.
 - `expire_time`: For how long a cached base will be valid. After that it'll be fetched from dtable-server again. Unit is in seconds. Defaults to 300 (5 minutes).
 - `total_cache_size`: How much memory shall be used for caching bases. After this threshold is reached, cached bases will be cleaned with LRU algorithm. Cleaning stops when memory consumption reduces to 70% of this threshold. Unit is in MB. Defaults to 500MB.
@@ -61,7 +61,7 @@ log_dir = /shared/seatable/logs
 [storage]
 data_dir = /opt/seatable/db-data
 
-# You have to change private_key and dtable_server_url based on your conf/dtable-server.json
+# You have to change dtable_server_url based on your conf/dtable-server.json
 [dtable cache]
 private_key = "my private key"
 dtable_server_url = "http://127.0.0.1:5000"
