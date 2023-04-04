@@ -18,7 +18,8 @@
     "worker_threads_num": 2,
     "save_interval": 5 * 60 * 1000,
     "api_req_max": 600,
-    "api_base_day_max": 5000
+    "api_base_day_max": 5000，
+    "rows_api_max_limit": 1000,
 }
 
 ```
@@ -56,6 +57,10 @@ Number of worker threads serving list rows API
 #### save_interval
 
 Interval for saving changed bases to persistent storage (dtable-storage-server). The default is 5 minutes.
+
+#### rows_api_max_limit
+
+Maxmum number of rows returned by calling list rows API in dtable-server, default by 1000
 
 
 ## Notice

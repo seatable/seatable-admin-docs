@@ -91,6 +91,7 @@ nav:
     - Backup and Recovery: maintain/backup_recovery.md
     - Clean Database: maintain/clean_database.md
     - Clean Storage: maintain/seatable_gc.md
+    - Others: maintain/others.md
   - Upgrade:
     - Upgrade Manual: upgrade/upgrade_manual.md
     - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md

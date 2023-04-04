@@ -1,5 +1,31 @@
 # Extra upgrade notice
 
+## 3.5
+
+1) The custom colors are added in the settings.py  in dtable-web including text color and background color as below, default by []
+
+```python
+# color for background and text_color for text
+CUSTOM_COLORS=[
+    {'color':'#F5C043','text_color':'#212529'}, 
+    {'color':'#3064BC','text_color':'#FFFFFF'},
+]
+```
+
+If a on-premise customer want to config global colors for all bases, it can use this option.
+
+2) The permission for users for adding a base in the personal workspace can be controlled by `DISABLE_ADDING_PERSONAL_BASES`in settings.py, default by False.
+
+```python
+DISABLE_ADDING_PERSONAL_BASES = False
+```
+
+3) The maxmum number of rows returned by calling list rows API in dtable-server, default by 1000
+
+```python
+rows_api_max_limit = 1000
+```
+
 ## 3.0
 
 3.0 adds another component, dtable-storage-server, which provides better performance for persistent storage of bases. A base in SeaTable is saved as a file, which is automatically saved every 5 minutes. In 2.x, this file saved in seaf-server, but seaf-server will keep a version for each save, which will take up a lot of disk space. In 3.0, only one version is actually saved when a snapshot is generated every 24 hours, which saves space. dtable-storage-server is a simple abstract layer of traditional file system and object storage.
