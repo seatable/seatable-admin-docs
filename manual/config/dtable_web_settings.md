@@ -136,8 +136,8 @@ HELP_LINK = 'https://seatable.io/help/'
 PRIVACY_POLICY_LINK = ''
 TERMS_OF_SERVICE_LINK = ''
 
-# Customize color for background and text
-CUSTOM_COLORS=[
+# Predefined custom colors that can be used in color rules, options of single select and so on
+CUSTOM_COLORS = [
     {'color':'#F5C043','text_color':'#212529'}, 
     {'color':'#3064BC','text_color':'#FFFFFF'},
 ]
