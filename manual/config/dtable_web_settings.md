@@ -98,6 +98,9 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 # Whether to save the session data on every request. Default is `False`
 SESSION_SAVE_EVERY_REQUEST = False
 
+# Whether to allow a user to create a base in personal workspace. Default by `False`
+DISABLE_ADDING_PERSONAL_BASES = False
+
 ```
 
 ## Other options
@@ -132,6 +135,12 @@ HELP_LINK = 'https://seatable.io/help/'
 # Add privacy policy link and terms link
 PRIVACY_POLICY_LINK = ''
 TERMS_OF_SERVICE_LINK = ''
+
+# Customize color for background and text
+CUSTOM_COLORS=[
+    {'color':'#F5C043','text_color':'#212529'}, 
+    {'color':'#3064BC','text_color':'#FFFFFF'},
+]
 
 ```
 
