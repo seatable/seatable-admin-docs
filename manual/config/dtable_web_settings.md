@@ -197,17 +197,7 @@ CSRF_COOKIE_SECURE = True
 
 ```
 
-## OnlyOffice
-
-SeaTable supports online editing of office documents with OnlyOffice. These are the config settings to enable this feature. Of course you have to modify the URL to point to a publicly accessible onlyoffice server and replace the JWT-Token.
-
-```
-ENABLE_ONLYOFFICE = True
-ONLYOFFICE_APIJS_URL = "https://{onlyoffice-public-url}/onlyofficeds/web-apps/apps/api/documents/api.js"
-ONLYOFFICE_FILE_EXTENSION = ('docx', 'pptx', 'xlsx')
-ONLYOFFICE_JWT_SECRET = 'asecretjwttoken'
-```
-
+<!-- bad configuration, that leads to problems due to missing other throttle rates (version 3.5). Might be re-added with 4.0
 ## RESTful API
 
 ```
@@ -227,7 +217,7 @@ REST_FRAMEWORK = {
 REST_FRAMEWORK_THROTTLING_WHITELIST = []
 
 ```
-
+-->
 
 
 
