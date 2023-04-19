@@ -2,6 +2,8 @@
 
 In this document, we use Azure SAML to show the steps to connect SeaTable with SAML. Other SAML provider should be similar.
 
+**Important:** The following configuration only works with SeaTable 3.5. and newer. The configuration of SAML for older versions is much more extensive and is no longer shown here. Upgrade to SeaTable 3.5 or later to use this configuration.
+
 1\. Prepare Certs File
 
 Create certs dir
@@ -20,7 +22,7 @@ You can generate them by:
 
 2\. Configure SeaTable
 
-Add the following configuration to dtable_web_settings.py and then restart SeaTable:
+Add the following configuration to `dtable_web_settings.py`, change the values according to your needs and then restart SeaTable:
 
 ```python
 ENABLE_SAML = True
@@ -35,7 +37,9 @@ SAML_ATTRIBUTE_MAP = {
 }
 ```
 
-`SAML_PROVIDER_IDENTIFIER` is used in SeaTable internally to distinguish different SSO provider for the same user.
+**Important:**
+- `SAML_PROVIDER_IDENTIFIER` is used in SeaTable internally to distinguish different SSO provider for the same user.
+- Only change the keys ('Key': 'Value') of the `SAML_ATTRIBUTE_MAP` to the names of your SAML attributes you are using. Some IdP use attribute names like `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress`. 
 
 
 __Note__: If certificates are **not placed in** the `/opt/seatable/seahub-data/certs` directory, you need to add the following configuration in dtable_web_settings.py:
