@@ -1,6 +1,15 @@
 # dtable web settings
 
-Note: You can also modify most of the config items via web interface. The config items are saved in database table (dtable_db/constance_config). They have a higher priority over the items in config files. If you want to disable settings via web interface, you can add `ENABLE_SETTINGS_VIA_WEB = False` to `dtable_web_settings.py`.
+The `dtable_web_settings.py` is one of the central configuration files of SeaTable. With this file you can configure a lot of settings and functions of the web interface of SeaTable. The `dtable_web_settings.py` consists of a list of `Key = Value` pairs. Comments starting with `#` are ignored. 
+
+You need to restart SeaTable so that your changes take effect. Just execute the following command at your command line.
+
+```bash
+docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
+
+```
+
+You can also modify some of the config items as system administrator via web interface. These config items are saved in the database table (dtable_db/constance_config). The configuration in the database has a higher priority then the items in config file. If you want to disable settings via web interface, you can add `ENABLE_SETTINGS_VIA_WEB = False` to `dtable_web_settings.py`.
 
 ## Basic settings
 
@@ -142,6 +151,8 @@ CUSTOM_COLORS = [
     {'color':'#3064BC','text_color':'#FFFFFF'},
 ]
 
+# Activate the universal app builder (since version 3.5)
+ENABLE_UNIVERSAL_APP = True
 ```
 
 ## Group member limit
@@ -186,6 +197,17 @@ CSRF_COOKIE_SECURE = True
 
 ```
 
+## OnlyOffice
+
+SeaTable supports online editing of office documents with OnlyOffice. These are the config settings to enable this feature. Of course you have to modify the URL to point to a publicly accessible onlyoffice server and replace the JWT-Token.
+
+```
+ENABLE_ONLYOFFICE = True
+ONLYOFFICE_APIJS_URL = "https://{onlyoffice-public-url}/onlyofficeds/web-apps/apps/api/documents/api.js"
+ONLYOFFICE_FILE_EXTENSION = ('docx', 'pptx', 'xlsx')
+ONLYOFFICE_JWT_SECRET = 'asecretjwttoken'
+```
+
 ## RESTful API
 
 ```
@@ -206,13 +228,6 @@ REST_FRAMEWORK_THROTTLING_WHITELIST = []
 
 ```
 
-## Note
 
-You need to restart SeaTable so that your changes take effect.
-
-```bash
-docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
-
-```
 
 
