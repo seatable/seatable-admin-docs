@@ -38,6 +38,7 @@ SAML_ATTRIBUTE_MAP = {
 ```
 
 **Important:**
+
 - `SAML_PROVIDER_IDENTIFIER` is used in SeaTable internally to distinguish different SSO provider for the same user.
 - Only change the keys ('Key': 'Value') of the `SAML_ATTRIBUTE_MAP` to the names of your SAML attributes you are using. Some IdP use attribute names like `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress`. 
 
