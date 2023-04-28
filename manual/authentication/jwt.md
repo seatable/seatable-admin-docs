@@ -56,5 +56,5 @@ echo $jwt_url;
 
 Other examples can be found here:
 
-- (Vue and Node.js)[https://blog.logrocket.com/how-to-implement-jwt-authentication-vue-nodejs/]
-- (Python)[https://medium.com/@apcelent/json-web-token-tutorial-with-example-in-python-df7dda73b579]
+- [Vue and Node.js](https://blog.logrocket.com/how-to-implement-jwt-authentication-vue-nodejs/)
+- [Python](https://medium.com/@apcelent/json-web-token-tutorial-with-example-in-python-df7dda73b579)
