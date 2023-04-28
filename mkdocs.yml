@@ -66,11 +66,16 @@ nav:
     - Migrate SeaTable DE to EE: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
   - Advanced Setup (SeaTable EE):
     - Roles and Permissions: config/enterprise/roles_permissions.md
-    - LDAP: config/enterprise/ldap.md
-    - OAuth: config/enterprise/oauth.md
-    - SAML: config/enterprise/saml.md
     - S3: config/enterprise/S3.md
     - OnlyOffice: config/enterprise/deploy_onlyoffice_docker.md
+  - Authentication:
+    - Overview: authentication/auth_overview.md
+    - LDAP: authentication/ldap.md
+    - OAuth: authentication/oauth.md
+    - SAML: authentication/saml.md
+    - JWT: authentication/jwt.md
+    - 2FA: authentication/two_factor_auth.md
+    - Switch authentication: authentication/auth_switch.md
   - Customization:
     - Autostart: config/autostart.md
     - Configuration:
