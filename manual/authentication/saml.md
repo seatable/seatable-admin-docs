@@ -57,12 +57,12 @@ Assign users: <https://docs.microsoft.com/en-us/azure/active-directory/manage-ap
 
 Set up SSO with SAML: 
 
-![](../../images/auto-upload/1678343328227.jpg)
+![](../images/auto-upload/1678343328227.jpg)
 
 4\. Upload Azure AD certificate
 
 Download base64 format signing certificate, put it under the certs(/opt/seatable/seahub-data/certs) directory.
 
-![](../../images/auto-upload/1678343483221.jpg)
+![](../images/auto-upload/1678343483221.jpg)
 
 5\. Log in to the SeaTable homepage, click single sign-on, and use the user assigned to Azure SAML to perform a SAML login test.
