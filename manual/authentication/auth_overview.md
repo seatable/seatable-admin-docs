@@ -80,9 +80,9 @@ The `nickname` is the display name of the user in the webinterface of SeaTable. 
 
 > **Three ways to login:**
 >
-> Users with local passwords can use the following three combinations to login:
-> 1) `contact_email` + `Password`
-> 2) `login_id` + `Password`
+> Users with local passwords can use the following three combinations to login:<br/>
+> 1) `contact_email` + `Password`<br/>
+> 2) `login_id` + `Password`<br/>
 > 3) `username` + `Password`
 >
 > Every combination will grant access to the webinterface of SeaTable.
