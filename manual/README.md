@@ -42,13 +42,15 @@ The base cannot contain more than 100,000 rows. If the records are close to 100,
 
 ## LICENSE
 
-SeaTable has three versions
+SeaTable Server has two editions:
 
-* Developer edition: for users that want to use SeaTable as database and heavy using APIs and scripts.  The developer edition has no limit on storage, row numbers and API calls, but can support at most 200 concurrent connections to dtable-server.
-* Cloud edition: for users that want to use SeaTable as a collaboration tool. It has limitation for storage, row numbers and API calls.
-* Enterprise edition: almost no limitation for storage, row numbers and API calls and have advanced permissions and user management features. It is meant for large teams to use SeaTable in both ways. Users can use it in the cloud or self-hosted.
+* Developer Edition: for users that want to use SeaTable as database and heavy using APIs and scripts.  The developer edition has no limit on storage, row numbers and API calls, but can support at most 200 concurrent connections to dtable-server.
+* Enterprise Edition: almost no limitation for storage, row numbers and API calls and have advanced permissions and user management features. It is meant for large teams to use SeaTable in both ways. Users can use it in the cloud or self-hosted.
 
-The different components of SeaTable developer edition are released under different licenses:
+Additionally, there is [SeaTable Cloud](https://cloud.seatable.io), a cloud service for users that do not want to self-host or simply trial SeaTable Server. SeaTable Cloud can be used free-of-charge with the "Free" subscription. More features and higher resource limits are available in SeaTable Cloud's paid subscriptions.
+
+
+The components of SeaTable Developer Edition are released under the following licenses:
 
 * dtable-web: Apache License v2
 * dtable-events: Apache License v2
@@ -57,16 +59,16 @@ The different components of SeaTable developer edition are released under differ
 
 SeaTable developer edition should not be used to provide SaaS service or as a part of your SaaS service. Other kinds of usage are okay, including
 
-* Use it internally in your company.
-* Personal or home use.
-* Use it to collaborate with your customers.
-* Use it for IT projects for your customers, as long as you use a separate server for each of your customers.
+* Personal or home use
+* Internal in-house use
+* Collaboration with customers
+* IT projects for customers, as long as a separate server is used for each customer
 
-The SeaTable enterprise edition is released under proprietary license.
+The SeaTable Enterprise Edition is released under a proprietary license. You find the EULA at <https://seatable.io/en/eula>.
 
 ## Report Issues
 
-Please report issues in our forum <https://forum.seatable.io/>
+Please report issues in our forum at <https://forum.seatable.io>.
 
 ## More Information
 
