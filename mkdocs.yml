@@ -70,11 +70,11 @@ nav:
     - OnlyOffice: config/enterprise/deploy_onlyoffice_docker.md
   - Authentication:
     - Overview: authentication/auth_overview.md
+    - 2FA: authentication/two_factor_auth.md
     - LDAP: authentication/ldap.md
     - OAuth: authentication/oauth.md
     - SAML: authentication/saml.md
     - JWT: authentication/jwt.md
-    - 2FA: authentication/two_factor_auth.md
     - Switch authentication: authentication/auth_switch.md
   - Customization:
     - Autostart: config/autostart.md
