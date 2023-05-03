@@ -1,4 +1,4 @@
-# Two Factor Authentication
+# Two-Factor Authentication
 
 Two-factor authentication (2FA) provides an extra layer of security against unauthorized access by requiring an additional piece of information besides username and password.
 
@@ -10,7 +10,7 @@ A TOTP app such as Google Authenticator or [2FAS](https://2fas.com/) is required
 
 To enable 2FA, add the following configuratiaon in the configuration file `dtable_web_settings.py`:
 
-```bash
+```
 ENABLE_TWO_FACTOR_AUTH = True # Default value is False.
 ```
 
