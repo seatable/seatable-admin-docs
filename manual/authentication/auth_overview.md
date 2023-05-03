@@ -2,15 +2,15 @@
 
 SeaTable Server Enterprise Edition (SeaTable) supports multiple authentication types.
 
-The default authentication type is authentication against the local user database (with or without [two-factor authentication](https://manual.seatable.io/authentication/two_factor_auth/)).
+The default authentication type is authentication against the local user database (with or without [two-factor authentication](two_factor_auth.md)).
 
 Additionally, SeaTable supports the following external authentication types:
 
-* [LDAP (Auth and Sync)](https://manual.seatable.io/authentication/ldap/)
-* [OAuth](https://manual.seatable.io/authentication/oauth/)
-* [SAML](https://manual.seatable.io/authentication/saml/)
+* [LDAP (Auth and Sync)](ldap.md)
+* [OAuth](oauth.md)
+* [SAML](saml.md)
 
-Finally, users can also authenticate using [JWT](https://manual.seatable.io/authentication/jwt/), which may be interesting for some special use cases.
+Finally, users can also authenticate using [JWT](jwt.md), which may be interesting for some special use cases.
 
 ## Username
 
@@ -36,10 +36,10 @@ SeaTable's databases encompass almost 100 tables. Four of those are relevant for
 
 | Database  | Table                      |
 | :-------- | :------------------------- |
-| ccnet_db  | [EmailUser](#Table-EmailUser)                  |
-| dtable_db | [profile_profile](#Table-profile_profile)            |
-| dtable_db | [social_auth_usersocialauth](#Table-social_auth_usersocialauth) |
-| dtable_db | [id_in_org_tuple](#Table-id_in_org_tuple)            |
+| ccnet_db  | [EmailUser](#table-emailuser)                  |
+| dtable_db | [profile_profile](#table-profile_profile)            |
+| dtable_db | [social_auth_usersocialauth](#table-social_auth_usersocialauth) |
+| dtable_db | [id_in_org_tuple](#table-id_in_org_tuple)            |
 
 Note: The table LDAPUsers in ccnet_db is no longer used.
 
