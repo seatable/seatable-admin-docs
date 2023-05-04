@@ -43,8 +43,7 @@ Major version upgrade, like from 1.x to 2.x, and minor version upgrade, like fro
 ```
 docker exec -it seatable /bin/bash # Login to the SeaTable container. Then execute the upgrade statement
 
-mysql -h$DB_HOST -p$DB_ROOT_PASSWD dtable_db </opt/seatable/seatable-server-latest/sql/mysql/upgrade/1.1/dtable.sql
-mysql -h$DB_HOST -p$DB_ROOT_PASSWD dtable_db </opt/seatable/seatable-server-latest/sql/mysql/upgrade/1.2/dtable.sql
+seatable.sh upgrade-sql 2.0
 
 ```
 
