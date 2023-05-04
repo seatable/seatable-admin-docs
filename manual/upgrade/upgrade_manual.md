@@ -43,8 +43,18 @@ Major version upgrade, like from 1.x to 2.x, and minor version upgrade, like fro
 ```
 docker exec -it seatable /bin/bash # Login to the SeaTable container. Then execute the upgrade statement
 
-seatable.sh upgrade-sql 2.0
 
+seatable.sh upgrade-sql 1.1
+seatable.sh upgrade-sql 1.2
+```
+
+If the above commands failed to execute for some reasons, (for example, you are using external database instead of the default one started by docker-compose), you can execute the database upgrade commands manually as below:
+
+```
+docker exec -it seatable /bin/bash
+
+mysql -h$DB_HOST -p$DB_ROOT_PASSWD dtable_db </opt/seatable/seatable-server-latest/sql/mysql/upgrade/1.1/dtable.sql
+mysql -h$DB_HOST -p$DB_ROOT_PASSWD dtable_db </opt/seatable/seatable-server-latest/sql/mysql/upgrade/1.2/dtable.sql
 ```
 
 If you upgrade several versions at once, just run all the database upgrade statement one by one, starting from the lowest version.
