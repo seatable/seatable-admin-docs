@@ -2,31 +2,24 @@
 
 ## 4.0
 
-4.0 add some configurations in dtable_web_settings.py and removed an option.
+Version 4.0 modifies the data format of the backup of big data storage. Compared with previous upgrades, an additional format migration script needs to be run inside the docker:
 
-### Recycle bin automatic emptying time interval
-
-The default is 30
-
-```python
-TRASH_CLEAN_AFTER_DAYS = 30
+```
+/templates/migrate-dtable-db-backups.sh
 ```
 
-### LDAP SASL authentication support
+If you don't use the enterprise edition or the big data feature, this step can be ignored.
 
-Add the following configurations to enable LDAP SASL authentication.
 
-```python
-ENABLE_SASL = True          
-SASL_MECHANISM = 'DIGEST-MD5'
-SASL_AUTHC_ID_ATTR = 'uid'
-```
+There are some other configuration option changes as below.
 
-### The Enterprise Edition enables the Universal app by default
+System recycle bin automatic clean days. The default is 30 days
 
-The option ENABLE_UNIVERSAL_APP is removed.
-
-### API_THROTTLE_RATES
+    ```python
+    TRASH_CLEAN_AFTER_DAYS = 30
+    ```
+    
+The Enterprise Edition enables the Universal app by default. The option ENABLE_UNIVERSAL_APP is removed.
 
 API_THROTTLE_RATES is used to replace the old REST_FRAMEWORK option. API_THROTTLE_RATES is empty by default. You can add your custom THROTTLE_RATE to the option
 
