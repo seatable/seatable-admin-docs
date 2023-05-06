@@ -1,5 +1,49 @@
 # Extra upgrade notice
 
+## 4.0
+
+4.0 add some configurations in dtable_web_settings.py and removed an option.
+
+### Recycle bin automatic emptying time interval
+
+The default is 30
+
+```python
+TRASH_CLEAN_AFTER_DAYS = 30
+```
+
+### LDAP SASL authentication support
+
+Add the following configurations to enable LDAP SASL authentication.
+
+```python
+ENABLE_SASL = True          
+SASL_MECHANISM = 'DIGEST-MD5'
+SASL_AUTHC_ID_ATTR = 'uid'
+```
+
+### The Enterprise Edition enables the Universal app by default
+
+The option ENABLE_UNIVERSAL_APP is removed.
+
+### API_THROTTLE_RATES
+
+API_THROTTLE_RATES is used to replace the old REST_FRAMEWORK option. API_THROTTLE_RATES is empty by default. You can add your custom THROTTLE_RATE to the option
+
+```python
+API_THROTTLE_RATES = {
+   'ping': '3000/minute',
+   'anon': '60/minute',
+   'user': '3000/minute',
+   'sync_common_dataset': '60/minute',
+   'password_reset': '10/minute',
+   'org-admin': '1000/day',
+   'app': '1000/minute',
+   'import': '20/minute',   # Limit the rate of append new rows from excel/csv
+   'export': '20/minute',   # Limit the rate of export base to dtable file, limit the rate of export view or table to excel
+}
+```
+
 ## 3.0
 
 3.0 adds another component, dtable-storage-server, which provides better performance for persistent storage of bases. A base in SeaTable is saved as a file, which is automatically saved every 5 minutes. In 2.x, this file saved in seaf-server, but seaf-server will keep a version for each save, which will take up a lot of disk space. In 3.0, only one version is actually saved when a snapshot is generated every 24 hours, which saves space. dtable-storage-server is a simple abstract layer of traditional file system and object storage.
