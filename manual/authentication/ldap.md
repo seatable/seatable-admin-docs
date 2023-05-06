@@ -97,3 +97,13 @@ LDAP_SAML_USE_SAME_UID = True
 ```
 
 When enabled, SeaTable creates an additional record for the authenticating user in social_auth_usersocialauth when the user logs in using LDAP. This record maps the `username` to the `uid` for the SAML provider.
+
+## LDAP SASL authentication support
+
+Add the following configurations to enable LDAP SASL authentication.
+
+```python
+ENABLE_SASL = True          
+SASL_MECHANISM = 'DIGEST-MD5'   # authentication mechanisms, e.g. GSSAPI, DIGEST-MD5, PLAIN, EXTERNAL, etc.
+SASL_AUTHC_ID_ATTR = 'uid'      # user attributes in Mapping Authentication Identities, e.g. uid, cn, etc. Refer to: https://www.openldap.org/doc/admin26/sasl.html#Mapping%20Authentication%20Identities
+```

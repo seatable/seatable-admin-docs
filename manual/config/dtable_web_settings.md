@@ -226,13 +226,3 @@ The default is 30.
 ```python
 TRASH_CLEAN_AFTER_DAYS = 30
 ```
-
-## LDAP SASL authentication support
-
-Add the following configurations to enable LDAP SASL authentication.
-
-```python
-ENABLE_SASL = True          
-SASL_MECHANISM = 'DIGEST-MD5'
-SASL_AUTHC_ID_ATTR = 'uid'
-```
