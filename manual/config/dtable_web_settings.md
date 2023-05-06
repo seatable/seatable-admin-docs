@@ -208,8 +208,8 @@ API_THROTTLE_RATES = {
    'password_reset': '10/minute',
    'org-admin': '1000/day',
    'app': '1000/minute',
-   'import': '20/minute',   # Limit the rate of append new rows from excel/csv
-   'export': '20/minute',   # Limit the rate of export base to dtable file, limit the rate of export view or table to excel
+   'import': '20/minute',   # Limit the rate of API calls for importing via excel/csv
+   'export': '20/minute',   # Limit the rate of export base, table and view
 }
 
 # Throttling whitelist used to disable throttle for certain IPs.
