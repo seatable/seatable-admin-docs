@@ -115,6 +115,17 @@ DISABLE_ADDING_PERSONAL_BASES = False
 ## Other options
 
 ```python
+# Choices can be found here:
+# https://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
+# The time zone should be the same as the system time zone. 
+# Otherwise there may be problems with the export or data processing
+# of the date-column.
+# Here some examples:
+TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Berlin'
+TIME_ZONE = 'America/New_York'
+
 # Disable settings via Web interface in system admin->settings
 # Default is True
 ENABLE_SETTINGS_VIA_WEB = False
