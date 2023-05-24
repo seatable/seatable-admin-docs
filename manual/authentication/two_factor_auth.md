@@ -1,6 +1,6 @@
 # Two-Factor Authentication
 
-Two-factor authentication (2FA) provides an extra layer of security against unauthorized access by requiring an additional piece of information besides username and password.
+Two-factor authentication (2FA) provides an extra layer of security against unauthorized access by requiring an additional piece of information besides **username and password**.
 
 SeaTable supports time-based, one-time passwords (TOTP) as a second factor with the default authentication.
 
