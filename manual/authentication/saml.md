@@ -75,7 +75,7 @@ The `SAML_ATTRIBUTE_MAP` is responsible to define which values provided by the I
 - **uid**: unique identifiers from the identity providers. This value should never change. This is **not** the username inside SeaTable.
 - **contact_email**: the email address of the user.
 - **name**: the name of the user.
-- **employee_id**: the ID of the user which can be used for filters inside SeaTable. Refer to [Authentication Overview](./auth_overview.yml) for more details about this `id_in_org`.
+- **employee_id**: the ID of the user which can be used for filters inside SeaTable. Refer to [Authentication Overview](./auth_overview.md) for more details about this `id_in_org`.
 - **user_role**: the name of the role in SeaTable.
 
 The `uid`, `contact_email` and `name` are mandatory. The `employee_id` and `user_role` are optional. 
