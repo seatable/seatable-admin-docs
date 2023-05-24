@@ -143,6 +143,6 @@ mysql> select * from dtable_db.id_in_org_tuple;
 +---------------------------------------------+-----------+--------+
 ```
 
-`ìd_in_org` is the ID of the user. The user ID can be an alphanumeric string and must be unique within every team/organization.
+`id_in_org` is the ID of the user. The user ID can be an alphanumeric string and must be unique within every team/organization.
 
 `org_id` is the id of the team/organization which is unique in the system. An `org_id` value of -1 signifies that the user does not belong to any team/organization.
