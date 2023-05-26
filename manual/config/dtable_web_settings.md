@@ -31,6 +31,9 @@ HELP_LINK = 'https://seatable.io/help/'
 # The file server URL
 FILE_SERVER_ROOT = 'https://seatable.yourdomain.com/seafhttp/'
 
+# Redirect URL when logout，if not set, it will redirect to the SeaTable default page of logout
+LOGOUT_REDIRECT_URL = 'https://example.com/<your-own-logout-page>'
+
 ```
 
 If you changed your domain, the URLs in above settings must be changed accordingly.
