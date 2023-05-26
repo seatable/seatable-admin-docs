@@ -32,7 +32,7 @@ HELP_LINK = 'https://seatable.io/help/'
 FILE_SERVER_ROOT = 'https://seatable.yourdomain.com/seafhttp/'
 
 # Redirect URL when logout，if not set, it will redirect to the SeaTable default page of logout
-LOGOUT_REDIRECT_URL = 'https://twitter.com/home'
+LOGOUT_REDIRECT_URL = 'https://example.com/<your-own-logout-page>'
 
 ```
 
