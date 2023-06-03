@@ -4,8 +4,6 @@ Security Assertion Markup Language (SAML) is an open standard for exchanging aut
 
 This document assumes that you have a basic understanding of SAML and that you understand the related terminology.
 
-This document illustrates the configuration of SAML in general and then the SAML configuration with Microsoft Azure. The approach can be generalized for other SAML identity providers (IdPs). 
-
 !!! note
 
         SeaTable's SAML configuration has undergone substantial changes in SeaTable 3.5. It is highly recommended to update to SeaTable 3.5 or younger if you use SAML. The SAML configuration in prior versions is no longer included in this document. You can still find it in Github.
@@ -20,8 +18,8 @@ Besides basic authentication and authorization, SeaTable's SAML implementation a
 | ------------- | ------------------------------ | ------------------------------------------------------------ |
 | uid           | Unique identifier from the IdP | [dtable_db.social_auth_usersocialauth](./auth_overview.md/#table-social_auth_usersocialauth) |
 | contact_email | Email address of the user      | [dtable_db.profile_profile](./auth_overview.md/#table-profile_profile) |
-| name          | Name of the user               | [dtable_db.profile_profile](./auth_overview.md/#table-profile_profile) |
-| employee_id   | User ID                        | [dtable_db.id_in_org_tuple](./auth_overview.md/#table-id_in_org_tuple) |
+| name          | Name of the user (nickname)    | [dtable_db.profile_profile](./auth_overview.md/#table-profile_profile) |
+| employee_id   | User ID (id_in_org)            | [dtable_db.id_in_org_tuple](./auth_overview.md/#table-id_in_org_tuple) |
 | user_role     | Name of the role               | ccnet_db.UserRole              
 
 
@@ -168,11 +166,11 @@ ENABLE_SAML = True
 SAML_PROVIDER_IDENTIFIER = 'Azure'
 SAML_REMOTE_METADATA_URL = 'https://login.microsoftonline.com/826f1810-ccc9-.../federationmetadata/2007-06/federationmetadata.xml?appid=...'
 SAML_ATTRIBUTE_MAP = {
-    'uid': 'uid',
-    'mail': 'contact_email',
-    'name': 'name',
-    'employeeid': 'employee_id',
-    'jobtitle': 'user_role',
+    'uid': 'uid',                       #required
+    'mail': 'contact_email',            #required
+    'name': 'name',                     #required
+    'employeeid': 'employee_id',        #optional
+    'jobtitle': 'user_role',            #optional
 }
 SAML_CERTS_DIR = '/shared/certs/'
 ```
