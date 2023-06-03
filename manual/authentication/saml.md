@@ -14,14 +14,13 @@ SeaTable supports SSO with SAML. Specifically, SeaTable supports SAML's IdP-init
 
 Besides basic authentication and authorization, SeaTable's SAML implementation also allows to have additional attributes be set by the IdP. Specifically, the following five attributes are supported:
 
-| Attribute     | Description                    | Stored in database table                                     |
-| ------------- | ------------------------------ | ------------------------------------------------------------ |
-| uid           | Unique identifier from the IdP | [dtable_db.social_auth_usersocialauth](./auth_overview.md/#table-social_auth_usersocialauth) |
-| contact_email | Email address of the user      | [dtable_db.profile_profile](./auth_overview.md/#table-profile_profile) |
-| name          | Name of the user (nickname)    | [dtable_db.profile_profile](./auth_overview.md/#table-profile_profile) |
-| employee_id   | User ID (id_in_org)            | [dtable_db.id_in_org_tuple](./auth_overview.md/#table-id_in_org_tuple) |
-| user_role     | Name of the role               | ccnet_db.UserRole              
-
+| Attribute     | Description                    | Stored in database table                                     | ... in column |
+| ------------- | ------------------------------ | ------------------------------------------------------------ | ------------- |
+| uid           | Unique identifier from the IdP | [dtable_db.social_auth_usersocialauth](/authentication/auth_overview/#table-social_auth_usersocialauth) | uid           |
+| contact_email | Email address of the user      | [dtable_db.profile_profile](/authentication/auth_overview/#table-profile_profile) | contact_email |
+| name          | Name of the user               | [dtable_db.profile_profile](/authentication/auth_overview/#table-profile_profile) | nickname      |
+| employee_id   | User ID                        | [dtable_db.id_in_org_tuple](/authentication/auth_overview/#table-id_in_org_tuple) | id_in_org     |
+| user_role     | Name of the role               | ccnet_db.UserRole                                            | role          |
 
 
 ## Configuration
