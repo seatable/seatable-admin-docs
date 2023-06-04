@@ -16,12 +16,13 @@ Besides basic authentication and authorization, SeaTable's SAML implementation a
 
 | Attribute     | Description                    | Stored in database table                                     | ... in column |
 | ------------- | ------------------------------ | ------------------------------------------------------------ | ------------- |
-| uid           | Unique identifier from the IdP | [dtable_db.social_auth_usersocialauth](/authentication/auth_overview/#table-social_auth_usersocialauth) | uid           |
-| contact_email | Email address of the user      | [dtable_db.profile_profile](/authentication/auth_overview/#table-profile_profile) | contact_email |
-| name          | Name of the user               | [dtable_db.profile_profile](/authentication/auth_overview/#table-profile_profile) | nickname      |
-| employee_id   | User ID                        | [dtable_db.id_in_org_tuple](/authentication/auth_overview/#table-id_in_org_tuple) | id_in_org     |
+| uid           | Unique identifier from the IdP | [dtable_db.social_auth_usersocialauth](./auth_overview.md#table-social_auth_usersocialauth) | uid           |
+| contact_email | Email address of the user      | [dtable_db.profile_profile](./auth_overview.md#table-profile_profile) | contact_email |
+| name          | Name of the user               | [dtable_db.profile_profile](./auth_overview.md#table-profile_profile) | nickname      |
+| employee_id   | User ID                        | [dtable_db.id_in_org_tuple](./auth_overview.md#table-id_in_org_tuple) | id_in_org     |
 | user_role     | Name of the role               | ccnet_db.UserRole                                            | role          |
 
+SeaTable also supports the side-by-side configuration of SAML and LDAP. For more information, see [LDAP](./ldap.md).
 
 ## Configuration
 
@@ -32,7 +33,7 @@ The SAML configuration proceeds in two phases:
 
 SeaTable's SAML configuration must be done manually on the command line. SeaTable does not provide a graphic wizard for configuring SAML. SeaTable cannot be configured by uploading the IdP's `metadata.xml`.
 
-Due to the large number of identity and access management (IAM) solutions, this document explains the general process for configuring SSO with SAML and showcases the procedure using Microsoft Azure AD (Azure) as one example.
+Due to the large number of identity and access management (IAM) solutions, this document explains the SeaTable's SAML SSO configuration in general terms in the rest of this section and showcases the procedure using Microsoft Azure AD (Azure) as one example. (Additional IAM solutions may be added in the future.)
 
 
 
@@ -82,7 +83,7 @@ Note: You can check the validity of the certificate file using openssl:
 $ openssl x509 -in idp.crt -noout -dates
 ```
 
-### Creating SeaTable's Certificate and Key
+### Creating SeaTable's certificate and key
 
 Create SeaTable's certificate and key using openssl. The two files must be placed in the same directory as the IdP's certificate.
 
@@ -139,7 +140,7 @@ Navigate to the login page of your SeaTable Server and click on "Single sign-on"
 
 Check `dtable_web.log` for more info if authentication fails.
 
-## Example: Azure
+## Configuration Azure
 
 Browse to 'Azure Active Directory' and select 'Enterprise Applications'. In the 'Enterprise applications | All Applications' pane, click on 'New application' to open the 'Browse Azure AD Gallery'. Hit 'Create your own application', enter the name of the application in the input field (e.g. SeaTable), and click 'Create'. (For more information on [how to add an enterprise application](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal) or [how to create and assign a user account to an enterprise application](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal-assign-users), see Microsoft's Azure product documentation.) Azure will then create the application and open its overview page (see screenshot below).
 
@@ -148,6 +149,8 @@ Browse to 'Azure Active Directory' and select 'Enterprise Applications'. In the 
 Select the just created enterprise application. Click on '2. Set up single sign-on' in the overview page and then select SAML as single sign-on method. All SAML-related parameters for the new application are set in the configurator that now opens. 
 
 Step 1: Click on 'Edit' in the top right corner and add SeaTable's metadata URL, ACS URL, and service URL as shown in the screenshot below.
+
+![image-20230603170949699](https://github.com/dada-dudu/seatable-admin-docs/assets/41058728/8b5ecff3-19b8-4271-bd38-8c254dd2ef6e)
 
 Step 2: Click on 'Edit' in the top corner and define the claims as shown in the screenshot below.
 
