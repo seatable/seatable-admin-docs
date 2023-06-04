@@ -24,6 +24,8 @@ Besides basic authentication and authorization, SeaTable's SAML implementation a
 
 SeaTable also supports the side-by-side configuration of SAML and LDAP. For more information, see [LDAP](./ldap.md).
 
+
+
 ## Configuration
 
 The SAML configuration proceeds in two phases:
@@ -34,7 +36,6 @@ The SAML configuration proceeds in two phases:
 SeaTable's SAML configuration must be done manually on the command line. SeaTable does not provide a graphic wizard for configuring SAML. SeaTable cannot be configured by uploading the IdP's `metadata.xml`.
 
 Due to the large number of identity and access management (IAM) solutions, this document explains the SeaTable's SAML SSO configuration in general terms in the rest of this section and showcases the procedure using Microsoft Azure AD (Azure) as one example. (Additional IAM solutions may be added in the future.)
-
 
 
 ## Creating and configuring a new application in the IdP
@@ -102,7 +103,7 @@ To enable SAML, add the following parameters to `dtable_web_settings.py`, custom
 | Parameter                | Description                                                 | Values                                                       |
 | ------------------------ | ----------------------------------------------------------- | ------------------------------------------------------------ |
 | ENABLE_SAML              | On/off switch for authentication via SAML                   | `True` or `False`                                            |
-| SAML_PROVIDER_IDENTIFIER | Internal name for SAML authentication provider              | Alphanumeric string, e.g. "Azure", "Auth0" or "Authentik"    |
+| SAML_PROVIDER_IDENTIFIER | Name for SAML provider used internally by SeaTable          | Alphanumeric string, e.g. "Azure", "Auth0" or "Authentik"    |
 | SAML_REMOTE_METADATA_URL | URL of metadata.xml used by SAML IdP                        | URL, e.g. 'https://login.microsoftonline.com/xxx/federationmetadata/2007-06/federationmetadata.xml?appid=xxx' |
 | SAML_ATTRIBUTE_MAP       | Key-value pairs mapping SAML attributes to local attributes | Keys are the SAML attributes from the IdP; some IdPs use attribute like 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress' |
 | SAML_CERTS_DIR           | Path to certificates within the Seatable Docker container   | Path, e.g. /opt/seatable/seahub-data/certs                   |  
@@ -123,8 +124,8 @@ SAML_CERTS_DIR = '/opt/seatable/seahub-data/certs'
 
 !!! Details about the SAML_ATTRIBUTE_MAP
 
-        The `SAML_ATTRIBUTE_MAP` defines which values provided by the IdP will be used to either generate or update the user in SeaTable.
-        Key is the uid which is the unique identifier from the identity providers (not the username within SeaTable). This value should never change over the life cycle of the user. If you choose the email address as uid and change it, a new user will be created upon the next login.
+        The `SAML_ATTRIBUTE_MAP` defines the values provided by the IdP that SeaTable uses to create a user or update the user's profile.
+        Key is the uid which is the unique identifier from the identity providers (not the username within SeaTable). The value of the uid should never change over the life cycle of the user. If you choose the email address as uid and the address changes, SeaTable will create a new user the next time the user logs in.
 
 
 ### Testing
@@ -136,9 +137,11 @@ A restart of the SeaTable service to activate the configuration settings.
 # seatable.sh restart
 ```
 
-Navigate to the login page of your SeaTable Server and click on "Single sign-on" and try to log in. If the configuration is correct, you'll be redirected the IdP's login. Enter the credentials of a user that was assigned to the application created above.
+Navigate to the login page of your SeaTable Server and click on "Single Sign-On" and try to log in. If the configuration is correct, you'll be redirected the IdP's login. Enter the credentials of a user that was assigned to the application created above.
 
-Check `dtable_web.log` for more info if authentication fails.
+Check `dtable_web.log` for troubleshooting info if authentication fails.
+
+
 
 ## Configuration Azure
 
@@ -176,3 +179,5 @@ SAML_ATTRIBUTE_MAP = {
 }
 SAML_CERTS_DIR = '/shared/certs/'
 ```
+
+Replace the value of the `SAML_REMOTE_METADATA_URL` with the URL obtained in stept 3 above.
