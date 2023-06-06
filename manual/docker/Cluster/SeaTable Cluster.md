@@ -4,7 +4,7 @@ SeaTable Enterprise Edition support cluster for better performance.
 
 A general architecture is like following:
 
-![](../../images/auto-upload/image-1611562732410.png)
+![](../../images/auto-upload/cluster-architecture.jpg)
 
 Note
 
