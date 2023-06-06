@@ -39,8 +39,6 @@ Modify `docker-compose.yml` to let Redis can be accessed from another node
 Modify dtable-web configuration file  `/Your SeaTable data volume/seatable/conf/dtable_web_settings.py`
 
 ```
-USE_INNER_FILESERVER_FOR_DTABLE_SERVER = False
-
 USE_INNER_DTABLE_SERVER = False
 DTABLE_SERVER_URL = 'https://dtable-server.example.com/'  # dtable-server's url
 DTABLE_SOCKET_URL = 'https://dtable-server.example.com/'  # dtable-server's url
