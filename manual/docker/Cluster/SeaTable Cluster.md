@@ -1,21 +1,36 @@
 # SeaTable cluster
 
-SeaTable Enterprise Edition support cluster for better performance.
+SeaTable Enterprise Edition support cluster for high availability and better performance.
 
 A general architecture is like following:
 
 ![](../../images/auto-upload/cluster-architecture.jpg)
 
-Note
+All nodes use the same docker image, with a different docker compose file and seatable-controller.conf to control the behavior.
 
-* In SeaTable cluster, we use the storage backend to store persistent data.
+There are five external service needed for the cluster:
 
-* All nodes use the same docker image, with a different docker compose file and seatable-controller.conf to control the behavior.
+1. MariaDB/MySQL service
+2. Redis, used as a way to pass event from one component to others
+3. Memcached
+4. Object storage
+5. [Etcd](https://etcd.io/), a reliable key-value storage to store information about which base assigned to which dtable-server
 
-In the following manual, we will show the steps to setup a two nodes deployment
+The cluster consistents of the following components:
+
+1. Several dtable-web nodes behind a load balance
+2. Several dtable-server nodes, each with its domain, need to be accessed via the clients (browsers) via websockets directly
+3. A dtable-db node, as dtable-db has a high performance, there is no need to have several dtable-db nodes yet.
+4. A background dtable-events node for background tasks, like sending emails.
+
+There is also a dtable-server proxy node which provide API access to dtable-servers for other components. So that other components don't need to know there are several dtable-servers, and don't need to know which base is assigned to which dtable-server.
+
+Note, to improve performance of your SeaTable service, you don't need to setup a full cluster. Sometimes, use a standalone dtable-server can help improve performance. In the following manual, we will show the steps to setup a two nodes deployment:
 
 * A dtable-web node running dtable-web, seaf-server, dtable-events, dtable-db and dtable-storage-server
 * A dtable-server node running dtable-server, dtable-storage-server
+
+Note, dtable-storage-server provide access to the underlying object storage system, so it need to be run at each nodes.
 
 ## Setup dtable-web nodes
 
