@@ -58,6 +58,7 @@ nav:
     - Cluster:
       - Cluster: docker/Cluster/SeaTable Cluster.md
       - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
+      - dtable-events Background node: docker/Cluster/dtable-events Background node.md
       - dtable-server Cluster: docker/Cluster/dtable-server Cluster.md
     - Python Runner:
       - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
