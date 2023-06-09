@@ -4,49 +4,9 @@ There are two types of tasks performed by dtable-events, local tasks and backgro
 
 On the basis of the previous manual, you can also deploy dtable-events background node.
 
-In the following manual, we will show the steps to setup a two nodes deployment
+In the following manual, we will show the steps to setup one node deployment. And also need to modify the configuration in dtable-web nodes and restart.
 
-* A dtable-web node running redis, dtable-web, dtable-events local tasks, seaf-server, and dtable-storage-server
 * A dtable-events background node running dtable-events background tasks, seaf-server, and dtable-storage-server
-
-## Setup dtable-web node
-
-Modify the configuration file :  `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
-
-```sh
-ENABLE_SEAFILE_SERVER=true
-ENABLE_DTABLE_WEB=true
-ENABLE_DTABLE_SERVER=false
-ENABLE_DTABLE_DB=false
-ENABLE_DTABLE_STORAGE_SERVER=true
-ENABLE_DTABLE_EVENTS=true
-DTABLE_EVENTS_TASK_MODE=foreground
-
-```
-
-### Restart dtable-web node
-
-```sh
-docker-compose down
-
-docker-compose up -d
-
-docker exec -it seatable bash
-
-seatable.sh
-
-```
-
-When you see following in the output log, it means success:
-
-```
-dtable-events in foreground mode
-Skip dtable-server
-Skip dtable-db
-
-SeaTable started
-
-```
 
 ## Setup dtable-events background node
 
@@ -145,6 +105,41 @@ When you see following in the output log, it means success:
 ```
 dtable-events in background mode
 Skip dtable-web
+Skip dtable-server
+Skip dtable-db
+
+SeaTable started
+
+```
+
+## Modify configuration in dtable-web nodes
+
+Modify the configuration file :  `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
+
+```sh
+ENABLE_SEAFILE_SERVER=true
+ENABLE_DTABLE_WEB=true
+ENABLE_DTABLE_SERVER=false
+ENABLE_DTABLE_DB=false
+ENABLE_DTABLE_STORAGE_SERVER=true
+ENABLE_DTABLE_EVENTS=true
+DTABLE_EVENTS_TASK_MODE=foreground
+
+```
+
+### Restart dtable-web nodes
+
+```sh
+docker exec -it seatable bash
+
+seatable.sh
+
+```
+
+When you see following in the output log, it means success:
+
+```
+dtable-events in foreground mode
 Skip dtable-server
 Skip dtable-db
 
