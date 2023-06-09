@@ -2,11 +2,9 @@
 
 There are two types of tasks performed by dtable-events, local tasks and background tasks.
 
-On the basis of the previous manual, you can also deploy dtable-events background node.
+On the basis of the previous manual, you can also move dtable-events background tasks to a dedicated node.
 
-In the following manual, we will show the steps to setup one node deployment. And also need to modify the configuration in dtable-web nodes and restart.
-
-* A dtable-events background node running dtable-events background tasks, seaf-server, and dtable-storage-server
+In the following manual, we will show the steps to setup the dtable-events background node. The dtable-events background node need to run dtable-events background tasks, seaf-server and dtable-storage-server.
 
 ## Setup dtable-events background node
 
@@ -114,7 +112,9 @@ SeaTable started
 
 ## Modify configuration in dtable-web nodes
 
-Modify the configuration file :  `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
+In the dtable-web nodes, `DTABLE_EVENTS_TASK_MODE` need to be changed to `foreground` mode.
+
+Modify the configuration file `/Your SeaTable data volume/seatable/conf/seatable-controller.conf` as following:
 
 ```sh
 ENABLE_SEAFILE_SERVER=true
