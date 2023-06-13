@@ -164,9 +164,6 @@ CUSTOM_COLORS = [
     {'color':'#F5C043','text_color':'#212529'}, 
     {'color':'#3064BC','text_color':'#FFFFFF'},
 ]
-
-# Activate the universal app builder (since version 3.5)
-ENABLE_UNIVERSAL_APP = True
 ```
 
 ## Group member limit
@@ -211,18 +208,22 @@ CSRF_COOKIE_SECURE = True
 
 ```
 
-<!-- bad configuration, that leads to problems due to missing other throttle rates (version 3.5). Might be re-added with 4.0
 ## RESTful API
 
-```
-# API throttling related settings. Enlarger the rates if you got 429 response code during API calls.
-REST_FRAMEWORK = {
-    'DEFAULT_THROTTLE_RATES': {
-        'ping': '600/minute',
-        'anon': '5/minute',
-        'user': '300/minute',
-    },
-    'UNICODE_JSON': False,
+API throttling related settings. Enlarger the rates if you got 429 response code during API calls.
+API_THROTTLE_RATES is used to replace the old REST_FRAMEWORK option. API_THROTTLE_RATES is empty by default. You can add your custom THROTTLE_RATE to the option
+
+```python
+API_THROTTLE_RATES = {
+   'ping': '3000/minute',
+   'anon': '60/minute',
+   'user': '3000/minute',
+   'sync_common_dataset': '60/minute',
+   'password_reset': '10/minute',
+   'org-admin': '1000/day',
+   'app': '1000/minute',
+   'import': '20/minute',   # Limit the rate of API calls for importing via excel/csv
+   'export': '20/minute',   # Limit the rate of export base, table and view
 }
 
 # Throttling whitelist used to disable throttle for certain IPs.
@@ -231,7 +232,11 @@ REST_FRAMEWORK = {
 REST_FRAMEWORK_THROTTLING_WHITELIST = []
 
 ```
--->
 
+## Recycle bin automatic emptying time interval
 
+The default is 30.
 
+```python
+TRASH_CLEAN_AFTER_DAYS = 30
+```
