@@ -46,7 +46,7 @@ The configuration of SSO with SAML for the just created application involves add
 
 | Type                                 | URL                                                      |
 | ------------------------------------ | -------------------------------------------------------- |
-| Metadata URL                         | `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/saml/metadata`  |
+| Metadata URL                         | `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/saml/metadata/`  |
 | Assertion consumer service (ACS) URL | `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/saml/acs/`      |
 | Service URL                          | `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/`               |
 
@@ -147,21 +147,21 @@ Check `dtable_web.log` for troubleshooting info if authentication fails.
 
 Browse to 'Azure Active Directory' and select 'Enterprise Applications'. In the 'Enterprise applications | All Applications' pane, click on 'New application' to open the 'Browse Azure AD Gallery'. Hit 'Create your own application', enter the name of the application in the input field (e.g. SeaTable), and click 'Create'. (For more information on [how to add an enterprise application](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal) or [how to create and assign a user account to an enterprise application](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal-assign-users), see Microsoft's Azure product documentation.) Azure will then create the application and open its overview page (see screenshot below).
 
-![image-20230505003654359](https://github.com/dada-dudu/seatable-admin-docs/assets/41058728/64df419a-434d-470f-9fb6-2e4ea65696ca)
+![Azure AD Enterprise Application](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_AzureAD_EnterpriseApplication_Seatable.png)
 
 Select the just created enterprise application. Click on '2. Set up single sign-on' in the overview page and then select SAML as single sign-on method. All SAML-related parameters for the new application are set in the configurator that now opens. 
 
 Step 1: Click on 'Edit' in the top right corner and add SeaTable's metadata URL, ACS URL, and service URL as shown in the screenshot below.
 
-![image-20230603170949699](https://github.com/dada-dudu/seatable-admin-docs/assets/41058728/8b5ecff3-19b8-4271-bd38-8c254dd2ef6e)
+![Azure AD Basic SAML Configuration](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_AzureAD_BasicSAMLConfiguration.png)
 
 Step 2: Click on 'Edit' in the top corner and define the claims as shown in the screenshot below.
 
-![image-20230505001833665](https://github.com/dada-dudu/seatable-admin-docs/assets/41058728/4bd6c56a-6da5-4341-a758-121121ba6ee9)
+![Azure AD Attribute Claims](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_AzureAD_AttributesClaims.png)
 
 Step 3: Note the App Federation Metadata URL and download the certificate. The certificate in Base 64 is the correct certificate format.
 
-![image-20230505001959310](https://github.com/dada-dudu/seatable-admin-docs/assets/41058728/506cf42e-b120-40a0-954f-1b02f588cc74)
+![Azure AD SAML Certificates](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_AzureAD_SAMLCertificates.png)
 
 
 Proceed with the [upload of the certificate file to SeaTable](#uploading-the-idp's-certificate-to-seaTable). The SAML configuration in `dtable_web_settings.py` should look like this:
