@@ -38,17 +38,17 @@ SeaTable's SAML configuration must be done manually on the command line. SeaTabl
 Due to the large number of identity and access management (IAM) solutions, this document explains the SeaTable's SAML SSO configuration in general terms in the rest of this section and showcases the procedure using Microsoft Azure AD (Azure) as one example. (Additional IAM solutions may be added in the future.)
 
 
-## Creating and configuring a new application in the IdP
+### Creating and configuring a new application in the IdP
 
 Add a new application in the IdP and assign at least one user to this application.
 
-The configuration of SSO with SAML for the just created application involves adding SeaTable's SAML URLs as well as specifying the SAML attributes. The following table contains the relevant URLs in generalized form. Replace <YOUR_SEATABLE_SERVER_HOSTNAME> with the fully qualified domain name (FQDN) of your SeaTable Server.
+The configuration of SSO with SAML for the just created application involves adding SeaTable's SAML URLs as well as specifying the SAML attributes. The following table contains the relevant URLs in generalized form. Replace `<YOUR_SEATABLE_SERVER_HOSTNAME>` with the fully qualified domain name (FQDN) of your SeaTable Server.
 
-| Type                                 | URL                                                    |
-| ------------------------------------ | ------------------------------------------------------ |
-| Metadata URL                         | https://<YOUR_SEATABLE_SERVER_HOSTNAME>/saml/metadata |
-| Assertion consumer service (ACS) URL | https://<YOUR_SEATABLE_SERVER_HOSTNAME>/saml/acs/      |
-| Service URL                          | https://<YOUR_SEATABLE_SERVER_HOSTNAME>/               |
+| Type                                 | URL                                                      |
+| ------------------------------------ | -------------------------------------------------------- |
+| Metadata URL                         | `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/saml/metadata`  |
+| Assertion consumer service (ACS) URL | `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/saml/acs/`      |
+| Service URL                          | `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/`               |
 
 
 ### Downloading the certificate from the IdP
@@ -180,4 +180,4 @@ SAML_ATTRIBUTE_MAP = {
 SAML_CERTS_DIR = '/shared/certs/'
 ```
 
-Replace the value of the `SAML_REMOTE_METADATA_URL` with the URL obtained in stept 3 above.
+Replace the value of the `SAML_REMOTE_METADATA_URL` with the URL obtained in step 3 above.
