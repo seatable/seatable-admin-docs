@@ -62,7 +62,7 @@ log_dir = /shared/seatable/logs
 
 [storage]
 data_dir = /opt/seatable/db-data
-cleanup_time = 00:00
+cleanup_at = 00:00
 
 # You have to change dtable_server_url based on your conf/dtable-server.json
 [dtable cache]
