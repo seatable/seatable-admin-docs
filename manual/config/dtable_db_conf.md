@@ -20,7 +20,7 @@ In section `[general]`:
 In section `[storage]`:
 
 - `data_dir`: Location of the data directory. You must specify this option.
-- `cleanup_time`: The execution time of clean up deleted data. Format is `12:30`. The default value is `00:00`.  
+- `cleanup_at`: The execution time of clean up deleted data. Format is `12:30`. The default value is `00:00`.  
 
 Section `[dtable cache]` contains options for caching bases from dtable-server:
 
