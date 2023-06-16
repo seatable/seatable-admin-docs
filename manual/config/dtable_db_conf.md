@@ -20,7 +20,7 @@ In section `[general]`:
 In section `[storage]`:
 
 - `data_dir`: Location of the data directory. You must specify this option.
-
+- `cleanup_time`: The execution time of clean up deleted data. Format is `12:30`. The default value is `00:00`.
 Section `[dtable cache]` contains options for caching bases from dtable-server:
 
 - `private_key`: The same as `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py`. You must specify this option if your version is before "Enterprise edition 3.5.5". If your version is newer than that, you don't need to specify it here. It'll be read from dtable_server_config.json.
@@ -47,6 +47,7 @@ In section `[SQL]`:
 Section `[backup]` contains options to configure backup functions (available since Enterprise Edition 3.0.0):
 
 - `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. For configuration of dtable storage server, please refer to [this documentation](./dtable_storage_server_conf.md).
+- `backup_time`: The execution time of backup. Format is `12:30`. The default value is `00:00`. It is mutual exclusion with `backup_interval`.
 - `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (24 hours).
 - `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
 
@@ -60,6 +61,7 @@ log_dir = /shared/seatable/logs
 
 [storage]
 data_dir = /opt/seatable/db-data
+cleanup_time = 00:00
 
 # You have to change dtable_server_url based on your conf/dtable-server.json
 [dtable cache]
