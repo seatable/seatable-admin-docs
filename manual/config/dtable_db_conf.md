@@ -48,7 +48,7 @@ In section `[SQL]`:
 Section `[backup]` contains options to configure backup functions (available since Enterprise Edition 3.0.0):
 
 - `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. For configuration of dtable storage server, please refer to [this documentation](./dtable_storage_server_conf.md).
-- `backup_time`: The execution time of backup. Format is `12:30`. The default value is `02:00`. It is mutual exclusion with `backup_interval`.
+- `backup_at`: The execution time of backup. Format is `12:30`. The default value is `02:00`. It is mutual exclusion with `backup_interval`. If neither `backup_at` nor `backup_interval` are specified, then `backup_at` will be used by default.
 - `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (24 hours).
 - `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
 
