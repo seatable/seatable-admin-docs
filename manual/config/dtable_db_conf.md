@@ -13,8 +13,8 @@ In section `[general]`:
 - `log_dir`: Location for the logs. Defaults to the directory specified in `-c` command line option. (Added in 2.3.0)
 - `log_level`: Only log messages with level priority higher than this will be logged. Supported levels are "debug", "info", "warn", "error", with ascending priority. The default is "info".
 - `slow_query_threshold`: If the processing time exceeds this threshold, a slow log will be recorded. Unit is in milliseconds. Defaults to 1000. (Added in 2.3.0)
-- `row_update_limit`: Controls the rate of row update/delete/insert per second for each base. Row update/delete/insert via SQL and APIs are all affected. The unit is in number of rows. Default is 0, which means no limit. (Added in 3.0.0)
-- `global_row_update_limit`: Controls the rate of row update/delete/insert per second for the entire system. Row update/delete/insert via SQL and APIs are all affected. This option controls the global rate when there are concurrent updates to multiple bases. The unit is in number of rows. Default is 0, which means no limit. (Added in 3.0.0)
+- `row_update_limit`: Controls the rate of row update/delete/insert per second for each base. Row update/delete/insert via SQL and APIs are all affected. The unit is in number of rows. Default is 5000. (Added in 3.0.0)
+- `global_row_update_limit`: Controls the rate of row update/delete/insert per second for the entire system. Row update/delete/insert via SQL and APIs are all affected. This option controls the global rate when there are concurrent updates to multiple bases. The unit is in number of rows. Default is 30000. (Added in 3.0.0)
 - `base_api_limit_per_day`: Limits the number of API calls per base per day. Default is -1, meaning no limits.
 
 In section `[storage]`:
