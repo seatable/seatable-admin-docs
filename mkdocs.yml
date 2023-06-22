@@ -55,11 +55,6 @@ nav:
   - Basic Setup:
     - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
     - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
-    - Cluster:
-      - Cluster: docker/Cluster/SeaTable Cluster.md
-      - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
-      - dtable-events Background node: docker/Cluster/dtable-events Background node.md
-      - dtable-server Cluster: docker/Cluster/dtable-server Cluster.md
     - Python Runner:
       - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
       - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
@@ -69,6 +64,11 @@ nav:
     - Roles and Permissions: config/enterprise/roles_permissions.md
     - S3: config/enterprise/S3.md
     - OnlyOffice: config/enterprise/deploy_onlyoffice_docker.md
+    - Cluster:
+      - Cluster: docker/Cluster/SeaTable Cluster.md
+      - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
+      - dtable-events Background node: docker/Cluster/dtable-events Background node.md
+      - dtable-server Cluster: docker/Cluster/dtable-server Cluster.md
   - Authentication:
     - Overview: authentication/auth_overview.md
     - 2FA: authentication/two_factor_auth.md
