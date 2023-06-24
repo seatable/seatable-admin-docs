@@ -1,10 +1,14 @@
-# Switch authentication type of a user
+# Switch authentication type
 
-**Before you make any changes to your database, be sure to make a database backup!**
+SeaTable Server supports (multiple authentication types)[./auth_overview.md]. Switching between the types is possible, but any switch requires modifications of SeaTable's databases.
 
-## Migration from local password to external authentication
+!!! note
 
-The migration of a local user into a user with an external authentication like LDAP, SAML, OAUTH is comparatively simple, but requires a direct intervention into the database of SeaTable. 
+        Before manually manipulating your database, (make a database backup)[../maintain/backup_recovery.md], so you can restore your system if anything goes wrong!
+
+## Migrating from local user database to external authentication
+
+As an organisation grows and its IT infrastructure matures, the migration from local authentication to external authentication like LDAP, SAML, OAUTH is common requirement. Fortunately, the switch is comparatively simple. 
 
 ### General procedure
 
@@ -55,11 +59,11 @@ mysql> select username,provider,uid from social_auth_usersocialauth where userna
 +---------------------------------------------+----------------+---------+
 ```
 
-## Migration from one external authentication to another
+## Migrating from one external authentication to another
 
 First configure the two external authentications and test them with a dummy user. Then, to migrate all the existing users you only need to make changes to the `social_auth_usersocialauth` table. No entries need to be deleted or created. You only need to modify the existing ones. The `xxx@auth.local` remains the same, you only need to replace the `provider` and the `uid`.
 
-## Migration from external authentication to local password
+## Migrating from external authentication to local user database
 
 First, delete the entry in the `social_auth_usersocialauth` table that belongs to the particular user.
 
