@@ -64,7 +64,7 @@ Paste the content of the license file in the newly created .txt file, save it, a
 Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable Server's directory and modify the file to fit your environment and settings.
 
 ```bash
-$cd /opt/seatable/
+$ cd /opt/seatable/
 $ wget -O "docker-compose.yml" "https://manual.seatable.io/docker/Enterprise-Edition/docker-compose.yml"
 $ nano docker-compose.yml
 ```
@@ -80,7 +80,6 @@ Additional customizable options in the Compose file are:
 
 * Volume path for the container db
 * Volume path for the container seatable
-
 * Image tag of the SeaTable version to install (image)
 * Time zone (TIME_ZONE)
 
@@ -121,9 +120,7 @@ $ docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 
 ```
 
-!!! note
-
-        The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
+!!! note: The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
 
 
 Enter the e-mail address and the initial password of the admin user. `Superuser created successfully` confirms that the admin user has been created.
