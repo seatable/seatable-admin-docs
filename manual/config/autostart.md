@@ -97,7 +97,7 @@ Autostart can be enabled with the following command:
 $ sudo systemctl enable seatable
 ```
 
-Similarly, autostart cam be disabled with the following command:
+Similarly, autostart can be disabled with the following command:
 
 ```
 $ sudo systemctl disable seatable
