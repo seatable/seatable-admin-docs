@@ -1,10 +1,10 @@
 # Switch authentication type
 
-SeaTable Server supports (multiple authentication types)[./auth_overview.md]. Switching between the types is possible, but any switch requires modifications of SeaTable's databases.
+SeaTable Server supports [multiple authentication types](./auth_overview.md). Switching between the types is possible, but any switch requires modifications of SeaTable's databases.
 
 !!! note
 
-        Before manually manipulating your database, (make a database backup)[../maintain/backup_recovery.md], so you can restore your system if anything goes wrong!
+        Before manually manipulating your database, [make a database backup](../maintain/backup_recovery.md), so you can restore your system if anything goes wrong!
 
 ## Migrating from local user database to external authentication
 

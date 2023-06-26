@@ -120,7 +120,9 @@ $ docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 
 ```
 
-!!! note: The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
+!!! note
+
+        The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
 
 
 Enter the e-mail address and the initial password of the admin user. `Superuser created successfully` confirms that the admin user has been created.
