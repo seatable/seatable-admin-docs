@@ -164,6 +164,9 @@ CUSTOM_COLORS = [
     {'color':'#F5C043','text_color':'#212529'}, 
     {'color':'#3064BC','text_color':'#FFFFFF'},
 ]
+
+# Default Seafile Server URL used in third party integration
+DEFAULT_SEAFILE_SERVER = 'https://seafile.example.com/'
 ```
 
 ## Group member limit

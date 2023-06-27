@@ -24,13 +24,14 @@ To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtab
 | ENABLE_LDAP         | On/off switch for authentication via LDAP                    | `True` or `False`                               |
 | LDAP_PROVIDER       | Internal name to refer to LDAP as authentication type        | Alphanumeric string, e.g. 'ldap'                |
 | LDAP_SERVER_URL     | URL of the LDAP server and port if non-standard              | URL, e.g. 'ldap://192.168.0.10:389'             |
-| LDAP_BASE_DN        | DN of the root node used for querying users - all users under this node can log in | LDAP DN                                         |
+| LDAP_BASE_DN        | DN of the root node used for querying users - all users under this node can log in | LDAP DN                   |
 | LDAP_ADMIN_DN       | DN of the user used for querying the LDAP server - user must have the rights to access all information under LDAP_BASE_DN | For LDAP: LDAP DN<br />For AD: LDAP DN or email |
 | LADP_ADMIN_PASSWORD | User password for LDAP_ADMIN_DN user                         | Alphanumeric string                             |
 | LDAP_USER_UNIQUE_ID | Unique user ID in the LDAP server                            | For LDAP: 'EntryUUID'<br />For AD: 'ObjectGUID' |
 | LDAP_LOGIN_ATTR     | User attribute used for logging in                           | 'mail', 'userPrincipalName' or 'sAMAccountName' |
 
-This is a sample configuration:
+
+This is a simple sample configuration:
 
 ```
 ENABLE_LDAP = True
@@ -61,7 +62,15 @@ The following parameters are also available, but optional:
 | LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is '' | Attribute name, e.g. `sn`                                    |
 | LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False` | `True`or `False`                                             |
 | LDAP_SAML_USE_SAME_UID    | Option to allow users to log in via LDAP and SAML using the same username | `True`or `False`                                             |
-| LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is '' |                                                              |
+| LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is '' |     |
+
+To enable LDAP authentication via SASL, add the following parameters to `dtable_web_settings.py`:
+
+| Parameter                 | Description                                                  | Values                                                       |
+| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ENABLE_SASL               | On/off switch for LDAP authentication via SASL               | `True` or `False`                                            |
+| SASL_MECHANISM            | SASL mechanism configured on LDAP server                     | SASL mechanism, e.g. `DIGEST-MD5`, `CRAM-MD5`, `GSSAPI`, `Plain`  |
+| SASL_AUTHC_ID_ATTR        | User attribute used for [authentication identity mapping](https://www.openldap.org/doc/admin26/sasl.html#Mapping%20Authentication%20Identities)       | Attribute name, e.g. `uid`, `cn`                        |
 
 ## LDAP Synchronisation
 
@@ -97,13 +106,3 @@ LDAP_SAML_USE_SAME_UID = True
 ```
 
 When enabled, SeaTable creates an additional record for the authenticating user in social_auth_usersocialauth when the user logs in using LDAP. This record maps the `username` to the `uid` for the SAML provider.
-
-## LDAP SASL authentication support
-
-Add the following configurations to enable LDAP SASL authentication.
-
-```python
-ENABLE_SASL = True          
-SASL_MECHANISM = 'DIGEST-MD5'   # authentication mechanisms, e.g. GSSAPI, DIGEST-MD5, PLAIN, EXTERNAL, etc.
-SASL_AUTHC_ID_ATTR = 'uid'      # user attributes in Mapping Authentication Identities, e.g. uid, cn, etc. Refer to: https://www.openldap.org/doc/admin26/sasl.html#Mapping%20Authentication%20Identities
-```
