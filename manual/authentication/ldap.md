@@ -70,7 +70,7 @@ To enable LDAP authentication via SASL, add the following parameters to `dtable_
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ENABLE_SASL               | On/off switch for LDAP authentication via SASL               | `True` or `False`                                            |
 | SASL_MECHANISM            | SASL mechanism configured on LDAP server                     | SASL mechanism, e.g. `DIGEST-MD5`, `CRAM-MD5`, `GSSAPI`, `Plain`  |
-| SASL_AUTHC_ID_ATTR        | User attribute used for [authentiction identity mapping](https://www.openldap.org/doc/admin26/sasl.html#Mapping%20Authentication%20Identities)       | Attribute name, e.g. `cn`, `uid`                       |
+| SASL_AUTHC_ID_ATTR        | User attribute used for [authentication identity mapping](https://www.openldap.org/doc/admin26/sasl.html#Mapping%20Authentication%20Identities)       | Attribute name, e.g. `uid`, `cn`                        |
 
 ## LDAP Synchronisation
 
