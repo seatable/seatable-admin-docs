@@ -4,7 +4,7 @@ Security Assertion Markup Language (SAML) is an open standard for exchanging aut
 
 This document assumes that you have a basic understanding of SAML and that you understand the related terminology.
 
-!!! note
+!!! Recent revision of SAML configuration
 
         SeaTable's SAML configuration has undergone substantial changes in SeaTable 3.5. It is highly recommended to update to SeaTable 3.5 or younger if you use SAML. The SAML configuration in prior versions is no longer included in this document. You can still find it in Github.
 
@@ -115,7 +115,7 @@ ENABLE_SAML = True
 SAML_PROVIDER_IDENTIFIER = 'MySAMLProvider'
 SAML_REMOTE_METADATA_URL = 'https://login.microsoftonline.com/xxx/federationmetadata/2007-06/federationmetadata.xml?appid=xxx'
 SAML_ATTRIBUTE_MAP = {
-    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn': 'uid',
+    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/uid': 'uid',
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': 'contact_email',
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': 'name',
 }
