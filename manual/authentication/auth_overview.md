@@ -26,9 +26,9 @@ The `username` is generated when the account is created. The time at which SeaTa
 
 
 
-> **One username - multiple names**
->
-> For historical reasons, the SQL database tables use non-uniform names for `username`. In some tables, `username` is simply `user`. In some others, it goes by the name of `email` or `virtual_id`. Despite the inconsistent naming, it is always the same object. In the SeaTable Manual, only `username` is used unless reference is made to a specific table column.
+!!! One username - multiple names
+
+        For historical reasons, the SQL database tables use non-uniform names for `username`. In some tables, `username` is simply `user`. In some others, it goes by the name of `email` or `virtual_id`. Despite the inconsistent naming, it is always the same object. In the SeaTable Manual, only `username` is used unless reference is made to a specific table column.
 
 ## Database Structure
 

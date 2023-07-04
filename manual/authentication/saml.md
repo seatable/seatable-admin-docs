@@ -4,7 +4,7 @@ Security Assertion Markup Language (SAML) is an open standard for exchanging aut
 
 This document assumes that you have a basic understanding of SAML and that you understand the related terminology.
 
-!!! note
+!!! Recent revision of SAML configuration
 
         SeaTable's SAML configuration has undergone substantial changes in SeaTable 3.5. It is highly recommended to update to SeaTable 3.5 or younger if you use SAML. The SAML configuration in prior versions is no longer included in this document. You can still find it in Github.
 
@@ -115,7 +115,7 @@ ENABLE_SAML = True
 SAML_PROVIDER_IDENTIFIER = 'MySAMLProvider'
 SAML_REMOTE_METADATA_URL = 'https://login.microsoftonline.com/xxx/federationmetadata/2007-06/federationmetadata.xml?appid=xxx'
 SAML_ATTRIBUTE_MAP = {
-    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn': 'uid',
+    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/uid': 'uid',
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': 'contact_email',
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': 'name',
 }
@@ -151,15 +151,15 @@ Browse to 'Azure Active Directory' and select 'Enterprise Applications'. In the 
 
 Select the just created enterprise application. Click on '2. Set up single sign-on' in the overview page and then select SAML as single sign-on method. All SAML-related parameters for the new application are set in the configurator that now opens. 
 
-Step 1: Click on 'Edit' in the top right corner and add SeaTable's metadata URL, ACS URL, and service URL as shown in the screenshot below.
+Step 1 - Basic SAML Configuration: Click on 'Edit' in the top right corner and add SeaTable's metadata URL, ACS URL, and service URL as shown in the screenshot below.
 
 ![Azure AD Basic SAML Configuration](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_AzureAD_BasicSAMLConfiguration.png)
 
-Step 2: Click on 'Edit' in the top corner and define the claims as shown in the screenshot below.
+Step 2 - Attributes and Claims: Click on 'Edit' in the top corner and define the claims as shown in the screenshot below.
 
 ![Azure AD Attribute Claims](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_AzureAD_AttributesClaims.png)
 
-Step 3: Note the App Federation Metadata URL and download the certificate. The certificate in Base 64 is the correct certificate format.
+Step 3 - SAML Certificates: Note the App Federation Metadata URL and download the certificate. The certificate in Base 64 is the correct certificate format.
 
 ![Azure AD SAML Certificates](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_AzureAD_SAMLCertificates.png)
 
@@ -181,3 +181,53 @@ SAML_CERTS_DIR = '/shared/certs/'
 ```
 
 Replace the value of the `SAML_REMOTE_METADATA_URL` with the URL obtained in step 3 above.
+
+
+## Configuration Okta
+
+Browse to 'Your apps' and switch to the admin mode.
+
+![Switch to Your Apps](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Okta_YourApps.png)
+
+Click on 'Applications' in the navigation on the left and one more time on 'Applications' in the drop-down menu.
+
+Select 'Create App Integration' and choose 'SAML 2.0' as sign-in method. All SAML-related parameters for the new application are defined in the configurator that now opens.
+
+![Create new app](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Okta_CreateNewApp.png)
+
+Step 1 - General Settings: Enter the name of the app in the input field and upload an app logo. 
+
+![Define general settings of the new app](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Okta_GeneralSettings.png)
+
+Step 2 - Configure SAML:  Add the single sign-on URL, the audience URI as well as the attributes as shown in the screenshot below. Finish the IdP-side configuration by clicking the button of the same name. 
+
+![Configure SAML](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Okta_ConfigureSAML.png)
+
+Step 3 - Feedback: You can skip this step.
+
+An overview of the configuration including all information for the server-side configuration is displayed once you made it past the 'Feedback'. Note the Metadata URL and download the signing certificate.
+
+![Review configuration](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Okta_Summary.png)
+
+Switch to the tab 'Assignments', click the 'Assign' button, and add user to the app via 'Assign to People' 
+
+![Assign users](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Okta_AssignUsers.png)
+
+Proceed with the [upload of the certificate file to SeaTable](https://manual.seatable.io/authentication/saml/#uploading-the-idps-certificate-to-seatable). The SAML configuration in `dtable_web_settings.py` should look like this:
+
+```Python
+ENABLE_SAML = True
+SAML_PROVIDER_IDENTIFIER = 'Okta'
+SAML_REMOTE_METADATA_URL = 'https://...'
+SAML_ATTRIBUTE_MAP = {
+    'uid': 'uid',
+    'contact_email': 'contact_email',
+    'name': 'name',
+}
+SAML_CERTS_DIR = '/shared/certs'
+
+```
+
+Replace the value of the `SAML_REMOTE_METADATA_URL` variable with the URL obtained above.
+
+Restart the SeaTable service for the changes to take effect.
