@@ -231,3 +231,38 @@ SAML_CERTS_DIR = '/shared/certs'
 Replace the value of the `SAML_REMOTE_METADATA_URL` variable with the URL obtained above.
 
 Restart the SeaTable service for the changes to take effect.
+
+
+## Configuration Auth0
+
+Click on 'Applications' in the navigation on the left. Then choose 'Applications' in the drop-down menu to see a list of the apps that you already exist in your account.
+
+Step 1 - Select 'Create Application': Enter the name of the app in the input field, select 'Regular Web Applications', and click on 'Create'.
+
+![Create application](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Auth0_CreateApplication.png)
+
+Step 2 - Switch to 'Addons': Activate 'SAML2 WEB APP'. You will now see the 'SAML Protocol Parameters'. Copy the link of the 'Identity Provider Certificate' and the 'Identity Provider Metadata' in a temporary document.
+
+Step 3 - Now you have to switch to 'Settings'. Enter the URL of the [assertion consumer service](#Creating-and-configuring-a new-application-in-the-IdP) in the 'Application Callback URL' field.
+
+![Enable SAML2 Web App](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Auth0_Addon.png)
+
+If you did that you have to scroll down a bit to click on 'enable'.
+
+Now configure `dtable_web_settings.py`:
+
+```Python
+ENABLE_SAML = True
+SAML_PROVIDER_IDENTIFIER = 'Auth0'
+SAML_REMOTE_METADATA_URL = 'https://...'
+SAML_ATTRIBUTE_MAP = {
+   'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier': 'uid',  
+   'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': 'contact_email',  
+   'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': 'name',
+}
+SAML_CERTS_DIR = '/shared/certs'
+```
+
+Replace the value of the SAML_REMOTE_METADATA_URL variable with the URL obtained in step 1.
+
+Restart the SeaTable service for the changes to take effect.
