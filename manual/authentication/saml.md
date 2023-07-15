@@ -231,3 +231,40 @@ SAML_CERTS_DIR = '/shared/certs'
 Replace the value of the `SAML_REMOTE_METADATA_URL` variable with the URL obtained above.
 
 Restart the SeaTable service for the changes to take effect.
+
+
+## Configuration Auth0
+
+Click on 'Applications' in the navigation on the left. Then choose 'Applications' in the drop-down menu to see a list of the apps that have already been configured in your account.
+
+Step 1 - Create Application: Enter the name of the app in the input field, select 'Regular Web Applications', and click on 'Create'.
+
+![Create application](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Auth0_CreateApplication.png)
+
+Step 2 - Addons: Enable 'SAML2 WEB APP'. You will now see the 'SAML Protocol Parameters'. Copy the link of the 'Identity Provider Certificate' and the 'Identity Provider Metadata' in a temporary document.
+
+![Obtain provider metadata and certificate](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Auth0_Addon_Usage.png)
+
+Next, switch to the 'Settings' tab. Enter the URL of the [SeaTable's assertion consumer service](#Creating-and-configuring-a-new-application-in-the-IdP) in the 'Application Callback URL' field.
+
+![Enable SAML2 Web App](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Auth0_Addon.png)
+
+Once you did that, scroll down a bit to finish the process by clicking 'enable'.
+
+Proceed with the [upload of the certificate file to SeaTable](https://manual.seatable.io/authentication/saml/#uploading-the-idps-certificate-to-seatable) that you obtained in step 2. The SAML configuration in `dtable_web_settings.py` should look like this:
+
+```Python
+ENABLE_SAML = True
+SAML_PROVIDER_IDENTIFIER = 'Auth0'
+SAML_REMOTE_METADATA_URL = 'https://...'
+SAML_ATTRIBUTE_MAP = {
+   'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier': 'uid',  
+   'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': 'contact_email',  
+   'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': 'name',
+}
+SAML_CERTS_DIR = '/shared/certs'
+```
+
+Replace the value of the SAML_REMOTE_METADATA_URL variable with the URL obtained in step 2.
+
+Restart the SeaTable service for the changes to take effect.
