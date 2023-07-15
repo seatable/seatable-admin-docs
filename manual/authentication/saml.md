@@ -243,6 +243,8 @@ Step 1 - Create Application: Enter the name of the app in the input field, selec
 
 Step 2 - Addons: Enable 'SAML2 WEB APP'. You will now see the 'SAML Protocol Parameters'. Copy the link of the 'Identity Provider Certificate' and the 'Identity Provider Metadata' in a temporary document.
 
+![Obtain provider metadata and certificate](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Auth0_Addon_Usage.png)
+
 Next, switch to the 'Settings' tab. Enter the URL of the [SeaTable's assertion consumer service](#Creating-and-configuring-a-new-application-in-the-IdP) in the 'Application Callback URL' field.
 
 ![Enable SAML2 Web App](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/Authentication_SAML_Auth0_Addon.png)
