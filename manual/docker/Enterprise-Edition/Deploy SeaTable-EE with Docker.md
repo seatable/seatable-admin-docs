@@ -111,7 +111,7 @@ Now you start SeaTable service:
 
 ```bash
 $ docker exec -d seatable /shared/seatable/scripts/seatable.sh start
-````
+```
 
 Then create the first admin user:
 
@@ -120,7 +120,7 @@ $ docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 
 ```
 
-!!! note "Docker parameters"
+!!! Tip "Docker parameters"
 
     The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
 
