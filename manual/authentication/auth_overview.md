@@ -24,11 +24,9 @@ The `username` is generated when the account is created. The time at which SeaTa
 * LDAP Auth, OAuth, and SAML: when the user logs in for the first time
 * LDAP Sync: when the sync job runs for the first time after the corresponding modification in the LDAP directory
 
+!!! note "One username - multiple names"
 
-
-!!! One username - multiple names
-
-        For historical reasons, the SQL database tables use non-uniform names for `username`. In some tables, `username` is simply `user`. In some others, it goes by the name of `email` or `virtual_id`. Despite the inconsistent naming, it is always the same object. In the SeaTable Manual, only `username` is used unless reference is made to a specific table column.
+    For historical reasons, the SQL database tables use non-uniform names for `username`. In some tables, `username` is simply `user`. In some others, it goes by the name of `email` or `virtual_id`. Despite the inconsistent naming, it is always the same object. In the SeaTable Manual, only `username` is used unless reference is made to a specific table column.
 
 ## Database Structure
 
