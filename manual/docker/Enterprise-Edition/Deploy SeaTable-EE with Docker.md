@@ -120,15 +120,13 @@ $ docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 
 ```
 
-!!! note
+!!! note "Docker parameters"
 
-        The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
-
+    The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
 
 Enter the e-mail address and the initial password of the admin user. `Superuser created successfully` confirms that the admin user has been created.
 
 You can now access SeaTable at the host name specified in the Compose file.
-
 
 ### Configuring Autostart
 
