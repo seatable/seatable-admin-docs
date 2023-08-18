@@ -152,7 +152,7 @@ curl -X POST http://dtable-server-proxy.example.com:5555/rebalance/  # domain of
 
 dtable-server-slave can be used to reduce the load of dtable servers. A dtable server can off-load read requests for large bases to a dtable-server-slave. 
 
-Several dtable-servers in a cluster can use the same dtable-server-slave, or each dtable-server use its own dtable-server-slave. When a dtable-server-slave receive a request from a client, it will know which original dtable-server it should get the base from the request. It can keep sync of a base by reading operation log database.
+Several dtable-servers in a cluster can use the same dtable-server-slave, or each dtable-server use its own dtable-server-slave. When a dtable-server-slave receive a request from a client, it will load the base through dtable-server-proxy. After loading a base, it can keep sync of a base by reading operation logs from database.
 
 The dtable-server-slave docker image and the SeaTable docker image are the same.
 
@@ -183,7 +183,7 @@ services:
     environment:
       - SEATABLE_SERVER_HOSTNAME=dtable-server-slave.example.com # Specifies your host name if https is enabled
       - SEATABLE_SERVER_LETSENCRYPT=True
-      - TIME_ZONE=Asia/Shanghai # Optional, default is UTC. Should be uncomment and set to your local time zone.
+      - TIME_ZONE=UTC # Optional, default is UTC. Should be uncomment and set to your local time zone.
     networks:
       - dtable-net
 
@@ -277,7 +277,7 @@ dtable_server_config.json
 
 ```json
 {
-  "worker_threads_rows_limit": 50000,
+  "worker_threads_rows_limit": 25000,
   "dtable_server_slave_url": "https://dtable-server-slave.example.com/"  // domain of dtable-server-slave
 }
 ```
