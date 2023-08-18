@@ -156,35 +156,33 @@ Several dtable-servers in a cluster can use the same dtable-server-slave, or eac
 
 The dtable-server-slave docker image and the SeaTable docker image are the same.
 
-
 ### Copy and modify docker-compose.yml
 
 The default directory for SeaTable is `/opt/seatable`. Create the directory:
 
-```
+```sh
 mkdir /opt/seatable
 
 ```
 
 **Copy the docker-compose.yml file on the dtable-server server and modify docker-compose.yml.**
 
-Note: The dtable-server-slave only needs LAN communication, public domain is not required. The port of the dtable-server-slave is 4000.
-
 vim /opt/seatable/docker-compose.yml
 
-```
+```yml
 version: '2.0'
 services:
   seatable:
     image: seatable/seatable-enterprise:latest
     container_name: seatable
     ports:
-      - "4000:4000"  # Important !
+      - "80:80"
+      - "443:443"  # If https is enabled, cancel the comment.
     volumes:
       - /opt/seatable/shared:/shared  # Requested, specifies the path to Seafile data persistent store.
     environment:
-      # - SEATABLE_SERVER_HOSTNAME=dtable-server.example.com
-      # - SEATABLE_SERVER_LETSENCRYPT=false
+      - SEATABLE_SERVER_HOSTNAME=dtable-server-slave.example.com # Specifies your host name if https is enabled
+      - SEATABLE_SERVER_LETSENCRYPT=True
       - TIME_ZONE=Asia/Shanghai # Optional, default is UTC. Should be uncomment and set to your local time zone.
     networks:
       - dtable-net
@@ -198,7 +196,7 @@ networks:
 
 **Prepare configuration file directory**
 
-```
+```sh
 mkdir -p /opt/seatable/shared/seatable/conf
 
 ```
@@ -224,7 +222,42 @@ Modify the dtable-server-slave configuration file :  `/Your SeaTable data volume
     "dtable_web_service_url": "xxx",  // dtable-web server's URL
     "dtable_server_proxy": "http://dtable-server-proxy.example.com:5550/"  // domain of dtable-server-proxy
 }
+```
 
+Modify the Nginx configuration file : `/Your SeaTable data volume/seatable/conf/nginx.conf`
+
+```
+server {
+    if ($host = dtable-server-slave.example.com) {
+        return 301 https://$host$request_uri;
+    }
+    listen 80;
+    server_name dtable-server-slave.example.com;
+    return 404;
+}
+
+server {
+    server_name dtable-server-slave.example.com;
+    listen 443 ssl;
+    ssl_certificate /shared/ssl/<your-ssl.cer>;
+    ssl_certificate_key /shared/ssl/<your-ssl.key>;
+
+    location / {
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
+            add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
+            return 204;
+        }
+        proxy_pass         http://127.0.0.1:4000/;
+        proxy_redirect     off;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Host  $server_name;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
 ```
 
 ### Start dtable-server-slave server
@@ -238,18 +271,18 @@ docker exec -it seatable bash
 
 ```
 
-### Modify dtable-server-01 and dtable-server-02 configuration file
+### Modify dtable-server servers configuration file
 
 dtable_server_config.json
 
 ```json
 {
   "worker_threads_rows_limit": 50000,
-  "dtable_server_slave_url": "http://172.17.30.100:4000/"  // intranet IP of dtable-server-slave
+  "dtable_server_slave_url": "https://dtable-server-slave.example.com/"  // domain of dtable-server-slave
 }
 ```
 
-Then restart dtable-server-01 and dtable-server-02
+Then restart dtable-server servers
 
 ```bash
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
