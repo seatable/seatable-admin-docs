@@ -61,3 +61,14 @@ Start backing up the database
 Enter password: xxxxx
 Database backup succeeded
 ```
+
+## Clean operation_log records
+
+When the base is modified, `dtable-server` automatically saves it to `dtable-storage-server` every 5 minutes. In order to prevent `dtable-server` failure before the base is saved to `dtable-storage-server`, resulting in base data loss, every time base is modified, an operation log will be recorded in the operation_log table.
+
+Therefore, the operation_log table tends to be very large. Since version 4.1, we offer a command to clear the useless data in the operation_log table three days ago.
+
+```
+$ docker exec seatable /opt/seatable/scripts/seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_operation_log
+
+```
