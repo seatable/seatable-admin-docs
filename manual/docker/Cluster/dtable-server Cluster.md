@@ -147,3 +147,115 @@ In some cases, you can manually load balancing
 ``` bash
 curl -X POST http://dtable-server-proxy.example.com:5555/rebalance/  # domain of dtable-server-proxy
 ```
+
+## Deploy dtable-server-slave by docker (optional)
+
+When you share a base and the number of rows is greater than 50000, deploying the dtable-server-slave can share the pressure of the dtable-servers.
+
+The dtable-server-slave docker image and the SeaTable docker image are the same.
+
+**components**
+
+* dtable-server-slave
+
+Note: The dtable-server-slave is based on the dtable-server Cluster.
+
+### Copy and modify docker-compose.yml
+
+The default directory for SeaTable is `/opt/seatable`. Create the directory:
+
+```
+mkdir /opt/seatable
+
+```
+
+**Copy the docker-compose.yml file on the dtable-server server and modify docker-compose.yml.**
+
+Note: The dtable-server-slave only needs LAN communication, public domain is not required. The port of the dtable-server-slave is 4000.
+
+vim /opt/seatable/docker-compose.yml
+
+```
+version: '2.0'
+services:
+  seatable:
+    image: seatable/seatable-enterprise:latest
+    container_name: seatable
+    ports:
+      - "4000:4000"  # Important !
+    volumes:
+      - /opt/seatable/shared:/shared  # Requested, specifies the path to Seafile data persistent store.
+    environment:
+      # - SEATABLE_SERVER_HOSTNAME=dtable-server.example.com
+      # - SEATABLE_SERVER_LETSENCRYPT=false
+      - TIME_ZONE=Asia/Shanghai # Optional, default is UTC. Should be uncomment and set to your local time zone.
+    networks:
+      - dtable-net
+
+networks:
+  dtable-net:
+
+```
+
+### Copy and modify configuration file
+
+**Prepare configuration file directory**
+
+```
+mkdir -p /opt/seatable/shared/seatable/conf
+
+```
+
+**Copy the configuration file on the dtable-server server to the conf directory.**
+
+Copy file dtable_server_config.json to dtable_server_slave_config.json.
+
+```sh
+cp dtable_server_config.json dtable_server_slave_config.json.
+```
+
+Modify the dtable-server-slave configuration file :  `/Your SeaTable data volume/seatable/conf/dtable_server_slave_config.json`
+
+```json
+{
+    "host": "mysql host",
+    "user": "mysql uer",
+    "password": "password",
+    "database": "dtable_db",
+    "port": 3306,
+    "private_key": "xxx",
+    "dtable_web_service_url": "xxx",  // dtable-web server's URL
+    "dtable_server_proxy": "http://dtable-server-proxy.example.com:5550/"  // domain of dtable-server-proxy
+}
+
+```
+
+### Start dtable-server-slave server
+
+```sh
+docker-compose up -d
+
+docker exec -it seatable bash
+
+/templates/dtable-server-slave.sh start
+
+```
+
+### Modify dtable-server-01 and dtable-server-02 configuration file
+
+dtable_server_config.json
+
+```json
+{
+  "worker_threads_rows_limit": 50000,
+  "dtable_server_slave_url": "http://172.17.30.100:4000/"  // intranet IP of dtable-server-slave
+}
+```
+
+Then restart dtable-server-01 and dtable-server-02
+
+```bash
+docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
+```
+
+Now you can use the dtable-server-slave.
