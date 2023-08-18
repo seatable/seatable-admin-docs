@@ -148,17 +148,14 @@ In some cases, you can manually load balancing
 curl -X POST http://dtable-server-proxy.example.com:5555/rebalance/  # domain of dtable-server-proxy
 ```
 
-## Deploy dtable-server-slave by docker (optional)
+## Deploy dtable-server-slave by Docker (optional)
 
-When you share a base and the number of rows is greater than 50000, deploying the dtable-server-slave can share the pressure of the dtable-servers.
+dtable-server-slave can be used to reduce the load of dtable servers. A dtable server can off-load read requests for large bases to a dtable-server-slave. 
+
+Several dtable-servers in a cluster can use the same dtable-server-slave, or each dtable-server use its own dtable-server-slave. When a dtable-server-slave receive a request from a client, it will know which original dtable-server it should get the base from the request. It can keep sync of a base by reading operation log database.
 
 The dtable-server-slave docker image and the SeaTable docker image are the same.
 
-**components**
-
-* dtable-server-slave
-
-Note: The dtable-server-slave is based on the dtable-server Cluster.
 
 ### Copy and modify docker-compose.yml
 
