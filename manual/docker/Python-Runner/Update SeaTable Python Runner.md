@@ -25,6 +25,8 @@ Please pull the latest docker image of scheduler
 docker pull seatable/seatable-faas-scheduler:latest
 ```
 
+**Please note: Check Docker version is 20.10.10 or greater before deploying FAAS Scheduler version 2.3 or greater**
+
 ### Restart the service
 
 Enter into the installation directory, and restart the service by docker-compose commad

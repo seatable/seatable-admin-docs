@@ -282,6 +282,8 @@ NOTE: The configuration may look different for other versions of SeaTable Python
 
 ## Setup SeaTable FAAS Scheduler
 
+**Please note: Check Docker version is 20.10.10 or greater before deploying FAAS Scheduler**
+
 ### Installing Docker Compose
 
 Scheduler uses Docker Dompose. Install the docker-compose package:
