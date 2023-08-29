@@ -1,23 +1,34 @@
 site_name: SeaTable Admin Manual
-site_author: SeaTable
+site_url: https://admin.seatable.io/
+site_author: SeaTable GmbH
+site_description: >
+  Official SeaTable Admin Manual.
 docs_dir: ./manual
-site_url: https://manual.seatable.io/
 
+# Repository
 repo_name: seatable/seatable-admin-docs
 repo_url: https://github.com/seatable/seatable-admin-docs/
 edit_uri: blob/main/manual
 
-copyright: Copyright &copy; 2023 SeaTable
+# Copyright
+copyright: Copyright &copy; 2022 - 2023 SeaTable GmbH
 
+# Configuration
 theme:
   name: material
-  # icon:
+  custom_dir: overrides
+
+  # icon & favicon
   logo: media/SeaTable256-256.png
   favicon: media/seatable-favicon.ico
   palette:
     primary: white
     accent:
+  font:
+    text: Roboto
+    code: Roboto Mono
 
+# Plugins
 plugins:
   - search
   - redirects:
@@ -29,7 +40,15 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/seatable/seatable-admin-docs
+      link: https://github.com/seatable/
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/seatable/seatable-enterprise
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/seatable/
+  analytics:
+    provider: matomo
+    site_id: 3
+    provider_url: https://wp-stats.seatable.io/
 
 extra_css:
   - stylesheets/extra.css
