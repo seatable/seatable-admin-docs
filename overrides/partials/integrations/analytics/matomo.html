@@ -1,0 +1,17 @@
+<script>
+    var site_id = "{{ config.extra.analytics.site_id }}";
+    var provider_url = "{{ config.extra.analytics.provider_url }}";
+    
+    /* Wait for page to load and application to mount */
+    document.addEventListener("DOMContentLoaded", function() {
+      var _paq = window._paq = window._paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+          _paq.push(['setTrackerUrl', provider_url+'matomo.php']);
+          _paq.push(['setSiteId', site_id]);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.async=true; g.src=provider_url+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    })
+  </script>
