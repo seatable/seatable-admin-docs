@@ -1,4 +1,4 @@
-# Authentication overview
+# Authentication
 
 SeaTable Server Enterprise Edition (SeaTable) supports multiple authentication types.
 
@@ -6,9 +6,9 @@ The default authentication type is authentication against the local user databas
 
 Additionally, SeaTable supports the following external authentication types:
 
-* [LDAP (Auth and Sync)](ldap.md)
-* [OAuth](oauth.md)
-* [SAML](saml.md)
+- [LDAP (Auth and Sync)](ldap.md)
+- [OAuth](oauth.md)
+- [SAML](saml.md)
 
 Finally, users can also authenticate using [JWT](jwt.md), which may be interesting for some special use cases.
 
@@ -20,9 +20,9 @@ The `username` looks like this: `b7bd00e840a14b748ce2bffdf409488b@auth.local` Th
 
 The `username` is generated when the account is created. The time at which SeaTable creates the account in the database depends on the authentication type:
 
-* Local user database: when the administrator registers the user or when the user self-registers
-* LDAP Auth, OAuth, and SAML: when the user logs in for the first time
-* LDAP Sync: when the sync job runs for the first time after the corresponding modification in the LDAP directory
+- Local user database: when the administrator registers the user or when the user self-registers
+- LDAP Auth, OAuth, and SAML: when the user logs in for the first time
+- LDAP Sync: when the sync job runs for the first time after the corresponding modification in the LDAP directory
 
 !!! note "One username - multiple names"
 
@@ -32,12 +32,12 @@ The `username` is generated when the account is created. The time at which SeaTa
 
 SeaTable's databases encompass almost 100 tables. Four of those are relevant for user management and authentication. (Tables related to 2FA are disregarded in this document.)
 
-| Database  | Table                      |
-| :-------- | :------------------------- |
-| ccnet_db  | [EmailUser](#table-emailuser)                  |
-| dtable_db | [profile_profile](#table-profile_profile)            |
+| Database  | Table                                                           |
+| :-------- | :-------------------------------------------------------------- |
+| ccnet_db  | [EmailUser](#table-emailuser)                                   |
+| dtable_db | [profile_profile](#table-profile_profile)                       |
 | dtable_db | [social_auth_usersocialauth](#table-social_auth_usersocialauth) |
-| dtable_db | [id_in_org_tuple](#table-id_in_org_tuple)            |
+| dtable_db | [id_in_org_tuple](#table-id_in_org_tuple)                       |
 
 Note: The table LDAPUsers in ccnet_db is no longer used.
 
@@ -60,7 +60,7 @@ mysql> select email,is_staff,is_active,left(passwd,25) from ccnet_db.EmailUser;
 +---------------------------------------------+---------------------------+----------+-----------+
 ```
 
-`is_staff` determines whether the user has system administrator privileges. `is_staff` accepts only 0 (False) and 1 (True) as values. 
+`is_staff` determines whether the user has system administrator privileges. `is_staff` accepts only 0 (False) and 1 (True) as values.
 
 `is_active` determines whether the user is active. Only active users can log into SeaTable. `is_active` also accepts only 0 (False) and 1 (True) as values.
 
@@ -72,7 +72,7 @@ The first two users in the sample table above are users using the default authen
 
 **External authentication:**
 
-A `!` instead of a hash value means that the user uses *external authentication*. The table, however, does not contain the information of which authentication type.
+A `!` instead of a hash value means that the user uses _external authentication_. The table, however, does not contain the information of which authentication type.
 
 The last three users in the sample table above are users authenticating using either LDAP, OAuth, or SAML.
 
@@ -93,7 +93,7 @@ mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.prof
 +---------------------------------------------+--------------+-----------+----------+-------------------+
 ```
 
-`nickname` is the display name of the user in the web interface of SeaTable. 
+`nickname` is the display name of the user in the web interface of SeaTable.
 
 `contact_email` is the real email address of the user. SeaTable sends notifications to this address.
 
@@ -108,7 +108,7 @@ mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.prof
 
 ### Table social_auth_usersocialauth
 
-The table `social_auth_usersocialauth` is critical for external authentication with LDAP, SAML, or OAuth. This table maps the user's SeaTable username to its unique identifiers from the identity providers. Every record in the table `EmailUser` without a password must have at least one correspondence in this table to be able to log into SeaTable using *external authentication*. 
+The table `social_auth_usersocialauth` is critical for external authentication with LDAP, SAML, or OAuth. This table maps the user's SeaTable username to its unique identifiers from the identity providers. Every record in the table `EmailUser` without a password must have at least one correspondence in this table to be able to log into SeaTable using _external authentication_.
 
 ```
 mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
@@ -121,7 +121,7 @@ mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 +---------------------------------------------+----------------+--------------------------------------+
 ```
 
-`provider` specifies the external authentication used.  The name shown in this column is the name specified in the configuration of the external authentication source in`dtable_web_settings.py`.
+`provider` specifies the external authentication used. The name shown in this column is the name specified in the configuration of the external authentication source in`dtable_web_settings.py`.
 
 `uid` in this table is the unique identifier as communicated by the external authentication service. The `uid` has to be provided by the external authentication method and allows to match the users from the external service with the users inside SeaTable. This `uid` must not be changed over the lifetime of the user (despite name, email address, ... changes) If the `uid` changes, SeaTable considers the user as a new user and creates a new `username` accordingly.
 

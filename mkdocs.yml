@@ -3,12 +3,10 @@ site_url: https://admin.seatable.io/
 site_author: SeaTable GmbH
 site_description: >
   Official SeaTable Admin Manual.
-docs_dir: ./manual
 
 # Repository
 repo_name: seatable/seatable-admin-docs
 repo_url: https://github.com/seatable/seatable-admin-docs/
-edit_uri: blob/main/manual
 
 # Copyright
 copyright: Copyright &copy; 2022 - 2023 SeaTable GmbH
@@ -16,25 +14,50 @@ copyright: Copyright &copy; 2022 - 2023 SeaTable GmbH
 # Configuration
 theme:
   name: material
+  features:
+    - navigation.footer
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections # top-level sections are rendered as groups in the sidebar for viewports above 1220px
+    - navigation.indexes # documents can be directly attached to sections
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate # offer a comfortable and friendly way to attach arbitrary content to specific sections of code
   custom_dir: overrides
 
   # icon & favicon
   logo: media/SeaTable256-256.png
   favicon: media/seatable-favicon.ico
+
   palette:
-    primary: white
-    accent:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
   font:
     text: Roboto
     code: Roboto Mono
 
 # Plugins
 plugins:
-  - search
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - minify:
+      minify_html: true
+  - git-revision-date-localized
   - redirects:
       redirect_maps:
-        'changelog/server-changelog.md': 'https://seatable.io/docs/changelog/'
-        'changelog/changelog-for-seatable-professional-server.md': 'https://seatable.io/docs/changelog/'
+        "changelog/server-changelog.md": "https://seatable.io/docs/changelog/"
+        "changelog/changelog-for-seatable-professional-server.md": "https://seatable.io/docs/changelog/"
 
 # Customization
 extra:
@@ -45,6 +68,8 @@ extra:
       link: https://hub.docker.com/r/seatable/seatable-enterprise
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/seatable/
+  status:
+    new: Recently added
   analytics:
     provider: matomo
     site_id: 3
@@ -55,72 +80,98 @@ extra_css:
 
 # Extensions
 markdown_extensions:
-  - markdown.extensions.admonition
-  - markdown.extensions.attr_list
-  - markdown.extensions.codehilite:
-      guess_lang: true
-  - markdown.extensions.def_list
-  - markdown.extensions.footnotes
-  - markdown.extensions.meta
-  - markdown.extensions.toc:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - footnotes
+  - toc:
       permalink: true
-      toc_depth: "1-4"
-  - pymdownx.details
-  - pymdownx.superfences
+  - codehilite:
+      guess_lang: true
+  - pymdownx.details # creates collapsible elements that hide their content
+  - pymdownx.superfences: # allows 1) nesting of fences 2) custom fences 3) disable indented code
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.keys # make entering and styling keyboard key presses easier
+  - pymdownx.tabbed: # provides a syntax to easily add tabbed Markdown content
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+        #- pymdownx.tasklist:   #  adds github flavored markdown style task lists
+        #  custom_checkbox: true
+        #- pymdownx.tilde       # allows del and sub tags
 
-# Page tree
+
 nav:
-  - Overview: README.md
-  - Basic Setup:
-    - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
-    - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
-    - Python Runner:
-      - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
-      - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
-      - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
-    - Migrate SeaTable DE to EE: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
-  - Advanced Setup (SeaTable EE):
-    - Roles and Permissions: config/enterprise/roles_permissions.md
-    - S3: config/enterprise/S3.md
-    - OnlyOffice: config/enterprise/deploy_onlyoffice_docker.md
-    - Cluster:
-      - Cluster: docker/Cluster/SeaTable Cluster.md
-      - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
-      - dtable-events Background node: docker/Cluster/dtable-events Background node.md
-      - dtable-server Cluster: docker/Cluster/dtable-server Cluster.md
-  - Authentication:
-    - Overview: authentication/auth_overview.md
-    - 2FA: authentication/two_factor_auth.md
-    - LDAP: authentication/ldap.md
-    - OAuth: authentication/oauth.md
-    - SAML: authentication/saml.md
-    - JWT: authentication/jwt.md
-    - Switch authentication: authentication/auth_switch.md
-  - Customization:
-    - Autostart: config/autostart.md
-    - Configuration:
-      - ccnet.conf: config/ccnet-conf.md
-      - dtable-db.conf: config/dtable_db_conf.md
-      - dtable-events.conf: config/dtable-events-conf.md
-      - dtable_server_config: config/dtable_server_config.md
-      - dtable-storage-server.conf: config/dtable_storage_server_conf.md
-      - dtable_web_settings.py: config/dtable_web_settings.md
-      - seafile.conf: config/seafile-conf.md
-      - seatable-controller.conf: config/seatable-controller-conf.md
-    - Custom CSS: config/custom_css.md
-    - Frontend: config/frontend_html_template_system.md
-    - Email Sending: config/sending_email.md
-    - Base Rows Limit: config/base_rows_limit.md
-    - Seafile Integration: config/integrate-with-seafile.md
-    - Templates and Manual: config/templates_and_manual.md
+  - Introduction:
+      - index.md
+      #- What is SeaTable?: what_is_seatable.md
+      - Requirements: requirements.md
+      - System Limitations: limitations/system_limitations.md
+      - Get Support: get_support.md
+      - EULA: dtable-server-license.md
+      #- Other manuals: others.md
+  - Installation:
+      - installation/index.md
+      - Basic Setup:
+          - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
+          - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
+      - Additional Components:
+          - Python Runner:
+              - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
+              - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
+              - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
+          - Online Document Editor: config/enterprise/deploy_onlyoffice_docker.md
+          # - Monitoring: installation/uptime_kuma.md
+          - Seafile Integration: config/integrate-with-seafile.md
+      - Advanced Setups:
+          - SeaTable Cluster: docker/Cluster/SeaTable Cluster.md
+          - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
+          - dtable-events Background node: docker/Cluster/dtable-events Background node.md
+          - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
+          - S3 Object Storage: config/enterprise/S3.md
+      - Upgrade & Migration:
+          - How to upgrade: upgrade/upgrade_manual.md
+          - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
+          - Migrate between editions: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
+          - Changelog: changelog/server-changelog.md
+      #- Upcoming redesign:
+      #- SeaTable Server: installation/single_node_install.md
+      #- Custom SSL Setup: installation/custom_ssl.md
+
+  - Configuration:
+      - config/index.md
+      - Email Sending: config/sending_email.md
+      - Custom CSS: config/custom_css.md
+      - Templates and Manual: config/templates_and_manual.md
+      - Roles and Permissions: config/enterprise/roles_permissions.md
+      - Frontend: config/frontend_html_template_system.md
+      - Autostart: config/autostart.md
+      - Base Rows Limit: config/base_rows_limit.md
+      - Authentication:
+          - authentication/index.md
+          - 2FA: authentication/two_factor_auth.md
+          - LDAP: authentication/ldap.md
+          - OAuth: authentication/oauth.md
+          - SAML: authentication/saml.md
+          - JWT: authentication/jwt.md
+          - Switch authentication: authentication/auth_switch.md
+      - Config-Files:
+          - ccnet.conf: config/ccnet-conf.md
+          - dtable-db.conf: config/dtable_db_conf.md
+          - dtable-events.conf: config/dtable-events-conf.md
+          - dtable_server_config: config/dtable_server_config.md
+          - dtable-storage-server.conf: config/dtable_storage_server_conf.md
+          - dtable_web_settings.py: config/dtable_web_settings.md
+          - seafile.conf: config/seafile-conf.md
+          - seatable-controller.conf: config/seatable-controller-conf.md
   - Maintenance:
-    - Backup and Recovery: maintain/backup_recovery.md
-    - Clean Database: maintain/clean_database.md
-    - Clean Storage: maintain/seatable_gc.md
-    - Others: maintain/others.md
-  - Upgrade:
-    - Upgrade Manual: upgrade/upgrade_manual.md
-    - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
-  - ChangeLog: changelog/server-changelog.md
-  - System Limitations: limitations/system_limitations.md
-  - dtable-server-license: dtable-server-license.md
+      - maintain/index.md
+      - Backup and Recovery: maintain/backup_recovery.md
+      - Clean Database: maintain/clean_database.md
+      - Clean Storage: maintain/seatable_gc.md
+      - Change URL: maintain/others.md

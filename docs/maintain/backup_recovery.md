@@ -2,15 +2,16 @@
 
 ## Overview
 
-There are generally two parts of data to backup
+There are generally three parts of data to backup
 
-* SeaTable tables data
-* Databases
+- SeaTable tables data
+- Databases
+- Configuration files with private keys
 
 If you setup SeaTable server according to our manual, you should have a directory layout like:
 
 ```
-/Your SeaTable data volume/seatable/
+/opt/seatable/seatable-data/seatable
 ├── ccnet
 ├── conf
 ├── db-data
@@ -24,20 +25,20 @@ If you setup SeaTable server according to our manual, you should have a director
 
 ```
 
-All your data is stored under the `/Your SeaTable data volume/seatable/` directory. Below are important sub-directories that contain user data:
+All your data is stored under the `/opt/seatable/seatable-data/seatable` directory. Below are important sub-directories that contain user data:
 
-* seafile-data: contains uploaded files for file and image columns
-* seahub-data: contains data used by web front-end, such as avatars
-* db-data: contains archived rows in bases
-* storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
+- seafile-data: contains uploaded files for file and image columns
+- seahub-data: contains data used by web front-end, such as avatars
+- db-data: contains archived rows in bases
+- storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
 
 SeaTable also stores some important metadata data in a few databases.
 
 MySQL databases:
 
-* ccnet_db: contains user and group information
-* seafile_db: contains library metadata
-* dtable_db: contains tables used by the web front end
+- ccnet_db: contains user and group information
+- seafile_db: contains library metadata
+- dtable_db: contains tables used by the web front end
 
 ??? info "Database structure"
 
@@ -54,7 +55,7 @@ MySQL databases:
 ### Steps
 
 1. Backup the MySQL databases;
-2. Backup the SeaTable data directory;
+2. Backup the SeaTable data directory (with your seatable license and config files)
 
 Backup Order: Database First or Data Directory First
 
@@ -73,9 +74,9 @@ docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtab
 
 You can use rsync to do incremental backup for data directories (assuming /opt/seatable-backup/ already exists)
 
-  ```bash
-  rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable/seatable-data/seatable /opt/seatable-backup/seatable
-  ```
+```bash
+rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable/seatable-data/seatable /opt/seatable-backup/seatable
+```
 
 You may notice that `db-data` directory is not backed up. The data in this directory is backed up in a different way. Please refer to the next sub-section.
 

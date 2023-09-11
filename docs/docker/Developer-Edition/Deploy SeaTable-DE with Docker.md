@@ -1,37 +1,20 @@
 # Deploy SeaTable Developer Edition with Docker
 
-## Requirements
-
-SeaTable Developer Edition (SeaTable DE) requires 4 cores and 8GB RAM. These resources guarantee good performance for most applications with several hundred concurrent connections.  When bases become large, more RAM may be needed since SeaTable stores the bases in memory.
-
-This tutorial assumes that no other services are installed on the  server, especially no other services listening on port 80 and 443.
-
-SeaTable uses Docker and Docker Compose. If your platform does not support Docker, you cannot install SeaTable.
-
 ## Setup
 
 The following assumptions and conventions are used in the rest of this document:
 
-- `/opt/seatable` is the directory of SeaTable. If you decide to put SeaTable in a  different directory - which you can - adjust all paths accordingly. 
-- SeaTable uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable/mysql-data and /opt/seatable/seatable-data,  respectively.  It is not recommended to change these paths. If you do, account for it when following these instructions.
+- `/opt/seatable` is the directory of SeaTable. If you decide to put SeaTable in a different directory - which you can - adjust all paths accordingly.
+- SeaTable uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable/mysql-data and /opt/seatable/seatable-data, respectively. It is not recommended to change these paths. If you do, account for it when following these instructions.
 - All configuration and log files for SeaTable and the webserver Nginx are stored in the volume of the SeaTable container.
-- Due to SeaTable's cloud first approach, these instructions only  elaborate explicitly on the deployment of SeaTable's latest version. (An earlier version of SeaTable EE can be installed using these  instructions. Just download its image from [Docker Hub](https://hub.docker.com/r/seatable/seatable-enterprise/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may  not be compatible with the SeaTable plugins available on SeaTable's Market though.)
+- Due to SeaTable's cloud first approach, these instructions only elaborate explicitly on the deployment of SeaTable's latest version. (An earlier version of SeaTable EE can be installed using these instructions. Just download its image from [Docker Hub](https://hub.docker.com/r/seatable/seatable-enterprise/tags?page=1&ordering=last_updated) and adjust the docker-compose file accordingly. Earlier versions may not be compatible with the SeaTable plugins available on SeaTable's Market though.)
 
 ### Installing Docker
 
-Use the [official installation guide](https://docs.docker.com/engine/install/) for your OS to install Docker. 
-
-### Installing docker-compose
-
-Install the Docker Compose package:
+This step is only required if you don't have installed docker yet. Execute the following script to install `docker` and `docker compose` plugin. Otherwise refer to the [official installation documentation of docker](https://docs.docker.com/engine/install/) for your operating system.
 
 ```bash
-# CentOS
-yum install docker-compose -y
-
-# Debian/Ubuntu
-apt-get install docker-compose -y
-
+curl -fsSL get.docker.com | bash
 ```
 
 ### Downloading the SeaTable Image
@@ -43,7 +26,7 @@ docker pull seatable/seatable-developer:latest
 
 ```
 
-NOTE: Older SeaTable versions are also available on Docker Hub. To pull an older version, replace 'latest' by the desired version.
+NOTE: Older SeaTable versions are also available on [Docker Hub](https://hub.docker.com/r/seatable/seatable-developer/tags). To pull an older version, replace 'latest' by the desired version like `seatable/seatable-developer:4.1.0`.
 
 ### Downloading and Modifying docker-compose.yml
 
@@ -58,16 +41,16 @@ nano docker-compose.yml
 
 The following fields merit particular attention:
 
-* Password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
-* Use of Let's Encrypt for HTTPS (SEATABLE_SERVER_LETSENCRYPT)
-* Host name (SEATABLE_SERVER_HOSTNAME)
+- Password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
+- Use of Let's Encrypt for HTTPS (SEATABLE_SERVER_LETSENCRYPT)
+- Host name (SEATABLE_SERVER_HOSTNAME)
 
 Additional customizable options in the Compose file are:
 
-* Volume path for the container db
-* Volume path for the container seatable
-* Image tag of the SeaTable version to install (image)
-* Time zone (TIME_ZONE)
+- Volume path for the container db
+- Volume path for the container seatable
+- Image tag of the SeaTable version to install (image)
+- Time zone (TIME_ZONE)
 
 ### Initializing Database
 
@@ -81,7 +64,7 @@ docker-compose up
 
 NOTE: You should run the above command in the directory with the `docker-compose.yml`.
 
-Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.`  in the output log, the database has been initialized successfully. Press keyboard `CTRL + C` (Windows) or `Control + C` (Mac) to return to the prompt.
+Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.` in the output log, the database has been initialized successfully. Press keyboard `CTRL + C` (Windows) or `Control + C` (Mac) to return to the prompt.
 
 ### Starting the Docker Containers
 
@@ -103,7 +86,7 @@ Now you can start SeaTable and create the first admin user:
 docker exec -d seatable /shared/seatable/scripts/seatable.sh start
 
 # Create admin account.
-docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser  
+docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 
 ```
 
@@ -168,26 +151,26 @@ docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 
 ```
 
-All of SeaTable's log files are stored in  `/opt/seatable/seatable-data/seatable/logs`:
+All of SeaTable's log files are stored in `/opt/seatable/seatable-data/seatable/logs`:
 
-* dtable-db.log: log of dtable-db component
-* dtable-db-access.log: query log of dtable-db component
-* dtable-db-error.log: error log of dtable-db component
-* dtable-db-slow.log: slow query log of dtable-db component
-* dtable-events.log: log of the dtable-events component
-* dtable_events_io.log: special log for DTABLE import/export as well as Excel and CSV file import/export
-* dtable_events_message.log: special log for sending emails in the dtable-events background
-* dtable-server.log: log of dtable-server component
-* dtable_web.log: log of the dtable-web component
-* init.log: Log of Docker initialization script
-* monitor.log: Monitor logs, monitor.sh can auto restart the unexpectedly closed server
-* seafile.log: log of Seafile server
+- dtable-db.log: log of dtable-db component
+- dtable-db-access.log: query log of dtable-db component
+- dtable-db-error.log: error log of dtable-db component
+- dtable-db-slow.log: slow query log of dtable-db component
+- dtable-events.log: log of the dtable-events component
+- dtable_events_io.log: special log for DTABLE import/export as well as Excel and CSV file import/export
+- dtable_events_message.log: special log for sending emails in the dtable-events background
+- dtable-server.log: log of dtable-server component
+- dtable_web.log: log of the dtable-web component
+- init.log: Log of Docker initialization script
+- monitor.log: Monitor logs, monitor.sh can auto restart the unexpectedly closed server
+- seafile.log: log of Seafile server
 
 Additionally, the slow_logs contain slow request logs which help debug performance issues.
 
 ## SSL/TLS
 
-* Let's encrypt SSL certificate
+- Let's encrypt SSL certificate
 
   If you set `SEATABLE_SERVER_LETSENCRYP` to `true` in "docker-compose.yml", the container requests a letsencrypt-signed SSL certificate for you automatically.
 
@@ -204,14 +187,15 @@ Additionally, the slow_logs contain slow request logs which help debug performan
       ...
       - SEATABLE_SERVER_LETSENCRYPT=True # Default is False. Whether to use let's encrypt certificate.
       - SEATABLE_SERVER_HOSTNAME=example.seatable.com # Specifies your host name if https is enabled
-  
+
   ```
 
 NOTE：Since the Nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_SERVER_LETSENCRYPT = True` before executing the `docker-compose up -d` command for the first time.
 
 If you want to use your own SSL certificate, you can refer to the following steps.
 
-* Add your own SSL certificate
+- Add your own SSL certificate
+
   1. Upload the SSL certificate file to the SeaTable data directory : `/Your SeaTable data volume/ssl/`
   2. Change the "http" of each SERVER_URL in ccnet.conf, dtable_web_settings.py and dtable_server_config.json to "https".
   3. Restart the SeaTable service : `docker exec -it seatable /shared/seatable/scripts/seatable.sh restart`
@@ -278,7 +262,7 @@ You can create a new admin account by running
 
 ```bash
 # Create admin account
-docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser  
+docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 
 ```
 
