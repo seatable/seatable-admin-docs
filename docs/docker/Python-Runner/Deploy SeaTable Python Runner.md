@@ -4,9 +4,9 @@
 
 The execution of Python scripts in SeaTable requires the interaction of SeaTable with two other components. The functions of SeaTable, SeaTable FAAS Scheduler, and SeaTable Python Runner and their relationship are as follows:
 
-* SeaTable: Provides the editor to create, save, import/export, and modify Python scripts. When a user clicks to run a script, SeaTable sends a requests to the SeaTable FAAS Scheduler.
-* SeaTable FAAS Scheduler: Handles incoming requests from SeaTable, schedules tasks, and sends requests to the SeaTable Python Runner. Additionally, it saves and counts the results of script runs. As such, it is equivalent to a master node.
-* SeaTable Python Runner: Runs the scripts as tasked by the FAAS Scheduler. When the SeaTable Python Runner receives a request, it downloads the script content and starts a Docker container to run the script. After script execution, the container is destroyed for data security. As such, it is equivalent to a worker node.
+- SeaTable: Provides the editor to create, save, import/export, and modify Python scripts. When a user clicks to run a script, SeaTable sends a requests to the SeaTable FAAS Scheduler.
+- SeaTable FAAS Scheduler: Handles incoming requests from SeaTable, schedules tasks, and sends requests to the SeaTable Python Runner. Additionally, it saves and counts the results of script runs. As such, it is equivalent to a master node.
+- SeaTable Python Runner: Runs the scripts as tasked by the FAAS Scheduler. When the SeaTable Python Runner receives a request, it downloads the script content and starts a Docker container to run the script. After script execution, the container is destroyed for data security. As such, it is equivalent to a worker node.
 
 ![python-runner](../../images/auto-upload/python-runner.png)
 
@@ -26,21 +26,17 @@ SeaTable FAAS Scheduler and Python Runner use Docker and Docker Compose. Docker 
 
 ## Setup
 
-The SeaTable and SeaTable FAAS Scheduler host communicate via their hostnames.  For illustrative purposes, these deployment instructions use the hostnames ...
+The SeaTable and SeaTable FAAS Scheduler host communicate via their hostnames. For illustrative purposes, these deployment instructions use the hostnames ...
 
-* cloud.seatable.com for SeaTable and
-* faas.seatable.com for SeaTable FAAS Scheduler.
-
-
+- cloud.seatable.com for SeaTable and
+- faas.seatable.com for SeaTable FAAS Scheduler.
 
 Additionally, the following assumptions and conventions are used in the rest of this document:
 
 - SeaTable Server - SeaTable Developer Edition or SeaTable Enterprise Edition - was installed according to this manual.
-- `/opt/seatable-python-runner` and `/opt/seatable-faas-scheduler` are the directories of the Python Runner and FAAS Scheduler, respectively. If you decide to put them in different directories - which you can - adjust all paths accordingly. 
-- SeaTable FAAS Scheduler uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable FAAS Scheduler Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable-faas-scheduler/mysql-data and /opt/seatable-faas-scheduler/shared,  respectively.  It is not recommended to change these paths. If you do,  keep that in mind when following these instructions.
+- `/opt/seatable-python-runner` and `/opt/seatable-faas-scheduler` are the directories of the Python Runner and FAAS Scheduler, respectively. If you decide to put them in different directories - which you can - adjust all paths accordingly.
+- SeaTable FAAS Scheduler uses two [Docker volumes](https://docs.docker.com/storage/volumes/) for persisting data generated in its database and SeaTable FAAS Scheduler Docker container. The volumes' [host paths](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes) are /opt/seatable-faas-scheduler/mysql-data and /opt/seatable-faas-scheduler/shared, respectively. It is not recommended to change these paths. If you do, keep that in mind when following these instructions.
 - All configuration and log files for SeaTable and the webserver Nginx are stored in the volume of the SeaTable FAAS Scheduler container.
-
-
 
 ## Setup of SeaTable Python Runner
 
@@ -48,20 +44,18 @@ Additionally, the following assumptions and conventions are used in the rest of 
 
 Download the install package from [Github](https://github.com/seatable/seatable-admin-docs/releases) using wget and unzip the archive. Delete the ZIP file after unzipping. Using Python Runner version 2.0.2 as an example, this are the commands:
 
-``` bash
+```bash
 cd /opt
 wget https://github.com/seatable/seatable-admin-docs/releases/download/seatable-python-runner-2.0.2/seatable-python-runner-2.0.2.zip
 unzip seatable-python-runner-2.0.2.zip
 rm seatable-python-runner-2.0.2.zip
 ```
 
-
-
 ### Installing the Prerequisites
 
 SeaTable's Python Runner uses some pip packages. Install pip first:
 
-``` bash
+```bash
 # CentOS
 sudo yum install python3-pip -y
 
@@ -76,35 +70,29 @@ cd /opt/seatable-python-runner
 sudo pip3 install -r server_requirements.txt
 ```
 
-
-
 ### Downloading the Python Runner Docker Image
 
 Pull the image for SeaTable's Python Runner from Docker Hub:
 
-``` bash
+```bash
 docker pull seatable/python-runner:latest
 ```
 
 You can find all versions of Python Runner images in [Docker repository](https://hub.docker.com/r/seatable/python-runner/tags).
 
-
-
 ### Initializing Python Runner
 
 Initialize the Python Runner by running the init script:
 
-``` bash
+```bash
 sudo ./init.sh
 ```
-
-
 
 ### Modifying the Configuration File
 
 Open the Python Runner's conf file in an editor and add the address of SeaTable's FAAS Scheduler to the configuration:
 
-``` bash
+```bash
 cd /opt/seatable-python-runner/conf
 nano seatable_python_runner_settings.py
 
@@ -112,13 +100,13 @@ nano seatable_python_runner_settings.py
 
 Edit the configuration as follows:
 
-``` py
+```py
 SCHEDULER_URL = 'https://faas.seatable.com'  # The URL of seatable-faas-scheduler, if you use an IP address, please add http://
 ```
 
 #### Limit access to memory (optional)
 
-``` py
+```py
 CONTAINER_MEMORY = '2g'  # Up to 2GB of memory
 ```
 
@@ -132,13 +120,13 @@ This warning does not occur on RPM-based systems, which enable these capabilitie
 
 You can set CONTAINER_MEMORY to empty to avoid this warning:
 
-``` py
+```py
 CONTAINER_MEMORY = ''
 ```
 
 Or you can change some configuration on the host.
 
-``` bash
+```bash
 sudo nano /etc/default/grub
 ```
 
@@ -150,7 +138,7 @@ GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
 
 Save and quit, and update GRUB
 
-``` bash
+```bash
 sudo update-grub
 ```
 
@@ -160,14 +148,14 @@ The changes take effect when the system is rebooted.
 
 Additionally, default memory limit is 2GB, if you don't want to limit container to access memory, you can set it to empty string. In this way, above update about GRUB is not necessary.
 
-``` py
+```py
 CONTAINER_MEMORY = ''
 ```
 
 **Related Documentation**
 
-* [docker runtime options with Memory](https://docs.docker.com/config/containers/resource_constraints/#memory)
-* [Kernel does not support warning](https://docs.docker.com/engine/install/linux-postinstall/#your-kernel-does-not-support-cgroup-swap-limit-capabilities)
+- [docker runtime options with Memory](https://docs.docker.com/config/containers/resource_constraints/#memory)
+- [Kernel does not support warning](https://docs.docker.com/engine/install/linux-postinstall/#your-kernel-does-not-support-cgroup-swap-limit-capabilities)
 
 #### Customize time zone (optional)
 
@@ -175,7 +163,7 @@ This feature requires runner packages on 2.0.3 and above, and runner image on 2.
 
 Add time zone item to the configuration, indicating that the time zone in runner contianer.
 
-``` python
+```python
 TIME_ZONE = 'UTC'
 ```
 
@@ -183,15 +171,13 @@ If not configured, the default is the system time zone, if the system time zone 
 
 If the version does not meet the requirements, the time zone is the UTC time zone.
 
-
 #### Set script running timeout
 
-``` py
+```py
 SUB_PROCESS_TIMEOUT = 60 * 15  # 15 mins
 ```
 
 If not configured, the default is 15 minutes
-
 
 #### Other docker run options (optional)
 
@@ -199,13 +185,13 @@ This feature requires runner packages on 2.0.5 and above, and runner image on 2.
 
 Add the following configuration to the configuration file to modify the parameters when starting the container, the options must be set in the form of `--<option name>=<value>`
 
-``` python
+```python
 OTHER_OPTIONS = []
 ```
 
 For example, you need to modify the network that the container is connected to when it starts
 
-``` py
+```py
 OTHER_OPTIONS = [
   "--network=xxx"  # xxx needs to exist
 ]
@@ -217,7 +203,7 @@ For the specific meaning of each, see [the official docker documentation](https:
 
 Start SeaTable Python Runner using the SH-script:
 
-``` bash
+```bash
 cd /opt/seatable-python-runner
 sudo ./start.sh
 ```
@@ -245,13 +231,11 @@ $ tree /opt/seatable-python-runner/ -L 2
 
 The stop command is as follows:
 
-``` bash
+```bash
 sudo ./stop.sh
 ```
 
 NOTE: The start and stop scripts are a collection of a series of operations, you can edit it according to your needs.
-
-
 
 ### Tweaking the Python Runner
 
@@ -261,7 +245,7 @@ The SeaTable Python Runner uses uWSGI. uWSGI's configuration is saved in the INI
 
 The default configuration for SeaTable Python Runner 2.0.2 is:
 
-``` ini
+```ini
 [uwsgi]
 http = :8080
 wsgi-file = function.py
@@ -277,8 +261,6 @@ logformat = [%(ltime)] %(method) %(uri) => generated %(size) bytes in %(secs) se
 ```
 
 NOTE: The configuration may look different for other versions of SeaTable Python Runner.
-
-
 
 ## Setup SeaTable FAAS Scheduler
 
@@ -296,19 +278,15 @@ sudo yum install docker-compose -y
 sudo apt-get install docker-compose -y
 ```
 
-
-
 ### Downloading the FASS Scheduler Image
 
 Pull the image for SeaTable's FAAS Scheduler from Docker Hub:
 
-``` bash
+```bash
 docker pull seatable/seatable-faas-scheduler:latest
 ```
 
 You can find all versions of SeaTable FAAS Scheduler images in the [Docker repository](https://hub.docker.com/r/seatable/seatable-faas-scheduler/tags).
-
-
 
 ### Downloading and Modifying docker-compose.yml
 
@@ -323,37 +301,35 @@ nano docker-compose.yml
 
 The following options must be modified:
 
-* The password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
-* The use of Let's Encrypt for HTTPS (SEATABLE_FAAS_SCHEDULER_SERVER_LETSENCRYPT)
-* The host name (SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME)
+- The password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
+- The use of Let's Encrypt for HTTPS (SEATABLE_FAAS_SCHEDULER_SERVER_LETSENCRYPT)
+- The host name (SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME)
 
 Optional customizable option in the docker-compose.yml are:
 
-* The ports of the container seatable-faas-scheduler
-* The volume paths for the container db
-* The volume paths for the container seatable-faas-scheduler
-* The image tag of the SeaTable FAAS Scheduler version to install (image)
+- The ports of the container seatable-faas-scheduler
+- The volume paths for the container db
+- The volume paths for the container seatable-faas-scheduler
+- The image tag of the SeaTable FAAS Scheduler version to install (image)
 
-* The time zone (Optional)
-
-
+- The time zone (Optional)
 
 ### Initializing the Database
 
 Initialize the database with the following command:
 
-``` bash
+```bash
 cd /opt/seatable-faas-scheduler
 docker-compose up
 ```
 
 NOTE: You should run the above command in a directory with the `docker-compose.yml`.
 
-Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.`  in the output log, the database initialized successfully. Press keyboard `CTRL + C`  to return to the prompt.
+Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.` in the output log, the database initialized successfully. Press keyboard `CTRL + C`  to return to the prompt.
 
 The directory structure should now look as follows (slightly shortend):
 
-``` text
+```text
 $ tree /opt/seatable-faas-scheduler -L 2
 /opt/seatable-faas-scheduler
 ├── docker-compose.yml
@@ -368,15 +344,13 @@ $ tree /opt/seatable-faas-scheduler -L 2
 
 ```
 
-
-
 ### Modifying the Configuration File of the FAAS Scheduler
 
 Being the middle component between the SeaTable server and the Python Runner, the FAAS Scheduler's configuration must be added the addresses of both.
 
 Open the FAAS Scheduler's configuration file in a text editor:
 
-``` bash
+```bash
 cd /opt/seatable-faas-scheduler/shared/seatable-faas-scheduler/conf
 nano seatable_faas_scheduler_settings.py
 
@@ -384,7 +358,7 @@ nano seatable_faas_scheduler_settings.py
 
 Edit the configuration as follows:
 
-``` py
+```py
 # faas
 RUNNER_URL = 'http://host.docker.internal:8080'        # Internal address of the Python Runner
 FAAS_URL = ''                                          # Old parameter name for internal address of the Python Runner, is kept for compatability reasons
@@ -395,47 +369,39 @@ SEATABLE_FAAS_AUTH_TOKEN = '***'                       # Token to copy to SeaTab
 
 ```
 
-
-
 ### Starting the FAAS Scheduler
 
 Now start the SeaTable FAAS Scheduler in detached mode:
 
-``` bash
+```bash
 docker-compose up -d
 ```
 
 NOTE: You should run the above command in the directory with the `docker-compose.yml`.
 
-
-
 ### Modifying the Configuration File of SeaTable
 
 Open SeaTable's `dtable_web_setttings.py` configuration file in a text editor to add the FAAS Scheduler's address:
 
-``` bash
+```bash
 nano /opt/seatable/seatable-data/seatable/conf/dtable_web_settings.py
 ```
 
 Paste the following lines in the configuration file, paste the token from the `seatable_faas_scheduler_settings.py` and modify the parameter SEATABLE_FAAS_URL:
 
-``` py
+```py
 # for seatable-faas
 SEATABLE_FAAS_AUTH_TOKEN = '***'                        # Token from seatable_faas_scheduler_settings.py
 SEATABLE_FAAS_URL = 'https://faas.seatable.com'         # URL of the SeaTable FAAS Scheduler
 ```
 
-
-
 ### Restarting SeaTable
 
 For the modifications in the `dtable_web_settings.py` to take effect, restart the SeaTable server:
 
-``` bash
+```bash
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 ```
-
-
 
 ### Testing
 
@@ -446,8 +412,6 @@ print("Hello World!")
 ```
 
 If the output console prints "Hello World!", you have successfully configured SeaTable's Python script execution environment.
-
-
 
 ### More Configuration Options of Scheduler
 
@@ -487,18 +451,17 @@ e.g.
       server_name demo.faas-scheduler.seatable.com;
       return 404;
   }
-  
+
   server {
       server_name demo.faas-scheduler.seatable.com;
-  
+
       listen 443 ssl;
       ssl_certificate /shared/ssl/<your-ssl.cer>;
       ssl_certificate_key /shared/ssl/<your-ssl.key>;
-  
+
       proxy_set_header X-Forwarded-For $remote_addr;
       ......
 ```
-
 
 ## Python Runner and FAAS Scheduler FAQ
 
@@ -506,17 +469,14 @@ e.g.
 
 Remove the directory `/opt/seatable-faas-scheduler` and start again.
 
-
 ### What's the reason for the following output in SeaTable's Python?
 
 ```
 error: Internal Server Error.
-at e/</< 
+at e/</<
 ```
 
 SeaTable cannot communicate with the FAAS Scheduler. Check the configuration and start the FAAS Scheduler via docker-compose.
-
-
 
 ### What's the reasons when the Hello World example to not complete and only outputting?
 
@@ -526,8 +486,6 @@ Running...
 
 The FAAS Scheduler cannot communicate with the Python Runner. Check the configuration and start the FAAS Scheduler via the SH-script.
 
-
-
 ### The Let's Encrypt SSL certificate is about to expire, how do I renew it?
 
 The SSL certificate shoud be renewed automatically 30 days prior to it expiration. If the automatic renewal fails, this command renews the certificate manually:
@@ -535,8 +493,6 @@ The SSL certificate shoud be renewed automatically 30 days prior to it expiratio
 ```
 docker exec -it seatable-faas-scheduler /scripts/renew_cert.sh
 ```
-
-
 
 ### How to run Python Runner Package using non-root user
 
@@ -579,8 +535,6 @@ $ cd /opt/seatable-python-runner
 
 Then follow the documentation to continue setup and deployment.
 
-
-
 ### How to run script as non-root user inside Python Runner container
 
 Please deploy version 2.0.2 or later of Python Runner package.
@@ -598,14 +552,14 @@ uid=1000(runner) gid=1001(runner) groups=1001(runner),999(docker)
 
 Edit file seatable_python_runner_settings.py.
 
-``` bash
+```bash
 cd /opt/seatable-python-runner/conf
 nano seatable_python_runner_settings.py
 ```
 
 Add configurations as follows:
 
-``` py
+```py
 UID = '1000'
 GID = '1001'
 ```
