@@ -111,6 +111,7 @@ nav:
       - index.md
       #- What is SeaTable?: what_is_seatable.md
       - Requirements: requirements.md
+      - System Limitations: limitations/system_limitations.md
       - Get Support: get_support.md
       - EULA: dtable-server-license.md
       #- Other manuals: others.md
@@ -174,6 +175,3 @@ nav:
       - Clean Database: maintain/clean_database.md
       - Clean Storage: maintain/seatable_gc.md
       - Change URL: maintain/others.md
-# keine ahnung wo...
-#  - ChangeLog: changelog/server-changelog.md
-#  - System Limitations: limitations/system_limitations.md
