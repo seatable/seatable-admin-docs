@@ -91,7 +91,7 @@ Here is the content of the `.env` file with some explanations.
     ## image versions
     SEATABLE_IMAGE='seatable/seatable-enterprise:4.1.9'     # (6)!
     CADDY_RP_IMAGE='lucaslorentz/caddy-docker-proxy:2.8.4-alpine'
-    SEATABLE_DB_IMAGE='mariadb:10.5'
+    SEATABLE_DB_IMAGE='mariadb:10.11'
     SEATABLE_MEMCACHED_IMAGE='memcached:1.5.6'
     SEATABLE_REDIS_IMAGE='redis:5.0.7'
     ```
