@@ -9,11 +9,11 @@ You can deploy SeaTable-Server in one of the following topologies:
 - Easy installation with docker and docker compose.
 - Ideal for testing purposes or smaller teams for up to 100 users.
 
-[Start the installation](/docker/Enterprise-Edition/Deploy%20SeaTable-EE%20with%20Docker/)
+[Start the installation](../docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md)
 
 ## Cluster Deployment
 
 - Enterprise-grade high-performance no-code platform.
 - Maximum performance and scalability for thousands of users.
 
-[Read more about Cluster](/docker/Cluster/SeaTable%20Cluster/)
+[Read more about Cluster](../docker/Cluster/SeaTable Cluster.md)

@@ -115,6 +115,7 @@ nav:
       - Get Support: get_support.md
       - EULA: dtable-server-license.md
       #- Other manuals: others.md
+      - Changelog: changelog/server-changelog.md
   - Installation:
       - installation/index.md
       - Basic Setup:
@@ -134,11 +135,6 @@ nav:
           - dtable-events Background node: docker/Cluster/dtable-events Background node.md
           - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
           - S3 Object Storage: config/enterprise/S3.md
-      - Upgrade & Migration:
-          - How to upgrade: upgrade/upgrade_manual.md
-          - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
-          - Migrate between editions: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
-          - Changelog: changelog/server-changelog.md
       #- Upcoming redesign:
       #- SeaTable Server: installation/single_node_install.md
       #- Custom SSL Setup: installation/custom_ssl.md
@@ -169,9 +165,15 @@ nav:
           - dtable_web_settings.py: config/dtable_web_settings.md
           - seafile.conf: config/seafile-conf.md
           - seatable-controller.conf: config/seatable-controller-conf.md
-  - Maintenance:
-      - maintain/index.md
-      - Backup and Recovery: maintain/backup_recovery.md
-      - Clean Database: maintain/clean_database.md
-      - Clean Storage: maintain/seatable_gc.md
-      - Change URL: maintain/others.md
+  - Maintenance/Upgrade:
+      - Maintenance:
+          - maintain/index.md
+          - Backup and Recovery: maintain/backup_recovery.md
+          - Clean Database: maintain/clean_database.md
+          - Clean Storage: maintain/seatable_gc.md
+          - Filesystem check: maintain/seatable_fsck.md
+          - Change URL: maintain/others.md
+      - Upgrade:
+          - How to upgrade: upgrade/upgrade_manual.md
+          - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
+          - Migrate between editions: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
