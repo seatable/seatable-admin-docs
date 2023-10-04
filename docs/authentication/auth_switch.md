@@ -1,6 +1,6 @@
 # Switch authentication type
 
-SeaTable Server supports [multiple authentication types](./auth_overview.md). Switching between the types is possible, but any switch requires modifications of SeaTable's databases.
+SeaTable Server supports [multiple authentication types](./index.md). Switching between the types is possible, but any switch requires modifications of SeaTable's databases.
 
 !!! note
 
@@ -8,12 +8,12 @@ SeaTable Server supports [multiple authentication types](./auth_overview.md). Sw
 
 ## Migrating from local user database to external authentication
 
-As an organisation grows and its IT infrastructure matures, the migration from local authentication to external authentication like LDAP, SAML, OAUTH is common requirement. Fortunately, the switch is comparatively simple. 
+As an organisation grows and its IT infrastructure matures, the migration from local authentication to external authentication like LDAP, SAML, OAUTH is common requirement. Fortunately, the switch is comparatively simple.
 
 ### General procedure
 
 1. Configure and test the desired external authentication. Note the name of the `provider` you use in the config file. The user to be migrated should already be able to log in with this new authentication type, but he will be created as a new user with a new unique identifier, so he will not have access to his existing bases. Note the `uid` from the `social_auth_usersocialauth` table. Delete this new, still empty user again.
-2. Determine the `xxx@auth.local` address of the user to be migrated. 
+2. Determine the `xxx@auth.local` address of the user to be migrated.
 3. Replace the password hash with an exclamation mark.
 4. Create a new entry in `social_auth_usersocialauth` with the `xxx@auth.local`, your `provider` and the `uid`.
 
@@ -36,7 +36,7 @@ mysql> select email,left(passwd,25) from EmailUser where email = '12ae56789f1e4c
 mysql> update EmailUser set passwd = '!' where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 
 mysql> insert into social_auth_usersocialauth \
-  ('username', 'provider', 'uid') \ 
+  ('username', 'provider', 'uid') \
   set \
   ('12ae56789f1e4c8d8e1c31415867317c@auth.local', 'authentik-saml', 'HR12345');
 ```
@@ -67,7 +67,7 @@ First configure the two external authentications and test them with a dummy user
 
 First, delete the entry in the `social_auth_usersocialauth` table that belongs to the particular user.
 
-Then you can reset the user's password, e.g. via the web interface. The user will be assigned a local password and from now on the authentication against the local database of SeaTable will be done. 
+Then you can reset the user's password, e.g. via the web interface. The user will be assigned a local password and from now on the authentication against the local database of SeaTable will be done.
 
 ## Use LDAP and SAML together
 

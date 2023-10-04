@@ -1,12 +1,12 @@
 # SeaTable Frontend Modification
 
-With the help of [dtable_web_settings.py](./dtable_web_settings.md) SeaTable offers a wealth of configuration options to enable or disable individual functions in the frontend or to customize the frontend to your own needs. 
+With the help of [dtable_web_settings.py](./dtable_web_settings.md) SeaTable offers a wealth of configuration options to enable or disable individual functions in the frontend or to customize the frontend to your own needs.
 
-At the same time, you can only intervene in the design of the frontend to a limited extent with the help of the configuration files. For this, SeaTable offers a sophisticated template system to selectively replace individual page areas with their own versions. 
+At the same time, you can only intervene in the design of the frontend to a limited extent with the help of the configuration files. For this, SeaTable offers a sophisticated template system to selectively replace individual page areas with their own versions.
 
 This article introduces this form of customizing.
 
-## What can be customized? 
+## What can be customized?
 
 SeaTable uses predefined HTML templates for almost all web pages and emails, which can be customized. Changes to the base editor are thus not possible, but adjustments to the login page or changes to individual email texts are possible without problems.
 
@@ -30,8 +30,8 @@ The basic approach is simple. Create a custom folder in your host system (usuall
 
 **IMPORTANT NOTES:**
 
-1) Files must not be renamed. If the file is called `404.html`, then the file has to keep this name. Otherwise the replacement with your custom files will not work.
-2) Keep the files in the same directory structure. If you want to replace `registration/login.html`, then you have to create a folder `registration` in your custom folder and copy the file `login.html` to this new directory.
+1. Files must not be renamed. If the file is called `404.html`, then the file has to keep this name. Otherwise the replacement with your custom files will not work.
+2. Keep the files in the same directory structure. If you want to replace `registration/login.html`, then you have to create a folder `registration` in your custom folder and copy the file `login.html` to this new directory.
 
 Imagine this customizing like an overlay. SeaTable takes the original files from inside the container. If SeaTable finds the files with the same name in the same directory structure, it replaces the original files.
 
@@ -39,7 +39,7 @@ Imagine this customizing like an overlay. SeaTable takes the original files from
 
 Imagine you want to replace the login page of SeaTable with something fancier. Here is what you have to do. The following example assumes that your SeaTable docker container is called `seatable` and that your mounted docker volume is located at `/opt/seatable/seatable-data`. Please check your docker-compose.yml and change the following examples if necessary.
 
-![Settings in your docker-compose.yml](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/seatable-configuration-docker-compose.png)
+![Settings in your docker-compose.yml](../images/auto-upload/seatable-configuration-docker-compose.png)
 
 ### 1. Create custom folder
 
@@ -63,9 +63,9 @@ Now you can start editing your login.html. Otherwise you can take one of these e
 
 **Example 1: Simple login form**
 
-![](https://raw.githubusercontent.com/seatable/seatable-admin-docs/master/manual/images/auto-upload/simple-login-form.png)
+![](../images/auto-upload/simple-login-form.png)
 
-Copy the following content to your login.html. As you can see, the login page was reduced to the maximum. There is no box around the input fields, there is no *language selector*, no *single sign on*, no *signup* or *forget password*. Error messages are still shown and security features like *CSCF* and *Captcha* is still part of the login page.
+Copy the following content to your login.html. As you can see, the login page was reduced to the maximum. There is no box around the input fields, there is no _language selector_, no _single sign on_, no _signup_ or _forget password_. Error messages are still shown and security features like _CSCF_ and _Captcha_ is still part of the login page.
 
 ```
 {% extends "base_clean.html" %}
