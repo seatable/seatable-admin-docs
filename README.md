@@ -21,10 +21,12 @@ git checkout -b <new_branch>
 sudo docker build -t seatable-admin-docs-local .
 ```
 ```bash
-sudo docker run --rm -it -d -p 127.0.0.1:8000:8000 -v ${PWD}:/docs seatable-admin-docs-local \
---name seatable-admin-docs-local
+sudo docker run --name seatable-admin-docs-local --rm -d -p 127.0.0.1:8000:8000 -v ${PWD}:/docs seatable-admin-docs-local
 ```
-`# changes in the /docs directory can be previewed at http://127.0.0.1:8000`
+changes in the /docs directory can be previewed at http://127.0.0.1:8000`
 ```bash
 git add <relevant_changes> && git commit -m "<commit_message>"
+```
+```bash
+sudo docker kill seatable-admin-docs-local
 ```
