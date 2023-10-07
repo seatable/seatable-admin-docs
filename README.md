@@ -1,10 +1,10 @@
 ## Seatable Admin Docs
 
-This repository contains the SeaTable Admin documentation. The documentation is built using [MkDocs](https://www.mkdocs.org/), a fast and simple static site generator that's perfect for building project documentation. The pages are being built using Github workflows and hosted on Github Pages.
+This repository contains the SeaTable Admin documentation. The documentation is built using [MkDocs](https://www.mkdocs.org/), a fast and simple static site generator. The pages are being built using Github workflows and hosted on Github Pages.
 
 ### Usage
 
-To build and view the documentation locally, you can use the following commands:
+To build and view the documentation locally, you can use these steps:
 
 - Clone this repository & Checkout a new branch
 - Make changes and review them locally (with docker)
@@ -25,7 +25,9 @@ sudo docker run --name seatable-admin-docs --rm -d -p 127.0.0.1:8000:8000 -v ${P
 ```
 changes in the /docs directory can be previewed at [http://127.0.0.1:8000](http://127.0.0.1:8000)
 ```bash
-git add <relevant_changes> && git commit -m "<commit_message>"
+git add <relevant_changes>
+git commit -m "<commit_message>"
+git push
 ```
 ```bash
 sudo docker kill seatable-admin-docs

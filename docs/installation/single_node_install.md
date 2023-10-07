@@ -34,7 +34,7 @@ The following command installs basic tools that are used in the following manual
 
 ```bash
 apt update
-apt -y install curl pwgen tree wget
+apt -y install curl pwgen tree wget tar
 ```
 
 ## Install Docker and Docker Compose Plugin
