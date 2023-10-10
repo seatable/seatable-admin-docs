@@ -8,11 +8,11 @@ status: new
 
     We always try to make the installation of SeaTable as easy as possible. Therefore we will recommend in the near future the usage of caddy to simplify the complete SSL termination. Also we will introduce a global enviroment file for easier configuration. As soon as this new installation method is ready, we will update this manual accordingly.
 
-#### This manual describes the installation of a SeaTable Server on Linux OS using Docker.
+#### This manual describes the installation of a SeaTable Server on a Linux OS using Docker.
 
 We want to provide you an easy and fast installation method, that will lead to a up and runnning SeaTable installation within minutes.
 The description is valid for SeaTable **Enterprise Edition** and SeaTable **Developer Edition**.
-If you come across a problem, or some unclear step please create a post at the [SeaTable community forum](https://forum.seatable.io).
+If you come across a problem or somthing is unclear please create a post at the [SeaTable community forum](https://forum.seatable.io).
 We are happy to help and will improve this manual if needed.
 
 !!! warning "Docker required"
@@ -33,55 +33,46 @@ The installation is done via the command line as `root` user.
 The following command installs basic tools that are used in the following manual. Usually all these tools are already installed on your linux server.
 
 ```bash
-apt update
+apt update && \
 apt -y install curl pwgen tree wget tar
 ```
 
 ## Install Docker and Docker Compose Plugin
  If you are in a testing enviroment you can use this get.docker.com convenience script to install docker and docker compose.
- In a production enviroment or otherwise refer to the [official installation documentation of docker](https://docs.docker.com/engine/install/).
+ In a production enviroment or otherwise please refer to the [official installation instructions of docker](https://docs.docker.com/engine/install/).
 
 ```bash
 curl -fsSL get.docker.com | bash
 ```
 
 ## Install SeaTable Server
-This installation assumes that all components of SeaTable are installed below the folder `/opt`.
+This installation assumes that all components of SeaTable are installed below `/opt`.
 We recommended to keep this folder structure.
 
+#### 1. Create directory & Download required files & Copy .env file
+    mkdir /opt/seatable-compose && \
+    cd /opt/seatable-compose && \
+    wget -c https://github.com/seatable/seatable-compose/releases/latest/download/seatable-compose.tar.gz \
+    -O - | tar -xz -C /opt/seatable-compose && \
+    cp -n .env-release .env
 
-### Create directory
-=== "Both Editions"
+#### 2. Change .env file (Enviroment Configuration file)
 
-    ```
-    mkdir /opt/seatable-server
-    cd /opt/seatable-server
-    ```
+    nano /opt/seatable-compose/.env
 
-### Download required files
+!!! warning "Only modify the `.env` file"
 
-Next step is to download the required files.
+    In most cases there should be no need to change anything in the compose.yml files.
 
-=== "Both editions"
 
-    ```bash
-    wget https://admin.seatable.io/downloads/docker-compose.yml
-    wget https://admin.seatable.io/download/.env
-    ```
-
-### Change configuration file
-
-!!! warning "Only change the `.env` file"
-
-    In 99% of any cases there is no need to change anything in the docker-compose.yml at this point. Only use the `.env` file to configure your SeaTable Server.
-
-Here is the content of the `.env` file with some explanations.
 
 === "Both editions"
 
     ``` python
+    ## Here is the content of the `.env` file with some explanations.
+
     ## select the components to be installed
-    COMPOSE_PROFILES='seatable-server' # (1)!
+    COMPOSE_FILE='seatable-docker-proxy.yml,seatable-server.yml' # (1)!
 
     ## seatable server
     SEATABLE_SERVER_HOSTNAME='seatable.example.com'  # (3)!
@@ -92,24 +83,18 @@ Here is the content of the `.env` file with some explanations.
     SEATABLE_MYSQL_ROOT_PASSWORD='topsecret' # (5)!
 
     ## image versions
-    SEATABLE_IMAGE='seatable/seatable-enterprise:4.1.9'     # (6)!
-    CADDY_RP_IMAGE='lucaslorentz/caddy-docker-proxy:2.8.4-alpine'
-    SEATABLE_DB_IMAGE='mariadb:10.11'
-    SEATABLE_MEMCACHED_IMAGE='memcached:1.5.6'
-    SEATABLE_REDIS_IMAGE='redis:5.0.7'
+    ## SEATABLE_IMAGE='seatable/seatable-developer:4.1.9'
+    # (6)!
     ```
 
-    1.  COMPOSE_PROFILES is a comma separated list **without spaces**. It defines which components should be installed. Right now you can keep "seatable-server". Later more components will be added.
+    1.  COMPOSE_FILE is a comma separated list **without spaces**. It defines which components should be run. `seatable-docker-proxy.yml` and `seatable-server.yml` are a typical combination for a base system.
     2.  Get a [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) from Wikipedia.
     3.  Select your domain or subdomain that points to your Server (without https://). You have to set an A-Record or CNAME pointing to your IP.
     4.  Only change the path if you are an experienced docker and linux admin.
     5.  Password of the mariadb root user.
-    6.  To install a developer edition, change this line for example to:
-        ```
-        SEATABLE_IMAGE='seatable/seatable-developer:4.1.0
-        ```
+    6.  To install a developer edition, uncomment this line
 
-Now change the `.env` file according to your needs:
+    Change the `.env` file according to your needs.
 
 === "Hostname"
 
@@ -151,15 +136,20 @@ Download the license to the current directory, like it is described in the email
 
 ### Start the server
 
-Just a short quality check. Execute the `tree` command and the output should look like this for your folder `/opt/seatable-server`:
+Run`tree -a /opt/seatable-compose`, the output should look something like this:
 
 === "Enterprise Edition"
 
     ```
-    tree -a /opt/seatable-server
-    ├── docker-compose.yml
+    /opt/seatable-compose
     ├── .env
-    └── seatable-license.txt
+    ├── .env-release
+    ├── seatable-docker-proxy.yml
+    ├── seatable-licence.txt
+    ├── seatable-onlyoffice.yml
+    ├── seatable-python-pipeline.yml
+    └── seatable-server.yml
+
     ```
 
 === "Developer Editions"
@@ -217,8 +207,8 @@ You can now access SeaTable at the host name specified in the `.env` file.
 
 **If, for whatever reason, the installation fails, how do I to start from a clean slate again?**
 
-Stop all containers, remove the folder `/opt/seatable-server` and start again.
+Stop all containers, remove the folder `/opt/seatable-compose` and start again.
 
-**What if no no url is pointing to the SeaTable server?**
+**What if no url is pointing to the SeaTable server?**
 
-No problem. Just enter your local IP-Adress instead of the URL to the .env file.
+No problem. Just enter your local IP-Adress instead of the URL into the .env file.
