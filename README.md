@@ -3,7 +3,6 @@
 This repository contains the SeaTable Admin documentation. The documentation is built using [MkDocs](https://www.mkdocs.org/), a fast and simple static site generator. The pages are being built using Github workflows and hosted on Github Pages.
 
 ### Usage
-
 To build and view the documentation locally, you can use these steps:
 
 - Clone this repository & Checkout a new branch
