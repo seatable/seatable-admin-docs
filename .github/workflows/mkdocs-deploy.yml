@@ -1,13 +1,17 @@
-name: Deploy CI
+name: Deploy mkdocs to github pages
 
 on:
-  [pull_request, push]
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
+
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -19,9 +23,7 @@ jobs:
         run: mkdocs --version
 
       - name: build
-        run: mkdocs build --verbose
-        # --strict (add it back later)
+        run: mkdocs build --verbose --strict
 
       - name: gh-deploy
-        if: github.ref == 'refs/heads/master'
         run: mkdocs gh-deploy --force
