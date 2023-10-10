@@ -4,50 +4,53 @@ status: new
 
 # Basic installation of a SeaTable Server
 
-!!! danger "This installation method is not yet ready"
+!!! danger "PREVIEW / This installation method is not yet ready for production"
 
     We always try to make the installation of SeaTable as easy as possible. Therefore we will recommend in the near future the usage of caddy to simplify the complete SSL termination. Also we will introduce a global enviroment file for easier configuration. As soon as this new installation method is ready, we will update this manual accordingly.
 
-The following manual describes the installation of a single-node SeaTable Server system. The description is valid for SeaTable **Enterprise Edition** and SeaTable **Developer Edition**.
-The installation is done via the command line as `root` user.
+#### This manual describes the installation of a SeaTable Server on Linux OS using Docker.
 
-We tried to make this installation method as easy as possible, that you can install SeaTable within minutes on any Ubuntu and Debian Server. Just follow the instruction carefully and you will be rewarded with your own SeaTable server in no time. If anything goes wrong, make a screenshot and create a post at the [SeaTable community forum](https://forum.seatable.io).
+We want to provide you an easy and fast installation method, that will lead to a up and runnning SeaTable installation within minutes.
+The description is valid for SeaTable **Enterprise Edition** and SeaTable **Developer Edition**.
+If you come across a problem, or some unclear step please create a post at the [SeaTable community forum](https://forum.seatable.io).
+We are happy to help and will improve this manual if needed.
 
-!!! warning "Docker is required"
+!!! warning "Docker required"
 
-    SeaTable uses `docker` and `docker compose` plugin. If your platform does not support Docker, you cannot install SeaTable Server.
+    SeaTable uses `docker` and `docker compose` plugin. If Docker is not supported by your platform, you cannot install SeaTable Server with this manual.
 
-!!! question "Want to see a video instead of reading a manual?"
-
-    If you prefer watching a video, how to install and deploy SeaTable Server Enterprise Edition using docker in a step-by-step guide, check this out:
+!!! question "Want to watch a step-by-step video instead of reading a manual?"
 
     :fontawesome-brands-youtube:{ style="color: #EE0F0F" }
     __[How to install SeaTable]__ :octicons-clock-24: 20m
     [How to install SeaTable]: https://www.youtube.com/watch?v=h38acdtYgt8
 
-## Install basic tools
 
+The installation is done via the command line as `root` user.
+
+
+## Install basic tools
 The following command installs basic tools that are used in the following manual. Usually all these tools are already installed on your linux server.
 
 ```bash
 apt update
-apt -y install curl pwgen tree wget
+apt -y install curl pwgen tree wget tar
 ```
 
 ## Install Docker and Docker Compose Plugin
-
-This step is only required if you don't have installed docker yet. Execute the following script to install `docker` and `docker compose` plugin. Otherwise refer to the [official installation documentation of docker](https://docs.docker.com/engine/install/) for your operating system.
+ If you are in a testing enviroment you can use this get.docker.com convenience script to install docker and docker compose.
+ In a production enviroment or otherwise refer to the [official installation documentation of docker](https://docs.docker.com/engine/install/).
 
 ```bash
 curl -fsSL get.docker.com | bash
 ```
 
 ## Install SeaTable Server
+This installation assumes that all components of SeaTable are installed below the folder `/opt`.
+We recommended to keep this folder structure.
 
-This installation assumes that all components of SeaTable are installed below the folder `/opt`. Please keep the recommended folder structure to avoid problems.
 
 ### Create directory
-
 === "Both Editions"
 
     ```
