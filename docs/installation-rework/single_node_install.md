@@ -10,8 +10,7 @@ status: new
 
 #### This manual describes the installation of a SeaTable Server on a Linux OS using Docker.
 
-We want to provide you an easy and fast installation method, that will lead to a up and runnning SeaTable system within minutes.
-The description is valid for SeaTable **Enterprise Edition** and SeaTable **Developer Edition**.
+We want to provide an easy installation method, that will lead to an up and runnning SeaTable system within minutes. These steps where tested on Debian and Ubuntu based Systems.
 If you come across a problem or somthing is unclear please create a post at the [SeaTable community forum](https://forum.seatable.io).
 We are happy to help and will improve this manual if needed.
 
@@ -19,7 +18,7 @@ We are happy to help and will improve this manual if needed.
 
     SeaTable uses `docker` and `docker compose` plugin. If Docker is not supported by your platform, you cannot install SeaTable Server with this manual.
 
-!!! question "Want to watch a step-by-step video instead of reading a manual?"
+!!! tip "Want to watch a step-by-step video instead of reading a manual?"
 
     :fontawesome-brands-youtube:{ style="color: #EE0F0F" }
     __[How to install SeaTable]__ :octicons-clock-24: 20m
@@ -58,19 +57,17 @@ We recommended to keep this folder structure.
 
 #### 2. Change .env file (Enviroment Configuration file)
 
-    nano /opt/seatable-compose/.env
-
 !!! warning "Only modify the `.env` file"
 
     In most cases there should be no need to change anything in the compose.yml files.
 
+```bash
+nano /opt/seatable-compose/.env
+```
 
-
-=== "Both editions"
+=== "SeaTable Enterprise Edition"
 
     ``` python
-    ## Here is the content of the `.env` file with some explanations.
-
     ## select the components to be installed
     COMPOSE_FILE='seatable-docker-proxy.yml,seatable-server.yml' # (1)!
 
@@ -79,45 +76,26 @@ We recommended to keep this folder structure.
     SEATABLE_PATH='/opt/seatable-server' # (4)!
     TIME_ZONE='Europe/Berlin' # (2)!
 
-    # database
-    SEATABLE_MYSQL_ROOT_PASSWORD='topsecret' # (5)!
-
-    ## image versions
-    ## SEATABLE_IMAGE='seatable/seatable-developer:4.1.9'
-    # (6)!
     ```
 
     1.  COMPOSE_FILE is a comma separated list **without spaces**. It defines which components should be run. `seatable-docker-proxy.yml` and `seatable-server.yml` are a typical combination for a base system.
     2.  Get a [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) from Wikipedia.
     3.  Select your domain or subdomain that points to your Server (without https://). You have to set an A-Record or CNAME pointing to your IP.
     4.  Only change the path if you are an experienced docker and linux admin.
-    5.  Password of the mariadb root user.
-    6.  To install a developer edition, uncomment this line
 
-    Change the `.env` file according to your needs.
+=== "SeaTable Developer Edition"
 
-=== "Hostname"
-
-    Replace `SEATABLE_SERVER_HOSTNAME` with the url you would like to use for your SeaTable Server.
-
-=== "Database password"
-
-    You can either change this password manually or you just execute the following command to set a new random password with 40 chars.
+    ``` python
+    ## use the seatable-dev-server.yml instead of the seatable-server.yml
+    ## otherwise refer to the SeaTable Enterprise Edition section
+    COMPOSE_FILE='seatable-docker-proxy.yml,seatable-dev-server.yml'
 
     ```
-    sed -i "s/SEATABLE_MYSQL_ROOT_PASSWORD=.*/SEATABLE_MYSQL_ROOT_PASSWORD='$(pwgen -s 40 1)'/" .env
-    ```
 
-=== "Timezone"
+#### 3. Generate inital secrets and write them into your .env file
 
-    Change `TIME_ZONE` according to your location. You can get a [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) from Wikipedia. Use the value from the table column *TZ identifier*.
-
-=== "Seatable Edition"
-
-    `SEATABLE_IMAGE` value determines if you install SeaTable Enterprise or SeaTable Developer Edition. You can find the available images at docker hub:
-
-    - [SeaTable Enterprise Edition at Docker Hub](https://hub.docker.com/r/seatable/seatable-enterprise/tags)
-    - [SeaTable Developer Edition at Docker Hub](https://hub.docker.com/r/seatable/seatable-developer/tags)
+    echo "SEATABLE_MYSQL_ROOT_PASSWORD=$(pwgen -s 40 1)" >> .env
+    echo "SEATABLE_ADMIN_PASSWORD=$(pwgen -s 40 1)" >> .env
 
 #### 4. Get a license
 
@@ -133,15 +111,12 @@ Download the license to the current directory, like it is described in the email
 !!! success "Three users, two years - for free."
 
     You will receive a license for up to three users which is valid for two years.  
-    If you like SeaTable and want to buy a bigger license, please [contact us](https://seatable.io/kontakt/?lang=auto).
+    If you like SeaTable and are considering a bigger license, please [contact us](https://seatable.io/kontakt/?lang=auto).
 
 #### 5. Start the server
 
-Run`tree -a /opt/seatable-compose`, the output should look something like this:
+Run`tree -a /opt/seatable-compose`, the output should look like this:
 
-=== "Enterprise Edition"
-
-    ```
     /opt/seatable-compose
     ├── .env
     ├── .env-release
@@ -151,29 +126,19 @@ Run`tree -a /opt/seatable-compose`, the output should look something like this:
     ├── seatable-python-pipeline.yml
     └── seatable-server.yml
 
-    ```
-
-=== "Developer Editions"
-
-    ```
-    tree -a /opt/seatable-server
-    ├── docker-compose.yml
-    ├── .env
-    ```
-
 If everything is in place, execute the following command to download and start the docker images for the first time.
 
 ```bash
 docker compose up
 ```
 
-Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.` in the output log, the database has been initialized successfully. Press keyboard `CTRL + C` (Windows) or `Control + C` (Mac) to return to the prompt.
+Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.` in the output log, the database has been initialized successfully. Press `CTRL/Control + C` to return to the prompt.
 
-Currently the configuration files are created with `http:` instead of `https:`. This could be fixed with the following command:
+At this time all configuration files are created with `http://` instead of `https://`. This can be fixed with the following command:
 
 ```
 source .env
-sed -i 's|http://${SEATABLE_SERVER_HOSTNAME}|https://{SEATABLE_SERVER_HOSTNAME}|g' /opt/seatable-server/seatable-data/seatable/conf/dtable_web_settings.py
+sed -i "s|http://${SEATABLE_SERVER_HOSTNAME}|https://${SEATABLE_SERVER_HOSTNAME}|g" /opt/seatable-server/seatable/conf/dtable_web_settings.py
 ```
 
 Now it is time to run `docker compose` again. This time in detached mode:
@@ -182,20 +147,24 @@ Now it is time to run `docker compose` again. This time in detached mode:
 docker compose up -d
 ```
 
-## Start SeaTable and create the initial superuser
+#### 6. SeaTable process and initial superuser creation
 
-After the first start it is still necessary to create an initial admin user and to start the SeaTable Server. In an upcoming version these steps will not be necessary anymore.
+After the first start it is necessary to create an initial admin user and to start the main SeaTable process. In an upcoming version these steps will not be necessary anymore.
 
-```bash
+```
 docker exec -d seatable /shared/seatable/scripts/seatable.sh start
+```
+```
 docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
 ```
 
 !!! Tip "Docker parameters"
 
-    The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
+    The first command uses the option `-d` which starts the service in the background.  
+    The second command uses the option `-it` which runs the command in interactive mode.
 
-Enter the email address and the initial password of the admin user. `Superuser created successfully` confirms that the admin user has been created.
+Enter the email address and the initial password of the admin user.  
+`Superuser created successfully` confirms the creation of the admin user.
 
 You can now access SeaTable at the host name specified in the `.env` file.
 
@@ -208,8 +177,12 @@ You can now access SeaTable at the host name specified in the `.env` file.
 
 **If, for whatever reason, the installation fails, how do I to start from a clean slate again?**
 
-Stop all containers, remove the folder `/opt/seatable-compose` and start again.
+Stop all containers, remove everything under the folder `/opt` and start again.
 
 **What if no url is pointing to the SeaTable server?**
 
 No problem. Just enter your local IP-Adress instead of the URL into the .env file.
+
+**What if you want to provide your own Reverse Proxy / TLS termination?**
+
+You can opt out of using caddy and use another webserver of your choice, just don't include it in the COMPOSE_FILE list. In this case you have to take care of the SSL termination yourself and map port 80 to the seatable container directly.
