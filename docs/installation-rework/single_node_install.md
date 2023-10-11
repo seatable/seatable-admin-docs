@@ -10,7 +10,7 @@ status: new
 
 #### This manual describes the installation of a SeaTable Server on a Linux OS using Docker.
 
-We want to provide you an easy and fast installation method, that will lead to a up and runnning SeaTable installation within minutes.
+We want to provide you an easy and fast installation method, that will lead to a up and runnning SeaTable system within minutes.
 The description is valid for SeaTable **Enterprise Edition** and SeaTable **Developer Edition**.
 If you come across a problem or somthing is unclear please create a post at the [SeaTable community forum](https://forum.seatable.io).
 We are happy to help and will improve this manual if needed.
@@ -119,9 +119,9 @@ We recommended to keep this folder structure.
     - [SeaTable Enterprise Edition at Docker Hub](https://hub.docker.com/r/seatable/seatable-enterprise/tags)
     - [SeaTable Developer Edition at Docker Hub](https://hub.docker.com/r/seatable/seatable-developer/tags)
 
-### Get a license
+#### 4. Get a license
 
-This step is only necessary, if you want to install SeaTable Enterprise Edition. You can skip this step if you install SeaTable Developer Edition.
+This step is only necessary, if you want to install SeaTable Enterprise Edition. You can skip this step if you install SeaTable Developer Edition.  
 **Please replace `email@example.com` with a valid email address of yours.**
 
 ```
@@ -130,11 +130,12 @@ curl https://get.seatable.io/license/email@example.com
 
 Download the license to the current directory, like it is described in the email you just received.
 
-!!! success "Three users for two year - just for free."
+!!! success "Three users, two years - for free."
 
-    You will receive a license for up to three users that is valid for two years. If you like SeaTable and want to buy a bigger license, please [contact us](https://seatable.io/kontakt/?lang=auto).
+    You will receive a license for up to three users which is valid for two years.  
+    If you like SeaTable and want to buy a bigger license, please [contact us](https://seatable.io/kontakt/?lang=auto).
 
-### Start the server
+#### 5. Start the server
 
 Run`tree -a /opt/seatable-compose`, the output should look something like this:
 

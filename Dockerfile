@@ -1,7 +1,7 @@
 FROM squidfunk/mkdocs-material
 
-RUN pip install --no-cache-dir \
-  mkdocs-git-revision-date-localized-plugin
+COPY requirements.txt .
+RUN pip install -r ./requirements.txt
 
 EXPOSE 8000
 
