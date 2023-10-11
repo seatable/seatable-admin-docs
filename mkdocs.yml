@@ -51,6 +51,9 @@ theme:
 plugins:
   - search:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - exclude-search:
+      exclude:
+        - installation-rework/*
   - minify:
       minify_html: true
   - git-revision-date-localized
