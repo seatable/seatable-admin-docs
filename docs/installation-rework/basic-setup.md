@@ -94,8 +94,8 @@ nano /opt/seatable-compose/.env
 
 #### 3. Generate inital secrets and write them into your .env file
 
-    echo "SEATABLE_MYSQL_ROOT_PASSWORD=$(pwgen -s 40 1)" >> .env
-    echo "SEATABLE_ADMIN_PASSWORD=$(pwgen -s 40 1)" >> .env
+    echo "SEATABLE_MYSQL_ROOT_PASSWORD=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
+    echo "SEATABLE_ADMIN_PASSWORD=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 
 #### 4. Get a license
 
