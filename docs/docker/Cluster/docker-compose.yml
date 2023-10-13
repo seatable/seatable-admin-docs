@@ -1,4 +1,3 @@
-version: '2.0'
 services:
   dtable-server-proxy:
     image: seatable/dtable-server-proxy:latest

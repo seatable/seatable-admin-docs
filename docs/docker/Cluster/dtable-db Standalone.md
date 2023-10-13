@@ -27,7 +27,7 @@ DTABLE_DB_URL = 'https://dtable-db.example.com'  # dtable-db server's url
 ### Restart dtable-web server
 
 ```sh
-docker-compose up -d
+docker compose up -d
 
 docker exec -it seatable bash
 
@@ -57,7 +57,7 @@ Modify dtable-server configuration file  `/Your SeaTable data volume/seatable/co
 ### Restart dtable-server server
 
 ```sh
-docker-compose up -d
+docker compose up -d
 
 docker exec -it seatable bash
 
@@ -93,7 +93,6 @@ mkdir /opt/seatable
 vim /opt/seatable/docker-compose.yml
 
 ```
-version: '2.0'
 services:
   seatable:
     image: seatable/seatable-enterprise:latest
@@ -178,7 +177,7 @@ DTABLE_EVENTS_TASK_MODE=all
 ### Start dtable-db
 
 ```sh
-docker-compose up -d
+docker compose up -d
 
 docker exec -it seatable bash
 

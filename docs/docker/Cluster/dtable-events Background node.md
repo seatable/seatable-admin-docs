@@ -22,7 +22,6 @@ mkdir /opt/seatable
 vim /opt/seatable/docker-compose.yml
 
 ```
-version: '2.0'
 services:
   seatable:
     image: seatable/seatable-enterprise:latest
@@ -90,7 +89,7 @@ DTABLE_EVENTS_TASK_MODE=background
 ### Start dtable-events background node
 
 ```sh
-docker-compose up -d
+docker compose up -d
 
 docker exec -it seatable bash
 

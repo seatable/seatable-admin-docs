@@ -87,7 +87,7 @@ DTABLE_EVENTS_TASK_MODE can be all, foreground, background. Here we use all. If 
 ### Restart dtable-web server
 
 ```sh
-docker-compose up -d
+docker compose up -d
 
 docker exec -it seatable bash
 
@@ -120,7 +120,6 @@ mkdir /opt/seatable
 vim /opt/seatable/docker-compose.yml
 
 ```
-version: '2.0'
 services:
   seatable:
     image: seatable/seatable-enterprise:latest
@@ -233,7 +232,7 @@ DTABLE_EVENTS_TASK_MODE=all
 ### Start dtable-server
 
 ```sh
-docker-compose up -d
+docker compose up -d
 
 docker exec -it seatable bash
 
