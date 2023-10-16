@@ -1,26 +1,28 @@
 ## Activate the python pipeline on a one node seatable server
 This guide shows how to activate the python pipeline on a one node seatable server. If you are using a separate node to run the python-pipeline you have to account for the different hostnames and ports.
 
-### 1. Change the .env file
+#### 1. Change the .env file
 
-Add `seatable-python-pipeline.yml` to the COMPOSE_FILE variable.
+Add _seatable-python-pipeline.yml_ to the COMPOSE_FILE variable.
 
 ```bash
 nano /opt/seatable-compose/.env
 ```
 
-Your .env should look something like this:
+Your COMPOSE_FILE variable should look something like this:
 ```bash
 COMPOSE_FILE='seatable-docker-proxy.yml,seatable-server.yml,seatable-python-pipeline.yml'
 ```
+#### 2. Generate inital secret
 
-### 2. Generate inital secret
+Generate inital secrets and write them into your .env file.
 
     echo "SEATABLE_SCHEDULER_MYSQL_ROOT_PASSWORD=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 
-### 3. Make configuration changes
+#### 3. Modify the .env Configuration File
 
-You can use this commands to source the variables from your .env file, and append the configuration to the files. Be aware that the SEATABLE_SERVER_HOSTNAME variable has to be set before the first start of the container to generate all the configuration files correctly.
+On a one node system (Python-Pipeline and SeaTable Server are running on the same host, with the same url) you can use this commands to append the .env configuration file.  
+
 
 ```bash
 source /opt/seatable-compose/.env && \
@@ -28,9 +30,17 @@ cat <<EOF >> /opt/seatable-compose/.env
 SEATABLE_SCHEDULER_HOSTNAME='$SEATABLE_SERVER_HOSTNAME' # == seatable_server_hostname on a single-node system
 EOF
 ```
-`docker compose up -d && docker logs -f seatable-python-scheduler` to check if the scheduler is running
 
-#### Modifying the Configuration File of the FAAS Scheduler
+#### 4. Start the Python Pipeline
+
+Be aware that the SEATABLE_SCHEDULER_HOSTNAME variable has to be set in your .env before the first start of the container to generate all the configuration files correctly.  
+
+```bash
+docker compose up -d && docker logs -f seatable-python-scheduler
+```
+If you see _"SeaTable FAAS Scheduler started"_ the scheduler was started successfully. You can return to a prompt with `CTRL + c`
+
+#### 5.  Modify the Scheduler Configuration File
 
 ```bash
 cd /opt/seatable-python-scheduler/shared/seatable-faas-scheduler/conf && \
@@ -50,7 +60,7 @@ SEATABLE_FAAS_AUTH_TOKEN = '***'                       # copy / Token to copy to
 
 ```
 
-#### Modifying the Configuration File of SeaTable
+#### 6. Modify the dtable_web_settings.py Configuration File
 
 Open SeaTable's `dtable_web_setttings.py` configuration file in a text editor to add the FAAS Scheduler's address:
 
@@ -66,44 +76,19 @@ SEATABLE_FAAS_AUTH_TOKEN = '***'                        # add line and set / Tok
 SEATABLE_FAAS_URL = 'https://<your-seatable-hostname>:12011' # add line and set / URL of the SeaTable FAAS Scheduler
 ```
 
-### Restarting SeaTable
+#### 7. Bring docker compose down and up again
 
-For the modifications in the `dtable_web_settings.py` to take effect, restart the SeaTable server:
-
-```bash
-docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
-```
-
-```bash
-source /opt/seatable-compose/.env && \
-cat <<EOF >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
-
-# Python Pipeline
-SEATABLE_FAAS_AUTH_TOKEN = ''
-SEATABLE_FAAS_URL = 'https://$SEATABLE_SERVER_HOSTNAME:12011' # URL of the SeaTable Python Pipeline Scheduler
-EOF
-```
-
-#### 3. Bring docker compose down and up again
-
-We recommend bringing all containers down and up again to make sure everything is loaded correctly.
+Bring the compose project down then up again and start the seatable service to make sure every modification has taken effect.
 
 ```bash
 cd /opt/seatable-compose && /
 docker compose down && /
 docker compose up -d
-```
-
-#### 4. Bring the SeaTable Service up
-
-```
 docker exec -d seatable /shared/seatable/scripts/seatable.sh start
 ```
 
-#### 5. Check if the python pipeline is running
+#### 8. Check if the python pipeline is running
 
-**placeholder / maybe another page ?**
-
-make new base
-add script (our testscript?)
-check output
+make new base  
+add a python script -> for example `print("Hello World!")`  
+check output  -> should be `Hello World!`

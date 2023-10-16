@@ -51,7 +51,7 @@ We recommended to keep this folder structure.
 #### 1. Create directory & Download required files & Copy .env file
     mkdir /opt/seatable-compose && \
     cd /opt/seatable-compose && \
-    wget -c https://github.com/seatable/seatable-compose/releases/latest/download/seatable-compose.tar.gz \
+    wget -c https://github.com/seatable/seatable-release/releases/latest/download/seatable-compose.tar.gz \
     -O - | tar -xz -C /opt/seatable-compose && \
     cp -n .env-release .env
 
@@ -134,12 +134,13 @@ docker compose up
 
 Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.` in the output log, the database has been initialized successfully. Press `CTRL/Control + C` to return to the prompt.
 
-At this time all configuration files are created with `http://` instead of `https://`. This can be fixed with the following command:
+!!! warning "Change scheme to https"
+    At this time all configuration files are created with `http://` instead of `https://`. This can be fixed with the following command:
 
-```
-source .env
-sed -i "s|http://${SEATABLE_SERVER_HOSTNAME}|https://${SEATABLE_SERVER_HOSTNAME}|g" /opt/seatable-server/seatable/conf/dtable_web_settings.py
-```
+    ```
+    source .env
+    sed -i "s|http://${SEATABLE_SERVER_HOSTNAME}|https://${SEATABLE_SERVER_HOSTNAME}|g" /opt/seatable-server/seatable/conf/dtable_web_settings.py
+    ```
 
 Now it is time to run `docker compose` again. This time in detached mode:
 
