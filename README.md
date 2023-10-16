@@ -16,18 +16,16 @@ git clone <this_repo>
 cd <this_repos_directory>
 git checkout -b <new_branch>
 ```
+- Preview changes locally with docker / Preview at [http://127.0.0.1:8000](http://127.0.0.1:8000)
 ```bash
-sudo docker build -t seatable-admin-docs .
+./preview.sh
 ```
-```bash
-sudo docker run --name seatable-admin-docs --rm -d -p 127.0.0.1:8000:8000 -v ${PWD}:/docs seatable-admin-docs
-```
-changes in the /docs directory can be previewed at [http://127.0.0.1:8000](http://127.0.0.1:8000)
 ```bash
 git add <relevant_changes>
 git commit -m "<commit_message>"
 git push
 ```
+- stop preview
 ```bash
-sudo docker kill seatable-admin-docs
+./preview.sh -stop
 ```
