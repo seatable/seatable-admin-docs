@@ -89,7 +89,7 @@ Initialize the database by running docker-compose:
 
 ```bash
 $ cd /opt/seatable
-$ docker-compose up
+$ docker compose up
 
 ```
 
@@ -97,10 +97,10 @@ Wait for a while. When you see `This is an idle script (infinite loop) to keep c
 
 ### Starting the Docker Containers
 
-Run docker-compose again, this time in detached mode:
+Run docker compose again, this time in detached mode:
 
 ```bash
-$ docker-compose up -d
+$ docker compose up -d
 
 ```
 
@@ -229,7 +229,7 @@ Additionally, the slow_logs contain slow request logs which help debug performan
 
   ```
 
-Note：Since the Nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_SERVER_LETSENCRYPT = True` before executing the `docker-compose up -d` command for the first time.
+Note：Since the Nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_SERVER_LETSENCRYPT = True` before executing the `docker compose up -d` command for the first time.
 
 If you want to use your own SSL certificate, you can refer to the following steps.
 
@@ -309,8 +309,8 @@ $ docker exec seatable /templates/seatable.sh init
 You need to manually change http to https in other configuration files and restart SeaTable.
 
 ```bash
-$ docker-compose down
-$ docker-compose up -d
+$ docker compose down
+$ docker compose up -d
 $ docker exec -d seatable /shared/seatable/scripts/seatable.sh start
 ```
 

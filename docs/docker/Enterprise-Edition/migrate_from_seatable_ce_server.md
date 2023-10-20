@@ -15,7 +15,7 @@ You need a SeaTable license file to migrate from SeaTable Developer Edition (Sea
 Stop all containers started by Docker Compose:
 
 ```sh
-docker-compose down
+docker compose down
 ```
 
 ### Copying the Licence File
@@ -46,7 +46,7 @@ Adjust the used Seatable image in the docker-compose.yml:
 Start the SeaTable container:
 
 ```sh
-docker-compose up -d
+docker compose up -d
 ```
 
 Start the SeaTable service:

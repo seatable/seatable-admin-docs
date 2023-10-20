@@ -23,18 +23,18 @@ Paste the following code block into the file:
 case $1 in
     start)
     cd /opt/seatable/
-    docker-compose up -d
+    docker compose up -d
     sleep 10
     docker exec -d seatable /shared/seatable/scripts/seatable.sh start
     ;;
     stop)
     cd /opt/seatable/
-    docker-compose down
+    docker compose down
     ;;
     restart)
     cd /opt/seatable/
-    docker-compose down
-    docker-compose up -d
+    docker compose down
+    docker compose up -d
     sleep 10
     docker exec -d seatable /shared/seatable/scripts/seatable.sh start
     ;;

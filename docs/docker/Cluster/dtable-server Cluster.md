@@ -75,7 +75,7 @@ Create the dtable-server-proxy configuration file :  `/opt/dtable-server-proxy/s
 **Start dtable-server-proxy**
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Modify dtable-server-01 configuration file

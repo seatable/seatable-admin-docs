@@ -266,18 +266,6 @@ NOTE: The configuration may look different for other versions of SeaTable Python
 
 **Please note: Check Docker version is 20.10.10 or greater before deploying FAAS Scheduler**
 
-### Installing Docker Compose
-
-Scheduler uses Docker Dompose. Install the docker-compose package:
-
-```bash
-# CentOS
-sudo yum install docker-compose -y
-
-# Debian/Ubuntu
-sudo apt-get install docker-compose -y
-```
-
 ### Downloading the FASS Scheduler Image
 
 Pull the image for SeaTable's FAAS Scheduler from Docker Hub:
@@ -320,7 +308,7 @@ Initialize the database with the following command:
 
 ```bash
 cd /opt/seatable-faas-scheduler
-docker-compose up
+docker compose up
 ```
 
 NOTE: You should run the above command in a directory with the `docker-compose.yml`.
@@ -374,7 +362,7 @@ SEATABLE_FAAS_AUTH_TOKEN = '***'                       # Token to copy to SeaTab
 Now start the SeaTable FAAS Scheduler in detached mode:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 NOTE: You should run the above command in the directory with the `docker-compose.yml`.
@@ -432,7 +420,7 @@ e.g.
       - SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=demo.faas-scheduler.seatable.com  # Specifies your host name if https is enabled
 ```
 
-**Note**：Since the nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=True` before executing the `docker-compose up -d` command for the first time.
+**Note**：Since the nginx configuration file is only generated automatically when you run the container for the first time, you'd better set `SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=True` before executing the `docker compose up -d` command for the first time.
 
 If you want to use your own SSL certificate, you can refer to the following steps:
 

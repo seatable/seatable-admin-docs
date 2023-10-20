@@ -23,14 +23,14 @@ docker pull seatable/seatable-developer:{tag}
 Stop the currently running SeaTable container.
 
 ```
-docker-compose down
+docker compose down
 
 ```
 
 Then modify SeaTable version in "docker-compose.yml". And start a new SeaTable container.
 
 ```
-docker-compose up -d
+docker compose up -d
 
 ```
 

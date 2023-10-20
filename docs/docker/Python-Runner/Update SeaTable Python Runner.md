@@ -29,11 +29,11 @@ docker pull seatable/seatable-faas-scheduler:latest
 
 ### Restart the service
 
-Enter into the installation directory, and restart the service by docker-compose commad
+Enter into the installation directory, and restart the service by docker compose commad
 
 ```shell
-docker-compose down
-docker-compose up -d
+docker compose down
+docker compose up -d
 ```
 
 ### Change the image
@@ -60,8 +60,8 @@ seatable-faas-scheduler:
 Restart the service
 
 ```bash
-docker-compose down
-docker-compose up -d
+docker compose down
+docker compose up -d
 ```
 
 ## Upgrade of Python Runner service
