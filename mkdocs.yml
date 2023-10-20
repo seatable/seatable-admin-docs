@@ -140,10 +140,11 @@ nav:
 
   # # Install Rework Preparations in folder installation-rework
   # - Installation-rework:
-  #     - Docker Compose: installation-rework/basic-setup.md
+  #     - Basic Setup: installation-rework/basic-setup.md
   #     - FAQ / Troubleshooting: installation-rework/faq.md
   #     - Additional Components:
   #         - Seafile: installation-rework/components/seafile.md
+  #         - n8n: installation-rework/components/n8n.md
   #         - Python Pipeline:
   #             - Deploy: installation-rework/components/python-pipeline.md
   #             - Customization: installation-rework/components/python-pipeline-custom.md

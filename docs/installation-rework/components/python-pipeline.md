@@ -36,9 +36,12 @@ EOF
 Be aware that the SEATABLE_SCHEDULER_HOSTNAME variable has to be set in your .env before the first start of the container to generate all the configuration files correctly.  
 
 ```bash
-docker compose up -d && docker logs -f seatable-python-scheduler
+cd /opt/seatable-compose && \
+docker compose up -d && \
+docker logs -f seatable-python-scheduler
 ```
-If you see _"SeaTable FAAS Scheduler started"_ the scheduler was started successfully. You can return to a prompt with `CTRL + c`
+If you see _"SeaTable FAAS Scheduler started"_ the scheduler was started successfully.  
+You can return to a prompt with `CTRL + c`
 
 #### 5.  Modify the Scheduler Configuration File
 
@@ -72,7 +75,7 @@ Paste the following lines in the configuration file, paste the token from the `s
 
 ```py
 # for seatable-faas
-SEATABLE_FAAS_AUTH_TOKEN = '***'                        # add line and set / Token from seatable_faas_scheduler_settings.py
+SEATABLE_FAAS_AUTH_TOKEN = '***' # add line and set / Token from seatable_faas_scheduler_settings.py
 SEATABLE_FAAS_URL = 'https://<your-seatable-hostname>:12011' # add line and set / URL of the SeaTable FAAS Scheduler
 ```
 
@@ -81,14 +84,14 @@ SEATABLE_FAAS_URL = 'https://<your-seatable-hostname>:12011' # add line and set 
 Bring the compose project down then up again and start the seatable service to make sure every modification has taken effect.
 
 ```bash
-cd /opt/seatable-compose && /
-docker compose down && /
+cd /opt/seatable-compose && \
+docker compose down && \
 docker compose up -d
 docker exec -d seatable /shared/seatable/scripts/seatable.sh start
 ```
 
 #### 8. Check if the python pipeline is running
 
-make new base  
+create a new base  
 add a python script -> for example `print("Hello World!")`  
-check output  -> should be `Hello World!`
+check the output  -> expected output is: `Hello World!`
