@@ -67,8 +67,11 @@ cd /opt/seatable-backup/databases
 docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt ccnet_db > ccnet_db.sql
 docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt seafile_db > seafile_db.sql
 docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtable_db > dtable_db.sql
-
 ```
+
+!!! warning
+
+    The above commands do not work via cronjob. To create dumps of the database via cronjob, the parameters `-it` must be omitted.
 
 ### Backing up SeaTable data
 
