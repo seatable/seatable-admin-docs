@@ -20,7 +20,7 @@ In section `[general]`:
 In section `[storage]`:
 
 - `data_dir`: Location of the data directory. You must specify this option.
-- `cleanup_at`: The execution time of clean up deleted data. Format is `12:30`. The default value is `00:00`.  
+- `cleanup_at`: The execution time of clean up deleted data. Format is `12:30`. The default value is `00:00`.
 
 Section `[dtable cache]` contains options for caching bases from dtable-server:
 
@@ -53,6 +53,13 @@ Section `[backup]` contains options to configure backup functions (available sin
 - `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (24 hours).
 - `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
 
+Section `[profile]` contains options to configure profiling functions.
+
+- `enable_profiling`: Enable profiling API. Default is false.
+- `password`: Password for profiling API. Required if `enable_profiling` is true.
+- `enable_auto_heap_profiling`: Enable auto heap profiling. Default is false. (Added in 4.2.3)
+- `auto_heap_profiling_pressure`: The pressure threshold for auto heap profiling. Default is 50, which means when the memory usage exceeds 50% of the total memory, auto heap profiling will be triggered. (Added in 4.2.3)
+
 Below is an example configuration:
 
 ```
@@ -83,4 +90,10 @@ db_name = dtable
 dtable_storage_server_url = http://127.0.0.1:6666
 backup_interval = 86400
 keep_backup_num = 3
+
+[profile]
+enable_profiling = true
+password = mypass
+enable_auto_heap_profiling = true
+auto_heap_profiling_pressure = 50
 ```
