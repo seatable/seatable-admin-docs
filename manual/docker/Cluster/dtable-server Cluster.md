@@ -209,7 +209,7 @@ Copy file dtable_server_config.json to dtable_server_slave_config.json.
 cp dtable_server_config.json dtable_server_slave_config.json.
 ```
 
-Modify the dtable-server-slave configuration file :  `/Your SeaTable data volume/seatable/conf/dtable_server_slave_config.json`
+Modify the dtable-server-slave configuration file : `/Your SeaTable data volume/seatable/conf/dtable_server_slave_config.json`
 
 ```json
 {
@@ -223,6 +223,14 @@ Modify the dtable-server-slave configuration file :  `/Your SeaTable data volume
     "dtable_server_proxy": "http://dtable-server-proxy.example.com:5550/"  // domain of dtable-server-proxy
 }
 ```
+
+Modify the seatable-controller.conf : `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
+
+```
+DTABLE_SERVER_SLAVE_MEMORY_SIZE=4096
+```
+
+* DTABLE_SERVER_SLAVE_MEMORY_SIZE: the memory size of dtable-server-slave node
 
 Modify the Nginx configuration file : `/Your SeaTable data volume/seatable/conf/nginx.conf`
 
@@ -289,3 +297,8 @@ docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 ```
 
 Now you can use the dtable-server-slave.
+
+The following conditions are required for the slave to be used
+
+1. The number of rows in a Base is greater than `worker_threads_rows_limit`
+2. The permission when opening a Base is any one of `custom-share`,  `view-share` and `collection-table`
