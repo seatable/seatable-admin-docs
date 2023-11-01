@@ -173,6 +173,8 @@ Modify the dtable-server configuration file :  `/Your SeaTable data volume/seata
 Modify the Nginx configuration file : `/Your SeaTable data volume/seatable/conf/nginx.conf` 
 
 ```
+log_format your_log_format '[$time_iso8601] $http_x_forwarded_for $remote_addr "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $upstream_response_time';
+
 upstream dtable_servers {
     server 127.0.0.1:5000;
     keepalive 15;
@@ -187,17 +189,18 @@ server {
     return 404;
 }
 
+# This part of the configuration is for communication among nodes within the cluster.
 server {
-    server_name dtable-server.example.com;
-    listen 443 ssl;
-    ssl_certificate /shared/ssl/<your-ssl.cer>;
-    ssl_certificate_key /shared/ssl/<your-ssl.key>;
+    server_name 172.xx.xx.xx;
+    listen 80;
 
     proxy_set_header X-Forwarded-For $remote_addr;
 
     location /socket.io {
         proxy_pass http://dtable_servers;
-		...
+        ...
+        access_log      /path/to/socket-io-inner.access.log your_log_format;
+        error_log       /path/to/socket-io-inner.error.log;
     }
 
     location / {
@@ -209,7 +212,39 @@ server {
         }
 
         proxy_pass         http://dtable_servers;
-    ...
+        ...
+        access_log      /path/to/dtable-server-inner.access.log your_log_format;
+        error_log       /path/to/dtable-server-inner.error.log;
+    }
+}
+
+server {
+    server_name dtable-server.example.com;
+    listen 443 ssl;
+    ssl_certificate /shared/ssl/<your-ssl.cer>;
+    ssl_certificate_key /shared/ssl/<your-ssl.key>;
+
+    proxy_set_header X-Forwarded-For $remote_addr;
+
+    location /socket.io {
+        proxy_pass http://dtable_servers;
+        ...
+        access_log      /path/to/socket-io.access.log your_log_format;
+        error_log       /path/to/socket-io.error.log;
+    }
+
+    location / {
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
+            add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
+            return 204;
+        }
+
+        proxy_pass         http://dtable_servers;
+        ...
+        access_log      /path/to/dtable-server.access.log your_log_format;
+        error_log       /path/to/dtable-server.error.log;
     }
 }
 
