@@ -207,7 +207,7 @@ server {
         proxy_pass         http://dtable_servers;
         ...
         access_log      /path/to/dtable-server-inner.access.log your_log_format;
-        error_log       /path/to/dtable-server-inner.error.log;
+        error_log       /path/to/dtable-server-inner.error.log your_log_format;
     }
 }
 
@@ -223,7 +223,7 @@ server {
         proxy_pass http://dtable_servers;
         ...
         access_log      /path/to/socket-io.access.log your_log_format;
-        error_log       /path/to/socket-io.error.log;
+        error_log       /path/to/socket-io.error.log your_log_format;
     }
 
     location / {
@@ -237,7 +237,7 @@ server {
         proxy_pass         http://dtable_servers;
         ...
         access_log      /path/to/dtable-server.access.log your_log_format;
-        error_log       /path/to/dtable-server.error.log;
+        error_log       /path/to/dtable-server.error.log your_log_format;
     }
 }
 
