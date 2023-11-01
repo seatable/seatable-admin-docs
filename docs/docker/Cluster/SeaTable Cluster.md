@@ -196,13 +196,6 @@ server {
 
     proxy_set_header X-Forwarded-For $remote_addr;
 
-    location /socket.io {
-        proxy_pass http://dtable_servers;
-        ...
-        access_log      /path/to/socket-io-inner.access.log your_log_format;
-        error_log       /path/to/socket-io-inner.error.log;
-    }
-
     location / {
         if ($request_method = 'OPTIONS') {
             add_header Access-Control-Allow-Origin *;
