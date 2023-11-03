@@ -91,14 +91,11 @@ To add a role `employee`, for example, add the following lines (beginning at `'e
 
 ```
 ENABLED_ROLE_PERMISSIONS = {
-
     'employee': {
         'can_add_dtable': True,
         'can_add_group': False,
         'can_create_common_dataset': False
     },
-
-
 }
 ```
 
