@@ -21,6 +21,7 @@ Modify dtable-web configuration file  `/Your SeaTable data volume/seatable/conf/
 
 ```
 DTABLE_DB_URL = 'https://dtable-db.example.com'  # dtable-db server's url
+INNER_DTABLE_DB_URL = 'http://192.168.0.3'  # LAN dtable-db server's url
 
 ```
 
@@ -158,6 +159,24 @@ server {
     }
 }
 
+server {
+    server_name 192.168.0.3;
+    listen 80;
+
+    proxy_set_header X-Forwarded-For $remote_addr;
+
+    location / {
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
+            add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
+            return 204;
+        }
+
+        proxy_pass         http://127.0.0.1:7777/;
+    ...
+    }
+}
 
 ```
 
