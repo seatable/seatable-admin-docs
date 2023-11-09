@@ -1,7 +1,5 @@
 # dtable web settings
 
-The `dtable_web_settings.py` is one of the central configuration files of SeaTable. With this file you can configure a lot of settings and functions of the web interface of SeaTable. The `dtable_web_settings.py` consists of a list of `Key = Value` pairs. Comments starting with `#` are ignored. 
-
 You need to restart SeaTable so that your changes take effect. Just execute the following command at your command line.
 
 ```bash
@@ -52,9 +50,13 @@ ENABLE_SIGNUP = False
 
 # Activate or deactivate user when registration complete. Default is `True`.
 # If set to `False`, new users need to be activated by admin in admin panel.
-ACTIVATE_AFTER_REGISTRATION = False
+ACTIVATE_AFTER_REGISTRATION = True
 
-# Whether allow user to delete its account
+# Whether or not send activation Email to user when registration complete. Default is `False`.
+# This option will be ignored if `ACTIVATE_AFTER_REGISTRATION` set to `True`.
+REGISTRATION_SEND_MAIL = False
+
+# Whether allow user to delete its account. Default is `True`.
 ENABLE_DELETE_ACCOUNT = True
 
 # Enforce all users to use 2-factor-authentication. Default is 'False'.
@@ -67,6 +69,15 @@ SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER = True
 
 # Whether to send email when a system admin resetting a user's password. Default is `True`.
 SEND_EMAIL_ON_RESETTING_USER_PASSWD = True
+
+# Whether to send email when an admin activates a new account. Default is `True`.
+SEND_EMAIL_ON_ACTIVATING_USER = True
+
+# Whether to send email when add new user. Default is `True`.
+SEND_EMAIL_ON_ORG_ADD_NEW_USER = True
+
+# Whether to send email when org admin activating a member. Default is `False`.
+SEND_EMAIL_ON_ACTIVATING_ORG_USER = False
 
 # Send system admin notify email when user registration is complete. Default is `False`.
 NOTIFY_ADMIN_AFTER_REGISTRATION = True
@@ -121,7 +132,6 @@ DISABLE_ADDING_PERSONAL_BASES = False
 # Choices can be found here:
 # https://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
-# The time zone should be the same as the system time zone. 
 # Otherwise there may be problems with the export or data processing
 # of the date-column.
 # Here some examples:
@@ -161,7 +171,7 @@ TERMS_OF_SERVICE_LINK = ''
 
 # Predefined custom colors that can be used in color rules, options of single select and so on
 CUSTOM_COLORS = [
-    {'color':'#F5C043','text_color':'#212529'}, 
+    {'color':'#F5C043','text_color':'#212529'},
     {'color':'#3064BC','text_color':'#FFFFFF'},
 ]
 
@@ -197,7 +207,6 @@ After opening a base, the first 300 collaborators and the first 100 external app
 DTABLE_RELATED_USERS_PER_PAGE = 300
 DTABLE_APP_USERS_PER_PAGE = 100
 ```
-
 
 ## Embed Bases into other webpages
 
