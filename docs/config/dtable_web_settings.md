@@ -1,7 +1,5 @@
 # dtable web settings
 
-The `dtable_web_settings.py` is one of the central configuration files of SeaTable. With this file you can configure a lot of settings and functions of the web interface of SeaTable. The `dtable_web_settings.py` consists of a list of `Key = Value` pairs. Comments starting with `#` are ignored.
-
 You need to restart SeaTable so that your changes take effect. Just execute the following command at your command line.
 
 ```bash
@@ -134,7 +132,6 @@ DISABLE_ADDING_PERSONAL_BASES = False
 # Choices can be found here:
 # https://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
-# The time zone should be the same as the system time zone.
 # Otherwise there may be problems with the export or data processing
 # of the date-column.
 # Here some examples:
