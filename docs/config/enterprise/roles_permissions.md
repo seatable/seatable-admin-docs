@@ -29,6 +29,7 @@ The following permissions are supported/deleted in the latest SeaTable version:
 | scripts_running_limit          | 2.3              |                    | Number of _Python_ scripts a user can run within a month. 100 (without quotes) means 100 script runs per month; -1 (without quotes) means unlimited script runs. | The script run counter is reset at the beginning of every month. Only visible if can_run_python_script = True and Python Runner is available.                 |
 | can_schedule_run_script        | 2.3              |                    | Permission to schedule the execution of Python scripts.                                                                                                          | The permission can_run_python_script is also necessary to automatically run Python scripts.                                                                   |
 | can_archive_rows               | 2.3              |                    | Permission to archive rows. If set to False, the user cannot archive rows and cannot create archive views.                                                       |                                                                                                                                                               |
+| big_data_row_limit             | 3.1              |                    | Maxmum rows an organization can use in big data storage                                                                                                          | This item is used for the role of organizations rather than users                                                                                             |
 
 ## Standard Roles
 
@@ -55,7 +56,8 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_use_automation_rules': True,
         'snapshot_days': 180,
         'share_limit': 100,
-        'can_archive_rows': True
+        'can_archive_rows': True,
+        'big_data_row_limit': 100000
     },
     'guest': {
         'can_add_dtable': False,
