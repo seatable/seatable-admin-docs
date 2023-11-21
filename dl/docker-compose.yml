@@ -1,0 +1,205 @@
+services:
+
+# /opt/seatable-caddy
+# /opt/seatable-server oder /opt/seatable
+# /opt/seatable-mysql anstatt /opt/seatable/mysql-data
+# /opt/seatable-python
+# /opt/onlyoffice
+# /opt/uptime-kuma
+# warum manche prefixen? warum manche nicht?
+
+
+# Caddy: Webserver & Reverse-proxy 
+# Volume :/data/ is for acme and :/data/certs/ for custom certificates
+  caddy:
+    image: ${CADDY_RP_IMAGE}
+    restart: unless-stopped
+    container_name: seatable-caddy
+    profiles:
+      - seatable-server
+      - seatable-python-runner
+    ports:
+      - 80:80
+      - 443:443
+      - ${UPTIME_PORT:-3001}:${UPTIME_PORT:-3001}
+      - ${FAAS_PORT:-12011}:${FAAS_PORT:-12011}
+    environment:
+      - CADDY_INGRESS_NETWORKS=seatable-net
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/opt/seatable-caddy/caddy_data:/data"
+    networks:
+      - seatable-net
+
+# Seatable-Server
+# Optional labels for lets encrypt staging or custom certificates
+# caddy.tls.ca: https://acme-staging-v02.api.letsencrypt.org/directory
+# caddy.tls: "/data/certs/server-public-cert.pem /data/certs/server-private-key.pem"
+  seatable:
+    image: ${SEATABLE_IMAGE}
+    container_name: seatable-server
+    profiles:
+      - seatable-server
+    volumes:
+      - "/opt/seatable-server/seatable-data:/shared"
+      - "${PWD}/seatable-license.txt:/shared/seatable/seatable-license.txt"
+    environment:
+      - DB_HOST=seatable-db
+      - DB_ROOT_PASSWD=${SEATABLE_MYSQL_ROOT_PASSWORD}
+      - SEATABLE_SERVER_HOSTNAME=${SEATABLE_SERVER_HOSTNAME}
+      - TIME_ZONE=${TIME_ZONE}
+    labels:
+      caddy: ${SEATABLE_SERVER_HOSTNAME}
+      caddy.reverse_proxy: "{{upstreams 80}}"
+    depends_on:
+      seatable-db:
+        condition: service_healthy
+      memcached:
+        condition: service_started
+      redis:
+        condition: service_started
+    networks:
+      - seatable-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost || exit 1"]
+      interval: 20s
+      retries: 3
+      start_period: 20s
+      timeout: 10s
+
+  mariadb:
+    image: ${SEATABLE_DB_IMAGE}
+    container_name: seatable-db
+    profiles:
+      - seatable-server
+    environment:
+      - MYSQL_ROOT_PASSWORD=${SEATABLE_MYSQL_ROOT_PASSWORD}
+      - MYSQL_LOG_CONSOLE=true
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+      - MARIADB_MYSQL_LOCALHOST_USER=1
+      - MARIADB_MYSQL_LOCALHOST_GRANTS=USAGE
+    volumes:
+      - "/opt/seatable-server/mysql-data:/var/lib/mysql"
+    networks:
+      - seatable-net
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized"]
+      interval: 10s
+      retries: 3
+      timeout: 5s
+
+  memcached:
+    image: ${SEATABLE_MEMCACHED_IMAGE}
+    container_name: seatable-memcached
+    profiles:
+      - seatable-server
+    entrypoint: memcached -m 256
+    networks:
+      - seatable-net
+
+  redis:
+    image: ${SEATABLE_REDIS_IMAGE}
+    container_name: seatable-redis
+    profiles:
+      - seatable-server
+    networks:
+      - seatable-net
+
+# Seatable-Python-Runner
+# Optional labels for lets encrypt staging or custom certificates
+# caddy.tls.ca: https://acme-staging-v02.api.letsencrypt.org/directory
+# caddy.tls: "/data/certs/server-public-cert.pem /data/certs/server-private-key.pem"
+  seatable-faas-scheduler:
+    image: ${SEATABLE_FAAS_SCHEDULER_IMAGE}
+    container_name: seatable-faas-scheduler
+    profiles:
+      - seatable-python-runner
+    volumes:
+      # dieser Pfad ist scheisse.
+      - "/opt/seatable-faas-scheduler/shared:/shared"
+    environment:
+      # warum nimmt man nicht den gleichen datenbankcontainer?
+      - DB_HOST=faas-db
+      - DB_ROOT_PASSWD=${FAAS_SCHEDULER_MYSQL_ROOT_PASSWORD}
+      - SEATABLE_FAAS_SCHEDULER_SERVER_HOSTNAME=${FAAS_SCHEDULER_HOSTNAME}
+      - TIME_ZONE=${TIME_ZONE}
+    labels:
+      caddy: ${FAAS_SCHEDULER_HOSTNAME}:${FAAS_PORT}
+      caddy.reverse_proxy: "{{upstreams 80}}"
+    depends_on:
+      faas-db:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - seatable-net
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'python3 scheduler.py' && pgrep -f 'python3 flask_server.py'"]
+      interval: 20s
+      retries: 3
+      start_period: 20s
+      timeout: 10s
+
+  # hier sollte seatable-faas-db stehen, bzw. ich will das in einer datenbank haben...
+  # warum nicht in gleichen mariadb?
+  faas-db:
+    image: ${SEATABLE_FAAS_DB_IMAGE}
+    container_name: seatable-faas-scheduler-mysql
+    profiles:
+      - seatable-python-runner
+    volumes:
+      - "/opt/seatable-faas-scheduler/mysql-data:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${FAAS_SCHEDULER_MYSQL_ROOT_PASSWORD}
+      - MYSQL_LOG_CONSOLE=true
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+      - MARIADB_MYSQL_LOCALHOST_USER=1
+      - MARIADB_MYSQL_LOCALHOST_GRANTS=USAGE
+    networks:
+      - seatable-net
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized"]
+      interval: 10s
+      retries: 3
+      timeout: 5s
+
+  ## uptime-kuma (neu)
+  uptime-kuma:
+    image: ${UPTIME_KUMA_IMAGE}
+    container_name: uptime-kuma
+    profiles:
+      - uptime-kuma
+    volumes:
+      - /opt/uptime-kuma:/app/data
+    labels:
+      caddy: ${SEATABLE_SERVER_HOSTNAME}:${UPTIME_PORT}
+      caddy.reverse_proxy: "{{upstreams 3001}}"
+    networks:
+      - seatable-net
+
+  ## onlyoffice (neu)
+  onlyoffice:
+    image: ${ONLYOFFICE_DOCUMENTSERVER_IMAGE}
+    container_name: onlyoffice
+    profiles:
+      - onlyoffice
+# welche volumes brauche ich wirklich? /opt/onlyoffice?
+    volumes:
+      - /opt/onlyoffice/logs:/var/log/onlyoffice
+      - /opt/onlyoffice/data:/var/www/onlyoffice/Data
+      - /opt/onlyoffice/lib:/var/lib/onlyoffice
+    environment:
+      - JWT_ENABLED=${ONLYOFFICE_JWT_ENABLED}
+      - JWT_SECRET=${ONLYOFFICE_JWT_SECRET}
+    networks:
+      - seatable-net
+
+  ## borg backup ???
+  ## ...
+
+  ## zabbix monitoring ??
+  ## ...
+
+networks:
+  seatable-net:
+    name: seatable-net

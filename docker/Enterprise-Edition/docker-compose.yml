@@ -1,7 +1,6 @@
-version: '2.0'
 services:
   db:
-    image: mariadb:10.5
+    image: mariadb:10.11
     container_name: seatable-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=PASSWORD                    # Root password of MySQL -- must be changed

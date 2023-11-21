@@ -1,7 +1,6 @@
-version: '2.0'
 services:
   db:
-    image: mariadb:10.5
+    image: mariadb:10.11
     container_name: seatable-faas-scheduler-mysql
     volumes:
       - "/opt/seatable-faas-scheduler/mysql-data:/var/lib/mysql"  # Requested, specifies the path to MySQL data persistent store.
