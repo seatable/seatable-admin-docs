@@ -1,0 +1,49 @@
+version: '2.0'
+services:
+  db:
+    image: mariadb:10.5
+    container_name: seatable-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=PASSWORD                    # Root password of MySQL -- must be changed
+      - MYSQL_LOG_CONSOLE=true
+    volumes:
+      - /opt/seatable/mysql-data:/var/lib/mysql         # Volume of MySQL (directory for persistent storage) and mount point in container -- can be changed (not advised)
+    networks:
+      - seatable-net
+
+  memcached:
+    image: memcached:1.5.6
+    container_name: seatable-memcached
+    entrypoint: memcached -m 256
+    networks:
+      - seatable-net
+
+  redis:
+    image: redis:5.0.7
+    container_name: seatable-redis
+    networks:
+      - seatable-net
+
+  seatable:
+    image: seatable/seatable-enterprise:latest
+    container_name: seatable
+    ports:
+      - "80:80"                                         # HTTP port on the Docker host and the port in the container -- must be changed if port 80 is already in use on Docker host
+      - "443:443"                                       # HTTPS port on the Docker host and the port in the container -- must be changed if port 443 is already in use on Docker host
+    volumes:
+      - /opt/seatable/seatable-data:/shared             # Volume of SeaTable (directory for persistent storage) and mount point in container -- can be changed (not advised)
+    environment:
+      - DB_HOST=db
+      - DB_ROOT_PASSWD=PASSWORD                         # Root password of MySQL -- must be changed to the value set above
+      - SEATABLE_SERVER_LETSENCRYPT=False               # Decision on whether or not to use Let's Encrypt for HTTPS, default is False -- must be changed to True if a Let's Encrypt SSL certificate is to be used
+      - SEATABLE_SERVER_HOSTNAME=example.seatable.com   # Host name -- must be changed
+      - TIME_ZONE=Etc/UTC                               # Optional, default is UTC. Example: Europe/Berlin. Choices can be found here: http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+    depends_on:
+      - db
+      - memcached
+      - redis
+    networks:
+      - seatable-net
+
+networks:
+  seatable-net:

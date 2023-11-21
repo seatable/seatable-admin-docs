@@ -1,0 +1,1863 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="SeaTable">
+      
+      
+        <link rel="canonical" href="https://manual.seatable.io/authentication/auth_overview/">
+      
+      
+        <link rel="prev" href="../../config/enterprise/deploy_onlyoffice_docker/">
+      
+      
+        <link rel="next" href="../two_factor_auth/">
+      
+      
+      <link rel="icon" href="../../media/seatable-favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.10">
+    
+    
+      
+        <title>Overview - SeaTable Admin Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#authentication-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SeaTable Admin Manual" class="md-header__button md-logo" aria-label="SeaTable Admin Manual" data-md-component="logo">
+      
+  <img src="../../media/SeaTable256-256.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SeaTable Admin Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/seatable/seatable-admin-docs/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seatable/seatable-admin-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SeaTable Admin Manual" class="md-nav__button md-logo" aria-label="SeaTable Admin Manual" data-md-component="logo">
+      
+  <img src="../../media/SeaTable256-256.png" alt="logo">
+
+    </a>
+    SeaTable Admin Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/seatable/seatable-admin-docs/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seatable/seatable-admin-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Basic Setup
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Basic Setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Developer-Edition/Deploy%20SeaTable-DE%20with%20Docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Developer Edition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Enterprise-Edition/Deploy%20SeaTable-EE%20with%20Docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enterprise Edition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cluster
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cluster
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Cluster/SeaTable%20Cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Cluster/dtable-db%20Standalone/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dtable-db Standalone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Cluster/dtable-server%20Cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dtable-server Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python Runner
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Python Runner
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Python-Runner/Deploy%20SeaTable%20Python%20Runner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Python-Runner/Update%20SeaTable%20Python%20Runner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Python-Runner/Customize%20SeaTable%20Python%20Runner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/Enterprise-Edition/migrate_from_seatable_ce_server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrate SeaTable DE to EE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Setup (SeaTable EE)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Setup (SeaTable EE)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/enterprise/roles_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roles and Permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/enterprise/S3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    S3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/enterprise/deploy_onlyoffice_docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OnlyOffice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Authentication
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Authentication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#username" class="md-nav__link">
+    <span class="md-ellipsis">
+      Username
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-emailuser" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table EmailUser
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-profile_profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table profile_profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-social_auth_usersocialauth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table social_auth_usersocialauth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-id_in_org_tuple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table id_in_org_tuple
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two_factor_auth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2FA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ldap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LDAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oauth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OAuth
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../saml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SAML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jwt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JWT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth_switch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Switch authentication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/autostart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autostart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/ccnet-conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ccnet.conf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/dtable_db_conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dtable-db.conf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/dtable-events-conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dtable-events.conf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/dtable_server_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dtable_server_config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/dtable_storage_server_conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dtable-storage-server.conf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/dtable_web_settings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dtable_web_settings.py
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/seafile-conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    seafile.conf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/seatable-controller-conf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    seatable-controller.conf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/custom_css/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom CSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/sending_email/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Email Sending
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/base_rows_limit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Base Rows Limit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/integrate-with-seafile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Seafile Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/templates_and_manual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates and Manual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Maintenance
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Maintenance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintain/backup_recovery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backup and Recovery
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintain/clean_database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clean Database
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintain/seatable_gc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clean Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintain/others/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Others
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Upgrade
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Upgrade
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../upgrade/upgrade_manual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade Manual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../upgrade/extra-upgrade-notice/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extra Upgrade Notices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/server-changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ChangeLog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../limitations/system_limitations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Limitations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dtable-server-license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dtable-server-license
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#username" class="md-nav__link">
+    <span class="md-ellipsis">
+      Username
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-emailuser" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table EmailUser
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-profile_profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table profile_profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-social_auth_usersocialauth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table social_auth_usersocialauth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-id_in_org_tuple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table id_in_org_tuple
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="authentication-overview">Authentication overview<a class="headerlink" href="#authentication-overview" title="Permanent link">&para;</a></h1>
+<p>SeaTable Server Enterprise Edition (SeaTable) supports multiple authentication types.</p>
+<p>The default authentication type is authentication against the local user database (with or without <a href="../two_factor_auth/">two-factor authentication</a>).</p>
+<p>Additionally, SeaTable supports the following external authentication types:</p>
+<ul>
+<li><a href="../ldap/">LDAP (Auth and Sync)</a></li>
+<li><a href="../oauth/">OAuth</a></li>
+<li><a href="../saml/">SAML</a></li>
+</ul>
+<p>Finally, users can also authenticate using <a href="../jwt/">JWT</a>, which may be interesting for some special use cases.</p>
+<h2 id="username">Username<a class="headerlink" href="#username" title="Permanent link">&para;</a></h2>
+<p>SeaTable assigns every user a unique <code>username</code>, regardless of the authentication type used. The <code>username</code> serves as a key to link the different SQL database tables.</p>
+<p>The <code>username</code> looks like this: <code>b7bd00e840a14b748ce2bffdf409488b@auth.local</code> The corresponding regular expression is <code>^[a-f0-9]{32}(@auth.local)$</code>. The part of the username in front of the @-sign is a random value. If a user account is deleted and recreated with exactly the same details, the new <code>username</code> will be different from the previous one.</p>
+<p>The <code>username</code> is generated when the account is created. The time at which SeaTable creates the account in the database depends on the authentication type:</p>
+<ul>
+<li>Local user database: when the administrator registers the user or when the user self-registers</li>
+<li>LDAP Auth, OAuth, and SAML: when the user logs in for the first time</li>
+<li>LDAP Sync: when the sync job runs for the first time after the corresponding modification in the LDAP directory</li>
+</ul>
+<blockquote>
+<p><strong>One username - multiple names</strong></p>
+<p>For historical reasons, the SQL database tables use non-uniform names for <code>username</code>. In some tables, <code>username</code> is simply <code>user</code>. In some others, it goes by the name of <code>email</code> or <code>virtual_id</code>. Despite the inconsistent naming, it is always the same object. In the SeaTable Manual, only <code>username</code> is used unless reference is made to a specific table column.</p>
+</blockquote>
+<h2 id="database-structure">Database Structure<a class="headerlink" href="#database-structure" title="Permanent link">&para;</a></h2>
+<p>SeaTable's databases encompass almost 100 tables. Four of those are relevant for user management and authentication. (Tables related to 2FA are disregarded in this document.)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Database</th>
+<th style="text-align: left;">Table</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ccnet_db</td>
+<td style="text-align: left;"><a href="#table-emailuser">EmailUser</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">dtable_db</td>
+<td style="text-align: left;"><a href="#table-profile_profile">profile_profile</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">dtable_db</td>
+<td style="text-align: left;"><a href="#table-social_auth_usersocialauth">social_auth_usersocialauth</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">dtable_db</td>
+<td style="text-align: left;"><a href="#table-id_in_org_tuple">id_in_org_tuple</a></td>
+</tr>
+</tbody>
+</table>
+<p>Note: The table LDAPUsers in ccnet_db is no longer used.</p>
+<p>The database tables shown in the following sections are for illustrative purposes only. Yet, they represent a possible system configuration and are internally consistent.</p>
+<h3 id="table-emailuser">Table EmailUser<a class="headerlink" href="#table-emailuser" title="Permanent link">&para;</a></h3>
+<p>The table EmailUser stores all user accounts of a SeaTable Server with the account status and privileges for every user account. Additionally, the table also contains the (hashed) passwords for all users that authenticate directly against SeaTable.</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; select email,is_staff,is_active,left(passwd,25) from ccnet_db.EmailUser;
++---------------------------------------------+----------+-----------+---------------------------+
+| email                                       | is_staff | is_active | left(passwd,20)           |
++---------------------------------------------+---------------------------+----------+-----------+
+| b7bd00e840a14b748ce2bffdf409488b@auth.local |        1 |         1 | PBKDF2SHA256$10000$4cd... |
+| 12ae56789f1e4c8d8e1c31415867317c@auth.local |        0 |         1 | PBKDF2SHA256$10000$736... |
+| 145504ae043c438cbb55f2afb084d586@auth.local |        0 |         1 | !                         |
+| 91e3f171e9214b0cab6418abfb70bc53@auth.local |        0 |         1 | !                         |
+| 1a8d6725c4ae40c688b40028fd62c73f@auth.local |        0 |         1 | !                         |
++---------------------------------------------+---------------------------+----------+-----------+
+</code></pre></div>
+<p><code>is_staff</code> determines whether the user has system administrator privileges. <code>is_staff</code> accepts only 0 (False) and 1 (True) as values. </p>
+<p><code>is_active</code> determines whether the user is active. Only active users can log into SeaTable. <code>is_active</code> also accepts only 0 (False) and 1 (True) as values.</p>
+<p><strong>Users with a password in the local SQL database:</strong></p>
+<p>SeaTable stores the passwords in the database as hash values. Every password hash starts with <code>PBKDF2SHA256$10000$</code> which means that the password was hashed using the PBKDF2SHA256 algorithm and that 10.000 iterations where used (more about <a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2 on Wikipedia</a>).</p>
+<p>The first two users in the sample table above are users using the default authentication type. The first of the two is system administrator.</p>
+<p><strong>External authentication:</strong></p>
+<p>A <code>!</code> instead of a hash value means that the user uses <em>external authentication</em>. The table, however, does not contain the information of which authentication type.</p>
+<p>The last three users in the sample table above are users authenticating using either LDAP, OAuth, or SAML.</p>
+<h3 id="table-profile_profile">Table profile_profile<a class="headerlink" href="#table-profile_profile" title="Permanent link">&para;</a></h3>
+<p>The table <code>profile_profile</code>, as the name indicates, contains profile information for every user in the system such as nickname, interface language, and contact email address. Every record in the table <code>EmailUser</code> has its correspondence in <code>profile_profile</code>.</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; select user,nickname,lang_code,contact_email,login_id from dtable_db.profile_profile;
++---------------------------------------------+--------------+-----------+-------------------+----------+
+| user                                        | nickname     | lang_code | contact_email     | login_id |
++---------------------------------------------+--------------+-----------+-------------------+----------+
+| b7bd00e840a14b748ce2bffdf409488b@auth.local | admin        | en        | admin@seatable.io | NULL     |
+| 12ae56789f1e4c8d8e1c31415867317c@auth.local | Test         | en        | test@seatable.io  | NULL     |
+| 145504ae043c438cbb55f2afb084d586@auth.local | Hulk         | en        | hulk@seatable.io  | hulk     |
+| 91e3f171e9214b0cab6418abfb70bc53@auth.local | Tony Stark   | en        | tony@seatable.io  | tony     |
+| 1a8d6725c4ae40c688b40028fd62c73f@auth.local | Steve Rogers | en        | steve@seatable.io | steve    |
++---------------------------------------------+--------------+-----------+----------+-------------------+
+</code></pre></div>
+<p><code>nickname</code> is the display name of the user in the web interface of SeaTable. </p>
+<p><code>contact_email</code> is the real email address of the user. SeaTable sends notifications to this address.</p>
+<p><code>login_id</code> is an alternative to the username that the user can use to log in. The <code>login_id</code> can only be set via <a href="https://api.seatable.io/reference/update-user">SeaTable API</a> and not in system administration in SeaTable's web interface.</p>
+<blockquote>
+<p><strong>Three valid combos for default authentication</strong></p>
+<p>Users authenticating against the local database can use the following three combinations to login:
+\1) <code>contact_email</code> + <code>password</code>
+\2) <code>login_id</code> + <code>password</code>
+\3) <code>username</code> + <code>password</code></p>
+</blockquote>
+<h3 id="table-social_auth_usersocialauth">Table social_auth_usersocialauth<a class="headerlink" href="#table-social_auth_usersocialauth" title="Permanent link">&para;</a></h3>
+<p>The table <code>social_auth_usersocialauth</code> is critical for external authentication with LDAP, SAML, or OAuth. This table maps the user's SeaTable username to its unique identifiers from the identity providers. Every record in the table <code>EmailUser</code> without a password must have at least one correspondence in this table to be able to log into SeaTable using <em>external authentication</em>. </p>
+<div class="highlight"><pre><span></span><code>mysql&gt; select username,provider,uid from dtable_db.social_auth_usersocialauth;
++---------------------------------------------+----------------+--------------------------------------+
+| username                                    | provider       | uid                                  |
++---------------------------------------------+----------------+--------------------------------------+
+| 145504ae043c438cbb55f2afb084d586@auth.local | OAuth          | 877e1964-5585-4e1a-b069-1951ff79d373 |
+| 91e3f171e9214b0cab6418abfb70bc53@auth.local | Authentik-SAML | 28347@authentik                      |
+| 1a8d6725c4ae40c688b40028fd62c73f@auth.local | my-ldap        | 39731673920273                       |
++---------------------------------------------+----------------+--------------------------------------+
+</code></pre></div>
+<p><code>provider</code> specifies the external authentication used.  The name shown in this column is the name specified in the configuration of the external authentication source in<code>dtable_web_settings.py</code>.</p>
+<p><code>uid</code> in this table is the unique identifier as communicated by the external authentication service. The <code>uid</code> has to be provided by the external authentication method and allows to match the users from the external service with the users inside SeaTable. This <code>uid</code> must not be changed over the lifetime of the user (despite name, email address, ... changes) If the <code>uid</code> changes, SeaTable considers the user as a new user and creates a new <code>username</code> accordingly.</p>
+<h3 id="table-id_in_org_tuple">Table id_in_org_tuple<a class="headerlink" href="#table-id_in_org_tuple" title="Permanent link">&para;</a></h3>
+<p>This table stores the <a href="https://seatable.io/en/docs/ansichtsoptionen/was-ist-die-id-des-users-und-warum-kann-man-danach-filtern/?lang=auto">user IDs</a>. Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; select * from dtable_db.id_in_org_tuple;
++---------------------------------------------+-----------+--------+
+| virtual_id                                  | id_in_org | org_id |
++---------------------------------------------+-----------+--------+
+| b7bd00e840a14b748ce2bffdf409488b@auth.local | 21        |     -1 |
+| 145504ae043c438cbb55f2afb084d586@auth.local | 222       |     12 |
+| 91e3f171e9214b0cab6418abfb70bc53@auth.local | 333AZE    |     34 |
+| 1a8d6725c4ae40c688b40028fd62c73f@auth.local | EF_3479   |     -1 |
++---------------------------------------------+-----------+--------+
+</code></pre></div>
+<p><code>id_in_org</code> is the ID of the user. The user ID can be an alphanumeric string and must be unique within every team/organization.</p>
+<p><code>org_id</code> is the id of the team/organization which is unique in the system. An <code>org_id</code> value of -1 signifies that the user does not belong to any team/organization.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 SeaTable
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/seatable/seatable-admin-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
+      
+    
+  </body>
+</html>
