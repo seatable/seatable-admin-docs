@@ -55,7 +55,8 @@ ENABLED_ROLE_PERMISSIONS = {
         'can_use_automation_rules': True,
         'scripts_running_limit': -1,
         'can_schedule_run_script': True,
-        'can_archive_rows': True
+        'can_archive_rows': True,
+        'big_data_row_limit': 100000
     },
     'guest': {
         'can_add_dtable': False,
