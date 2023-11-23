@@ -35,11 +35,11 @@ To install SeaTable Enterprise Edition, you require a valid SeaTable Server lice
 
     You can request a **free license file** for up to three users and two years of validity. If you like SeaTable and want to buy a bigger license, please [contact us](https://seatable.io/kontakt/?lang=auto).
 
-In general you have create the directory `/opt/seatable/seatable-data/seatable` and save the license file it.
+In general you have create the directory `/opt/seatable/` and save the license file it.
 
 ```bash
-$ mkdir -p /opt/seatable/seatable-data/seatable/
-$ cd /opt/seatable/seatable-data/seatable/
+$ mkdir -p /opt/seatable/
+$ cd /opt/seatable/
 $ nano seatable-license.txt
 ```
 
@@ -60,70 +60,42 @@ Now there are two ways to get a **free license file**:
     Visit the website <https://seatable.io/on-premises> and use the form to request a free license.
     Paste the content of the license file in the newly created .txt file, save it, and close it.
 
-### Downloading and Modifying docker-compose.yml
+### Downloading and Modifying .env
 
-Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable Server's directory and modify the file to fit your environment and settings.
+Download the [docker-compose.yml](./docker-compose.yml) and the [.env](./.env) sample file into SeaTable's directory and modify the file to fit your environment and settings.
 
 ```bash
 $ cd /opt/seatable/
 $ wget -O "docker-compose.yml" "https://manual.seatable.io/docker/Enterprise-Edition/docker-compose.yml"
-$ nano docker-compose.yml
+$ wget -O ".env" "https://manual.seatable.io/docker/Developer-Edition/.env"
+$ nano .env
 ```
 
 The following fields merit particular attention:
 
-- Password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
+- Password of MariaDB root (DB_ROOT_PASSWD)
 - Use of Let's Encrypt for SSL (SEATABLE_SERVER_LETSENCRYPT)
 - Host name (SEATABLE_SERVER_HOSTNAME)
+- admin email and password (SEATABLE_ADMIN_EMAIL, SEATABLE_ADMIN_PASSWORD)
 
 Additional customizable options in the Compose file are:
 
+- SeaTable license path (SEATABLE_LICENSE)
 - Volume path for the container db
 - Volume path for the container seatable
 - Image tag of the SeaTable version to install (image)
 - Time zone (TIME_ZONE)
 
-### Initializing the Database
-
-Initialize the database by running docker-compose:
-
-```bash
-$ cd /opt/seatable
-$ docker compose up
-
-```
-
-Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.` in the output log, the database has been initialized successfully. Press keyboard `CTRL + C` (Windows) or `Control + C` (Mac) to return to the prompt.
-
-### Starting the Docker Containers
+### Starting SeaTable
 
 Run docker compose again, this time in detached mode:
 
 ```bash
 $ docker compose up -d
 
+# startup logs
+$ docker logs seatable -f
 ```
-
-### Starting SeaTable
-
-Now you start SeaTable service:
-
-```bash
-$ docker exec -d seatable /shared/seatable/scripts/seatable.sh start
-```
-
-Then create the first admin user:
-
-```
-$ docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
-
-```
-
-!!! Tip "Docker parameters"
-
-    The first command uses the option `-d` which starts the service in the background. The second command uses the option `-it` which runs the command in interactive mode.
-
-Enter the e-mail address and the initial password of the admin user. `Superuser created successfully` confirms that the admin user has been created.
 
 You can now access SeaTable at the host name specified in the Compose file.
 

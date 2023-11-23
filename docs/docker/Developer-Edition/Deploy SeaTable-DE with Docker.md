@@ -28,22 +28,24 @@ docker pull seatable/seatable-developer:latest
 
 NOTE: Older SeaTable versions are also available on [Docker Hub](https://hub.docker.com/r/seatable/seatable-developer/tags). To pull an older version, replace 'latest' by the desired version like `seatable/seatable-developer:4.1.0`.
 
-### Downloading and Modifying docker-compose.yml
+### Downloading and Modifying .env
 
-Download the [docker-compose.yml](./docker-compose.yml) sample file into SeaTable's directory and modify the file to fit your environment and settings.
+Download the [docker-compose.yml](./docker-compose.yml) and the [.env](./.env) sample file into SeaTable's directory and modify the file to fit your environment and settings.
 
 ```bash
 mkdir /opt/seatable
 cd /opt/seatable
 wget -O "docker-compose.yml" "https://manual.seatable.io/docker/Developer-Edition/docker-compose.yml"
-nano docker-compose.yml
+wget -O ".env" "https://manual.seatable.io/docker/Developer-Edition/.env"
+nano .env
 ```
 
 The following fields merit particular attention:
 
-- Password of MariaDB root (MYSQL_ROOT_PASSWORD and DB_ROOT_PASSWD)
+- Password of MariaDB root (DB_ROOT_PASSWD)
 - Use of Let's Encrypt for HTTPS (SEATABLE_SERVER_LETSENCRYPT)
 - Host name (SEATABLE_SERVER_HOSTNAME)
+- admin email and password (SEATABLE_ADMIN_EMAIL, SEATABLE_ADMIN_PASSWORD)
 
 Additional customizable options in the Compose file are:
 
@@ -52,45 +54,18 @@ Additional customizable options in the Compose file are:
 - Image tag of the SeaTable version to install (image)
 - Time zone (TIME_ZONE)
 
-### Initializing Database
-
-Initialize database by running docker-compose:
-
-```bash
-cd /opt/seatable
-docker compose up
-
-```
-
-NOTE: You should run the above command in the directory with the `docker-compose.yml`.
-
-Wait for a while. When you see `This is an idle script (infinite loop) to keep container running.` in the output log, the database has been initialized successfully. Press keyboard `CTRL + C` (Windows) or `Control + C` (Mac) to return to the prompt.
-
-### Starting the Docker Containers
+### Starting SeaTable Server
 
 Run docker compose again, this time in detached mode:
 
 ```bash
 docker compose up -d
 
+# startup logs
+docker logs seatable -f
 ```
 
 NOTE: You should run the above command in the directory with the `docker-compose.yml`.
-
-### Starting SeaTable Server
-
-Now you can start SeaTable and create the first admin user:
-
-```sh
-# Start SeaTable service.
-docker exec -d seatable /shared/seatable/scripts/seatable.sh start
-
-# Create admin account.
-docker exec -it seatable /shared/seatable/scripts/seatable.sh superuser
-
-```
-
-NOTE: The first command uses the option `-d` which starts the service in the background. The second command use the option `-it` which runs the command in interactive mode.
 
 You can now access SeaTable at the host name specified in the Compose file.
 
