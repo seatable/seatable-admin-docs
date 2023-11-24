@@ -4,7 +4,9 @@ SeaTable Server supports [multiple authentication types](./index.md). Switching 
 
 !!! note
 
-        Before manually manipulating your database, [make a database backup](../maintain/backup_recovery.md), so you can restore your system if anything goes wrong!
+        Before manually manipulating your database, make a database backup, so you can restore your system if anything goes wrong!
+
+See more about [make a database backup](../maintain/backup_recovery.md).
 
 ## Migrating from local user database to external authentication
 
