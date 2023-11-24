@@ -30,18 +30,17 @@ This is what the database looks like before these commands must be executed:
 ```
 mysql> select email,left(passwd,25) from EmailUser where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 +---------------------------------------------+------------------------------+
-| email                                       | left(passwd,23)              |
+| email                                       | left(passwd,25)              |
 +---------------------------------------------+------------------------------+
 | 12ae56789f1e4c8d8e1c31415867317c@auth.local | PBKDF2SHA256$10000$4cdda6... |
 +---------------------------------------------+------------------------------+
 
 mysql> update EmailUser set passwd = '!' where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 
-mysql> insert into social_auth_usersocialauth \
-  ('username', 'provider', 'uid') \
-  set \
-  ('12ae56789f1e4c8d8e1c31415867317c@auth.local', 'authentik-saml', 'HR12345');
+mysql> insert into `social_auth_usersocialauth` (`username`, `provider`, `uid`, `extra_data`) values ('12ae56789f1e4c8d8e1c31415867317c@auth.local', 'authentik-saml', 'HR12345', '');
 ```
+
+__Note__: The `extra_data` field store user's information returned from the provider. For example, when integrating WeChat (a very common single sign-on method in China), some necessary information needs to be stored; for other providers, the `extra_data` field is usually an empty character.
 
 Afterwards the databases should look like this:
 
