@@ -4,7 +4,9 @@ SeaTable Server supports [multiple authentication types](./index.md). Switching 
 
 !!! note
 
-        Before manually manipulating your database, [make a database backup](../maintain/backup_recovery.md), so you can restore your system if anything goes wrong!
+        Before manually manipulating your database, make a database backup, so you can restore your system if anything goes wrong!
+
+See more about [make a database backup](../maintain/backup_recovery.md).
 
 ## Migrating from local user database to external authentication
 
@@ -28,7 +30,7 @@ This is what the database looks like before these commands must be executed:
 ```
 mysql> select email,left(passwd,25) from EmailUser where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 +---------------------------------------------+------------------------------+
-| email                                       | left(passwd,23)              |
+| email                                       | left(passwd,25)              |
 +---------------------------------------------+------------------------------+
 | 12ae56789f1e4c8d8e1c31415867317c@auth.local | PBKDF2SHA256$10000$4cdda6... |
 +---------------------------------------------+------------------------------+
@@ -36,7 +38,7 @@ mysql> select email,left(passwd,25) from EmailUser where email = '12ae56789f1e4c
 mysql> update EmailUser set passwd = '!' where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 
 mysql> insert into social_auth_usersocialauth \
-  ('username', 'provider', 'uid') \
+  (`username`, `provider`, `uid`) \
   set \
   ('12ae56789f1e4c8d8e1c31415867317c@auth.local', 'authentik-saml', 'HR12345');
 ```
