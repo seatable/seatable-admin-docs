@@ -54,7 +54,7 @@ enabled = true
 
 Automation rules is the feature that users can do some actions automatically for a base.
 
-The configuration of automation rules scanner is in the `[AUTOMATION]`
+The configuration of automation rules is in the `[AUTOMATION]`
 
 In order to ensure server performance, automation rules cannot be triggered without limit. SeaTable provides a setting that limits the maximum number of triggers per rule per minute, default 50.
 
