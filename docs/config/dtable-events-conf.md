@@ -47,8 +47,20 @@ The configuration of notification rules scanner is in the `[NOTIFY-SCANNER]` sec
 ```
 [NOTIFY-SCANNER]
 enabled = true
-interval = 3600
 
 ```
 
+## Automation rules trigger configuration
+
+Automation rules is the feature that users can do some actions automatically for a base.
+
+The configuration of automation rules scanner is in the `[AUTOMATION]`
+
+In order to ensure server performance, automation rules cannot be triggered without limit. SeaTable provides a setting that limits the maximum number of triggers per rule per minute, default 50.
+
+```
+[AUTOMATION]
+per_minute_trigger_limit = 50
+
+```
 
