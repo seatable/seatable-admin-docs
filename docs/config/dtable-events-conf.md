@@ -50,7 +50,7 @@ enabled = true
 
 ```
 
-## Automation rules trigger configuration
+## Automation rules configuration
 
 Automation rules is the feature that users can do some actions automatically for a base.
 
