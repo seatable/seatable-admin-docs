@@ -1,8 +1,8 @@
 # dtable-event.conf settings
 
-## Database configuration
+## Database Configuration
 
-The configuration of database is in the `[DATABASE]` section of the file `dtable-events.conf`
+The settings for the database connection are located in the `[DATABASE]` section of the file `dtable-events.conf`
 
 ```
 [DATABASE]
@@ -15,11 +15,11 @@ db_name = seafile_db
 
 ```
 
-Note: MariaDB and MySQL is compatible. In the configuration, we use mysql.
+Note: MariaDB and MySQL are compatible. In this configuration example, we use MySQL.
 
-## Redis configuration
+## Redis Configuration
 
-The configuration of redis is in the `[REDIS]` section of the file `dtable-events.conf`
+The settings for the Redis connection are located in the `[REDIS]` section of the file `dtable-events.conf`
 
 ```
 [REDIS]
@@ -28,9 +28,9 @@ port = 6379
 
 ```
 
-## Email notifications configuration
+## Email Notifications Configuration
 
-The configuration of email notifications is in the `[EMAIL SENDER]` section of the file `dtable-events.conf`
+The settings for email notifications are located in the `[EMAIL SENDER]` section of the file `dtable-events.conf`
 
 ```
 [EMAIL SENDER]
@@ -38,17 +38,29 @@ enabled = true
 
 ```
 
-## Notification rules scanner configuration
+## Notification Rules Scanner Configuration
 
-Notification rules is the feature that users can set notification rules for a base and got notifications when defined criteria meet.
+Notification rules are a feature that allows users to set criteria for a base and receive notifications when these criteria are met.
 
-The configuration of notification rules scanner is in the `[NOTIFY-SCANNER]` section of the file `dtable-events.conf`
+The settings for the notification rules scanner are located in the `[NOTIFY-SCANNER]` section of the file `dtable-events.conf`
 
 ```
 [NOTIFY-SCANNER]
 enabled = true
-interval = 3600
 
 ```
 
+## Automation Rules Configuration
 
+In SeaTable, users have the ability to define triggers and actions within an automation rule.  
+These rules are then automatically executed on a base.
+
+The settings for the automation rules are located in the `[AUTOMATION]` section of the `dtable-events.conf` file.
+
+
+To maintain server stability, SeaTable includes a feature that restricts the frequency of automation rule executions. This `per_minute_trigger_limit` is set to 50 by default.
+
+```
+[AUTOMATION]
+per_minute_trigger_limit = 50
+```
