@@ -50,17 +50,17 @@ enabled = true
 
 ```
 
-## Automation rules configuration
+## Automation Rules Configuration
 
-Automation rules is the feature that users can do some actions automatically for a base.
+In SeaTable, users have the ability to define triggers and actions within an automation rule.  
+These rules are then automatically executed on a base.
 
-The configuration of automation rules is in the `[AUTOMATION]`
+The settings for these automation rules are located within the `[AUTOMATION]` section of the `dtable-events.conf` file.
 
-In order to ensure server performance, automation rules cannot be triggered without limit. SeaTable provides a setting that limits the maximum number of triggers per rule per minute, default 50.
+
+To maintain server stability, SeaTable includes a feature that restricts the frequency of automation rule executions. This `per_minute_trigger_limit` is set to 50 by default.
 
 ```
 [AUTOMATION]
 per_minute_trigger_limit = 50
-
 ```
-
