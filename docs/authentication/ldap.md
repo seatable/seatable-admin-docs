@@ -26,7 +26,7 @@ To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtab
 | LDAP_SERVER_URL     | URL of the LDAP server and port if non-standard              | URL, e.g. 'ldap://192.168.0.10:389'             |
 | LDAP_BASE_DN        | DN of the root node used for querying users - all users under this node can log in | LDAP DN                   |
 | LDAP_ADMIN_DN       | DN of the user used for querying the LDAP server - user must have the rights to access all information under LDAP_BASE_DN | For LDAP: LDAP DN<br />For AD: LDAP DN or email |
-| LADP_ADMIN_PASSWORD | User password for LDAP_ADMIN_DN user                         | Alphanumeric string                             |
+| LDAP_ADMIN_PASSWORD | User password for LDAP_ADMIN_DN user                         | Alphanumeric string                             |
 | LDAP_USER_UNIQUE_ID | Unique user ID in the LDAP server                            | For LDAP: 'EntryUUID'<br />For AD: 'ObjectGUID' |
 | LDAP_LOGIN_ATTR     | User attribute used for logging in                           | 'mail', 'userPrincipalName' or 'sAMAccountName' |
 
