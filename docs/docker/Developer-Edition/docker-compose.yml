@@ -12,9 +12,9 @@ services:
     restart: always
     healthcheck:
         test: ["CMD", "mysqladmin" ,"ping", "-p${DB_ROOT_PASSWD}", "-h", "localhost"]
-        interval: 30s
+        interval: 5s
         timeout: 30s
-        retries: 20
+        retries: 60
 
   memcached:
     image: memcached:1.5.6

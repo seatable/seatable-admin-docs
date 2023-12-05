@@ -12,9 +12,9 @@ services:
     restart: always
     healthcheck:
         test: ["CMD", "mysqladmin" ,"ping", "-p${DB_ROOT_PASSWD}", "-h", "localhost"]
-        interval: 30s
+        interval: 5s
         timeout: 30s
-        retries: 20
+        retries: 60
 
   memcached:
     image: memcached:1.5.6
@@ -39,7 +39,7 @@ services:
       - "443:443"                                       # HTTPS port on the Docker host and the port in the container -- must be changed if port 443 is already in use on Docker host
     volumes:
       - ${SEATABLE_VOLUME}:/shared                      # Volume of SeaTable (directory for persistent storage) and mount point in container -- can be changed (not advised)
-      - ${SEATABLE_LICENSE}:/opt/seatable/seatable-license.txt  
+      - ${SEATABLE_LICENSE}:/shared/seatable/seatable-license.txt  
     environment:
       - DB_HOST=${DB_HOST}
       - DB_ROOT_PASSWD=${DB_ROOT_PASSWD}                 # Root password of MySQL -- must be changed to the value set above
