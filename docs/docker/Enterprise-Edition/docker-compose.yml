@@ -48,6 +48,7 @@ services:
       - SEATABLE_SERVER_LETSENCRYPT=${SEATABLE_SERVER_LETSENCRYPT}  # Decision on whether or not to use Let's Encrypt for HTTPS, default is False -- must be changed to True if a Let's Encrypt SSL certificate is to be used
       - SEATABLE_SERVER_HOSTNAME=${SEATABLE_SERVER_HOSTNAME}        # Host name -- must be changed
       - TIME_ZONE=${TIME_ZONE}                           # Optional, default is UTC. Example: Europe/Berlin. Choices can be found here: http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+      - SEATABLE_START_MODE=${SEATABLE_START_MODE}       # Start mode
     depends_on:
       db:
         condition: service_healthy
