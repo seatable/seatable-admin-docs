@@ -188,16 +188,23 @@ GROUP_MEMBER_LIMIT = 500
 
 ```
 
-## Big data view export row limit
+## Big data import / export
 
-When exporting an big data view to Excel, you can set the maximum number of exported rows in the configuration file:
+When importing / updating a base from excel or exporting an big data view to Excel, you can set the maximum number of rows in the configuration file:
 
 ```python
-ARCHIVE_VIEW_EXPORT_ROW_LIMIT = 100000
-
+ARCHIVE_VIEW_EXPORT_ROW_LIMIT = 250000
+BIG_DATA_ROW_IMPORT_LIMIT = 500000
+BIG_DATA_ROW_UPDATE_LIMIT = 500000
 ```
 
-The default is 100,000.
+## Size of base export
+
+Maxmum size of a base can be exported.
+
+```python
+DTABLE_EXPORT_MAX_SIZE = 100 # mb
+```
 
 ## Limit of collaborators loaded in a base
 
