@@ -5,6 +5,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=PASSWORD                    # Root password of MySQL -- must be changed
       - MYSQL_LOG_CONSOLE=true
+      - MARIADB_AUTO_UPGRADE=1
     volumes:
       - /opt/seatable/mysql-data:/var/lib/mysql         # Volume of MySQL (directory for persistent storage) and mount point in container -- can be changed (not advised)
     networks:
