@@ -7,6 +7,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=PASSWORD  # Requested, set the root's password of MySQL service.
       - MYSQL_LOG_CONSOLE=true
+      - MARIADB_AUTO_UPGRADE=1
     networks:
       - seatable-faas-scheduler-net
 
