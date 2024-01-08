@@ -2,7 +2,7 @@
 
 Welcome to the SeaTable Admin Docs Repository! 🌊🔍✨
 
-This repository serves as the foundational source for the SeaTable Admin Manual available at https://admin.seatable.io. The admin manual is generated with the help of [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) and is a comprehensive guide and resource hub for administrators to install, configure and maintain their own SeaTable Server.
+This repository serves as the foundational source for the SeaTable Admin Manual available at https://admin.seatable.io. The admin manual is generated with the help of MkDocs Material and is a comprehensive guide and resource hub for administrators to install, configure and maintain their own SeaTable Server.
 
 This repository contains the SeaTable Admin documentation. The documentation is built using , a fast and simple static site generator. The pages are being built using Github workflows and hosted on Github Pages.
 
@@ -23,10 +23,10 @@ Please fell free to particiate in the admin manual by creating pull requests. Be
 >
 > `curl -fsSL get.docker.com | bash`
 
-## Step 1: Clone this repository and checkout a new branch
+### Step 1: Clone this repository and checkout a new branch
 
 ```bash
-git clone seatable/seatable-admin-docs
+git clone https://github.com/seatable/seatable-admin-docs
 cd seatable-admin-docs
 git checkout -b <new_branch>
 # please replace <new_branch> with something short like "fix_typo_saml_auth"
@@ -40,7 +40,9 @@ We developed a tiny bash script to generate the local copy of the admin manual.
 ./preview.sh
 ```
 
-Start your browser and open http://127.0.0.1:8000. You should get a local copy of the manual. All your local changes will immediately be visible on this local copy.
+Initiate your browser and access http://127.0.0.1:8000 to view a local copy of the manual. Any modifications made locally will be instantly reflected in this version. You don't even have to restart docker or reload the page.
+
+The manual can be found within the `docs` folder. For comprehensive guidance on utilizing [MKDocs](https://www.mkdocs.org/user-guide/) or [MkDocs Material](https://squidfunk.github.io/mkdocs-material/), refer to their respective manuals for detailed instructions.
 
 ### Step 3: Create a pull request
 
