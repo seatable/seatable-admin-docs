@@ -139,11 +139,8 @@ nav:
       - Basic Setup: installation-rework/basic-setup.md
       - FAQ / Troubleshooting: installation-rework/faq.md
       - Additional Components:
-          - Seafile: installation-rework/components/seafile.md
+          - Python Pipeline: installation-rework/components/python-pipeline.md
           - n8n: installation-rework/components/n8n.md
-          - Python Pipeline:
-              - Deploy: installation-rework/components/python-pipeline.md
-              - Customization: installation-rework/components/python-pipeline-custom.md
           - Office Editor:
               - Only Office: installation-rework/components/onlyoffice.md
               - Collabora: installation-rework/components/collabora.md
@@ -151,12 +148,14 @@ nav:
               - Uptime Kuma: installation-rework/components/uptime-kuma.md
               - Zabbix: installation-rework/components/zabbix.md
               - Grafana/Prometheus: installation-rework/components/grafana-prometheus.md
+          - Seafile: installation-rework/components/seafile.md
       - Advanced Setups:
           - SeaTable Cluster: docker/Cluster/SeaTable Cluster.md
           - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
           - dtable-events Background node: docker/Cluster/dtable-events Background node.md
           - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
           - S3 Object Storage: config/enterprise/S3.md
+          # - Customization: installation-rework/components/python-pipeline-custom.md  -> customizing, also custom image, separate node ... machen wir irgendwo bei advanced!
 
   - Configuration:
       - config/index.md

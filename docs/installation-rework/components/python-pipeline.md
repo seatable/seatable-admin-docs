@@ -1,85 +1,86 @@
-## Activate the python pipeline on a one node seatable server
-This guide shows how to activate the python pipeline on a one node seatable server. If you are using a separate node to run the python-pipeline you have to account for the different hostnames and ports.
+# Python Pipeline
+
+To execute python scripts inside SeaTable you need to install the python pipeline. It is a python runtime environment that uses docker containers to execute your python script and return the output.
+This manual explains how to install the python pipeline on your SeaTable server.
+
+!!! Note "Installation on a separate machine"
+
+    It is possible to install the python pipeline on a separate machine. Read this...
+
+## Installation
 
 #### 1. Change the .env file
 
-Add _seatable-python-pipeline.yml_ to the COMPOSE_FILE variable.
+To add the python pipeline, you have to tell docker, that the necessary docker images have to be downloaded and updated. You do this by adding `seatable-python-pipeline.yml` to the `COMPOSE_FILE` variable in your `.env` file.
 
 ```bash
 nano /opt/seatable-compose/.env
 ```
 
 Your COMPOSE_FILE variable should look something like this:
+
 ```bash
-COMPOSE_FILE='seatable-docker-proxy.yml,seatable-server.yml,seatable-python-pipeline.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,python-pipeline.yml'
 ```
-#### 2. Generate inital secret
 
-Generate inital secrets and write them into your .env file.
+#### 2. Generate a shared secret for secure communication
 
-    echo "SEATABLE_SCHEDULER_MYSQL_ROOT_PASSWORD=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
-
-#### 3. Modify the .env Configuration File
-
-On a one node system (Python-Pipeline and SeaTable Server are running on the same host, with the same url) you can use this commands to append the .env configuration file.  
-
+SeaTable and the Python pipeline need a share secret to secure the connection and make sure that nobody else can use or access your python pipeline.
+We recommend to use `pwgen` to generate a long and secure password. Execute this command to generate a password.
 
 ```bash
-source /opt/seatable-compose/.env && \
-cat <<EOF >> /opt/seatable-compose/.env
-SEATABLE_SCHEDULER_HOSTNAME='$SEATABLE_SERVER_HOSTNAME' # == seatable_server_hostname on a single-node system
-EOF
+pw=$(pwgen -s 40 1) && echo "Generated shared secret: ${pw}"
+```
+
+#### 3. Update the configuration
+
+This shared secret has to be added at two places to make it available in the python pipeline and SeaTable.
+
+- `/opt/seatable-compose/.env`
+- `/opt/seatable-server/seatable/conf/dtable_web_settings.py`
+
+Execute the following command to add the shared secret to the `.env` file.
+
+```bash
+echo "# python-pipeline" >> /opt/seatable-compose/.env
+echo "PYTHON_SCHEDULER_AUTH_TOKEN=${pw}" >> /opt/seatable-compose/.env
+```
+
+Now execute this command to add the required configuration to `dtable_web_settings.py`:
+
+```bash
+echo "SEATABLE_FAAS_URL = 'http://python-scheduler'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+echo "SEATABLE_FAAS_AUTH_TOKEN = '${pw}'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 ```
 
 #### 4. Start the Python Pipeline
 
-Be aware that the SEATABLE_SCHEDULER_HOSTNAME variable has to be set in your .env before the first start of the container to generate all the configuration files correctly.  
+Now it is time to start the python pipeline.
 
 ```bash
 cd /opt/seatable-compose && \
 docker compose up -d && \
-docker logs -f seatable-python-scheduler
-```
-If you see _"SeaTable FAAS Scheduler started"_ the scheduler was started successfully.  
-You can return to a prompt with `CTRL + c`
-
-#### 5.  Modify the Scheduler Configuration File
-
-```bash
-cd /opt/seatable-python-scheduler/shared/seatable-faas-scheduler/conf && \
-nano seatable_faas_scheduler_settings.py
-
+docker compose restart seatable-server
 ```
 
-Edit the configuration as follows:
+#### 5. Check if the python pipeline is running
 
-```py
-# faas
-FAAS_URL = '' # keep empty / Old parameter name for internal address of the Python Runner, is kept for compatability reasons
-RUNNER_URL = 'http://seatable-python-starter:8080' # set / Internal address of the Python Starter
-# seatable
-DTABLE_WEB_SERVICE_URL = 'https://<your-seatable-hostname>'  # set / URL of SeaTable server
-SEATABLE_FAAS_AUTH_TOKEN = '***'                       # copy / Token to copy to SeaTable's configuration file
+create a new base  
+add a python script -> for example `print("Hello World!")`  
+check the output -> expected output is: `Hello World!`
 
-```
+---
 
-#### 6. Modify the dtable_web_settings.py Configuration File
+TODO: check what is really necessary from this point.
+wie Logging sollte angeboten werden.
 
-Open SeaTable's `dtable_web_setttings.py` configuration file in a text editor to add the FAAS Scheduler's address:
+---
 
-```bash
-nano /opt/seatable-server/seatable/conf/dtable_web_settings.py
-```
+## Configuration
 
-Paste the following lines in the configuration file, paste the token from the `seatable_faas_scheduler_settings.py` and modify the parameter SEATABLE_FAAS_URL:
+## Troubleshooting
 
-```py
-# for seatable-faas
-SEATABLE_FAAS_AUTH_TOKEN = '***' # add line and set / Token from seatable_faas_scheduler_settings.py
-SEATABLE_FAAS_URL = 'https://<your-seatable-hostname>:12011' # add line and set / URL of the SeaTable FAAS Scheduler
-```
-
-#### 7. Bring docker compose down and up again
+####. Bring docker compose down and up again
 
 Bring the compose project down then up again and start the seatable service to make sure every modification has taken effect.
 
@@ -89,9 +90,3 @@ docker compose down && \
 docker compose up -d
 docker exec -d seatable /shared/seatable/scripts/seatable.sh start
 ```
-
-#### 8. Check if the python pipeline is running
-
-create a new base  
-add a python script -> for example `print("Hello World!")`  
-check the output  -> expected output is: `Hello World!`
