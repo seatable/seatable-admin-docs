@@ -4,10 +4,9 @@ One of the main advantages of SeaTable against other solutions is, that you can 
 
 ## Platform support
 
-SeaTable uses `docker` and `docker compose`. Therefore it should run as long as docker virtualisation is available. Still we recommend one of the following platforms:
+SeaTable uses `docker` and `docker compose`. Therefore it should run as long as docker virtualisation is available. Still we recommend **Docker 11 or newer** because we always use Debian for production and testing.
 
-- Debian 11 or newer
-- Ubuntu 22.04 or newer
+Currently only x86/x64 architecture is officially supported. Bigger customers might get support with ARM based systems.
 
 ## Hardware
 
@@ -17,9 +16,9 @@ SeaTable Server requires at least
 - 8 GB RAM
 - 50 GB SSD
 
-These resources guarantee good performance for most applications with up to 100 users. When bases become large or the number of users increase, more RAM is needed since SeaTable stores the bases in memory. More CPU could help, but has much lower impact on system performance.
+These resources guarantee good performance for most applications with up to 100 users. When bases become large or the number of users increase, **more RAM** is needed since SeaTable stores the bases in memory. More CPU could help, but has much lower impact on system performance.
 
-As soon as you have more than 100 users, you should consider extending your SeaTable Platform to a Cluster Setup.
+As soon as you have more than 100 users, you should consider extending your SeaTable Platform and move some components to separate VMs.
 
 ## Ports and Domains
 

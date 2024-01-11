@@ -1,6 +1,18 @@
-# Introduction
+# Welcome to SeaTable
 
-SeaTable is an online lightweight database with a spreadsheet interface. It helps you to easily record and manage all kinds of scattered information. With APIs and SDKs, you can quickly scale to your needs, automate data processing and automate business processes.
+## About SeaTable admin documentation
+
+This admin manual cover the typical topics, from installation to configuration, backup and maintenance of your **own SeaTable Server**.
+
+- For information about how to use SeaTable, please refer to the [user documentation](https://seatable.io/docs/?lang=auto).
+- For developer-focus documentation, such as using SeaTable's API, scripting, ... refer either to the [API reference](https://api.setable.io) or have a look at the [developer manual](developers.seatable.io).
+- There are additional ressources. Check out our YouTube channel to get a better understanding of how to use SeaTable or to raise questions at the [community forum](https://forum.seatable.io).
+
+## What is SeaTable?
+
+SeaTable is a no-code database and app-building platform. At the first glimpse it looks like an online spreadsheet selection like google sheets, but under the hood it offers so much more. SeaTable helps you to record and manage all kinds of scattered information. Use Filters, Sortings or Group to work corabolative with friends and collegues. Visualize any data with various plugins like Kanban, Gallery or Calendar.
+
+With APIs and SDKs, you can quickly scale to your needs, automate data processing and automate business processes.
 
 Main features includes:
 
@@ -12,54 +24,32 @@ Main features includes:
 
 This admin manual will help you to install, configure and update your own SeaTable Server.
 
-## Software Components
+## How to use SeaTable?
 
-SeaTable consists of following component
+Due to the fact, that you are reading the administrator manual, you might run your own SeaTable Server. Just keep reading. :sweat_smile:
 
-- dtable-web: The website for manage bases.
-- dtable-server: Store the bases and provide collaborating feature.
-- dtable-db: Provide big data storage and SQL query interface.
-- dtable-events: Background tasks likes email sending and so on.
-- seaf-server: Store attachments (files and images).
-- dtable-storage-serve: An simple abstract layer upon file storage and S3-like object storage.
+But just in case that you don't want to take the hurdle to run your own server, SeaTable GmbH offers two other products next to **SeaTable Server**:
 
-The following picture shows how the different components work together:
+??? abstract "SeaTable Cloud: ready in seconds"
 
-![seatable-architecture](./images/auto-upload/seatable-architecture.png)
+    Additionally, there is [SeaTable Cloud](https://cloud.seatable.io), a cloud service for users that do not want to self-host or simply trial SeaTable Server. SeaTable Cloud can be used free-of-charge with the "Free" subscription. More features and higher resource limits are available in [SeaTable Cloud's paid subscriptions](https://seatable.io/preise/?lang=auto).
 
-Some explanation:
+??? tip "SeaTable Dedicated: Full control without any huzzle"
 
-- MariaDB, Memcache, Redis are running in their own docker containers.
-- Redis is used for sending messages from dtable-web/dtable-server to dtable-events
-- All the components use Memcache for storing cache and MariaDB for storing permanent information
-- Bases are maintained in dtable-server and periodically saved to dtable-storage-server for persistent storage.
-- Attachments are saved in seaf-server, which save to file storage/object storage
+    Then, there is [SeaTable Dedicated](https://seatable.io/on-premises/). SeaTable Dedicated is a managed and private SeaTable Cloud. We (=SeaTable GmbH) run and manage the Server for you, but it is your system. You define which URL to use, which logo or color code should greet your users.
 
-A base in SeaTable is saved as a file, and when users access the base, it will be loaded into dtable-server. When the base is modified, dtable-server automatically saves it to dtable-storage-server every 5 minutes. dtable-storage-server creates a snapshot of the base every 24 hours.
+## Installation
 
-The base cannot contain more than 100,000 rows. If the records are close to 100,000, the record can be transferred from the file (dtable-server is responsible for management) to the big data storage (dtable-db is responsible for management) through the archive operation. dtable-db periodically saves backups of big data storage to dtable-storage-server.
+This manual provides two different approaches how to install SeaTable.
 
-## LICENSE
+### Single-Node Installation
 
-SeaTable Server has two editions:
+There is a _Single-Node Setup_, where all components of SeaTable are installed on one Server or virtual machine. All services can be reached by one single URL. The installation is fairly straigt forward thanks to the consequent usage of Docker. This setup is easy for testing and production for up to 100 users.
 
-- **Developer Edition**: for users that want to use SeaTable as database and heavy using APIs and scripts. The developer edition has no limit on storage, row numbers and API calls, but can support at most 200 concurrent connections to dtable-server.
-- **Enterprise Edition**: almost no limitation for storage, row numbers and API calls and have advanced permissions and user management features. It is meant for large teams to use SeaTable in both ways. Users can use it in the cloud or self-hosted.
+### Advanced Setup
 
-Additionally, there is [SeaTable Cloud](https://cloud.seatable.io), a cloud service for users that do not want to self-host or simply trial SeaTable Server. SeaTable Cloud can be used free-of-charge with the "Free" subscription. More features and higher resource limits are available in [SeaTable Cloud's paid subscriptions](https://seatable.io/preise/?lang=auto).
+The _advanced setup_ is not an installation type, but the articles in this section provide the necessary information to operate each component separately. The descriptions result in a highly available cluster setup for thousands of users.
 
-The components of SeaTable Developer Edition are released under the following licenses:
+## Screenshots
 
-- dtable-web: Apache License v2
-- dtable-events: Apache License v2
-- dtable-server: [Proprietary License](dtable-server-license.md)
-- seaf-server: AGPLv3
-
-SeaTable developer edition should not be used to provide SaaS service or as a part of your SaaS service. Other kinds of usage are okay, including
-
-- Personal or home use
-- Internal in-house use
-- Collaboration with customers
-- IT projects for customers, as long as a separate server is used for each customer
-
-The SeaTable Enterprise Edition is released under a proprietary license. You find the EULA at <https://seatable.io/en/eula>.
+...

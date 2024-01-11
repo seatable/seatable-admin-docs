@@ -20,6 +20,7 @@ theme:
     - navigation.tabs
     - navigation.sections # top-level sections are rendered as groups in the sidebar for viewports above 1220px
     - navigation.indexes # documents can be directly attached to sections
+    - navigation.top
     - search.highlight
     - search.share
     - search.suggest
@@ -59,7 +60,7 @@ plugins:
   - git-revision-date-localized
   - redirects:
       redirect_maps:
-        "changelog/server-changelog.md": "https://seatable.io/docs/changelog/"
+        #"changelog/server-changelog.md": "https://seatable.io/docs/changelog/"
         "changelog/changelog-for-seatable-professional-server.md": "https://seatable.io/docs/changelog/"
 
 # Customization
@@ -108,9 +109,10 @@ markdown_extensions:
 nav:
   - Introduction:
       - index.md
-      #- What is SeaTable?: what_is_seatable.md
+      - Architecture: architecture.md
       - Requirements: requirements.md
       - System Limitations: limitations/system_limitations.md
+      - Server Editions: editions.md
       - Get Support: get_support.md
       - EULA: dtable-server-license.md
       #- Other manuals: others.md
@@ -120,7 +122,7 @@ nav:
       - Basic Setup:
           - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
           - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
-      - Additional Componentss:
+      - Additional Components:
           - Python Runner:
               - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
               - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
@@ -135,10 +137,12 @@ nav:
           - S3 Object Storage: config/enterprise/S3.md
 
   # # Install Rework Preparations in folder installation-rework
-  - Installation-rework:
+  - Installation (v2):
+      - installation-rework/index.md
       - Basic Setup: installation-rework/basic-setup.md
       - FAQ / Troubleshooting: installation-rework/faq.md
       - Additional Components:
+          - installation-rework/components/index.md
           - Python Pipeline: installation-rework/components/python-pipeline.md
           - n8n: installation-rework/components/n8n.md
           - Office Editor:
@@ -149,13 +153,18 @@ nav:
               - Zabbix: installation-rework/components/zabbix.md
               - Grafana/Prometheus: installation-rework/components/grafana-prometheus.md
           - Seafile: installation-rework/components/seafile.md
-      - Advanced Setups:
+      - Advanced Setup:
+          - docker/Cluster/index.md
           - SeaTable Cluster: docker/Cluster/SeaTable Cluster.md
           - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
           - dtable-events Background node: docker/Cluster/dtable-events Background node.md
           - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
           - S3 Object Storage: config/enterprise/S3.md
           # - Customization: installation-rework/components/python-pipeline-custom.md  -> customizing, also custom image, separate node ... machen wir irgendwo bei advanced!
+      - Upgrade:
+          - How to upgrade: upgrade/upgrade_manual.md
+          - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
+          - Switch SeaTable Edition: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
 
   - Configuration:
       - config/index.md
@@ -168,13 +177,13 @@ nav:
       - Base Rows Limit: config/base_rows_limit.md
       - Authentication:
           - authentication/index.md
-          - 2FA: authentication/two_factor_auth.md
+          - Two Factor Authentication: authentication/two_factor_auth.md
           - LDAP: authentication/ldap.md
           - OAuth: authentication/oauth.md
           - SAML: authentication/saml.md
-          - JWT: authentication/jwt.md
+          - JWT-Token: authentication/jwt.md
           - Switch authentication: authentication/auth_switch.md
-      - Config-Files:
+      - Configuration Files:
           - ccnet.conf: config/ccnet-conf.md
           - dtable-db.conf: config/dtable_db_conf.md
           - dtable-events.conf: config/dtable-events-conf.md
@@ -183,15 +192,15 @@ nav:
           - dtable_web_settings.py: config/dtable_web_settings.md
           - seafile.conf: config/seafile-conf.md
           - seatable-controller.conf: config/seatable-controller-conf.md
-  - Maintenance/Upgrade:
-      - Maintenance:
-          - maintain/index.md
-          - Backup and Recovery: maintain/backup_recovery.md
-          - Clean Database: maintain/clean_database.md
-          - Clean Storage: maintain/seatable_gc.md
-          - Filesystem check: maintain/seatable_fsck.md
-          - Change URL: maintain/others.md
-      - Upgrade:
-          - How to upgrade: upgrade/upgrade_manual.md
-          - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
-          - Migrate between editions: docker/Enterprise-Edition/migrate_from_seatable_ce_server.md
+  - Maintenance:
+      - maintain/index.md
+      - Backup and Recovery: maintain/backup_recovery.md
+      - Clean Database: maintain/clean_database.md
+      - Clean Storage: maintain/seatable_gc.md
+      - Filesystem check: maintain/seatable_fsck.md
+      - Change URL: maintain/others.md
+      - Command Line Tools: maintain/others.md
+  - Migration:
+      - Mysql: config/ccnet-conf.md
+      - Postgres: config/ccnet-conf.md
+      - Airtable: config/ccnet-conf.md

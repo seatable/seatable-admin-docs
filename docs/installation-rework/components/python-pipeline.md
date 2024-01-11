@@ -7,17 +7,19 @@ This manual explains how to install the python pipeline on your SeaTable server.
 
     It is possible to install the python pipeline on a separate machine. Read this...
 
+**image how this works...**
+
 ## Installation
 
 #### 1. Change the .env file
 
-To add the python pipeline, you have to tell docker, that the necessary docker images have to be downloaded and updated. You do this by adding `seatable-python-pipeline.yml` to the `COMPOSE_FILE` variable in your `.env` file.
+To add the python pipeline, you have to tell docker, that the necessary docker images have to be downloaded and updated. You do this by adding `python-pipeline.yml` to the `COMPOSE_FILE` variable in your `.env` file.
 
 ```bash
 nano /opt/seatable-compose/.env
 ```
 
-Your COMPOSE_FILE variable should look something like this:
+Your `COMPOSE_FILE` variable should look something like this:
 
 ```bash
 COMPOSE_FILE='caddy.yml,seatable-server.yml,python-pipeline.yml'
@@ -34,21 +36,19 @@ pw=$(pwgen -s 40 1) && echo "Generated shared secret: ${pw}"
 
 #### 3. Update the configuration
 
-This shared secret has to be added at two places to make it available in the python pipeline and SeaTable.
+This shared secret has to be added to your `.env` file and also to the one of the configuration files of your SeaTable Server.
 
-- `/opt/seatable-compose/.env`
-- `/opt/seatable-server/seatable/conf/dtable_web_settings.py`
-
-Execute the following command to add the shared secret to the `.env` file.
+Execute the following command to add the shared secret to the `.env` file:
 
 ```bash
-echo "# python-pipeline" >> /opt/seatable-compose/.env
+echo "\n# python-pipeline" >> /opt/seatable-compose/.env
 echo "PYTHON_SCHEDULER_AUTH_TOKEN=${pw}" >> /opt/seatable-compose/.env
 ```
 
 Now execute this command to add the required configuration to `dtable_web_settings.py`:
 
 ```bash
+echo "\n# python-pipeline" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 echo "SEATABLE_FAAS_URL = 'http://python-scheduler'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 echo "SEATABLE_FAAS_AUTH_TOKEN = '${pw}'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 ```
@@ -65,9 +65,12 @@ docker compose restart seatable-server
 
 #### 5. Check if the python pipeline is running
 
-create a new base  
-add a python script -> for example `print("Hello World!")`  
-check the output -> expected output is: `Hello World!`
+Now it is time to execute your first python script in SeaTable. For this: create a new base, add a python script with the content `print("Hello World")` and execute it.
+If everything went right, you should see the output `Hello World`.
+
+**Screenshot missing**
+
+:material-party-popper: **Great!** Your SeaTable can execute Python scripts now.
 
 ---
 
