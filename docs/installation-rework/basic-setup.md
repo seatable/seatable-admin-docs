@@ -1,9 +1,10 @@
 # Basic installation of a SeaTable Server
 
-You have a root shell open on your server and you have a public available domain, pointing at your server? Then let's get started...
-(Rework needed).
+Alright, let's dive in. This article will guide you through the process of installing a basic SeaTable server with a Caddy web server. By the end of this article, your new SeaTable server will be accessible via HTTPS with your custom domain. To begin, open a root shell on your server.
 
 !!! tip "Want to watch a step-by-step video instead of reading a manual?"
+
+    Watch a brief English video demonstrating all the essential steps:
 
     :fontawesome-brands-youtube:{ style="color: #EE0F0F" }
     __[How to install SeaTable]__ :octicons-clock-24: 10m
@@ -35,7 +36,7 @@ We highly recommended to keep this folder structure. All articles in the manual 
 
 #### 1. Create basic structure
 
-Simply copy and paste the following command into your command line to execute.
+Simply copy and paste the following command into your command line to execute. This code will download the latest yml files from :simple-github: repository [seatable-release](https://github.com/seatable/seatable-release).
 
 ```bash
 mkdir /opt/seatable-compose && \
@@ -45,20 +46,49 @@ wget -c https://github.com/seatable/seatable-release/releases/latest/download/se
 cp -n .env-release .env
 ```
 
+To get an overview of the downloaded files, use the `tree` command.
+
+```bash
+tree -a /opt/seatable-compose
+```
+
+The expected output should appear as follows.
+
+```bash
+# this should be the output of the tree command...
+/opt/seatable-compose
+├── caddy.yml
+├── collabora.yml
+├── .env
+├── .env-release
+├── n8n-init-data.sh
+├── n8n.yml
+├── onlyoffice.yml
+├── python-pipeline.yml
+├── seatable-server.yml
+├── uptime.yml
+└── zabbix.yml
+```
+
+!!! warning "Don't change these yml files"
+
+    Generally, there's no need to make changes to the different .yml files in most cases. Adjustments should be made only by experienced Docker administrators and then you should create a copy and rename the file.
+
+    ```bash
+    # Example to create a custom copy:
+    cp n8n.yml custom-n8n.yml
+    ```
+
 #### 2. Generate some secrets
 
-SeaTable is configured with an `.env` file (=enviroment configuration file) that is stored in the folder `/opt/seatable-compose`.
+SeaTable is configured with the hidden `.env` file (=enviroment configuration file) that is stored in the folder `/opt/seatable-compose`.
 
-!!! warning "Main configuration file"
-
-    Generally, there's no need to make any changes to the compose.yml files in most cases. Adjustments should be made only by experienced Docker administrators.
-
-We utilize `pwgen` to create robust, secure passwords for your admin account and the database root password. The following commands will generate such passwords and include them in the `.env'` file.
-
-Alternatively, you can manually add your own passwords.
+We utilize `pwgen` to create secure passwords for your _admin account_ and the _database root password_. The following commands will generate such passwords and include them in the `.env'` file.
 
     sed -i "s/^SEATABLE_ADMIN_PASSWORD=.*/SEATABLE_ADMIN_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^SEATABLE_MYSQL_ROOT_PASSWORD=.*/SEATABLE_MYSQL_ROOT_PASSWORD=$(pwgen 40 1)/" .env
+
+Alternatively, you can manually add your own passwords.
 
 #### 3. Complete settings in the .env file
 
@@ -111,7 +141,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
 #### 4. Get a license
 
-!!! tip "SeaTable Enterprise requires a license to start"
+!!! warning "SeaTable Enterprise requires a license to start"
 
     This step is solely required for SeaTable Enterprise Edition installation. You can bypass this step for **SeaTable Developer Edition**.
 
@@ -129,25 +159,7 @@ curl https://get.seatable.io/license/me@example.com
 
 #### 5. Fire up the server
 
-To confirm the setup, use the command `tree -a /opt/setable-compose`. The expected output should appear as follows.
-
-```bash
-/opt/seatable-compose
-├── caddy.yml
-├── collabora.yml
-├── .env
-├── .env-release
-├── n8n-init-data.sh
-├── n8n.yml
-├── onlyoffice.yml
-├── python-pipeline.yml
-├── seatable-licence.txt
-├── seatable-server.yml
-├── uptime.yml
-└── zabbix.yml
-```
-
-If everything is set up correctly, run the following command to download and initiate the docker images for the initial setup. This process will require some time.
+Now it is time to run the following command to download and initiate the docker images for the initial setup. This process will require some time.
 
 ```bash
 docker compose up -d
@@ -162,10 +174,12 @@ Sign in using the credentials you provided in the same file.
 
 Your SeaTable journey has just begun! While you can dive straight into SeaTable, creating bases, adding users, utilizing the API, and more, there's an array of possibilities to explore. Here are a few examples:
 
-- Expand functionality by installing additional components like the **Python Pipeline** or **n8n**.
+- Expand functionality by installing additional components like the [Python Pipeline](../components/python-pipeline/) or [n8n](../components/n8n/).
 - Configure your server to enable **email notifications**, **templates**, or **Single Sign-On (SSO)**.
 - For troubleshooting or queries during installation, refer to the **FAQ section** for assistance.
 
 This manual covers a range of topics, from **advanced cluster installations** to detailed **configuration options**. Take your time to explore these possibilities. If you can't find what you need or require assistance, consider posting in the community forum.
 
 Encounter an issue or need clarity? Feel free to create a post on the [SeaTable community forum](https://forum.seatable.io). We're here to assist and improve this manual based on your feedback.
+
+For sure you can also contribute directly and create a pull request at GitHub.

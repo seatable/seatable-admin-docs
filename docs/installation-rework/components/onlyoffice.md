@@ -30,7 +30,7 @@ COMPOSE_FILE='caddy.yml,seatable-server.yml,onlyoffice.yml'
 
 Generate inital secrets and write them into your .env file.
 
-    echo "\n# OnlyOffice" >> /opt/seatable-compose.env
+    echo -e "\n# OnlyOffice" >> /opt/seatable-compose/.env
     echo "ONLYOFFICE_JWT_SECRET=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 
 #### 3. Modify dtable_web_setings.py
@@ -38,11 +38,12 @@ Generate inital secrets and write them into your .env file.
 Open `/opt/seatable-server/seatable/conf/dtable_web_settings.py` with your favorite editor and add the following code block at the end of the file.
 
 ```python
-# onlyoffice
-ENABLE_ONLYOFFICE = True
-ONLYOFFICE_APIJS_URL = "https://<SEATABLE_SERVER_HOSTNAME>:6233/web-apps/apps/api/documents/api.js"
-ONLYOFFICE_FILE_EXTENSION = ('doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'odt', 'fodt', 'odp', 'fodp', 'ods', 'fods', 'csv', 'ppsx', 'pps')
-ONLYOFFICE_JWT_SECRET = '<YOUR_JWT_SECRET>'
+source /opt/seatable-compose/.env
+echo -e "\n# onlyoffice" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+echo "ENABLE_ONLYOFFICE = True" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+echo "ONLYOFFICE_APIJS_URL = 'https://${SEATABLE_SERVER_HOSTNAME}:6233/web-apps/apps/api/documents/api.js'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+echo "ONLYOFFICE_FILE_EXTENSION = ('doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'odt', 'fodt', 'odp', 'fodp', 'ods', 'fods', 'csv', 'ppsx', 'pps')" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+echo "ONLYOFFICE_JWT_SECRET = '${ONLYOFFICE_JWT_SECRET}'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 ```
 
 Change `SEATABLE_SERVER_HOSTNAME` to reflect the hostname of your SeaTable server. Additionally, copy the generated value for `ONLYOFFICE_JWT_SECRET` from your .env file and paste it in the dtable_web_settings.py.
@@ -57,7 +58,7 @@ docker compose down
 docker compose up -d
 ```
 
-OnlyOffice takes some time to start up. If you get an error message when clicking an office file in SeaTable, be patient. With `docker compose logs -f onlyoffice`, you can monitor the startup progress.
+OnlyOffice takes some some minutes for the initial start. If you get an error message when clicking an office file in SeaTable, be patient. With `docker compose logs onlyoffice -f`, you can monitor the startup progress.
 
 Try to open https://SEATABLE_SERVER_HOSTNAME:6233/welcome. You should see a welcome page like this.
 

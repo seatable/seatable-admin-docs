@@ -10,7 +10,16 @@ installation of CODE version of collabora online
 
 add collabora.yml to .env file.
 
-dtable_web_settings.py muss folgendes
+dtable_web_settings.py muss folgendes enthalten. SEATABLE_SERVER_HOSTNAME muss nicht ergänzt werden, der wert wird aus der .env ausgelesen.
+
+```bash
+source /opt/seatable-compose/.env
+echo -e "\n# collabora online" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+echo "ENABLE_COLLABORA = True" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+echo "COLLABORA_DISCOVERY_URL = 'https://${SEATABLE_SERVER_HOSTNAME}:6232/hosting/discovery'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+```
+
+so war es alt.
 
 ```bash
 ENABLE_COLLABORA = True
@@ -19,5 +28,9 @@ COLLABORA_DISCOVERY_URL = 'https://<your-seatable-url>:6232/hosting/discovery'
 
 ## installation per docker
 
+```bash
 docker compose down
 docker compose up -d
+```
+
+SeaTable must be restarted too, therefore all containers are shut down and restarted.

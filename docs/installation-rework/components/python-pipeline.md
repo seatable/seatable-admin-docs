@@ -1,34 +1,43 @@
 # Python Pipeline
 
-To execute python scripts inside SeaTable you need to install the python pipeline. It is a python runtime environment that uses docker containers to execute your python script and return the output.
-This manual explains how to install the python pipeline on your SeaTable server.
+To run Python scripts within SeaTable, you need to install the Python Pipeline — an environment utilizing Docker containers for script execution and result retrieval. Thanks to the SeaTable Python API you can seamlessly interact with the data in the base.
 
-!!! Note "Installation on a separate machine"
+Explore various use cases from other SeaTable users:
 
-    It is possible to install the python pipeline on a separate machine. Read this...
+- Retrieve current stock prices and store them in SeaTable.
+- Validate DNS settings of specified domains for specific TXT entries.
+- Capture submissions from form.io and store the results.
+- Identify duplicate entries and apply specific tags.
 
-**image how this works...**
+Find additional Python functions and code examples in the [Developer Manual](https://developer.seatable.io).
+
+![SeaTable Python Pipeline Page](/images/screenshot_python_script_execution.png)
 
 ## Installation
 
+This article explains how to add the Python Pipeline on your SeaTable server.
+
 #### 1. Change the .env file
 
-To add the python pipeline, you have to tell docker, that the necessary docker images have to be downloaded and updated. You do this by adding `python-pipeline.yml` to the `COMPOSE_FILE` variable in your `.env` file.
+To install the Python Pipeline, include `python-pipeline.yml` in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for the Python Pipeline.
+
+Simply copy and paste (:material-content-copy:) the following code into your command line:
 
 ```bash
-nano /opt/seatable-compose/.env
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,python-pipeline.yml'/" /opt/seatable-compose/.env
 ```
 
-Your `COMPOSE_FILE` variable should look something like this:
+!!! warning "Don't use space"
 
-```bash
-COMPOSE_FILE='caddy.yml,seatable-server.yml,python-pipeline.yml'
-```
+    When manually adding `python-pipeline.yml` to the `COMPOSE_FILE` variable using your preferred editor, ensure that you avoid any space (:material-keyboard-space:). After making this modification, your `COMPOSE_FILE` variable should look like this:
+
+    ```bash
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,python-pipeline.yml'
+    ```
 
 #### 2. Generate a shared secret for secure communication
 
-SeaTable and the Python pipeline need a share secret to secure the connection and make sure that nobody else can use or access your python pipeline.
-We recommend to use `pwgen` to generate a long and secure password. Execute this command to generate a password.
+For secure communication between SeaTable and the Python Pipeline, a shared secret is required to prevent unauthorized access or usage. We recommend utilizing `pwgen` to generate a robust and secure password. Copy and paste the following command into your command line to generate a password:
 
 ```bash
 pw=$(pwgen -s 40 1) && echo "Generated shared secret: ${pw}"
@@ -36,60 +45,53 @@ pw=$(pwgen -s 40 1) && echo "Generated shared secret: ${pw}"
 
 #### 3. Update the configuration
 
-This shared secret has to be added to your `.env` file and also to the one of the configuration files of your SeaTable Server.
+The generated shared secret needs to be added to both your `.env` file and the configuration files of your SeaTable Server.
 
-Execute the following command to add the shared secret to the `.env` file:
+Copy and paste the following commands to include the shared secret in the `.env` file:
 
 ```bash
-echo "\n# python-pipeline" >> /opt/seatable-compose/.env
+echo -e "\n# python-pipeline" >> /opt/seatable-compose/.env
 echo "PYTHON_SCHEDULER_AUTH_TOKEN=${pw}" >> /opt/seatable-compose/.env
 ```
 
 Now execute this command to add the required configuration to `dtable_web_settings.py`:
 
 ```bash
-echo "\n# python-pipeline" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
+echo -e "\n# python-pipeline" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 echo "SEATABLE_FAAS_URL = 'http://python-scheduler'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 echo "SEATABLE_FAAS_AUTH_TOKEN = '${pw}'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 ```
 
 #### 4. Start the Python Pipeline
 
-Now it is time to start the python pipeline.
+Now it is time to start the Python Pipeline.
 
 ```bash
 cd /opt/seatable-compose && \
 docker compose up -d && \
-docker compose restart seatable-server
+docker exec -d seatable /shared/seatable/scripts/seatable.sh start
 ```
 
-#### 5. Check if the python pipeline is running
+#### 5. Check if the Python Pipeline is running
 
-Now it is time to execute your first python script in SeaTable. For this: create a new base, add a python script with the content `print("Hello World")` and execute it.
+Do you want to execute your first python script in SeaTable? Nothing easier than that.
+
+- Login to your SeaTable Server with your Browser.
+- Create a new base and access it.
+- Add a python script with the content `print("Hello World")` and execute it. If you don't know how to do this, check out our [user manual](https://seatable.io/docs/javascript-python/anlegen-und-loeschen-eines-skriptes/?lang=auto).
+
 If everything went right, you should see the output `Hello World`.
 
-**Screenshot missing**
+![Execution of your first python script](/images/screenshot_first_python_script.png)
 
 :material-party-popper: **Great!** Your SeaTable can execute Python scripts now.
 
 ---
 
-TODO: check what is really necessary from this point.
-wie Logging sollte angeboten werden.
-
----
-
 ## Configuration
 
-## Troubleshooting
-
-####. Bring docker compose down and up again
-
-Bring the compose project down then up again and start the seatable service to make sure every modification has taken effect.
+The Python Pipeline provides multiple .environment variables for further customization. The available parameters are:
 
 ```bash
-cd /opt/seatable-compose && \
-docker compose down && \
-docker compose up -d
-docker exec -d seatable /shared/seatable/scripts/seatable.sh start
+...
 ```

@@ -52,4 +52,6 @@ The _advanced setup_ is not an installation type, but the articles in this secti
 
 ## Screenshots
 
-...
+![SeaTable Login Page](./images/screenshot_seatable_login.png)
+![SeaTable Login Page](./images/screenshot_seatable_home_page.png)
+![SeaTable Base Editor](./images/screenshot_seatable_base_editor.png)

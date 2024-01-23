@@ -20,12 +20,40 @@ These resources guarantee good performance for most applications with up to 100 
 
 As soon as you have more than 100 users, you should consider extending your SeaTable Platform and move some components to separate VMs.
 
-## Ports and Domains
+!!! warning "Additional components need additional ressources"
 
-This manual assumes that no other services are installed on the server, especially no other services listening on port 80 and 443.
-Also, it assumes, that you have one single domain or subdomain that points to your public IP address of your server.
+    These hardware requirements are for SeaTable Server. If you install additional components like n8n, collabora online or onlyoffice the requirements for these ressources stack up and you have to add additional ressources.
+
+## Public available domain
+
+This manual assumes that you have **one domain or subdomain** that points to your public IP address of your server.
+
+```mermaid
+flowchart LR
+    A[User /\nBrowser]
+    B[Domain / Subdomain\nPorts 80+443]
+    C[Server or VM\nwith Docker]
+    A-->B
+    B-->C
+```
 
 For sure, it is possible to run SeaTable without an internet connection (air-gapped) or with custom SSL certificates. This requires additional settings which are explained in separate chapters.
+
+## Ports
+
+SeaTable needs by default only the default ports **80 (HTTP)** and **443 (HTTPS)**.
+
+Most of the [additional components](/installation-rework/components/) will require **additional ports** in the range of **6230 to 6240**. You have to open the firewall or create port forwardings if you want to use these functions.
+
+**List of ports:**
+
+- **80 (required)**: HTTP access is necessary to receive a Let's Encrypt certificate
+- **443 (required)**: HTTPS is the main entrance to SeaTable Server
+- **6230**: Necessary only if you want to use _Uptime Kuma_
+- **6231**: Necessary only if you want to use _n8n_
+- **6232**: Necessary only if you want to use _Collabora Online_
+- **6233**: Necessary only if you want to use _OnlyOffice_
+- **6235**: Necessary only if you want to use _Zabbix_
 
 ## License
 

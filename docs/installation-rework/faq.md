@@ -1,5 +1,9 @@
 ## FAQ's
 
+Problems, that might occur:
+
+- Check DNS settings. IPv4 and IPv6
+
 **If, for whatever reason, the installation fails, how do I to start from a clean slate again?**
 
 Stop all containers, remove everything under the folder `/opt` and start again.
