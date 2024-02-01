@@ -1,6 +1,10 @@
 # Custom certificates
 
-Usually we use let's encrypt to generate valid certificates for public access. Nethertheless caddy provides an easy way to use custom certificates.
+Usually we use let's encrypt to generate valid certificates for public access. Nethertheless caddy provides an easy way to use custom certificates. This article assumes that you want to use a valid certificate (or a wildcard certificate) from a trusted authority.
+
+!!! warning "Self signed certificates are not fully supported"
+
+    The usage of a self signed certificate is not recommended. Even if you clients (browsers) trust the certificate, the docker containers does not trust each other. Python Pipeline will not work etc...
 
 ## Make certificates available to caddy
 

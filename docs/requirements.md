@@ -43,17 +43,20 @@ For sure, it is possible to run SeaTable without an internet connection (air-gap
 
 SeaTable needs by default only the default ports **80 (HTTP)** and **443 (HTTPS)**.
 
-Most of the [additional components](/installation-rework/components/) will require **additional ports** in the range of **6230 to 6240**. You have to open the firewall or create port forwardings if you want to use these functions.
+Most of the [additional components](/installation-rework/components/) will require **additional ports** in the range of **6230 to 6240**. You have to open the firewall or create port forwardings if you want to use these functions. If you don't use this component, the port can stay closed.
 
-**List of ports:**
+### List of required ports
 
-- **80 (required)**: HTTP access is necessary to receive a Let's Encrypt certificate
-- **443 (required)**: HTTPS is the main entrance to SeaTable Server
-- **6230**: Necessary only if you want to use _Uptime Kuma_
-- **6231**: Necessary only if you want to use _n8n_
-- **6232**: Necessary only if you want to use _Collabora Online_
-- **6233**: Necessary only if you want to use _OnlyOffice_
-- **6235**: Necessary only if you want to use _Zabbix_
+- **80**: HTTP access is necessary to receive a Let's Encrypt certificate
+- **443**: HTTPS is the main entrance to SeaTable Server
+
+### List of optional ports
+
+- **6230**: Uptime Kuma
+- **6231**: n8n
+- **6232**: Collabora Online
+- **6233**: OnlyOffice
+- **6235**: Zabbix
 
 ## License
 

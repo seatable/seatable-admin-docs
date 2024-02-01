@@ -110,6 +110,7 @@ nav:
   - Introduction:
       - index.md
       - Architecture: architecture.md
+      - Security: security.md
       - Requirements: requirements.md
       - System Limitations: limitations/system_limitations.md
       - Server Editions: editions.md
@@ -149,7 +150,6 @@ nav:
           - Monitoring:
               - Uptime Kuma: installation-rework/components/uptime-kuma.md
               - Zabbix: installation-rework/components/zabbix.md
-              - Grafana/Prometheus: installation-rework/components/grafana-prometheus.md
           - FAQ / Troubleshooting: installation-rework/faq.md
 
       - Advanced Setup:

@@ -4,12 +4,29 @@ If your user base on your Seatable Server is growing, one of the first component
 
 ## Requirements
 
-Python Pipeline requires at least 2 CPU and 4 GB of RAM.
+To install Python Pipeline on a separate server, use at least these ressources:
+
+- 2 CPU
+- 4 GB RAM
+- 40 GB SSD
+
 Use a separate domain or subdomain that is public available or you need a valid wildcard certificate.
-Self signed certificates are not recommended. Read ...
+Caddy will generate a let's encrypt certificate.
 
-## Deployment
+!!! warning "No self signed certificates"
 
-Deployment is simple. Get seatable-release from github, only use python-pipeline.yml and caddy.yml.
+    Self signed certificates are not recommended. Read the article about [custom certificates](./custom_certificates.md) for more details.
 
-Update .env
+## Deployment of the Python Pipeline
+
+Deployment is simple.
+
+Get seatable-release from github, only use python-pipeline.yml and caddy.yml. (not seatable-server.yml)
+
+Update .env and use docker compose up -d.
+
+## Configuration of SeaTable Server
+
+SeaTable must know where to get the Python Pipeline.
+
+Update `dtable_web_settings.py` and add the public available URL.

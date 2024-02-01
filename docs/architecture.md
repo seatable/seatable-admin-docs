@@ -50,8 +50,6 @@ Redis is used for sending messages from dtable-web/dtable-server to dtable-event
 
 Memcache is used to provide caching for Django framework.
 
-![seatable-architecture](./images/auto-upload/seatable-architecture.png)
-
 ## SeaTable Server Container
 
 Let's look at the SeaTable Server container. Also this graph is simplified for explanatory reasons. It should explain the connections and logics and should not be super precise.
@@ -98,7 +96,7 @@ Some explanation:
 
 The hearth of a SeaTable Server is the base editor, which allows real-time collaborative work in the browser.
 
-**Screenshot: json object of a base -> Editor -> ...**
+![Bases are stored as json files](/images/json_loaded_in_base_editor.png)
 
 SeaTable stores the base data as json-files in the filesystem (and not in the database). When a user access the base, the json file is loaded into the memory and rendered by the dtable-server.
 
@@ -106,10 +104,10 @@ Every change of the base is stored in memory and also in an operation log in the
 
 In addition, the dtable-storage-server creates a snapshot of the base every 24 hours.
 
-!!! warning "collaborative work"
+!!! warning "Why not store base in Mariadb?"
 
-    ...
+    In the first moment it sounds counter-intuitive that SeaTable saves the base data in a json file and not the database. The reason for that is that an SQL table is efficient in handling a huge amount of rows. The problem raises in the change of the database structure. Adding new columns, renaming columns, change column types in a table with hundred of thousand of rows it not efficient. Therefore the decision was made to persist the base data into json files instead of storing it directly in the database.
 
-Every base in SeaTable is saved as a json-file. and when users access the base, it will be loaded into dtable-server. When the base is modified, dtable-server automatically saves it to dtable-storage-server every 5 minutes. dtable-storage-server creates a snapshot of the base every 24 hours.
+Every base in SeaTable is saved as a json-file. and when users access the base, it will be loaded into dtable-server. When the base is modified, dtable-server automatically saves it to dtable-storage-server every 5 minutes. In addition, dtable-storage-server creates a snapshot of the base every 24 hours.
 
 The base cannot contain more than 100,000 rows. If the records are close to 100,000, the record can be transferred from the file (dtable-server is responsible for management) to the big data storage (dtable-db is responsible for management) through the archive operation. dtable-db periodically saves backups of big data storage to dtable-storage-server.

@@ -53,9 +53,3 @@ Your n8n Container provides a Web UI to set up your n8n Admin User under `https:
 ## Next steps
 
 check the docs of n8n. https://docs.n8n.io/
-
-## Advanced configuration
-
-### other port
-
-...
