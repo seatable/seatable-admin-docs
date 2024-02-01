@@ -1,5 +1,33 @@
 # Extra upgrade notice
 
+## 4.4
+
+Version 3.0 we use storage-server to store bases.
+
+From version 4.4, Seatable only supports Bases stored in storage-server. You need to use `/templates/migrate_bases.sh` to migrate Bases that are not stored in storage-server.
+
+Modify dtable_web_settings.py
+
+```py
+NEW_DTABLE_IN_STORAGE_SERVER = True
+```
+
+Migrate Bases
+
+```sh
+# list Bases not stored in storage-server
+/templates/migrate_bases.sh --list
+
+# migrate Bases to storage-server
+/templates/migrate_bases.sh ----migrate [number]
+```
+
+Restart SeaTable
+
+```sh
+seatable.sh restart
+```
+
 ## 4.0
 
 Version 4.0 modifies the data format of the backup of big data storage. Compared with previous upgrades, an additional format migration script needs to be run inside the docker:
