@@ -52,9 +52,6 @@ theme:
 plugins:
   - search:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-  - exclude-search:
-      exclude:
-        - installation-rework/*
   - minify:
       minify_html: true
   - git-revision-date-localized
@@ -122,26 +119,7 @@ nav:
       - EULA: dtable-server-license.md
       #- Other manuals: others.md
       - Changelog: changelog/server-changelog.md
-  #- Installation:
-  #    - installation/index.md
-  #    - Basic Setup:
-  #        - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
-  #        - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
-  #    - Additional Components:
-  #        - Python Runner:
-  #            - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
-  #            - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
-  #            - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
-  #        - Online Document Editor: config/enterprise/deploy_onlyoffice_docker.md
-  #        - Seafile Integration: config/integrate-with-seafile.md
-  #    - Advanced Setups:
-  #        - SeaTable Cluster: docker/Cluster/SeaTable Cluster.md
-  #        - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
-  #        - dtable-events Background node: docker/Cluster/dtable-events Background node.md
-  #        - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
-  #        - S3 Object Storage: config/enterprise/S3.md
 
-  # Install Rework Preparations in folder installation-rework
   - Installation:
       - How to start: installation-rework/start.md
       - Our deployment approach: installation-rework/start_details.md
