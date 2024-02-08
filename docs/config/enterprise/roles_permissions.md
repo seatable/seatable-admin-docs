@@ -1,5 +1,8 @@
 # User Roles
 
+<!-- md:version 1.0 -->
+<!-- md:flag enterprise -->
+
 In SeaTable Enterprise Edition (SeaTable EE), a user's permissions are determined by the role assigned to the user.
 
 SeaTable has two standard roles. Additionally, extra roles can be created for more fine-grained permission management. All changes relating to the SeaTable's roles are done in the configuration file `dtable_web_settings.py`.
