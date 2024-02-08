@@ -2,9 +2,19 @@
 
 One of the main advantages of SeaTable against other solutions is, that you can run SeaTable on your own hardware or on any server your like. Still there are some requirements:
 
+- Linux-Server with Root-Shell
+- Public domain pointing to your server
+- Open Ports for HTTP and HTTPS access (probably more ports for other components)
+
+Does this sounds complicated? Not really. So lets get started.
+
+[Let's begin with the installation in the root-shell](/installation-rework/basic-setup/){ .md-button .md-button--primary }
+
+If you need more information, you can get more details in this article.
+
 ## Platform support
 
-SeaTable uses `docker` and `docker compose`. Therefore it should run as long as docker virtualisation is available. Still we recommend **Docker 11 or newer** because we always use Debian for production and testing.
+SeaTable uses `docker` and `docker compose`. Therefore it should run as long as docker virtualisation is available. Still we recommend **Debian 11 or newer** because we always use Debian for production and testing.
 
 Currently only x86/x64 architecture is officially supported. Bigger customers might get support with ARM based systems.
 
@@ -23,6 +33,8 @@ As soon as you have more than 100 users, you should consider extending your SeaT
 !!! warning "Additional components need additional ressources"
 
     These hardware requirements are for SeaTable Server. If you install additional components like n8n, collabora online or onlyoffice the requirements for these ressources stack up and you have to add additional ressources.
+
+For sure we need a **root shell** on this server to execute the installation commands.
 
 ## Public available domain
 
