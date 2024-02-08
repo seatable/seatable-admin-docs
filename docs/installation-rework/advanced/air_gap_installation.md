@@ -27,4 +27,8 @@ The usage of a self signed certificate is not recommended. Even if you clients (
 
 ### Separate local APT repository.
 
+...
+
 ### Plugins
+
+...

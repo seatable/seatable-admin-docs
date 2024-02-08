@@ -1,12 +1,14 @@
 # Welcome to SeaTable
 
-## About SeaTable admin documentation
+!!! success "Everything a SeaTable administrator needs"
 
-This admin manual cover the typical topics, from installation to configuration, backup and maintenance of your **own SeaTable Server**.
+    This admin manual cover the typical topics, from installation to configuration, backup and maintenance of your **own SeaTable Server**. So if you want to run your own SeaTable Server, this is the place to be!
 
-- For information about how to use SeaTable, please refer to the [user documentation](https://seatable.io/docs/?lang=auto).
-- For developer-focus documentation, such as using SeaTable's API, scripting, ... refer either to the [API reference](https://api.setable.io) or have a look at the [developer manual](developers.seatable.io).
-- There are additional ressources. Check out our YouTube channel to get a better understanding of how to use SeaTable or to raise questions at the [community forum](https://forum.seatable.io).
+If you don't want to run your own server, there are **other ressources** available, that might help you also:
+
+- **For users**: For information about how to use SeaTable, please refer to the [user documentation](https://seatable.io/docs/?lang=auto).
+- **For developers**: For developer-focus documentation, such as using SeaTable's API, scripting, automations and plugin development refer either to the [API reference](https://api.setable.io) or have a look at the [developer manual](developers.seatable.io).
+- **Others**: There are additional ressources. Check out our YouTube channel to get a better understanding of how to use SeaTable or to raise questions at the [community forum](https://forum.seatable.io).
 
 ## What is SeaTable?
 

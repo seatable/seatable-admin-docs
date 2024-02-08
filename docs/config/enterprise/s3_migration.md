@@ -1,6 +1,9 @@
 # Migration from local storage to S3
 
-Since SeaTable version 4.3, SeaTable provides migration scripts to migrate the local data to S3. In fact two things have to be migrated:
+<!-- md:version 4.3 -->
+<!-- md:flag enterprise -->
+
+SeaTable provides migration scripts to migrate the local data to S3. In fact two things have to be migrated:
 
 - Storage data (Snapshots and persisted json files)
 - Seafile data (Files/Images Columns)

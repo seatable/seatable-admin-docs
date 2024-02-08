@@ -1,11 +1,7 @@
 # Replace caddy with another proxy
 
 The Single-Node Installation describes an installation of a SeaTable server with the webserver caddy. We dediced to use Caddy because it simplifies the handling of let's encrypt certificates.
-If you create a DNS entry and point it to your server, caddy will do everything else for you. Also we configured caddy with state of the art security configurations:
-
-- A+ with ssl-labs
-- B with mozilla observatory
-- 100% with ...
+If you create a DNS entry and point it to your server, caddy will do everything else for you. Also we configured caddy with state of the art security configurations.
 
 ## Custom proxy with SeaTable Server
 

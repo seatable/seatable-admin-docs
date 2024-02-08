@@ -16,7 +16,7 @@ services:
   caddy:
     ...
     volumes:
-      - "/opt/caddy:/data/caddy"     # <-- certificates have to saved here
+      - "/opt/caddy:/data/caddy"     # <-- certificates have to be saved here
 ```
 
 It should look like this:

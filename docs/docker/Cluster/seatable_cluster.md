@@ -1,3 +1,7 @@
+---
+status: new
+---
+
 # SeaTable cluster
 
 SeaTable Enterprise Edition support cluster for high availability and better performance.
@@ -27,8 +31,8 @@ There is also a dtable-server proxy node which provide API access to dtable-serv
 
 Note, to improve performance of your SeaTable service, you don't need to setup a full cluster. Sometimes, use a standalone dtable-server can help improve performance. In the following manual, we will show the steps to setup a two nodes deployment:
 
-* A dtable-web node running dtable-web, seaf-server, dtable-events, dtable-db and dtable-storage-server
-* A dtable-server node running dtable-server, dtable-storage-server
+- A dtable-web node running dtable-web, seaf-server, dtable-events, dtable-db and dtable-storage-server
+- A dtable-server node running dtable-server, dtable-storage-server
 
 Note, dtable-storage-server provide access to the underlying object storage system, so it need to be run at each nodes.
 
@@ -36,7 +40,7 @@ Note, dtable-storage-server provide access to the underlying object storage syst
 
 First, setup a one node deployment according to [Enterprise-Edition](<../../docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md>)
 
-Then, use storage backend according to [S3 Object Storage](<../../config/enterprise/S3.md>)
+Then, use storage backend according to [S3 Object Storage](../../config/enterprise/S3.md)
 
 ### Modify configuration file
 
@@ -51,7 +55,7 @@ Modify `docker-compose.yml` to let Redis can be accessed from another node
 
 ```
 
-Modify dtable-web configuration file  `/Your SeaTable data volume/seatable/conf/dtable_web_settings.py`
+Modify dtable-web configuration file `/Your SeaTable data volume/seatable/conf/dtable_web_settings.py`
 
 ```
 USE_INNER_DTABLE_SERVER = False
@@ -60,7 +64,7 @@ DTABLE_SOCKET_URL = 'https://dtable-server.example.com/'  # dtable-server's url
 
 ```
 
-Modify dtable-db configuration file  `/Your SeaTable data volume/seatable/conf/dtable-db.comf`
+Modify dtable-db configuration file `/Your SeaTable data volume/seatable/conf/dtable-db.comf`
 
 ```
 [dtable cache]
@@ -69,7 +73,7 @@ dtable_server_url = "https://dtable-server.example.com/"
 total_cache_size = 100
 ```
 
-Create configuration file :  `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
+Create configuration file : `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
 
 ```sh
 ENABLE_SEAFILE_SERVER=true
@@ -152,7 +156,7 @@ mkdir -p /opt/seatable/shared/seatable/conf
 
 **Copy the configuration file on the dtable-web server to the conf directory.**
 
-Modify the dtable-server configuration file :  `/Your SeaTable data volume/seatable/conf/dtable_server_config.json`
+Modify the dtable-server configuration file : `/Your SeaTable data volume/seatable/conf/dtable_server_config.json`
 
 ```sh
 {
@@ -170,7 +174,7 @@ Modify the dtable-server configuration file :  `/Your SeaTable data volume/seata
 
 ```
 
-Modify the Nginx configuration file : `/Your SeaTable data volume/seatable/conf/nginx.conf` 
+Modify the Nginx configuration file : `/Your SeaTable data volume/seatable/conf/nginx.conf`
 
 ```
 log_format your_log_format '[$time_iso8601] $http_x_forwarded_for $remote_addr "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $upstream_response_time';
@@ -244,7 +248,7 @@ server {
 
 ```
 
-Create configuration file :  `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
+Create configuration file : `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
 
 ```sh
 ENABLE_SEAFILE_SERVER=false

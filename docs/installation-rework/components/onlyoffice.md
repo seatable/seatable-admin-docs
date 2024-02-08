@@ -1,12 +1,17 @@
 # Deploy ONLYOFFICE Documentserver
 
-ENTWEDER ODER Collabora oder Onlyoffice !!!!
+<!-- md:version 3.0 -->
+<!-- md:flag enterprise -->
 
 OnlyOffice offers real-time collaboration with office documents in your browser. As soon as you open a file from SeaTable, OnlyOffice opens in a new browser tab and allows real time collaboration. As soon as the last user exits the document by closing his browser window, the document is saved back to the SeaTable base. Access takes place via the public URL via HTTPS. So that OnlyOffice cannot be used by other systems, a shared secret in the form of a JWT key is used.
 
-!!! warning "OnlyOffice requires SeaTable Enterprise Edition"
+!!! warning "You have to decide: Collabora OR OnlyOffice"
 
-    OnlyOffice Documentserver (ONLYOFFICE) can be installed on the same host as SeaTable Enterprise Edition. If OnlyOffice is used regularly and by many users, the host should be fitted with sufficient cores and RAM.
+    Collabora and OnlyOffice are both office editors. You have to decide which one you would like to use. You can not use both in parallel.
+
+!!! note "Use a separate host, if you expect many users"
+
+    OnlyOffice can be installed on the same host as SeaTable Enterprise Edition. If OnlyOffice is used regularly and by many users, the host should be fitted with sufficient cores and RAM.
 
 This manual assumes that SeaTable Enterprise Edition is installed and is running.
 
@@ -60,7 +65,7 @@ docker compose up -d
 
 OnlyOffice takes some some minutes for the initial start. If you get an error message when clicking an office file in SeaTable, be patient. With `docker compose logs onlyoffice -f`, you can monitor the startup progress.
 
-Try to open https://SEATABLE_SERVER_HOSTNAME:6233/welcome. You should see a welcome page like this.
+Try to open `https://SEATABLE_SERVER_HOSTNAME:6233/welcome`. You should see a welcome page like this.
 
 ![OnlyOffice Welcome page](https://www.linuxbabe.com/wp-content/uploads/2016/12/onlyoffice-docs-https-ubuntu.png)
 
@@ -69,35 +74,6 @@ Try to open an docx-file from a SeaTable base.
 Onlyoffice is ready, if a new browser window opens with your office document. Any user with access to this base can now open this document with OnlyOffice.
 
 ---
-
-## Troubleshooting
-
-**1. SeaTable doesn't start anymore/SeaTable is no longer accessible, what can I do?**
-
-It is likely that there is a misconfiguration in either nginx.conf or dtable_web_settings.py.
-
-After docker-composing up, run `docker exec -it seatable nginx -t` to check the nginx configuration. If the nginx configuration is invalid, the output will tell you.
-
-If nginx shows no error, enter the seatable container and try to start SeaTable manually:
-
-```bash
-docker exec -it seatable bash
-/shared/seatable/scripts/seatable.sh start
-```
-
-**2. There is not welcome page from OnlyOffice**
-
-If `https://SEATABLE_SERVER_HOSTNAME/onlyofficeds/welcome` shows a SeaTable error page, you should check the nginx configuration file.
-Make sure that the two components are added and that there are no nginx errors and restart nginx.
-
-```bash
-cd /opt/seatable/seatable-data/seatable/conf
-nano nginx.conf
-```
-
-**3. OnlyOffice Welcome page is shown but document does not open**
-
-Check your configuration of `dtable_web_settings.py`. Make sure that you added your public SeaTable Server address. Make sure that `jwt-token` is the same in `dtable_web_settings.py` and `docker-compose.yml`.
 
 ## Advanced: Custom settings
 

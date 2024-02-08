@@ -6,9 +6,19 @@
 
     Version 4.3 introduces a new installation method relying on multiple yml files, an .env file and caddy as new reverse proxy. This setup is more convenient and will be the basis for all future explanations.
 
-    It is not mandatory to switch to this new setup but it is recommended. Read this blog post for more information.
+    It is not mandatory to switch to this new setup but it is recommended. Read this [article for more information](/upgrade/migrate_seatable_release/).
 
-??? success "..."
+??? success "Django CSRF protection"
+
+    Django 4.* has introduced a new check for the origin http header in CSRF verification. It now compares the values of the origin field in HTTP header and the host field in HTTP header. If they are different, an error is triggered.
+
+    If you deploy Seafile behind a proxy, if you use a non-standard port or if you deploy Seafile in cluster, it is likely that the origin field in HTTP header received by Django and the host field in HTTP header received by Django are different. This mismatch results in a CSRF error.
+
+    You can add `CSRF_TRUSTED_ORIGINS` to `dtable_web_settings.py` to solve the problem:
+
+    ```bash
+    CSRF_TRUSTED_ORIGINS = ["https://<your-domain>"]
+    ```
 
 ## 4.0
 

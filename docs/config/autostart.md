@@ -1,8 +1,14 @@
+# Autostart of SeaTable Service
+
+!!! success "Not required anymore with v4.3"
+
+    With the version 4.3 and newer, the SeaTable service will start automatically as soon as you start the docker container.
+
 When setting up SeaTable following the instructions in [this manual](../docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md), SeaTable's Docker containers do not automatically start after a system reboot. Adding SeaTable to autostart minimizes system downtime and prevents service disruption.
 
 ## Requirements
-The autostart routine presented here utilizes [systemd](https://systemd.io/). systemd, the default init system in many Linux distributions, including CentOS, Debian, and Ubuntu, provides a convenient autostart function for the services it controls.
 
+The autostart routine presented here utilizes [systemd](https://systemd.io/). systemd, the default init system in many Linux distributions, including CentOS, Debian, and Ubuntu, provides a convenient autostart function for the services it controls.
 
 ## Setup
 
@@ -11,12 +17,14 @@ Autostart SeaTable builds on three components: First, a start script that is cap
 ### Preparing the start script
 
 Create the script file in `/opt/seatable` and open it in a text editor:
+
 ```
 $ cd /opt/seatable/
 $ nano seatable-autostart.sh
 ```
 
 Paste the following code block into the file:
+
 ```
 #!/bin/bash
 
@@ -81,13 +89,12 @@ WantedBy=multi-user.target
 Note: If the `seatable-autostart.sh` is saved in a directory other than `/opt/seatable`, change the unit file accordingly to reflect it.
 
 The unit file in combination with the above script enables the start and stop of SeaTable using the systemctl command:
-* `sudo systemctl stop seatable` stops all SeaTable containers
-* `sudo systemctl start seatable` start all SeaTable containers
-* `sudo systemctl restart seatable` restart all SeaTable containers
+
+- `sudo systemctl stop seatable` stops all SeaTable containers
+- `sudo systemctl start seatable` start all SeaTable containers
+- `sudo systemctl restart seatable` restart all SeaTable containers
 
 Note: When using systemctl to start SeaTable Server, its Docker containers must be stopped beforehand.
-
-
 
 ## Enabling autostart
 

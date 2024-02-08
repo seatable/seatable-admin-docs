@@ -41,9 +41,9 @@ This configures caddy to proxy all requests to n8n.example.com to the port 6231,
 
 Restart all docker containers with the following command to enforce this new setting.
 
-!!! danger "all Containers have to be restarted"
+!!! danger "All containers have to be restarted"
 
-    It is not sufficient to restart only the n8n container. The caddy container has to be restarted to. Docker compose will not detect any change of the caddy.yml, therefore we recommend to stop and restart all containers.
+    It is not sufficient to restart only the container that should use a separate domain. The caddy container has to be restarted to. `docker compose` will not detect any change of the caddy.yml, therefore we recommend to stop and restart all containers with these commands.
 
     ```bash
     cd /opt/seatable-compose && \

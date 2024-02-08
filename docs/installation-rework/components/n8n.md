@@ -1,6 +1,6 @@
 # Installation of the automation platform n8n
 
-The installation of an automation plattform like n8n increases the power. Connect to other software solutions, gather logs or data from other tools...
+The installation of an automation plattform like n8n increases the power. Connect to other software solutions, gather logs or data from other tools.
 
 ## Installation
 
@@ -42,14 +42,16 @@ docker compose up -d
 
 Your n8n Container provides a Web UI to set up your n8n Admin User under `https://<your-seatable-server-hostname>:6231`.
 
-**Congratulations!** Your n8n server is ready to use...
+![n8n Setup Page](/images/n8n-setup.png)
+
+**Congratulations!** Your n8n server is ready to use.
 
 !!! warning "SeaTable n8n node is outdated"
 
-    You have to install the community node... see forum.
+    n8n is shipped with an outdated SeaTable node. Therefore you should install the current version of the SeaTable node as a __community node__. [Read more →](https://forum.seatable.io/t/rework-of-n8n-seatable-integration/2745/10)
 
 ---
 
 ## Next steps
 
-check the docs of n8n. https://docs.n8n.io/
+Check the docs of n8n at https://docs.n8n.io/. More details will follow soon.

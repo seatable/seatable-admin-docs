@@ -2,6 +2,7 @@
 
 Alright, let's dive in. This article will guide you through the process of installing a basic SeaTable server with a Caddy web server. By the end of this article, your new SeaTable server will be accessible via HTTPS with your custom domain. To begin, open a root shell on your server.
 
+<!--
 !!! tip "Want to watch a step-by-step video instead of reading a manual?"
 
     Watch a brief English video demonstrating all the essential steps:
@@ -9,6 +10,11 @@ Alright, let's dive in. This article will guide you through the process of insta
     :fontawesome-brands-youtube:{ style="color: #EE0F0F" }
     __[How to install SeaTable]__ :octicons-clock-24: 10m
     [How to install SeaTable]: https://www.youtube.com/watch?v=h38acdtYgt8
+-->
+
+!!! success "Installation made easy"
+
+    Most commands that are required to install a SeaTable Server are provided in a way, that you can just simply copy and paste the commands into your command line. Use the (:material-content-copy:) icon at the top-right of the code boxes.
 
 ## Install basic tools
 
@@ -36,7 +42,7 @@ We highly recommended to keep this folder structure. All articles in the manual 
 
 #### 1. Create basic structure
 
-Simply copy and paste the following command into your command line to execute. This code will download the latest yml files from :simple-github: repository [seatable-release](https://github.com/seatable/seatable-release).
+Simply copy and paste the following command into your command line to execute. This code will download the latest yml files from repository [:simple-github: seatable-release](https://github.com/seatable/seatable-release).
 
 ```bash
 mkdir /opt/seatable-compose && \
@@ -66,7 +72,7 @@ The expected output should appear as follows.
 ├── onlyoffice.yml
 ├── python-pipeline.yml
 ├── seatable-server.yml
-├── uptime.yml
+├── uptime-kuma.yml
 └── zabbix.yml
 ```
 
@@ -116,6 +122,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
     # seatable server base url
     SEATABLE_SERVER_HOSTNAME='seatable.example.com' # (3)!
+    SEATABLE_SERVER_PROTOCOL='https'
 
     # initial web admin
     SEATABLE_ADMIN_EMAIL='me@example.com'

@@ -1,14 +1,6 @@
-# Introduction to SeaTable Server Installation
+# Deployment Approach
 
-!!! danger "PREVIEW / This installation method is not yet ready for production"
-
-    We always try to make the installation of SeaTable as easy as possible. Therefore we will recommend in the near future the usage of caddy to simplify the complete SSL termination. Also we will introduce a global enviroment file for easier configuration. As soon as this new installation method is ready, we will update this manual accordingly.
-
-This guide outlines the installation process for SeaTable Server (Enterprise and Developer Edition) on a Linux OS using Docker.
-
-Our goal is to offer a straightforward installation method that results in a fully operational SeaTable system accessible via HTTPS within minutes. While the steps have been tested on Debian and Ubuntu-based systems, they should also work on other Linux server systems. The installation is executed via the command line as the `root` user.
-
-Before You Begin: [Review the requirements](/requirements/).
+A SeaTable Server consists of multipe containers. Therefore let's talk about how you typically install such a system.
 
 ## Multi-container installations can be intricate
 

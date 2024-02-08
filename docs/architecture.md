@@ -92,13 +92,17 @@ Some explanation:
 - Bases are maintained in dtable-server and periodically saved to dtable-storage-server for persistent storage.
 - Attachments are saved in seaf-server, which save to file storage/object storage
 
-## JSON based collaborative
+## SeaTable Backends
+
+SeaTable has two different backends to provide on the one hand real-time collaboration in the base editor and at the same time is capable to store millions of rows in one single base.
+
+### JSON based collaborative backend
 
 The hearth of a SeaTable Server is the base editor, which allows real-time collaborative work in the browser.
 
-![Bases are stored as json files](/images/json_loaded_in_base_editor.png)
-
 SeaTable stores the base data as json-files in the filesystem (and not in the database). When a user access the base, the json file is loaded into the memory and rendered by the dtable-server.
+
+![Bases are stored as json files](/images/json_loaded_in_base_editor.png)
 
 Every change of the base is stored in memory and also in an operation log in the mariadb. Every 5 minutes, dtable-server automatically saves all changes to the file system.
 
@@ -108,6 +112,12 @@ In addition, the dtable-storage-server creates a snapshot of the base every 24 h
 
     In the first moment it sounds counter-intuitive that SeaTable saves the base data in a json file and not the database. The reason for that is that an SQL table is efficient in handling a huge amount of rows. The problem raises in the change of the database structure. Adding new columns, renaming columns, change column types in a table with hundred of thousand of rows it not efficient. Therefore the decision was made to persist the base data into json files instead of storing it directly in the database.
 
-Every base in SeaTable is saved as a json-file. and when users access the base, it will be loaded into dtable-server. When the base is modified, dtable-server automatically saves it to dtable-storage-server every 5 minutes. In addition, dtable-storage-server creates a snapshot of the base every 24 hours.
+The drawback of the real-time collaboration is that the base editor is limited
 
-The base cannot contain more than 100,000 rows. If the records are close to 100,000, the record can be transferred from the file (dtable-server is responsible for management) to the big data storage (dtable-db is responsible for management) through the archive operation. dtable-db periodically saves backups of big data storage to dtable-storage-server.
+<!--Every base in SeaTable is saved as a json-file. and when users access the base, it will be loaded into dtable-server. When the base is modified, dtable-server automatically saves it to dtable-storage-server every 5 minutes. In addition, dtable-storage-server creates a snapshot of the base every 24 hours.-->
+
+<!--The base cannot contain more than 100,000 rows. If the records are close to 100,000, the record can be transferred from the file (dtable-server is responsible for management) to the big data storage (dtable-db is responsible for management) through the archive operation. dtable-db periodically saves backups of big data storage to dtable-storage-server.-->
+
+### SQL-like big data backend
+
+The second backend is the so called _Big Data backend_. It is an SQL-like database which is capable to store millions of rows in a base. You have to activate the Big Data backend for a base and then a database structure is created for this base. More details about the Big Data backend will follow soon.

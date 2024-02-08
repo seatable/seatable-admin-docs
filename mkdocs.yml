@@ -63,6 +63,9 @@ plugins:
         #"changelog/server-changelog.md": "https://seatable.io/docs/changelog/"
         "changelog/changelog-for-seatable-professional-server.md": "https://seatable.io/docs/changelog/"
 
+hooks:
+  - overrides/hooks/shortcodes.py
+
 # Customization
 extra:
   social:
@@ -73,7 +76,7 @@ extra:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/seatable/
   status:
-    new: Recently added
+    new: Work in progress
   analytics:
     provider: matomo
     site_id: 3
@@ -104,7 +107,8 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg # Hooks
+
 
 nav:
   - Introduction:
@@ -118,28 +122,29 @@ nav:
       - EULA: dtable-server-license.md
       #- Other manuals: others.md
       - Changelog: changelog/server-changelog.md
-  - Installation:
-      - installation/index.md
-      - Basic Setup:
-          - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
-          - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
-      - Additional Components:
-          - Python Runner:
-              - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
-              - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
-              - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
-          - Online Document Editor: config/enterprise/deploy_onlyoffice_docker.md
-          - Seafile Integration: config/integrate-with-seafile.md
-      - Advanced Setups:
-          - SeaTable Cluster: docker/Cluster/SeaTable Cluster.md
-          - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
-          - dtable-events Background node: docker/Cluster/dtable-events Background node.md
-          - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
-          - S3 Object Storage: config/enterprise/S3.md
+  #- Installation:
+  #    - installation/index.md
+  #    - Basic Setup:
+  #        - Developer Edition: docker/Developer-Edition/Deploy SeaTable-DE with Docker.md
+  #        - Enterprise Edition: docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md
+  #    - Additional Components:
+  #        - Python Runner:
+  #            - Deploy: docker/Python-Runner/Deploy SeaTable Python Runner.md
+  #            - Upgrading: docker/Python-Runner/Update SeaTable Python Runner.md
+  #            - Customization: docker/Python-Runner/Customize SeaTable Python Runner.md
+  #        - Online Document Editor: config/enterprise/deploy_onlyoffice_docker.md
+  #        - Seafile Integration: config/integrate-with-seafile.md
+  #    - Advanced Setups:
+  #        - SeaTable Cluster: docker/Cluster/SeaTable Cluster.md
+  #        - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
+  #        - dtable-events Background node: docker/Cluster/dtable-events Background node.md
+  #        - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
+  #        - S3 Object Storage: config/enterprise/S3.md
 
-  # # Install Rework Preparations in folder installation-rework
-  - Installation2:
-      - installation-rework/index.md
+  # Install Rework Preparations in folder installation-rework
+  - Installation:
+      - How to start: installation-rework/start.md
+      - Our deployment approach: installation-rework/start_details.md
       - Single-Node Installation:
           - SeaTable-Server: installation-rework/basic-setup.md
           - Python Pipeline: installation-rework/components/python-pipeline.md
@@ -152,7 +157,7 @@ nav:
               - Zabbix: installation-rework/components/zabbix.md
           - FAQ / Troubleshooting: installation-rework/faq.md
 
-      - Advanced Setup:
+      - Advanced Topics:
           - Webserver:
               - Custom Reverse Proxy: installation-rework/advanced/custom_proxy.md
               - Custom Certificates: installation-rework/advanced/custom_certificates.md
@@ -162,27 +167,36 @@ nav:
               - Configuration: config/enterprise/s3.md
               - Migration: config/enterprise/s3_migration.md
           - Python Pipeline:
-              - Custom Python Runner: installation-rework/advanced/custom_python_runner.md
-              - Separate Python Pipeline: installation-rework/advanced/separate_python_pipeline.md
-          - Database (standalone): installation-rework/advanced/database_standalone.md
+              - Custom Python Runner: installation-rework/advanced/python_pipeline_custom_python_runner.md
+              - Separate Python Pipeline: installation-rework/advanced/python_pipeline_dedicated_server.md
+              - Configure Python Pipeline: installation-rework/advanced/python_pipeline_configuration.md
+              - Python Pipeline Workflow: installation-rework/advanced/python_pipeline_workflow.md
+          - MariaDB (standalone): installation-rework/advanced/database_standalone.md
           - Seafile (external): installation-rework/components/seafile.md
-          - SeaTable Cluster: docker/Cluster/SeaTable Cluster.md
-          - dtable-db Standalone: docker/Cluster/dtable-db Standalone.md
-          - dtable-events Background node: docker/Cluster/dtable-events Background node.md
-          - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
 
-          # - Customization:   -> customizing, also custom image, separate node ... machen wir irgendwo bei advanced!
+      - Cluster Setup:
+          - SeaTable Cluster: docker/Cluster/seatable_cluster.md
+          - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
+          - dtable-db (standalone): docker/Cluster/dtable-db Standalone.md
+          - dtable-events (standalone): docker/Cluster/dtable-events Background node.md
 
   - Configuration:
       - config/index.md
       - Features:
-          - Email Sending: config/sending_email.md
-          - Custom CSS: config/custom_css.md
+          - Plugins: config/plugins.md
+          - Logo/Styles: config/custom_css.md
           - Templates and Manual: config/templates_and_manual.md
+          - Email Sending: config/sending_email.md
           - Roles and Permissions: config/enterprise/roles_permissions.md
           - Frontend: config/frontend_html_template_system.md
+          - Universal Apps: config/universal_apps.md
           - Autostart: config/autostart.md
           - Base Rows Limit: config/base_rows_limit.md
+      - User Hierarchy:
+          - Overview: config/user_hierarchy/overview.md
+          - Groups: config/user_hierarchy/groups.md
+          - Teams/Organizations: config/user_hierarchy/teams_organizations.md
+          - Departments: config/user_hierarchy/departments.md
       - Authentication:
           - Overview: authentication/overview.md
           - Methods:
@@ -207,7 +221,10 @@ nav:
   - Upgrade:
       - How to upgrade: upgrade/upgrade_manual.md
       - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
-      - Switch SeaTable Edition: docker/Enterprise-Edition/migrate_seatable_editions.md
+
+      - Migrations:
+          - Switch SeaTable Edition: docker/Enterprise-Edition/migrate_seatable_editions.md
+          - Switch Installation Method (v4.3): upgrade/migrate_seatable_release.md
 
   - Maintenance:
       - Backup and Recovery: maintain/backup_recovery.md
@@ -216,8 +233,9 @@ nav:
       - Filesystem check: maintain/seatable_fsck.md
       - Change URL: maintain/others.md
       - Command Line Tools: maintain/others.md
-
-  - Migration:
-      - Mysql: config/ccnet-conf.md
-      - Postgres: config/ccnet-conf.md
-      - Airtable: config/ccnet-conf.md
+      - Advanced Debugging:
+          - Custom error messages: maintain/debugging.md
+#  - Migration:
+#      - Mysql: config/ccnet-conf.md
+#      - Postgres: config/ccnet-conf.md
+#      - Airtable: config/ccnet-conf.md

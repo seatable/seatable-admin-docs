@@ -1,3 +1,7 @@
+---
+status: new
+---
+
 # Security measures
 
 ## Web-Security
@@ -11,11 +15,14 @@ This configuration approach delivers good results like:
 - 100% from internet.nl (requires DNSSEC from your domain hoster)
 - 80/100 or B+ from https://observatory.mozilla.org/
 
-Was noch an konfiguration fehlt:
+!!! important "Secure cookies require additional configuration"
 
-in dtable_web_settings.py
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+    To get these ratings, it is required to add two more options to `dtable_web_settings.py`. In one of the next versions, these parameters will probably be added by default.
+
+    ```bash
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    ```
 
 ## Network security
 
@@ -38,4 +45,4 @@ For sure you can run any software product that just runs, but that is not our ap
 - source code available (except for parts where our intelectual property is not on risk)
 - automatic testing and deployment processes
 
-More details ...
+<!--More details ...-->
