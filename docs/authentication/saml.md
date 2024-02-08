@@ -14,13 +14,13 @@ SeaTable supports SSO with SAML. Specifically, SeaTable supports SAML's IdP-init
 
 Besides basic authentication and authorization, SeaTable's SAML implementation also allows to have additional attributes be set by the IdP. Specifically, the following five attributes are supported:
 
-| Attribute     | Description                    | Stored in database table                                                            | ... in column |
-| ------------- | ------------------------------ | ----------------------------------------------------------------------------------- | ------------- |
-| uid           | Unique identifier from the IdP | [dtable_db.social_auth_usersocialauth](./index.md#table-social_auth_usersocialauth) | uid           |
-| contact_email | Email address of the user      | [dtable_db.profile_profile](./index.md#table-profile_profile)                       | contact_email |
-| name          | Name of the user               | [dtable_db.profile_profile](./index.md#table-profile_profile)                       | nickname      |
-| employee_id   | User ID                        | [dtable_db.id_in_org_tuple](./index.md#table-id_in_org_tuple)                       | id_in_org     |
-| user_role     | Name of the role               | ccnet_db.UserRole                                                                   | role          |
+| Attribute     | Description                    | Stored in database table                                                               | ... in column |
+| ------------- | ------------------------------ | -------------------------------------------------------------------------------------- | ------------- |
+| uid           | Unique identifier from the IdP | [dtable_db.social_auth_usersocialauth](./overview.md#table-social_auth_usersocialauth) | uid           |
+| contact_email | Email address of the user      | [dtable_db.profile_profile](./overview.md#table-profile_profile)                       | contact_email |
+| name          | Name of the user               | [dtable_db.profile_profile](./overview.md#table-profile_profile)                       | nickname      |
+| employee_id   | User ID                        | [dtable_db.id_in_org_tuple](./overview.md#table-id_in_org_tuple)                       | id_in_org     |
+| user_role     | Name of the role               | ccnet_db.UserRole                                                                      | role          |
 
 SeaTable also supports the side-by-side configuration of SAML and LDAP. For more information, see [LDAP](./ldap.md).
 

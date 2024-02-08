@@ -40,7 +40,7 @@ Note, dtable-storage-server provide access to the underlying object storage syst
 
 First, setup a one node deployment according to [Enterprise-Edition](<../../docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md>)
 
-Then, use storage backend according to [S3 Object Storage](../../config/enterprise/S3.md)
+Then, use storage backend according to [S3 Object Storage](../../config/enterprise/s3.md)
 
 ### Modify configuration file
 

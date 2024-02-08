@@ -8,7 +8,7 @@ Updating/Upgrade (we don't differenciate) a SeaTable Server should take just a f
 
 !!! warning "Backup is recommended"
 
-    Updating SeaTable Server contains changes to your database. To protect your data, create a backup of your database first. See [backup and recovery](../../maintain/backup_recovery.md) for more details.
+    Updating SeaTable Server contains changes to your database. To protect your data, create a backup of your database first. See [backup and recovery](../maintain/backup_recovery.md) for more details.
 
 ## How to update SeaTable Server
 

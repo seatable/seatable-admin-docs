@@ -1,6 +1,6 @@
 # Switch authentication type
 
-SeaTable Server supports [multiple authentication types](./index.md). Switching between the types is possible, but any switch requires modifications of SeaTable's databases.
+SeaTable Server supports [multiple authentication types](./overview.md). Switching between the types is possible, but any switch requires modifications of SeaTable's databases.
 
 !!! note
 

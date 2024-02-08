@@ -6,7 +6,7 @@ This setup requires additional configurations and is not an easy task.
 ## Problems that arise with air gap:
 
 - Certificate management (HTTPS/TLS) is complicated.
-- You need a separate container registry like [Quay](quay.io) or [Harbor](goharbor.io).
+- You need a separate container registry like [Quay](https://quay.io) or [Harbor](https://goharbor.io).
 - You need a local APT repository ?!?
 - Plugins have to be installed manually.
 
