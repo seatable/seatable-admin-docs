@@ -16,4 +16,4 @@ You can deploy SeaTable-Server in one of the following topologies:
 - Enterprise-grade high-performance no-code platform.
 - Maximum performance and scalability for thousands of users.
 
-[Read more about Cluster](../docker/Cluster/SeaTable Cluster.md)
+[Read more about Cluster](../docker/Cluster/seatable_cluster.md)
