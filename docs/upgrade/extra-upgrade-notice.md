@@ -8,6 +8,20 @@
 
     It is not mandatory to switch to this new setup but it is recommended. Read this [article for more information](/upgrade/migrate_seatable_release/).
 
+??? success "mariadb container healthchecks"
+
+    This help is important if your MariaDB container remains unhealthy after executing `docker compose up -d`. This issue arises specifically if your initial MariaDB version was below 10.6 and you have now upgraded to a newer version. Older versions did not create the required health check user in the local database, causing the health checks to fail.
+
+    We have provided a simple script for you to download and create the necessary health check user. Please use the following commands to download and execute it. The script assumes the MariaDB container is running and that you have followed all installation instructions outlined in this manual.
+
+    ```bash
+    curl -sSL https://admin.seatable.io/downloads/add_mariadb_healthcheck.sh | bash
+    ```
+
+    If you wish to review the script's functionality, simply open it in your browser: [Add MariaDB Healthcheck Script](https://admin.seatable.io/downloads/add_mariadb_healthcheck.sh).
+
+    The script essentially adds the user `healthcheck` to the MariaDB database and stores the credentials in a file accessible to the container."
+
 ??? success "Django CSRF protection"
 
     Django 4.* has introduced a new check for the origin http header in CSRF verification. It now compares the values of the origin field in HTTP header and the host field in HTTP header. If they are different, an error is triggered.
