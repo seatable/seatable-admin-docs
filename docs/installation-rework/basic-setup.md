@@ -2,15 +2,13 @@
 
 Alright, let's dive in. This article will guide you through the process of installing a basic SeaTable server with a Caddy web server. By the end of this article, your new SeaTable server will be accessible via HTTPS with your custom domain. To begin, open a root shell on your server.
 
-<!--
 !!! tip "Want to watch a step-by-step video instead of reading a manual?"
 
     Watch a brief English video demonstrating all the essential steps:
 
     :fontawesome-brands-youtube:{ style="color: #EE0F0F" }
-    __[How to install SeaTable]__ :octicons-clock-24: 10m
-    [How to install SeaTable]: https://www.youtube.com/watch?v=h38acdtYgt8
--->
+    __[How to install SeaTable within minutes]__ :octicons-clock-24: 10m
+    [How to install SeaTable within minutes]: https://www.youtube.com/watch?v=VJNcZK1BLHY
 
 !!! success "Installation made easy"
 
