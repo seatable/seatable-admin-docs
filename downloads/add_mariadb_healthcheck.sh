@@ -23,12 +23,12 @@ source /opt/seatable-compose/.env
 echo "> Your SEATABLE_MYSQL_ROOT_PASSWORD is '${SEATABLE_MYSQL_ROOT_PASSWORD}'."
 
 echo "> I try to create the healthcheck user in the database"
-docker exec -it ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'127.0.0.1' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
-docker exec -it ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'127.0.0.1';" && \
-docker exec -it ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'::1' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
-docker exec -it ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'::1';" && \
-docker exec -it ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'localhost' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
-docker exec -it ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'localhost';"
+docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'127.0.0.1' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
+docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'127.0.0.1';" && \
+docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'::1' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
+docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'::1';" && \
+docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'localhost' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
+docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'localhost';"
 
 if [ $? -eq 1 ]; then
   echo "> I have a problem: it seems that the container is either not running or I can not write the user in the database."
