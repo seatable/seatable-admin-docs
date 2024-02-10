@@ -48,6 +48,8 @@ This manual provides two different approaches how to install SeaTable.
 
 There is a _Single-Node Setup_, where all components of SeaTable are installed on one Server or virtual machine. All services can be reached by one single URL. The installation is fairly straigt forward thanks to the consequent usage of Docker. This setup is easy for testing and production for up to 100 users.
 
+[Let's begin with the Single-Node installation](/installation-rework/basic-setup/){ .md-button .md-button--primary }
+
 ### Advanced Setup
 
 The _advanced setup_ is not an installation type, but the articles in this section provide the necessary information to operate each component separately. The descriptions result in a highly available cluster setup for thousands of users.

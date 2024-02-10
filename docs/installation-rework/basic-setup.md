@@ -1,4 +1,4 @@
-# Basic installation of a SeaTable Server
+# Single-Node installation of a SeaTable Server
 
 Alright, let's dive in. This article will guide you through the process of installing a basic SeaTable server with a Caddy web server. By the end of this article, your new SeaTable server will be accessible via HTTPS with your custom domain. To begin, open a root shell on your server.
 

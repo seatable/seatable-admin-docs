@@ -5,6 +5,7 @@ One of the main advantages of SeaTable against other solutions is, that you can 
 - Linux-Server with Root-Shell
 - Public domain pointing to your server
 - Open Ports for HTTP and HTTPS access (probably more ports for other components)
+- The ports should not be already in use by another proxy such as NGINX or Apache
 
 Does this sounds complicated? Not really. So lets get started.
 
