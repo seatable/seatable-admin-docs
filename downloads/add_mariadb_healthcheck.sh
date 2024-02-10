@@ -23,7 +23,7 @@ source /opt/seatable-compose/.env
 echo "> Your SEATABLE_MYSQL_ROOT_PASSWORD is '${SEATABLE_MYSQL_ROOT_PASSWORD}'."
 
 echo "> I try to create the healthcheck user in the database."
-CHECK_USER=$(docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "SELECT * FROM mysql.user WHERE user = 'healthcheck';")
+CHECK_USER=$(docker exec ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "SELECT * FROM mysql.user WHERE user = 'healthcheck';")
 
 if [ $? -eq 1 ]; then
   echo "> I have a problem: it seems that the container is either not running or I can not write the user in the database."
@@ -32,12 +32,12 @@ if [ $? -eq 1 ]; then
 fi
 
 if [ -z "${CHECK_USER}" ]; then
-    docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'127.0.0.1' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
-    docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'127.0.0.1';" && \
-    docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'::1' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
-    docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'::1';" && \
-    docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'localhost' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
-    docker exec -i ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'localhost';"
+    docker exec ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'127.0.0.1' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
+    docker exec ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'127.0.0.1';" && \
+    docker exec ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'::1' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
+    docker exec ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'::1';" && \
+    docker exec ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "CREATE USER 'healthcheck'@'localhost' IDENTIFIED BY '${HEALTHCHECK_PASS}';" && \
+    docker exec ${CONTAINER_NAME} mysql -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -e "GRANT USAGE ON *.* TO 'healthcheck'@'localhost';"
     echo "> I created the healthcheck user in the database."
 else
     echo "> There is already a healthcheck user in the database. Check if ${CONTAINER_DATADIR}/.my-healthcheck.cnf exists."
