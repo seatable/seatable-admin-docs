@@ -139,6 +139,7 @@ nav:
           - Webserver:
               - Custom Reverse Proxy: installation-rework/advanced/custom_proxy.md
               - Custom Certificates: installation-rework/advanced/custom_certificates.md
+              - Force HTTP: installation-rework/advanced/http_only.md
               - Additional Subdomains: installation-rework/advanced/additional_subdomains.md
               - Air Gap Installation: installation-rework/advanced/air_gap_installation.md
           - S3 Object Storage:

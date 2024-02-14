@@ -3,7 +3,7 @@
 ## Configuration of the Manual
 
 ```
-HELP_LINK = 'https://seatable.io/help/?lang=auto'
+HELP_LINK = 'https://docs.seatable.io/'
 
 ```
 

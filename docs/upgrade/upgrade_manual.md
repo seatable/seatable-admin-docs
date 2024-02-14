@@ -25,6 +25,7 @@ To update, choose the appropriate setup of yours.
     wget -c https://github.com/seatable/seatable-release/releases/latest/download/seatable-compose.tar.gz \
     -O - | tar -xz -C /opt/seatable-compose && \
     docker compose pull
+    docker compose down
     docker compose up -d
     ```
 
