@@ -148,7 +148,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
 !!! warning "SeaTable Enterprise requires a license to start"
 
-    This step is solely required for SeaTable Enterprise Edition installation. You can bypass this step for **SeaTable Developer Edition**.
+    This step is solely required for SeaTable Enterprise Edition installation. You can bypass this step for **SeaTable Developer Edition** and just create an empty `seatable-license.txt`.
 
 !!! success "Three users, two years - for free."
 

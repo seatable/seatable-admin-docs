@@ -76,9 +76,31 @@ Open `/opt/seatable-compose/.env` with your editor of choice (like vim or nano) 
 2. SEATABLE_MYSQL_ROOT_PASSWORD
 3. SEATABLE_SERVER_HOSTNAME
 
-The two values SEATABLE_ADMIN_EMAIL and SEATABLE_ADMIN_PASSWORD are not relevant, they are not used anymore, because your SeaTable is already initialized.
+The two values SEATABLE_ADMIN_EMAIL and SEATABLE_ADMIN_PASSWORD have to be set, because the values are expects. Currently the values are only used during the initial installation but this might change in the future.
 
-### 5. Move some folder
+!!! success "Developer edition requires an additional variable"
+
+    If you are using SeaTable Developer Edition instead of Enterprise Edition, add the following parameter to your `.env` file. This overwrites the used SeaTable Docker image.
+
+    ``` python
+    SEATABLE_IMAGE='seatable/seatable-developer:latest' # (1)!
+    ```
+
+    1.  Instead of latest you can select a concrete version from [https://hub.docker.com/r/seatable/seatable-developer/tags](https://hub.docker.com/r/seatable/seatable-developer/tags).
+
+### 5. Move the license file
+
+!!! warning "SeaTable Enterprise requires a license to start"
+
+    This step is solely required for SeaTable Enterprise Edition installation. You can bypass this step for **SeaTable Developer Edition** and just create an empty file at `/opt/seatable-compose/seatable-license.txt`.
+
+Copy your existing seatable-license.txt to this `/opt/seatable-compose` folder. The command for that should be:
+
+```bash
+cp /opt/seatable/seatable-data/seatable-license.txt /opt/seatable-compose/
+```
+
+### 6. Move some folder
 
 With this command you will move two folders to new locations.
 
@@ -87,7 +109,7 @@ mv /opt/seatable/mysql-data /opt/mariadb
 mv /opt/seatable/seatable-data /opt/seatable-server
 ```
 
-### 6. Change database container in configuration file
+### 7. Change database container in configuration file
 
 In former times the mariadb container was named **db**. In the future we would like to call this container **mariadb**. Therefore we have to update the configuration files that SeaTable can find the SQL-database and connect to it.
 
@@ -144,7 +166,7 @@ DATABASES = {
 host = db   # change to mariadb
 ```
 
-### 7. Remove HTTPS from nginx
+### 8. Remove HTTPS from nginx
 
 In this last step we want to change the configuration of the nginx, which is included in the SeaTable Server container. In the past this nginx was listing on the ports 80 (HTTP) and 443 (HTTPS) and in the future nginx should only listen to port 80. The TLS Termination and the management of the certificates will be done in the future with **caddy** (which is much simpler).
 
@@ -169,7 +191,7 @@ sed -i 's/ listen 443 ssl/ listen 80/' ./nginx.conf
 sed -i '/^[[:space:]]*ssl_/d' ./nginx.conf
 ```
 
-### 8. Start your SeaTable Server
+### 9. Start your SeaTable Server
 
 Now the migration is complete and it is time to start your SeaTable Server again.
 
@@ -180,4 +202,4 @@ docker compose up -d
 
 Be patent and give the containers time to start. Then open your browser and check if you can reach your SeaTable server.
 
-If something is not working, check the [/installation-rework/faq/](FAQ/Troubleshooting) article.
+If something is not working, check the [/installation-rework/faq/](FAQ/Troubleshooting) article. In the case that your mariadb container stays unhealth, check the [Extra upgrade notices for version 4.3](https://admin.seatable.io/upgrade/extra-upgrade-notice/).
