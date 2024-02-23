@@ -115,8 +115,8 @@ nav:
       - Requirements: requirements.md
       - System Limitations: limitations/system_limitations.md
       - Server Editions: editions.md
+      - EULA (dtable-server): dtable-server-license.md
       - Get Support: get_support.md
-      - EULA: dtable-server-license.md
       #- Other manuals: others.md
       - Changelog: changelog/server-changelog.md
 

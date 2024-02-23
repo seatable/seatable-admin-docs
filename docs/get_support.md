@@ -10,7 +10,7 @@ See the [official SeaTable channel](https://youtube.com/seatable) on YouTube for
 
 At any time you could have a look at the SeaTable [Community Forum](https://forum.seatable.io) to share your experience with other users or report issues or bugs.
 
-!!! note "Enterprise support"
+!!! success "Enterprise support"
 
     If you're using SeaTable in your organization and need
     assistance, e.g., to __digitalization of processes__, __develop custom solutions__ or __improve efficiency__,
