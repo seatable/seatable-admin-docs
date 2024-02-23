@@ -6,36 +6,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/architecture/</loc>
-         <lastmod>2024-02-23</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://admin.seatable.io/dtable-server-license/</loc>
-         <lastmod>2024-02-23</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://admin.seatable.io/editions/</loc>
-         <lastmod>2024-02-23</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://admin.seatable.io/get_support/</loc>
-         <lastmod>2024-02-23</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://admin.seatable.io/requirements/</loc>
-         <lastmod>2024-02-23</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://admin.seatable.io/security/</loc>
-         <lastmod>2024-02-23</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://admin.seatable.io/authentication/auth_switch/</loc>
          <lastmod>2024-02-23</lastmod>
          <changefreq>daily</changefreq>
@@ -72,16 +42,6 @@
     </url>
     <url>
          <loc>https://admin.seatable.io/authentication/two_factor_auth/</loc>
-         <lastmod>2024-02-23</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://admin.seatable.io/changelog/changelog-for-seatable-professional-server/</loc>
-         <lastmod>2024-02-23</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://admin.seatable.io/changelog/server-changelog/</loc>
          <lastmod>2024-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -366,6 +326,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://admin.seatable.io/installation-rework/advanced/security_settings/</loc>
+         <lastmod>2024-02-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://admin.seatable.io/installation-rework/components/</loc>
          <lastmod>2024-02-23</lastmod>
          <changefreq>daily</changefreq>
@@ -411,7 +376,42 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/limitations/system_limitations/</loc>
+         <loc>https://admin.seatable.io/introduction/architecture/</loc>
+         <lastmod>2024-02-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://admin.seatable.io/introduction/dtable-server-license/</loc>
+         <lastmod>2024-02-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://admin.seatable.io/introduction/editions/</loc>
+         <lastmod>2024-02-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://admin.seatable.io/introduction/get_support/</loc>
+         <lastmod>2024-02-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://admin.seatable.io/introduction/requirements/</loc>
+         <lastmod>2024-02-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://admin.seatable.io/introduction/security/</loc>
+         <lastmod>2024-02-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://admin.seatable.io/introduction/server-changelog/</loc>
+         <lastmod>2024-02-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://admin.seatable.io/introduction/system_limitations/</loc>
          <lastmod>2024-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
