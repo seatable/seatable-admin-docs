@@ -57,7 +57,6 @@ plugins:
   - git-revision-date-localized
   - redirects:
       redirect_maps:
-        #"changelog/server-changelog.md": "https://seatable.io/docs/changelog/"
         "changelog/changelog-for-seatable-professional-server.md": "https://seatable.io/docs/changelog/"
 
 hooks:
@@ -110,15 +109,14 @@ markdown_extensions:
 nav:
   - Introduction:
       - index.md
-      - Architecture: architecture.md
-      - Security: security.md
-      - Requirements: requirements.md
-      - System Limitations: limitations/system_limitations.md
-      - Server Editions: editions.md
-      - EULA (dtable-server): dtable-server-license.md
-      - Get Support: get_support.md
-      #- Other manuals: others.md
-      - Changelog: changelog/server-changelog.md
+      - Architecture: introduction/architecture.md
+      - Security: introduction/security.md
+      - Requirements: introduction/requirements.md
+      - System Limitations: introduction/system_limitations.md
+      - Server Editions: introduction/editions.md
+      - EULA (dtable-server): introduction/dtable-server-license.md
+      - Get Support: introduction/get_support.md
+      - Changelog: introduction/server-changelog.md
 
   - Installation:
       - How to start: installation-rework/start.md

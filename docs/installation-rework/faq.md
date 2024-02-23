@@ -149,3 +149,11 @@ collabora: expire time zurücksetzen für hosting discovery durch .env parameter
 
 onlyoffice und collabora brauchen offene ports.
 security header sind wichtig.
+
+-- weitere häufige probleme:
+
+- PLUGIN_REPO_ID ist leer, deshalb können plugins nicht installiert werden.
+- superuser neu setzen -> gehört unter maintenance
+- license is wrong, seatable startet nicht.
+
+Das backup script muss schöner gemacht werden. -> cronjobs...

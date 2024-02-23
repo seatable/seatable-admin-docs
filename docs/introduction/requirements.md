@@ -56,7 +56,7 @@ For sure, it is possible to run SeaTable without an internet connection (air-gap
 
 SeaTable needs by default only the default ports **80 (HTTP)** and **443 (HTTPS)**.
 
-Most of the [additional components](/installation-rework/components/) will require **additional ports** in the range of **6230 to 6240**. You have to open the firewall or create port forwardings if you want to use these functions. If you don't use this component, the port can stay closed.
+Most of the additional components will require **additional ports** in the range of **6230 to 6240**. You have to open the firewall or create port forwardings if you want to use these functions. If you don't use this component, the port can stay closed.
 
 ### List of required ports
 
