@@ -75,7 +75,6 @@ cleanup_at = 00:00
 
 # You have to change dtable_server_url based on your conf/dtable-server.json
 [dtable cache]
-private_key = "my private key"
 dtable_server_url = "http://127.0.0.1:5000"
 total_cache_size = 100
 
@@ -89,7 +88,6 @@ db_name = dtable
 
 [backup]
 dtable_storage_server_url = http://127.0.0.1:6666
-backup_interval = 86400
 keep_backup_num = 3
 
 [profile]
