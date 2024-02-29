@@ -16,7 +16,7 @@ In section `[general]`:
 - `row_update_limit`: Controls the rate of row update/delete/insert per second for each base. Row update/delete/insert via SQL and APIs are all affected. The unit is in number of rows. Default is 5000. (Added in 3.0.0)
 - `global_row_update_limit`: Controls the rate of row update/delete/insert per second for the entire system. Row update/delete/insert via SQL and APIs are all affected. This option controls the global rate when there are concurrent updates to multiple bases. The unit is in number of rows. Default is 30000. (Added in 3.0.0)
 - `base_api_limit_per_day`: Limits the number of API calls per base per day. Default is -1, meaning no limits.
-- `query_per_minute_limit`: Limits the number of API calls per minute. Default is 50000. If this value is less than 0, meaning no limits.
+- `query_per_minute_limit`: Limits the number of API calls per minute for the entire system. Default is 50000. If this value is less than 0, meaning no limits.
 
 In section `[storage]`:
 
