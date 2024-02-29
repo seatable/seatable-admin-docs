@@ -189,7 +189,7 @@ nav:
               - ccnet.conf: config/ccnet-conf.md
               - dtable-db.conf: config/dtable_db_conf.md
               - dtable-events.conf: config/dtable-events-conf.md
-              - dtable_server_config: config/dtable_server_config.md
+              - dtable_server_config.json: config/dtable_server_config.md
               - dtable-storage-server.conf: config/dtable_storage_server_conf.md
               - dtable_web_settings.py: config/dtable_web_settings.md
               - seafile.conf: config/seafile-conf.md

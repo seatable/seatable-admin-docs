@@ -4,64 +4,60 @@ dtable-db is the component that provides SQL querying capability in SeaTable ser
 
 ## Configurations
 
-The configurations are in dtable_db.conf. Below are available options.
+The configuration options are available in `dtable_db.conf`. The options are grouped in sections.
 
-In section `[general]`:
+### `[general]`
+
+This section contains general settings about dtable-db service.
 
 - `host`: The address dtable-db listens on. Defaults to 0.0.0.0.
 - `port`: The port dtable-db listens on. Defaults to 7777.
-- `log_dir`: Location for the logs. Defaults to the directory specified in `-c` command line option. (Added in 2.3.0)
+- `log_dir`: Location for the dtable-db logs in the container. Defaults to `/opt/seatable/logs`. (Added in 2.3.0)
 - `log_level`: Only log messages with level priority higher than this will be logged. Supported levels are "debug", "info", "warn", "error", with ascending priority. The default is "info".
-- `slow_query_threshold`: If the processing time exceeds this threshold, a slow log will be recorded. Unit is in milliseconds. Defaults to 1000. (Added in 2.3.0)
+- `slow_query_threshold`: If the processing time exceeds this threshold, a slow log will be recorded in addition to the normal log. Unit is in milliseconds. Defaults to 1000 (=1 sec). (Added in 2.3.0)
+- `base_api_limit_per_day`: Limits the number of API calls per base per day. Default is -1, meaning there is no limit.
 - `row_update_limit`: Controls the rate of row update/delete/insert per second for each base. Row update/delete/insert via SQL and APIs are all affected. The unit is in number of rows. Default is 5000. (Added in 3.0.0)
+
+Please use the following parameters only in very special occasions. These limits count globally for all requests in the entire system.
+
 - `global_row_update_limit`: Controls the rate of row update/delete/insert per second for the entire system. Row update/delete/insert via SQL and APIs are all affected. This option controls the global rate when there are concurrent updates to multiple bases. The unit is in number of rows. Default is 30000. (Added in 3.0.0)
-- `base_api_limit_per_day`: Limits the number of API calls per base per day. Default is -1, meaning no limits.
 - `query_per_minute_limit`: Limits the number of API calls per minute for the entire system. Default is 50000. If this value is less than 0, meaning no limits.
 
-In section `[storage]`:
+### `[storage]`
 
-- `data_dir`: Location of the data directory. You must specify this option.
-- `cleanup_at`: The execution time of clean up deleted data. Format is `12:30`. The default value is `00:00`.
+This sections defines where the database files for bases with activated big data backend are stored and when old data is cleaned.
 
-Section `[dtable cache]` contains options for caching bases from dtable-server:
+- `data_dir`: Location of the data directory in the container. You must specify this option. Typically it is `/opt/seatable/db-data`.
+- `cleanup_at`: The execution time of clean up deleted data. Format is `hh:mm`. Defaults to `00:00`.
 
-- `private_key`: The same as `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py`. You must specify this option if your version is before "Enterprise edition 3.5.5". If your version is newer than that, you don't need to specify it here. It'll be read from dtable_server_config.json.
-- `dtable_server_url`: local address for dtable-server. You must specify this option.
-- `expire_time`: For how long a cached base will be valid. After that it'll be fetched from dtable-server again. Unit is in seconds. Defaults to 300 (5 minutes).
-- `total_cache_size`: How much memory shall be used for caching bases. After this threshold is reached, cached bases will be cleaned with LRU algorithm. Cleaning stops when memory consumption reduces to 70% of this threshold. Unit is in MB. Defaults to 500MB.
+### `[dtable cache]`
+
+This sections contains options for caching bases from dtable-server.
+
+- `dtable_server_url`: local address for dtable-server. You must specify this option. Typically it is `http://127.0.0.1:5000`.
+- `expire_time`: For how long a cached base will be valid. After that it'll be fetched from dtable-server again. Unit is in seconds. Defaults to 300 (=5 minutes).
+- `total_cache_size`: How much memory shall be used for caching bases. After this threshold is reached, cached bases will be cleaned with LRU algorithm. Cleaning stops when memory consumption reduces to 70% of this threshold. Unit is in MB. Defaults to 500 (=500 MB).
 - `clean_cache_interval`: Interval between cache cleaning. Unit is in seconds. Defaults to 300.
 
-Section `[database]` contains options for accessing the MySQL database used by dtable-server. Note: Since 2.7 version this section is no longer used. dtable-db will use the database settings in conf/dtable-server.json.
+### `[backup]`
 
-- `host`: Address of database. You must provide this option.
-- `port`: Port of database. Defaults to 3306.
-- `user`: Username for login to the database. You must provide this option.
-- `password`: Password for the database user. You must provide this option.
-- `db_name`: Database name used by dtable-server. You must provide this option.
+Section `[backup]` contains options to configure backup functions for big data backend (available since Enterprise Edition 3.0.0):
 
-In section `[SQL]`:
+- `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. For configuration of dtable storage server, please refer to [this documentation](./dtable_storage_server_conf.md). You must specify this option. Typically it is `http://127.0.0.1:6666`.
+- `backup_at`: The execution time of backup. Format is `12:30`. The default value is `02:00`. It is mutual exclusion with `backup_interval`. If neither `backup_at` nor `backup_interval` are specified, then `backup_at` will be used by default.
+- `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (=24 hours). You can not define `backup_interval` and `backup_at` at the same time.
+- `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
 
-- `max_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100. (**Deprecated**: should use `default_result_rows` since 3.0 version)
+### `[SQL]`
+
+General configuration options of the output of the SQL endpoint.
+
 - `default_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100.
 - `result_rows_hard_limit`: Maximal number of rows that will be returned in one query. If the number of rows specified in `LIMIT` syntax is larger than this option, the system still returns at most the number of rows that specified in this option. The default is 10000.
 - `exec_cost_hard_limit`: Maximal execution cost of a query. If the estimated cost of a query exceeds this limit, the query is rejected. Default is 0, which means no limit.
 - `group_by_stmt_limit`: Maximal number of concurrent `group by` requests. If the number of `group by` requests exceeds this limit, new `group by` queries will wait in a queue. Default is 2.
 
-Section `[backup]` contains options to configure backup functions (available since Enterprise Edition 3.0.0):
-
-- `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. For configuration of dtable storage server, please refer to [this documentation](./dtable_storage_server_conf.md).
-- `backup_at`: The execution time of backup. Format is `12:30`. The default value is `02:00`. It is mutual exclusion with `backup_interval`. If neither `backup_at` nor `backup_interval` are specified, then `backup_at` will be used by default.
-- `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (24 hours).
-- `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
-
-Section `[profile]` contains options to configure profiling functions.
-
-- `enable_profiling`: Enable profiling API. Default is false.
-- `password`: Password for profiling API. Required if `enable_profiling` is true.
-- `enable_auto_heap_profiling`: Enable auto heap profiling. Default is false. (Added in 4.2.3)
-- `auto_heap_profiling_pressure`: The pressure threshold for auto heap profiling. Default is 50, which means when the memory usage exceeds 50% of the total memory, auto heap profiling will be triggered. (Added in 4.2.3)
-
-Below is an example configuration:
+## Example configuration
 
 ```
 [general]
@@ -71,28 +67,31 @@ log_dir = /shared/seatable/logs
 
 [storage]
 data_dir = /opt/seatable/db-data
-cleanup_at = 00:00
 
-# You have to change dtable_server_url based on your conf/dtable-server.json
 [dtable cache]
 dtable_server_url = "http://127.0.0.1:5000"
-total_cache_size = 100
-
-# You have to change below options based on your conf/dtable-server.json
-# Since 2.7 version this section is no longer used. dtable-db will use the database settings in conf/dtable-server.json.
-[database]
-host = 127.0.0.1
-user = root
-password = mypass
-db_name = dtable
 
 [backup]
-dtable_storage_server_url = http://127.0.0.1:6666
+dtable_storage_server_url = "http://127.0.0.1:6666"
 keep_backup_num = 3
-
-[profile]
-enable_profiling = true
-password = mypass
-enable_auto_heap_profiling = true
-auto_heap_profiling_pressure = 50
 ```
+
+## Deprecated or removed options
+
+### [database]
+
+!!! note "Not necessary anymore"
+
+    Since version 2.7 this complete section `[database]` is no longer used. dtable-db will use the database settings in `conf/dtable_server_config.json`.
+
+The section `[database]` contains options for accessing the MySQL database used by dtable-server. Note:
+
+- `host`: Address of database. You must provide this option.
+- `port`: Port of database. Defaults to 3306.
+- `user`: Username for login to the database. You must provide this option.
+- `password`: Password for the database user. You must provide this option.
+- `db_name`: Database name used by dtable-server. You must provide this option.
+
+### [dtable cache]
+
+- `private_key`: Must be the same value like `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py`. Only necessary if your version is before "Enterprise edition 3.5.5". If your version is newer the value is read from `dtable_server_config.json`.
