@@ -35,7 +35,6 @@ This sections defines where the database files for bases with activated big data
 This sections contains options for caching bases from dtable-server.
 
 - `dtable_server_url`: local address for dtable-server. You must specify this option. Typically it is `http://127.0.0.1:5000`.
-- `expire_time`: For how long a cached base will be valid. After that it'll be fetched from dtable-server again. Unit is in seconds. Defaults to 300 (=5 minutes).
 - `total_cache_size`: How much memory shall be used for caching bases. After this threshold is reached, cached bases will be cleaned with LRU algorithm. Cleaning stops when memory consumption reduces to 70% of this threshold. Unit is in MB. Defaults to 500 (=500 MB).
 - `clean_cache_interval`: Interval between cache cleaning. Unit is in seconds. Defaults to 300.
 
