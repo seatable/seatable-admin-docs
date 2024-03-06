@@ -35,8 +35,7 @@ This sections defines where the database files for bases with activated big data
 This sections contains options for caching bases from dtable-server.
 
 - `dtable_server_url`: local address for dtable-server. You must specify this option. Typically it is `http://127.0.0.1:5000`.
-- `total_cache_size`: How much memory shall be used for caching bases. After this threshold is reached, cached bases will be cleaned with LRU algorithm. Cleaning stops when memory consumption reduces to 70% of this threshold. Unit is in MB. Defaults to 500 (=500 MB).
-- `clean_cache_interval`: Interval between cache cleaning. Unit is in seconds. Defaults to 300.
+- `total_cache_size`: size of the cache in MB. Defaults to 500. Prior to Enterprise Edition 4.4, the size of base objects in cache was measured by storage size, and the cache was periodically cleaned to 70% of total_cache_size. Since Enterprise Edition 4.4, the size is measured by memory consumption (about 8 times bigger than before), and the cache will be cleaned with LRU algorithm to fit total_cache_size.
 
 ### `[backup]`
 
@@ -94,3 +93,5 @@ The section `[database]` contains options for accessing the MySQL database used 
 ### [dtable cache]
 
 - `private_key`: Must be the same value like `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py`. Only necessary if your version is before "Enterprise edition 3.5.5". If your version is newer the value is read from `dtable_server_config.json`.
+- `clean_cache_interval`: Interval between cache cleaning. Unit is in seconds. Defaults to 300.
+Only effective if your version is before "Enterprise edition 4.4".
