@@ -16,11 +16,11 @@ This section contains general settings about dtable-db service.
 - `log_level`: Only log messages with level priority higher than this will be logged. Supported levels are "debug", "info", "warn", "error", with ascending priority. The default is "info".
 - `slow_query_threshold`: If the processing time exceeds this threshold, a slow log will be recorded in addition to the normal log. Unit is in milliseconds. Defaults to 1000 (=1 sec). (Added in 2.3.0)
 - `base_api_limit_per_day`: Limits the number of API calls per base per day. Default is -1, meaning there is no limit.
-- `row_update_limit`: Controls the rate of row update/delete/insert per second for each base. Row update/delete/insert via SQL and APIs are all affected. The unit is in number of rows. Default is 5000. (Added in 3.0.0)
 
-Please use the following parameters only in very special occasions. These limits count globally for all requests in the entire system.
+Please use the following parameters only in very special occasions. In most cases you should use the default values.
 
 - `global_row_update_limit`: Controls the rate of row update/delete/insert per second for the entire system. Row update/delete/insert via SQL and APIs are all affected. This option controls the global rate when there are concurrent updates to multiple bases. The unit is in number of rows. Default is 30000. (Added in 3.0.0)
+- `row_update_limit`: Controls the rate of row update/delete/insert per second for each base. Row update/delete/insert via SQL and APIs are all affected. The unit is in number of rows. Default is 5000. (Added in 3.0.0)
 - `query_per_minute_limit`: Limits the number of API calls per minute for the entire system. Default is 50000. If this value is less than 0, meaning no limits.
 
 ### `[storage]`
