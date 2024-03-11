@@ -184,11 +184,11 @@ DEFAULT_SEAFILE_SERVER = 'https://seafile.example.com/'
 SeaTable groups are subject to a member limit.
 
 ```python
-GROUP_MEMBER_LIMIT = 500  # user, 500 is the default value
+GROUP_MEMBER_LIMIT = 500  # users, 500 is the default value
 
 ```
 
-## Big data import / export limit
+## Big data import / export limits
 
 When importing / updating a base from excel or exporting an big data view to Excel, you can set the maximum number of rows in the configuration file:
 
