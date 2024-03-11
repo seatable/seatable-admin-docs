@@ -4,7 +4,7 @@ dtable-db is the component that provides SQL querying capability in SeaTable ser
 
 ## Configurations
 
-The configuration options are available in `dtable_db.conf`. The options are grouped in sections.
+The configuration options are available in `dtable-db.conf`. The options are grouped in sections.
 
 ### `[general]`
 
