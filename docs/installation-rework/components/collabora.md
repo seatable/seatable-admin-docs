@@ -31,7 +31,7 @@ Your COMPOSE_FILE variable should look something like this:
 COMPOSE_FILE='caddy.yml,seatable-server.yml,collabora.yml'
 ```
 
-Start the installation by adding ``collabora.yml to .env file.
+Start the installation by adding `collabora.yml` to .env file.
 
 dtable_web_settings.py muss folgendes enthalten. SEATABLE_SERVER_HOSTNAME muss nicht ergänzt werden, der wert wird aus der .env ausgelesen.
 

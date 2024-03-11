@@ -33,14 +33,14 @@ COMPOSE_FILE='caddy.yml,seatable-server.yml,onlyoffice.yml'
 
 #### 2. Generate inital secret
 
-Generate inital secrets and write them into your .env file.
+Copy and paste the following commands to generate the shared secret in the `.env` file:
 
     echo -e "\n# OnlyOffice" >> /opt/seatable-compose/.env
     echo "ONLYOFFICE_JWT_SECRET=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 
 #### 3. Modify dtable_web_setings.py
 
-Open `/opt/seatable-server/seatable/conf/dtable_web_settings.py` with your favorite editor and add the following code block at the end of the file.
+Now execute this command to add the required configuration to `dtable_web_settings.py`. This will add some configuration lines at the end of the file.
 
 ```python
 source /opt/seatable-compose/.env
@@ -51,7 +51,9 @@ echo "ONLYOFFICE_FILE_EXTENSION = ('doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 
 echo "ONLYOFFICE_JWT_SECRET = '${ONLYOFFICE_JWT_SECRET}'" >> /opt/seatable-server/seatable/conf/dtable_web_settings.py
 ```
 
-Change `SEATABLE_SERVER_HOSTNAME` to reflect the hostname of your SeaTable server. Additionally, copy the generated value for `ONLYOFFICE_JWT_SECRET` from your .env file and paste it in the dtable_web_settings.py.
+!!! note "Don't replace variables"
+
+    You don't need to manually replace the variables `${SEATABLE_SERVER_HOSTNAME}` and `${ONLYOFFICE_JWT_SECRET}`. They will be automatically replaced as we have sourced the `.env` file.
 
 #### 4. Download onlyoffice and restart
 

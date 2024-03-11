@@ -62,7 +62,7 @@ Click on `install`, input **n8n-nodes-seatable**, and proceed with the confirmat
 
 ![n8n SeaTable Community node](/images/n8n-seatable-community-node.png)
 
-[Read more →](https://forum.seatable.io/t/rework-of-n8n-seatable-integration/2745/10)
+[Read more about this community node in SeaTable Forum →](https://forum.seatable.io/t/rework-of-n8n-seatable-integration/2745/10)
 
 ## Limitations of the Current n8n Version
 
@@ -82,7 +82,8 @@ However, there are some limitations to be aware of:
 - External Secrets and Environments are not supported
 - Single Sign-On (SSO) and LDAP is not supported
 - Log Streaming is not supported
-- For further information, visit the [n8n forum](https://community.n8n.io/t/feedback-self-hosted-pricing/22727/56).
+
+For further information, visit the [n8n forum](https://community.n8n.io/t/feedback-self-hosted-pricing/22727/56).
 
 If you find n8n useful (which you most likely will), consider [purchasing an Enterprise license](https://n8n.io/pricing/).
 
