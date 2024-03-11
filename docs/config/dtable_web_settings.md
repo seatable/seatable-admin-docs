@@ -181,14 +181,14 @@ DEFAULT_SEAFILE_SERVER = 'https://seafile.example.com/'
 
 ## Group member limit
 
-The default is 500.
+SeaTable groups are subject to a member limit.
 
 ```python
-GROUP_MEMBER_LIMIT = 500
+GROUP_MEMBER_LIMIT = 500  # user, 500 is the default value
 
 ```
 
-## Big data import / export
+## Big data import / export limit
 
 When importing / updating a base from excel or exporting an big data view to Excel, you can set the maximum number of rows in the configuration file:
 
@@ -198,12 +198,20 @@ BIG_DATA_ROW_IMPORT_LIMIT = 500000
 BIG_DATA_ROW_UPDATE_LIMIT = 500000
 ```
 
-## Size of base export
+## Base export limit
 
-Maxmum size of a base can be exported.
+SeaTable exports bases in DTABLE files. A DTABLE file contains all tabular data, assets, and a lot of metadata and can thus become large.
 
 ```python
-DTABLE_EXPORT_MAX_SIZE = 100 # mb
+DTABLE_EXPORT_MAX_SIZE = 100 # in MB, 100MB is the default value
+```
+
+## Common dataset limits
+
+SeaTable synchronizes common datasets manually and automatically. The sync frequency is limited. The parameter `SYNC_COMMON_DATASET_INTERVAL` defines the minimum time between two syncs.
+
+```python
+SYNC_COMMON_DATASET_INTERVAL = 5 * 60 # in seconds, 300 is the default value
 ```
 
 ## Limit of collaborators loaded in a base
@@ -215,9 +223,9 @@ DTABLE_RELATED_USERS_PER_PAGE = 300
 DTABLE_APP_USERS_PER_PAGE = 100
 ```
 
-## Embed Bases into other webpages
+## Embed bases into other webpages
 
-Embed Bases into other webpages (iframe mode), the following options need to be added to support user login
+To embed bases into other webpages using an iframe, the following options must be added to support user login:
 
 ```
 SESSION_COOKIE_SAMESITE = 'None'
@@ -252,10 +260,10 @@ REST_FRAMEWORK_THROTTLING_WHITELIST = []
 
 ```
 
-## Recycle bin automatic emptying time interval
+## Trash retention period
 
-The default is 30.
+SeaTable keeps a deleted base in trash for a certain period of time (retention period). When the retention period expires, the base is purged from trash.
 
 ```python
-TRASH_CLEAN_AFTER_DAYS = 30
+TRASH_CLEAN_AFTER_DAYS = 30   # in days, 30 days is the default value
 ```
