@@ -1,29 +1,30 @@
-# Installation of the automation platform n8n
+# Automation platform n8n
 
-The installation of an automation plattform like n8n increases the power. Connect to other software solutions, gather logs or data from other tools.
+SeaTable empowers users and teams to store, manage, and visualize structured data efficiently, offering multiple data input options from manual entry to web forms and a comprehensive API. This flexibility ensures seamless data collection while allowing users to define automated workflows with triggers and actions.
+
+However, for those seeking additional software solutions or more sophisticated automation workflows, n8n provides the perfect complement. By integrating SeaTable with n8n, users can unlock even more powerful automation capabilities.
+
+n8n serves as an automation platform, enabling seamless connectivity between SeaTable and hundreds of other software products. Need to collect data from multistep web forms using JotForm, Typeform, or Form.io? No problem. Simply create your web forms and utilize n8n to seamlessly transfer survey results to SeaTable.
+
+Give [n8n](https://n8n.io) a try, and we guarantee you'll fall in love with it just like we have! :heart:
 
 ## Installation
 
-This guide shows how to install **n8n** on your SeaTable server.
+This article shows you how to install **n8n** on your SeaTable server.
 
-#### 1. Change the .env file
+#### Change the .env file
 
 Like with all additional components you first have to add the `n8n.yml` to the `COMPOSE_FILE` variable in your `.env` file.
-First open the config file.
+
+Simply copy and paste (:material-content-copy:) the following code into your command line:
 
 ```bash
-nano /opt/seatable-compose/.env
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,n8n.yml'/" /opt/seatable-compose/.env
 ```
 
-Now add n8n.yml to the `COMPOSE_FILE` variable. Don't remove anything and don't use :material-keyboard-space:!
+#### Generate secrets for your postgres database
 
-```bash
-COMPOSE_FILE='caddy.yml,seatable-server.yml,n8n.yml'
-```
-
-#### 2. Generate secrets for your postgres database
-
-Generate inital secrets and write them into your .env file.
+Now let's create inital secrets and write them into the .env file.
 
 ```
 echo -e "\n# n8n" >> /opt/seatable-compose/.env
@@ -32,26 +33,58 @@ echo "POSTGRES_PASSWORD=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 echo "POSTGRES_NON_ROOT_PASSWORD=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 ```
 
-#### 3. Start n8n
+#### Start n8n
+
+Now it is time to start n8n for the first time.
 
 ```bash
 cd /opt/seatable-compose && \
 docker compose up -d
 ```
 
-#### 4. Create initial admin user
+**Congratulations!** Your n8n server is ready to use.
 
-Your n8n Container provides a Web UI to set up your n8n Admin User under `https://<your-seatable-server-hostname>:6231`.
+## Initial setup
+
+#### Create initial admin user
+
+To set up your initial admin user, n8n offers a convenient Web UI accessible at `https://<your-seatable-server-hostname>:6231`.
 
 ![n8n Setup Page](/images/n8n-setup.png)
 
-**Congratulations!** Your n8n server is ready to use.
+Please note that the Community Edition of n8n only permits the creation of multiple accounts with just one admin account. Further details regarding the features of this version will be elaborated later in this article.
 
-!!! warning "SeaTable n8n node is outdated"
+#### Obtaining the Latest SeaTable Node
 
-    n8n is shipped with an outdated SeaTable node. Therefore you should install the current version of the SeaTable node as a __community node__. [Read more →](https://forum.seatable.io/t/rework-of-n8n-seatable-integration/2745/10)
+Regrettably, the current version of n8n comes with an outdated SeaTable node. To address this, it's advisable to install the most recent version of the SeaTable node as a community node. Simply navigate to `Settings` and then choose `Community nodes`. From there, you can add any community node from <https://www.npmjs.com>.
 
----
+Click on `install`, input **n8n-nodes-seatable**, and proceed with the confirmation. Within seconds, you'll notice that the community node is successfully installed.
+
+![n8n SeaTable Community node](/images/n8n-seatable-community-node.png)
+
+[Read more →](https://forum.seatable.io/t/rework-of-n8n-seatable-integration/2745/10)
+
+## Limitations of the Current n8n Version
+
+The installed n8n version on this server is the self-hosted free Community Edition, which aligns with the **Starter Cloud version**.
+
+It offers:
+
+- Unlimited executions
+- Unlimited active workflows
+- No execution time limit
+- Support for all existing nodes
+
+However, there are some limitations to be aware of:
+
+- Only one admin account is allowed
+- Variables are not supported (consider using SeaTable instead)
+- External Secrets and Environments are not supported
+- Single Sign-On (SSO) and LDAP is not supported
+- Log Streaming is not supported
+- For further information, visit the [n8n forum](https://community.n8n.io/t/feedback-self-hosted-pricing/22727/56).
+
+If you find n8n useful (which you most likely will), consider [purchasing an Enterprise license](https://n8n.io/pricing/).
 
 ## Next steps
 

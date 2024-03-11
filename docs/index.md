@@ -12,13 +12,17 @@ If you want to use SeaTable, but you don't want to take the hurdle to run your o
 
 ??? abstract "SeaTable Cloud: ready in seconds"
 
-    Additionally, there is SeaTable Cloud, a SaaS-service for users that do not want to self-host or simply want to trial SeaTable Server. SeaTable Cloud can be used free-of-charge with the "Free" subscription. [Registration](https://seatable.io/registrierung) requires only your email address. More features and higher resource limits are available in SeaTable Cloud's [paid subscriptions](https://seatable.io/preise/?lang=auto).
+    Additionally, there is SeaTable Cloud, a SaaS-service for users that do not want to self-host or simply want to trial SeaTable Server. SeaTable Cloud can be used free-of-charge with the "Free" subscription. Registration requires only your email address. More features and higher resource limits are available in SeaTable Cloud's [paid subscriptions](https://seatable.io/preise/?lang=auto).
+
+    [Register now for SeaTable Cloud](https://seatable.io/registrierung/?lang=auto){ .md-button .md-button--primary }
 
 ??? tip "SeaTable Dedicated: Full control without any huzzle"
 
     Then, there is [SeaTable Dedicated](https://seatable.io/on-premises/). SeaTable Dedicated is a managed and private SeaTable Cloud. We (=SeaTable GmbH) run and manage the Server for you, but it is your system. You define which URL to use, which logo or color code should greet your users.
 
     **Important**: The SeaTable Dedicated System Requires a Minimum of 100 Users.
+
+    [Contact us and get a quote](https://seatable.io/kontakt/?lang=auto){ .md-button .md-button--primary }
 
 ## Additional ressources
 

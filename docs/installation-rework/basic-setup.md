@@ -133,6 +133,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
     1.  COMPOSE_FILE is a comma separated list **without spaces**. This list defines which components should run on this server. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
     2.  Get a [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) from Wikipedia.
     3.  Select your domain or subdomain that points to your Server (without https://). You have to set an A-Record or CNAME pointing to your IP.
+        <br>If you don't have an URL and want to use an IP, then use the free service nip.io and add your-ip.nip.io (e.g. 5.35.28.112.nip.io).
 
 === "`.env` for SeaTable Developer Edition"
 
@@ -156,11 +157,14 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
 We've streamlined the process to request a complimentary enterprise license for three users, valid for two years, completely free of charge. After two years, you can request a new license with another two-year validity.
 
-Run the following command, replacing `me@example.com` with your valid email address. Shortly after, you'll receive an email with instructions to download your license to the current directory
+Run the following command, replacing `me@example.com` with your valid email address. Shortly after, you'll receive an email with instructions to download your license to the current directory.
 
 ```
 curl https://get.seatable.io/license/me@example.com
+# ... follow the steps in the email ...
 ```
+
+Your license should now be saved at `/opt/seatable-compose/seatable-license.txt`.
 
 #### 5. Fire up the server
 
@@ -180,6 +184,7 @@ Sign in using the credentials you provided in the same file.
 Your SeaTable journey has just begun! While you can dive straight into SeaTable, creating bases, adding users, utilizing the API, and more, there's an array of possibilities to explore. Here are a few examples:
 
 - Expand functionality by installing additional components like the [Python Pipeline](../components/python-pipeline/) or [n8n](../components/n8n/).
+- Integrate [Plugins](/config/plugins/) into your SeaTable Server to enable users to utilize them within a base.
 - Configure your server to enable **email notifications**, **templates**, or **Single Sign-On (SSO)**.
 - For troubleshooting or queries during installation, refer to the **FAQ section** for assistance.
 

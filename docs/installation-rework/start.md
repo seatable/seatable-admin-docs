@@ -4,7 +4,7 @@ SeaTable is the world leading self hosted no-code platform. You can run SeaTable
 
 Our goal is to offer a straightforward installation method that results in a fully operational SeaTable system accessible via HTTPS within minutes. While the steps have been tested on Debian and Ubuntu-based systems, they should also work on other Linux server systems. The installation is executed via the command line as the `root` user.
 
-Before You Begin: [Review the requirements](/requirements/).
+Before You Begin: [Review the requirements](/introduction/requirements/).
 
 You can deploy SeaTable-Server in one of the following topologies:
 
