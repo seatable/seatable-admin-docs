@@ -3,7 +3,9 @@
 <!-- md:version 3.0 -->
 <!-- md:flag enterprise -->
 
-OnlyOffice offers real-time collaboration with office documents in your browser. As soon as you open a file from SeaTable, OnlyOffice opens in a new browser tab and allows real time collaboration. As soon as the last user exits the document by closing his browser window, the document is saved back to the SeaTable base. Access takes place via the public URL via HTTPS. So that OnlyOffice cannot be used by other systems, a shared secret in the form of a JWT key is used.
+OnlyOffice offers real-time collaboration with office documents in your browser. As soon as you open a file from SeaTable, OnlyOffice opens in a new browser tab and allows real time collaboration. As soon as the last user exits the document by closing his browser window, the document is saved back to the SeaTable base.
+
+Access takes place via the public URL via HTTPS. So that OnlyOffice cannot be used by other systems, a shared secret in the form of a JWT key is used.
 
 !!! warning "You have to decide: Collabora OR OnlyOffice"
 
@@ -11,36 +13,36 @@ OnlyOffice offers real-time collaboration with office documents in your browser.
 
 !!! note "Use a separate host, if you expect many users"
 
-    OnlyOffice can be installed on the same host as SeaTable Enterprise Edition. If OnlyOffice is used regularly and by many users, the host should be fitted with sufficient cores and RAM.
+    OnlyOffice can be installed on the same host as SeaTable Enterprise Edition. If OnlyOffice is used regularly and by many users, the host should be fitted with sufficient cores and RAM or you should move OnlyOffice to a separate host.
 
-This manual assumes that SeaTable Enterprise Edition is installed and is running.
+This article assumes that SeaTable Enterprise Edition is installed and is running.
 
 ## Installation
 
 #### 1. Change the .env file
 
-Add `onlyoffice.yml` to the COMPOSE_FILE variable.
+To install the Python Pipeline, include python-pipeline.yml in the COMPOSE_FILE variable within your .env file. This instructs Docker to download the required images for the Python Pipeline.
+
+Simply copy and paste (:material-content-copy:) the following code into your command line:
 
 ```bash
-nano /opt/seatable-compose/.env
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,onlyoffice.yml'/" /opt/seatable-compose/.env
 ```
 
 Your COMPOSE_FILE variable should look something like this:
 
-```bash
-COMPOSE_FILE='caddy.yml,seatable-server.yml,onlyoffice.yml'
-```
+#### 2. Generate JWT-Token (shared secret)
 
-#### 2. Generate inital secret
+Secure communication between SeaTable and OnlyOffice is granted by a shared secret.
 
-Copy and paste the following commands to generate the shared secret in the `.env` file:
+Copy and paste the following commands to generate the shared secret and write it at the end of the `.env` file:
 
     echo -e "\n# OnlyOffice" >> /opt/seatable-compose/.env
     echo "ONLYOFFICE_JWT_SECRET=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 
 #### 3. Modify dtable_web_setings.py
 
-Now execute this command to add the required configuration to `dtable_web_settings.py`. This will add some configuration lines at the end of the file.
+Now execute the follwogin command to add the required configuration to `dtable_web_settings.py`.
 
 ```python
 source /opt/seatable-compose/.env
@@ -57,7 +59,7 @@ echo "ONLYOFFICE_JWT_SECRET = '${ONLYOFFICE_JWT_SECRET}'" >> /opt/seatable-serve
 
 #### 4. Download onlyoffice and restart
 
-OnlyOffice is now configured and office documents can be directly edited from within SeaTable after a restart of the SeaTable service.
+One more step is necessary to download the OnlyOffice container and restart the SeaTable service.
 
 ```bash
 cd /opt/seatable-compose
@@ -65,21 +67,49 @@ docker compose down
 docker compose up -d
 ```
 
-OnlyOffice takes some some minutes for the initial start. If you get an error message when clicking an office file in SeaTable, be patient. With `docker compose logs onlyoffice -f`, you can monitor the startup progress.
+OnlyOffice takes some some minutes for the initial start. If you get an error message when clicking an office file in SeaTable, be patient and try again after one minute. Onlyoffice is ready, if a new browser window opens with your office document. Any user with access to this base can now open this document with OnlyOffice.
+
+## Debugging
 
 Try to open `https://SEATABLE_SERVER_HOSTNAME:6233/welcome`. You should see a welcome page like this.
 
 ![OnlyOffice Welcome page](https://www.linuxbabe.com/wp-content/uploads/2016/12/onlyoffice-docs-https-ubuntu.png)
 
-Try to open an docx-file from a SeaTable base.
+If this does not happen, execute `docker compose logs onlyoffice -f` to get more details about the startup of OnlyOffice.
 
-Onlyoffice is ready, if a new browser window opens with your office document. Any user with access to this base can now open this document with OnlyOffice.
+## Advanced: OnlyOffice on a separate host and URL
 
----
+It is not that difficult to install OnlyOffice on a separate host to free the ressources of the main server. This manual assumes that onlyoffice will be accessable by a separate public availabe URL.
+
+### Install OnlyOffice on a separate host
+
+Start with the installation of docker and docker compose like it is described in the installation manual of SeaTable Server.
+
+This is how your .env file should look like:
+
+```bash
+COMPOSE_FILE='caddy.yml,onlyoffice.yml'
+COMPOSE_PATH_SEPARATOR=','
+
+# onlyoffice url
+SEATABLE_SERVER_HOSTNAME=<onlyoffice-url>
+ONLYOFFICE_PORT=443
+
+ONLYOFFICE_JWT_ENABLED=true
+ONLYOFFICE_JWT_SECRET=<any shared secret>
+```
+
+Now execute `docker-compose up -d` and on this server only caddy and OnlyOffice will be installed. Verify that OnlyOffice is reachable by opening your browser and open `https://<onlyoffice-url>/welcome/`.
+
+### Configure SeaTable to use this new OnlyOffice host.
+
+The next step is to tell SeaTable where it can access OnlyOffice. Update the settings in `dtable_web_settings.py` accordingly. Make sure to use the excact same shared secret and use the public available URL of the OnlyOffice server.
+
+In addition you have to extend the caddy security headers. Add the URL of your Onlyoffice host to the variable `script-src-elem` in your `custom-seatable-server.yml`. Don't forget to restart all containers.
 
 ## Advanced: Custom settings
 
-This is only for onlyoffice experts. You can create and mount a custom configuration file called `local-production-linux.json` to [force some settings](https://helpcenter.onlyoffice.com/installation/docs-developer-configuring.aspx).
+The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file called `local-production-linux.json` to [force some settings](https://helpcenter.onlyoffice.com/installation/docs-developer-configuring.aspx).
 
 Create a configuration file in the newly created directory:
 
