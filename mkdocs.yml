@@ -80,6 +80,8 @@ extra:
 
 extra_css:
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/extra.js
 
 # Extensions
 markdown_extensions:
@@ -158,17 +160,13 @@ nav:
           - dtable-events (standalone): docker/Cluster/dtable-events Background node.md
 
   - Configuration:
-      - config/index.md
-      - Features:
-          - Plugins: config/plugins.md
-          - Logo/Styles: config/custom_css.md
-          - Templates and Manual: config/templates_and_manual.md
-          - Email Sending: config/sending_email.md
-          - Roles and Permissions: config/enterprise/roles_permissions.md
-          - Frontend: config/frontend_html_template_system.md
-          - Universal Apps: config/universal_apps.md
-          - Autostart: config/autostart.md
-          - Base Rows Limit: config/base_rows_limit.md
+      - Plugins: config/plugins.md
+      - Templates and Manual: config/templates_and_manual.md
+      - Email Sending: config/sending_email.md
+      - Roles and Permissions: config/enterprise/roles_permissions.md
+      - Universal Apps: config/universal_apps.md
+      - Autostart: config/autostart.md
+      - Base Rows Limit: config/base_rows_limit.md
       - User Hierarchy:
           - Overview: config/user_hierarchy/overview.md
           - Groups: config/user_hierarchy/groups.md
@@ -195,6 +193,16 @@ nav:
               - seafile.conf: config/seafile-conf.md
               - seatable-controller.conf: config/seatable-controller-conf.md
 
+  - UI Customization:
+      - Overview: customization/overview.md
+      #- input: customization/custom_css.md
+      - Site Title: customization/site_title.md
+      - Logo: customization/logo.md
+      #- Login Background: customization/login_background.md
+      - Main Color: customization/main_color.md
+      #- E-Mail Templates: customization/email_templates.md
+      - Page Templates: customization/frontend_html_template_system.md
+
   - Upgrade:
       - How to upgrade: upgrade/upgrade_manual.md
       - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
@@ -211,7 +219,7 @@ nav:
       - Change URL: maintain/others.md
       - Command Line Tools: maintain/others.md
       - Advanced Debugging:
-          - Custom error messages: maintain/debugging.md
+          - Add custom error messages: maintain/debugging.md
 #  - Migration:
 #      - Mysql: config/ccnet-conf.md
 #      - Postgres: config/ccnet-conf.md

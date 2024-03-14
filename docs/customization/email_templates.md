@@ -1,0 +1,3 @@
+# E-Mail Templates
+
+... will be added soon...

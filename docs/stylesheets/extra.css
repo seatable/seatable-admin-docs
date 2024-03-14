@@ -492,3 +492,16 @@
 .md-typeset .mdx-sponsorship-total {
   font-weight: 700;
 }
+
+/* custom color css codebox */
+#seatable_custom_color_output div pre code {
+  max-height: 150px;
+}
+#seatable_custom_color_version {
+  font-size: 0.9em;
+  height: 27px;
+  vertical-align: text-bottom;
+  background-color: #efefef;
+  border-radius: 5px;
+  padding: 0px 10px 0 5px;
+}

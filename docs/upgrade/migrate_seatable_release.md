@@ -97,7 +97,7 @@ The two values SEATABLE_ADMIN_EMAIL and SEATABLE_ADMIN_PASSWORD have to be set, 
 Copy your existing seatable-license.txt to this `/opt/seatable-compose` folder. The command for that should be:
 
 ```bash
-cp /opt/seatable/seatable-data/seatable-license.txt /opt/seatable-compose/
+cp /opt/seatable/seatable-data/seatable/seatable-license.txt /opt/seatable-compose/
 ```
 
 ### 6. Move some folder
