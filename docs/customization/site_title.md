@@ -1,6 +1,6 @@
 # Site Title and Site Name
 
-Site Title and Site Name are two basic customization options. The **Title** is used in the browser tab and the **Name** is used in notifications or email messages.
+**Site Title** and **Site Name** are two basic customization options. The **Title** is used in the browser tab and the **Name** is used in notifications or email messages.
 
 ![SeaTable Site Title](/images/seatable_site_title.png)
 
@@ -10,7 +10,7 @@ Site Title and Site Name are two basic customization options. The **Title** is u
 
 ## Configuration via the web interface
 
-Login to your SeaTable Server as system administrator and switch to the system admin area. Select the navigation point `Settings`.
+Login to your SeaTable Server as system administrator and switch to the system admin area. Select the navigation point `Settings`. Team admins or normal users does not have the permission to access the system admin area.
 
 ![SeaTable Site Title in System Administration](/images/seatable_site_title2.png)
 
