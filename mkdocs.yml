@@ -198,6 +198,7 @@ nav:
       #- input: customization/custom_css.md
       - Site Title: customization/site_title.md
       - Logo: customization/logo.md
+      - Link to manual: customization/manual_in_nav.md
       #- Login Background: customization/login_background.md
       - Main Color: customization/main_color.md
       #- E-Mail Templates: customization/email_templates.md

@@ -1,6 +1,6 @@
 # SeaTable Frontend Modification
 
-With the help of [dtable_web_settings.py](./dtable_web_settings.md) SeaTable offers a wealth of configuration options to enable or disable individual functions in the frontend or to customize the frontend to your own needs.
+With the help of [dtable_web_settings.py](/config/dtable_web_settings.md) SeaTable offers a wealth of configuration options to enable or disable individual functions in the frontend or to customize the frontend to your own needs.
 
 At the same time, you can only intervene in the design of the frontend to a limited extent with the help of the configuration files. For this, SeaTable offers a sophisticated template system to selectively replace individual page areas with their own versions.
 

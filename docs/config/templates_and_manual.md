@@ -1,12 +1,5 @@
 # Configuration of Manual, Templates, and Plugins
 
-## Configuration of the Manual
-
-```
-HELP_LINK = 'https://docs.seatable.io/'
-
-```
-
 ## Configuration of Templates
 
 Using templates requires a version above 1.6.0 of SeaTable. Here are several steps:
