@@ -126,11 +126,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/config/templates_and_manual/</loc>
-         <lastmod>2024-03-15</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://admin.seatable.io/config/universal_apps/</loc>
          <lastmod>2024-03-15</lastmod>
          <changefreq>daily</changefreq>
@@ -186,11 +181,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/customization/frontend_html_template_system/</loc>
-         <lastmod>2024-03-15</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://admin.seatable.io/customization/login_background/</loc>
          <lastmod>2024-03-15</lastmod>
          <changefreq>daily</changefreq>
@@ -216,7 +206,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://admin.seatable.io/customization/page_templates/</loc>
+         <lastmod>2024-03-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://admin.seatable.io/customization/site_title/</loc>
+         <lastmod>2024-03-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://admin.seatable.io/customization/templates/</loc>
          <lastmod>2024-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
