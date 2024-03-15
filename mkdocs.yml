@@ -161,7 +161,6 @@ nav:
 
   - Configuration:
       - Plugins: config/plugins.md
-      - Templates and Manual: config/templates_and_manual.md
       - Email Sending: config/sending_email.md
       - Roles and Permissions: config/enterprise/roles_permissions.md
       - Universal Apps: config/universal_apps.md
@@ -198,11 +197,12 @@ nav:
       #- input: customization/custom_css.md
       - Site Title: customization/site_title.md
       - Logo: customization/logo.md
-      - Link to manual: customization/manual_in_nav.md
-      #- Login Background: customization/login_background.md
+      - Manual Link: customization/manual_in_nav.md
       - Main Color: customization/main_color.md
+      - Templates: customization/templates.md
+      #- Login Background: customization/login_background.md
       #- E-Mail Templates: customization/email_templates.md
-      - Page Templates: customization/frontend_html_template_system.md
+      - Page Templates: customization/page_templates.md
 
   - Upgrade:
       - How to upgrade: upgrade/upgrade_manual.md
