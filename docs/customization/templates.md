@@ -60,6 +60,13 @@ Below is an example of how the **main template** base could be structured:
 
 ![Base for your templates](/images/seatable_templates_base.png)
 
+### Recommended size of template images
+
+To ensure optimal display in the SeaTable **main template**, please provide two different images with the following dimensions:
+
+- **card_image**: 560 x 240 pixels
+- **card_image_expanded**: 1840 x 400 pixels
+
 ## Create your Templates
 
 Now it's time to create your initial bases, which you'll offer as templates. As recommended, organize these templates within folders.

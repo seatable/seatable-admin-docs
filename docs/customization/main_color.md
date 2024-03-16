@@ -31,7 +31,7 @@ The first step is you use the following color picker and select a new main color
 
 Login to your SeaTable Server as system administrator and switch to the system admin area. Select the navigation point `Settings`. Team admins or normal users does not have the permission to access the system admin area.
 
-First you should set the checkbox for `ENABLE_BRANDING_CSS`. Then simply copy and paste (:material-content-copy:) the css code and paste it to the input box of `Custom. CSS`. Submit by clicking on the green :material-check:.
+First you should set the checkbox for `ENABLE_BRANDING_CSS`. Then simply copy and paste (:material-content-copy:) the css code and paste it to the input box of `Custom CSS`. Submit by clicking on the green :material-check:.
 
 Reload your page of your browser and the color should be changed.
 

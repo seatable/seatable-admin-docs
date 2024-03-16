@@ -199,8 +199,8 @@ nav:
       - Logo: customization/logo.md
       - Manual Link: customization/manual_in_nav.md
       - Main Color: customization/main_color.md
+      - Custom CSS: customization/custom_css.md
       - Templates: customization/templates.md
-      #- Login Background: customization/login_background.md
       #- E-Mail Templates: customization/email_templates.md
       - Page Templates: customization/page_templates.md
 
