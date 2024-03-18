@@ -1,72 +1,83 @@
 # Clean Database
 
+<!-- md:version 1.2 -->
+
+Although SeaTable has a cleanup mechanism for its database, it is not activated by default. Even if you have a small setup, it is recommended that you setup a single cronjob for cleanup to run for example once a week. Otherwise your database will become bigger and bigger. This article explains all the details.
+
+## Why does the database become to big?
+
+The main reason why the SeaTable database grows quickly is due to the storage of the operation log. Every time you change something in a base, this change is stored in the so called operation log. The operation log contains the base, the table, the row and the concrete change. Might might imagine how fast this database table gets if such a huge amount of data is stored every time you change something in the database.
+
+```json
+{
+  "op_type": "modify_row",
+  "table_id": "iFMf",
+  "row_id": "avAf...",
+  "updated": {
+    "s6km": ["91e3...@auth.local"],
+    "_last_modifier": "1455...@auth.local"
+  },
+  "old_row": { "s6km": ["ea3b...6@auth.local"] }
+}
+```
+
+In addition, every 5 minutes `dtable-server` automatically persists all changes by saving the current version of the base to `dtable-storage-server`. The operation log is therefore a protection against data loss in case that SeaTable server crashes before the base is persisted. As soon as the base is persisted, the main purpose of the operation log is fulfilled.
+
+In addition the operation log is used for the log display inside the base.
+
+Let me summarize, the operation log has to purposes:
+
+1. the operation log protects against data loss in the event that SeaTable Server crashes before the changes are persisted to the json file.
+2. the operation log is used for the log/history display inside the base.
+
+Just to give you an idea. At [SeaTable Cloud](https://cloud.seatable.io) we generate up to **1 Gigabyte per day**, mainly driven by the operation log.
+
 ## Clean Database Records
 
-Since version 1.2, we offer a command to clear records older than the retention period in the seatable database (the default database name is `dtable_db`).
+SeaTable provides a command to clear records older than the retention period in the seatable database (the default database name is `dtable_db`). The retention period is a good mixture of cleaning up old data and keep enough data for the users.
 
-```
-$ docker exec -it seatable /bin/bash
+### Manual execution
 
-$ seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_db_records
+If you want to run the command manually, here it is:
+
+```bash
+docker exec -it seatable-server /bin/bash
+seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_db_records
 ```
 
 The following tables will be cleaned:
 
-| Database table                 | Table description                                            | Retention period |
-| ------------------------------ | ------------------------------------------------------------ | ---------------- |
+| Database table                 | Table description                                                                             | Retention period |
+| ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------- |
 | activities                     | Aggregated log (based on operation_log) recording row creations, modifications, and deletions | > 30 days        |
-| delete_operation_log           | High level log (based on operation_log) recording all row deletions | > 30 days        |
-| dtable_notifications           | User notifications inside the bases                          | > 30 days        |
-| dtable_snapshots               | Snapshots of bases that are not store in dtable-storage-server | > 365 days       |
-| notifications_usernotification | User notifications on the home page                          | > 30 days        |
-| operation_log                  | Low level log recording all operations                       | > 14 days        |
-| session_log                    | Low level log recording all user sessions                    | > 30 days        |
+| delete_operation_log           | High level log (based on operation_log) recording all row deletions                           | > 30 days        |
+| dtable_notifications           | User notifications inside the bases                                                           | > 30 days        |
+| dtable_snapshots               | Snapshots of bases that are not store in dtable-storage-server                                | > 365 days       |
+| notifications_usernotification | User notifications on the home page                                                           | > 30 days        |
+| operation_log                  | Low level log recording all operations                                                        | > 14 days        |
+| session_log                    | Low level log recording all user sessions                                                     | > 30 days        |
 
-## Database Backup (optional)
+### Cronjob
 
-Before running `clean_db_records`, you can make a backup by a shell script. The following tables with many records will be excluded:
+If you want to keep your database small, it is necessary to execute your cleanup on a daily or weekly basis. Generate a bash script like the following, give it execution permission and create a cronjob to run it on a regular basis.
 
-- operation_log
-- delete_operation_log
-- session_log
-- activities
-
-Example of the `database_backup.sh` backup shell script：
-
-```
+```bash
 #!/bin/bash
-set -e
-db_host='<IP address of database>'
-db_user='root'
-db_name='dtable_db'
-backup_dir='/opt/seatable/db-backups'
-
-echo 'Start backing up the database'
-
-mysqldump -h$db_host -u$db_user -p --opt $db_name \
-  --ignore-table=$db_name.activities \
-  --ignore-table=$db_name.delete_operation_log \
-  --ignore-table=$db_name.operation_log \
-  --ignore-table=$db_name.session_log \
-  > $backup_dir/seatable.sql.`date +"%Y-%m-%d"`
-
-echo 'Database backup succeeded'
+docker exec seatable-server /opt/seatable/scripts/seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_db_records
 ```
 
-Run the shell script:
+The cronjob might look like this:
 
-```
-$ ./database_backup.sh
-Start backing up the database
-Enter password: xxxxx
-Database backup succeeded
+```bash
+# clean system (once a week at saturday at 0:20am)
+0 20 * * 6 /opt/backup/scripts/system_clean.sh > /opt/backup/logs/system_clean.log
 ```
 
-## Clean operation_log records more efficiently (optional)
+## Clean operation_log records more efficiently
 
-When the base is modified, `dtable-server` automatically saves it to `dtable-storage-server` every 5 minutes. In order to prevent `dtable-server` failure before the base is saved to `dtable-storage-server`, resulting in base data loss, every time base is modified, an operation log will be recorded in the operation_log table.
+<!-- md:version 4.1 -->
 
-Therefore, for **large instance**, the operation_log table tends to be very large. Since version 4.1, we offer a more efficient and reliable command to clear the useless data in the operation_log table three days ago. You can add a cron job to run the command every day.
+If you system becomes really big, you might want to clean up the operation log faster. Therefore a new more efficient and reliable command was added to clear the useless data in the operation_log table after three days. You can add a cron job to run the command every day.
 
 This command has two advantages over the above command:
 
@@ -74,5 +85,59 @@ This command has two advantages over the above command:
 2. It will clear the logs in small batch, avoiding consume too much database resource in a short time.
 
 ```
-$ docker exec seatable /opt/seatable/scripts/seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_operation_log
+$ docker exec seatable-server /opt/seatable/scripts/seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_operation_log
 ```
+
+## Free space occupied by database
+
+Mariadb and MySQL are quite special if it comes to storage usage. Even if you delete data from your database, the storage will not become available. Space that once was occupied by MySQL is blocked.
+
+This becomes problematic if you database becomes huge, because you never cleaned the operation log and now the disk space is full. There are basically two ways to solve this problem.
+
+### Check your database size
+
+Login into your SQL command line of your mariadb server. Now execute the following commands to get the size of your databases
+
+```bash
+SELECT table_schema AS "Database", ROUND(SUM(data_length + index_length) / 1024 / 1024 / 1024, 2) AS "Size (GB)" FROM information_schema.TABLES GROUP BY table_schema;
+```
+
+The result may look like this:
+
+```bash
++--------------------+-----------+
+| Database           | Size (GB) |
++--------------------+-----------+
+| ccnet_db           |      0.04 |
+| dtable_db          |     72.31 |
+| information_schema |      0.00 |
+| seafile_db         |      0.07 |
++--------------------+-----------+
+4 rows in set (0.005 sec)
+```
+
+To get the size of the tables inside `dtable_db` execute one of these commands:
+
+```bash
+# get number of rows of the tables inside dtable_db
+SELECT table_name, table_rows FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dtable_db';
+
+# get size of the tables inside dtable_db
+SELECT table_name AS "Table", ROUND(((data_length + index_length) / 1024 / 1024), 2) AS "Size (MB)" FROM information_schema.TABLES WHERE table_schema = "dtable_db";
+```
+
+To delete all entries from the operation log older than 14 days, you can execute this command:
+
+```bash
+DELETE FROM `operation_log` WHERE `op_time` < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 14 DAY))*1000
+```
+
+### Option 1: Optimize
+
+This requires that you have enough disk space, to create a duplicate of the existing operation log.
+...
+
+### Option 2: Create new operation log table
+
+This is the way, if you only have a limited amount of space available.
+...

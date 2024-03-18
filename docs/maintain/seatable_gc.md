@@ -1,4 +1,4 @@
-# SeaTable GC
+# SeaTable Garbage Collection
 
 SeaTable uses storage de-duplication technology to reduce storage usage. The underlying data blocks will not be removed immediately after you delete a file or a base. As a result, the number of unused data blocks will increase on SeaTable server.
 
@@ -6,7 +6,7 @@ To release the storage space occupied by unused blocks, you have to run a **garb
 
 ## Configuration
 
-Add following lines to `seafile.conf` to keep deleted files for only 60 days:
+Add the following lines to `seafile.conf` to keep deleted files for only 60 days:
 
 ```
 [history]
@@ -15,10 +15,10 @@ keep_days = 60
 
 ## Dry-run mode
 
-To see how much garbage can be collected without actually removing any garbage, use the dry-run option:
+To see how much garbage can be collected without actually removing any garbage, use the **dry-run** option:
 
-```
-seatable.sh gc --dry-run
+```bash
+docker exec seatable-server /opt/seatable/scripts/seatable.sh gc --dry-run
 ```
 
 The output should look like:
@@ -27,6 +27,7 @@ The output should look like:
 Starting seafserv-gc, please wait ...
 2021-04-27 14:30:13 gc-core.c(904): Database is MySQL/Postgre/Oracle, use online GC.
 2021-04-27 14:30:13 gc-core.c(928): Using up to 1 threads to run GC.
+
 2021-04-27 14:30:13 gc-core.c(873): GC version 1 repo plugins repo(92ba689b-51a3-457b-a264-1e46537025c8)
 2021-04-27 14:30:13 gc-core.c(609): No blocks for repo 92ba689b, skip GC.
 
@@ -40,9 +41,19 @@ Starting seafserv-gc, please wait ...
 
 2021-04-27 14:30:13 gc-core.c(873): GC version 1 repo My Library Template(3fe6b035-2e0f-4c2f-9347-2673b5778e72)
 2021-04-27 14:30:13 gc-core.c(609): No blocks for repo 3fe6b035, skip GC.
+
+...
+
 2021-04-27 14:30:13 gc-core.c(773): === Repos deleted by users ===
+2021-04-27 14:30:13 gc-core.c(1041): Repo fb882070-d158-4433-a038-6be0117560e0 can be GC'ed.
+...
 2021-04-27 14:30:13 gc-core.c(980): === GC is finished ===
+
+2021-04-27 14:30:13 gc-core.c(1226): The following repos have blocks to be removed:
+2021-04-27 14:30:13 gc-core.c(1229): 09a91b76-df37-44d4-81e0-416e4397c9f6
+
 seafserv-gc run done
+
 Done.
 ```
 
@@ -51,6 +62,5 @@ Done.
 Run a garbage collection program without adding --dry-run option to actually remove garbage block.
 
 ```
-seatable.sh gc
+docker exec seatable-server /opt/seatable/scripts/seatable.sh gc
 ```
-

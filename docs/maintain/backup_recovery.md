@@ -133,3 +133,43 @@ rsync -az /opt/seatable-backup/seatable /opt/seatable/seatable-data/seatable
 ```
 docker exec -it seatable /opt/seatable/scripts/seatable.sh restore-all
 ```
+
+## Database Backup (optional - without operation log)
+
+Before running `clean_db_records`, you can make a backup by a shell script. The following tables with many records will be excluded:
+
+- operation_log
+- delete_operation_log
+- session_log
+- activities
+
+Example of the `database_backup.sh` backup shell script：
+
+```
+#!/bin/bash
+set -e
+db_host='<IP address of database>'
+db_user='root'
+db_name='dtable_db'
+backup_dir='/opt/seatable/db-backups'
+
+echo 'Start backing up the database'
+
+mysqldump -h$db_host -u$db_user -p --opt $db_name \
+  --ignore-table=$db_name.activities \
+  --ignore-table=$db_name.delete_operation_log \
+  --ignore-table=$db_name.operation_log \
+  --ignore-table=$db_name.session_log \
+  > $backup_dir/seatable.sql.`date +"%Y-%m-%d"`
+
+echo 'Database backup succeeded'
+```
+
+Run the shell script:
+
+```
+$ ./database_backup.sh
+Start backing up the database
+Enter password: xxxxx
+Database backup succeeded
+```

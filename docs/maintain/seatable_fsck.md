@@ -1,4 +1,4 @@
-# SeaTable FSCK
+# SeaTable File system check
 
 On the server side, SeaTable stores the files in the libraries in an internal format. SeaTable has its own representation of directories and files (similar to Git).
 
@@ -100,8 +100,8 @@ To check all libraries and find out which library is corrupted, the system admin
 
 When the system admin find a library is corrupted, he/she should run seaf-fsck.sh with "--repair" for the library. After the command fixes the library, the admin should inform user to recover files from other places. There are two ways:
 
-* Upload corrupted files or folders via the web interface
-* If the library was synced to some desktop computer, and that computer has a correct version of the corrupted file, re-syncing the library on that computer will upload the corrupted files to the server.
+- Upload corrupted files or folders via the web interface
+- If the library was synced to some desktop computer, and that computer has a correct version of the corrupted file, re-syncing the library on that computer will upload the corrupted files to the server.
 
 ## Exporting Libraries to File System
 
