@@ -34,7 +34,7 @@ services:
     labels:
       caddy: ${SEATABLE_SERVER_HOSTNAME}
       caddy.tls: "/data/certs/cert.pem /data/certs/key.pem" # <-- this label tells caddy to use custom certificates !the order is important
-# [self signed only] additionally if you are working with custom self signed or low trust certificates you need to add them to the truststore..
+# [self signed only] if you are working with self signed or low trust certificates you also need to add them to the seatable container truststore..
     volumes:
       ...
       - "/opt/caddy/certs/cert.pem:/usr/local/share/ca-certificates/cert.crt"
