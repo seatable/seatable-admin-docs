@@ -49,13 +49,13 @@ The following tables will be cleaned:
 
 | Database table                 | Table description                                                                             | Retention period |
 | ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------- |
-| activities                     | Aggregated log (based on operation_log) recording row creations, modifications, and deletions | > 30 days        |
-| delete_operation_log           | High level log (based on operation_log) recording all row deletions                           | > 30 days        |
-| dtable_notifications           | User notifications inside the bases                                                           | > 30 days        |
-| dtable_snapshots               | Snapshots of bases that are not store in dtable-storage-server                                | > 365 days       |
-| notifications_usernotification | User notifications on the home page                                                           | > 30 days        |
-| operation_log                  | Low level log recording all operations                                                        | > 14 days        |
-| session_log                    | Low level log recording all user sessions                                                     | > 30 days        |
+| activities                     | Aggregated log (based on operation_log) recording row creations, modifications, and deletions | 30 days          |
+| delete_operation_log           | High level log (based on operation_log) recording all row deletions                           | 30 days          |
+| dtable_notifications           | User notifications inside the bases                                                           | 30 days          |
+| dtable_snapshots               | Snapshots of bases that are not store in dtable-storage-server                                | 365 days         |
+| notifications_usernotification | User notifications on the home page                                                           | 30 days          |
+| operation_log                  | Low level log recording all operations                                                        | 14 days          |
+| session_log                    | Low level log recording all user sessions                                                     | 30 days          |
 
 ### Cronjob
 
@@ -109,7 +109,7 @@ The result may look like this:
 | Database           | Size (GB) |
 +--------------------+-----------+
 | ccnet_db           |      0.04 |
-| dtable_db          |     72.31 |
+| dtable_db          |     32.31 |
 | information_schema |      0.00 |
 | seafile_db         |      0.07 |
 +--------------------+-----------+
@@ -137,7 +137,7 @@ DELETE FROM `operation_log` WHERE `op_time` < UNIX_TIMESTAMP(DATE_SUB(NOW(), INT
 This requires that you have enough disk space, to create a duplicate of the existing operation log.
 ...
 
-### Option 2: Create new operation log table
+### Option 2: Create new operation_log table
 
 This is the way, if you only have a limited amount of space available.
 ...

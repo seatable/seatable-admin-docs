@@ -1,5 +1,9 @@
 # Setup SeaTable Server Enterprise Edition
 
+!!! danger "This instruction is out of date"
+
+    This documentation is out of date. Please go to the homepage of <https://admin.seatable.io/> and follow the navigation.
+
 ## Setup
 
 The following assumptions and conventions are used in the rest of this document:
