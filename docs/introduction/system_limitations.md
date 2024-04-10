@@ -2,7 +2,7 @@
 
 ## General limitations
 
-| Category                            | Limitation Type                                     | Limit                                                                                                  | Additional notes                                                                                                                                                                                                                |
+| Category                            | Limitation Type                                     | Limit                                                                                                  | Additional Notes                                                                                                                                                                                                                |
 | :---------------------------------- | :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Base                                | Rows                                                | 100 000                                                                                                | The base becomes read-only when exceeding this limit. The limit can be modified in dtable_server_config.json. |                                                        
 |                                     | Rows 2                                              | 150 000                                                                                                | The base will fail to load when exceeding this limit. The limit can be modified in dtable_server_config.json. |
@@ -18,7 +18,7 @@
 |                                     | Import of a xlsx/csv file                           | 50 000 records or 10MB                                                                                 |          |
 |                                     | Export of a table                                   | 10 000 records or 1,000,000 cells                                                                      |          |
 |                                     | Export of a view in table                           | 1 000 000 cells                                                                                        |          |
-| Big data import / export operations | Import from xlsx to big data storage                | 500 000 records or 40MB                                                                                | The limit can be modified in dtable_web_settings.py (`BIG_DATA_ROW_IMPORT_LIMIT`).     |
+| Big data import / export            | Import from xlsx to big data storage                | 500 000 records or 40MB                                                                                | The limit can be modified in dtable_web_settings.py (`BIG_DATA_ROW_IMPORT_LIMIT`).     |
 |                                     | Update from xlsx to big data storage                | 500 000 records                                                                                        | The limit can be modified in dtable_web_settings.py (`BIG_DATA_ROW_UPDATE_LIMIT`).     |
 |                                     | Export big data view to Excel                       | 250 000 records                                                                                        | The limit can be modified in dtable_web_settings.py (`ARCHIVE_VIEW_EXPORT_ROW_LIMIT`).   |
 | Groups                              | Group members                                       | 500                                                                                                    | The limit can be modified in dtable_web_settings.py (`GROUP_MEMBER_LIMIT`).    |
@@ -31,7 +31,7 @@
 
 ## API limitations
 
-| Category         | Limitation Type                                   | Limit                                        | Additional notes                                                                                            |
+| Category         | Limitation Type                                   | Limit                                        | Additional Notes                                                                                            |
 | :--------------- | :------------------------------------------------ | :------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
 | API calls        | Number of rows appending in a single call         | 1 000                                        |                                                                                                             |
 |                  | Number of rows modification in a single call      | 1 000                                        |                                                                                                             |
