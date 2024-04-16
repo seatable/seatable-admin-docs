@@ -209,8 +209,8 @@ nav:
       - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
 
       - Migrations:
-          - Switch SeaTable Edition: docker/Enterprise-Edition/migrate_seatable_editions.md
-          - Switch Installation Method (v4.3): upgrade/migrate_seatable_release.md
+          - SeaTable Edition: docker/Enterprise-Edition/migrate_seatable_editions.md
+          - Installation Method (> v4.3): upgrade/migrate_seatable_release.md
 
   - Maintenance:
       - Backup and Recovery: maintain/backup_recovery.md
