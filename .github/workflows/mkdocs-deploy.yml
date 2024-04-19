@@ -9,7 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -29,3 +28,6 @@ jobs:
 
       - name: gh-deploy
         run: mkdocs gh-deploy --force
+        env:
+          MKDOCS_GIT_COMMITERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITERS_APIKEY }}
+          CI: true

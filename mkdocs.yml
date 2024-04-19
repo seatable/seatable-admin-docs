@@ -58,7 +58,8 @@ plugins:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - minify:
       minify_html: true
-  - git-revision-date-localized
+  - git-revision-date-localized:
+      enable_creation_date: true
   - redirects:
       redirect_maps:
         "changelog/changelog-for-seatable-professional-server.md": "https://seatable.io/docs/changelog/"
@@ -73,6 +74,11 @@ plugins:
         "maintain/seatable_fsck.md": "maintain/filesystem-check.md"
         "maintain/clean_database.md": "maintain/clean-database.md"
         "maintain/backup_recovery.md": "maintain/backup-recovery.md"
+  - git-committers:
+      repository: seatable/seatable-admin-docs
+      branch: main
+      enabled: !ENV ["CI", false]
+      token: !ENV ["MKDOCS_GIT_COMMITTERS_APIKEY"]
 
 hooks:
   - overrides/hooks/shortcodes.py
