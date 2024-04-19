@@ -6,7 +6,7 @@ Templates offer a convenient method for offering predefined base structures to y
 
 Simply by adding a row to the designated **main template** base, it instantly becomes available in the list of templates.
 
-![Initial structure for SeaTable Templates](/images/seatable_templates_look_and_feel.png)
+![Initial structure for SeaTable Templates](../assets/images/seatable_templates_look_and_feel.png)
 
 Sounds easy? Actually it is easy.
 
@@ -30,7 +30,7 @@ Here's a suggested approach for organizing your templates:
 
 Here's an example of how the structure might appear. In this illustration, I've included folders for both _Marketing_ and _Projects_ categories.
 
-![Initial structure for SeaTable Templates](/images/seatable_templates_structure.png)
+![Initial structure for SeaTable Templates](../assets/images/seatable_templates_structure.png)
 
 ### Creating the Main Template Base
 
@@ -40,7 +40,7 @@ You have two options for setting up the master template base:
 
     The simplest method is to download our predefined dtable file and import it into your SeaTable server to create the **main template** base.
 
-    [Download our predefined template base](/downloads/All templates.dtable){ .md-button .md-button--primary }
+    [Download our predefined template base](../downloads/All templates.dtable){ .md-button .md-button--primary }
 
 ??? "Option 2: Create it from Scratch"
 
@@ -58,7 +58,7 @@ You have two options for setting up the master template base:
 
 Below is an example of how the **main template** base could be structured:
 
-![Base for your templates](/images/seatable_templates_base.png)
+![Base for your templates](../assets/images/seatable_templates_base.png)
 
 ### Recommended size of template images
 

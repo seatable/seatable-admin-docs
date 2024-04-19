@@ -30,8 +30,8 @@ theme:
   custom_dir: overrides
 
   # icon & favicon
-  logo: media/SeaTable256-256.png
-  favicon: media/seatable-favicon.ico
+  logo: assets/SeaTable256-256.png
+  favicon: assets/seatable-favicon.ico
 
   palette:
     - scheme: default
@@ -58,6 +58,11 @@ plugins:
   - redirects:
       redirect_maps:
         "changelog/changelog-for-seatable-professional-server.md": "https://seatable.io/docs/changelog/"
+        "docker/Python-Runner/Deploy SeaTable Python Runner.md": "installation/components/python-pipeline.md"
+        "docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md": "installation/basic-setup.md"
+        "docker/Enterprise-Edition/migrate_seatable_editions.md": "upgrade/migrate-seatable-editions.md"
+        "docker/Developer-Edition/Deploy SeaTable-DE with Docker.md": "installation/basic-setup.md"
+        "editions.md": "introduction/editions.md"
 
 hooks:
   - overrides/hooks/shortcodes.py
@@ -79,9 +84,9 @@ extra:
     provider_url: https://wp-stats.seatable.io/
 
 extra_css:
-  - stylesheets/extra.css
+  - assets/stylesheets/extra.css
 extra_javascript:
-  - javascripts/extra.js
+  - assets/javascripts/extra.js
 
 # Extensions
 markdown_extensions:
@@ -114,113 +119,114 @@ nav:
       - Architecture: introduction/architecture.md
       - Security: introduction/security.md
       - Requirements: introduction/requirements.md
-      - System Limitations: introduction/system_limitations.md
+      - System Limitations: introduction/system-limitations.md
       - Server Editions: introduction/editions.md
       - EULA (dtable-server): introduction/dtable-server-license.md
-      - Get Support: introduction/get_support.md
+      - Get Support: introduction/get-support.md
       - Changelog: introduction/server-changelog.md
 
   - Installation:
-      - How to start: installation-rework/start.md
-      - Our deployment approach: installation-rework/start_details.md
+      - How to start: installation/start.md
+      - Our deployment approach: installation/deployment-approach.md
       - Single-Node Installation:
-          - SeaTable-Server: installation-rework/basic-setup.md
-          - Python Pipeline: installation-rework/components/python-pipeline.md
-          - n8n: installation-rework/components/n8n.md
-          - Office Editor:
-              - Collabora: installation-rework/components/collabora.md
-              - OnlyOffice: installation-rework/components/onlyoffice.md
+          - SeaTable-Server: installation/basic-setup.md
+          - Python Pipeline: installation/components/python-pipeline.md
+          - n8n: installation/components/n8n.md
+          - Office Editors:
+              - Collabora: installation/components/collabora.md
+              - OnlyOffice: installation/components/onlyoffice.md
           - Monitoring:
-              - Uptime Kuma: installation-rework/components/uptime-kuma.md
-              - Zabbix: installation-rework/components/zabbix.md
-          - FAQ / Troubleshooting: installation-rework/faq.md
+              - Uptime Kuma: installation/components/uptime-kuma.md
+              - Zabbix: installation/components/zabbix.md
+          - FAQ / Troubleshooting: installation/faq.md
 
       - Advanced Topics:
           - Webserver:
-              - Custom Reverse Proxy: installation-rework/advanced/custom_proxy.md
-              - Custom Certificates: installation-rework/advanced/custom_certificates.md
-              - Force HTTP: installation-rework/advanced/http_only.md
-              - Additional Subdomains: installation-rework/advanced/additional_subdomains.md
-              - Air Gap Installation: installation-rework/advanced/air_gap_installation.md
+              - Custom Reverse Proxy: installation/advanced/custom-proxy.md
+              - Custom Certificates: installation/advanced/custom-certificates.md
+              - Force HTTP: installation/advanced/http-only.md
+              - Additional Subdomains: installation/advanced/additional-subdomains.md
+              - Air Gap Installation: installation/advanced/air-gap-installation.md
+              - Security: installation/advanced/webserver-security.md
           - S3 Object Storage:
-              - Configuration: config/enterprise/s3.md
-              - Migration: config/enterprise/s3_migration.md
+              - Configuration: installation/advanced/s3.md
+              - Migration: installation/advanced/s3-migration.md
           - Python Pipeline:
-              - Custom Python Runner: installation-rework/advanced/python_pipeline_custom_python_runner.md
-              - Separate Python Pipeline: installation-rework/advanced/python_pipeline_dedicated_server.md
-              - Configure Python Pipeline: installation-rework/advanced/python_pipeline_configuration.md
-              - Python Pipeline Workflow: installation-rework/advanced/python_pipeline_workflow.md
-          - MariaDB (standalone): installation-rework/advanced/database_standalone.md
-          - Seafile (external): installation-rework/components/seafile.md
+              - Custom Python Runner: installation/advanced/python-pipeline-custom-python-runner.md
+              - Separate Python Pipeline: installation/advanced/python-pipeline-dedicated-server.md
+              - Configure Python Pipeline: installation/advanced/python-pipeline-configuration.md
+              - Python Pipeline Workflow: installation/advanced/python-pipeline-workflow.md
+          - MariaDB (standalone): installation/advanced/database-standalone.md
+          - Seafile (external): installation/advanced/seafile.md
 
       - Cluster Setup:
-          - SeaTable Cluster: docker/Cluster/seatable_cluster.md
-          - dtable-server cluster: docker/Cluster/dtable-server Cluster.md
-          - dtable-db (standalone): docker/Cluster/dtable-db Standalone.md
-          - dtable-events (standalone): docker/Cluster/dtable-events Background node.md
+          - SeaTable Cluster: installation/cluster/seatable-cluster.md
+          - dtable-server cluster: installation/cluster/dtable-server-cluster.md
+          - dtable-db (standalone): installation/cluster/dtable-db-standalone.md
+          - dtable-events (standalone): installation/cluster/dtable-events-background-node.md
 
   - Configuration:
-      - Plugins: config/plugins.md
-      - Email Sending: config/sending_email.md
-      - Roles and Permissions: config/enterprise/roles_permissions.md
-      - Universal Apps: config/universal_apps.md
-      - Autostart: config/autostart.md
-      - Base Rows Limit: config/base_rows_limit.md
+      - Plugins: configuration/plugins.md
+      - Email Sending: configuration/sending-email.md
+      - Roles and Permissions: configuration/roles-and-permissions.md
+      - Universal Apps: configuration/universal-apps.md
+      - Autostart: configuration/autostart.md
+      - Base Rows Limit: configuration/base-rows-limit.md
       - User Hierarchy:
-          - Overview: config/user_hierarchy/overview.md
-          - Groups: config/user_hierarchy/groups.md
-          - Teams/Organizations: config/user_hierarchy/teams_organizations.md
-          - Departments: config/user_hierarchy/departments.md
+          - Overview: configuration/user-hierarchy/overview.md
+          - Groups: configuration/user-hierarchy/groups.md
+          - Teams/Organizations: configuration/user-hierarchy/teams-organizations.md
+          - Departments: configuration/user-hierarchy/departments.md
       - Authentication:
-          - Overview: authentication/overview.md
+          - Overview: configuration/authentication/overview.md
           - Methods:
-              - Two Factor Authentication: authentication/two_factor_auth.md
-              - LDAP: authentication/ldap.md
-              - OAuth: authentication/oauth.md
-              - SAML: authentication/saml.md
-              - JWT-Token: authentication/jwt.md
-          - Switch authentication: authentication/auth_switch.md
+              - Two Factor Authentication: configuration/authentication/two-factor-auth.md
+              - LDAP: configuration/authentication/ldap.md
+              - OAuth: configuration/authentication/oauth.md
+              - SAML: configuration/authentication/saml.md
+              #- SAML for teams: configuration/authentication/saml-team.md
+              - JWT-Token: configuration/authentication/jwt.md
+          - Switch authentication: configuration/authentication/auth-switch.md
       - Available Configuration Options:
-          - Environment variables: config/environment_variables.md
+          - Environment variables: configuration/environment-variables.md
           - Configuration files:
-              - ccnet.conf: config/ccnet-conf.md
-              - dtable-db.conf: config/dtable_db_conf.md
-              - dtable-events.conf: config/dtable-events-conf.md
-              - dtable_server_config.json: config/dtable_server_config.md
-              - dtable-storage-server.conf: config/dtable_storage_server_conf.md
-              - dtable_web_settings.py: config/dtable_web_settings.md
-              - seafile.conf: config/seafile-conf.md
-              - seatable-controller.conf: config/seatable-controller-conf.md
+              - ccnet.conf: configuration/ccnet-conf.md
+              - dtable-db.conf: configuration/dtable-db-conf.md
+              - dtable-events.conf: configuration/dtable-events-conf.md
+              - dtable_server_config.json: configuration/dtable-server-config.md
+              - dtable-storage-server.conf: configuration/dtable-storage-server-conf.md
+              - dtable_web_settings.py: configuration/dtable-web-settings.md
+              - seafile.conf: configuration/seafile-conf.md
+              - seatable-controller.conf: configuration/seatable-controller-conf.md
 
   - UI Customization:
       - Overview: customization/overview.md
-      #- input: customization/custom_css.md
-      - Site Title: customization/site_title.md
+      #- input: customization/custom-css.md
+      - Site Title: customization/site-title.md
       - Logo: customization/logo.md
-      - Manual Link: customization/manual_in_nav.md
-      - Main Color: customization/main_color.md
-      - Custom CSS: customization/custom_css.md
+      - Manual Link: customization/manual-in-nav.md
+      - Main Color: customization/main-color.md
+      - Custom CSS: customization/custom-css.md
       - Templates: customization/templates.md
-      #- E-Mail Templates: customization/email_templates.md
-      - Page Templates: customization/page_templates.md
+      #- E-Mail Templates: customization/email-templates.md
+      - Page Templates: customization/page-templates.md
 
   - Upgrade:
-      - How to upgrade: upgrade/upgrade_manual.md
+      - How to upgrade: upgrade/upgrade-manual.md
       - Extra Upgrade Notices: upgrade/extra-upgrade-notice.md
-
       - Migrations:
-          - SeaTable Edition: docker/Enterprise-Edition/migrate_seatable_editions.md
-          - Installation Method (> v4.3): upgrade/migrate_seatable_release.md
+          - Switch SeaTable Edition: upgrade/migrate-seatable-editions.md
+          - Switch Installation Method (v4.3): upgrade/migrate-seatable-release.md
 
   - Maintenance:
-      - Backup and Recovery: maintain/backup_recovery.md
-      - Clean Database: maintain/clean_database.md
-      - Clean Storage: maintain/seatable_gc.md
-      - Filesystem check: maintain/seatable_fsck.md
-      - Change URL: maintain/others.md
-      - Command Line Tools: maintain/others.md
-      - Advanced Debugging:
-          - Add custom error messages: maintain/debugging.md
+      - Backup and Recovery: maintain/backup-recovery.md
+      - Clean Database: maintain/clean-database.md
+      - Clean Storage: maintain/garbage-collector.md
+      - Filesystem check: maintain/filesystem-check.md
+      - Change URL: maintain/change-url.md
+      - Password reset: maintain/password-reset.md
+      - Logging: maintain/logs.md
+      - Add custom error messages: maintain/debugging.md
 #  - Migration:
 #      - Mysql: config/ccnet-conf.md
 #      - Postgres: config/ccnet-conf.md

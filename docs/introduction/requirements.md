@@ -9,7 +9,7 @@ One of the main advantages of SeaTable against other solutions is, that you can 
 
 Does this sounds complicated? Not really. So lets get started.
 
-[Let's begin with the installation in the root-shell](/installation-rework/basic-setup/){ .md-button .md-button--primary }
+[Let's begin with the installation in the root-shell](../installation/basic-setup.md){ .md-button .md-button--primary }
 
 If you need more information, you can get more details in this article.
 

@@ -6,7 +6,7 @@ The Logo of your SeaTable server can easily be replaced via the web interface or
 
 Login to your SeaTable Server as system administrator and switch to the system admin area. Select the navigation point `Settings`.
 
-![SeaTable Site Title in System Administration](/images/seatable_logo.png)
+![SeaTable Site Title in System Administration](../assets/images/seatable_logo.png)
 
 Click an `Change` and select a new image file with the recommended resolution of 256\*64 px. After a page reload the new logo is visible.
 

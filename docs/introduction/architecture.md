@@ -115,7 +115,7 @@ When a base is opened in the base editor, `dtable-server` initiates a request to
 
 Furthermore, the `dtable-storage-server` generates a snapshot of the base every 24 hours, capturing any changes that have occurred in the interim. Essentially, a snapshot is a complete copy of the JSON file.
 
-![Bases are stored as json files](/images/json_loaded_in_base_editor.png)
+![Bases are stored as json files](../assets/images/json_loaded_in_base_editor.png)
 
 !!! warning "Why are the bases not stored in mariadb?"
 
