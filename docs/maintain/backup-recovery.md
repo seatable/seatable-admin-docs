@@ -12,10 +12,10 @@ There are generally three parts of data to backup
 - Databases
 - Configuration files with private keys
 
-If you setup SeaTable server according to our manual, you should have a directory layout like:
+If you setup your SeaTable server according to our manual, there should exist a directory layout like this:
 
 ```
-/opt/seatable/seatable-data/seatable
+/opt/seatable-server/seatable/
 ├── ccnet
 ├── conf
 ├── db-data
@@ -23,30 +23,27 @@ If you setup SeaTable server according to our manual, you should have a director
 ├── pids
 ├── scripts
 ├── seafile-data
-├── seafile-license.txt
 ├── seahub-data
 └── storage-data
 
 ```
 
-All your data is stored under the `/opt/seatable/seatable-data/seatable` directory. Below are important sub-directories that contain user data:
+All your data is stored under the `/opt/seatable-server/seatable/` directory.
 
+#### Important sub-directories that contain user data:
 - seafile-data: contains uploaded files for file and image columns
 - seahub-data: contains data used by web front-end, such as avatars
 - db-data: contains archived rows in bases
 - storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
 
-SeaTable also stores some important metadata data in a few databases.
-
-MySQL databases:
-
+#### Important MariaDB databases that contain user/metadata:
 - ccnet_db: contains user and group information
 - seafile_db: contains library metadata
 - dtable_db: contains tables used by the web front end
 
 ??? info "Database structure"
 
-    SeaTable stores the following data types in the SQL database in the `seatable-mysql` Docker container:
+    SeaTable stores the following data types in the MySQL database engine in the `mariadb` Docker container:
 
     * user actions and inputs in bases (e.g. new/modified/deleted rows, new/modified/deleted columns, new/modified, deleted views)
     * meta-information for bases (e.g. API-token, common datasets, links, row comments, snapshots, third-party accounts, webhooks)
@@ -58,19 +55,23 @@ MySQL databases:
 
 ### Steps
 
-1. Backup the MySQL databases;
-2. Backup the SeaTable data directory (with your seatable license and config files)
+1. Backup the MySQL databases
+2. Backup the /opt/seatable-server/ directory
+3. Backup the /opt/seatable-compose/ directory (with your seatable license and .env secrets)
 
 Backup Order: Database First or Data Directory First
 
-### Backing up Database
+### 1. Backup the MySQL databases
 
-```
-# It's recommended to backup the database to a separate file each time. Don't overwrite older database backups for at least a week.
-cd /opt/seatable-backup/databases
-docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt ccnet_db > ccnet_db.sql
-docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt seafile_db > seafile_db.sql
-docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtable_db > dtable_db.sql
+```bash
+# It's recommended to backup the database to a separate files each time. Don't overwrite older database backups for at least a week.
+# replace <your_mysql_password> with your actual MySQL password (might be still present in /opt/seatable-compose/.env)
+# beware that this method will expose your mysql password in the process list and shell history of the docker host
+
+mkdir -p /opt/seatable-backup/databases && cd /opt/seatable-backup/databases
+docker exec -it "mariadb" "mysqldump" -u"root" -p'<your_mysql_password>' --opt "ccnet_db" > "./ccnet_db.sql"
+docker exec -it "mariadb" "mysqldump" -u"root" -p'<your_mysql_password>' --opt "seafile_db" > "./seafile_db.sql"
+docker exec -it "mariadb" "mysqldump" -u"root" -p'<your_mysql_password>' --opt "dtable_db" > "./dtable_db.sql"
 ```
 
 !!! warning
@@ -82,7 +83,9 @@ docker exec -it seatable-mysql mysqldump -uroot -pMYSQL_ROOT_PASSWORD --opt dtab
 You can use rsync to do incremental backup for data directories (assuming /opt/seatable-backup/ already exists)
 
 ```bash
-rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable/seatable-data/seatable /opt/seatable-backup/seatable
+mkdir -p /opt/seatable-backup/
+rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable-server /opt/seatable-backup
+rsync -az /opt/seatable-compose /opt/seatable-backup
 ```
 
 You may notice that `db-data` directory is not backed up. The data in this directory is backed up in a different way. Please refer to the next sub-section.
@@ -91,7 +94,7 @@ You may notice that `db-data` directory is not backed up. The data in this direc
 
 _available since Enterprise Edition 3.0.0_
 
-Data managed by dtable-db component is archived rows from bases. They should be backed up as well. Data for dtable-db sits in the `/opt/seatable/seatable-data/seatable/db-data` directory.
+Data managed by dtable-db component is archived rows from bases. They should be backed up as well. Data for dtable-db sits in the `/opt/seatable-server/seatable/db-data` directory.
 
 Unlike other components, dtable-db provides built-in automatic backup mechanism. It will take a snapshot for each base and upload to dtable-storage-server. dtable-db only make new backup for a base if it detects changes to it. This makes the backup more efficient. dtable-storage-server also compresses the backups to make it more storage-efficient.
 
@@ -100,38 +103,42 @@ To setup automatic backup for dtable-db:
 1. Setup and run dtable-storage-server. It should be started by default. Find more details in [dtable-storage-server documentation](../configuration/dtable-storage-server-conf.md).
 2. Set `[backup]` configuration options in dtable-db.conf as in [dtable-db documentation](../configuration/dtable-db-conf.md)
 
-If you configure dtable-storage-server with local file system as backend, dtable-storage-server saves its data to the path specified in dtable-storage-server.conf. By default it's set to `/opt/seatable/seatable-data/seatable/storage-data`. If you set up your backup as in the last section, you should have already backed up this directory as well. Since storage-data directory has already contained the backups for dtable-db, data in db-data directory doesn't need to backup.
+If you configure dtable-storage-server with local file system as backend, dtable-storage-server saves its data to the path specified in dtable-storage-server.conf. By default it's set to `/opt/seatable-server/seatable/storage-data`. If you set up your backup as in the last section, you should have already backed up this directory as well. Since storage-data directory has already contained the backups for dtable-db, data in db-data directory doesn't need to backup.
 
-If you configure dtable-storage-server with object storage as backend, there will be no data saved to `/opt/seatable/seatable-data/seatable/storage-data`. So you don't have to backup storage-data directory either.
+If you configure dtable-storage-server with object storage as backend, there will be no data saved to `/opt/seatable-server/seatable/storage-data`. So you don't have to backup storage-data directory either.
 
 You can also manually execute the command to backup dtable-db data immediately
 
 ```
-docker exec -it seatable /opt/seatable/scripts/seatable.sh backup-all
+docker exec -it seatable-server /opt/seatable/scripts/seatable.sh backup-all
 ```
 
-## Recovery
+## Restore
 
 ### Restore the databases
 
-```
-docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD ccnet_db < /opt/seatable-backup/databases/ccnet_db.sql
-docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD seafile_db < /opt/seatable-backup/databases/seafile_db.sql
-docker exec -i seatable-mysql /usr/bin/mysql -uroot -pMYSQL_ROOT_PASSWORD dtable_db < /opt/seatable-backup/databases/dtable_db.sql
+```bash
+# replace <your_mysql_password> with your actual MySQL password (might be still present in /opt/seatable-compose/.env)
+# beware that this method will expose your mysql password in the process list and shell history of the docker host
+
+docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' ccnet_db < /opt/seatable-backup/databases/ccnet_db.sql
+docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' seafile_db < /opt/seatable-backup/databases/seafile_db.sql
+docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' dtable_db < /opt/seatable-backup/databases/dtable_db.sql
 
 ```
 
 ### Restore the SeaTable data
 
 ```
-rsync -az /opt/seatable-backup/seatable /opt/seatable/seatable-data/seatable
+rsync -az /opt/seatable-backup/seatable-server /opt
+rsync -az /opt/seatable-backup/seatable-compose /opt
 
 ```
 
 ### Restore the dtable-db data
 
 ```
-docker exec -it seatable /opt/seatable/scripts/seatable.sh restore-all
+docker exec -it seatable-server /opt/seatable/scripts/seatable.sh restore-all
 ```
 
 ## Database Backup (optional - without operation log)

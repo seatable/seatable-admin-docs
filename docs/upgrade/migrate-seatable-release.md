@@ -1,16 +1,17 @@
 # Migrate to new installation method
 
-<!-- md:version 4.3 -->
+<!-- md:version 4.3.10 -->
 
-The new installation method makes future updates and the installation of additional components child's play.
+To bring your SeaTable Server into the /opt/seatable-compose form used by Version 4.3.10 and greater, the following needs to be done:
 
-To bring SeaTable Server into the new form, the following things must happen:
+- Change Directory structure
+- Change Container names
+- Adapt Configuration files
+- Remove Python Runner, FAAS Scheduler and OnlyOffice (will be activated again after the migration)
 
-- Directory structure changes.
-- Container names change.
-- Configuration files must be adapted.
+!!! warning "Backup is recommended"
 
-The Python Runner, FAAS Scheduler and OnlyOffice will be removed. Then can easily be installed again afterwords with the new method.
+    Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, we reccommend to create a backup/dump of your databases before the update. See [backup and recovery](../maintain/backup_recovery.md) for more details.
 
 ## Required steps
 
@@ -25,7 +26,7 @@ docker compose down
 
 !!! warning "docker-compose vs docker compose"
 
-    The usage of `docker-compose` (with - in the command) is not supported any longer. Please switch to the new command `docker compose`. Please ask google for help with your linux system. For debian and ubuntu this might be sufficient:
+    The usage of `docker-compose` (with - in the command) is not supported any longer. Please switch to the new command `docker compose`. Please refer to the [offical install instructions](https://docs.docker.com/compose/install/). For debian and ubuntu this might be sufficient:
 
     ```bash
     apt update && \
