@@ -14,7 +14,7 @@ You can find the available images and their versions at :material-docker: docker
 
 !!! warning "Backup is recommended"
 
-    To protect your data, it is strongly recommended to back up the database prior to the migration. See the section on [backup and recovery](../maintain/backup-recovery.md) for details.
+    To protect your data, it is strongly recommended to back up the database prior to the migration. See the section on [backup and recovery](../maintenance/backup-recovery.md) for details.
 
 ## Migration
 

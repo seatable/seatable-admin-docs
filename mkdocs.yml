@@ -71,9 +71,9 @@ plugins:
         "installation.md": "installation/basic-setup.md"
         "config.md": "configuration/plugins.md"
         "maintain.md": "upgrade/upgrade-manual.md"
-        "maintain/seatable_fsck.md": "maintain/filesystem-check.md"
-        "maintain/clean_database.md": "maintain/clean-database.md"
-        "maintain/backup_recovery.md": "maintain/backup-recovery.md"
+        "maintain/seatable_fsck.md": "maintenance/filesystem-check.md"
+        "maintain/clean_database.md": "maintenance/clean-database.md"
+        "maintain/backup_recovery.md": "maintenance/backup-recovery.md"
   - git-committers:
       repository: seatable/seatable-admin-docs
       branch: main
@@ -235,14 +235,14 @@ nav:
           - Switch Installation Method (v4.3): upgrade/migrate-seatable-release.md
 
   - Maintenance:
-      - Backup and Recovery: maintain/backup-recovery.md
-      - Clean Database: maintain/clean-database.md
-      - Clean Storage: maintain/garbage-collector.md
-      - Filesystem check: maintain/filesystem-check.md
-      - Change URL: maintain/change-url.md
-      - Password reset: maintain/password-reset.md
-      - Logging: maintain/logs.md
-      - Add custom error messages: maintain/debugging.md
+      - Backup and Recovery: maintenance/backup-recovery.md
+      - Clean Database: maintenance/clean-database.md
+      - Clean Storage: maintenance/garbage-collector.md
+      - Filesystem check: maintenance/filesystem-check.md
+      - Change URL: maintenance/change-url.md
+      - Password reset: maintenance/password-reset.md
+      - Logging: maintenance/logs.md
+      - Add custom error messages: maintenance/debugging.md
 #  - Migration:
 #      - Mysql: config/ccnet-conf.md
 #      - Postgres: config/ccnet-conf.md

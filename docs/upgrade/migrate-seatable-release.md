@@ -11,7 +11,7 @@ To bring your SeaTable Server into the /opt/seatable-compose form used by Versio
 
 !!! warning "Backup is recommended"
 
-    Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, we reccommend to create a backup/dump of your databases before the update. See [backup and recovery](../maintain/backup-recovery.md) for more details.
+    Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, we reccommend to create a backup/dump of your databases before the update. See [backup and recovery](../maintenance/backup-recovery.md) for more details.
 
 ## Required steps
 
