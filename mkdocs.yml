@@ -33,6 +33,10 @@ theme:
   logo: assets/SeaTable256-256.png
   favicon: assets/seatable-favicon.ico
 
+  # custom 404.html
+  static_templates:
+    - 404.html
+
   palette:
     - scheme: default
       primary: indigo
