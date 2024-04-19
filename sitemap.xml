@@ -376,42 +376,42 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/maintain/backup-recovery/</loc>
+         <loc>https://admin.seatable.io/maintenance/backup-recovery/</loc>
          <lastmod>2024-04-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/maintain/change-url/</loc>
+         <loc>https://admin.seatable.io/maintenance/change-url/</loc>
          <lastmod>2024-04-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/maintain/clean-database/</loc>
+         <loc>https://admin.seatable.io/maintenance/clean-database/</loc>
          <lastmod>2024-04-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/maintain/debugging/</loc>
+         <loc>https://admin.seatable.io/maintenance/debugging/</loc>
          <lastmod>2024-04-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/maintain/filesystem-check/</loc>
+         <loc>https://admin.seatable.io/maintenance/filesystem-check/</loc>
          <lastmod>2024-04-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/maintain/garbage-collector/</loc>
+         <loc>https://admin.seatable.io/maintenance/garbage-collector/</loc>
          <lastmod>2024-04-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/maintain/logs/</loc>
+         <loc>https://admin.seatable.io/maintenance/logs/</loc>
          <lastmod>2024-04-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://admin.seatable.io/maintain/password-reset/</loc>
+         <loc>https://admin.seatable.io/maintenance/password-reset/</loc>
          <lastmod>2024-04-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
