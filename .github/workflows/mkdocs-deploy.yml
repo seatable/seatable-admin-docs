@@ -29,11 +29,11 @@ jobs:
           echo "Variable 2: $MKDOCS_GIT_COMMITTERS_APIKEY"
           mkdocs build --verbose --strict
         env:
-          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITERS_APIKEY }}
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITTERS_APIKEY }}
           CI: true
 
       - name: gh-deploy
         run: mkdocs gh-deploy --force
         env:
-          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITERS_APIKEY }}
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITTERS_APIKEY }}
           CI: true
