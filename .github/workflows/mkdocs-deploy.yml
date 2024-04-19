@@ -24,16 +24,16 @@ jobs:
         run: mkdocs --version
 
       - name: build
-        run: mkdocs build --verbose --strict
+        run: |
+          echo "Variable CI: $CI"
+          echo "Variable 2: $MKDOCS_GIT_COMMITTERS_APIKEY"
+          mkdocs build --verbose --strict
         env:
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITERS_APIKEY }}
           CI: true
 
       - name: gh-deploy
-        run: |
-          echo "Variable CI: $CI"
-          echo "Variable 2: $MKDOCS_GIT_COMMITTERS_APIKEY"
-          mkdocs gh-deploy --force
+        run: mkdocs gh-deploy --force
         env:
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITERS_APIKEY }}
           CI: true
