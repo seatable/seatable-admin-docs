@@ -24,10 +24,7 @@ jobs:
         run: mkdocs --version
 
       - name: build
-        run: |
-          echo "Variable CI: $CI"
-          echo "Variable 2: $MKDOCS_GIT_COMMITTERS_APIKEY"
-          mkdocs build --verbose --strict
+        run: mkdocs build --verbose --strict
         env:
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITTERS_APIKEY }}
           CI: true
