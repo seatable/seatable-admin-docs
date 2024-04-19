@@ -63,6 +63,12 @@ plugins:
         "docker/Enterprise-Edition/migrate_seatable_editions.md": "upgrade/migrate-seatable-editions.md"
         "docker/Developer-Edition/Deploy SeaTable-DE with Docker.md": "installation/basic-setup.md"
         "editions.md": "introduction/editions.md"
+        "installation.md": "installation/basic-setup.md"
+        "config.md": "configuration/plugins.md"
+        "maintain.md": "upgrade/upgrade-manual.md"
+        "maintain/seatable_fsck.md": "maintain/filesystem-check.md"
+        "maintain/clean_database.md": "maintain/clean-database.md"
+        "maintain/backup_recovery.md": "maintain/backup-recovery.md"
 
 hooks:
   - overrides/hooks/shortcodes.py
