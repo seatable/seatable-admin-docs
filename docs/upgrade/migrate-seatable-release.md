@@ -1,6 +1,6 @@
 # Migrate to new installation method
 
-<!-- md:version > 4.3.10 -->
+<!-- md:version 4.3.10 -->
 
 To bring your SeaTable Server into the /opt/seatable-compose form used by Version 4.3.10 and greater, the following needs to be done:
 
