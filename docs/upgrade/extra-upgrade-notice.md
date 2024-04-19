@@ -6,7 +6,7 @@
 
     Version 4.3 introduces a new installation method relying on multiple yml files, an .env file and caddy as new reverse proxy. This setup is more convenient and will be the basis for all future explanations.
 
-    It is not mandatory to switch to this new setup but it is recommended. Read this [article for more information](/upgrade/migrate_seatable_release/).
+    It is not mandatory to switch to this new setup but it is recommended. Read this [article for more information](./migrate-seatable-release.md).
 
 ??? success "mariadb container healthchecks"
 

@@ -56,7 +56,7 @@ This manual provides two different approaches how to install SeaTable.
 
 There is a _Single-Node Setup_, where all components of SeaTable are installed on one server or virtual machine. All services can be reached by a single URL. The installation is fairly straigt forward thanks to the consequent usage of Docker. This setup is easy for testing and production for up to 100 users.
 
-[Let's begin with the Single-Node installation](/installation-rework/basic-setup/){ .md-button .md-button--primary }
+[Let's begin with the Single-Node installation](installation/basic-setup.md){ .md-button .md-button--primary }
 
 ### Advanced Setup
 
@@ -68,13 +68,13 @@ The _'Advanced Setup_ section doesn't entail a distinct installation method; rat
 
 Every user accessing SeaTable via the browser must undergo authentication, typically through a combination of email and password. However, SeaTable goes beyond traditional methods, offering support for advanced authentication protocols such as LDAP, OAuth, and SAML. This ensures flexibility and security in user authentication, catering to diverse organizational needs and preferences
 
-![SeaTable Login Page](./images/screenshot_seatable_login.png)
+![SeaTable Login Page](assets/images/screenshot_seatable_login.png)
 
 ### Home Page
 
 At SeaTable's Home Page, you gain seamless access to all your bases, each of which functions as a distinct database or process. These bases serve as the foundation for organizing and managing your data, offering versatility in structuring your information according to your specific needs. Whether you're storing project data, tracking tasks, or managing customer information, SeaTable's intuitive interface empowers you to streamline your workflows and harness the full potential of your data assets.
 
-![SeaTable Login Page](./images/screenshot_seatable_home_page.png)
+![SeaTable Login Page](assets/images/screenshot_seatable_home_page.png)
 
 ### Base Editor
 
@@ -82,4 +82,4 @@ The base editor serves as the central hub of SeaTable, facilitating the structur
 
 You have complete freedom in designing your bases. You determine the data to be saved and the manner in which you interact with it. Whether it's organizing project details, tracking inventory, or managing contacts, SeaTable empowers you to tailor your bases to your specific needs and workflows.
 
-![SeaTable Base Editor](./images/screenshot_seatable_base_editor.png)
+![SeaTable Base Editor](assets/images/screenshot_seatable_base_editor.png)

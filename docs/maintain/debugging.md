@@ -1,3 +1,7 @@
+---
+status: new
+---
+
 # Advanced debugging by adding error messages
 
 Sometimes SeaTable does not behave like you expect it to behave. Then it is time for some advanced debugging skills. This article debugs a possible problem to give you some knowledge that might help you to solve other problems, too. To follow this explanation you should have at least some development experience.
@@ -6,7 +10,7 @@ Sometimes SeaTable does not behave like you expect it to behave. Then it is time
 
 Imagine the situation that the "Share a base with other users" does not show the users you expected.
 
-![How to debug, if a user is not found](/images/advanced_debugging_user_not_found.png)
+![How to debug, if a user is not found](../assets/images/advanced_debugging_user_not_found.png)
 
 You have no idea why the auto complete function is not working as expected. So let's find out.
 
@@ -22,7 +26,7 @@ In this case there are not errors in the console tab. That means there are not g
 
 In the network tab, you can detect what kind of calls are executed, if you search for a user.
 
-![Result of the network tab](/images/advanced_debugging_network_tab.png)
+![Result of the network tab](../assets/images/advanced_debugging_network_tab.png)
 
 From the results you can see that with every key stroke SeaTable executes a command like:
 

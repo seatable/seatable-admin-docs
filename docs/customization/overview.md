@@ -4,7 +4,7 @@ SeaTable Server offers numerous options for tailoring the system to your specifi
 
 Let's explore the various possibilities for UI customization
 
-![SeaTable Customization](/images/seatable-customization.png)
+![SeaTable Customization](../assets/images/seatable-customization.png)
 
 ## Where to find the configuration files?
 

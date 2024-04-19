@@ -20,4 +20,4 @@ As the SeaTable API evolves to meet the changing needs of our users and develope
 
 ## Extra Upgrade Notices
 
-In addition to general changelogs, we provide specific [upgrade notices](/upgrade/extra-upgrade-notice/) containing changes relevant to administrators. These notices highlight critical updates, potential impact on system configurations, and any necessary actions to ensure smooth transitions during upgrades.
+In addition to general changelogs, we provide specific [upgrade notices](../upgrade/extra-upgrade-notice.md) containing changes relevant to administrators. These notices highlight critical updates, potential impact on system configurations, and any necessary actions to ensure smooth transitions during upgrades.
