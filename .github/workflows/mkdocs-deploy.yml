@@ -25,9 +25,12 @@ jobs:
 
       - name: build
         run: mkdocs build --verbose --strict
+        env:
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITERS_APIKEY }}
+          CI: true
 
       - name: gh-deploy
         run: mkdocs gh-deploy --force
         env:
-          MKDOCS_GIT_COMMITERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITERS_APIKEY }}
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.MKDOCS_GIT_COMMITERS_APIKEY }}
           CI: true
