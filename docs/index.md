@@ -29,7 +29,7 @@ If you want to use SeaTable, but you don't want to take the hurdle to run your o
 If you don't want to run your own server but you are searching for additional information, here are some **other ressources**, that might help you also:
 
 - **For users**: For information about how to use SeaTable, please refer to the [user documentation](https://docs.seatable.io/).
-- **For developers**: For developer-focus documentation, such as using SeaTable's API, scripting, automations and plugin development refer either to the [API reference](https://api.setable.io) or have a look at the [developer manual](https://developers.seatable.io).
+- **For developers**: For developer-focus documentation, such as using SeaTable's API, scripting, automations and plugin development refer either to the [API reference](https://api.seatable.io) or have a look at the [developer manual](https://developers.seatable.io).
 - **Others**: There are additional ressources. Check out our [YouTube channel](https://www.youtube.com/seatable) to get a better understanding of how to use SeaTable or to raise questions at the [community forum](https://forum.seatable.io).
 
 ## What is SeaTable?
