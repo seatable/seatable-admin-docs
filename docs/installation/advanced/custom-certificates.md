@@ -8,7 +8,7 @@ Usually we use let's encrypt to generate valid certificates for public access. N
 
 ## Make certificates available to caddy
 
-With the caddy.yml a default volume-mount is created: `/opt/caddy:/data`
+With the caddy.yml a default volume-mount is created: `/opt/caddy:/data/caddy`
 By convention you should provide your certificate & key files in the container host filesystem under `/opt/caddy/certs/` to make it available to caddy.
 
 In the article, we assume that your certificates were saved as `cert.pem` and `key.pem`.
@@ -33,7 +33,7 @@ services:
     ...
     labels:
       caddy: ${SEATABLE_SERVER_HOSTNAME}
-      caddy.tls: "/data/certs/cert.pem /data/certs/key.pem" # <-- this label tells caddy to use custom certificates !the order is important
+      caddy.tls: "/data/caddy/certs/cert.pem /data/caddy/certs/key.pem" # <-- this label tells caddy to use custom certificates !the order is important
 # [self signed only] if you are working with self signed or low trust certificates you also need to add them to the seatable container truststore..
     volumes:
       ...
