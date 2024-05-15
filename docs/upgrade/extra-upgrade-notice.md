@@ -88,7 +88,7 @@
 
 ## 4.3
 
-??? success "New default setup with multiple predefined yml files"
+??? warning "New default setup with multiple predefined yml files"
 
     Version 4.3 introduces a new installation method relying on multiple yml files, an .env file and caddy as new reverse proxy. This setup is more convenient and will be the basis for all future explanations.
 
