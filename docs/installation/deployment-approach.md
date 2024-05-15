@@ -1,6 +1,6 @@
 # Deployment Approach
 
-A SeaTable Server consists of multipe containers. Therefore let's talk about how you typically install such a system.
+A SeaTable Server consists of multiple containers. Therefore let's talk about how you typically install such a system.
 
 ## Multi-container installations can be intricate
 
