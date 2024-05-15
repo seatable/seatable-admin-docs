@@ -30,9 +30,53 @@
     docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
     ```
 
-??? info "New API Gateway"
+??? warning "New API Gateway"
 
-    Version 4.4 introduces several new API endpoints and improvements to existing ones, creating a more streamlined experience for all base operations. These endpoints are detailed in our [API Reference](https://api.seatable.io/reference/getbaseinfo). You can identify the new endpoints by their URLs, which include "/api-gateway/".
+    With this version, we have introduced a new component to SeaTable Server: the API Gateway. This optimized API handler is designed to efficiently manage external API requests for base operations. The API Gateway is now started by default and requires no additional configuration files. However, you will need to update your nginx configuration to make the new API endpoints, located at `/api-gateway/`, accessible.
+
+    To add this new location, please modify your `/opt/seatable-server/seatable/conf/nginx.conf` file. You can add the following section at the end of the configuration file, just before the final closing bracket:
+
+    ```sh
+    location /api-gateway/ {
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
+        add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
+            add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
+            return 204;
+        }
+        proxy_pass         http://127.0.0.1:7780/;
+        proxy_redirect     off;
+        proxy_set_header   Host              $http_host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Host  $server_name;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        access_log         /opt/nginx-logs/api-gateway.access.log seatableformat;
+        error_log          /opt/nginx-logs/api-gateway.error.log;
+    }
+    ```
+
+    To take advantage of the new caching mechanism of the API Gateway, you may also update your `dtable_server_config.json` configuration file to redirect `List Rows` and `Get Row` calls to the new API Gateway endpoints.
+
+    **Important:** Replace `cloud.seatable.io` with your public server URL. These the following two options are optional and can be omitted if not needed:
+
+    ```json
+    "redirect_list_row_api": true,
+    "dtable_web_service_url": "https://cloud.seatable.io"
+    ```
+
+    Afterwards, restart SeaTable with:
+
+    ```bash
+    docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
+    ```
+
+??? info "New API Calls for base operations"
+
+    Version 4.4 introduces several new API endpoints and improvements to existing ones, creating a more streamlined experience for all base operations. These endpoints are detailed in our [API Reference](https://api.seatable.io/reference/getbaseinfo). You can identify the new endpoints by their URLs, which include `/api-gateway/`.
 
     **Important:** All previous endpoints remain valid.
 
