@@ -69,6 +69,7 @@ The expected output should appear as follows.
 ├── n8n.yml
 ├── onlyoffice.yml
 ├── python-pipeline.yml
+├── restic.yml
 ├── seatable-server.yml
 ├── uptime-kuma.yml
 └── zabbix.yml
