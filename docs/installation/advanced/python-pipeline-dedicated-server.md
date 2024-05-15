@@ -33,4 +33,9 @@ Update .env and use docker compose up -d.
 
 SeaTable must know where to get the Python Pipeline.
 
-Update `dtable_web_settings.py` and add the public available URL.
+Update `dtable_web_settings.py` and add the public available URL. The two parameters are:
+
+```bash
+SEATABLE_FAAS_URL = 'https://the-public-url-of-python-scheduler'
+SEATABLE_FAAS_AUTH_TOKEN = 'the secret from your .env'
+```

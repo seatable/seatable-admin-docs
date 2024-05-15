@@ -43,9 +43,7 @@ For secure communication between SeaTable and the Python Pipeline, a shared secr
 pw=$(pwgen -s 40 1) && echo "Generated shared secret: ${pw}"
 ```
 
-#### Update the configuration
-
-The generated shared secret needs to be added to both your `.env` file. Copy and paste the following command:
+The generated shared secret needs to be added to your `.env` file. Copy and paste the following command:
 
 ```bash
 echo -e "\n# python-pipeline" >> /opt/seatable-compose/.env
