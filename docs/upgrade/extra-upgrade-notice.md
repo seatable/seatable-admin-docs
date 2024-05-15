@@ -1,5 +1,35 @@
 # Extra upgrade notice
 
+## 4.4
+
+??? warning "Migration to storage server required"
+
+    **Important:** This change applies only to users whose initial installed version was 1.x or 2.x.:
+
+    With SeaTable server version 3.0, a new storage server was introduced, which is the default storage type of bases since 3.0. If you started with version 1.x or 2.x, you might need to migrate some of your bases, because SeaTable will stop supporting the old storage mechanism with version 4.4.
+
+    The migration is easy. First, ensure that you have the following setting in your `dtable_web_settings.py`:
+
+    ```py
+    NEW_DTABLE_IN_STORAGE_SERVER = True
+    ```
+
+    Then, run these commands to migrate your bases:
+
+    ```sh
+    # list number of bases that are not stored in storage-server
+    docker exec -it seatable-server /templates/migrate_bases.sh --list
+
+    # migrate 10 bases to storage-server (repeat this command until all bases are migrated)
+    docker exec -it seatable-server /templates/migrate_bases.sh --migrate 10
+    ```
+
+    Afterwards, restart SeaTable with:
+
+    ```bash
+    docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
+    ```
+
 ## 4.3
 
 ??? success "New default setup with multiple predefined yml files"
@@ -111,13 +141,25 @@ NEW_DTABLE_IN_STORAGE_SERVER = True
 
 3. Enterprise edition needs to add configuration items in dtable-db.conf to automatically back up the archived data in the dtable-db.
 
-In dtable-db.conf
+In `dtable-db.conf`
 
 ```
 [backup]
 dtable_storage_server_url = http://127.0.0.1:6666
 backup_interval = 1440
 keep_backup_num = 3
+```
+
+4. Migrate bases to storage server
+
+Run these commands to list and migrate your bases to the new storage server.
+
+```sh
+# list number of bases that are not stored in storage-server
+docker exec -it seatable-server /templates/migrate_bases.sh --list
+
+# migrate 10 bases to storage-server (repeat this command until all bases are migrated)
+docker exec -it seatable-server /templates/migrate_bases.sh --migrate 10
 ```
 
 ## 2.7
