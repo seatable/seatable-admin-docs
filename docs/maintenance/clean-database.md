@@ -141,3 +141,13 @@ This requires that you have enough disk space, to create a duplicate of the exis
 
 This is the way, if you only have a limited amount of space available.
 ...
+
+
+## Clean expired sessions
+
+The `django_session` table is used to store user sessions. Expired sessions are not cleaned automatically, the database table will become large when you have a lot of users. The expired sessions can be cleaned up through the `clearsessions` command:
+
+```bash
+docker exec -it seatable-server /bin/bash
+seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clearsessions
+```
