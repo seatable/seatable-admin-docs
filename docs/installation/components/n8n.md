@@ -10,7 +10,7 @@ Give [n8n](https://n8n.io) a try, and we guarantee you'll fall in love with it j
 
 ## Installation
 
-This article shows you how to install **n8n** on your SeaTable server.
+This article shows you how to install **n8n** (Community Edition) on your SeaTable server.
 
 #### Change the .env file
 
@@ -64,7 +64,7 @@ Click on `install`, input **n8n-nodes-seatable**, and proceed with the confirmat
 
 [Read more about this community node in SeaTable Forum →](https://forum.seatable.io/t/rework-of-n8n-seatable-integration/2745/10)
 
-## Limitations of the Current n8n Version
+## Limitations of the Community Edition of n8n
 
 The installed n8n version on this server is the self-hosted free Community Edition, which aligns with the **Starter Cloud version**.
 
