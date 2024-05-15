@@ -4,64 +4,69 @@ status: new
 
 # Backup And Recovery
 
-## Overview
+!!! danger "rework until May 16th 2024"
 
-There are generally three parts of data to backup
+    This page is currently under construction. Please come back tomorrow.
 
-- SeaTable tables data
-- Databases
+## Data and folder structure
+
+If you setup your SeaTable server according to this manual, there should exist a folder structure like the following on your server.
+
+```
+/opt
+├── caddy
+│   ├── ...
+├── containerd
+│   ├── ...
+├── mariadb
+│   ├── ...
+├── seatable-compose
+│   ├── .env
+│   ├── caddy.yml
+│   ├── ...
+└── seatable-server
+    ├── nginx-logs
+    ├── seatable
+    │   ├── ccnet
+    │   ├── conf
+    │   ├── db-data
+    │   ├── logs
+    │   ├── pids
+    │   ├── scripts
+    │   ├── seafile-data
+    │   ├── seahub-data
+    │   ├── seatable-license.txt
+    │   └── storage-data
+    └── ssl
+```
+
+There are generally four parts of data you have to save to keep your data secure.
+
+- mariadb database
+- SeaTable base data (including Big Data)
 - Configuration files with private keys
+- Credentials and deployment settings
 
-If you setup your SeaTable server according to our manual, there should exist a directory layout like this:
+Let us clarify where you find which content and how we should backup them.
 
-```
-/opt/seatable-server/seatable/
-├── ccnet
-├── conf
-├── db-data
-├── logs
-├── pids
-├── scripts
-├── seafile-data
-├── seahub-data
-└── storage-data
+### mariadb database
 
-```
+SeaTable creates three database in the `mariadb` Docker container:
 
-All your data is stored under the `/opt/seatable-server/seatable/` directory.
-
-#### Important sub-directories that contain user data:
-- seafile-data: contains uploaded files for file and image columns
-- seahub-data: contains data used by web front-end, such as avatars
-- db-data: contains archived rows in bases
-- storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
-
-#### Important MariaDB databases that contain user/metadata:
 - ccnet_db: contains user and group information
 - seafile_db: contains library metadata
 - dtable_db: contains tables used by the web front end
 
-??? info "Database structure"
+It is important to know that SeaTable does not store the content of a base in the mariadb container. Instead these kind of data types are stored in the database:
 
-    SeaTable stores the following data types in the MySQL database engine in the `mariadb` Docker container:
+- user actions and inputs in bases (e.g. new/modified/deleted rows, new/modified/deleted columns, new/modified, deleted views)
+- meta-information for bases (e.g. API-token, common datasets, links, row comments, snapshots, third-party accounts, webhooks)
+- statistical and log information (e.g. automation rules execution, row count)
+- user and group information (e.g. 2FA status, logins, user quota)
+- versioning information for the assets (e.g. files and images) saved in bases
 
-    * user actions and inputs in bases (e.g. new/modified/deleted rows, new/modified/deleted columns, new/modified, deleted views)
-    * meta-information for bases (e.g. API-token, common datasets, links, row comments, snapshots, third-party accounts, webhooks)
-    * statistical and log information (e.g. automation rules execution, row count)
-    * user and group information (e.g. 2FA status, logins, user quota)
-    * versioning information for the assets (e.g. files and images) saved in bases
-
-## Backup
-
-### Steps
-
-1. Backup the MySQL databases
-2. Backup the /opt/seatable-server/ directory
-3. Backup the /opt/seatable-compose/ directory (with your seatable license and .env secrets)
-
-Backup Order: Database First or Data Directory First
-
-### 1. Backup the MySQL databases
+The mariadb container persists the database information in the directory `/opt/mariadb` but instead of saving this directory you should create database dumps.
+Use the following commands to create such dump files.
 
 ```bash
 # It's recommended to backup the database to a separate files each time. Don't overwrite older database backups for at least a week.
@@ -77,6 +82,41 @@ docker exec -it "mariadb" "mysqldump" -u"root" -p'<your_mysql_password>' --opt "
 !!! warning
 
     The above commands do not work via cronjob. To create dumps of the database via cronjob, the parameters `-it` must be omitted.
+
+### SeaTable base data
+
+...
+
+### Configuration files with private keys
+
+...
+
+### Credentials and deployment settings
+
+...
+
+## Manual Backup
+
+#### Important sub-directories that contain user data:
+
+- seafile-data: contains uploaded files for file and image columns
+- seahub-data: contains data used by web front-end, such as avatars
+- db-data: contains archived rows in bases
+- storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
+
+#### Important MariaDB databases that contain user/metadata:
+
+## Backup
+
+### Steps
+
+1. Backup the MySQL databases
+2. Backup the /opt/seatable-server/ directory
+3. Backup the /opt/seatable-compose/ directory (with your seatable license and .env secrets)
+
+Backup Order: Database First or Data Directory First
+
+### 1. Backup the MySQL databases
 
 ### Backing up SeaTable data
 

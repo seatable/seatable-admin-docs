@@ -82,6 +82,10 @@
 
     However, the `List Rows (with SQL)`, `List Rows`, and `Get Row` endpoints now internally redirect to the new API Gateway endpoints with a status code 302. For most clients, this change will not affect their functionality. However, some clients, such as `curl`, may return an empty output when using these three endpoints. To resolve this, clients should follow the redirects. For `curl`, simply add the parameter `-L`. If you require further assistance, please post in our [Community Forum](https://forum.seatable.io).
 
+??? success "Added New Docker Container for Easy Backup"
+
+    We've added a new backup container to our lineup of components to simplify your backup process. Using Docker, installation is quick and easy. Our selected backup software, [restic](restic.net), supports a wide range of backup targets, including S3, Backblaze, local storage, and more. With restic's reliability, your data is secure with every backup.
+
 ## 4.3
 
 ??? success "New default setup with multiple predefined yml files"
