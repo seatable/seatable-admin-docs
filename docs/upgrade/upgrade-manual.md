@@ -37,7 +37,7 @@ To update, choose the appropriate setup of yours.
 
     Open your docker-compose.yml file and search for `seatable/seatable-enterprise:{tag}`. Replace the {tag} with the latest version and save the file.
 
-    No execute these commands, to pull and start the newest version.
+    Now, execute these commands to pull and start the newest version.
 
     ```bash
     docker compose pull

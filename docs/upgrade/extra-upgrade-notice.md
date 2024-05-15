@@ -4,7 +4,7 @@
 
 ??? warning "Migration to storage server required"
 
-    **Important:** This change applies only to users whose initial installed version was 1.x or 2.x.:
+    **Important:** This change applies only to users whose initial installed SeaTable server version was 1.x or 2.x.:
 
     With SeaTable server version 3.0, a new storage server was introduced, which is the default storage type of bases since 3.0. If you started with version 1.x or 2.x, you might need to migrate some of your bases, because SeaTable will stop supporting the old storage mechanism with version 4.4.
 
@@ -30,6 +30,14 @@
     docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
     ```
 
+??? info "New API Gateway"
+
+    Version 4.4 introduces several new API endpoints and improvements to existing ones, creating a more streamlined experience for all base operations. These endpoints are detailed in our [API Reference](https://api.seatable.io/reference/getbaseinfo). You can identify the new endpoints by their URLs, which include "/api-gateway/".
+
+    **Important:** All previous endpoints remain valid.
+
+    However, the `List Rows (with SQL)`, `List Rows`, and `Get Row` endpoints now internally redirect to the new API Gateway endpoints with a status code 302. For most clients, this change will not affect their functionality. However, some clients, such as `curl`, may return an empty output when using these three endpoints. To resolve this, clients should follow the redirects. For `curl`, simply add the parameter `-L`. If you require further assistance, please post in our [Community Forum](https://forum.seatable.io).
+
 ## 4.3
 
 ??? success "New default setup with multiple predefined yml files"
@@ -38,7 +46,7 @@
 
     It is not mandatory to switch to this new setup but it is recommended. Read this [article for more information](./migrate-seatable-release.md).
 
-??? success "mariadb container healthchecks"
+??? info "mariadb container healthchecks"
 
     This help is important if your MariaDB container remains unhealthy after executing `docker compose up -d`. This issue arises specifically if your initial MariaDB version was below 10.6 and you have now upgraded to a newer version. Older versions did not create the required health check user in the local database, causing the health checks to fail.
 
@@ -52,7 +60,7 @@
 
     The script essentially adds the user `healthcheck` to the MariaDB database and stores the credentials in a file accessible to the container."
 
-??? success "Django CSRF protection"
+??? info "Django CSRF protection"
 
     Django 4.* has introduced a new check for the origin http header in CSRF verification. It now compares the values of the origin field in HTTP header and the host field in HTTP header. If they are different, an error is triggered.
 
