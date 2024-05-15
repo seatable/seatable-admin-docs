@@ -21,6 +21,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://admin.seatable.io/configuration/dtable-api-gateway-conf/</loc>
+         <lastmod>2024-05-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://admin.seatable.io/configuration/dtable-db-conf/</loc>
          <lastmod>2024-05-15</lastmod>
          <changefreq>daily</changefreq>
