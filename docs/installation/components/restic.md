@@ -9,6 +9,8 @@ Running your own server always requires a reliable backup to secure your data. W
 - **Snapshots:** Forget about regular full backups; only the changes since the last backup need to be saved.
 - **Reliability:** With 24k stars on GitHub and nearly a decade of development, restic is exceptionally robust.
 
+![Simple and Secure Offsite Backups of your SeaTable Server with BorgBase](../../assets/images/backup_with_borgbase.png)
+
 ## Installation
 
 This article explains how to implement a restic backup for your SeaTable server.
@@ -38,9 +40,21 @@ echo -e "\n# restic-backup" >> /opt/seatable-compose/.env
 echo "RESTIC_PASSWORD=${pw}" >> /opt/seatable-compose/.env
 ```
 
-!!! success "Local Backups are better then no backups"
+!!! tip "Local Backups are better then no backups"
 
     This configuration will create daily snapshots including database dumps at your host system at `/opt/restic/local`. This is a good start, but of cause we recommend that you store your backup remotely.
+
+??? success "Secure offsite backup with BorgBase"
+
+    For small SeaTable servers, we could recommend the service BorgBase. They offer up to 10GB of Backup storage for free and the setup can be done in one minute.
+
+    1. Register at <https://borgbase.com>.
+    2. Create a new repo, choose any name and set the **Repo Format: Restic**.
+    3. Save the provided **repository url** and use it as `RESTIC_REPOSITORY`.
+
+    ![repository url from borgbase](../../assets/images/backup_with_borgbase_repository.png)
+
+    This is all that is necessary to create a secure offsite backup.
 
 #### Other backup targets
 
