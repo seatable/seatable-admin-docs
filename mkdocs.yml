@@ -154,6 +154,7 @@ nav:
           - Monitoring:
               - Uptime Kuma: installation/components/uptime-kuma.md
               - Zabbix: installation/components/zabbix.md
+          - Backup: installation/components/restic.md
           - FAQ / Troubleshooting: installation/faq.md
 
       - Advanced Topics:

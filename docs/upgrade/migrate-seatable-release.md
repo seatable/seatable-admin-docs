@@ -11,7 +11,7 @@ To bring your SeaTable Server into the /opt/seatable-compose form used by Versio
 
 !!! warning "Backup is recommended"
 
-    Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, we reccommend to create a backup/dump of your databases before the update. See [backup and recovery](../maintenance/backup-recovery.md) for more details.
+    Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, we recommend to create a backup/dump of your databases before the update. See [backup and recovery](../maintenance/backup-recovery.md) for more details.
 
 ## Required steps
 
@@ -53,7 +53,7 @@ Open up your current docker-compose.yml with the editor of your choice and note 
 - MYSQL_ROOT_PASSWORD
 - TIME_ZONE
 
-Rename docker-compose.yml to docker-compose.old to prevent that it is used anylonger. The command is
+Rename docker-compose.yml to docker-compose.old to prevent that it is used any longer. The command is
 
 ```bash
 mv /opt/seatable/docker-compose.yml /opt/seatable/docker-compose.old
