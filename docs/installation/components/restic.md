@@ -1,21 +1,21 @@
 # Restic Backup
 
-Running your own server always requires backup to secure your data. thanks to this backup container it is easy to get a daily backup. We choosed the backup software restic because of it advantages:
+Running your own server always requires a reliable backup to secure your data. With this backup container, obtaining a daily backup is easy. We chose the backup software Restic for its numerous advantages:
 
-- **Target:** Restic supports multiple backup targets like S3, Backblaze, Borgbase, Dropbox or Google Drive ...
-- **Speed:** Backup your data with lightspeed
-- **Encryption:** You can store you data anywhere. Without the encryption key, it is just data junk
-- **Deduplication:** Duplicate files or pieces of files are only saved once, so less data has to be transmitted
-- **Snapshots:** Forget about regular full backups. You only have to backup the delta since the last run.
-- **Reliable:** 24k stars at [GitHub](https://github.com/restic/restic) and nearly 10 years of development made restic super robust.
+- **Target:** Restic supports multiple backup targets, including S3, Backblaze, BorgBase, Dropbox, and Google Drive.
+- **Speed:** Backup your data at lightning speed.
+- **Encryption:** Your data is securely encrypted. Without the encryption key, it remains inaccessible.
+- **Deduplication:** Duplicate files or file fragments are saved only once, reducing the amount of data transmitted.
+- **Snapshots:** Forget about regular full backups; only the changes since the last backup need to be saved.
+- **Reliability:** With 24k stars on GitHub and nearly a decade of development, restic is exceptionally robust.
 
 ## Installation
 
-This article explains how to add the Python Pipeline on your SeaTable server.
+This article explains how to implement a restic backup for your SeaTable server.
 
 #### Change the .env file
 
-To install the Restic Backup container, include `restic.yml` in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images.
+To install the restic backup container, include `restic.yml` in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images.
 
 Simply copy and paste (:material-content-copy:) the following code into your command line:
 
@@ -46,7 +46,7 @@ echo "RESTIC_PASSWORD=${pw}" >> /opt/seatable-compose/.env
 
 To use another backup target then the local path `/opt/restic/local` you have to provide the additional environment variable `RESTIC_REPOSITORY`. Some backends require additional environment variables for authentication.
 
-Here are some examples. More information about all available backup targets can be found at the [official restic documentation](https://restic.readthedocs.io/).
+Here are some examples. For more details, refer to the [official restic documentation](https://restic.readthedocs.io/).
 
 === "REST Server"
 
@@ -102,7 +102,7 @@ docker logs restic-backup
 The output might look like this:
 
 ```console
-[2024-05-17 16:16] Starting the restic-backup container ...
+[2024-05-17 16:16] Starting the restic backup container ...
 [2024-05-17 16:16] Restic repository '/local' does not exists.
   Running restic init.
   created restic repository 7982e3a700 at /local
