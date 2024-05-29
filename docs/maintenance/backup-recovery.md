@@ -4,9 +4,13 @@ status: new
 
 # Backup And Recovery
 
-!!! danger "rework until May 16th 2024"
+If you decided to run your own SeaTable Server, you must make sure that you have a backup in place.
 
-    This page is currently under construction. Please come back tomorrow.
+To understand what you have to backup, you have to understand the architecture of a SeaTable Server. If you have not read the corresponding chapter so far, read the chapter now.
+
+Also for single-node servers we provide an easy-to-use backup container that makes backup easy.
+
+This article provides the details what could be and what has to be part of your backup. It gives you the knowledge to build your own backup procedure.
 
 ## Data and folder structure
 
@@ -49,15 +53,17 @@ There are generally four parts of data you have to save to keep your data secure
 
 Let us clarify where you find which content and how we should backup them.
 
-### mariadb database
+## What to backup?
+
+### Mariadb database
 
 SeaTable creates three database in the `mariadb` Docker container:
 
-- ccnet_db: contains user and group information
-- seafile_db: contains library metadata
-- dtable_db: contains tables used by the web front end
+- **ccnet_db**: contains user and group information
+- **seafile_db**: contains library metadata
+- **dtable_db**: contains tables used by the web front end
 
-It is important to know that SeaTable does not store the content of a base in the mariadb container. Instead these kind of data types are stored in the database:
+It is important to know, that SeaTable does not store the content of a base in the mariadb container. Instead these kind of data types are stored in the database:
 
 - user actions and inputs in bases (e.g. new/modified/deleted rows, new/modified/deleted columns, new/modified, deleted views)
 - meta-information for bases (e.g. API-token, common datasets, links, row comments, snapshots, third-party accounts, webhooks)
@@ -65,95 +71,93 @@ It is important to know that SeaTable does not store the content of a base in th
 - user and group information (e.g. 2FA status, logins, user quota)
 - versioning information for the assets (e.g. files and images) saved in bases
 
-The mariadb container persists the database information in the directory `/opt/mariadb` but instead of saving this directory you should create database dumps.
-Use the following commands to create such dump files.
+The mariadb container persists the database information in the directory `/opt/mariadb` but instead of saving this directory you should create database dumps. Use the following commands to create such dump files.
 
 ```bash
 # It's recommended to backup the database to a separate files each time. Don't overwrite older database backups for at least a week.
 # replace <your_mysql_password> with your actual MySQL password (might be still present in /opt/seatable-compose/.env)
 # beware that this method will expose your mysql password in the process list and shell history of the docker host
 
-mkdir -p /opt/seatable-backup/databases && cd /opt/seatable-backup/databases
-docker exec -it "mariadb" "mysqldump" -u"root" -p'<your_mysql_password>' --opt "ccnet_db" > "./ccnet_db.sql"
-docker exec -it "mariadb" "mysqldump" -u"root" -p'<your_mysql_password>' --opt "seafile_db" > "./seafile_db.sql"
-docker exec -it "mariadb" "mysqldump" -u"root" -p'<your_mysql_password>' --opt "dtable_db" > "./dtable_db.sql"
+source /opt/seatable-compose/.env
+mkdir -p /opt/seatable-backup && cd /opt/seatable-backup
+docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
+docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
+docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
 ```
 
 !!! warning
 
     The above commands do not work via cronjob. To create dumps of the database via cronjob, the parameters `-it` must be omitted.
 
-### SeaTable base data
+To decrease the size of your database dump you could exclude some database tables, that usually gets quite big and are not necessarily required. Possible examples could be:
 
-...
+- operation_log
+- delete_operation_log
+- session_log
+- activities
 
-### Configuration files with private keys
+To exclude some tables, you can use the `--ignore-table` parameter one or multiple times in the `mysqldump` command.
 
-...
+### User data
 
-### Credentials and deployment settings
+Inside `/opt/seatable-server/seatable` directory there are multiple folders, that contain user data. The three folders that must be part of the backup are:
 
-...
+- **storage-data**: contains base base, base snapshots and big data dumps.
+- **seafile-data**: contains uploaded files for file and image columns.
+- **seahub-data**: contains data used by web front-end, such as avatars
 
-## Manual Backup
+It is up to you, how you backup these folders.
 
-#### Important sub-directories that contain user data:
+The `db-data` directory contains big data content in a sql-like database structure. It is not recommended to save this folder. Instead the big data content is dumped to the storage-data folder.
 
-- seafile-data: contains uploaded files for file and image columns
-- seahub-data: contains data used by web front-end, such as avatars
-- db-data: contains archived rows in bases
-- storage-data: contains backups for the bases in dtable-db (added in Enterprise Edition 3.0.0); Since version 3.0.0, tables and snapshots are also stored in this directory.
+!!! note "Big Data is dumped automatically"
 
-#### Important MariaDB databases that contain user/metadata:
+    Big Data is dumped on a regular based every 24 hours by default. Change the [dtable-db settings](http://127.0.0.1:8000/configuration/dtable-db-conf/#backup) if you want to dump big data more often.
 
-## Backup
+    To force the dump of big data you could execute the following command:
 
-### Steps
+    ```sh
+    docker exec -it seatable-server /opt/seatable/scripts/seatable.sh backup-all
+    ```
 
-1. Backup the MySQL databases
-2. Backup the /opt/seatable-server/ directory
-3. Backup the /opt/seatable-compose/ directory (with your seatable license and .env secrets)
+### Configuration files
 
-Backup Order: Database First or Data Directory First
+The `conf` directory contains all config files of your SeaTable Server. To restore your server these config files are not mandatory, but it makes restore easier. Therefore we recommend to add the conf folder to your backup.
 
-### 1. Backup the MySQL databases
+### Credentials & deployment settings
 
-### Backing up SeaTable data
+`/opt/seatable-compose/` contains your `.env` file with secrets and your seatable license file. This should be part of your backup.
 
-You can use rsync to do incremental backup for data directories (assuming /opt/seatable-backup/ already exists)
+## Manual backup process
+
+Now you know the theory which files and directories have to be backed up. The following script might be a good starting point to consolidate all files that should be backup up into the directory `/opt/seatable-backup`. From there you can decide which backup method you would like to use.
 
 ```bash
+# create the backup directory
 mkdir -p /opt/seatable-backup/
-rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable-server /opt/seatable-backup
-rsync -az /opt/seatable-compose /opt/seatable-backup
-```
 
-You may notice that `db-data` directory is not backed up. The data in this directory is backed up in a different way. Please refer to the next sub-section.
+# mariadb dumps
+source /opt/seatable-compose/.env
+cd /opt/seatable-backup
+docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
+docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
+docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
 
-#### Setup automatic backup for dtable-db
-
-_available since Enterprise Edition 3.0.0_
-
-Data managed by dtable-db component is archived rows from bases. They should be backed up as well. Data for dtable-db sits in the `/opt/seatable-server/seatable/db-data` directory.
-
-Unlike other components, dtable-db provides built-in automatic backup mechanism. It will take a snapshot for each base and upload to dtable-storage-server. dtable-db only make new backup for a base if it detects changes to it. This makes the backup more efficient. dtable-storage-server also compresses the backups to make it more storage-efficient.
-
-To setup automatic backup for dtable-db:
-
-1. Setup and run dtable-storage-server. It should be started by default. Find more details in [dtable-storage-server documentation](../configuration/dtable-storage-server-conf.md).
-2. Set `[backup]` configuration options in dtable-db.conf as in [dtable-db documentation](../configuration/dtable-db-conf.md)
-
-If you configure dtable-storage-server with local file system as backend, dtable-storage-server saves its data to the path specified in dtable-storage-server.conf. By default it's set to `/opt/seatable-server/seatable/storage-data`. If you set up your backup as in the last section, you should have already backed up this directory as well. Since storage-data directory has already contained the backups for dtable-db, data in db-data directory doesn't need to backup.
-
-If you configure dtable-storage-server with object storage as backend, there will be no data saved to `/opt/seatable-server/seatable/storage-data`. So you don't have to backup storage-data directory either.
-
-You can also manually execute the command to backup dtable-db data immediately
-
-```
+# force dump of big data to storage-data folder
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh backup-all
+
+# backup files
+rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable-server/seatable /opt/seatable-backup
+rsync -az /opt/seatable-compose /opt/seatable-backup/
 ```
+
+### S3 instead of local storage
+
+In case that you use S3 instead of local storage, the folders `storage-data` and `seafile-data` are not stored on local file system. Instead all data is stored in the S3 buckets. A good backup method would be to implement a S3 sync with active versioning and life cycle management.
 
 ## Restore
+
+To restore your server, simply install a fresh new SeaTable Server and then import the mariadb dumps and all the user data.
 
 ### Restore the databases
 
@@ -167,7 +171,9 @@ docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' dta
 
 ```
 
-### Restore the SeaTable data
+### Restore the SeaTable data and deployment settings
+
+Simply copy all files back to their original position.
 
 ```
 rsync -az /opt/seatable-backup/seatable-server /opt
@@ -177,46 +183,12 @@ rsync -az /opt/seatable-backup/seatable-compose /opt
 
 ### Restore the dtable-db data
 
+To restore the big data, you can execute the following command. This will recreate the sql-like database structure from the dumps inside the `storage-data` folder.
+
 ```
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh restore-all
 ```
 
-## Database Backup (optional - without operation log)
+!!! warning "URL Change"
 
-Before running `clean_db_records`, you can make a backup by a shell script. The following tables with many records will be excluded:
-
-- operation_log
-- delete_operation_log
-- session_log
-- activities
-
-Example of the `database_backup.sh` backup shell script：
-
-```
-#!/bin/bash
-set -e
-db_host='<IP address of database>'
-db_user='root'
-db_name='dtable_db'
-backup_dir='/opt/seatable/db-backups'
-
-echo 'Start backing up the database'
-
-mysqldump -h$db_host -u$db_user -p --opt $db_name \
-  --ignore-table=$db_name.activities \
-  --ignore-table=$db_name.delete_operation_log \
-  --ignore-table=$db_name.operation_log \
-  --ignore-table=$db_name.session_log \
-  > $backup_dir/seatable.sql.`date +"%Y-%m-%d"`
-
-echo 'Database backup succeeded'
-```
-
-Run the shell script:
-
-```
-$ ./database_backup.sh
-Start backing up the database
-Enter password: xxxxx
-Database backup succeeded
-```
+    If you restore your SeaTable Server with a new URL, don't forget to execute the command line tool to update the URL.
