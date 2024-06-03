@@ -200,10 +200,9 @@ To restore your server, simply install a fresh new SeaTable Server and then impo
 # replace <your_mysql_password> with your actual MySQL password (might be still present in /opt/seatable-compose/.env)
 # beware that this method will expose your mysql password in the process list and shell history of the docker host
 
-docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' ccnet_db < /opt/seatable-backup/databases/ccnet_db.sql
-docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' seafile_db < /opt/seatable-backup/databases/seafile_db.sql
-docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' dtable_db < /opt/seatable-backup/databases/dtable_db.sql
-
+docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' ccnet_db < /opt/seatable-backup/ccnet_db.sql
+docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' seafile_db < /opt/seatable-backup/seafile_db.sql
+docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' dtable_db < /opt/seatable-backup/dtable_db.sql
 ```
 
 ### Restore the SeaTable data and deployment settings
@@ -211,9 +210,8 @@ docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' dta
 Simply copy all files back to their original position.
 
 ```
-rsync -az /opt/seatable-backup/seatable-server /opt
+rsync -az /opt/seatable-backup/seatable /opt/seatable-server
 rsync -az /opt/seatable-backup/seatable-compose /opt
-
 ```
 
 ### Restore the dtable-db data
