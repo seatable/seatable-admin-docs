@@ -145,8 +145,8 @@ docker exec mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dt
 # force dump of big data to storage-data folder
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh backup-all
 
-# backup files
-rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' /opt/seatable-server/seatable /opt/seatable-backup
+# backup files (exclude unnecessary directories)
+rsync -az --exclude 'ccnet' --exclude 'logs' --exclude 'db-data' --exclude 'pids' --exclude 'scripts' /opt/seatable-server/seatable /opt/seatable-backup
 rsync -az /opt/seatable-compose /opt/seatable-backup/
 ```
 
