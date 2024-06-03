@@ -138,9 +138,9 @@ mkdir -p /opt/seatable-backup/
 # mariadb dumps
 source /opt/seatable-compose/.env
 cd /opt/seatable-backup
-docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
-docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
-docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
+docker exec mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
+docker exec mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
+docker exec mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
 
 # force dump of big data to storage-data folder
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh backup-all
