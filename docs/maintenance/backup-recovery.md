@@ -65,8 +65,8 @@ Let us clarify where you find which content and how we should backup them.
 
 SeaTable creates three database in the `mariadb` Docker container, storing these kind of data types:
 
-- **ccnet_db:**: User accounts, Groups and team assignment.
-- **seafile_db:**: Workspace definitions and versioning information for the files and images.
+- **ccnet_db:** User accounts, Groups and team assignment.
+- **seafile_db:** Workspace definitions and versioning information for the files and images.
 - **dtable_db:** Meta-information for the bases, statistic and log information and operation log
 
 The mariadb container persists the database information in the directory `/opt/mariadb` but instead of saving this directory you should create database dumps. Use the following commands to create such dump files.
