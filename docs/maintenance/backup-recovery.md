@@ -190,6 +190,13 @@ This section covers typical custom cases and provides additional advanced topics
 
     If you restore your SeaTable Server with a new URL, don't forget to execute the [command line tool to update the URL](./change-url.md). Otherwise assets from the image and file columns will not be accessable.
 
+??? success "Take care to take over the PLUGINS_REPO_ID"
+
+    During the initial startup of the SeaTable container, SeaTable writes a variable called `PLUGIN_REPO_ID` to `dtable_web_settings.py`.
+    This variable represents a hidden library that stores the installation files of the SeaTable plugins. If you delete (commenting is not sufficient) this value from the configuration file, SeaTable will generate a new value upon the next start.
+
+    When performing a migration or restore, you have two options: you can either retain the existing value, ensuring that this repository exists in dtable-storage, or you can delete the value from `dtable_web_settings.py` and allow SeaTable to create a new one.
+
 ## Restore
 
 To restore your server, simply install a fresh new SeaTable Server and then import the mariadb dumps and copy all the user data.
