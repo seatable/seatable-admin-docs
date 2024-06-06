@@ -65,7 +65,7 @@
 
     ```json
     "redirect_list_row_api": true,
-    "dtable_web_service_url": "https://cloud.seatable.io"
+    "dtable_web_service_url": "https://cloud.seatable.io/"
     ```
 
     Afterwards, restart SeaTable with:
