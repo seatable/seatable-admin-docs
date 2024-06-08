@@ -8,6 +8,14 @@ n8n serves as an automation platform, enabling seamless connectivity between Sea
 
 Give [n8n](https://n8n.io) a try, and we guarantee you'll fall in love with it just like we have! :heart:
 
+!!! tip "Want to watch a step-by-step video instead of reading a manual?"
+
+    Watch a brief English video demonstrating all the essential steps:
+
+    :fontawesome-brands-youtube:{ style="color: #EE0F0F" }
+    __[Easy n8n Installation on SeaTable]__ :octicons-clock-24: 10m
+    [Easy n8n Installation on SeaTable]: https://www.youtube.com/watch?v=_mkA410VDT4
+
 ## Installation
 
 This article shows you how to install **n8n** (Community Edition) on your SeaTable server.
