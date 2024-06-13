@@ -59,14 +59,18 @@
     }
     ```
 
-    To take advantage of the new caching mechanism of the API Gateway, you may also update your `dtable_server_config.json` configuration file to redirect `List Rows` and `Get Row` calls to the new API Gateway endpoints.
+    ---
 
-    **Important:** Replace `cloud.seatable.io` with your public server URL. These the following two options are optional and can be omitted if not needed:
+    **Important: the following configuration is optional and can be omitted, if you don't have any issues with the API and rate limits**.
+
+    To take advantage of the new caching mechanism of the API Gateway, you may also update your `dtable_server_config.json` configuration file to redirect `List Rows` and `Get Row` calls to the new API Gateway endpoints.
 
     ```json
     "redirect_list_row_api": true,
     "dtable_web_service_url": "https://cloud.seatable.io/"
     ```
+
+    For sure you have to replace `cloud.seatable.io` with your own public server URL and don't forget the '/' at the end.
 
     Afterwards, restart SeaTable with:
 
