@@ -59,32 +59,12 @@
     }
     ```
 
-    ---
-
-    **Important: the following configuration is optional and can be omitted, if you don't have any issues with the API and rate limits**.
-
-    To take advantage of the new caching mechanism of the API Gateway, you may also update your `dtable_server_config.json` configuration file to redirect `List Rows` and `Get Row` calls to the new API Gateway endpoints.
-
-    ```json
-    "redirect_list_rows_api": true,
-    "dtable_web_service_url": "https://cloud.seatable.io/"
-    ```
-
-    For sure you have to replace `cloud.seatable.io` with your own public server URL and don't forget the '/' at the end.
-
-    Afterwards, restart SeaTable with:
+    Afterwards check your nginx configuration file for syntax errors and restart nginx.
 
     ```bash
-    docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
+    docker exec seatable-server nginx -t
+    docker exec seatable-server nginx -s reload
     ```
-
-??? info "New API Calls for base operations"
-
-    Version 4.4 introduces several new API endpoints and improvements to existing ones, creating a more streamlined experience for all base operations. These endpoints are detailed in our [API Reference](https://api.seatable.io/reference/getbaseinfo). You can identify the new endpoints by their URLs, which include `/api-gateway/`.
-
-    **Important:** All previous endpoints remain valid.
-
-    However, the `List Rows (with SQL)`, `List Rows`, and `Get Row` endpoints now internally redirect to the new API Gateway endpoints with a status code 302. For most clients, this change will not affect their functionality. However, some clients, such as `curl`, may return an empty output when using these three endpoints. To resolve this, clients should follow the redirects. For `curl`, simply add the parameter `-L`. If you require further assistance, please post in our [Community Forum](https://forum.seatable.io).
 
 ??? info "Added New Docker Container for Easy Backup"
 
