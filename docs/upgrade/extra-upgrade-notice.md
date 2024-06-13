@@ -66,7 +66,7 @@
     To take advantage of the new caching mechanism of the API Gateway, you may also update your `dtable_server_config.json` configuration file to redirect `List Rows` and `Get Row` calls to the new API Gateway endpoints.
 
     ```json
-    "redirect_list_row_api": true,
+    "redirect_list_rows_api": true,
     "dtable_web_service_url": "https://cloud.seatable.io/"
     ```
 
