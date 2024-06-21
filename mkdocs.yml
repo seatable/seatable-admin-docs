@@ -164,7 +164,7 @@ nav:
               - Force HTTP: installation/advanced/http-only.md
               - Additional Subdomains: installation/advanced/additional-subdomains.md
               - Air Gap Installation: installation/advanced/air-gap-installation.md
-              - Security: installation/advanced/webserver-security.md
+              - Webserver Security: installation/advanced/webserver-security.md
           - S3 Object Storage:
               - Configuration: installation/advanced/s3.md
               - Migration: installation/advanced/s3-migration.md

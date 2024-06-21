@@ -6,7 +6,7 @@ Our default deployment enforces strict security headers, which prevent the loadi
 
 If you are running your own server, you have the option to modify these security headers to allow additional sites to interact with your SeaTable server.
 
-To adjust these settings, you can modify the `seatable-server.yml` file located at `/opt/seatble-compose/seatable-server.yml`. The default configuration might look like this:
+To adjust these settings, you can modify the `seatable-server.yml` file located at `/opt/seatable-compose/seatable-server.yml`. The default configuration might look like this:
 
 ```
 caddy.header.Content-Security-Policy: "`
