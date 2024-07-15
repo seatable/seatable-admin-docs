@@ -1,5 +1,26 @@
 # Extra upgrade notice
 
+## 5.0
+
+!!! success "There are no mandatory changes necessary with version 5.0"
+
+??? info "Force usage of API-Gateway endpoints"
+
+    The following configuration is optional and can be omitted if you have no issues with API performance, rate limits, and resources. We recommend using the new `/api-gateway/` endpoints for faster responses and reduced workload on the SeaTable server.
+
+    To optimize your setup, update your `dtable_server_config.json` file to enable the new caching mechanism of the API Gateway. This will redirect `List Rows` and `Get Row` calls to the improved endpoints. Replace `cloud.seatable.io` with your public server URL (include the trailing '/')."
+
+    ```json
+    "redirect_list_rows_api": true,
+    "dtable_web_service_url": "https://cloud.seatable.io/"
+    ```
+
+    Afterwards, restart SeaTable with:
+
+    ```bash
+    docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
+    ```
+
 ## 4.4
 
 ??? warning "Migration to storage server required"
