@@ -241,6 +241,8 @@ nav:
       - Clean Storage: maintenance/garbage-collector.md
       - Filesystem check: maintenance/filesystem-check.md
       - Change URL: maintenance/change-url.md
+      - Export Base: maintenance/export-base.md
+      - Repair Base: maintenance/repair-base.md
       - Password reset: maintenance/password-reset.md
       - Logging: maintenance/logs.md
       - Add custom error messages: maintenance/debugging.md
