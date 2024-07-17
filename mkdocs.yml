@@ -159,6 +159,7 @@ nav:
 
       - Advanced Topics:
           - Webserver:
+              - Activate IPv6: installation/advanced/ipv6-support.md
               - Custom Reverse Proxy: installation/advanced/custom-proxy.md
               - Custom Certificates: installation/advanced/custom-certificates.md
               - Force HTTP: installation/advanced/http-only.md

@@ -2,9 +2,43 @@
 
 ## 5.0
 
-!!! success "There are no mandatory changes necessary with version 5.0"
+??? warning "API Gateway is mandatory for external links"
 
-??? info "Force usage of API-Gateway endpoints"
+    Starting with version 5.0, all requests for external links or external view links are routed through the API Gateway. If you haven't configured this with version 4.4, you need to do so now for version 5.0.
+
+    To configure the API Gateway, add the following location block to your `/opt/seatable-server/seatable/conf/nginx.conf` file. Insert this section at the end of the configuration file, just before the final closing bracket:
+
+    ```sh
+    location /api-gateway/ {
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
+        add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
+            add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
+            return 204;
+        }
+        proxy_pass         http://127.0.0.1:7780/;
+        proxy_redirect     off;
+        proxy_set_header   Host              $http_host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Host  $server_name;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        access_log         /opt/nginx-logs/api-gateway.access.log seatableformat;
+        error_log          /opt/nginx-logs/api-gateway.error.log;
+    }
+    ```
+
+    Afterwards check your nginx configuration file for syntax errors and then restart nginx.
+
+    ```bash
+    docker exec seatable-server nginx -t
+    docker exec seatable-server nginx -s reload
+    ```
+
+??? info "Force usage of API Gateway endpoints"
 
     The following configuration is optional and can be omitted if you have no issues with API performance, rate limits, and resources. We recommend using the new `/api-gateway/` endpoints for faster responses and reduced workload on the SeaTable server.
 
