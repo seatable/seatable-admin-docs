@@ -2,9 +2,9 @@
 
 ## 5.0
 
-??? warning "API Gateway is mandatory for external links"
+??? warning "API Gateway is mandatory for external links and Big Data"
 
-    Starting with version 5.0, all requests for external links or external view links are routed through the API Gateway. If you haven't configured this with version 4.4, you need to do so now for version 5.0.
+    Starting with version 5.0, all requests for external links, external view links or big data views are routed through the API Gateway. If you haven't configured this with version 4.4, you need to do so now for version 5.0.
 
     To configure the API Gateway, add the following location block to your `/opt/seatable-server/seatable/conf/nginx.conf` file. Insert this section at the end of the configuration file, just before the final closing bracket:
 
