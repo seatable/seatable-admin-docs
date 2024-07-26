@@ -53,7 +53,6 @@ General configuration options of the output of the SQL endpoint.
 - `default_result_rows`: Maximal number of rows that will be returned in one query, if `LIMIT` syntax is not used. Defaults to 100.
 - `result_rows_hard_limit`: Maximal number of rows that will be returned in one query. If the number of rows specified in `LIMIT` syntax is larger than this option, the system still returns at most the number of rows that specified in this option. The default is 10000.
 - `exec_cost_hard_limit`: Maximal execution cost of a query. If the estimated cost of a query exceeds this limit, the query is rejected. Default is 5000000.
-- `group_by_stmt_limit`: Maximal number of concurrent `group by` requests. If the number of `group by` requests exceeds this limit, new `group by` queries will wait in a queue. Default is 2.
 
 ## Example configuration
 
@@ -94,3 +93,7 @@ The section `[database]` contains options for accessing the MySQL database used 
 
 - `private_key`: Must be the same value like `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py`. Only necessary if your version is before "Enterprise edition 3.5.5". If your version is newer the value is read from `dtable_server_config.json`.
 - `clean_cache_interval`: Interval between cache cleaning. Unit is in seconds. Defaults to 300. This option is removed in "Enterprise edition 4.4.0". Since 4.4.0 a real-time eviction mechanism replaced regular cache cleanup mechanism.
+
+### [SQL]
+
+- `group_by_stmt_limit`: Maximal number of concurrent `group by` requests. If the number of `group by` requests exceeds this limit, new `group by` queries will wait in a queue. Default is 2. This option is removed in version 5.1.0. This option was only relevant when querying bases with big-data. In 5.1.0 version `group by` queries can be handled by a new OLAP engine, which is much more efficient. So this option is no longer necessary.
