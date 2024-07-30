@@ -8,6 +8,8 @@ docker exec -it seatable-server find /opt/seatable/seatable-server-latest/dtable
 3. throw the list to https://dedupelist.com
 => Sort results
 
+4. &gt; mit > ersetzen.
+
 4. Clean duplicates manually.
 
 5. add to javascript and as separate file.
