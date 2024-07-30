@@ -201,6 +201,6 @@ cd /opt/seatable-compose
 docker compose up -d
 ```
 
-Be patent and give the containers time to start. Then open your browser and check if you can reach your SeaTable server.
+Be patient and give the containers time to start. Then open your browser and check if you can reach your SeaTable server.
 
 If something is not working, check the [FAQ/Troubleshooting](../installation/faq.md) article. In the case that your mariadb container stays unhealth, check the [Extra upgrade notices for version 4.3](https://admin.seatable.io/upgrade/extra-upgrade-notice/).
