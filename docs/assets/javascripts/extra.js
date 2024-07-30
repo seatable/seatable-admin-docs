@@ -1,16 +1,18 @@
-function update_css_color(version) {
-  var color = document.getElementById("seatable_custom_color").value;
+function update_custom_color(version) {
+  var color = document.getElementById("cc_" + version).value;
   console.log(
     "Let me update the color in the css code to " +
       color +
       " for version " +
       version
   );
-  var divElement = document.getElementById("seatable_custom_color_output");
+  var divElement = document.getElementById("cc_output_" + version);
   var codeElement = divElement.querySelector("code");
 
   if (version === "v5.0") {
-    var css_input = `.add-page-dialog .app-select-page-item.selected .app-select-page-item-image-container,.add-page-dialog .app-select-page-item.selected .app-select-page-item-image-container:hover{border-color:##maincolor##}
+    var css_input = `#quota-bar .usage {  display: inline-block;  height: 100%;  vertical-align: top;  background: ##maincolor##;}
+.a-simulate {  color: ##maincolor## !important;  text-decoration: none;  font-weight: normal;  cursor: pointer;}
+.add-page-dialog .app-select-page-item.selected .app-select-page-item-image-container,.add-page-dialog .app-select-page-item.selected .app-select-page-item-image-container:hover{border-color:##maincolor##}
 .add-page-dialog .app-select-page-item.selected .app-select-page-item-name{color:##maincolor##}
 .add-workflow-task-dialog .add-workflow-task-body .submit-workflow.focus{background-color:##maincolor##;border-color:##maincolor##;color:#fff}
 .app-folder-tree .app-folder-tree-item.active-item{background-color:##maincolor##;border-radius:4px;color:#fff}
@@ -26,11 +28,11 @@ function update_css_color(version) {
 .big-data-import-process .am-progress-bar{background-color:##maincolor##;border:none;border-radius:5px;height:10px!important}
 .border-primary{border-color:##maincolor## !important}
 .btn-link{font-weight:400;color:##maincolor##;text-decoration:none}
+.btn-outline-primary,.btn-primary {  color: #fff;  background-color: ##maincolor##;  border-color: ##maincolor##;}
 .btn-outline-primary.disabled,.btn-outline-primary:disabled{color:##maincolor##;background-color:transparent}
 .btn-outline-primary:hover{color:#fff;background-color:##maincolor##;border-color:##maincolor##}
 .btn-outline-primary:not(:disabled):not(.disabled):active,.btn-outline-primary:not(:disabled):not(.disabled).active,.show>.btn-outline-primary.dropdown-toggle{color:#fff;background-color:##maincolor##;border-color:##maincolor##}
-.btn-outline-primary{color:##maincolor##;border-color:##maincolor##}
-.btn-outline-universal-01.disabled,.btn-outline-universal-01:disabled{background-color:initial;color:##maincolor##}
+.btn-outline-primary.btn-outline-universal-01.disabled,.btn-outline-universal-01:disabled{background-color:initial;color:##maincolor##}
 .btn-outline-universal-01.focus,.btn-outline-universal-01:focus{box-shadow:0 0 0 2px ##maincolor##80}
 .btn-outline-universal-01:hover{background-color:##maincolor##;border-color:##maincolor##;color:#fff}
 .btn-outline-universal-01:not(:disabled):not(.disabled).active,.btn-outline-universal-01:not(:disabled):not(.disabled):active,.show>.btn-outline-universal-01.dropdown-toggle{background-color:##maincolor##;border-color:##maincolor##;color:#fff}
@@ -102,9 +104,12 @@ function update_css_color(version) {
 .link-records-editor .create-link-records .new-record:hover{background:#fff;border-color:##maincolor##}
 .link-records-editor .create-link-records .new-record{align-items:center;border:1px dashed #ccc;border-radius:4px;color:##maincolor##;display:inline-flex;justify-content:center;padding:0 10px;width:100%}
 .list-group-item.active{z-index:2;color:##maincolor##;background-color:#fffaf5;border-color:rgba(0,40,100,.12)}
+.login-panel .login-panel-register-type:hover {  border-color: ##maincolor##;}
 .mobile-float-icon{background-color:##maincolor##;border:none;border-radius:50%;bottom:42px;box-shadow:0 3px 5px -1px #ffa25233,0 6px 10px 0 #ffa25224,0 1px 18px 0 #ffa2521f;color:#999;cursor:pointer;display:flex;font-size:16px;height:50px;position:fixed;right:10px;-webkit-user-select:none;user-select:none;width:50px}
 .mobile_mobile-select-all__9qLb-{color:##maincolor##}
 .mobile_mobile-select-all__esQ2M{color:##maincolor##}
+.nav .nav-item .nav-link.active {  color: ##maincolor##;  text-decoration: none;  border-bottom: 0.125rem solid ##maincolor##;}
+.nav-pills .nav-item .nav-link.active {  background-color: ##maincolor##;  color: #fff;  border: none;}
 .nav-pills .nav-link.active,.nav-pills .show>.nav-link{color:#fff;background-color:##maincolor##}
 .nav-tabs .nav-submenu .nav-item.active{color:##maincolor##}
 .option-editor-footer .item-text{color:##maincolor##;cursor:pointer}
@@ -119,6 +124,7 @@ function update_css_color(version) {
 .page-designer-element-setting-type.selected{border-bottom:2px solid ##maincolor##;color:##maincolor##}
 .page-item.active .page-link{z-index:3;color:#fff;background-color:##maincolor##;border-color:##maincolor##}
 .participants .add-participants i{background-color:#fff;border:2px solid #fff;border-radius:50%;color:##maincolor##;font-size:16px}
+.path-link {  color: ##maincolor## !important;  text-decoration: none;}
 .progress-bar{display:flex;flex-direction:column;justify-content:center;overflow:hidden;color:#fff;text-align:center;white-space:nowrap;background-color:##maincolor##;transition:width .6s ease}
 .rbc-now .rbc-date-context{background-color:##maincolor##;color:#fff}
 .rc-slider-handle-click-focused:focus{border-color:##maincolor##;box-shadow:none}
@@ -151,6 +157,7 @@ function update_css_color(version) {
 .seatable-app-form-settings .seatable-app-form-content .dragging-add-field{border:1px dashed ##maincolor##;color:##maincolor##}
 .seatable-app-form-settings .seatable-app-form-content .seatable-app-form-drop-placeholder{border:2px dashed ##maincolor##;border-radius:3px;height:100px;opacity:.75;width:100%}
 .seatable-app-page .dtable-plugin-column-setting-item-title .setting-choose-all{color:##maincolor##;cursor:pointer;font-size:12px;font-weight:450}
+.seatable-bg-orange {  background-color: ##maincolor## !important;}
 .seatable-form-app-settings-panel .add-all{color:##maincolor##;cursor:pointer;font-size:14px}
 .seatable-share-form .form-content .submit-form.focus{background-color:##maincolor##;border-color:##maincolor##;color:#fff}
 .select-columns-dialog .select-columns{color:##maincolor##;cursor:pointer;font-size:13px;font-weight:500}
@@ -172,8 +179,10 @@ function update_css_color(version) {
 .view-edit-popover-header .remove-icon-button{color:##maincolor##}
 .workflow-task-dialog .workflow-task-nodes-logs .workflow-task-node-log-selector.selected{border-bottom:2px solid ##maincolor##;color:#212529}
 .workflow-task-logs .workflow-task-log .workflow-task-log-icon{color:##maincolor##;margin-right:5px}
+/* 3 seatable common style */.seatable-text-orange {  color: ##maincolor## !important;}
 a.badge-primary:hover,a.badge-primary:focus{color:#fff;background-color:##maincolor##}
 a.bg-primary:hover,a.bg-primary:focus,button.bg-primary:hover,button.bg-primary:focus{background-color:##maincolor## !important}
+a:focus,a:hover {  color: ##maincolor##;}
 a{color:##maincolor##;text-decoration:none;background-color:transparent}`;
   } else if (version === "v4.3") {
     var css_input = `.account-dialog .nav .nav-item .nav-link.active{border-bottom:.125rem solid ##maincolor##;color:##maincolor##;text-decoration:none}
@@ -462,6 +471,11 @@ Die neue Liste ist dann reduziert.
 3. Bereinigen von doppelten Einträgen
 - https://dedupelist.com/ und [x] Sort results
 
-5. "#header" und ".tables-tabs-container" entfernen, sowie &gt; durch > ersetzen.
+5. Folgende Anpassungen:
+- "#header" und ".tables-tabs-container" entfernen, sonst wird der base header immer in der gleichen farbe eingefährt
+- doppelte a {...} (besonders mit font-weight: bold) entfernen.
+- das letzte .btn-outline-primary mit color: ##main-color## entfernen, sonst ist die button scriptfarbe beim anlegen von neuen apps weg.
+
+6. sowie &gt; durch > ersetzen.
 
 */

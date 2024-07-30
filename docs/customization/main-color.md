@@ -18,8 +18,8 @@ The first step is you use the following color picker and select a new main color
 
     Select a color and you will get the correspondent css code in the following grey box.
 
-    <input type="color" id="seatable_custom_color" onchange="update_css_color('v5.0')" value="#ff8000" style="width:100px">
-    <div id="seatable_custom_color_output">
+    <input type="color" id="cc_v5.0" onchange="update_custom_color('v5.0')" value="#ff8000" style="width:100px">
+    <div id="cc_output_v5.0">
     ```
     Select a color and the css code will be created...
     ```
@@ -31,8 +31,8 @@ The first step is you use the following color picker and select a new main color
 
     Select a color and you will get the correspondent css code in the following grey box.
 
-    <input type="color" id="seatable_custom_color" onchange="update_css_color('v4.3')" value="#ff8000" style="width:100px">
-    <div id="seatable_custom_color_output">
+    <input type="color" id="cc_v4.3" onchange="update_custom_color('v4.3')" value="#ff8000" style="width:100px">
+    <div id="cc_output_v4.3">
     ```
     Select a color and the css code will be created...
     ```
