@@ -23,11 +23,29 @@ Caddy will generate a let's encrypt certificate.
 
 ## Deployment of the Python Pipeline
 
-Deployment is simple.
+The deployment of a separate python pipeline is simple. Get seatable-release from github like described in the installation of seatable server and only use `python-pipeline-standalone.yml` and `caddy.yml`.
 
-Get seatable-release from github, only use python-pipeline.yml and caddy.yml. (not seatable-server.yml)
+Update your `.env`, that it looks like this and add/update the values according to your needs:
 
-Update .env and use docker compose up -d.
+```
+COMPOSE_FILE='caddy.yml,python-pipeline-standalone.yml'
+COMPOSE_PATH_SEPARATOR=','
+
+# system settings
+TIME_ZONE='Europe/Berlin'
+
+# seatable server url
+SEATABLE_SERVER_HOSTNAME=seatable.your-url.com
+
+# database
+SEATABLE_MYSQL_ROOT_PASSWORD=
+
+# python-pipeline-standalone
+PYTHON_SCHEDULER_HOSTNAME=python.your-url.com
+PYTHON_SCHEDULER_AUTH_TOKEN=shared secret with dtable_web_settings.py
+```
+
+Execute `docker compose up -d` to fire up your separate python pipeline.
 
 ## Configuration of SeaTable Server
 
@@ -36,6 +54,8 @@ SeaTable must know where to get the Python Pipeline.
 Update `dtable_web_settings.py` and add the public available URL. The two parameters are:
 
 ```bash
-SEATABLE_FAAS_URL = 'https://the-public-url-of-python-scheduler'
-SEATABLE_FAAS_AUTH_TOKEN = 'the secret from your .env'
+SEATABLE_FAAS_URL = 'https://python.your-url.com'
+SEATABLE_FAAS_AUTH_TOKEN = 'shared secret with python scheduler'
 ```
+
+Restart seatable service and test your python pipeline.
