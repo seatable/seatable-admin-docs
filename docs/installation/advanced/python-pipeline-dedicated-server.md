@@ -51,11 +51,11 @@ Execute `docker compose up -d` to fire up your separate python pipeline.
 
 SeaTable must know where to get the Python Pipeline.
 
-Update `dtable_web_settings.py` and add the public available URL. The two parameters are:
+Update the `.env` on the seatable server and add these two informations:
 
 ```bash
-SEATABLE_FAAS_URL = 'https://python.your-url.com'
-SEATABLE_FAAS_AUTH_TOKEN = 'shared secret with python scheduler'
+PYTHON_SCHEDULER_URL=https://python.your-url.com
+PYTHON_SCHEDULER_AUTH_TOKEN=shared secret with python scheduler
 ```
 
 Restart seatable service and test your python pipeline.
