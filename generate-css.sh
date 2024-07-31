@@ -10,7 +10,8 @@ fi
 # Concat CSS files from container
 docker run --rm -it --pull=always --quiet "seatable/seatable-enterprise:${SEATABLE_VERSION}" find /opt/seatable/seatable-server-latest/dtable-web/media ! -name 'fontawesome*.css' ! -name 'bootstrap*.css' -name '*.css' -exec cat {} \; > ./custom.css
 
-php manipulate-css.php custom.css
+# Manipulate custom.css
+docker run --rm --quiet -v $(pwd):/app/ --workdir /app php:8.2-cli php /app/manipulate-css.php custom.css
 
 # Sort + remove duplicates
 # Set LC_ALL to 'C' to make sorting identical to dedupelist.com
