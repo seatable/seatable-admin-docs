@@ -62,11 +62,11 @@ seatable.sh python-env manage.py migrate_avatars_fs2s3
 You will see how many avatars were migrated and when the migration will be finished:
 
 ```
-2024-06-17 14:41:44 [INFO] seahub.avatar.management.commands.migrate_avatars_fs2s3[31] - Success: 1, exists: 0, error: 0, count: 1
-2024-06-17 14:41:44 [INFO] seahub.avatar.management.commands.migrate_avatars_fs2s3[31] - Migrate done
+2024-06-17 ... migrate_avatars_fs2s3 - Success: 1, exists: 0, error: 0, count: 1
+2024-06-17 ... migrate_avatars_fs2s3 - Migrate done
 ```
 
-After successful migration, you can add `AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'` to your `dtable_web_settings.py and restart SeaTable.
+After successful migration, you can add `AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'` to your `dtable_web_settings.py and restart **SeaTable** and **memcached**.
 
 !!! warning "Security headers might prevent the loading of the images"
 
