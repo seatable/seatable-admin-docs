@@ -68,6 +68,8 @@ You will see how many avatars were migrated and when the migration will be finis
 
 After successful migration, you can add `AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'` to your `dtable_web_settings.py and restart **SeaTable** and **memcached**.
 
+After the migration is done, you can delete the old avatars directories below `/opt/seatable-server/seatable/seahub-data/avatars`. Don't delete the avatars folder itself and don't delete the default logos `default.png` and `app.png`. They are still used.
+
 !!! warning "Security headers might prevent the loading of the images"
 
     After activating S3 for avatars, the avatars are loaded directly from the S3 storage like `<img src="https://s3.us-east-2.amazonaws.com/...">`.
