@@ -1,6 +1,6 @@
-# Single-Node installation of a SeaTable Server
+# Single-Node installation of SeaTable Server
 
-Alright, let's dive in. This article will guide you through the process of installing a basic SeaTable server with a Caddy web server. By the end of this article, your new SeaTable server will be accessible via HTTPS with your custom domain. To begin, open a root shell on your server.
+This manual will guide you through the process of installing a SeaTable Server instance with Caddy as proxy. By the end of it, you'll have a SeaTable Server instance that is accessible via HTTPS under your custom domain.
 
 !!! tip "Want to watch a step-by-step video instead of reading a manual?"
 
@@ -12,11 +12,11 @@ Alright, let's dive in. This article will guide you through the process of insta
 
 !!! success "Installation made easy"
 
-    Most commands that are required to install a SeaTable Server are provided in a way, that you can just simply copy and paste the commands into your command line. Use the (:material-content-copy:) icon at the top-right of the code boxes.
+    Most commands in this manual are provided in a way that you can copy and paste them into your command line. Simply click the (:material-content-copy:) icon in the top-right corner of the code boxes to copy the commands to the clipboard.
 
 ## Install basic tools
 
-The following command installs basic tools that are used in the following manual. Usually all these tools are already installed on your linux server.
+First things first, open a root shell on your server and install some basic tools that you'll need. Usually all these tools are already installed on your Linux server.
 
 ```bash
 apt update && \
@@ -25,22 +25,22 @@ apt -y install curl pwgen tree wget tar nano
 
 ## Install Docker and Docker Compose Plugin
 
-At [get.docker.com](https://get.docker.com), you'll find a script designed for the easy and convenient installation of the Docker Engine. While the script isn't recommended for production environments, it has shown no issues in our observations. You can effortlessly install Docker using this single command:
+At [get.docker.com](https://get.docker.com), you find a script designed for the easy and convenient installation of the Docker Engine. While the script isn't recommended for production environments, it has shown no issues in our observations. You can effortlessly install Docker using this single command:
 
 ```bash
 curl -fsSL get.docker.com | bash
 ```
 
-Alternatively, you can opt to follow [Docker's official installation instructions](https://docs.docker.com/engine/install/)
+Alternatively, you can opt to follow [Docker's official installation instructions](https://docs.docker.com/engine/install/).
 
 ## Install SeaTable Server
 
 This installation assumes that all SeaTable components are installed under `/opt`.
-We highly recommended to keep this folder structure. All articles in the manual assume SeaTable's installation in this directory.
+We highly recommended to keep this folder structure. All articles in the SeaTable Admin Manual assume SeaTable's installation in this directory.
 
 #### 1. Create basic structure
 
-Simply copy and paste the following command into your command line to execute. This code will download the latest yml files from repository [:simple-github: seatable-release](https://github.com/seatable/seatable-release).
+Create a directory `seatable-compose` in `/opt` and download the latest YML-files from the repository [:simple-github: seatable-release](https://github.com/seatable/seatable-release) into it.
 
 ```bash
 mkdir /opt/seatable-compose && \
@@ -59,7 +59,7 @@ tree -a /opt/seatable-compose
 The expected output should appear as follows.
 
 ```bash
-# this should be the output of the tree command...
+# this should be the output of the tree command
 /opt/seatable-compose
 ├── caddy.yml
 ├── collabora.yml
@@ -68,6 +68,7 @@ The expected output should appear as follows.
 ├── n8n-init-data.sh
 ├── n8n.yml
 ├── onlyoffice.yml
+├── python-pipeline-standalone.yml
 ├── python-pipeline.yml
 ├── restic.yml
 ├── seatable-server.yml
@@ -75,20 +76,20 @@ The expected output should appear as follows.
 └── zabbix.yml
 ```
 
-!!! warning "Don't change these yml files"
+!!! warning "Don't change the YML-files"
 
-    Generally, there's no need to make changes to the different .yml files in most cases. Adjustments should be made only by experienced Docker administrators and then you should create a copy and rename the file.
+    Generally, there's no need to make changes to the YML-files. Modifications should only be made by experienced Docker administrators. If you do, it is recommended to duplicate the file(s) first and rename the file(s).
 
     ```bash
-    # Example to create a custom copy:
+    # create a custom copy
     cp n8n.yml custom-n8n.yml
     ```
 
-#### 2. Generate some secrets
+#### 2. Add secrets
 
 SeaTable is configured with the hidden `.env` file (=enviroment configuration file) that is stored in the folder `/opt/seatable-compose`.
 
-We utilize `pwgen` to create secure passwords for your _admin account_ and the _database root password_. The following commands will generate such passwords and include them in the `.env'` file.
+Now use the command line tool `pwgen` to create secure passwords for your _admin account_ and the _database root password_. The following commands will generate two such passwords and insert them in the `.env'` file.
 
     sed -i "s/^SEATABLE_ADMIN_PASSWORD=.*/SEATABLE_ADMIN_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^SEATABLE_MYSQL_ROOT_PASSWORD=.*/SEATABLE_MYSQL_ROOT_PASSWORD=$(pwgen 40 1)/" .env
@@ -97,7 +98,7 @@ Alternatively, you can manually add your own passwords.
 
 #### 3. Complete settings in the .env file
 
-Open the `.env` file with the editor of your choice, like `nano` or `vim`.
+Open the `.env` file with the text editor of your choice, like `nano` or `vim`.
 
 ```bash
 nano /opt/seatable-compose/.env
@@ -109,7 +110,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 - SEATABLE_SERVER_HOSTNAME
 - SEATABLE_ADMIN_EMAIL
 
-=== "`.env` for SeaTable Enterprise Edition"
+=== "`.env` for SeaTable Server Enterprise Edition"
 
     ``` python
     # components to be used
@@ -128,15 +129,15 @@ Continue setting up your SeaTable server by adjusting only three more variables.
     SEATABLE_ADMIN_PASSWORD='topsecret'
 
     # database
-    SEATABLE_MYSQL_ROOT_PASSWORD=
+    SEATABLE_MYSQL_ROOT_PASSWORD='alsotopsecret'
     ```
 
-    1.  COMPOSE_FILE is a comma separated list **without spaces**. This list defines which components should run on this server. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
-    2.  Get a [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) from Wikipedia.
+    1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
+    2.  You find a [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) in Wikipedia.
     3.  Select your domain or subdomain that points to your Server (without https://). You have to set an A-Record or CNAME pointing to your IP.
         <br>If you don't have an URL and want to use an IP, then use the free service nip.io and add your-ip.nip.io (e.g. 5.35.28.112.nip.io).
 
-=== "`.env` for SeaTable Developer Edition"
+=== "`.env` for SeaTable Server Developer Edition"
 
     To install the SeaTable Developer Edition instead of Enterprise edition, add the following parameter to your `.env` file. This overwrites the used SeaTable Docker image. **Everything else remains identical to the SeaTable Enterprise Edition.**
 
@@ -146,17 +147,19 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
     1.  Instead of latest you can select a concrete version from [https://hub.docker.com/r/seatable/seatable-developer/tags](https://hub.docker.com/r/seatable/seatable-developer/tags).
 
+!!! warning "Mind the quotation marks"
+
+    The variable values in the `.env` are strings. So they must be put in ' '.
+
 #### 4. Get a license
 
 !!! warning "SeaTable Enterprise requires a license to start"
 
-    This step is solely required for SeaTable Enterprise Edition installation. You can bypass this step for **SeaTable Developer Edition** and just create an empty `seatable-license.txt`.
+    This step is solely required when installing SeaTable Server Enterprise Edition. You can skip this step for **SeaTable Server Developer Edition** and just create an empty `seatable-license.txt`.
 
 !!! success "Three users, two years - for free."
 
-    SeaTable use for up to three users is free, with each license valid for two years. You can generate a new license at any time. If you enjoy SeaTable and are contemplating a larger license, [please get in touch with us](https://seatable.io/kontakt/?lang=auto).
-
-We've streamlined the process to request a complimentary enterprise license for three users, valid for two years, completely free of charge. After two years, you can request a new license with another two-year validity.
+    You can use SeaTable Server Enterprise Edition for free with up to three users, but you must request and download a license file. The license file is valid for two years. You can generate a new license file at any time. If you want to use SeaTable Server Enterprise Edition with more than three users, [please get in touch with SeaTable Sales](https://seatable.io/kontakt/?lang=auto).
 
 Run the following command, replacing `me@example.com` with your valid email address. Shortly after, you'll receive an email with instructions to download your license to the current directory.
 
@@ -175,10 +178,10 @@ Now it is time to run the following command to download and initiate the docker 
 docker compose up -d
 ```
 
-If the process completed successfully, you can now open your web browser and access SeaTable using the URL you specified in your `.env` file.
+If the initialization completes successfully, you can open your web browser and access your SeaTable Server instance using the URL specified in the `.env` file.
 Sign in using the credentials you provided in the same file.
 
-:partying_face: **Congratulations!** You've completed the basic setup of your SeaTable Server.
+:partying_face: **Congratulations!** You've completed the basic setup of SeaTable Server.
 
 ## Next steps
 
