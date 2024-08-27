@@ -247,6 +247,12 @@ nav:
       - Password reset: maintenance/password-reset.md
       - Logging: maintenance/logs.md
       - Add custom error messages: maintenance/debugging.md
+
+  - Courses:
+      - courses/index.md
+      - Level 1: courses/level-1.md
+      - Level 2: courses/level-2.md
+
 #  - Migration:
 #      - Mysql: config/ccnet-conf.md
 #      - Postgres: config/ccnet-conf.md
