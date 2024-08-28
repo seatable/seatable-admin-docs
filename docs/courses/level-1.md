@@ -128,3 +128,28 @@ Sie können nun mit dem Quiz starten, um ihr Wissen über SeaTable zu überprüf
 Bei einigen Fragen werden Sie die im Laufe des Tutorials erstellte Base benötigen.
 
 [TODO] Link einfügen
+
+# Quiz
+
+## Multiple-Choice-Fragen
+
+- Welche Nutzungsmöglichkeiten erlaubt SeaTable?
+  - Nutzung der Cloud-Plattform auf `cloud.seatable.io`
+  - Nutzung einer eigenen Instanz für Ihr Unternehmen, welche von der SeaTable GmbH administriert wird
+  - Nutzung einer eigenen Instanz (auf eigener Hardware oder in der Cloud)
+
+- Wieviele verschiedene Spaltentypen erlaubt SeaTable in der Version 5.0?
+  - weniger als 15
+  - zwischen 20 und 30
+  - mehr als 40
+
+- Welche Formeltypen stehen beim Spaltentyp `Formel für Verknüpfungen` zur Verfügung?
+  - `lookup`
+  - `random_sample`
+  - `countlinks`
+  - `match`
+
+- Welche Dateiformate können Sie in SeaTable importieren?
+  - XLSX (Microsoft Excel)
+  - CSV
+  - TXT
