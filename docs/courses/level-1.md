@@ -133,6 +133,25 @@ Bei einigen Fragen werden Sie die im Laufe des Tutorials erstellte Base benötig
 
 ## Multiple-Choice-Fragen
 
+- Für welche typischen Anwendungsfälle eignet sich SeaTable?
+  - Marketing
+  - Human Resources
+  - Customer Relationship Management
+  - Sales
+
+- Was sind weitergehende Features von SeaTable?
+  - Echtzeit-Kollaboration: mehrere User können gleichzeitig an einer Base arbeiten
+  - Bases können per Link freigeben werden (Lesezugriff)
+  - Plugins zur Erweiterung von SeaTable
+  - Creating charts
+
+- Welche Plugins bietet SeaTable derzeitig an?
+  - Calendar
+  - Gallery
+  - Kanban
+  - Page-design
+  - Invoice Generator
+
 - Welche Nutzungsmöglichkeiten erlaubt SeaTable?
   - Nutzung der Cloud-Plattform auf `cloud.seatable.io`
   - Nutzung einer eigenen Instanz für Ihr Unternehmen, welche von der SeaTable GmbH administriert wird
@@ -151,8 +170,9 @@ Bei einigen Fragen werden Sie die im Laufe des Tutorials erstellte Base benötig
 
 - Welche Dateiformate können Sie in SeaTable importieren?
   - XLSX (Microsoft Excel)
-  - CSV
-  - TXT
+  - CSV (comma-separated values)
+  - TXT (plaintext file)
+  - DTABLE (exported base)
 
 ## Fragen zum Use-Case
 
@@ -161,3 +181,7 @@ Bei einigen Fragen werden Sie die im Laufe des Tutorials erstellte Base benötig
 2) Wie viele Posten gibt es in der Kategorie `Clothing` im Jahr 2021? Lösung: `7`
 
 3) Wie hoch sind die Ausgaben in der Kategorie `Clothing` im Jahr 2022? Lösung: `1776,53`
+
+4) Wie hoch waren die Gesamtausgaben für Spa-Besuche? Lösung: `1465,69`
+
+5) Wie hoch waren die **durchschnittlichen** Ausgaben in der Kategorie `Clothing` im Jahr 2023? Lösung: `181.77`
