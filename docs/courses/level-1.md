@@ -153,3 +153,11 @@ Bei einigen Fragen werden Sie die im Laufe des Tutorials erstellte Base benötig
   - XLSX (Microsoft Excel)
   - CSV
   - TXT
+
+## Fragen zum Use-Case
+
+1) Wie hoch sind die Gesamtausgaben in der Kategorie `Travel`? Lösung: `2958,64`
+
+2) Wie viele Posten gibt es in der Kategorie `Clothing` im Jahr 2021? Lösung: `7`
+
+3) Wie hoch sind die Ausgaben in der Kategori `Clothing` im Jahr 2022? Lösung: `1776,53`
