@@ -17,7 +17,7 @@ To bring your SeaTable Server into the /opt/seatable-compose form used by Versio
 
 ### 1. Stop all containers
 
-Stop all containers (not only SeaTable) but also Python Runner, Faas-Scheduler and OnlyOffice.
+Stop all containers (not only SeaTable) but also Python Runner, FAAS Scheduler and OnlyOffice.
 
 ```bash
 cd /opt/seatable
@@ -38,7 +38,7 @@ Check with `docker ps` if containers still run and execute `docker stop <contain
 
 ### 2. Remove Python Pipeline and OnlyOffice
 
-If you installed onlyoffice, python runner or faas scheduler, you should now remove them.
+If you installed OnlyOffice, Python Runner or FAAS Scheduler, you should now remove them.
 
 ```bash
 rm -r /opt/onlyoffice
@@ -48,9 +48,10 @@ rm -r /opt/seatable-faas-scheduler
 
 ### 3. Get parameters password from current docker-compose.yml
 
-Open up your current docker-compose.yml with the editor of your choice and note down these two values:
+Open up your current docker-compose.yml with the editor of your choice and note down these three values:
 
 - MYSQL_ROOT_PASSWORD
+- SEATABLE_SERVER_HOSTNAME
 - TIME_ZONE
 
 Rename docker-compose.yml to docker-compose.old to prevent that it is used any longer. The command is
@@ -71,13 +72,13 @@ wget -c https://github.com/seatable/seatable-release/releases/latest/download/se
 cp -n .env-release .env
 ```
 
-Open `/opt/seatable-compose/.env` with your editor of choice (like vim or nano) and update these values according to your needs:
+Open `/opt/seatable-compose/.env` with your editor of choice (like vim or nano) and assign the values noted in 3. to these three variable:
 
-1. TIME_ZONE
-2. SEATABLE_MYSQL_ROOT_PASSWORD
-3. SEATABLE_SERVER_HOSTNAME
+- TIME_ZONE
+- SEATABLE_MYSQL_ROOT_PASSWORD
+- SEATABLE_SERVER_HOSTNAME
 
-The two values SEATABLE_ADMIN_EMAIL and SEATABLE_ADMIN_PASSWORD have to be set, because the values are expects. Currently the values are only used during the initial installation but this might change in the future.
+Additionally, the two variables SEATABLE_ADMIN_EMAIL and SEATABLE_ADMIN_PASSWORD must be specified. Currently the values are only used during the initial installation but this might change in the future.
 
 !!! success "Developer edition requires an additional variable"
 
@@ -159,6 +160,9 @@ DATABASES = {
         ...
     }
 }
+
+SEATABLE_FAAS_URL = 'http://python-scheduler'  # if you had the Python Runner and FAAS Scheduler configured, change to 'http://python-scheduler'
+SEATABLE_FAAS_AUTH_TOKEN = 'secret_string'     # change to the value of the PYTHON_SCHEDULER_AUTH_TOKEN variable in the .env file
 ```
 
 #### seafile.conf
