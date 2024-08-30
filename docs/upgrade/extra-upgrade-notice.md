@@ -2,11 +2,11 @@
 
 ## 5.0
 
-??? warning "API Gateway is mandatory for external links and Big Data"
+??? warning "API gateway is required for external links and big data"
 
-    Starting with version 5.0, all requests for external links, external view links or big data views are routed through the API Gateway. If you haven't configured this with version 4.4, you need to do so now for version 5.0.
+    Starting with version 5.0, all requests for external links, external view links or big data views are routed through the API Gateway. If you haven't configured the API gateway with version 4.4, you need to do so now for version 5.0.
 
-    To configure the API Gateway, add the following location block to your `/opt/seatable-server/seatable/conf/nginx.conf` file. Insert this section at the end of the configuration file, just before the final closing bracket:
+    To configure the API gateway, add the following location block to your `/opt/seatable-server/seatable/conf/nginx.conf` file. Insert this section at the end of the configuration file, just before the final closing curly bracket:
 
     ```sh
     location /api-gateway/ {
@@ -38,11 +38,11 @@
     docker exec seatable-server nginx -s reload
     ```
 
-??? info "Force usage of API Gateway endpoints"
+??? info "Force usage of API gateway endpoints"
 
-    The following configuration is optional and can be omitted if you have no issues with API performance, rate limits, and resources. We recommend using the new `/api-gateway/` endpoints for faster responses and reduced workload on the SeaTable server.
+    The following configuration is optional and can be omitted if you have no issues with API performance, rate limits, and resources. We recommend using the new `/api-gateway/` endpoints for faster responses and reduced workload on your SeaTable Server instance.
 
-    To optimize your setup, update your `dtable_server_config.json` file to enable the new caching mechanism of the API Gateway. This will redirect `List Rows` and `Get Row` calls to the improved endpoints. Replace `cloud.seatable.io` with your public server URL (include the trailing '/')."
+    To optimize your setup, update your `dtable_server_config.json` file to enable the new caching mechanism of the API gateway. This will redirect `List Rows` and `Get Row` calls to the improved endpoints. Replace `cloud.seatable.io` with your public server URL (include the trailing '/')."
 
     ```json
     "redirect_list_rows_api": true,
@@ -59,9 +59,9 @@
 
 ??? warning "Migration to storage server required"
 
-    **Important:** This change applies only to users whose initial installed SeaTable server version was 1.x or 2.x.:
+    **Important:** This change applies only to users whose initial installed SeaTable Server version was 1.x or 2.x.:
 
-    With SeaTable server version 3.0, a new storage server was introduced, which is the default storage type of bases since 3.0. If you started with version 1.x or 2.x, you might need to migrate some of your bases, because SeaTable will stop supporting the old storage mechanism with version 4.4.
+    With SeaTable Server version 3.0, a new storage server was introduced, which is the default storage type of bases since 3.0. If you started with version 1.x or 2.x, you might need to migrate some of your bases, because SeaTable will stop supporting the old storage mechanism with version 4.4.
 
     The migration is easy. First, ensure that you have the following setting in your `dtable_web_settings.py`:
 
@@ -85,9 +85,9 @@
     docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
     ```
 
-??? warning "New API Gateway"
+??? warning "New API gateway"
 
-    With this version, we have introduced a new component to SeaTable Server: the API Gateway. This optimized API handler is designed to efficiently manage external API requests for base operations. The API Gateway is now started by default and requires no additional configuration files. However, you will need to update your nginx configuration to make the new API endpoints, located at `/api-gateway/`, accessible.
+    With this version, we have introduced a new component to SeaTable Server: the API gateway. This optimized API handler is designed to efficiently manage external API requests for base operations. The API gateway is now started by default and requires no additional configuration files. However, you will need to update your nginx configuration to make the new API endpoints, located at `/api-gateway/`, accessible.
 
     To add this new location, please modify your `/opt/seatable-server/seatable/conf/nginx.conf` file. You can add the following section at the end of the configuration file, just before the final closing bracket:
 
@@ -121,7 +121,7 @@
     docker exec seatable-server nginx -s reload
     ```
 
-??? info "Added New Docker Container for Easy Backup"
+??? info "New Docker container for easy backup"
 
     We've added a new backup container to our lineup of components to simplify your backup process. Using Docker, installation is quick and easy. Our selected backup software, [restic](https://restic.net), supports a wide range of backup targets, including S3, Backblaze, local storage, and more. With restic's reliability, your data is secure with every backup.
 
@@ -133,7 +133,7 @@
 
     It is not mandatory to switch to this new setup but it is recommended. Read this [article for more information](./migrate-seatable-release.md).
 
-??? info "mariadb container healthchecks"
+??? info "MariaDB container healthchecks"
 
     This help is important if your MariaDB container remains unhealthy after executing `docker compose up -d`. This issue arises specifically if your initial MariaDB version was below 10.6 and you have now upgraded to a newer version. Older versions did not create the required health check user in the local database, causing the health checks to fail.
 
