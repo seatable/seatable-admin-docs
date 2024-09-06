@@ -215,6 +215,7 @@ nav:
               - dtable-storage-server.conf: configuration/dtable-storage-server-conf.md
               - dtable_web_settings.py: configuration/dtable-web-settings.md
               - seafile.conf: configuration/seafile-conf.md
+              - dtable-api-gateway.conf: configuration/dtable-api-gateway.conf.md
               - seatable-controller.conf: configuration/seatable-controller-conf.md
 
   - UI Customization:
