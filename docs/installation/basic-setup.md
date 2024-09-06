@@ -133,9 +133,10 @@ Continue setting up your SeaTable server by adjusting only three more variables.
     ```
 
     1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
-    2.  You find a [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) in Wikipedia.
-    3.  Select your domain or subdomain that points to your Server (without https://). You have to set an A-Record or CNAME pointing to your IP.
-        <br>If you don't have an URL and want to use an IP, then use the free service nip.io and add your-ip.nip.io (e.g. 5.35.28.112.nip.io).
+    2.  A [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) is available on Wikipedia.
+    3.  SEATABLE_SERVER_HOSTNAME is the (sub)domain (without http:// or https://) under which the server is accessible on (at least) port 80 and 443.
+        <br>If you want to use a public IP address (e.g. 5.35.28.112), you can use the free service [nip.io](https://nip.io/). In this case, enter your your-ip.nip.io address (e.g. 5.35.28.112.nip.io).
+        <br>If you want to use a local IP address (e.g. 192.168.178.10), please see section [Custom Certificates](./advanced/custom-certificates.md)
 
 === "`.env` for SeaTable Server Developer Edition"
 

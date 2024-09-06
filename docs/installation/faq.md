@@ -73,7 +73,7 @@ status: new
 
     If not, check the nginx configuration file at `/opt/seatable-server/seatable/conf/nginx.conf`.
 
-??? question "Check caddy"
+??? question "Check Caddy"
 
     ```
     docker logs caddy
@@ -91,11 +91,12 @@ status: new
     - PLUGIN_REPO_ID wrong in dtable_web_settings.py
     - spaces in COMPOSE_FILE variable in `.env` file.
 
+<!--
 ## Troubleshoot Configuration Issues
 
 ...
 
-<!--
+
 **2. There is not welcome page from OnlyOffice**
 
 If `https://SEATABLE_SERVER_HOSTNAME/onlyofficeds/welcome` shows a SeaTable error page, you should check the nginx configuration file.
@@ -109,7 +110,6 @@ nano nginx.conf
 **3. OnlyOffice Welcome page is shown but document does not open**
 
 Check your configuration of `dtable_web_settings.py`. Make sure that you added your public SeaTable Server address. Make sure that `jwt-token` is the same in `dtable_web_settings.py` and `docker-compose.yml`.
--->
 
 ## Networking Issues
 
@@ -119,27 +119,29 @@ Check your configuration of `dtable_web_settings.py`. Make sure that you added y
 
 Ports müssen offen sein
 security headers vielleicth im Bereich Proxy.
+-->
 
 ## FAQ's
 
-SeaTable
+??? question "If, for whatever reason, the installation fails, how do I to start from a clean slate again?"
 
-Problems, that might occur:
+    Stop all containers, remove the directories caddy, mariadb, seatable-compose, and seatable-server in `/opt` and start again.
 
-- Check DNS settings. IPv4 and IPv6
+    To stop all containers, change to `/opt/seatable-compose` and run `docker compose down`.
 
-**If, for whatever reason, the installation fails, how do I to start from a clean slate again?**
 
-Stop all containers, remove everything under the folder `/opt` and start again.
+??? question "I want to run my SeaTable Server instance on my local machine? Can I do that?"
 
-**What if no url is pointing to the SeaTable server?**
+    You can, but it is only recommended for testing purposes. Follow the [instructions for the single-node deployment](./basic-setup.md) and simply set SEATABLE_SERVER_HOSTNAME and SEATABLE_SERVER_PROTOCOL to `127.0.0.1` and 'http', respectively, in the `.env` file. To access your local SeaTable Server instance, enter http:\\127.0.0.1 in your browser.
+    
+    If you want to enable https, consult section [Custom Certificates](./installation/advanced/custom-certificates.md) for details.
 
-No problem. Just enter your local IP-Adress instead of the URL into the .env file.
 
-**What if you want to provide your own Reverse Proxy / TLS termination?**
+??? question "I want to use my own reverse proxy / my custom certificate, how do I do that?"
 
-You can opt out of using caddy and use another webserver of your choice, just don't include it in the COMPOSE_FILE list. In this case you have to take care of the SSL termination yourself and map port 80 to the seatable container directly.
+    You can opt out of using Caddy and use another webserver of your choice. In this case, remove `caddy.yml` from the COMPOSE_FILE variable in the `.env` file and follow the instructions in section [Custom Revers Proxy](./advanced/custom-proxy.md).
 
+<!--   
 - spaces in the COMPOSE_FILE
 - activate logging (gehört hier nciht hin.)
 
@@ -157,3 +159,4 @@ security header sind wichtig.
 - license is wrong, seatable startet nicht.
 
 Das backup script muss schöner gemacht werden. -> cronjobs...
+-->
