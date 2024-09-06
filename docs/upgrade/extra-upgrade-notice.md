@@ -4,9 +4,9 @@
 
 ??? warning "API gateway mandatory for external links and big data"
 
-    Starting with version 5.0, all requests for external links, external view links or big data views are routed through the API gateway. If you haven't configured this with version 4.4, you need to do so now for version 5.0.
+    Starting with version 5.0, all requests for external links, external view links or big data views are routed through the API gateway. If you haven't configured the API gateway with version 4.4, you need to do so now for version 5.0.
 
-    To configure the API gateway, add the following location block to your `/opt/seatable-server/seatable/conf/nginx.conf` file. Insert this section at the end of the configuration file, just before the final closing bracket:
+    To configure the API gateway, add the following location block to your `/opt/seatable-server/seatable/conf/nginx.conf` file. Insert this section at the end of the configuration file, just before the final closing curl bracket:
 
     ```sh
     location /api-gateway/ {
@@ -61,9 +61,9 @@
 
 ??? warning "Migration to storage server required"
 
-    **Important:** This change applies only to users whose initial installed SeaTable server version was 1.x or 2.x.:
+    **Important:** This change applies only to users whose initial installed SeaTable Server version was 1.x or 2.x.:
 
-    With SeaTable server version 3.0, a new storage server was introduced, which is the default storage type of bases since 3.0. If you started with version 1.x or 2.x, you might need to migrate some of your bases, because SeaTable will stop supporting the old storage mechanism with version 4.4.
+    With SeaTable Server version 3.0, a new storage server was introduced, which is the default storage type of bases since 3.0. If you started with version 1.x or 2.x, you might need to migrate some of your bases, because SeaTable will stop supporting the old storage mechanism with version 4.4.
 
     The migration is easy. First, ensure that you have the following setting in your `dtable_web_settings.py`:
 
@@ -123,7 +123,7 @@
     docker exec seatable-server nginx -s reload
     ```
 
-??? info "New Docker Container for easy backup"
+??? info "New Docker container for easy backup"
 
     We've added a new backup container to our lineup of components to simplify your backup process. Using Docker, installation is quick and easy. Our selected backup software, [restic](https://restic.net), supports a wide range of backup targets, including S3, Backblaze, local storage, and more. With restic's reliability, your data is secure with every backup.
 
@@ -135,7 +135,7 @@
 
     It is not mandatory to switch to this new setup but it is recommended. Read this [article for more information](./migrate-seatable-release.md).
 
-??? info "mariadb container healthchecks"
+??? info "MariaDB container healthchecks"
 
     This help is important if your MariaDB container remains unhealthy after executing `docker compose up -d`. This issue arises specifically if your initial MariaDB version was below 10.6 and you have now upgraded to a newer version. Older versions did not create the required health check user in the local database, causing the health checks to fail.
 
