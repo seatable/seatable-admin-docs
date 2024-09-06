@@ -166,6 +166,7 @@ nav:
               - Additional Subdomains: installation/advanced/additional-subdomains.md
               - Air Gap Installation: installation/advanced/air-gap-installation.md
               - Webserver Security: installation/advanced/webserver-security.md
+              - Maintenance Mode: installation/advanced/maintenance-mode.md
           - S3 Object Storage:
               - Configuration: installation/advanced/s3.md
               - Migration: installation/advanced/s3-migration.md
