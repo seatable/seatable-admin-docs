@@ -129,19 +129,17 @@ security headers vielleicth im Bereich Proxy.
 
     To stop all containers, change to `/opt/seatable-compose` and run `docker compose down`.
 
-
 ??? question "I want to run my SeaTable Server instance on my local machine? Can I do that?"
 
     You can, but it is only recommended for testing purposes. Follow the [instructions for the single-node deployment](./basic-setup.md) and simply set SEATABLE_SERVER_HOSTNAME and SEATABLE_SERVER_PROTOCOL to `127.0.0.1` and 'http', respectively, in the `.env` file. To access your local SeaTable Server instance, enter http:\\127.0.0.1 in your browser.
-    
-    If you want to enable https, consult section [Custom Certificates](./installation/advanced/custom-certificates.md) for details.
 
+    If you want to enable https, consult section [Custom Certificates](./advanced/custom-certificates.md) for details.
 
 ??? question "I want to use my own reverse proxy / my custom certificate, how do I do that?"
 
     You can opt out of using Caddy and use another webserver of your choice. In this case, remove `caddy.yml` from the COMPOSE_FILE variable in the `.env` file and follow the instructions in section [Custom Revers Proxy](./advanced/custom-proxy.md).
 
-<!--   
+<!--
 - spaces in the COMPOSE_FILE
 - activate logging (gehört hier nciht hin.)
 
