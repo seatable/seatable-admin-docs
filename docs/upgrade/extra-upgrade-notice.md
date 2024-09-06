@@ -2,11 +2,11 @@
 
 ## 5.0
 
-??? warning "API gateway is required for external links and big data"
+??? warning "API gateway mandatory for external links and big data"
 
-    Starting with version 5.0, all requests for external links, external view links or big data views are routed through the API Gateway. If you haven't configured the API gateway with version 4.4, you need to do so now for version 5.0.
+    Starting with version 5.0, all requests for external links, external view links or big data views are routed through the API gateway. If you haven't configured the API gateway with version 4.4, you need to do so now for version 5.0.
 
-    To configure the API gateway, add the following location block to your `/opt/seatable-server/seatable/conf/nginx.conf` file. Insert this section at the end of the configuration file, just before the final closing curly bracket:
+    To configure the API gateway, add the following location block to your `/opt/seatable-server/seatable/conf/nginx.conf` file. Insert this section at the end of the configuration file, just before the final closing curl bracket:
 
     ```sh
     location /api-gateway/ {
@@ -40,14 +40,16 @@
 
 ??? info "Force usage of API gateway endpoints"
 
-    The following configuration is optional and can be omitted if you have no issues with API performance, rate limits, and resources. We recommend using the new `/api-gateway/` endpoints for faster responses and reduced workload on your SeaTable Server instance.
+    The following configuration is optional and can be omitted if you have no issues with API performance, rate limits, and resources. Yet, we recommend using the new `/api-gateway/` endpoints for faster responses and reduced workload on your SeaTable Server.
 
-    To optimize your setup, update your `dtable_server_config.json` file to enable the new caching mechanism of the API gateway. This will redirect `List Rows` and `Get Row` calls to the improved endpoints. Replace `cloud.seatable.io` with your public server URL (include the trailing '/')."
+    To enforce redirection of the `List Rows` and `Get Row` calls to the API gateway, append the following codeblock to your `dtable_server_config.json` file:
 
     ```json
     "redirect_list_rows_api": true,
-    "dtable_web_service_url": "https://cloud.seatable.io/"
+    "dtable_web_service_url": "https://seatable.example.com/"
     ```
+
+    Replace `seatable.example.com` with your SeaTable Server hostname (include the trailing '/').
 
     Afterwards, restart SeaTable with:
 
