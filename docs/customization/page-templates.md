@@ -26,7 +26,7 @@ There are many more files, and all of them can be customized.
 
 ## How to customize these files?
 
-The basic approach is simple. Create a custom folder in your host system (usually `/opt/seatable/seatable-data/seatable/seahub-data/custom`) and copy the files you want to change to this folder. After a restart SeaTable will check for existing files in your custom directory and replace the original files with the new ones.
+The basic approach is simple. Create a custom folder in your host system (usually `/opt/seatable-server/seatable/seahub-data/custom`) and copy the files you want to change to this folder. After a restart SeaTable will check for existing files in your custom directory and replace the original files with the new ones.
 
 **IMPORTANT NOTES:**
 
@@ -37,7 +37,7 @@ Imagine this customizing like an overlay. SeaTable takes the original files from
 
 ## Example: new login page
 
-Imagine you want to replace the login page of SeaTable with something fancier. Here is what you have to do. The following example assumes that your SeaTable docker container is called `seatable` and that your mounted docker volume is located at `/opt/seatable/seatable-data`. Please check your docker-compose.yml and change the following examples if necessary.
+Imagine you want to replace the login page of SeaTable with something fancier. Here is what you have to do. The following example assumes that your SeaTable docker container is called `seatable-server` and that your mounted docker volume is located at `/opt/seatable-server`. Please check your docker-compose.yml and change the following examples if necessary.
 
 ![Settings in your docker-compose.yml](../assets/images/auto-upload/seatable-configuration-docker-compose.png)
 
@@ -46,7 +46,7 @@ Imagine you want to replace the login page of SeaTable with something fancier. H
 This step must be done only once. It generates the setup that you can start overwrite existing html-files from SeaTable with your own ones. You need the folder to save the copies outside of your docker container and you need a symlink that SeaTable can find your custom files.
 
 ```
-cd /opt/seatable/seatable-data/seatable/seahub-data
+cd /opt/seatable-server/seatable/seahub-data
 mkdir -p custom/templates/registration
 docker exec -it seatable ln -s /shared/seatable/seahub-data/custom /opt/seatable/seatable-server-latest/dtable-web/media/custom
 ```
@@ -54,7 +54,7 @@ docker exec -it seatable ln -s /shared/seatable/seahub-data/custom /opt/seatable
 ### 2. Copy the original login.html to your custom folder
 
 ```
-$ docker cp seatable:/opt/seatable/seatable-server-latest/dtable-web/seahub/templates/registration/login.html /opt/seatable/seatable-data/seatable/seahub-data/custom/templates/registration/login.html
+$ docker cp seatable-server:/opt/seatable/seatable-server-latest/dtable-web/seahub/templates/registration/login.html /opt/seatable/seatable-data/seatable/seahub-data/custom/templates/registration/login.html
 ```
 
 ### 3. Adapt the login.html according to your needs

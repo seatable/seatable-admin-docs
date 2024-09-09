@@ -57,16 +57,16 @@ Also note the URL for the IdP's metadata.xml.
 
 The IdP's certificate must be saved on the SeaTable Server. The volume of the SeaTable container is the right place. When saved there, the certificate can be used in different SeaTable Docker containers, e.g. when a new container is created during an update.
 
-The default host path for the SeaTable Docker container is `/opt/seatable/seatable-data/` which is mapped to `/shared/` in the container. It is recommended to create a directory here. If you decide to create the directory elsewhere - which you can - you'll need to account for the custom path in the following steps.
+The default host path for the SeaTable Docker container is `/opt/seatable-server/` which is mapped to `/shared/` in the container. It is recommended to create a directory here. If you decide to create the directory elsewhere - which you can - you'll need to account for the custom path in the following steps.
 
 ```
-$ mdkir /opt/seatable/seatable-data/certs/
+$ mdkir /opt/seatable-server/certs/
 ```
 
 Change into the directory, create a file idp.crt, and open the file with a text editor of your choice (here nano):
 
 ```
-$ cd /opt/seatable/seatable-data/certs/
+$ cd /opt/seatable-server/certs/
 $ touch idp.crt
 $ nano idp.crt
 ```
@@ -84,7 +84,7 @@ $ openssl x509 -in idp.crt -noout -dates
 Create SeaTable's certificate and key using openssl. The two files must be placed in the same directory as the IdP's certificate.
 
 ```
-$ cd /opt/seatable/seatable-data/certs/
+$ cd /opt/seatable-server/certs/
 $ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout sp.key -out sp.crt
 ```
 
