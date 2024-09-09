@@ -25,6 +25,10 @@ Here's how to configure such a maintenance page using Caddy:
 ...
 ```
 
+!!! warning "Don't forget to add local IP-adresses"
+
+    If you're running a SeaTable Server setup with multiple nodes (like a separate python-pipeline, dtable-server or dtable-db), than don't forget to add all local ip adresses of your nodes to the list of allowed IPs.
+
 ## How does maintenance look like
 
 If you are accessing your system from an IP address that has been specified in your labels, you can continue using SeaTable as usual.
