@@ -15,6 +15,7 @@ This section contains general settings about api-gateway service.
 - `log_dir`: Location for the api-gateway logs in the container.
 - `log_level`: Only log messages with level priority higher than this will be logged. Supported levels are "debug", "info", "warn", "error", with ascending priority. The default is "info".
 - `base_api_limit_per_minute`: Limits the number of API calls per base per minute. If the option is set to a negative number, like -1, it means there is no limit. Default is 500. It's usually not suggested to change this configuration.
+- `max_base_cache_size`: Maximum base cache size in MB. Defaults to 1024.
 
 ### `[cluster]`
 
