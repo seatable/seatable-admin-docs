@@ -42,7 +42,6 @@ foreach($array as $key => $value){
   }
 }
 
-
 // clean last element
 if ( trim($array[$last]) == "}" ) {
   unset($array[$last]);

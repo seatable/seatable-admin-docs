@@ -8,7 +8,7 @@ Here's how to configure such a maintenance page using Caddy:
 
 1. Go to `/opt/seatable-compose/`
 2. Create a copy of your `seatable-server.yml` and name it `maintenance.yml`
-3. Replace the labels of your SeaTable Server with the following labels.
+3. Replace the current labels of your SeaTable Server with the following labels.
 4. Replace `<your-allowed-ip>` with one IP adresses, that should have access to your server.
 5. Open your `.env` file and replace `seatable-server.yml` with `maintenance.yml` (in the variable `COMPOSE_FILE`)
 6. Run `docker compose up -d`
@@ -18,9 +18,8 @@ Here's how to configure such a maintenance page using Caddy:
     labels:
       caddy: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
       caddy.@blocked: 'not remote_ip <your-allowed-ip> private_ranges'
-      caddy.handle: '@blocked'
-      caddy.handle.respond: '"SeaTable is currently undergoing maintenance. The service will be restored shortly. Thank you for your patience." 503'
-      caddy.handle.respond.header: 'Retry-After "3600"'
+      caddy.respond: '@blocked "SeaTable Cloud is currently undergoing maintenance. The service will be restored shortly. Thank you for your patience." 503'
+      caddy.header.Retry-After: 3600
       caddy.reverse_proxy: "{{upstreams 80}}"
 ...
 ```
