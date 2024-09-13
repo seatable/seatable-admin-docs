@@ -21,6 +21,11 @@ Caddy will generate a let's encrypt certificate.
 
     Self signed certificates are not recommended. Read the article about [custom certificates](./custom-certificates.md) for more details.
 
+!!! warning "Configure a firewall"
+
+    Please configure a firewall to only allow access from SeaTable Server's public URL to the python pipeline.
+    Alternatively, you can place both SeaTable server and the Python pipeline inside a private network (then you do not need Caddy).
+
 ## Deployment of the Python Pipeline
 
 The deployment of a separate python pipeline is simple. Get seatable-release from github like described in the installation of seatable server and only use `python-pipeline-standalone.yml` and `caddy.yml`.
