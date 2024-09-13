@@ -620,25 +620,7 @@ a{text-decoration-skip:ink;color:##maincolor##}
     .replaceAll("##mainrgba##", rgba_color);
 }
 
-/*
-#header{background-color:##maincolor##;border-bottom:1px solid ##maincolor##;display:flex;font-size:16px;height:50px;justify-content:space-between;padding:0 1rem;text-align:center}
-#header{background-color:##maincolor##;border-bottom:1px solid ##maincolor##;display:flex;font-size:16px;height:50px;justify-content:space-between;padding:0 1rem;text-align:center}
-
-wie erzeuge ich liste:
-1. Auslesen der css Datei mit folgendem Befehl:
-docker exec -it seatable-server find /opt/seatable/seatable-server-latest/dtable-web/media ! -name 'fontawesome*.css' ! -name 'bootstrap*.css' -name '*.css' -exec cat {} \; > ./seamate-4.css
-
-2. reinwerfen in datamate seafmate index2.php
-Die neue Liste ist dann reduziert.
-
-3. Bereinigen von doppelten Einträgen
-- https://dedupelist.com/ und [x] Sort results
-
-5. Folgende Anpassungen:
-- "#header" und ".tables-tabs-container" entfernen, sonst wird der base header immer in der gleichen farbe eingefährt
-- doppelte a {...} (besonders mit font-weight: bold) entfernen.
-- das letzte .btn-outline-primary mit color: ##main-color## entfernen, sonst ist die button scriptfarbe beim anlegen von neuen apps weg.
-
-6. sowie `>` durch > ersetzen.
-
+/* wie erzeuge ich diese listen:
+./generate-css.sh <docker-version-tag>
+Diesen CSS Code, dann hier einbauen...
 */
