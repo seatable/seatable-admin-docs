@@ -16,7 +16,7 @@ Create a `Dockerfile`:
 
 ```Dockerfile
 # You can find the latest tag here: https://hub.docker.com/r/seatable/seatable-python-runner/tags
-FROM seatable/seatable-python-runner:4.0.0
+FROM seatable/seatable-python-runner:4.0.1
 
 # Install your packages with pip
 RUN pip install --no-cache-dir --user pyaml
