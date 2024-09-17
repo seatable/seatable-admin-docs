@@ -17,7 +17,7 @@ Remove `caddy.yml` from COMPOSE_FILE from .env file. Restart all docker containe
 
 !!! warning "SeaTable does not expose any ports"
 
-    Please be aware that SeaTable does not expose port 80 to the outside. Therefore your proxy has to be in the same docker network. Otherwise you have to export port 80 of SeaTable Server.
+    Please be aware that SeaTable does not expose port 80 to the outside. Therefore your proxy has to be in the same docker network. Otherwise you have to expose port 80 of SeaTable Server.
 
 ## Custom proxy with additional components
 
