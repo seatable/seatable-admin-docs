@@ -30,6 +30,10 @@ To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtab
 | LDAP_USER_UNIQUE_ID | Unique user ID in the LDAP server                                                                                         | For LDAP: 'EntryUUID'<br />For AD: 'ObjectGUID' |
 | LDAP_LOGIN_ATTR     | User attribute used for logging in                                                                                        | 'mail', 'userPrincipalName' or 'sAMAccountName' |
 
+!!! danger "LDAP_USER_UNIQUE_ID must be unique"
+
+    SeaTable uses the value provided by `LDAP_USER_UNIQUE_ID` to uniquely identify users. Even if a user's name or email changes, this unique ID remains constant, allowing SeaTable to consistently recognize the user. For this reason, it is crucial that the `LDAP_USER_UNIQUE_ID` is truly unique. If no value is passed for `LDAP_USER_UNIQUE_ID`, all LDAP users will end up logging into the same account.
+
 This is a simple sample configuration:
 
 ```
