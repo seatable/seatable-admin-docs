@@ -1,4 +1,4 @@
-# SeaTable File system check
+# File System Check
 
 On the server side, SeaTable stores the files in the libraries in an internal format. SeaTable has its own representation of directories and files (similar to Git).
 
