@@ -2,7 +2,7 @@
 status: new
 ---
 
-# Password reset
+# Password Reset
 
 #### User Management
 
