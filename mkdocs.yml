@@ -72,7 +72,7 @@ plugins:
         "config.md": "configuration/plugins.md"
         "maintain.md": "upgrade/upgrade-manual.md"
         "maintain/seatable_fsck.md": "maintenance/filesystem-check.md"
-        "maintain/clean_database.md": "maintenance/clean-database.md"
+        "maintain/clean_database.md": "maintenance/database-cleanup.md"
         "maintain/backup_recovery.md": "maintenance/backup-recovery.md"
   - git-committers:
       repository: seatable/seatable-admin-docs
