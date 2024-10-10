@@ -1,4 +1,4 @@
-# Backup And Recovery
+# Backup and Recovery
 
 If you decide to run your own SeaTable Server, it is essential to ensure that you have a backup in place.
 
