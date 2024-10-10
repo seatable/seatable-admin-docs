@@ -1,4 +1,4 @@
-# Export a base from the command line
+# Base Export from Command Line
 
 SeaTable allows to export a base from the command line. This overcomes the typical limits of a base. Important: This export does not contain big data.
 
