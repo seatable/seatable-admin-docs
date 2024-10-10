@@ -1,4 +1,4 @@
-# Clean Database
+# Database Cleanup
 
 <!-- md:version 1.2 -->
 
