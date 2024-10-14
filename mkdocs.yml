@@ -72,7 +72,7 @@ plugins:
         "config.md": "configuration/plugins.md"
         "maintain.md": "upgrade/upgrade-manual.md"
         "maintain/seatable_fsck.md": "maintenance/filesystem-check.md"
-        "maintain/clean_database.md": "maintenance/clean-database.md"
+        "maintain/clean_database.md": "maintenance/database-cleanup.md"
         "maintain/backup_recovery.md": "maintenance/backup-recovery.md"
   - git-committers:
       repository: seatable/seatable-admin-docs
@@ -145,7 +145,7 @@ nav:
       - How to start: installation/start.md
       - Our deployment approach: installation/deployment-approach.md
       - Single-Node Installation:
-          - SeaTable-Server: installation/basic-setup.md
+          - SeaTable Server: installation/basic-setup.md
           - Python Pipeline: installation/components/python-pipeline.md
           - n8n: installation/components/n8n.md
           - Office Editors:
@@ -240,11 +240,11 @@ nav:
 
   - Maintenance:
       - Backup and Recovery: maintenance/backup-recovery.md
-      - Clean Database: maintenance/clean-database.md
-      - Clean Storage: maintenance/garbage-collector.md
+      - Clean Database: maintenance/database-cleanup.md
+      - Clean Storage: maintenance/garbage-collection.md
       - Filesystem check: maintenance/filesystem-check.md
-      - Change URL: maintenance/change-url.md
-      - Export Base: maintenance/export-base.md
+      - Change URL: maintenance/domain-change.md
+      - Export Base: maintenance/base-export.md
       - Repair Base: maintenance/repair-base.md
       - Password reset: maintenance/password-reset.md
       - Logging: maintenance/logs.md
