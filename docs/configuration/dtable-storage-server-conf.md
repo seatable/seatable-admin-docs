@@ -53,6 +53,14 @@ For S3 storage backend:
 - `host`: The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.
 - `path_style_request`: Whether to use path style requests. For a S3-compatible storage, it should be `true`.
 - `use_https`: Whether to use https.
+- `sse_c_key`: Use server-side encryption with customer-provided keys (SSE-C).
+
+`sse_c_key` is a string of 32 characters.
+
+You can generate `sse_c_key` with the following command：
+```
+openssl rand -base64 24
+```
 
 ### Snapshot
 
