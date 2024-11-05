@@ -7,7 +7,7 @@ If you create a DNS entry and point it to your server, caddy will do everything 
 
 But of cause there might be reasons when you want to replace caddy with another proxy like ha-proxy, traffik, nginx, apache etc. The logic of replacing might be simple.
 
-You can use any proxy as long as your forward all traffic to the SeaTable Server. Part of the SeaTable Server container is a nginx web proxy, which routes the traffic by URL. This port 80 is not exposed therefore your proxy has to be in the same docker network like SeaTable Server.
+You can use any proxy as long as your forward all traffic to the SeaTable Server. Part of the SeaTable Server container is a nginx web proxy, which routes the traffic by URL. **This port 80 is not exposed therefore your proxy has to be in the same docker network like SeaTable Server**.
 
 ![Custom proxy for SeaTable Server](../../assets/images/custom_proxy1.png)
 
@@ -34,3 +34,9 @@ The additional components run on separate ports. n8n uses the port 6231. If you 
 In this case, you use another (sub)domain to access the service. You create a proxy rule to route the traffic to the service with its internal port. Usually this requires that you also change the configuration of the service to be accessable via this additonal domain.
 
 ![Custom proxy for ](../../assets/images/custom_proxy3.png)
+
+## Proxy outside of the docker network
+
+To use a proxy outside of your Docker network, you’ll need to expose port 80 on your SeaTable server and route all traffic through it. Alternatively, you can expose a different port and forward it to the internal port 80 on Nginx.
+
+Because network configurations vary widely, it’s difficult to provide specific instructions for every setup. This approach requires familiarity with networking and routing concepts.
