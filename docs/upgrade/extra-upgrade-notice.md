@@ -1,5 +1,9 @@
 # Extra upgrade notice
 
+## 5.1
+
+There are no version-specific changes required.
+
 ## 5.0
 
 ??? warning "API gateway mandatory for external links and big data"
