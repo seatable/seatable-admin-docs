@@ -1,6 +1,8 @@
 # Migration from local storage to S3
 
-SeaTable provides migration scripts to migrate the local data to S3. In fact three things have to be migrated:
+<!-- md:flag enterprise -->
+
+SeaTable provides migration scripts to migrate the data from local storage to S3. In fact three things have to be migrated:
 
 - Storage data (Snapshots and persisted json files)
 - Seafile data (Files/Images Columns)
@@ -8,18 +10,17 @@ SeaTable provides migration scripts to migrate the local data to S3. In fact thr
 
 Thumbnails and temporary files could not be saved to S3, yet.
 
-The migration scripts are delivered with the SeaTable Docker Container and are stored in /templates/.
+The migration scripts are delivered with the SeaTable Docker Container and are stored in the folder `/templates/`.
 
 ## How to migrate
 
 ### Storage data & Seafile data
 
 <!-- md:version 4.3 -->
-<!-- md:flag enterprise -->
 
-1. You need four buckets: Let's call them fs, blocks, commits, storage.
-2. Generate credentials to access these buckets and read and write data to it.
-3. enter your SeaTable Container (4.3 or higher) and execute these commands
+1. You need four buckets: Let's call them _fs_, _blocks_, _commits_, _storage_.
+2. Generate credentials to access these buckets with read and write permissions.
+3. use these commands to enter your SeaTable Docker Container (4.3 or higher) and to start with the preparation for the migration. (this is not yet the migration)
 
 ```bash
 docker exec -it seatable-server bash
@@ -28,32 +29,33 @@ cd /templates
 ./migrate-storage-data.sh
 ```
 
-This will copy your current config to a backup folder.
+These two commands will copy your current configuration files to a backup folder.
 
-Now add your S3 configuration to your config files "seafile.conf" and "dtable-storage-server.conf". Use the instructions from here:
-https://admin.seatable.io/config/enterprise/S3/. Be careful, due to historical reasons the settings are different for seafile.conf and dtable-storage-server.conf.
+Now add your S3 configuration to your config files `seafile.conf` and `dtable-storage-server.conf`. Use the instructions from [this article](s3.md).
+Be careful, due to historical reasons the settings are different for `seafile.conf` and `dtable-storage-server.conf`.
 
-enter the container again and execute the migration commands again. After the migration you can restart SeaTable service.
+Now it is time to execute the two commands again. This will start the migration of the data.
+**Important:** it is not yet necessary to restart SeaTable. You don't want to activate the new settings.
 
 ```bash
 docker exec -it seatable-server bash
 cd /templates
 ./migrate-seafile-data.sh
 ./migrate-storage-data.sh
+
+# after the migration has finished, you can restart SeaTable
 seatable.sh restart
 ```
 
 ### Avatars
 
 <!-- md:version 4.4 -->
-<!-- md:flag enterprise -->
 
-Before you can start the migration, you have to configure S3 for Avatars in `dtable_web_settings.py`. At this point it is sufficient to add only the configuration parameters starting with `S3_...`.
-`AVATAR_FILE_STORAGE = ...` is not necessary, yet.
+Before you can start the migration, you have to configure S3 for Avatars in `dtable_web_settings.py`. At this point it is sufficient to add only the configuration parameters starting with `S3_...`. The configuration option `AVATAR_FILE_STORAGE = ...` is not necessary, yet.
 
-After a restart you can start the migration with this command:
+After a restart of SeaTable you can start the migration with this command:
 
-```
+```bash
 docker exec -it seatable-server bash
 cd /opt/seatable/seatable-server-latest/dtable-web
 seatable.sh python-env manage.py migrate_avatars_fs2s3
@@ -61,7 +63,8 @@ seatable.sh python-env manage.py migrate_avatars_fs2s3
 
 You will see how many avatars were migrated and when the migration will be finished:
 
-```
+```bash
+# like this...
 2024-06-17 ... migrate_avatars_fs2s3 - Success: 1, exists: 0, error: 0, count: 1
 2024-06-17 ... migrate_avatars_fs2s3 - Migrate done
 ```
