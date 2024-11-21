@@ -2,3 +2,4 @@
 /site/
 /.idea
 .cache
+__pycache__/
