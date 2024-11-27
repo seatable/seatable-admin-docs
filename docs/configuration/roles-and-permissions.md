@@ -26,6 +26,8 @@ The following permissions are supported in roles:
 | can_use_automation_rules       | 2.2              | Permission to create and manage automation rules                                                                                                                 | If set to False, the user cannot create or modify automation rules. (The menu item "Automation rules" is hidden in the base.)  Does not apply to org users and group bases. |
 | can_archive_rows               | 2.3              | Permission to manage big data and move rows into the big data storage                                                                                            | If set to False, the user cannot enable/disable big data management in a base, nor can the user move rows into big data storage; if set to False, but big data is enabled in a base, the user can create big data views and access big data view as well as unarchive rows.    |
 
+The default value for all permissions is True. This means, if a permission is not specifically set in a role, the role grants the permission.
+
 ## Quotas
 
 The following quotas are supported in roles:
@@ -34,10 +36,11 @@ The following quotas are supported in roles:
 | ------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | role_asset_quota               | 1.0              | Total storage quota for all personal bases: '1G' means a limit of one gigabyte for files and images (assets); '' means no storage quota for assets               | Assets in shared bases owned by another user and assets in group bases do not count against the storage quota. Does NOT apply to org users.  |
 | row_limit                      | 1.0              | Total row limit for all personal bases: 10000 means a limit of 10 000 rows; -1 means no row limit                                                                | Rows in shared bases owned by another user, rows in group bases, and rows in the big data storage do not count against the row limit. Does NOT apply to org users.   |
-| big_data_row_limit             | 3.1              | Total row limit in big data storage for all bases: 100000 means a limit of 100 000 rows; no value means no row limit                                             | This item is used for the role of teams rather than users. Does NOT apply to org users. |
+| big_data_row_limit             | 3.1              | Total row limit in big data storage for all bases: 100000 means a limit of 100 000 rows.                                                                              | This item is used for the role of teams rather than users. Does NOT apply to org users. |
 | scripts_running_limit          | 2.3              | Total number of _Python_ scripts run within a month: 100 means 100 script runs per month; -1 means unlimited script runs                                         | The script run counter is reset at the beginning of every month.  |
 | snapshot_days                  | 2.1              | Retention period for snapshots in days. 180 means a storage period of 180 days; no value means an unlimited retention period                                     | Snapshots older than the retention period are automatically removed.   |
 | share_limit                    |                  | Max number of users a base can be shared with                                                                                                                     |    |
+The default value for all quotas is no value or empty string. This means, if a quota is not specifically set in a role, no quota is applied.
 
 ## Standard Roles
 
