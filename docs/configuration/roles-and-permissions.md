@@ -135,6 +135,7 @@ SeaTable has four standard, preconfigured administrator roles `system admin`, `a
 
 Just like a user role, you can add additional administrator roles by adding/modifying the following codeblock in `dtable_web_settings.py`.
 
+```
 ENABLED_ADMIN_ROLE_PERMISSIONS = {
     'new_admin_role': {
         'can_view_system_info': True,
@@ -144,3 +145,4 @@ ENABLED_ADMIN_ROLE_PERMISSIONS = {
         'can_view_admin_log': True,
     }
 }
+```
