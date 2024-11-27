@@ -9,21 +9,21 @@ SeaTable has two standard roles. Additionally, extra roles can be created for mo
 
 NOTE: Admin privileges are not part of the user role.
 
-## Available Permissions
+## Permissions
 
 The following permissions are supported in roles:
 
 | Permission                     | Added in version | Description                                                                                                                                                      | Additional information                                                                                                                        |
 | ------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | can_add_dtable                 | 1.0              | Permission to create bases                                                                                                                                       | If set to False, the user cannot create bases, neither under "My bases" nor in groups. |
-| can_add_group                  | 1.0              | Permission to create groups                                                                                                                                      | The permission can_add_dtable is necessary to create bases inside a group. Existing groups are not affected by this permission.  |
-| can_generate_external_link     | 1.0              | Permission to create external links                                                                                                                              |       |
-| can_create_common_dataset      | 1.0              | Permission to create common datasets (CDS)                                                                                                                       | If set to False, the user cannot create CDS, but the user can access existing CDS. |
+| can_add_group                  | 1.0              | Permission to create groups                                                                                                                                      | If set to False, the user cannot create groups. The permission can_add_dtable is necessary to create bases inside a group.  |
+| can_generate_external_link     | 1.0              | Permission to create external links                                                                                                                              | If set to False, the user cannot create "External link" in the share dialog.  |
+| can_create_common_dataset      | 1.0              | Permission to create common datasets (CDS)                                                                                                                       | If set to False, the user cannot create CDS. |
 | can_use_advanced_permissions   | 1.1              | Permission to use advanced permissions                                                                                                                           | Advanced permissions include table permissions, column permissions, view share, custom sharing permissions, row locking. |
 | can_run_python_script          | 1.4              | Permission to run Python scripts                                                                                                                                 | Does not apply to org users. The execution of Python scripts requires the installation of [Python Pipeline](../installation/components/python-pipeline.md).  |
 | can_use_advanced_customization | 2.0              | Permission to use advanced customizations                                                                                                                        | Advanced customization includes base security settings. |
-| can_use_external_app           | 2.2              | Permission to create and manage apps                                                                                                                             | If set to False, the app-icon is hidden in the base.  |
-| can_use_automation_rules       | 2.2              | Permission to create and manage automation rules                                                                                                                 | If set to False, the menu item "Automation rules" is hidden in the base. Does not apply to org users.                                                                                                                |
+| can_use_external_app           | 2.2              | Permission to create and manage apps                                                                                                                             | If set to False, the user cannot create apps or access apps in edit mode. (The app-icon is hidden in the base.)  |
+| can_use_automation_rules       | 2.2              | Permission to create and manage automation rules                                                                                                                 | If set to False, the user cannot create or modify automation rules. (The menu item "Automation rules" is hidden in the base.)  Does not apply to org users and group bases. |
 | can_archive_rows               | 2.3              | Permission to manage big data and move rows into the big data storage                                                                                            | If set to False, the user cannot enable/disable big data management in a base, nor can the user move rows into big data storage; if set to False, but big data is enabled in a base, the user can create big data views and access big data view as well as unarchive rows.    |
 
 ## Quotas
@@ -53,7 +53,6 @@ ENABLED_ROLE_PERMISSIONS = {
         'row_limit': -1,
         'can_create_common_dataset': True,
         'can_run_python_script': True,
-        'can_schedule_run_script': True,
         'scripts_running_limit': -1,
         'can_use_advanced_permissions': True,
         'can_use_advanced_customization': True,
@@ -72,7 +71,6 @@ ENABLED_ROLE_PERMISSIONS = {
         'row_limit': -1,
         'can_create_common_dataset': False,
         'can_run_python_script': False,
-        'can_schedule_run_script': False,
         'scripts_running_limit': -1,
         'can_use_advanced_permissions': False,
         'can_use_advanced_customization': False,
