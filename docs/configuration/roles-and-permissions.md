@@ -136,7 +136,7 @@ The following permissions are supported in administrator roles:
 
 ### Standard Admininstrator Roles
 
-SeaTable has four standard, preconfigured administrator roles `system admin`, `audit admin`, `daily admin` and `custom admin`. They can be used in the Users' section of the system administration without prior configuration.
+SeaTable has four standard, preconfigured administrator roles `default admin`, `audit admin`, `daily admin` and `custom admin`. They can be used in the Users' section of the system administration without prior configuration.
 
 ### Custom Administrator Roles
 
