@@ -122,16 +122,21 @@ The following permissions are supported in administrator roles:
 
 | Permission                     | Added in version | Description                                                                                                                                                      | Additional information                                                                                                                        |
 | ------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| can_view_system_info           | 1.0              | Permission to see "Info" menu in System admin                                                                                                                                       |  |
-| can_config_system              | 1.0              | Permission to see "Settings" menu in System admin                                                                                                                                       |  |
-| can_manage_user                | 1.0              | Permission to see "Users" menu in System admin                                                                                                                                       |  |
-| can_manage_group               | 1.0              | Permission to see "Groups" menu in System admin                                                                                                                                       |  |
-| can_view_admin_log             | 1.0              | Permission to see "Admin logs" menu in System admin                                                                                                                                       |  |
+| can_view_system_info           | 1.0              | Permission to see/access "Info" menu in System admin                                                                                                                                       |  |
+| can_view_statistic             | 1.0              | Permission to see/access "Statistic" menu in System admin                                                                                                                                       |  |
+| can_config_system              | 1.0              | Permission to see/access "Settings" menu in System admin                                                                                                                                       |  |
+| can_manage_user                | 1.0              | Permission to see/access "Users" menu in System admin                                                                                                                                       |  |
+| can_manage_group               | 1.0              | Permission to see/access "Groups" menu in System admin                                                                                                                                       |  |
+| can_manage_external_link       | 1.0              | Permission to see/access "External links" menu in System admin                                                                                                                                       |  |
+| can_view_admin_log             | 1.0              | Permission to see/access "Admin logs" menu in System admin                                                                                                                                       |  |
+| can_manage_user_log            | 1.0              | Permission to see/access the tab "Login logs" in "Audit logs" menu in System admin                                                                                                                                       |  |
+| can_manage_audit_log           | 1.0              | Permission to see/access the tabs "Action logs" and "File access logs" in "Audit logs" menu in System admin                                                                                                                                       |  |
+| can_manage_organization        | 1.0              | Permission to see/access "Organizations" menu in System admin                                                                                                                                       |  |
 
 
 ### Standard Admininstrator Roles
 
-SeaTable has four standard, preconfigured administrator roles `system admin`, `audit admin`, `daily admin` and `custom admin`. They can be used in the Users' section of the system administration without prior configuration.
+SeaTable has four standard, preconfigured administrator roles `default admin`, `audit admin`, `daily admin` and `custom admin`. They can be used in the Users' section of the system administration without prior configuration.
 
 ### Custom Administrator Roles
 
