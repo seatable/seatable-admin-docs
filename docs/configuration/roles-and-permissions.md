@@ -32,7 +32,7 @@ The following permissions are supported in user roles:
 
 The default value for all permissions is True. This means that if a permission is not specifically set, the role grants the permission.
 
-## User Quotas
+### User Quotas
 
 The following quotas are supported in user roles:
 
