@@ -1,17 +1,21 @@
-# User Roles
+# Roles and Permissions
 
 <!-- md:version 1.0 -->
 <!-- md:flag enterprise -->
 
-In SeaTable Enterprise Edition (SeaTable EE), a user's permissions and quotas are determined by the its assigned role. (For org users, some permissions and quotes are also determined by the role assigned to the organization.)
+In SeaTable Enterprise Edition (SeaTable EE), user and administor roles determine a user's/an administrator's permissions and quotas. (For org users, some permissions and quotes are also determined by the role assigned to the organization.)
 
-SeaTable has two standard roles. Additionally, extra roles can be created for more fine-grained permission management. All changes relating to the SeaTable's roles are done in the configuration file `dtable_web_settings.py`.
+All changes relating to the SeaTable's roles are done in the configuration file `dtable_web_settings.py`.
 
 NOTE: Admin privileges are not part of the user role.
 
-## Permissions
+## User Roles
 
-The following permissions are supported in roles:
+A user role is comprised of up to 10 permissions and up to 6 quotas. If a permissions or a quote is not specifically set in a role, the permission is assumed to be given (default value = True) and no quota is applied (default value = no value or empty string).
+
+### User Permissions
+
+The following permissions are supported in user roles:
 
 | Permission                     | Added in version | Description                                                                                                                                                      | Additional information                                                                                                                        |
 | ------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -28,9 +32,9 @@ The following permissions are supported in roles:
 
 The default value for all permissions is True. This means that if a permission is not specifically set, the role grants the permission.
 
-## Quotas
+## User Quotas
 
-The following quotas are supported in roles:
+The following quotas are supported in user roles:
 
 | Quota                          | Added in version | Description                                                                                                                                                      | Additional information                                                                                                                        |
 | ------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -41,11 +45,12 @@ The following quotas are supported in roles:
 | snapshot_days                  | 2.1              | Retention period for snapshots in days: 180 means a storage period of 180 days; no value means an unlimited retention period                                     | Snapshots older than the retention period are automatically removed.   |
 | share_limit                    |                  | Max number of users a base can be shared with: 100 means a base can be shared with 100 users             |    |
 
-The default value for all quotas is no value or empty string. This means that if a quota is not specifically set, no quota is applied.
 
-## Standard Roles
+### Standard User Roles
 
-The two standard roles `default`and `guest`are defined as follows:
+SeaTable has two standard, preconfigured user roles `default`and `guest`. They can be used in the Users' section of the system administration without prior configuration.
+
+The standard user roles are defined as follows:
 
 ```python
 ENABLED_ROLE_PERMISSIONS = {
@@ -87,11 +92,11 @@ ENABLED_ROLE_PERMISSIONS = {
 }
 ```
 
-If you want to edit the standard roles, copy the above codeblock to `dtable_web_settings.py`and modify as per your needs. Restart SeaTable for the changes to take effect.
+If you want to modify the permissions and quotes of either or both standard roles, copy-and-past the above codeblock into `dtable_web_settings.py` and modify as per your needs. Restart SeaTable for the changes to take effect.
 
-## Custom Roles
+### Custom User Roles
 
-You can add extra roles by extending the codeblock in `dtable_web_settings.py`.
+You can add additional user roles by extending the codeblock in `dtable_web_settings.py`.
 
 To add a role `employee`, for example, add the following lines (beginning at `'employee'` and ending at `},` ) to the existing role definition.
 
@@ -106,3 +111,36 @@ ENABLED_ROLE_PERMISSIONS = {
 ```
 
 Restart SeaTable for the new role to become available in SeaTable.
+
+## Administrator Roles
+
+Similar to a user role, an administrator role is comprised of several permissions, but no quotes.
+
+### Administrator Permissions
+
+| Permission                     | Added in version | Description                                                                                                                                                      | Additional information                                                                                                                        |
+| ------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| can_view_system_info           | 1.0              | Permission to see "Info" menu in System Admin                                                                                                                                       |  |
+| can_config_system              | 1.0              | Permission to see "Settings" menu in System Admin                                                                                                                                       |  |
+| can_manage_user                | 1.0              | Permission to see "Users" menu in System Admin                                                                                                                                       |  |
+| can_manage_group               | 1.0              | Permission to see "Groups" menu in System Admin                                                                                                                                       |  |
+| can_view_admin_log             | 1.0              | Permission to see "Admin logs" menu in System Admin                                                                                                                                       |  |
+
+
+### Standard Admininstrator Roles
+
+SeaTable has four standard, preconfigured administrator roles `system admin`, `audit admin`, `daily admin` and `custom admin`. They can be used in the Users' section of the system administration without prior configuration.
+
+### Custom Administrator Roles
+
+Just like a user role, you can add additional administrator roles by adding/modifying the following codeblock in `dtable_web_settings.py`.
+
+ENABLED_ADMIN_ROLE_PERMISSIONS = {
+    'new_admin_role': {
+        'can_view_system_info': True,
+        'can_config_system': True,
+        'can_manage_user': True,
+        'can_manage_group': True,
+        'can_view_admin_log': True,
+    }
+}
