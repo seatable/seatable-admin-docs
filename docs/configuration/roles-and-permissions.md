@@ -100,7 +100,7 @@ You can add additional user roles by extending the codeblock in `dtable_web_sett
 
 To add a role `employee`, for example, add the following lines (beginning at `'employee'` and ending at `},` ) to the existing role definition.
 
-```
+```python
 ENABLED_ROLE_PERMISSIONS = {
     'employee': {
         'can_add_dtable': True,
@@ -118,13 +118,15 @@ Similar to a user role, an administrator role is comprised of several permission
 
 ### Administrator Permissions
 
+The following permissions are supported in administrator roles:
+
 | Permission                     | Added in version | Description                                                                                                                                                      | Additional information                                                                                                                        |
 | ------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| can_view_system_info           | 1.0              | Permission to see "Info" menu in System Admin                                                                                                                                       |  |
-| can_config_system              | 1.0              | Permission to see "Settings" menu in System Admin                                                                                                                                       |  |
-| can_manage_user                | 1.0              | Permission to see "Users" menu in System Admin                                                                                                                                       |  |
-| can_manage_group               | 1.0              | Permission to see "Groups" menu in System Admin                                                                                                                                       |  |
-| can_view_admin_log             | 1.0              | Permission to see "Admin logs" menu in System Admin                                                                                                                                       |  |
+| can_view_system_info           | 1.0              | Permission to see "Info" menu in System admin                                                                                                                                       |  |
+| can_config_system              | 1.0              | Permission to see "Settings" menu in System admin                                                                                                                                       |  |
+| can_manage_user                | 1.0              | Permission to see "Users" menu in System admin                                                                                                                                       |  |
+| can_manage_group               | 1.0              | Permission to see "Groups" menu in System admin                                                                                                                                       |  |
+| can_view_admin_log             | 1.0              | Permission to see "Admin logs" menu in System admin                                                                                                                                       |  |
 
 
 ### Standard Admininstrator Roles
@@ -135,7 +137,7 @@ SeaTable has four standard, preconfigured administrator roles `system admin`, `a
 
 Just like a user role, you can add additional administrator roles by adding/modifying the following codeblock in `dtable_web_settings.py`.
 
-```
+```python
 ENABLED_ADMIN_ROLE_PERMISSIONS = {
     'new_admin_role': {
         'can_view_system_info': True,
