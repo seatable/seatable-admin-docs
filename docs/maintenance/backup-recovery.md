@@ -78,14 +78,14 @@ The mariadb container persists the database information in the directory `/opt/m
 
 source /opt/seatable-compose/.env
 mkdir -p /opt/seatable-backup && cd /opt/seatable-backup
-docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
-docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
-docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
+docker exec -it mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
+docker exec -it mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
+docker exec -it mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
 ```
 
 !!! warning "Cronjob require other parameters"
 
-    If you want to execute the `docker ... mysqldump` command directly as a cronjob, your have to remove the parameters `-it`. Otherwise you will only create an empty dump file.
+    If you want to execute the `docker ... mariadb-dump` command directly as a cronjob, your have to remove the parameters `-it`. Otherwise you will only create an empty dump file.
 
 !!! tip "Reduce database dump size"
 
@@ -96,7 +96,7 @@ docker exec -it mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --op
     - session_log
     - activities
 
-    To exclude these tables, use the `--ignore-table` parameter one or more times in the `mysqldump` command.
+    To exclude these tables, use the `--ignore-table` parameter one or more times in the `mariadb-dump` command.
 
 ### Base content
 
@@ -138,9 +138,9 @@ mkdir -p /opt/seatable-backup/
 # mariadb dumps
 source /opt/seatable-compose/.env
 cd /opt/seatable-backup
-docker exec mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
-docker exec mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
-docker exec mariadb mysqldump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
+docker exec mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
+docker exec mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
+docker exec mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
 
 # force dump of big data to storage-data folder
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh backup-all
@@ -207,9 +207,9 @@ To restore your server, simply install a fresh new SeaTable Server and then impo
 # replace <your_mysql_password> with your actual MySQL password (might be still present in /opt/seatable-compose/.env)
 # beware that this method will expose your mysql password in the process list and shell history of the docker host
 
-docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' ccnet_db < /opt/seatable-backup/ccnet_db.sql
-docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' seafile_db < /opt/seatable-backup/seafile_db.sql
-docker exec -i "mariadb" "/usr/bin/mysql" -u"root" -p'<your_mysql_password>' dtable_db < /opt/seatable-backup/dtable_db.sql
+docker exec -i "mariadb" "/usr/bin/mariadb" -u"root" -p'<your_mysql_password>' ccnet_db < /opt/seatable-backup/ccnet_db.sql
+docker exec -i "mariadb" "/usr/bin/mariadb" -u"root" -p'<your_mysql_password>' seafile_db < /opt/seatable-backup/seafile_db.sql
+docker exec -i "mariadb" "/usr/bin/mariadb" -u"root" -p'<your_mysql_password>' dtable_db < /opt/seatable-backup/dtable_db.sql
 ```
 
 ### Restore the SeaTable data and deployment settings
