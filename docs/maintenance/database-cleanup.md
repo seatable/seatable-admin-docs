@@ -132,16 +132,55 @@ To delete all entries from the operation log older than 14 days, you can execute
 DELETE FROM `operation_log` WHERE `op_time` < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 14 DAY))*1000
 ```
 
-### Option 1: Optimize
+Deleting entries from the `operation_log` table doesn't automatically free up disk space. To reclaim space, you need to delete and recreate the table. Here are two options to achieve this:
 
-This requires that you have enough disk space, to create a duplicate of the existing operation log.
-...
+### Preparation Steps:
 
-### Option 2: Create new operation_log table
+1. **Stop SeaTable:** It's recommended to stop SeaTable before proceeding to prevent new entries in the `operation_log`.
+2. **Keep MariaDB Running:** Ensure the MariaDB container is running to access the database command line.
+3. **Create a Backup:** Always create a database backup before direct database operations to mitigate risks.
 
-This is the way, if you only have a limited amount of space available.
-...
+### Option 1: Create a Copy and Rename the Table
 
+This method requires sufficient disk space to create a duplicate of the existing operation log.
+
+```sql
+USE dtable_db;
+CREATE TABLE operation_log_copy AS SELECT * FROM operation_log;
+
+-- Verify the copy
+SELECT COUNT(*) FROM operation_log;
+SELECT COUNT(*) FROM operation_log_copy;
+
+-- Delete original table
+DROP TABLE operation_log
+
+-- Rename copy
+RENAME TABLE operation_log_copy TO operation_log;
+```
+
+### Option 2: Delete and Recreate a Operation Log Table
+
+!!! danger "Warning"
+
+    This will erase all base logs. You'll lose information about past changes, but snapshots will remain unaffected.
+
+Use this method if you have limited disk space. It immediately frees up space occupied by the table.
+
+1. Connect to MariaDB: `docker exec -it mariadb mariadb -u root -p`
+2. Execute the following commands:
+
+```sql
+USE dtable_db;
+SHOW CREATE TABLE operation_log;
+-- This returns the recreate statement
+
+DROP TABLE operation_log
+-- Paste the recreate statement here, adding ";" at the end
+CREATE TABLE `operation_log` (...);
+```
+
+By following these steps, you can effectively manage the disk space used by the `operation_log` table in your SeaTable installation.
 
 ## Clean expired sessions
 
