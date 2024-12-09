@@ -127,6 +127,10 @@ The `/opt/seatable-compose/` directory contains your `.env` file with secrets an
 
 ## Manual backup process
 
+!!! danger "MariaDB replaces old commands"
+
+    In MariaDB 11, the commands `mysql` and `mysqldump` have been deprecated. Please use `mariadb` or `mariadb-dump` instead. Ensure your backup scripts create database dumps correctly.
+
 Now that you understand the theory behind which files and directories need to be backed up, the following script could serve as a good starting point to consolidate all necessary files into the directory `/opt/seatable-backup`. From there, you can choose the backup method that best suits your needs.
 
 ```bash
