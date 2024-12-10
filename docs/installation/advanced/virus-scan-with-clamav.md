@@ -1,3 +1,8 @@
+---
+search:
+  exclude: true
+---
+
 # Deploy ClamAV with SeaTable
 
 ### Change the .env file
