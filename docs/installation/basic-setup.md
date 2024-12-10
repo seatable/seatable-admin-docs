@@ -62,6 +62,7 @@ The expected output should appear as follows.
 # this should be the output of the tree command
 /opt/seatable-compose
 ├── caddy.yml
+├── clamav.yml
 ├── collabora.yml
 ├── .env
 ├── .env-release
