@@ -5,3 +5,4 @@ mkdocs-git-revision-date-localized-plugin
 mkdocs-minify-plugin
 mkdocs-exclude-search
 mkdocs-git-committers-plugin-2
+mkdocs-exclude-search

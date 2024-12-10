@@ -56,6 +56,9 @@ theme:
 plugins:
   - search:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - exclude-search:
+      exclude:
+        - virus-scan-with-clamav.md
   - minify:
       minify_html: true
   - git-revision-date-localized:
@@ -177,7 +180,6 @@ nav:
               - Python Pipeline Workflow: installation/advanced/python-pipeline-workflow.md
           - MariaDB (standalone): installation/advanced/database-standalone.md
           - Seafile (external): installation/advanced/seafile.md
-          - Virus scan with ClamAV: installation/advanced/virus-scan-with-clamav.md
 
       - Cluster Setup:
           - SeaTable Cluster: installation/cluster/seatable-cluster.md
