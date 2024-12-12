@@ -62,6 +62,10 @@ You can generate `sse_c_key` with the following command：
 openssl rand -base64 24
 ```
 
+!!! warning "Incompatibility with Ceph-based object storage"
+
+    Please note that certain object storage providers that are based on Ceph (e.g. Hetzner Object Storage) currently do not support `CopyObject` operations when using SSE-C. This makes them incompatible with SeaTable. There is an [open issue](https://tracker.ceph.com/issues/23264) over at the Ceph issue tracker.
+
 ### Snapshot
 
 Configurations for snapshots of bases
