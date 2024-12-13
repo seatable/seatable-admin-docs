@@ -190,3 +190,127 @@ The `django_session` table is used to store user sessions. Expired sessions are 
 docker exec -it seatable-server /bin/bash
 seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clearsessions
 ```
+
+## Database Analysis Commands for SeaTable
+
+Here's a concise guide for database analysis of a SeaTable Server.
+
+### Determine Database Table Sizes
+
+Use the command line tool `ncdu` on `/opt/mariadb` for an easy-to-navigate overview of table sizes. Here is an example output. Typically operation_log is by far the biggest table of all.
+
+=== "Command"
+
+    ```bash
+    $ cd /opt/mariadb
+    $ ncdu
+    ```
+
+=== "Result"
+
+    ```sql
+    --- /opt/mariadb/dtable_db --------------------------
+      1.7 GiB [###########]  operation_log.ibd
+     72.0 MiB [           ]  django_session.ibd
+     60.0 MiB [           ]  delete_operation_log.ibd
+     23.0 MiB [           ]  activities.ibd
+    596.0 KiB [           ]  dtable_external_apps.ibd
+    ```
+
+### Analyze Operation Log
+
+To find bases with the most operations:
+
+=== "Command"
+
+    ```sql
+    SELECT dtable_uuid, COUNT(*) AS entry_count
+    FROM operation_log
+    GROUP BY dtable_uuid;
+    ```
+
+=== "Result"
+
+    ```sql
+    +----------------------------------+-------------+
+    | dtable_uuid                      | entry_count |
+    +----------------------------------+-------------+
+    | 0114790c116d46fd8b9f2f9331fab623 |           2 |
+    | 014a4d23b28147f180f790ae8146c053 |          37 |
+    | 01bee901b3dc43df8df0ee58c0ab53a6 |        3312 |
+    | 038a126c86c14b55896ceff03237e72a |           1 |
+    | 04e403d181e14c41b9026d7f2d9b648b |         324 |
+    | 0558d382ef804d5d9eb4e682a3eaa99d |          41 |
+    ...
+    ```
+
+### Identify Active Users (for a specific base)
+
+For a specific base like `01bee901b3dc43df8df0ee58c0ab53a6`:
+
+=== "Command"
+
+    ```sql
+    SELECT author, COUNT(*) AS entry_count
+    FROM operation_log
+    WHERE dtable_uuid = '01bee901b3dc43df8df0ee58c0ab53a6'
+    GROUP BY author
+    ORDER BY entry_count DESC;
+    ```
+
+=== "Result"
+
+    ```sql
+    +---------------------------------------------+-------------+
+    | author                                      | entry_count |
+    +---------------------------------------------+-------------+
+    |                                             |        2633 |
+    | 126a619d86964f78b1871a1738706225@auth.local |         267 |
+    | 1bd28d36f01840f7a4db2d813851b951@auth.local |         168 |
+    | dtable-web                                  |          32 |
+    | faf94d5676414a1d887e538fda19fafd@auth.local |          28 |
+    ```
+
+### Analyze Change Frequency
+
+To view changes over time:
+
+=== "Command"
+
+    ```sql
+    SELECT FROM_UNIXTIME(FLOOR(op_time / 3600000) * 3600) AS hour_interval,
+    COUNT(*) AS entry_count
+    FROM operation_log
+    WHERE dtable_uuid = '01bee901b3dc43df8df0ee58c0ab53a6'
+    GROUP BY hour_interval
+    ORDER BY hour_interval;
+    ```
+
+=== "Result"
+
+    ```sql
+    +---------------------+-------------+
+    | hour_interval       | entry_count |
+    +---------------------+-------------+
+    | 2024-09-12 13:00:00 |           7 |
+    | 2024-09-12 14:00:00 |          50 |
+    | 2024-09-12 15:00:00 |          83 |
+    | 2024-09-12 16:00:00 |          63 |
+    | 2024-09-12 17:00:00 |          53 |
+    ```
+
+### Remove Base Entries
+
+To safely remove all entries for a specific base from operation_log:
+
+=== "Command"
+
+    ```sql
+    DELETE FROM operation_log WHERE dtable_uuid = '01bee901b3dc43df8df0ee58c0ab53a6';
+    ```
+
+=== "Result"
+
+    ```sql
+    Query OK, 3312 rows affected (0.094 sec)
+    ```
