@@ -43,8 +43,13 @@ Section `[backup]` contains options to configure backup functions for big data b
 
 - `dtable_storage_server_url`: The URL of dtable storage server. Required to enable automatic backup. For configuration of dtable storage server, please refer to [this documentation](../configuration/dtable-storage-server-conf.md). You must specify this option. Typically it is `http://127.0.0.1:6666`.
 - `backup_at`: The execution time of backup. Format is `12:30`. The default value is `02:00`. It is mutual exclusion with `backup_interval`. If neither `backup_at` nor `backup_interval` are specified, then `backup_at` will be used by default.
-- `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (=24 hours). You can not define `backup_interval` and `backup_at` at the same time.
 - `keep_backup_num`: The number of backups that will be kept, oldest backups will be removed. The default value is 3.
+- `keep_days`: For how many days a backup of the base will be kept. Backups before the number of days ago will be removed. If this option is set, it overrides the `keep_backup_num` option. If this option is NOT set, dtable-db will clenup the backups based on `keep_backup_num` option. (**This option is added in version 5.2.**)
+- `keep_frequency_days`: Within the specified days, backups for a base will be created daily. Backups created before the specified days will have a lower retention "frequency", that is, only 1 backup will be kept per month. The default value is 0, which means backups are always created daily. **This option only works when `keep_days` is also set and `keep_days` >= `keep_frequency_days`.** For example, if you set keep_days = 90 and keep_frequency_days = 30, bases will be backed up daily for the last 30 days, but only one backup per month will be kept from the last 30 to 90 days. (**This option is added in version 5.2.**)
+
+!!! tip "How to choose between keep_backup_num and keep_days"
+
+    If you want to always keep a few versions of backup for your bases, you should use `keep_backup_num`. This is also the default strategy to be used if neither optoin is set. `keep_days` allows you to reduce cost for keeping backups by only keeping backups for defined period. Combining with `keep_frequency_days` option, it can save more cost. With `keep_days` option, there could be no backup kept for some bases, when the base is not updated for long time.
 
 ### `[SQL]`
 
@@ -97,3 +102,7 @@ The section `[database]` contains options for accessing the MySQL database used 
 ### [SQL]
 
 - `group_by_stmt_limit`: Maximal number of concurrent `group by` requests. If the number of `group by` requests exceeds this limit, new `group by` queries will wait in a queue. Default is 2. This option is removed in version 5.1.0. This option was only relevant when querying bases with big-data. In 5.1.0 version `group by` queries can be handled by a new OLAP engine, which is much more efficient. So this option is no longer necessary.
+
+### [backup]
+
+- `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (=24 hours). You can not define `backup_interval` and `backup_at` at the same time. This option is deprecated since version 5.2. It's suggested to backup your bases once per day with the `backup_at` option.
