@@ -52,12 +52,13 @@ For S3 storage backend:
 - `aws_region`: The region of S3 backend. (only when v4 signature is used)
 - `host`: The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.
 - `path_style_request`: Whether to use path style requests. For a S3-compatible storage, it should be `true`.
-- `use_https`: Whether to use https.
+- `use_https`: Whether to use https. It's recommende to set to `true`.
 - `sse_c_key`: Use server-side encryption with customer-provided keys (SSE-C).
 
-`sse_c_key` is a string of 32 characters.
+`sse_c_key` is a random string of 32 characters.
 
-You can generate `sse_c_key` with the following command：
+You can generate `sse_c_key` with the following command. Please note that, this is not the only valid command to generate such keys. You can use any command that generates a 32 character random string.
+
 ```
 openssl rand -base64 24
 ```
@@ -66,5 +67,7 @@ openssl rand -base64 24
 
 Configurations for snapshots of bases
 
-* interval: the interval for generating snapshots for a base. The unit is seconds. Default is 24 hours.
-* keep_days: the number of days to keep snapshots. Default is 0, which means snapshots will be kept forever.
+* `interval`: the interval for generating snapshots for a base, if there are changes to the base. The unit is seconds. Default is 24 hours.
+* `enable_cleanup`: controls whether to clean up snapshots. Default is `true`. In cluster deployment, only one node should run snapshot cleanup routine, since all nodes share the same storage backend. In this case you should only enable this option in one node. (**This option is added in 5.2 version.**)
+* `keep_days`: the number of days to keep snapshots. **Since 5.2 version, the default value of this option is changed to 180 (which is 0 for previous versions). Please set it explicitly to 0 if you want to keep all the snapshots forever.**
+* `keep_frequency_days`: Within the specified days, snapshots for a base will be created daily (if any changes to the base). Snapshots created before the specified days will have a lower retention "frequency", that is, only 1 snapshot will be kept per month. The default value is 0, which means snapshots are always created daily. **This option only works when `keep_days` is also set and `keep_days` >= `keep_frequency_days`.** For example, if you set keep_days = 90 and keep_frequency_days = 30, snapshots will be created daily for the last 30 days, but only one snapshot per month will be kept from the last 30 to 90 days. (**This option is added in 5.2 version.**)
