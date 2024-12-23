@@ -1,5 +1,22 @@
 # Extra upgrade notice
 
+## 5.2
+
+From version 5.2.2, we used Ubuntu 24.04 to make SeaTable Docker image. If there is such an error like `runtime/cgo: pthread_create failed: Operation not permitted` when the SeaTable starts, there are two ways to solve it.
+
+1. Upgrade the Docker Engine (Docker version no less than 21).
+2. Or add the `privileged: true` to the seatable-server.yml.
+
+```yml
+services:
+  seatable-server:
+    image: ${SEATABLE_IMAGE:-seatable/seatable-enterprise:5.1.9}
+    restart: unless-stopped
+    container_name: seatable-server
+    privileged: true
+    ...
+```
+
 ## 5.1
 
 There are no version-specific changes required.
