@@ -49,7 +49,7 @@ Section `[backup]` contains options to configure backup functions for big data b
 
 !!! tip "How to choose between keep_backup_num and keep_days"
 
-    If you want to always keep a few versions of backup for your bases, you should use `keep_backup_num`. This is also the default strategy to be used if neither optoin is set. `keep_days` allows you to reduce cost for keeping backups by only keeping backups for defined period. Combining with `keep_frequency_days` option, it can save more cost. With `keep_days` option, there could be no backup kept for some bases, when the base is not updated for long time.
+    Both options control the cleanup strategy for backups. If you want to always keep a few versions of backup for your bases, you should use `keep_backup_num`. This is also the default strategy to be used if neither optoin is set. `keep_days` allows you to reduce cost for keeping backups by only keeping backups for defined period. Combining with `keep_frequency_days` option, it can save more cost. With `keep_days` option, there could be no backup kept for some bases, when the base is not updated for long time.
 
 ### `[SQL]`
 
