@@ -46,14 +46,14 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seadoc.yml'/" /opt/seatable-com
 ### Add SeaDoc configurations to .env file
 
 ```env
-JWT_PRIVATE_KEY=
+DTABLE_PRIVATE_KEY=
 ENABLE_SEADOC=true
 SEADOC_SERVER_URL='http://seatable.example.com:7070'
 ```
 
 Note: SEADOC used port 7070.
 
-JWT_PRIVATE_KEY, A random string with a length of no less than 32 characters, generate example: `pwgen -s 40 1`.
+`DTABLE_PRIVATE_KEY` copy form `/opt/seatable/conf/dtable_web_settings.py` in SeaTable container.
 
 ### Download SeaDoc and restart
 
@@ -84,16 +84,17 @@ TIME_ZONE='Europe/Berlin'
 
 # seatable server url
 SEATABLE_SERVER_HOSTNAME=seatable.your-url.com
+SEATABLE_SERVER_PROTOCOL=http
 
 # database
 SEATABLE_MYSQL_DB_HOST=
 SEATABLE_MYSQL_ROOT_PASSWORD=
 
 # SeaDoc
-JWT_PRIVATE_KEY=
+DTABLE_PRIVATE_KEY=
 ```
 
-Note: JWT_PRIVATE_KEY, A random string with a length of no less than 32 characters, generate example: `pwgen -s 40 1`.
+Note: DTABLE_PRIVATE_KEY copy form `/opt/seatable/conf/dtable_web_settings.py` in SeaTable container.
 
 Execute `docker compose up -d` to fire up your separate SeaDoc.
 
@@ -104,7 +105,6 @@ SeaTable must know where to get the SeaDoc.
 Update the `.env` on the seatable server and add these two information:
 
 ```env
-JWT_PRIVATE_KEY=
 ENABLE_SEADOC=true
 SEADOC_SERVER_URL='http://seadoc.example.com/'
 ```
