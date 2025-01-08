@@ -92,6 +92,8 @@ SEATABLE_MYSQL_ROOT_PASSWORD=
 
 # SeaDoc
 DTABLE_PRIVATE_KEY=
+SEADOC_SERVER_HOSTNAME=seadoc.your-url.com
+SEADOC_SERVER_PROTOCOL=http
 ```
 
 Note: DTABLE_PRIVATE_KEY copy form `/opt/seatable/conf/dtable_web_settings.py` in SeaTable container.
