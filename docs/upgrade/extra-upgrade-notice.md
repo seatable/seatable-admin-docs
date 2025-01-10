@@ -1,5 +1,46 @@
 # Extra upgrade notice
 
+## 5.2
+
+??? warning "memcached has been removed"
+
+    Starting with version 5.2, Redis is used as the default cache backend instead of memcached. memcached has therefore been removed from the `.yml` files from [seatable-release](https://github.com/seatable/seatable-release).
+
+    It is necessary to update your configuration files if you're upgrading from a version < 5.2.
+
+    You need to replace the following block inside `/opt/seatable-server/seatable/conf/dtable_web_settings.py`
+
+    ```py
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+            'LOCATION': 'memcached',
+        },
+        'locmem': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        },
+    }
+
+    COMPRESS_CACHE_BACKEND = 'locmem'
+    ```
+
+    with the updated caching configuration (`COMPRESS_CACHE_BACKEND` should be removed):
+
+    ```py
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': 'redis://redis:6379',
+        }
+    }
+    ```
+
+    Afterwards, restart SeaTable by running the following command:
+
+    ```bash
+    docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
+    ```
+
 ## 5.1
 
 There are no version-specific changes required.
