@@ -38,7 +38,10 @@
     Afterwards, restart SeaTable by running the following command:
 
     ```bash
-    docker exec -it seatable-server /shared/seatable/scripts/seatable.sh restart
+    docker exec -it seatable-server bash
+
+    # Run this command inside the container:
+    seatable.sh restart
     ```
 
 ## 5.1
