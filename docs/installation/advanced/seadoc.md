@@ -48,10 +48,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seadoc.yml'/" /opt/seatable-com
 ```env
 DTABLE_PRIVATE_KEY=
 ENABLE_SEADOC=true
-SEADOC_SERVER_URL='http://seatable.example.com:7070'
 ```
-
-Note: SEADOC used port 7070.
 
 `DTABLE_PRIVATE_KEY` copy form `/opt/seatable/conf/dtable_web_settings.py` in SeaTable container.
 
@@ -61,7 +58,6 @@ One more step is necessary to download the SeaDoc image and restart the SeaTable
 
 ```bash
 cd /opt/seatable-compose
-docker compose down
 docker compose up -d
 ```
 
