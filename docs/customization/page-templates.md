@@ -188,6 +188,29 @@ Only one command is missing to restart SeaTable and to activate your new login p
 docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
 ```
 
+## Customize CSS
+
+Create customize folder, add your css file to custom/, for example, `custom.css`
+
+```sh
+mkdir -p /opt/seatable-server/seatable/seahub-data/custom
+cd /opt/seatable-server/seatable/seahub-data/custom
+vim custom.css
+docker exec -it seatable ln -s /shared/seatable/seahub-data/custom /opt/seatable/seatable-server-latest/dtable-web/media/custom
+```
+
+Then modify `BRANDING_CSS` in `dtable_web_settings.py`
+
+```py
+BRANDING_CSS = 'custom/custom.css'
+```
+
+Restart SeaTable container
+
+```sh
+docker compose restart
+```
+
 ## Translation
 
 In the HTML files you will see strings like `{% trans "Forgot password?" %}`. This is a placeholder, that will be replaced by other language strings depending on which language the user has selected. Translations and changes to these language strings is not part of this article. There will be another article in the near future.
