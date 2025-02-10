@@ -505,3 +505,8 @@
   border-radius: 5px;
   padding: 0px 10px 0 5px;
 }
+
+/* data tables */
+.md-typeset__table code {
+  white-space: nowrap;
+}
