@@ -18,7 +18,7 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
     When dealing with special characters like single quotes `'`, double quotes `"` or the hash symbol `#`, it's generally best to enclose the value in double quotes.
 
-!!! danger "dtable-db reads values from dtable_server_config.json"
+!!! warning "dtable-db reads values from dtable_server_config.json"
 
     Note that `dtable-db` reads `dtable_server_config.json` for Redis, MariaDB, and private key settings, even if `dtable-server` is disabled or runs separately. Ensure these configurations are correct.
 
