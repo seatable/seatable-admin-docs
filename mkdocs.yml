@@ -226,6 +226,7 @@ nav:
       #- input: customization/custom-css.md
       - Site Title: customization/site-title.md
       - Logo: customization/logo.md
+      - Favicon: customization/favicon.md
       - Manual Link: customization/manual-in-nav.md
       - Navigation Items: customization/nav-items.md
       - Main Color: customization/main-color.md
