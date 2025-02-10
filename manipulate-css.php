@@ -7,7 +7,7 @@ if (count($argv) != 2) {
     exit(1);
 }
 
-$orange_codes = '/#(ff8000|ED7109|ed7109|ff6700|c60|bf6000|d96d00|20a0ff|E16C0A)/';
+$orange_codes = '/#(ff8000|ED7109|ed7109|ff6700|c60|bf6000|d96d00|20a0ff|E16C0A|feab79)/';
 $rgba_codes = '/(rgba\(255,128,0|rgba\(255,147,35|rgba\(255,147,38)/';
 $final_css = array();
 $placeholder = '##maincolor##';
