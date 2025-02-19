@@ -52,7 +52,7 @@ After a few seconds, check `https://<your-seatable-url>:6239/ping`. You should s
 {"status":"pong"}
 ```
 
-This confirms that the `tldraw-worker` is operational.
+This confirms that the `tldraw-worker` is operational. If you don't see this message, check that port 6239 is allowed and the container logs.
 
 ## Final Steps
 
