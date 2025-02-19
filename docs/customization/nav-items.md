@@ -1,3 +1,7 @@
+---
+status: new
+---
+
 # Additional Navigation Items
 
 SeaTable provides an easy way to add custom navigation items below the _Help and Resources_ section on the left side of the page. For example, you can add a link to a status page (like from Gatus or Uptime Kuma).

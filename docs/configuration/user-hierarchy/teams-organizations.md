@@ -1,5 +1,5 @@
 ---
-status: new
+status: wip
 ---
 
 # Teams / Organizations (like in cloud.seatable.io)

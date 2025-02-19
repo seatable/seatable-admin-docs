@@ -95,7 +95,8 @@ extra:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/seatable/
   status:
-    new: Work in progress
+    new: Added with last version
+    wip: Work in progress
   analytics:
     provider: matomo
     site_id: 3
@@ -149,6 +150,7 @@ nav:
       - Single-Node Installation:
           - SeaTable Server: installation/basic-setup.md
           - Python Pipeline: installation/components/python-pipeline.md
+          - Whiteboard: installation/components/whiteboard.md
           - n8n: installation/components/n8n.md
           - Office Editors:
               - Collabora: installation/components/collabora.md

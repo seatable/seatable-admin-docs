@@ -1,7 +1,3 @@
----
-status: new
----
-
 # SeaTable Changelog
 
 SeaTable, as a dynamic platform, undergoes frequent updates and enhancements to provide users with the best possible experience. To keep our users informed about these changes, we maintain several changelogs:

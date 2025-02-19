@@ -1,7 +1,3 @@
----
-status: new
----
-
 # Architecture
 
 ## SeaTable Docker Containers
