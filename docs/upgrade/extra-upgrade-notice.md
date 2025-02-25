@@ -2,11 +2,14 @@
 
 ## 5.2
 
-??? warning "memcached has been removed"
+??? warning "From Two to One: Redis Unifies Caching, Retiring Memcached"
 
     Starting with version 5.2, Redis replaces Memcached as the default cache. Memcached has been removed from the `seatable-server.yml` file in [seatable-release](https://github.com/seatable/seatable-release).
+    This reduces the number of required caching containers from two to one.
 
-    **Upgrading from a version before 5.2?** Updating your caching configuration in `/opt/seatable-server/seatable/conf/dtable_web_settings.py`:
+    **The following changes are required, if you're upgrading SeaTable to version 5.2**
+
+    Updating your caching configuration in `/opt/seatable-server/seatable/conf/dtable_web_settings.py`:
 
     Replace this:
 
@@ -43,6 +46,8 @@
     docker exec -it seatable-server bash
     seatable.sh restart # Run inside the container
     ```
+
+    If the Memcached container is still running, you can now stop it and remove it.
 
 ??? info "New Snapshot and Backup Retention Strategy"
 
@@ -265,159 +270,165 @@ There are no version-specific changes required.
 
 ## 3.0
 
-3.0 adds another component, dtable-storage-server, which provides better performance for persistent storage of bases. A base in SeaTable is saved as a file, which is automatically saved every 5 minutes. In 2.x, this file saved in seaf-server, but seaf-server will keep a version for each save, which will take up a lot of disk space. In 3.0, only one version is actually saved when a snapshot is generated every 24 hours, which saves space. dtable-storage-server is a simple abstract layer of traditional file system and object storage.
+??? warning "New component: dtable-storage-server"
 
-1. For new installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
+    3.0 adds another component, dtable-storage-server, which provides better performance for persistent storage of bases. A base in SeaTable is saved as a file, which is automatically saved every 5 minutes. In 2.x, this file saved in seaf-server, but seaf-server will keep a version for each save, which will take up a lot of disk space. In 3.0, only one version is actually saved when a snapshot is generated every 24 hours, which saves space. dtable-storage-server is a simple abstract layer of traditional file system and object storage.
 
-```
-docker exec -d seatable /shared/seatable/scripts/seatable.sh init
-```
+    1. For new installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
 
-dtable-storage-server.conf is as follows
+    ```
+    docker exec -d seatable /shared/seatable/scripts/seatable.sh init
+    ```
 
-```
-[general]
-log_dir = /opt/seatable/logs
-temp_file_dir = /tmp/tmp-storage-data
+    dtable-storage-server.conf is as follows
 
-[storage backend]
-type = filesystem
-path = /opt/seatable/storage-data
+    ```
+    [general]
+    log_dir = /opt/seatable/logs
+    temp_file_dir = /tmp/tmp-storage-data
 
-[snapshot]
-interval = 86400
-keep_days = 180
-```
+    [storage backend]
+    type = filesystem
+    path = /opt/seatable/storage-data
 
-2. Add configuration in dtable_web_settings.py so that the newly created bases are saved to the dtable-storage-server, and the old bases are still read and written from seaf-server.
+    [snapshot]
+    interval = 86400
+    keep_days = 180
+    ```
 
-In dtable_web_settings.py
+    2. Add configuration in dtable_web_settings.py so that the newly created bases are saved to the dtable-storage-server, and the old bases are still read and written from seaf-server.
 
-```
-NEW_DTABLE_IN_STORAGE_SERVER = True
-```
+    In dtable_web_settings.py
 
-3. Enterprise edition needs to add configuration items in dtable-db.conf to automatically back up the archived data in the dtable-db.
+    ```
+    NEW_DTABLE_IN_STORAGE_SERVER = True
+    ```
 
-In `dtable-db.conf`
+    3. Enterprise edition needs to add configuration items in dtable-db.conf to automatically back up the archived data in the dtable-db.
 
-```
-[backup]
-dtable_storage_server_url = http://127.0.0.1:6666
-backup_interval = 1440
-keep_backup_num = 3
-```
+    In `dtable-db.conf`
 
-4. Migrate bases to storage server
+    ```
+    [backup]
+    dtable_storage_server_url = http://127.0.0.1:6666
+    backup_interval = 1440
+    keep_backup_num = 3
+    ```
 
-Run these commands to list and migrate your bases to the new storage server.
+    4. Migrate bases to storage server
 
-```sh
-# list number of bases that are not stored in storage-server
-docker exec -it seatable-server /templates/migrate_bases.sh --list
+    Run these commands to list and migrate your bases to the new storage server.
 
-# migrate 10 bases to storage-server (repeat this command until all bases are migrated)
-docker exec -it seatable-server /templates/migrate_bases.sh --migrate 10
-```
+    ```sh
+    # list number of bases that are not stored in storage-server
+    docker exec -it seatable-server /templates/migrate_bases.sh --list
+
+    # migrate 10 bases to storage-server (repeat this command until all bases are migrated)
+    docker exec -it seatable-server /templates/migrate_bases.sh --migrate 10
+    ```
 
 ## 2.7
 
-The configuration of the embedded base to other webpages (iframe mode) needs to be modified as follows
+??? info "Embed into iframes"
 
-In dtable_web_settings.py
+    The configuration of the embedded base to other webpages (iframe mode) needs to be modified as follows
 
-```
-SESSION_COOKIE_SAMESITE = None
-              |
-              V
-SESSION_COOKIE_SAMESITE = 'None'
+    In dtable_web_settings.py
 
+    ```
+    SESSION_COOKIE_SAMESITE = None
+                |
+                V
+    SESSION_COOKIE_SAMESITE = 'None'
 
-CSRF_COOKIE_SAMESITE = None
-              |
-              V
-CSRF_COOKIE_SAMESITE = 'None'
-
-```
+    CSRF_COOKIE_SAMESITE = None
+                |
+                V
+    CSRF_COOKIE_SAMESITE = 'None'
+    ```
 
 ## 2.3
 
+??? warning "Configuration changes of dtable-db"
+
 In 2.3 version, we made a small change to dtable-db configuration. If you're upgrading from older versions, you have to manually add below option to conf/dtable-db.conf:
 
-```
-[general]
-......
-log_dir = /shared/seatable/logs
+    ```
+    [general]
+    ......
+    log_dir = /shared/seatable/logs
 
-......
-```
+    ......
+    ```
 
-It's also suggested to change the `total_cache_size` option to a larger value (e.g. 500MB, depending on how much memory you have):
+    It's also suggested to change the `total_cache_size` option to a larger value (e.g. 500MB, depending on how much memory you have):
 
-```
-[dtable cache]
-......
-total_cache_size = 500
+    ```
+    [dtable cache]
+    ......
+    total_cache_size = 500
 
-......
-```
+    ......
+    ```
 
-You also need to add access information to dtable-server MySQL database. (You have to change below options based on your conf/dtable-server.json)
+    You also need to add access information to dtable-server MySQL database. (You have to change below options based on your conf/dtable-server.json)
 
-```
-[database]
-host = 127.0.0.1
-user = root
-password = mypass
-db_name = dtable
-```
+    ```
+    [database]
+    host = 127.0.0.1
+    user = root
+    password = mypass
+    db_name = dtable
+    ```
 
-Add `DTABLE_DB_URL` to dtable_web_settings.py
+    Add `DTABLE_DB_URL` to dtable_web_settings.py
 
-```
-DTABLE_DB_URL = 'https://<your-domain>/dtable-db/'
-```
+    ```
+    DTABLE_DB_URL = 'https://<your-domain>/dtable-db/'
+    ```
 
-Add dtable-db configuration to nginx.conf
+    Add dtable-db configuration to nginx.conf
 
-```
-    location /dtable-db/ {
-        proxy_pass         http://127.0.0.1:7777/;
-        proxy_redirect     off;
-        proxy_set_header   Host              $host;
-        proxy_set_header   X-Real-IP         $remote_addr;
-        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header   X-Forwarded-Host  $server_name;
-        proxy_set_header   X-Forwarded-Proto $scheme;
+    ```
+        location /dtable-db/ {
+            proxy_pass         http://127.0.0.1:7777/;
+            proxy_redirect     off;
+            proxy_set_header   Host              $host;
+            proxy_set_header   X-Real-IP         $remote_addr;
+            proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Host  $server_name;
+            proxy_set_header   X-Forwarded-Proto $scheme;
 
-        access_log      /opt/nginx-logs/dtable-db.access.log seatableformat;
-        error_log       /opt/nginx-logs/dtable-db.error.log;
-    }
-```
+            access_log      /opt/nginx-logs/dtable-db.access.log seatableformat;
+            error_log       /opt/nginx-logs/dtable-db.error.log;
+        }
+    ```
 
 ## 2.1
 
-2.1 add another component dtable-db, which is used to provide SQL query API (more features will be provided based on this component). For newly installation, the config file will be generated automatically. For upgrade from 2.0, you need to add the config file manually.
+??? warning "New component: dtable-db"
 
-Add a new file conf/dtable-db.conf with the following contents and modify `private_key` according to your instance:
+    2.1 add another component dtable-db, which is used to provide SQL query API (more features will be provided based on this component). For newly installation, the config file will be generated automatically. For upgrade from 2.0, you need to add the config file manually.
 
-```
-[general]
-host = 127.0.0.1
-port = 7777
+    Add a new file conf/dtable-db.conf with the following contents and modify `private_key` according to your instance:
 
-[storage]
-data_dir = /opt/seatable/db-data
+    ```
+    [general]
+    host = 127.0.0.1
+    port = 7777
 
-[dtable cache]
-private_key = "my private key"
-dtable_server_url = "http://127.0.0.1:5000"
-expire_time = 600
-total_cache_size = 1
-clean_cache_interval = 300
+    [storage]
+    data_dir = /opt/seatable/db-data
 
-```
+    [dtable cache]
+    private_key = "my private key"
+    dtable_server_url = "http://127.0.0.1:5000"
+    expire_time = 600
+    total_cache_size = 1
+    clean_cache_interval = 300
 
-The value of `private_key` should be the same as the value in `dtable_server_config.json`.
+    ```
 
-dtable_server_url should be http://127.0.0.1:5000. You don't need to modify the value.
+    The value of `private_key` should be the same as the value in `dtable_server_config.json`.
+
+    dtable_server_url should be http://127.0.0.1:5000. You don't need to modify the value.
