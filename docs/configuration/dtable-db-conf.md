@@ -105,16 +105,21 @@ General configuration options of the output of the SQL endpoint.
 
 Section `[backup]` contains options to configure backup functions for big data backend:
 
-| Parameter                   | Description                                                                                                                                                          | Default               |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `dtable_storage_server_url` | The URL of dtable storage server. Required to enable automatic backup.                                                                                               | http://127.0.0.1:6666 |
-| `backup_at`                 | The execution time of backup. Format is like `12:30`. It is mutual exclusion with `backup_interval`.                                                                 | 02:00                 |
-| `backup_interval`           | The interval between each backup. Unit is in seconds. The default value is 86400 (=24 hours). You can not define `backup_interval` and `backup_at` at the same time. |                       |
-| `keep_backup_num`           | The number of backups that will be kept, oldest backups will be removed.                                                                                             | 3                     |
+| Parameter                   | Description                                                                                                                                              | Default               |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `dtable_storage_server_url` | The URL of dtable storage server. Required to enable automatic backup.                                                                                   | http://127.0.0.1:6666 |
+| `backup_at`                 | The execution time of backup. Format is like `12:30`. It is mutual exclusion with `backup_interval`.                                                     | 02:00                 |
+| `keep_backup_num`           | The number of backups that will be kept, oldest backups will be removed.                                                                                 | 3                     |
+| `keep_days`                 | Specifies the retention period for backups in days. Older backups are deleted. Overrides `keep_backup_num` if set; otherwise, `keep_backup_num` is used. |                       |
+| `keep_frequency_days`       | Specifies daily backup period. After this, only one backup per month is kept. Requires `keep_days` to be set and > `keep_frequency_days`.                |                       |
 
-!!! warning "Important change with 5.2"
+!!! warning "Two different backup methods: which should I choose?"
 
-    The logic for big data backup will change with version 5.2. Next to `keep_backup_num`, new options will be available.
+    Since version 5.2 SeaTable offers two backup approaches:
+
+    - The first uses `keep_backup_num`, creating daily backups and retaining a fixed number of the most recent ones, deleting the oldest when the limit is reached. This is the default option.
+
+    - The second approach, using `keep_days` and `keep_frequency_days`, offers a tiered retention strategy. It creates daily backups for the recent period specified by `keep_days`, then switches to monthly backups for the older period. This method provides detailed recent backups and efficient long-term storage, balancing data granularity with space conservation. For example, setting keep_days = 7 and keep_frequency_days = 180 would keep daily backups for the past week, then monthly backups for the next six months.
 
 ## Deprecated or removed options
 
@@ -144,6 +149,10 @@ Section `[backup]` contains options to configure backup functions for big data b
 ### `[SQL]`
 
 - `group_by_stmt_limit`: Maximal number of concurrent `group by` requests. If the number of `group by` requests exceeds this limit, new `group by` queries will wait in a queue. Default is 2. This option is removed in version 5.1.0. This option was only relevant when querying bases with big-data. In 5.1.0 version `group by` queries can be handled by a new OLAP engine, which is much more efficient. So this option is no longer necessary.
+
+### `[backup]`
+
+- `backup_interval`: The interval between each backup. Unit is in seconds. The default value is 86400 (=24 hours). You can not define `backup_interval` and `backup_at` at the same time. This option is deprecated since version 5.2. It's suggested to backup your bases once per day with the `backup_at` option.
 
 <!-- to clarify with DJ
 - general: dev_mod
