@@ -1,5 +1,5 @@
 ---
-status: new
+status: wip
 ---
 
 # Workflow of the Python Pipeline in a nutshell
