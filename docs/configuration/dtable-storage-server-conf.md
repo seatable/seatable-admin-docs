@@ -20,7 +20,6 @@ interval = 86400
 keep_days = 180
 ```
 
-
 ## Configuration
 
 ### general
@@ -42,7 +41,6 @@ For filesystem storage backend:
 
 - `path`: The filepath of storage backend.
 
-
 For S3 storage backend:
 
 - `bucket`: The bucket name of S3 backend.
@@ -58,6 +56,7 @@ For S3 storage backend:
 `sse_c_key` is a string of 32 characters.
 
 You can generate `sse_c_key` with the following command：
+
 ```
 openssl rand -base64 24
 ```
@@ -66,9 +65,26 @@ openssl rand -base64 24
 
     Please note that certain object storage providers that are based on Ceph (e.g. Hetzner Object Storage) currently do not support `CopyObject` operations when using SSE-C. This makes them incompatible with SeaTable. There is an [open issue](https://tracker.ceph.com/issues/23264) over at the Ceph issue tracker.
 
-### Snapshot
+### `[snapshot]`
 
 Configurations for snapshots of bases
 
-* interval: the interval for generating snapshots for a base. The unit is seconds. Default is 24 hours.
-* keep_days: the number of days to keep snapshots. Default is 0, which means snapshots will be kept forever.
+- interval: the interval for generating snapshots for a base. The unit is seconds. Default is 24 hours.
+- keep_days: the number of days to keep snapshots. Default is 0, which means snapshots will be kept forever.
+
+| Parameter             | Description                                                                                                                                                                                | Default |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| `interval`            | The interval for generating snapshots of a base, if there are changes to the base. Unit is in seconds.                                                                                     | 86400   |
+| `enable_cleanup`      | Controls snapshot cleanup. Activate on only one node in multi-server setups.                                                                                                               | true    |
+| `keep_days`           | Specifies the snapshot retention period in days. Older snapshots are deleted. As of version 5.2, the default is 180 days; previously, it was unlimited (0).                                | 180     |
+| `keep_frequency_days` | Specifies daily snapshot period for changed bases. After this, only one snapshot per month is kept. Default is 0 (always daily). Requires keep_days to be set and > `keep_frequency_days`. | 0       |
+
+!!! warning "Example of new tiered snapshot retention"
+
+    By default, it creates daily snapshots for changed bases, deleting snapshots older than 180 days.
+
+    Since version 5.2, SeaTable offers a tiered retention strategy for snapshots. This approach balances recent, detailed backups with efficient long-term storage.
+    For example, setting `keep_days = 7` and `keep_frequency_days = 180` would retail:
+
+    - Daily snapshots for the past week
+    - Monthly snapshots for the following six months.
