@@ -4,11 +4,11 @@
 
 ??? warning "memcached has been removed"
 
-    Starting with version 5.2, Redis is used as the default cache backend instead of memcached. memcached has therefore been removed from the `.yml` files from [seatable-release](https://github.com/seatable/seatable-release).
+    Starting with version 5.2, Redis replaces Memcached as the default cache. Memcached has been removed from the `seatable-server.yml` file in [seatable-release](https://github.com/seatable/seatable-release).
 
-    It is necessary to update your configuration files if you're upgrading from a version < 5.2.
+    **Upgrading from a version before 5.2?** Updating your caching configuration in `/opt/seatable-server/seatable/conf/dtable_web_settings.py`:
 
-    You need to replace the following block inside `/opt/seatable-server/seatable/conf/dtable_web_settings.py`
+    Replace this:
 
     ```py
     CACHES = {
@@ -20,11 +20,10 @@
             'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         },
     }
-
     COMPRESS_CACHE_BACKEND = 'locmem'
     ```
 
-    with the updated caching configuration (`COMPRESS_CACHE_BACKEND` should be removed):
+    With this:
 
     ```py
     CACHES = {
@@ -35,14 +34,28 @@
     }
     ```
 
-    Afterwards, restart SeaTable by running the following command:
+    - Remove the line with `COMPRESS_CACHE_BACKEND`.
+    - Adjust `redis://redis:6379` if your Redis container name or port differ. (`redis://<container-name>:<container-port>`)
+
+    Restart SeaTable:
 
     ```bash
     docker exec -it seatable-server bash
-
-    # Run this command inside the container:
-    seatable.sh restart
+    seatable.sh restart # Run inside the container
     ```
+
+??? info "New Snapshot and Backup Retention Strategy"
+
+    With version 5.2, SeaTable introduces a tiered retention strategy for Big Data Backups and Base Snapshots. While updating your settings is optional, it's recommended to take advantage of the new features. You can find the new options in:
+
+    - [dtable-db.conf](../configuration/dtable-db-conf.md)
+    - [dtable-storage-server.conf](../configuration/dtable-storage-server-conf.md)
+
+??? info "New Whiteboard plugin"
+
+    The Excalidraw-based whiteboard plugin introduced in v5.0 is now deprecated and will be removed in v5.3. We've developed a new whiteboard plugin using [tldraw](https://tldraw.dev), which requires an additional Docker container on your SeaTable server.
+
+    For installation, follow the instructions available [here](../installation/components/whiteboard.md). You can easily copy and paste your drawings from the old plugin to the new one. If you have any problems, please report at the [forum](https://forum.seatable.io).
 
 ## 5.1
 
