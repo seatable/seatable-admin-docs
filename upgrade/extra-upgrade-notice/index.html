@@ -134,57 +134,35 @@ CSRF_COOKIE_SAMESITE = None
             |
             V
 CSRF_COOKIE_SAMESITE = &#39;None&#39;
-</code></pre></div> </details> <h2 id=23>2.3<a class=headerlink href=#23 title="Permanent link">&para;</a></h2> <details class=warning> <summary>Configuration changes of dtable-db</summary> </details> <p>In 2.3 version, we made a small change to dtable-db configuration. If you're upgrading from older versions, you have to manually add below option to conf/dtable-db.conf:</p> <div class=codehilite><pre><span></span><code><span class=err>```</span>
-<span class=p>[</span><span class=n>general</span><span class=p>]</span>
-<span class=p>......</span>
-<span class=n>log_dir</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=o>/</span><span class=n>shared</span><span class=o>/</span><span class=n>seatable</span><span class=o>/</span><span class=n>logs</span>
+</code></pre></div> </details> <h2 id=23>2.3<a class=headerlink href=#23 title="Permanent link">&para;</a></h2> <details class=warning> <summary>Configuration changes of dtable-db</summary> <p>In 2.3 version, we made a small change to dtable-db configuration. If you're upgrading from older versions, you have to manually add below option to conf/dtable-db.conf:</p> <div class=highlight><pre><span></span><code>[general]
+......
+log_dir = /shared/seatable/logs
 
-<span class=p>......</span>
-<span class=err>```</span>
+......
+</code></pre></div> <p>It's also suggested to change the <code>total_cache_size</code> option to a larger value (e.g. 500MB, depending on how much memory you have):</p> <div class=highlight><pre><span></span><code>[dtable cache]
+......
+total_cache_size = 500
 
-<span class=n>It</span><span class=err>&#39;</span><span class=n>s</span><span class=w> </span><span class=n>also</span><span class=w> </span><span class=n>suggested</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>change</span><span class=w> </span><span class=n>the</span><span class=w> </span><span class=err>`</span><span class=n>total_cache_size</span><span class=err>`</span><span class=w> </span><span class=n>option</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=n>larger</span><span class=w> </span><span class=n>value</span><span class=w> </span><span class=p>(</span><span class=n>e</span><span class=p>.</span><span class=n>g</span><span class=p>.</span><span class=w> </span><span class=mi>500</span><span class=n>MB</span><span class=p>,</span><span class=w> </span><span class=n>depending</span><span class=w> </span><span class=n>on</span><span class=w> </span><span class=n>how</span><span class=w> </span><span class=n>much</span><span class=w> </span><span class=n>memory</span><span class=w> </span><span class=n>you</span><span class=w> </span><span class=n>have</span><span class=p>)</span><span class=o>:</span>
+......
+</code></pre></div> <p>You also need to add access information to dtable-server MySQL database. (You have to change below options based on your conf/dtable-server.json)</p> <div class=highlight><pre><span></span><code>[database]
+host = 127.0.0.1
+user = root
+password = mypass
+db_name = dtable
+</code></pre></div> <p>Add <code>DTABLE_DB_URL</code> to dtable_web_settings.py</p> <div class=highlight><pre><span></span><code>DTABLE_DB_URL = &#39;https://&lt;your-domain&gt;/dtable-db/&#39;
+</code></pre></div> <p>Add dtable-db configuration to nginx.conf</p> <div class=highlight><pre><span></span><code>    location /dtable-db/ {
+        proxy_pass         http://127.0.0.1:7777/;
+        proxy_redirect     off;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Host  $server_name;
+        proxy_set_header   X-Forwarded-Proto $scheme;
 
-<span class=err>```</span>
-<span class=p>[</span><span class=n>dtable</span><span class=w> </span><span class=n>cache</span><span class=p>]</span>
-<span class=p>......</span>
-<span class=n>total_cache_size</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>500</span>
-
-<span class=p>......</span>
-<span class=err>```</span>
-
-<span class=n>You</span><span class=w> </span><span class=n>also</span><span class=w> </span><span class=n>need</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>add</span><span class=w> </span><span class=n>access</span><span class=w> </span><span class=n>information</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>dtable</span><span class=o>-</span><span class=n>server</span><span class=w> </span><span class=n>MySQL</span><span class=w> </span><span class=n>database</span><span class=p>.</span><span class=w> </span><span class=p>(</span><span class=n>You</span><span class=w> </span><span class=n>have</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>change</span><span class=w> </span><span class=n>below</span><span class=w> </span><span class=n>options</span><span class=w> </span><span class=n>based</span><span class=w> </span><span class=n>on</span><span class=w> </span><span class=n>your</span><span class=w> </span><span class=n>conf</span><span class=o>/</span><span class=n>dtable</span><span class=o>-</span><span class=n>server</span><span class=p>.</span><span class=n>json</span><span class=p>)</span>
-
-<span class=err>```</span>
-<span class=p>[</span><span class=n>database</span><span class=p>]</span>
-<span class=n>host</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mf>127.0.0.1</span>
-<span class=n>user</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>root</span>
-<span class=n>password</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>mypass</span>
-<span class=n>db_name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>dtable</span>
-<span class=err>```</span>
-
-<span class=n>Add</span><span class=w> </span><span class=err>`</span><span class=n>DTABLE_DB_URL</span><span class=err>`</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>dtable_web_settings</span><span class=p>.</span><span class=n>py</span>
-
-<span class=err>```</span>
-<span class=n>DTABLE_DB_URL</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=err>&#39;</span><span class=n>https</span><span class=o>:</span><span class=c1>//&lt;your-domain&gt;/dtable-db/&#39;</span>
-<span class=err>```</span>
-
-<span class=n>Add</span><span class=w> </span><span class=n>dtable</span><span class=o>-</span><span class=n>db</span><span class=w> </span><span class=n>configuration</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>nginx</span><span class=p>.</span><span class=n>conf</span>
-
-<span class=err>```</span>
-<span class=w>    </span><span class=n>location</span><span class=w> </span><span class=o>/</span><span class=n>dtable</span><span class=o>-</span><span class=n>db</span><span class=o>/</span><span class=w> </span><span class=p>{</span>
-<span class=w>        </span><span class=n>proxy_pass</span><span class=w>         </span><span class=n>http</span><span class=o>:</span><span class=c1>//127.0.0.1:7777/;</span>
-<span class=w>        </span><span class=n>proxy_redirect</span><span class=w>     </span><span class=n>off</span><span class=p>;</span>
-<span class=w>        </span><span class=n>proxy_set_header</span><span class=w>   </span><span class=n>Host</span><span class=w>              </span><span class=n>$host</span><span class=p>;</span>
-<span class=w>        </span><span class=n>proxy_set_header</span><span class=w>   </span><span class=n>X</span><span class=o>-</span><span class=n>Real</span><span class=o>-</span><span class=n>IP</span><span class=w>         </span><span class=n>$remote_addr</span><span class=p>;</span>
-<span class=w>        </span><span class=n>proxy_set_header</span><span class=w>   </span><span class=n>X</span><span class=o>-</span><span class=n>Forwarded</span><span class=o>-</span><span class=n>For</span><span class=w>   </span><span class=n>$proxy_add_x_forwarded_for</span><span class=p>;</span>
-<span class=w>        </span><span class=n>proxy_set_header</span><span class=w>   </span><span class=n>X</span><span class=o>-</span><span class=n>Forwarded</span><span class=o>-</span><span class=n>Host</span><span class=w>  </span><span class=n>$server_name</span><span class=p>;</span>
-<span class=w>        </span><span class=n>proxy_set_header</span><span class=w>   </span><span class=n>X</span><span class=o>-</span><span class=n>Forwarded</span><span class=o>-</span><span class=n>Proto</span><span class=w> </span><span class=n>$scheme</span><span class=p>;</span>
-
-<span class=w>        </span><span class=n>access_log</span><span class=w>      </span><span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>nginx</span><span class=o>-</span><span class=n>logs</span><span class=o>/</span><span class=n>dtable</span><span class=o>-</span><span class=n>db</span><span class=p>.</span><span class=n>access</span><span class=p>.</span><span class=n>log</span><span class=w> </span><span class=n>seatableformat</span><span class=p>;</span>
-<span class=w>        </span><span class=n>error_log</span><span class=w>       </span><span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>nginx</span><span class=o>-</span><span class=n>logs</span><span class=o>/</span><span class=n>dtable</span><span class=o>-</span><span class=n>db</span><span class=p>.</span><span class=n>error</span><span class=p>.</span><span class=n>log</span><span class=p>;</span>
-<span class=w>    </span><span class=p>}</span>
-<span class=err>```</span>
-</code></pre></div> <h2 id=21>2.1<a class=headerlink href=#21 title="Permanent link">&para;</a></h2> <details class=warning> <summary>New component: dtable-db</summary> <p>2.1 add another component dtable-db, which is used to provide SQL query API (more features will be provided based on this component). For newly installation, the config file will be generated automatically. For upgrade from 2.0, you need to add the config file manually.</p> <p>Add a new file conf/dtable-db.conf with the following contents and modify <code>private_key</code> according to your instance:</p> <div class=highlight><pre><span></span><code>[general]
+        access_log      /opt/nginx-logs/dtable-db.access.log seatableformat;
+        error_log       /opt/nginx-logs/dtable-db.error.log;
+    }
+</code></pre></div> </details> <h2 id=21>2.1<a class=headerlink href=#21 title="Permanent link">&para;</a></h2> <details class=warning> <summary>New component: dtable-db</summary> <p>2.1 add another component dtable-db, which is used to provide SQL query API (more features will be provided based on this component). For newly installation, the config file will be generated automatically. For upgrade from 2.0, you need to add the config file manually.</p> <p>Add a new file conf/dtable-db.conf with the following contents and modify <code>private_key</code> according to your instance:</p> <div class=highlight><pre><span></span><code>[general]
 host = 127.0.0.1
 port = 7777
 
