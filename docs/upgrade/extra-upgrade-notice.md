@@ -351,7 +351,7 @@ There are no version-specific changes required.
 
 ??? warning "Configuration changes of dtable-db"
 
-In 2.3 version, we made a small change to dtable-db configuration. If you're upgrading from older versions, you have to manually add below option to conf/dtable-db.conf:
+    In 2.3 version, we made a small change to dtable-db configuration. If you're upgrading from older versions, you have to manually add below option to conf/dtable-db.conf:
 
     ```
     [general]
