@@ -24,9 +24,9 @@ CUSTOM_NAV_ITEMS = [
 ]
 ```
 
-## Available icons
+## Search for Icons in SeaTable
 
-Search through nearly 400 available icons in SeaTable. Simply type a word and press Enter to view matching results.
+Browse through nearly 400 available icons in SeaTable by typing a keyword and pressing Enter. This will display all matching results. For a comprehensive view, type `dtable-icon` to see the entire collection of available icons.
 
 <input id="iconSearch" class="md-input md-input--stretch mdx-iconsearch__input" placeholder="Search available icons in SeaTable" data-mdx-component="iconsearch-query" onchange="returnAvailableIcons()">
 <div id="iconResults"></div>

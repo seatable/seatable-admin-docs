@@ -6,7 +6,7 @@ Discover a comprehensive list of publicly available plugins and learn how to lev
 
 Typically, installation of a plugin requires action from the system administrator on the SeaTable server. Once installed, any user can easily activate the plugin within their base, unlocking its full potential.
 
-## Installation / Update of plugins
+## Activation / Update of plugins
 
 System administrators have three distinct methods to install plugins into your SeaTable server. Users or team admins do not have the capability to install plugins.
 
@@ -38,12 +38,15 @@ To update a plugin, simply upload the latest version as a zip file. SeaTable wil
 
 SeaTable Server offers API endpoints for installing and updating plugins. For further details, please refer to the API reference documentation.
 
-- <https://api.seatable.io/reference/add-plugin>
-- <https://api.seatable.io/reference/update-plugin>
+- <https://api.seatable.io/reference/addplugin>
+- <https://api.seatable.io/reference/updateplugin>
 
 ## Configuration of the plugins
 
-Typically, plugins do not necessitate additional configuration. However, an exception is the Map plugin, which presently relies on the Google Maps API and requires an API key.
+Typically, plugins do not necessitate additional configuration. However, there are two exceptions:
+
+- the Map plugin, which presently relies on the Google Maps API and requires an API key.
+- the Whiteboard Plugin (tldraw), which requires a separate Docker container.
 
 ### Map Plugin
 
@@ -58,3 +61,7 @@ DTABLE_GOOGLE_MAP_KEY = '<replace with your Google Maps API Key>'
 ```
 
 Remember to restart the SeaTable Service to apply the changes from the updated configuration file.
+
+### Whiteboard Plugin
+
+Please follow this [instruction to install the tldraw container](../installation/components/whiteboard.md) on the same host where the SeaTable Server is running.
