@@ -69,7 +69,7 @@ You will see how many avatars were migrated and when the migration will be finis
 2024-06-17 ... migrate_avatars_fs2s3 - Migrate done
 ```
 
-After successful migration, you can add `AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'` to your `dtable_web_settings.py` and restart **SeaTable** and **memcached**.
+After successful migration, you can add `AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'` to your `dtable_web_settings.py` and restart **SeaTable** and **redis**.
 
 After the migration is done, you can delete the old avatars directories below `/opt/seatable-server/seatable/seahub-data/avatars`. Don't delete the avatars folder itself and don't delete the default logos `default.png` and `app.png`. They are still used.
 

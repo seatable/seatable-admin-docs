@@ -14,11 +14,9 @@ flowchart LR
             B[SeaTable Server]
             C[mariadb]
             D[redis]
-            E[memcached]
             A<-->B
             B<-->C
             B<-->D
-            B<-->E
         end
         F[File System]
         C --> F
@@ -43,10 +41,7 @@ In the following the purpose of these containers should be explained in more det
 ??? info "redis: Internal events queue"
 
     Redis is used for sending messages from dtable-web/dtable-server to dtable-events. It is like an event queue to save internal tasks and statuses.
-
-??? info "memcache: Caching for the Django framework"
-
-    Memcache is used to provide caching for the Django framework which is the basis for the webinterface and all API endpoints of SeaTable. Memcache might be replaced in the near future with redis.
+    Since version 5.2. Redis has repaced Memcached and now also provides caching for the Django framework which is the basis for the webinterface and all API endpoints of SeaTable.
 
 ## SeaTable Server Container
 

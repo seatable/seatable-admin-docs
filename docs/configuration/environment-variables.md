@@ -68,7 +68,6 @@ You can easily overrule which images should be used. Just add other docker image
 ```
 SEATABLE_IMAGE=
 SEATABLE_DB_IMAGE=
-SEATABLE_MEMCACHED_IMAGE=
 SEATABLE_REDIS_IMAGE=
 IMAGE_CADDY=
 PYTHON_SCHEDULER_IMAGE=
