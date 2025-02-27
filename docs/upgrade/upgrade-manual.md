@@ -2,10 +2,6 @@
 
 Updating/Upgrade (we don't differenciate) a SeaTable Server should take just a few seconds. Simply pull the latest Docker images for all components, restart the containers, and let the system automatically handle necessary database updates. Within moments, all essential services of the SeaTable Server will be accessible.
 
-!!! tip "Versions before 4.3 require additional steps"
-
-    For updates of version before 4.3, you find instructions at the end of this article. These version require that you update the database structure and that you start the SeaTable service manually.
-
 !!! warning "Backup is recommended"
 
     Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, create a backup of your database first. See [backup and recovery](../maintenance/backup-recovery.md) for more details.
@@ -54,6 +50,8 @@ Now, you should login as system administrator, switch to the system admin are, a
 
 Some versions require specific configuration changes. Also new features might be introduced that needs specific configuration. Please check _after each update_ the [extra update notices](./extra-upgrade-notice.md).
 
+---
+
 ## Naming conventions and update path
 
 SeaTable follows typical naming conventions for updates:
@@ -65,8 +63,6 @@ SeaTable follows typical naming conventions for updates:
 Some software solutions require that you follow a specific update path. Meaning like you first have to upgrade to the next major version and then go on. **This is not necessary with SeaTable.**
 
 You can update from any version to the last one in one step. SeaTable v4.3 and newer take care of the required database updates.
-
----
 
 ## Update procedure before v4.3
 
