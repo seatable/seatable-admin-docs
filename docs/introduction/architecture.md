@@ -22,7 +22,6 @@ flowchart LR
         C --> F
         D --> F
         B --> F
-        E --> F
     end
 ```
 
