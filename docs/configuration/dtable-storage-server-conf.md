@@ -67,11 +67,6 @@ openssl rand -base64 24
 
 ### `[snapshot]`
 
-Configurations for snapshots of bases
-
-- interval: the interval for generating snapshots for a base. The unit is seconds. Default is 24 hours.
-- keep_days: the number of days to keep snapshots. Default is 0, which means snapshots will be kept forever.
-
 | Parameter             | Description                                                                                                                                                                                | Default |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
 | `interval`            | The interval for generating snapshots of a base, if there are changes to the base. Unit is in seconds.                                                                                     | 86400   |
@@ -84,7 +79,7 @@ Configurations for snapshots of bases
     By default, it creates daily snapshots for changed bases, deleting snapshots older than 180 days.
 
     Since version 5.2, SeaTable offers a tiered retention strategy for snapshots. This approach balances recent, detailed backups with efficient long-term storage.
-    For example, setting `keep_days = 7` and `keep_frequency_days = 180` would retail:
+    For example, setting `keep_days = 180` and `keep_frequency_days = 7` would retail:
 
     - Daily snapshots for the past week
-    - Monthly snapshots for the following six months.
+    - Monthly snapshots for the past six months, except for the past week.
