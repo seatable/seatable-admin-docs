@@ -119,7 +119,7 @@ Section `[backup]` contains options to configure backup functions for big data b
 
     - The first uses `keep_backup_num`, creating daily backups whenever changes were made and retaining a fixed number of the most recent ones, deleting the oldest when the limit is reached. Note that no new backup will be careted if no changes were made to a base. This is the default option.
 
-    - The second approach, using `keep_days` and `keep_frequency_days`, offers a tiered retention strategy. It creates daily backups for the recent period specified by `keep_frequency_days`, then switches to monthly backups for the older period. This method provides detailed recent backups and efficient long-term storage, balancing data granularity with space conservation. For example, setting `keep_days = 180` and `keep_frequency_days = 7` would keep daily backups for the past week, then monthly backups for the next six months.
+    - The second approach, using `keep_days` and `keep_frequency_days`, offers a tiered retention strategy. It creates daily backups for the recent period specified by `keep_frequency_days`, then switches to monthly backups for the older period. This method provides detailed recent backups and efficient long-term storage, balancing data granularity with space conservation. For example, setting `keep_days = 180` and `keep_frequency_days = 7` would keep daily backups for the past week, then monthly backups for the past six months (except for the past week).
 
 ## Deprecated or removed options
 
