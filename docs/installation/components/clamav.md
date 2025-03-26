@@ -29,6 +29,7 @@ Add the following configuration to the `dtable-events.conf` file to enable virus
 [VIRUS SCAN]
 enabled = true
 scan_command = clamdscan
+scan_interval = 60
 virus_code = 1
 nonvirus_code = 0
 ```

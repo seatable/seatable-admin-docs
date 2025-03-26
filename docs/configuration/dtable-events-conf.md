@@ -139,3 +139,26 @@ SeaTable runs this event every 24 hours. It counts and updates the total number 
 | Parameter | Description                                    | Default |
 | --------- | ---------------------------------------------- | ------- |
 | `enabled` | Enables or disables the rows counter for teams | true    |
+
+### `[VIRUS SCAN]`
+
+**disabled** by default.
+
+This section configures how files are scanned for viruses:
+
+- Whether scanning is enabled (enabled)
+- The command used to scan files (scan_command)
+- Return codes indicating infected or clean files (virus_code, nonvirus_code)
+- Limits on file size and extensions to skip (scan_size_limit, scan_skip_ext)
+- Concurrency settings (threads)
+
+| Parameter         | Description                                                 | Default                                                                                   |
+| ----------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `enabled`         | Enables or disables virus scanning                          | false                                                                                     |
+| `scan_command`    | Command used for virus scanning (e.g., clamscan)            |                                                                                           |
+| `virus_code`      | Return codes indicating a file is infected (e.g. 0)         |                                                                                           |
+| `nonvirus_code`   | Return codes indicating a file is clean (e.g. 1)            |                                                                                           |
+| `scan_interval`   | The interval at which the virus scan runs (in minutes)      | 60                                                                                        |
+| `scan_size_limit` | Maximum file size to scan (in MB); larger files are skipped | 20                                                                                        |
+| `scan_skip_ext`   | File extensions to exclude from scanning                    | ['.bmp', '.gif', '.ico', '.png', '.jpg', '.mp3', '.mp4', '.wav', '.avi', '.rmvb', '.mkv'] |
+| `threads`         | Number of threads for parallel scanning                     | 4                                                                                         |
