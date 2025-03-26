@@ -58,6 +58,8 @@ plugins:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - exclude-search:
       exclude:
+      # - installation/advanced/example.md
+      # or exclude page from the search in the frontmatter with "search:\n exclude: true"
   - minify:
       minify_html: true
   - git-revision-date-localized:
@@ -159,6 +161,7 @@ nav:
               - Uptime Kuma: installation/components/uptime-kuma.md
               - Zabbix: installation/components/zabbix.md
           - Backup: installation/components/restic.md
+          - Antivirus: installation/components/clamav.md
           - FAQ / Troubleshooting: installation/faq.md
 
       - Advanced Topics:

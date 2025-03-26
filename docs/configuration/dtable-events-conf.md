@@ -1,66 +1,141 @@
-# dtable-event.conf settings
+# Configuration dtable-events
 
-## Database Configuration
+This is a cheat sheet for the [dtable-events](/introduction/architecture/#seatable-server-container) configuration file `dtable-events.conf`. It contains all possible settings that can be configured as well as their default values.
 
-The settings for the database connection are located in the `[DATABASE]` section of the file `dtable-events.conf`
+The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 
-```
+In the default values below, a value in the form `$XYZ` refers to an environment variable.
+
+??? tip "Configuration changes require a restart"
+
+    New configuration options will only apply after a restart of SeaTable.
+
+??? abstract "Notes about the configuration file format"
+
+    The configuration file uses the **INI format**, which is a simple text-based format for storing configuration data. It consists of sections (denoted by square brackets, e.g., [general]) and key-value pairs.
+
+    Comments in the configuration file start with the hash symbol `#` and extend to the end of the line.
+
+    When dealing with special characters like single quotes `'`, double quotes `"` or the hash symbol `#`, it's generally best to enclose the value in double quotes.
+
+!!! warning "dtable-events reads values from dtable_web_settings.py"
+
+    Note that `dtable-events` reads `dtable_web_settings.py` for internal URLS and various key settings. Ensure these configurations are correct.
+
+    Other configuration files are not used, if you run dtable-events separately.
+
+The following options are grouped by their sections.
+
+## Example configuration
+
+This is a typical configuration file, created automatically on the first startup by SeaTable.
+
+```ini
 [DATABASE]
 type = mysql
-host = db
+host = mariadb
 port = 3306
 username = root
-password = seatable_db
-db_name = seafile_db
+password = topsecret
+db_name = dtable_db
 
-```
-
-Note: MariaDB and MySQL are compatible. In this configuration example, we use MySQL.
-
-## Redis Configuration
-
-The settings for the Redis connection are located in the `[REDIS]` section of the file `dtable-events.conf`
-
-```
 [REDIS]
 host = redis
 port = 6379
-
 ```
 
-## Email Notifications Configuration
+## Available configuration options
 
-The settings for email notifications are located in the `[EMAIL SENDER]` section of the file `dtable-events.conf`
+### `[DATABASE]`
 
-```
-[EMAIL SENDER]
-enabled = true
+| Parameter  | Description                                                                                             | Default           |
+| ---------- | ------------------------------------------------------------------------------------------------------- | ----------------- |
+| `type`     | The database connection type. Use `mysql` for MySQL and MariaDB (other databases are not yet supported) | mysql             |
+| `host`     | MariaDB server address                                                                                  | mariadb           |
+| `port`     | MariaDB server port                                                                                     | 3306              |
+| `db_name`  | Database name                                                                                           | dtable_db         |
+| `username` | MariaDB username                                                                                        | root              |
+| `password` | MariaDB password                                                                                        | `$DB_ROOT_PASSWD` |
 
-```
+### `[REDIS]`
 
-## Notification Rules Scanner Configuration
+| Parameter  | Description           | Default |
+| ---------- | --------------------- | ------- |
+| `host`     | Redis server address  | redis   |
+| `port`     | Redis server port     | 6379    |
+| `password` | Redis server password |         |
+
+### `[EMAIL SENDER]`
+
+**enabled** by default.
+
+SeaTable runs this task every hour to send base email notifications for base updates to the users. It also generates the log file `dtable_updates_sender.log`.
+
+| Parameter | Description                                                  | Default |
+| --------- | ------------------------------------------------------------ | ------- |
+| `enabled` | Enables or disables the email notifications for base updates | true    |
+
+### `[NOTIFY-SCANNER]`
+
+**disabled** by default.
 
 Notification rules are a feature that allows users to set criteria for a base and receive notifications when these criteria are met.
+This runs a daily job at midnight to clean up inactive notification rules. Rules that have not been triggered for 180 days or were created but never triggered are marked as invalid.
 
-The settings for the notification rules scanner are located in the `[NOTIFY-SCANNER]` section of the file `dtable-events.conf`
+| Parameter | Description                                  | Default |
+| --------- | -------------------------------------------- | ------- |
+| `enabled` | Enables or disables the notification scanner | false   |
 
-```
-[NOTIFY-SCANNER]
-enabled = true
+### `[AUTOMATION]`
 
-```
-
-## Automation Rules Configuration
+**enabled** by default.
 
 In SeaTable, users have the ability to define triggers and actions within an automation rule.  
 These rules are then automatically executed on a base.
 
-The settings for the automation rules are located in the `[AUTOMATION]` section of the `dtable-events.conf` file.
+| Parameter                      | Description                                                                                                          | Default |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------- |
+| `per_minute_trigger_limit`     | To maintain server stability, SeaTable includes a feature that restricts the frequency of automation rule executions | 50      |
+| `per_update_auto_rule_workers` | Number of worker threads used for processing automation rule events                                                  | 3       |
 
+### `[COMMON-DATASET-SYNCER]`
 
-To maintain server stability, SeaTable includes a feature that restricts the frequency of automation rule executions. This `per_minute_trigger_limit` is set to 50 by default.
+**enabled** by default.
 
-```
-[AUTOMATION]
-per_minute_trigger_limit = 50
-```
+SeaTable runs every hour this event to check for pending dataset syncs. The job processes datasets that need syncing based on their interval (`per_day`, `per_hour`) and validity.
+
+| Parameter | Description                                   | Default |
+| --------- | --------------------------------------------- | ------- |
+| `enabled` | Enables or disables the common dataset syncer | true    |
+
+### `[EMAIL-SYNCER]`
+
+**enabled** by default.
+
+SeaTable runs this event at the 30th minute of every hour. The job processes email sync tasks defined in a base by the user.
+
+| Parameter     | Description                                                      | Default |
+| ------------- | ---------------------------------------------------------------- | ------- |
+| `enabled`     | Enables or disables the email syncer                             | true    |
+| `max_workers` | Maximum number of worker threads for processing email sync tasks | 5       |
+
+### `[LDAP_SYNC]`
+
+**disabled** by default.
+
+SeaTable could sync LDAP accounts, if activated. This requires additional settings in `dtable_web_settings.py`. Please refer to [LDAP Authentication](../configuration/authentication/ldap.md).
+
+| Parameter       | Description                                                                             | Default |
+| --------------- | --------------------------------------------------------------------------------------- | ------- |
+| `enabled`       | Enables or disables the ldap sync                                                       | false   |
+| `sync_interval` | Specifies the interval at which the LDAP synchronization process should run, in seconds | 3600    |
+
+### `[ROWS-COUNTER]`
+
+**enabled** by default.
+
+SeaTable runs this event every 24 hours. It counts and updates the total number of rows of a team.
+
+| Parameter | Description                                    | Default |
+| --------- | ---------------------------------------------- | ------- |
+| `enabled` | Enables or disables the rows counter for teams | true    |

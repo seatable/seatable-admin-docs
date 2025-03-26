@@ -40,13 +40,13 @@ This is a typical configuration file, created automatically on the first startup
 
 ### Mariadb Database Connection
 
-| Parameter  | Description            | Default                         |
-| ---------- | ---------------------- | ------------------------------- |
-| `host`     | MariaDB server address | `$DB_HOST`                      |
-| `user`     | MariaDB username       | `$DB_ROOT_PASSWD`               |
-| `password` | MariaDB password       | `$SEATABLE_MYSQL_ROOT_PASSWORD` |
-| `database` | Database name          | dtable_db                       |
-| `port`     | MariaDB server port    | 3306                            |
+| Parameter  | Description            | Default           |
+| ---------- | ---------------------- | ----------------- |
+| `host`     | MariaDB server address | `$DB_HOST`        |
+| `user`     | MariaDB username       | root              |
+| `password` | MariaDB password       | `$DB_ROOT_PASSWD` |
+| `database` | Database name          | dtable_db         |
+| `port`     | MariaDB server port    | 3306              |
 
 ### Redis Connection
 

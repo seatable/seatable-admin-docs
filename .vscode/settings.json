@@ -1,0 +1,4 @@
+{
+    "markdown.validate.enabled": false,
+    "markdown.extension.tableFormatter.normalizeIndentation": true
+}
