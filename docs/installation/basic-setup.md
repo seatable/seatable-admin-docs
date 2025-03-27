@@ -76,7 +76,7 @@ The expected output should appear as follows.
 └── zabbix.yml
 ```
 
-!!! warning "Don't change the YML-files"
+!!! warning "Don't change the default YML-files"
 
     Generally, there's no need to make changes to the YML-files. Modifications should only be made by experienced Docker administrators. If you do, it is recommended to duplicate the file(s) first and rename the file(s).
 
