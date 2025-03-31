@@ -2,7 +2,7 @@
 
 ## Who is this Manual for?
 
-You want to run your own **SeaTable Server**, then this is the place to be!
+You want to run your own **SeaTable Server**, then this Seatable Admin Manual (Manual) is the place to be!
 
 
 !!! warning "Various IT skills are mandatory"
@@ -28,13 +28,17 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
 ## Scope of this Manual
 
-This manual covers all relevant admin topics, from installation, configuration, upgrade, and maintenance, and provides background information on software architecture, requirements, and development.
+This Manual covers all relevant admin topics, from installation, configuration, upgrade, and maintenance, and provides background information on software architecture, requirements, and development.
 
-This manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://docs.seatable.io/).
+This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://docs.seatable.io/).
 
-If you are a **developer** looking for development resources, please check out the [developer manual](https://developer.seatable.io) and the [API reference](https://api.seatable.io).
+If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.io) and the [API Reference](https://api.seatable.io).
 
 This is not the place for discussion either. You can ask questions about SeaTable in the [SeaTable Forum](https://forum.seatable.io). Looking forward to seeing you there!
+
+## Contributing to this Manual
+
+You found an error in the Manual or you see the need to elaborate on a topic, please create a pull request. We appreciate your contribution!
 
 ## What is SeaTable?
 
@@ -50,11 +54,11 @@ Main features includes:
 - Comprehensive API and SDK for adding extensions.
 - Filters, sorts, charts and pivotal tables to visualize and analyze data.
 
-This admin manual will help you to install, configure and update your own SeaTable Server.
+This Manual will help you to install, configure and update your own SeaTable Server.
 
 ## Installation
 
-This manual provides two different approaches to installing SeaTable Server.
+This Manual provides two different approaches to installing SeaTable Server.
 
 ### Single-Node Installation
 
