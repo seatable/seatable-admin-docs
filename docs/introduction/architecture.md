@@ -64,7 +64,7 @@ The task of the service dtable-web is to deliver all pages except for the bases 
 
 ### dtable-server
 
-When accessing a base, you'll be directed to the base editor, which is provided by the `dtable-server` service. This editor loads the base's content from a JSON file, presenting it in a familiar spreadsheet interface and enabling real-time collaborative work on all data within the base. Each modification is promptly saved to the operation log (stored in MariaDB), and within minutes, these changes are persisted as a JSON file and transmitted to dtable-storage-server for storage in the attached storage system.
+When accessing a base, you'll be directed to the base editor, which is provided by the dtable-server service. This editor loads the base's content from a JSON file, presenting it in a familiar spreadsheet interface and enabling real-time collaborative work on all data within the base. Each modification is promptly saved to the operation log (stored in MariaDB), and within minutes, these changes are persisted as a JSON file and transmitted to dtable-storage-server for storage in the attached storage system.
 
 ### dtable-db
 
@@ -76,7 +76,7 @@ When actions are not executed immediately but with a time delay, SeaTable employ
 
 ### seaf-server
 
-When utilizing a file or image column in your base, the actual files are stored separately from the JSON object, with the JSON object containing only links to these files. The `seaf-server` service manages the storage and retrieval of these files, ensuring they can be accessed within the base. Seafile currently supports local storage or S3 storage, and seaf-server is responsible for appropriately storing the files based on the chosen storage method.
+When utilizing a file or image column in your base, the actual files are stored separately from the JSON object, with the JSON object containing only links to these files. The seaf-server service manages the storage and retrieval of these files, ensuring they can be accessed within the base. Seafile currently supports local storage or S3 storage, and seaf-server is responsible for appropriately storing the files based on the chosen storage method.
 
 ### dtable-storage-server
 
@@ -87,17 +87,19 @@ The dtable-storage-server is a simple abstract layer upon the chosen storage met
 SeaTable uses MariaDB to store user, group and team information as well as metadata for bases. Additionally, MariaDB stores the operation log. The operation log (saved in the database table `dtable_db.operation_log`) is the base journal. It records all modifications made within all bases of the SeaTable Server instance. (While SeaTable stores all base modifications in MariaDB, but it doesn't store the actual base content. Instead, bases are managed within dtable-server and regularly persisted to dtable-storage-server for long-term storage.)
 
 SeaTable Server uses four database tables:
-* ccnet_db: information about users, groups and teams (or organizations)
-* seafile_db: metadata information of the file storage
-* dtable_db: application level data, including base metadata, operation log, sessions, automation rules
-* scheduler: log information for SeaTable Server's Python Pipeline
+
+- ccnet_db: information about users, groups and teams (or organizations)
+- seafile_db: metadata information of the file storage
+- dtable_db: application level data, including base metadata, operation log, sessions, automation rules
+- scheduler: log information for SeaTable Server's Python Pipeline
 
 ## Redis Container
 
 Redis, an in-memory data store, performs several tasks for a SeaTable Server instance:
-* Caching for Django, which is used for SeaTable's web interface and all API endpoints
-* Cache application level data obtained from databases (e.g. session cache, user information cache, group and organization list cache)
-* Sending messages from dtable-web/dtable-server to dtable-events - it servers as an event queue to save internal tasks and statuses
+
+- Caching for Django, which is used for SeaTable's web interface and all API endpoints
+- Cache application level data obtained from databases (e.g. session cache, user information cache, group and organization list cache)
+- Sending messages from dtable-web/dtable-server to dtable-events - it servers as an event queue to save internal tasks and statuses
 
 !!! warning "Redis has replaced Memcached"
 
