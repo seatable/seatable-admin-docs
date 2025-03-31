@@ -2,18 +2,20 @@
 
 ## SeaTable Docker Containers
 
-A SeaTable Server consists of a handful of docker containers, which are all required to work properly. The SeaTable server contains multiple functions that will be explained within this article.
+SeaTable Server uses Docker/Docker Compose for easy deployment and upgrades.
 
-Please note that the following diagram is a simplified representation of the main containers. Further elaboration and detailed insights will be provided in subsequent sections of this manual
+A SeaTable Server instance consists of a handful of Docker containers. Some containers are required, some are optional.
+
+The following diagram is a simplified representation of the required containers.
 
 ```mermaid
 flowchart LR
     subgraph s[SeaTable Server]
         subgraph d[Docker Containers]
-            A[caddy]
+            A[Caddy]
             B[SeaTable Server]
-            C[mariadb]
-            D[redis]
+            C[MariaDB]
+            D[Redis]
             A<-->B
             B<-->C
             B<-->D
@@ -25,22 +27,11 @@ flowchart LR
     end
 ```
 
-In the following the purpose of these containers should be explained in more details.
+## Caddy Container
 
-??? info "Caddy: the flexible web proxy"
+Caddy is a flexible web proxy. Its job is to offer a central gateway for the SeaTable Server instance.
 
-    The only task of caddy is to offer a central way into the SeaTable Server. Caddy makes TLS termination with Let's Encrypt or the usage of custom certificates super easy.
-
-??? info "mariadb: the database to store user accounts, metadata and the operation log"
-
-    Every software requiring data storage necessitates a database, and SeaTable utilizes MariaDB to store essential persistent data such as user information, the base list and group details. Additionally, the operation log, capturing every change within a base, is stored within MariaDB.
-
-    It's crucial to clarify a common misconception: while MariaDB saves changes of a base inside the so called *operation log*, it doesn't store the actual content of SeaTable bases. Instead, bases are managed within dtable-server and regularly persisted to dtable-storage-server for long-term storage.
-
-??? info "redis: Internal events queue"
-
-    Redis is used for sending messages from dtable-web/dtable-server to dtable-events. It is like an event queue to save internal tasks and statuses.
-    Since version 5.2. Redis has repaced Memcached and now also provides caching for the Django framework which is the basis for the webinterface and all API endpoints of SeaTable.
+Caddy is easy to configure and excels at facilitating SSL configuration and management, either with Let's Encrypt or custom certificates.
 
 ## SeaTable Server Container
 
@@ -67,29 +58,52 @@ flowchart LR
     end
 ```
 
-??? abstract "dtable-web: The website for manage bases"
+### dtable-web
 
-    The task of the service `dtable-web` is to deliver all pages except for the bases themselves. This includes essential features such as the login page, home page, system administration area, team administration, personal settings, and API endpoints. All these functionalities are provided by dtable-web, which is built on the Django framework.
+The task of the service dtable-web is to deliver all pages except for the bases themselves. This includes essential features such as the login page, home page, system administration area, team administration, personal settings, and API endpoints. All these functionalities are provided by dtable-web, which is built on the Django framework.
 
-??? abstract "dtable-server: Store the bases and provide collaborating feature"
+### dtable-server
 
-    When accessing a base, you'll be directed to the base editor, which is provided by the `dtable-server` service. This editor loads the base's content from a JSON file, presenting it in a familiar spreadsheet interface and enabling real-time collaborative work on all data within the base. Each modification is promptly saved to the operation log (stored in mariadb), and within minutes, these changes are persisted as a JSON file and transmitted to dtable-storage-server for storage in the attached storage system.
+When accessing a base, you'll be directed to the base editor, which is provided by the dtable-server service. This editor loads the base's content from a JSON file, presenting it in a familiar spreadsheet interface and enabling real-time collaborative work on all data within the base. Each modification is promptly saved to the operation log (stored in MariaDB), and within minutes, these changes are persisted as a JSON file and transmitted to dtable-storage-server for storage in the attached storage system.
 
-??? abstract "dtable-db: Provide big data storage and SQL query interface"
+### dtable-db
 
-    `dtable-db` extends the functionality of `dtable-server`, offering an SQL-like query language to interact with base data. Additionally, it serves as the interface for accessing the Big Data Backend.
+dtable-db extends the functionality of dtable-server, offering an SQL-like query language to interact with base data. Additionally, it serves as the interface for accessing the Big Data Backend.
 
-??? abstract "dtable-events: Background tasks likes email sending"
+### dtable-events
 
-    When actions are not executed immediately but with a time delay, SeaTable employs the `dtable-events` service, essentially the interface to the Redis cache. `dtable-events` effectively manages various tasks and their status, ensuring efficient task execution within the system.
+When actions are not executed immediately but with a time delay, SeaTable employs the dtable-events service, essentially the interface to the Redis cache. dtable-events effectively manages various tasks and their status, ensuring efficient task execution within the system.
 
-??? abstract "seaf-server: Store attachments (files and images)"
+### seaf-server
 
-    When utilizing a file or image column in your base, the actual files are stored separately from the JSON object, with the JSON object containing only links to these files. The `seaf-server` service manages the storage and retrieval of these files, ensuring they can be accessed within the base. Seafile currently supports local storage or S3 storage, and seaf-server is responsible for appropriately storing the files based on the chosen storage method.
+When utilizing a file or image column in your base, the actual files are stored separately from the JSON object, with the JSON object containing only links to these files. The seaf-server service manages the storage and retrieval of these files, ensuring they can be accessed within the base. Seafile currently supports local storage or S3 storage, and seaf-server is responsible for appropriately storing the files based on the chosen storage method.
 
-??? abstract "dtable-storage-server: Interface to the storage"
+### dtable-storage-server
 
-    The `dtable-storage-server` is a simple abstract layer upon the chosen storage method. This could be either file storage or S3-like object storage.
+The dtable-storage-server is a simple abstract layer upon the chosen storage method. This could be either file storage or S3-like object storage.
+
+## MariaDB Container
+
+SeaTable uses MariaDB to store user, group and team information as well as metadata for bases. Additionally, MariaDB stores the operation log. The operation log (saved in the database table `dtable_db.operation_log`) is the base journal. It records all modifications made within all bases of the SeaTable Server instance. (While SeaTable stores all base modifications in MariaDB, but it doesn't store the actual base content. Instead, bases are managed within dtable-server and regularly persisted to dtable-storage-server for long-term storage.)
+
+SeaTable Server uses four database tables:
+
+- ccnet_db: information about users, groups and teams (or organizations)
+- seafile_db: metadata information of the file storage
+- dtable_db: application level data, including base metadata, operation log, sessions, automation rules
+- scheduler: log information for SeaTable Server's Python Pipeline
+
+## Redis Container
+
+Redis, an in-memory data store, performs several tasks for a SeaTable Server instance:
+
+- Caching for Django, which is used for SeaTable's web interface and all API endpoints
+- Cache application level data obtained from databases (e.g. session cache, user information cache, group and organization list cache)
+- Sending messages from dtable-web/dtable-server to dtable-events - it servers as an event queue to save internal tasks and statuses
+
+!!! warning "Redis has replaced Memcached"
+
+    In versions up to SeaTable Server 5.1, Memcached, a in-memory key-value store, was used to cache the Django framework.
 
 ## SeaTable Backends
 
@@ -97,7 +111,7 @@ SeaTable employs two distinct backends: the **default backend**, which supports 
 
 The latter was developed to address a technical size limitation, which by default restricts the maximum number of rows within a base to 100,000. The Big Data backend enables the storage of millions of rows in a single base, overcoming this barrier. However, due to the vast amount of data handled, not all functions are supported by the Big Data backend. Particularly, real-time collaboration in the browser is not possible with this backend.
 
-### Default backend (JSON-file based backend)
+### Default Backend (JSON-file based backend)
 
 The core of a SeaTable Server lies in its base editor, facilitating real-time collaborative work directly within the browser.
 
