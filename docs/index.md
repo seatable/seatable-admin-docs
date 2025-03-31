@@ -1,36 +1,40 @@
 # Welcome to the SeaTable Admin Manual
 
-## This manual is for linux admins
+## Who is this Manual for?
 
-This admin manual cover the typical topics, from installation to configuration, backup and maintenance of your **own SeaTable Server**. So if you want to run your own SeaTable Server, this is the place to be! You will find everything a SeaTable administrator needs.
+You want to run your own **SeaTable Server**, then this is the place to be!
+
 
 !!! warning "Various IT skills are mandatory"
 
     SeaTable is a sophisticated software solution comprised of multiple components that must seamlessly interact. Therefore, we advise running your own server only if you possess a solid understanding of topics such as **Docker**, **Docker Compose**, **network ports**, **proxies**, and Linux **bash commands**. Even the best documentation can not describe everything.
 
-If you want to use SeaTable, but you don't want to take the hurdle to run your own server, SeaTable GmbH offers two other products next to **SeaTable Server**:
+If you want to use SeaTable, but you don't want to run your own server, SeaTable GmbH offers two other products next to **SeaTable Server**:
 
-??? abstract "SeaTable Cloud: ready in seconds"
+??? abstract "SeaTable Cloud: public SAAS"
 
-    Additionally, there is SeaTable Cloud, a SaaS-service for users that do not want to self-host or simply want to trial SeaTable Server. SeaTable Cloud can be used free-of-charge with the "Free" subscription. Registration requires only your email address. More features and higher resource limits are available in SeaTable Cloud's [paid subscriptions](https://seatable.io/preise/?lang=auto).
+    SeaTable Cloud is the product of choice for small- and medium-sized enterprises that just want to use SeaTable - quickly and at transparent cost. SeaTable Cloud can be used free-of-charge with the Free subscription. Registration for SeaTable Cloud requires only an email address. More features and higher resource limits are available in SeaTable Cloud's [paid subscriptions](https://seatable.com/en/preise/).
 
     [Register now for SeaTable Cloud](https://seatable.io/registrierung/?lang=auto){ .md-button .md-button--primary }
 
-??? tip "SeaTable Dedicated: Full control without any huzzle"
+??? tip "SeaTable Dedicated: private SAAS"
 
-    Then, there is [SeaTable Dedicated](https://seatable.io/on-premises/). SeaTable Dedicated is a managed and private SeaTable Cloud. We (=SeaTable GmbH) run and manage the Server for you, but it is your system. You define which URL to use, which logo or color code should greet your users.
+    [SeaTable Dedicated](https://seatable.com/en/dedicated/) is a custom SeaTable Server instance for you and your team operated by the SeaTable exports. You define which URL to use, which logo or color code should greet your users.
 
-    **Important**: The SeaTable Dedicated System Requires a Minimum of 100 Users.
+    **Important**: SeaTable Dedicated requires a minimum of 100 Users.
 
     [Contact us and get a quote](https://seatable.io/kontakt/?lang=auto){ .md-button .md-button--primary }
 
-## Additional ressources
 
-If you don't want to run your own server but you are searching for additional information, here are some **other ressources**, that might help you also:
+## Scope of this Manual
 
-- **For users**: For information about how to use SeaTable, please refer to the [user documentation](https://docs.seatable.io/).
-- **For developers**: For developer-focus documentation, such as using SeaTable's API, scripting, automations and plugin development refer either to the [API reference](https://api.seatable.io) or have a look at the [developer manual](https://developers.seatable.io).
-- **Others**: There are additional ressources. Check out our [YouTube channel](https://www.youtube.com/seatable) to get a better understanding of how to use SeaTable or to raise questions at the [community forum](https://forum.seatable.io).
+This manual covers all relevant admin topics, from installation, configuration, upgrade, and maintenance, and provides background information on software architecture, requirements, and development.
+
+This manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://docs.seatable.io/).
+
+If you are a **developer** looking for development resources, please check out the [developer manual](https://developer.seatable.io) and the [API reference](https://api.seatable.io).
+
+This is not the place for discussion either. You can ask questions about SeaTable in the [SeaTable Forum](https://forum.seatable.io). Looking forward to seeing you there!
 
 ## What is SeaTable?
 
@@ -50,11 +54,11 @@ This admin manual will help you to install, configure and update your own SeaTab
 
 ## Installation
 
-This manual provides two different approaches how to install SeaTable.
+This manual provides two different approaches to installing SeaTable Server.
 
 ### Single-Node Installation
 
-There is a _Single-Node Setup_, where all components of SeaTable are installed on one server or virtual machine. All services can be reached by a single URL. The installation is fairly straigt forward thanks to the consequent usage of Docker. This setup is easy for testing and production for up to 100 users.
+There is a _Single-Node Setup_, where all components of SeaTable Server are installed on one server or virtual machine. All services can be reached by a single URL. The installation is straightforward thanks to the consequent usage of Docker. This setup is easy for testing and production for up to 100 users.
 
 [Let's begin with the Single-Node installation](installation/basic-setup.md){ .md-button .md-button--primary }
 
@@ -62,7 +66,7 @@ There is a _Single-Node Setup_, where all components of SeaTable are installed o
 
 The _'Advanced Setup_ section doesn't entail a distinct installation method; rather, it offers detailed guidance on operating each component independently. It equips you with the knowledge needed to scale your SeaTable Server effectively. Whether you're seeking insights to enhance performance or aiming to construct a highly available cluster setup capable of supporting hundreds of thousands of users, this section provides comprehensive instructions to meet your objectives.
 
-## Screenshots and some impressions of SeaTable
+## Impressions of SeaTable
 
 ### Login Page
 
