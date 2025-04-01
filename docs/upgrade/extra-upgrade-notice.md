@@ -1,5 +1,20 @@
 # Extra upgrade notice
 
+## 5.3
+
+Version 5.3 supports connecting to MySQL using non-root users. You need to update the `seatable-server.yml` file in [seatable-release](https://github.com/seatable/seatable-release), and add the following configurations to the `.env` file:
+
+```env
+# seatable mysql user (The default user in older versions is `root`)
+SEATABLE_MYSQL_DB_USER=root
+
+# seatable mysql password
+SEATABLE_MYSQL_DB_PASSWORD=
+
+# A random string with a length of no less than 32 characters, generate example: `pwgen -s 40 1`
+JWT_PRIVATE_KEY=
+```
+
 ## 5.2
 
 ??? warning "From Two to One: Redis Unifies Caching, Retiring Memcached"
