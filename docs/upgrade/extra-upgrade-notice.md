@@ -2,7 +2,7 @@
 
 ## 5.3
 
-Version 5.3 supports connecting to MySQL using non-root users. You need to update the `seatable-server.yml` file in [seatable-release](https://github.com/seatable/seatable-release), and add the following configurations to the `.env` file:
+Version 5.3 supports config MySQL and Redis using environment variables. You need to update the `seatable-server.yml` file in [seatable-release](https://github.com/seatable/seatable-release), and add the following configurations to the `.env` file:
 
 ```env
 SEATABLE_MYSQL_DB_HOST=
@@ -25,7 +25,7 @@ You need to refer to the configurations in `/opt/seatable/conf/dtable_server_con
 * SEATABLE_MYSQL_DB_PASSWORD, same as the `password` field in dtable_server_config.json
 * REDIS_HOST, same as the `redis_host` field in dtable_server_config.json
 * REDIS_PORT, same as the `redis_port` field in dtable_server_config.json
-* REDIS_PASSWORD, same as the `redis_password` field in dtable_server_config.json
+* REDIS_PASSWORD, same as the `redis_password` field in dtable_server_config.json. Note, if Redis has no REDIS_PASSWORD, leave it as empty after "=", do not use empty string (like REDIS_PASSWORD="")
 * JWT_PRIVATE_KEY, same as the `private_key` field in dtable_server_config.json
 
 You also need to remove the following configuration:
