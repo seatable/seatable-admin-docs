@@ -34,6 +34,15 @@ You also need to remove the following configuration:
 # SEATABLE_MYSQL_ROOT_PASSWORD=
 ```
 
+After starting SeaTable, you need to enter the container and run the command to migrate the comments in the application.
+
+```bash
+docker exec -it seatable-server bash
+
+cd /opt/seatable/seatable-server-latest/dtable-web
+seatable.sh python-env manage.py merge_app_comments_to_base
+```
+
 ## 5.2
 
 ??? warning "From Two to One: Redis Unifies Caching, Retiring Memcached"
