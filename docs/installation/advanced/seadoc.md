@@ -33,6 +33,8 @@ Here is the workflow when a user open a seadoc in browser
 
 The easiest way to deployment SeaDoc is to deploy it with SeaTable server on the same host using the same Docker network. If in some situations, you need to deployment SeaDoc standalone, you can follow the next section.
 
+Deploy SeaDoc 2.0 requires SeaTable 5.3.
+
 ### Change the .env file
 
 To install SeaDoc, include `seadoc.yml` in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for SeaDoc.
@@ -46,11 +48,8 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seadoc.yml'/" /opt/seatable-com
 ### Add SeaDoc configurations to .env file
 
 ```env
-DTABLE_PRIVATE_KEY=
 ENABLE_SEADOC=true
 ```
-
-`DTABLE_PRIVATE_KEY` copy form `/opt/seatable/conf/dtable_web_settings.py` in SeaTable container.
 
 ### Download SeaDoc and restart
 
@@ -87,12 +86,12 @@ SEATABLE_MYSQL_DB_HOST=
 SEATABLE_MYSQL_ROOT_PASSWORD=
 
 # SeaDoc
-DTABLE_PRIVATE_KEY=
+JWT_PRIVATE_KEY=
 SEADOC_SERVER_HOSTNAME=seadoc.your-url.com
 SEADOC_SERVER_PROTOCOL=http
 ```
 
-Note: DTABLE_PRIVATE_KEY copy form `/opt/seatable/conf/dtable_web_settings.py` in SeaTable container.
+Note: `JWT_PRIVATE_KEY`, same as the `JWT_PRIVATE_KEY` field in SeaTable `.env` file.
 
 Execute `docker compose up -d` to fire up your separate SeaDoc.
 
