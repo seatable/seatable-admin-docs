@@ -9,7 +9,7 @@ A SeaTable Server instance consists of a handful of Docker containers. Some cont
 The following diagram is a simplified representation of the required containers. The numbers are the ports used by the containers.
 
 ```mermaid
-flowchart LR
+flowchart TB
     Client<-->A
     subgraph s[SeaTable Server]
         subgraph d[Docker Containers]
