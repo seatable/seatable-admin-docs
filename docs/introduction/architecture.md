@@ -38,7 +38,7 @@ Caddy is easy to configure and excels at facilitating SSL configuration and mana
 
 ## Container seatable-server
 
-The container `seatable-server` is home to several services. The nginx service is the gateway in the container 
+The container `seatable-server` is home to several services. The nginx service is the gateway in the container.
 
 ```mermaid
 flowchart LR
