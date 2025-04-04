@@ -1,6 +1,6 @@
 # Architecture
 
-## SeaTable Server Overview
+## Overview
 
 SeaTable Server uses Docker/Docker Compose for easy deployment and upgrades.
 
@@ -20,7 +20,7 @@ flowchart LR
             B<-->C
             B<-->D
         end
-        F[File System / S3]
+        F[Storage]
         C --> F
         D --> F
         B --> F
@@ -103,9 +103,9 @@ Redis, an in-memory data store, performs several tasks for a SeaTable Server ins
 
 !!! warning "Redis has replaced Memcached"
 
-    In versions up to SeaTable Server 5.1, Memcached, a in-memory key-value store, was used to cache the Django framework.
+    In versions up to SeaTable Server 5.1, Memcached, an in-memory key-value store, was used to cache the Django framework.
 
-## File System / S3
+## Storage
 
 By default, SeaTable Server stores user data in the following structure on the local disk:
 ```bash
@@ -156,7 +156,7 @@ Furthermore, the dtable-storage-server generates a snapshot of the base every 24
 
 ![Bases are stored as json files](../assets/images/json_loaded_in_base_editor.png)
 
-!!! warning "Why are the bases not stored in mariadb?"
+!!! warning "Why are the bases not stored in MariaDB?"
 
     Initially, it may seem counterintuitive that SeaTable saves base data in a JSON-file rather than directly in the MariaDB database. However, this decision stems from the efficiency of SQL tables in handling vast numbers of rows. The challenge arises when altering the database structure, such as adding new columns, renaming columns, or changing column types in a table containing hundreds of thousands of rows. In such cases, direct database storage proves inefficient.
 
