@@ -6,7 +6,7 @@ SeaTable Server uses Docker/Docker Compose for easy deployment and upgrades.
 
 A SeaTable Server instance consists of a handful of Docker containers. Some containers are required, some are optional.
 
-The following diagram is a simplified representation of the required containers. The numbers are the ports used by the services.
+The following diagram is a simplified representation of the required containers. The numbers are the ports used by the containers.
 
 ```mermaid
 flowchart LR
@@ -84,7 +84,7 @@ The dtable-storage-server is a simple abstract layer upon the chosen storage met
 
 When actions are not executed immediately but with a time delay, SeaTable employs the dtable-events service, essentially the interface to the Redis cache. dtable-events effectively manages various tasks and their status, ensuring efficient task execution within the system.
 
-## MariaDB Container
+## Container mariadb
 
 SeaTable uses MariaDB to store user, group and team information as well as metadata for bases. Additionally, MariaDB stores the operation log. The operation log (saved in the database table `dtable_db.operation_log`) is the base journal. It records all modifications made within all bases of the SeaTable Server instance. (While SeaTable stores all base modifications in MariaDB, but it doesn't store the actual base content. Instead, bases are managed within dtable-server and regularly persisted to dtable-storage-server for long-term storage.)
 
@@ -95,7 +95,7 @@ SeaTable Server uses four database tables:
 - dtable_db: application level data, including base metadata, operation log, sessions, automation rules
 - scheduler: log information for SeaTable Server's Python Pipeline
 
-## Redis Container
+## Container redis
 
 Redis, an in-memory data store, performs several tasks for a SeaTable Server instance:
 
