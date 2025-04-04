@@ -6,16 +6,16 @@ SeaTable Server uses Docker/Docker Compose for easy deployment and upgrades.
 
 A SeaTable Server instance consists of a handful of Docker containers. Some containers are required, some are optional.
 
-The following diagram is a simplified representation of the required containers.
+The following diagram is a simplified representation of the required containers. The numbers are the ports used by the services.
 
 ```mermaid
 flowchart LR
     subgraph s[SeaTable Server]
         subgraph d[Docker Containers]
-            A[Caddy]
-            B[SeaTable Server]
-            C[MariaDB]
-            D[Redis]
+            A[caddy<br/>80, 443]
+            B[seatable-server<br/>80]
+            C[mariadb<br/>3306]
+            D[redis<br/>6379]
             A<-->B
             B<-->C
             B<-->D
@@ -27,15 +27,17 @@ flowchart LR
     end
 ```
 
-## Caddy Container
+Only ports 80 and 443 in the container `caddy` are exposed. All other ports are internal ports that are only available within the Docker network.
+
+## Container caddy
 
 Caddy is a flexible web proxy. Its job is to offer a central gateway for the SeaTable Server instance.
 
 Caddy is easy to configure and excels at facilitating SSL configuration and management, either with Let's Encrypt or custom certificates.
 
-## SeaTable Server Container
+## Container seatable-server
 
-Let's look at the `SeaTable Server` container in more details to get a feeling about the different services delivered with this container. Also this graph is simplified for explanatory reasons. It should explain the connections and logics and should not be super precise.
+The container `seatable-server` is home to several services. The nginx service is the gateway in the container 
 
 ```mermaid
 flowchart LR
