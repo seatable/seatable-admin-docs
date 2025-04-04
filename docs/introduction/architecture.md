@@ -9,7 +9,8 @@ A SeaTable Server instance consists of a handful of Docker containers. Some cont
 The following diagram is a simplified representation of the required containers. The numbers are the ports used by the containers.
 
 ```mermaid
-flowchart LR
+flowchart TB
+    Client<-->A
     subgraph s[SeaTable Server]
         subgraph d[Docker Containers]
             A[caddy<br/>80, 443]
@@ -37,7 +38,7 @@ Caddy is easy to configure and excels at facilitating SSL configuration and mana
 
 ## Container seatable-server
 
-The container `seatable-server` is home to several services. The nginx service is the gateway in the container 
+The container `seatable-server` is home to several services. The nginx service is the gateway in the container.
 
 ```mermaid
 flowchart LR
