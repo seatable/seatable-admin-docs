@@ -40,15 +40,15 @@ Let's look at the `SeaTable Server` container in more details to get a feeling a
 ```mermaid
 flowchart LR
     subgraph s[SeaTable Server Container]
-        A[nginx]
-        B[dtable-web]
-        C[dtable-server]
-        D[dtable-db]
-        E[seaf-server]
+        A[nginx<br/>80]
+        B[dtable-web<br/>8000]
+        C[dtable-server<br/>5000]
+        D[dtable-db<br/>7777]
+        E[seaf-server<br/>8082]
         G[dtable-events]
-        F[dtable-storage-server]
+        F[dtable-storage-server<br/>6666]
         A<-- / -->B
-        A<-- /dtable-server, /socket.io -->C
+        A<-- /dtable-server<br/>/socket.io -->C
         A<-- /dtable-db -->D
         A<-- /seafhttp -->E
         C<-->F
