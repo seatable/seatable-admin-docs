@@ -10,6 +10,7 @@ The following diagram is a simplified representation of the required containers.
 
 ```mermaid
 flowchart LR
+    Client<-->A
     subgraph s[SeaTable Server]
         subgraph d[Docker Containers]
             A[caddy<br/>80, 443]
