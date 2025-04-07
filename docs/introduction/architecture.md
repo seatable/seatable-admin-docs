@@ -34,24 +34,27 @@ Only ports 80 and 443 in the container `caddy` are exposed. All other ports are 
 flowchart TB
     Client<-->A
     subgraph s[SeaTable Server]
+        direction LR
         subgraph d[Docker Containers]
-            A[caddy<br/>80, 443]
-            B[seatable-server<br/>80]
-            C[mariadb<br/>3306]
-            D[redis<br/>6379]
-            A<-->B
-            B<-->C
-            B<-->D
+            direction TD
+            C[caddy<br/>80, 443]
+            SS[seatable-server<br/>80]
+            MDB[mariadb<br/>3306]
+            R[redis<br/>6379]
+            MDB<-->SS
+            SS<-->MDB
+            SS<-->R
                subgraph p[Python Pipeline]
+                  direction TD
                   PSc[python-scheduler]
                   PSt[python-starter]
                   PR[python-runner]
                   PSc-->PSt
                   PSt-->PR
                end
-            B-->PSc
-            B<-->PR
-            C<-->PSc
+            SS-->PSc
+            SS<-->PR
+            MDB<-->PSc
         end
     end
 ```
