@@ -56,6 +56,7 @@ flowchart TB
             SS<-->PR
             MDB<-->PSc
         end
+        F[Storage]
     end
 ```
 
