@@ -39,14 +39,14 @@ flowchart TB
             SS[seatable-server<br/>80]
             MDB[mariadb<br/>3306]
             R[redis<br/>6379]
-            OO[Collabora/Onlyoffice<br/>6232,6233]
-            Wh[Whiteboard<br/>6239]
-            CAV[ClamAV<br/>]
+            OO[collabora/onlyoffice<br/>6232/6233]
+            Tld[tldraw<br/>6239]
+            CAV[clamav<br/>]
             C<-->SS
             SS<-->MDB
             SS<-->R
             SS<-->OO
-            SS<-->Wh
+            SS<-->Tld
             SS<-->CAV
                subgraph p[Python Pipeline]
                   direction TB
