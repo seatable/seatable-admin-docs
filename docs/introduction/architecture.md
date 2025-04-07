@@ -12,7 +12,7 @@ The following diagram is a simplified representation of the required containers.
 flowchart TB
     Client<-->A
     subgraph SeaTable Server
-        directio LR
+        direction LR
         subgraph Docker Containers
             A[caddy<br/>80, 443]
             B[seatable-server<br/>80]
