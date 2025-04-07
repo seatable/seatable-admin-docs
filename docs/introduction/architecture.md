@@ -11,8 +11,9 @@ The following diagram is a simplified representation of the required containers.
 ```mermaid
 flowchart TB
     Client<-->A
-    subgraph s[SeaTable Server]
-        subgraph d[Docker Containers]
+    subgraph SeaTable Server
+        directio LR
+        subgraph Docker Containers
             A[caddy<br/>80, 443]
             B[seatable-server<br/>80]
             C[mariadb<br/>3306]
@@ -22,9 +23,6 @@ flowchart TB
             B<-->D
         end
         F[Storage]
-        C --> F
-        D --> F
-        B --> F
     end
 ```
 
