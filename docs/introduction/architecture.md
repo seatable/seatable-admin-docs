@@ -56,6 +56,7 @@ flowchart LR
         A<-- /dtable-db -->D
         A<-- /seafhttp -->E
         A<-- /api-gateway -->H
+        B<-->F
         C<-->F
         D<-->F
         C<-->G
