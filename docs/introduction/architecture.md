@@ -54,7 +54,12 @@ flowchart TB
             C<-->PSc
         end
         F[Storage]
-        F<-->B,C,D,PSc,PSt,PR
+        F<-->B
+        F<-->C
+        F<-->D
+        F<-->PSc
+        F<-->PSt
+        F<-->PR
     end
 ```
 
