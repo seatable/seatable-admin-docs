@@ -30,6 +30,36 @@ flowchart TB
 
 Only ports 80 and 443 in the container `caddy` are exposed. All other ports are internal ports that are only available within the Docker network.
 
+```mermaid
+flowchart TB
+    Client<-->A
+    subgraph s[SeaTable Server]
+        subgraph d[Docker Containers]
+            A[caddy<br/>80, 443]
+            B[seatable-server<br/>80]
+            C[mariadb<br/>3306]
+            D[redis<br/>6379]
+            A<-->B
+            B<-->C
+            B<-->D
+               subgraph p[Python Pipeline]
+                  PSc[Python Scheduler]
+                  PSt[Python Starter]
+                  PR[Python Runner]
+                  PSc-->PSt
+                  PSt-->PR
+               end
+            B-->PSc
+            B<-->PR
+        end
+        F[Storage]
+        C --> F
+        D --> F
+        B --> F
+    end
+```
+
+
 ## Container caddy
 
 Caddy is a flexible web proxy. Its job is to offer a central gateway for the SeaTable Server instance.
