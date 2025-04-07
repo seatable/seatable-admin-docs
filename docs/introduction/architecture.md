@@ -35,10 +35,13 @@ flowchart TB
         direction LR
         subgraph Docker Containers
             direction TB
-            C[caddy<br/>80, 443]
+            C[caddy<br/>80,443]
             SS[seatable-server<br/>80]
             MDB[mariadb<br/>3306]
             R[redis<br/>6379]
+            OO[Collabora/Onlyoffice<br/>6232,6233]
+            Wh[Whiteboard<br/>6239]
+            CAV[ClamAV<br/>]
             C<-->SS
             SS<-->MDB
             SS<-->R
