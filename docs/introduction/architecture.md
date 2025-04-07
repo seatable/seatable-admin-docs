@@ -50,10 +50,12 @@ flowchart LR
         E[seaf-server<br/>8082]
         G[dtable-events]
         F[dtable-storage-server<br/>6666]
+        H[api-gateway<br/>7780]
         A<-- / -->B
         A<-- /dtable-server<br/>/socket.io -->C
         A<-- /dtable-db -->D
         A<-- /seafhttp -->E
+        A<-- /api-gateway -->H
         C<-->F
         D<-->F
         C<-->G
