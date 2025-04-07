@@ -32,7 +32,7 @@ Only ports 80 and 443 in the container `caddy` are exposed. All other ports are 
 
 ```mermaid
 flowchart TB
-    Client<-->A
+    Client<-->C
     subgraph s[SeaTable Server]
         direction LR
         subgraph d[Docker Containers]
@@ -41,7 +41,7 @@ flowchart TB
             SS[seatable-server<br/>80]
             MDB[mariadb<br/>3306]
             R[redis<br/>6379]
-            MDB<-->SS
+            C<-->SS
             SS<-->MDB
             SS<-->R
                subgraph p[Python Pipeline]
