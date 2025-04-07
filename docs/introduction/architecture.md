@@ -22,7 +22,7 @@ flowchart TB
             B<-->C
             B<-->D
         end
-        F[Storage]
+        F@{ shape: bow-rect, label: "Storage"}
     end
 ```
 
@@ -30,7 +30,7 @@ Only ports 80 and 443 in the container `caddy` are exposed. All other ports are 
 
 ```mermaid
 flowchart TB
-    Client<-->C
+    Client@{ shape: circle , label: "Client"}<-->C
     subgraph SeaTable Server
         direction LR
         subgraph Docker Containers
@@ -60,7 +60,7 @@ flowchart TB
             SS<-->PR
             MDB<-->PSc
         end
-        F[Storage]
+        F@{ shape: bow-rect, label: "Storage"}
     end
 ```
 
