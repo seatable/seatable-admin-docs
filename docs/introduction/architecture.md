@@ -60,6 +60,9 @@ flowchart LR
         D<-->F
         C<-->G
         D<-->G
+        B<-->H
+        H<-->C
+        H<-->D
     end
 ```
 
