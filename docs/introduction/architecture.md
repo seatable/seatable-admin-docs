@@ -50,14 +50,20 @@ flowchart LR
         E[seaf-server<br/>8082]
         G[dtable-events]
         F[dtable-storage-server<br/>6666]
+        H[api-gateway<br/>7780]
         A<-- / -->B
         A<-- /dtable-server<br/>/socket.io -->C
         A<-- /dtable-db -->D
         A<-- /seafhttp -->E
+        A<-- /api-gateway -->H
+        B<-->F
         C<-->F
         D<-->F
         C<-->G
         D<-->G
+        B<-->H
+        H<-->C
+        H<-->D
     end
 ```
 
@@ -84,6 +90,10 @@ The dtable-storage-server is a simple abstract layer upon the chosen storage met
 ### dtable-events
 
 When actions are not executed immediately but with a time delay, SeaTable employs the dtable-events service, essentially the interface to the Redis cache. dtable-events effectively manages various tasks and their status, ensuring efficient task execution within the system.
+
+### api-gateway
+
+Most API requests are routed through this component. It allows to enforce API rate and request limits.
 
 ## Container mariadb
 
