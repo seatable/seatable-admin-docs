@@ -10,6 +10,7 @@ The following diagram is a simplified representation of the required containers.
 
 ```mermaid
 flowchart TB
+    Client([Client)]
     Client<-->A
     subgraph SeaTable Server
         direction LR
@@ -30,7 +31,7 @@ Only ports 80 and 443 in the container `caddy` are exposed. All other ports are 
 
 ```mermaid
 flowchart TB
-    Client@{ shape: circle , label: "Client"}<-->C
+    Client([Client)]<-->C
     subgraph SeaTable Server
         direction LR
         subgraph Docker Containers
