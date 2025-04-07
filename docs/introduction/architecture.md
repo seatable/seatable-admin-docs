@@ -47,7 +47,7 @@ flowchart TB
             SS<-->R
             SS<-->OO
             SS<-->Wh
-            SS<-->ClamAV
+            SS<-->CAV
                subgraph p[Python Pipeline]
                   direction TB
                   PSc[python-scheduler]
