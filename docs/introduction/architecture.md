@@ -43,19 +43,18 @@ flowchart TB
             B<-->C
             B<-->D
                subgraph p[Python Pipeline]
-                  PSc[Python Scheduler]
-                  PSt[Python Starter]
-                  PR[Python Runner]
+                  PSc[python-scheduler]
+                  PSt[python-starter]
+                  PR[python-runner]
                   PSc-->PSt
                   PSt-->PR
                end
             B-->PSc
             B<-->PR
+            C<-->PSc
         end
         F[Storage]
-        C --> F
-        D --> F
-        B --> F
+        F<-->B,C,D,PSc,PSt,PR
     end
 ```
 
