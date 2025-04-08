@@ -4,14 +4,12 @@
 
 SeaTable Server uses Docker/Docker Compose for easy deployment and upgrades.
 
-A SeaTable Server instance consists of a handful of Docker containers. Some containers are required, some are optional.
-
-The following diagram is a simplified representation of the required containers. The numbers are the ports used by the containers.
+A SeaTable Server instance consists of a handful of Docker containers. The following diagram is a simplified representation of the required Docker containers deployed in the [single node setup](../installation/basic-setup/).
 
 ```mermaid
 flowchart TB
     Client<-->A
-    subgraph s[SeaTable Server]
+    subgraph s[SeaTable Server instance]
         subgraph d[Docker Containers]
             A[caddy<br/>80, 443]
             B[seatable-server<br/>80]
@@ -28,7 +26,11 @@ flowchart TB
     end
 ```
 
-Only ports 80 and 443 in the container `caddy` are exposed. All other ports are internal ports that are only available within the Docker network.
+The numbers designate the ports used by the containers. Port 443 in the container `caddy` must be exposed. Port 80 must also be exposed when a Let's Encrypt SSL certificate is to be used.  All other ports are internal ports that are only available within the Docker network.
+
+<!--In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
+
+The rest of this article focuses exclusively on the required containers and components of a SeaTable Server instance.-->
 
 ## Container caddy
 
@@ -85,7 +87,7 @@ When utilizing a file or image column in your base, the actual files are stored 
 
 ### dtable-storage-server
 
-The dtable-storage-server is a simple abstract layer upon the chosen storage method. This could be either file storage or S3-like object storage.
+The dtable-storage-server is a simple abstract layer upon the chosen storage. SeaTable Server support file system and S3-compatible object storage.
 
 ### dtable-events
 
@@ -93,7 +95,7 @@ When actions are not executed immediately but with a time delay, SeaTable employ
 
 ### api-gateway
 
-Most API requests are routed through this component. It allows to enforce API rate and request limits.
+The api-gateway is as a proxy for dtable-server and dtable-db. All API calls for [base operations](https://api.seatable.io/reference/getbaseinfo) are routed through this component. It also essential for the effective enforcement of API rate and request limits.
 
 ## Container mariadb
 
@@ -144,7 +146,7 @@ These directories contain the following content:
 
 `/opt/seatable-server/` is mounted as a Docker volume in the Docker container `seatable-server` when SeaTable Server is started.
 
-If S3 is configured, the following data will be stored in S3 instead of local disk:
+If S3 is configured, the following data will be stored in S3 instead of in the file system:
 
 - storage-data
 - seafile-data
