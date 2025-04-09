@@ -43,6 +43,76 @@ cd /opt/seatable/seatable-server-latest/dtable-web
 seatable.sh python-env manage.py merge_app_comments_to_base
 ```
 
+After confirming that SeaTable is running normally, please delete these expired configurations:
+
+* Delete ccnet.conf file
+* Delete cache and database configurations in seafile.conf
+```conf
+[database]
+type = mysql
+host = db
+port = 3306
+user = root
+password = ***
+db_name = seafile_db
+connection_charset = utf8
+```
+* Delete cache, database configurations, and `DTABLE_PRIVATE_KEY` in dtable_web_settings.py
+```py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'db',
+        'PORT': '3306',
+        'USER': 'root',
+        'PASSWORD': '***',
+        'NAME': 'dtable_db',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
+    }
+}
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://redis:6379',
+    }
+}
+DTABLE_PRIVATE_KEY = '***'
+```
+* Delete cache, database configurations, and `private_key` in dtable_server_config.json
+```js
+    "host": "db",
+    "user": "root",
+    "password": "***",
+    "database": "dtable_db",
+    "port": 3306,
+    "private_key": "***",
+    "redis_host": "redis",
+    "redis_port": 6379,
+    "redis_password": ""
+```
+* Delete the two sections `[DATABASE]` and `[REDIS]` in dtable-events.conf
+```conf
+[DATABASE]
+type = mysql
+host = db
+port = 3306
+username = root
+password = ***
+db_name = dtable_db
+
+[REDIS]
+host = redis
+port = 6379
+```
+
+Finally, restart SeaTable:
+
+```bash
+docker exec -d seatable-server /opt/seatable/scripts/seatable.sh restart
+```
+
 ## 5.2
 
 ??? warning "From Two to One: Redis Unifies Caching, Retiring Memcached"
