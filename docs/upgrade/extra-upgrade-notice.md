@@ -110,7 +110,7 @@ port = 6379
 Finally, restart SeaTable:
 
 ```bash
-docker exec -d seatable-server /opt/seatable/scripts/seatable.sh restart
+docker compose restart
 ```
 
 ## 5.2
