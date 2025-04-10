@@ -186,6 +186,7 @@ nav:
           - MariaDB (standalone): installation/advanced/database-standalone.md
           - Seafile (external): installation/advanced/seafile.md
           - SeaDoc: installation/advanced/seadoc.md
+          - SeaTable AI: installation/advanced/seatable-ai.md
 
       - Cluster Setup:
           - SeaTable Cluster: installation/cluster/seatable-cluster.md
