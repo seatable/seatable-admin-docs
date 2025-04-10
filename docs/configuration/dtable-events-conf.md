@@ -24,29 +24,21 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
     Other configuration files are not used, if you run dtable-events separately.
 
+!!! note "Configurations format in dtable-events.conf`"
+
+    `dtable-events.conf` mainly contains some sections and their options. Sence SeaTable 5.3, **both section names and option names are case-insensitive** (old versions only support all-capitalized section names). 
+    
+    - Section names in this document will default to **uppercase** and **spaces** (such as `[COMMON DATASET SYNCER]`, and will be compatible with the old configuration method `[COMMON-DATASET-SYNCER]`). 
+    - Option names will be mainly **lowercase** with **underscores** (such as `per_update_auto_rule_workers`).
+
 The following options are grouped by their sections.
-
-## Example configuration
-
-This is a typical configuration file, created automatically on the first startup by SeaTable.
-
-```ini
-[DATABASE]
-type = mysql
-host = mariadb
-port = 3306
-username = root
-password = topsecret
-db_name = dtable_db
-
-[REDIS]
-host = redis
-port = 6379
-```
 
 ## Available configuration options
 
 ### `[DATABASE]`
+
+??? success "Database can configure in .env"
+    From SeaTable 5.3, you can specify the database configurations in [`.env`](./environment-variables.md#table-of-settings).
 
 | Parameter  | Description                                                                                             | Default           |
 | ---------- | ------------------------------------------------------------------------------------------------------- | ----------------- |
@@ -58,6 +50,9 @@ port = 6379
 | `password` | MariaDB password                                                                                        | `$DB_ROOT_PASSWD` |
 
 ### `[REDIS]`
+
+??? success "Redis can configure in .env"
+    From SeaTable 5.3, you can specify the redis configurations in [`.env`](./environment-variables.md#table-of-settings).
 
 | Parameter  | Description           | Default |
 | ---------- | --------------------- | ------- |
@@ -75,17 +70,6 @@ SeaTable runs this task every hour to send base email notifications for base upd
 | --------- | ------------------------------------------------------------ | ------- |
 | `enabled` | Enables or disables the email notifications for base updates | true    |
 
-### `[NOTIFY-SCANNER]`
-
-**disabled** by default.
-
-Notification rules are a feature that allows users to set criteria for a base and receive notifications when these criteria are met.
-This runs a daily job at midnight to clean up inactive notification rules. Rules that have not been triggered for 180 days or were created but never triggered are marked as invalid.
-
-| Parameter | Description                                  | Default |
-| --------- | -------------------------------------------- | ------- |
-| `enabled` | Enables or disables the notification scanner | false   |
-
 ### `[AUTOMATION]`
 
 **enabled** by default.
@@ -98,7 +82,7 @@ These rules are then automatically executed on a base.
 | `per_minute_trigger_limit`     | To maintain server stability, SeaTable includes a feature that restricts the frequency of automation rule executions | 50      |
 | `per_update_auto_rule_workers` | Number of worker threads used for processing automation rule events                                                  | 3       |
 
-### `[COMMON-DATASET-SYNCER]`
+### `[COMMON DATASET SYNCER]`
 
 **enabled** by default.
 
@@ -108,7 +92,7 @@ SeaTable runs every hour this event to check for pending dataset syncs. The job 
 | --------- | --------------------------------------------- | ------- |
 | `enabled` | Enables or disables the common dataset syncer | true    |
 
-### `[EMAIL-SYNCER]`
+### `[EMAIL SYNCER]`
 
 **enabled** by default.
 
@@ -119,7 +103,7 @@ SeaTable runs this event at the 30th minute of every hour. The job processes ema
 | `enabled`     | Enables or disables the email syncer                             | true    |
 | `max_workers` | Maximum number of worker threads for processing email sync tasks | 5       |
 
-### `[LDAP_SYNC]`
+### `[LDAP SYNC]`
 
 **disabled** by default.
 
@@ -129,16 +113,6 @@ SeaTable could sync LDAP accounts, if activated. This requires additional settin
 | --------------- | --------------------------------------------------------------------------------------- | ------- |
 | `enabled`       | Enables or disables the ldap sync                                                       | false   |
 | `sync_interval` | Specifies the interval at which the LDAP synchronization process should run, in seconds | 3600    |
-
-### `[ROWS-COUNTER]`
-
-**enabled** by default.
-
-SeaTable runs this event every 24 hours. It counts and updates the total number of rows of a team.
-
-| Parameter | Description                                    | Default |
-| --------- | ---------------------------------------------- | ------- |
-| `enabled` | Enables or disables the rows counter for teams | true    |
 
 ### `[VIRUS SCAN]`
 
