@@ -89,10 +89,12 @@ The expected output should appear as follows.
 
 SeaTable is configured with the hidden `.env` file (=enviroment configuration file) that is stored in the folder `/opt/seatable-compose`.
 
-Now use the command line tool `pwgen` to create secure passwords for your _admin account_ and the _database root password_. The following commands will generate two such passwords and insert them in the `.env'` file.
+Now use the command line tool `pwgen` to create secure passwords for your _admin account_, the _database password_ and the JWT_PRIVATE_KEY. The following commands will generate these such passwords and insert them in the `.env'` file.
 
-    sed -i "s/^SEATABLE_ADMIN_PASSWORD=.*/SEATABLE_ADMIN_PASSWORD=$(pwgen 40 1)/" .env
-    sed -i "s/^SEATABLE_MYSQL_ROOT_PASSWORD=.*/SEATABLE_MYSQL_ROOT_PASSWORD=$(pwgen 40 1)/" .env
+    sed -i "s/^INIT_SEATABLE_ADMIN_PASSWORD=.*/INIT_SEATABLE_ADMIN_PASSWORD=$(pwgen 40 1)/" .env
+    sed -i "s/^INIT_SEATABLE_MYSQL_ROOT_PASSWORD=.*/INIT_SEATABLE_MYSQL_ROOT_PASSWORD=$(pwgen 40 1)/" .env
+    sed -i "s/^SEATABLE_MYSQL_DB_PASSWORD=.*/SEATABLE_MYSQL_DB_PASSWORD=$(pwgen 40 1)/" .env
+    sed -i "s/^JWT_PRIVATE_KEY=.*/JWT_PRIVATE_KEY=$(pwgen 40 1)/" .env
 
 Alternatively, you can manually add your own passwords.
 
@@ -125,11 +127,15 @@ Continue setting up your SeaTable server by adjusting only three more variables.
     SEATABLE_SERVER_PROTOCOL='https'
 
     # initial web admin
-    SEATABLE_ADMIN_EMAIL='me@example.com'
-    SEATABLE_ADMIN_PASSWORD='topsecret'
+    INIT_SEATABLE_ADMIN_EMAIL='me@example.com'
+    INIT_SEATABLE_ADMIN_PASSWORD='topsecret'
 
     # database
-    SEATABLE_MYSQL_ROOT_PASSWORD='alsotopsecret'
+    INIT_SEATABLE_MYSQL_ROOT_PASSWORD='alsotopsecret'
+    SEATABLE_MYSQL_DB_USER='seatable'
+    SEATABLE_MYSQL_DB_PASSWORD='alsotopsecret'
+
+    JWT_PRIVATE_KEY='alsotopsecret'
     ```
 
     1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
