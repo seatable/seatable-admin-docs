@@ -79,7 +79,6 @@ These rules are then automatically executed on a base.
 
 | Parameter                      | Description                                                                                                          | Default |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------- |
-| `per_minute_trigger_limit`     | To maintain server stability, SeaTable includes a feature that restricts the frequency of automation rule executions | 50      |
 | `per_update_auto_rule_workers` | Number of worker threads used for processing automation rule events                                                  | 3       |
 
 ### `[COMMON DATASET SYNCER]`
