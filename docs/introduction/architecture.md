@@ -25,7 +25,7 @@ flowchart TB
 
 The numbers designate the ports used by the containers. Port 443 in the container `caddy` must be exposed. Port 80 must also be exposed when a Let's Encrypt SSL certificate is to be used.  All other ports are internal ports that are only available within the Docker network.
 
-All Docker containers read from and write to local storage. The containers `caddy`, `seatable-server`, and `mariadb` employ Docker volumnes.
+All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, and `mariadb` employ Docker volumes.
 
 <!--In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
 
@@ -67,7 +67,7 @@ flowchart LR
     end
 ```
 
-All components connect to the containers `mariadb` and `redis` to read (and write). All components also read (and write) to local disk.
+All services in the container `seatable-server` connect to the containers `mariadb` and `redis` to read (and write). All components also read (and write) to local disk.
 
 ### dtable-web
 
