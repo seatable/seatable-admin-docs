@@ -61,7 +61,7 @@ flowchart LR
         E<-->C
         E<-->D
         C<-->F
-        c<-->G
+        C<-->G
         D<-->F
         D<-->G
     end
