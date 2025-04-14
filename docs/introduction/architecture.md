@@ -8,6 +8,7 @@ A SeaTable Server instance consists of a handful of Docker containers. The follo
 
 ```mermaid
 flowchart TB
+    Client@{ shape: pill, label: "Client"}
     Client<-->A
     subgraph s[SeaTable Server instance]
         subgraph d[Docker Containers]
@@ -31,10 +32,11 @@ In an extended setup, additional, optional Docker container can be deployed to a
 
 ```mermaid
 flowchart TB
+    Client@{ shape: pill, label: "Client"}
     Client<-->C
-    subgraph SeaTable Server
+    subgraph s[SeaTable Server instance]
         direction LR
-        subgraph Docker Containers
+        subgraph d[Docker Containers]
             direction TB
             C[caddy<br/>80,443]
             SS[seatable-server<br/>80]
@@ -48,24 +50,24 @@ flowchart TB
             PR[python-runner]
             C<-->SS
             SS<-->MDB
-            SS<-->R
-            SS<-->OO
-            SS<-->Tld
-            SS<-->CAV
-            SS-->PSc
-            SS<-->PR
             MDB<-->PSc
                subgraph p[Python Pipeline]
                   direction TB
                   PSc-->PSt
                   PSt-->PR
                end
+            SS<-->R
+            SS<-->OO
+            SS<-->Tld
+            SS<-->CAV
+            SS-->PSc
+            SS<-->PR
         end
         F@{ shape: bow-rect, label: "Storage"}
     end
 ```
 
-The rest of this article focuses exclusively on the required containers and components of a SeaTable Server instance.
+The rest of this article focuses exclusively on the required containers and services of a SeaTable Server instance.
 
 ## Container caddy
 
