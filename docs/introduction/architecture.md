@@ -25,7 +25,7 @@ flowchart TB
 
 The numbers designate the ports used by the containers. Port 443 in the container `caddy` must be exposed. Port 80 must also be exposed when a Let's Encrypt SSL certificate is to be used.  All other ports are internal ports that are only available within the Docker network.
 
-All Docker containers read from and write to local storage. The containers `caddy`, `seatable-server`, and `mariadb` employ Docker volumnes.
+All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, and `mariadb` employ Docker volumes.
 
 <!--In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
 
@@ -48,25 +48,26 @@ flowchart LR
         B[dtable-web<br/>8000]
         C[dtable-server<br/>5000]
         D[dtable-db<br/>7777]
-        E[seaf-server<br/>8082]
-        G[dtable-events]
+        E[api-gateway<br/>7780]
         F[dtable-storage-server<br/>6666]
-        H[api-gateway<br/>7780]
+        G[dtable-events]
+        H[seaf-server<br/>8082]
         A<-- / -->B
-        A<-- /dtable-server<br/>/socket.io -->C
-        A<-- /dtable-db -->D
-        A<-- /seafhttp -->E
-        A<-- /api-gateway -->H
+        A<-- /api-gateway -->E
+        A<-- /seafhttp -->H
+        B<-->C
+        B<-->D
         B<-->F
+        E<-->C
+        E<-->D
         C<-->F
-        D<-->F
         C<-->G
+        D<-->F
         D<-->G
-        B<-->H
-        H<-->C
-        H<-->D
     end
 ```
+
+All services in the container `seatable-server` connect to the containers `mariadb` and `redis` to read (and write). All components also read (and write) to local disk.
 
 ### dtable-web
 
