@@ -48,25 +48,26 @@ flowchart LR
         B[dtable-web<br/>8000]
         C[dtable-server<br/>5000]
         D[dtable-db<br/>7777]
-        E[seaf-server<br/>8082]
-        G[dtable-events]
+        E[api-gateway<br/>7780]
         F[dtable-storage-server<br/>6666]
-        H[api-gateway<br/>7780]
+        G[dtable-events]
+        H[seaf-server<br/>8082]
         A<-- / -->B
-        A<-- /dtable-server<br/>/socket.io -->C
-        A<-- /dtable-db -->D
-        A<-- /seafhttp -->E
-        A<-- /api-gateway -->H
+        A<-- /api-gateway -->E
+        A<-- /seafhttp -->H
+        B<-->C
+        B<-->D
         B<-->F
+        E<-->C
+        E<-->D
         C<-->F
+        c<-->G
         D<-->F
-        C<-->G
         D<-->G
-        B<-->H
-        H<-->C
-        H<-->D
     end
 ```
+
+All components connect to the containers `mariadb` and `redis` to read (and write). All components also read (and write) to local disk.
 
 ### dtable-web
 
