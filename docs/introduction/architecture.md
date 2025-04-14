@@ -27,9 +27,45 @@ The numbers designate the ports used by the containers. Port 443 in the containe
 
 All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, and `mariadb` employ Docker volumes.
 
-<!--In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
+In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
 
-The rest of this article focuses exclusively on the required containers and components of a SeaTable Server instance.-->
+```mermaid
+flowchart TB
+    Client<-->C
+    subgraph SeaTable Server
+        direction LR
+        subgraph Docker Containers
+            direction TB
+            C[caddy<br/>80,443]
+            SS[seatable-server<br/>80]
+            MDB[mariadb<br/>3306]
+            R[redis<br/>6379]
+            OO[collabora/onlyoffice<br/>6232/6233]
+            Tld[tldraw<br/>6239]
+            CAV[clamav<br/>]
+            PSc[python-scheduler]
+            PSt[python-starter]
+            PR[python-runner]
+            C<-->SS
+            SS<-->MDB
+            SS<-->R
+            SS<-->OO
+            SS<-->Tld
+            SS<-->CAV
+            SS-->PSc
+            SS<-->PR
+            MDB<-->PSc
+               subgraph p[Python Pipeline]
+                  direction TB
+                  PSc-->PSt
+                  PSt-->PR
+               end
+        end
+        F@{ shape: bow-rect, label: "Storage"}
+    end
+```
+
+The rest of this article focuses exclusively on the required containers and components of a SeaTable Server instance.
 
 ## Container caddy
 
