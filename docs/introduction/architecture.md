@@ -19,14 +19,13 @@ flowchart TB
             B<-->C
             B<-->D
         end
-        F[Storage]
-        C --> F
-        D --> F
-        B --> F
+        F@{ shape: bow-rect, label: "Storage"}
     end
 ```
 
 The numbers designate the ports used by the containers. Port 443 in the container `caddy` must be exposed. Port 80 must also be exposed when a Let's Encrypt SSL certificate is to be used.  All other ports are internal ports that are only available within the Docker network.
+
+All Docker containers read from and write to local storage. The containers `caddy`, `seatable-server`, and `mariadb` employ Docker volumnes.
 
 <!--In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
 
@@ -146,13 +145,13 @@ These directories contain the following content:
 
 `/opt/seatable-server/` is mounted as a Docker volume in the Docker container `seatable-server` when SeaTable Server is started.
 
-If S3 is configured, the following data will be stored in S3 instead of in the file system:
+SeaTable can, depending on the [configuration](../../installation/advanced/s3/), store the following items in S3 buckets instead of in the file system:
 
 - storage-data
 - seafile-data
-- Avatars in seahub-data
+- avatars in seahub-data
 
-The format of the files stored in db-data prevents their storage in S3.
+(The content of the data in db-data cannot be stored in S3 due to it ideosyncratic format.)
 
 
 ## SeaTable Backends
