@@ -2,20 +2,29 @@
 
 SeaTable AI is an extension of SeaTable that providing AI functions.
 
+SeaSearch, a file indexer with more lightweight and efficiency than Elasticsearch.
+
 ## Deployment SeaTable AI
 
 The easiest way to deployment SeaTable AI is to deploy it with SeaTable server on the same host. If in some situations, you need to deployment SeaTable AI standalone, you can follow the next section.
 
-NOTE: Deploy SeaTable AI requires SeaTable 5.3.
+Note: Deploy SeaTable AI requires SeaTable 5.3.
 
 ### Change the .env file
 
-To install SeaTable AI, include `seatable-ai.yml` in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for SeaTable AI.
+To install SeaTable AI, include `seatable-ai.yml` and `seasearch.yml`in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for SeaTable AI.
 
 Simply copy and paste (:material-content-copy:) the following code into your command line:
 
 ```bash
-sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seatable-ai.yml'/" /opt/seatable-compose/.env
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seatable-ai.yml,seasearch.yml'/" /opt/seatable-compose/.env
+```
+
+Then add SeaSearch admin in `.env`:
+
+```env
+INIT_SS_ADMIN_USER=
+INIT_SS_ADMIN_PASSWORD=
 ```
 
 ### Add SeaTable AI configurations to dtable_web_settings.py file
@@ -41,24 +50,22 @@ Wait some minutes until SeaTable AI finished initializing.
 `/opt/seatable-ai-data/seatable/conf/seatable_ai_settings.py`
 
 ```py
-# llm
-LLM_TYPE = 'open-ai-proxy'
-LLM_URL = ''
-LLM_KEY = ''
-
-# ocr
-OCR_SERVICE_TYPE = ''
-OCR_SERVICE_URL = ''
-OCR_SERVICE_API_KEY = ''
-OCR_SERVICE_SECRET_KEY = ''
-
-# embedding
-EMBEDDING_SERVICE_URL = ''
-EMBEDDING_SERVICE_KEY = ''
-
 # seasearch
 SEASEARCH_SERVER_URL = 'http://seasearch:4080'
 SEASEARCH_TOKEN = ''
+
+# llm
+LLM_URL = 'https://api.openai.com'
+LLM_KEY = ''
+```
+
+Note: Get your authorization token (SEASEARCH_TOKEN) by base64 code consist of INIT_SS_ADMIN_USER and INIT_SS_ADMIN_PASSWORD defined in .env firstly, which is used to authorize when calling the SeaSearch API:
+
+```bash
+echo -n 'username:password' | base64
+
+# example output
+YWRtaW46YWRtaW5fcGFzc3dvcmQ=
 ```
 
 Finally restart SeaTable AI
@@ -72,12 +79,12 @@ Now SeaTable AI can be used.
 
 ## Deploy SeaTable AI standalone
 
-The deployment of a separate SeaTable AI is simple. Get seatable-release from github like described in the installation of seatable server and only use `seatable-ai-standalone.yml`.
+The deployment of a separate SeaTable AI is simple. Get seatable-release from github like described in the installation of seatable server and only use `seatable-ai-standalone.yml` and `seasearch.yml`.
 
 Update your `.env`, that it looks like this and add/update the values according to your needs:
 
 ```env
-COMPOSE_FILE='seatable-ai-standalone.yml'
+COMPOSE_FILE='seatable-ai-standalone.yml,seasearch.yml'
 COMPOSE_PATH_SEPARATOR=','
 
 # system settings
@@ -100,6 +107,10 @@ REDIS_PASSWORD=
 
 # SeaTable AI
 JWT_PRIVATE_KEY=
+
+# SeaSearch
+INIT_SS_ADMIN_USER=
+INIT_SS_ADMIN_PASSWORD=
 ```
 
 Note: `JWT_PRIVATE_KEY`, same as the `JWT_PRIVATE_KEY` field in SeaTable `.env` file.
@@ -108,29 +119,29 @@ Note: if Redis has no REDIS_PASSWORD, leave it as empty after "=", do not use em
 
 Execute `docker compose up -d` to fire up your separate SeaTable AI.
 
+Wait some minutes until SeaTable AI finished initializing.
+
 ### Modify configurations in the seatable_ai_settings.py file
 
 `/opt/seatable-ai-data/seatable/conf/seatable_ai_settings.py`
 
 ```py
-# llm
-LLM_TYPE = 'open-ai-proxy'
-LLM_URL = ''
-LLM_KEY = ''
-
-# ocr
-OCR_SERVICE_TYPE = ''
-OCR_SERVICE_URL = ''
-OCR_SERVICE_API_KEY = ''
-OCR_SERVICE_SECRET_KEY = ''
-
-# embedding
-EMBEDDING_SERVICE_URL = ''
-EMBEDDING_SERVICE_KEY = ''
-
 # seasearch
-SEASEARCH_SERVER_URL = 'http://seasearch.your-url.com:4080'
+SEASEARCH_SERVER_URL = 'http://seasearch:4080'
 SEASEARCH_TOKEN = ''
+
+# llm
+LLM_URL = 'https://api.openai.com'
+LLM_KEY = ''
+```
+
+Note: Get your authorization token (SEASEARCH_TOKEN) by base64 code consist of INIT_SS_ADMIN_USER and INIT_SS_ADMIN_PASSWORD defined in .env firstly, which is used to authorize when calling the SeaSearch API:
+
+```bash
+echo -n 'username:password' | base64
+
+# example output
+YWRtaW46YWRtaW5fcGFzc3dvcmQ=
 ```
 
 Note: If dtable-web, dtable-server, and dtable-db are not deployed on the same host, you also need to add the following configurations to the `seatable_ai_settings.py` file
@@ -173,6 +184,10 @@ Placeholder spot for shared volumes. You may elect to store certain persistent i
 * /opt/seatable-ai-data/logs: This is the directory for SeaTable AI logs.
 * /opt/seatable-ai-data/assets: This is the directory for SeaTable AI assets.
 * /opt/seatable-ai-data/index-info: This is the directory for SeaTable AI index.
+
+`/opt/seasearch-data`
+
+* /opt/seatable-ai-data/logs: This is the directory for SeaSearch logs.
 
 ## Database used by SeaTable AI
 
