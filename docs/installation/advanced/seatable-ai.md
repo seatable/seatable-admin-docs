@@ -47,7 +47,7 @@ Wait some minutes until SeaTable AI finished initializing.
 
 ### Modify configurations in the seatable_ai_settings.py file
 
-`/opt/seatable-ai-data/seatable/conf/seatable_ai_settings.py`
+`/opt/seatable-server/seatable/conf/seatable_ai_settings.py`
 
 ```py
 # seasearch
@@ -123,7 +123,7 @@ Wait some minutes until SeaTable AI finished initializing.
 
 ### Modify configurations in the seatable_ai_settings.py file
 
-`/opt/seatable-ai-data/seatable/conf/seatable_ai_settings.py`
+`/opt/seatable-server/seatable/conf/seatable_ai_settings.py`
 
 ```py
 # seasearch
@@ -176,18 +176,18 @@ docker compose restart
 
 ## SeaTable AI directory structure
 
-`/opt/seatable-ai-data`
+`/opt/seatable-server`
 
 Placeholder spot for shared volumes. You may elect to store certain persistent information outside of a container, in our case we keep various log files outside. This allows you to rebuild containers easily without losing important information.
 
-* /opt/seatable-ai-data/conf: This is the directory for SeaTable AI configuration files.
-* /opt/seatable-ai-data/logs: This is the directory for SeaTable AI logs.
-* /opt/seatable-ai-data/assets: This is the directory for SeaTable AI assets.
-* /opt/seatable-ai-data/index-info: This is the directory for SeaTable AI index.
+* /opt/seatable-server/conf: This is the directory for SeaTable AI configuration files.
+* /opt/seatable-server/logs: This is the directory for SeaTable AI logs.
+* /opt/seatable-server/assets: This is the directory for SeaTable AI assets.
+* /opt/seatable-server/index-info: This is the directory for SeaTable AI index.
 
 `/opt/seasearch-data`
 
-* /opt/seatable-ai-data/logs: This is the directory for SeaSearch logs.
+* /opt/seasearch-data/logs: This is the directory for SeaSearch logs.
 
 ## Database used by SeaTable AI
 
