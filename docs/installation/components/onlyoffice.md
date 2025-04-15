@@ -151,3 +151,17 @@ Now execute `docker-compose up -d` and on this server only caddy and OnlyOffice 
 The next step is to tell SeaTable where it can access OnlyOffice. Update the settings in `dtable_web_settings.py` accordingly. Make sure to use the excact same shared secret and use the public available URL of the OnlyOffice server.
 
 In addition you have to extend the caddy security headers. Add the URL of your Onlyoffice host to the variables `script-src-elem` and `frame-src` in your `custom-seatable-server.yml`. Don't forget to restart all containers.
+
+### Use Certificate store
+
+If you are working with self signed or low trust certificates, there is an easy way to put your certificates to the onlyoffice container truststore. You can just mount your certificate to the onlyoffice container. 
+
+```bash
+services:
+  onlyoffice:
+    ...
+    volumes:
+      ...
+      # mount certificates to onlyoffice container
+      - ./ca-certificates.crt:/var/www/onlyoffice/Data/certs/tls.crt:ro
+```
