@@ -38,9 +38,9 @@ mysql> select email,left(passwd,25) from EmailUser where email = '12ae56789f1e4c
 mysql> update EmailUser set passwd = '!' where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 
 mysql> insert into social_auth_usersocialauth \
-  (`username`, `provider`, `uid`) \
+  (`username`, `provider`, `uid`, `extra_data`) \
   set \
-  ('12ae56789f1e4c8d8e1c31415867317c@auth.local', 'authentik-saml', 'HR12345');
+  ('12ae56789f1e4c8d8e1c31415867317c@auth.local', 'authentik-saml', 'HR12345', '{}');
 ```
 
 Afterwards the databases should look like this:
