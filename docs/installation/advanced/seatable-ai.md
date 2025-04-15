@@ -32,6 +32,7 @@ INIT_SS_ADMIN_PASSWORD=
 ```py
 ENABLE_SEATABLE_AI = True
 SEATABLE_AI_SERVER_URL = 'http://seatable-ai:8888'
+ENABLED_ASSISTANT_TYPES = ['general_assistant',]
 ```
 
 ### Download SeaTable AI and restart
@@ -166,6 +167,7 @@ Add SeaTable AI configurations to dtable_web_settings.py file.
 ```py
 ENABLE_SEATABLE_AI = True
 SEATABLE_AI_SERVER_URL = 'http://seatable-ai.example.com:8888'
+ENABLED_ASSISTANT_TYPES = ['general_assistant',]
 ```
 
 Restart seatable service and test your SeaTable AI.
