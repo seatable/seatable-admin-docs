@@ -113,7 +113,7 @@ SAML_ATTRIBUTE_MAP = {
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': 'contact_email',
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': 'name',
 }
-SAML_CERTS_DIR = '/opt/seatable/seahub-data/certs'
+SAML_CERTS_DIR = '/shared/certs'
 ```
 
 !!! Details about the SAML_ATTRIBUTE_MAP
@@ -254,5 +254,68 @@ SAML_CERTS_DIR = '/shared/certs'
 ```
 
 Replace the value of the SAML_REMOTE_METADATA_URL variable with the URL obtained in step 2.
+
+Restart the SeaTable service for the changes to take effect.
+
+## Configuration Authentik
+
+Click on 'Applications' in the navigation on the left. Then choose 'Applications' in the drop-down menu to see a list of the apps that have already been configured in your account.
+
+**Step 1 - Application**
+
+Enter a name and a slug and click on **Next**.
+
+**Step 2 - Choose A Provider**
+
+Select **SAML Provider**.
+
+**Step 3 - Configure Provider**
+
+Select `default-provider-authorization-explicit-consent (Authorize Application)`.
+
+Under **Protocol settings**, set the **ACS URL** to `https://${SEATABLE_SERVER_HOSTNAME}/saml/acs` and set the **Service Provider Binding** to **Post**.
+
+Under **Advanced protocol settings**, select **authentik Self-Signed Certificate** as the **Signing Certificate** and enable the **Sign assertions** toggle.
+
+**Step 4 - Configure Bindings**
+
+Click on **Next**.
+
+**Step 5 - Review and Submit Application**
+
+Click on **Submit**
+
+---
+
+Next, select **Applications -> Providers** in the left sidebar and select the newly created provider.
+You should now see a **Copy download URL** to get the metadata URL and a **Download** button to download the signing certificate button.
+
+Since authentik's download URL returns a 302 redirect, you must run the following command to figure out the _true_ download URL:
+
+```bash
+curl ${AUTHENTIK_DOWNLOAD_URL} -I
+```
+
+This will display the _true_ download URL in the location header. Take a note of this URL.
+
+You should also download the signing certificate and store it under `/opt/seatable-server/certs`.
+
+You should now run the `openssl` command described in [here]() to create `sp.crt` and `sp.key` inside `/opt/seatable-server/certs`.
+
+A basic SAML configuration in `dtable_web_settings.py` for authentik looks like this:
+
+```python
+ENABLE_SAML = True
+SAML_PROVIDER_IDENTIFIER = 'authentik'
+SAML_REMOTE_METADATA_URL = 'YOUR_METADATA_URL'
+SAML_ATTRIBUTE_MAP = {
+    'http://schemas.goauthentik.io/2021/02/saml/uid': 'uid',
+    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': 'contact_email',
+    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': 'name',
+}
+SAML_CERTS_DIR = '/shared/certs'
+```
+
+Replace the value of the SAML_REMOTE_METADATA_URL variable with the URL you obtained via the `curl` command.
 
 Restart the SeaTable service for the changes to take effect.
