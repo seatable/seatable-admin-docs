@@ -113,7 +113,7 @@ SAML_ATTRIBUTE_MAP = {
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': 'contact_email',
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': 'name',
 }
-SAML_CERTS_DIR = '/opt/seatable/seahub-data/certs'
+SAML_CERTS_DIR = '/shared/certs'
 ```
 
 !!! Details about the SAML_ATTRIBUTE_MAP
