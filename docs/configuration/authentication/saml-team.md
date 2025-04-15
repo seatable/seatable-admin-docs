@@ -1,5 +1,7 @@
 ---
 status: wip
+search:
+  exclude: true
 ---
 
 # SAML Authentication for teams
