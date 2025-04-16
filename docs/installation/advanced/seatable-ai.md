@@ -184,8 +184,8 @@ Placeholder spot for shared volumes. You may elect to store certain persistent i
 
 * /opt/seatable-server/conf: This is the directory for SeaTable AI configuration files.
 * /opt/seatable-server/logs: This is the directory for SeaTable AI logs.
-* /opt/seatable-server/assets: This is the directory for SeaTable AI assets.
-* /opt/seatable-server/index-info: This is the directory for SeaTable AI index.
+* /opt/seatable-server/ai-data/assets: This is the directory for SeaTable AI assets.
+* /opt/seatable-server/ai-data/index-info: This is the directory for SeaTable AI index.
 
 `/opt/seasearch-data`
 
