@@ -44,7 +44,7 @@ flowchart TB
             R[redis<br/>6379]
             OO[collabora/onlyoffice<br/>6232/6233]
             Tld[tldraw<br/>6239]
-            CAV[clamav<br/>]
+            CAV[clamav<br/>3310]
             PSc[python-scheduler]
             PSt[python-starter]
             PR[python-runner]
@@ -53,15 +53,14 @@ flowchart TB
             MDB<-->PSc
                subgraph p[Python Pipeline]
                   direction TB
-                  PSc-->PSt
-                  PSt-->PR
+                  PSc<-->PSt
+                  PSt<-->PR
                end
             SS<-->R
             SS<-->OO
             SS<-->Tld
             SS<-->CAV
-            SS-->PSc
-            SS<-->PR
+            SS<-->PSc
         end
         F@{ shape: bow-rect, label: "Storage"}
     end
