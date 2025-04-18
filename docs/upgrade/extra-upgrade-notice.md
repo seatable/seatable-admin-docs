@@ -34,6 +34,17 @@ You also need to remove the following configuration:
 # SEATABLE_MYSQL_ROOT_PASSWORD=
 ```
 
+Also we use API-Gateway by default to load Base and proxy WebSocket. You need to manually modify the following configurations in the `dtable_web_settings.py`:
+
+```py
+DTABLE_DB_URL = 'https://seatable.example.com/api-gateway/'
+
+LOAD_DTABLE_FROM_API_GATEWAY = True
+ENABLE_API_GATEWAY_PROXY_SOCKET = True
+```
+
+Note: If there is no proxy API-Gateway in your `nginx.conf`, you need to refer to the SeaTable 4.4 extra upgrade steps to add the Nginx proxy API-Gateway configuration.
+
 After starting SeaTable, you need to enter the container and run the command to migrate the comments in the application.
 
 ```bash
