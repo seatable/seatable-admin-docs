@@ -37,8 +37,6 @@ You also need to remove the following configuration:
 Also we use API-Gateway by default to load Base and proxy WebSocket. You need to manually modify the following configurations in the `dtable_web_settings.py`:
 
 ```py
-DTABLE_DB_URL = 'https://seatable.example.com/api-gateway/'
-
 LOAD_DTABLE_FROM_API_GATEWAY = True
 ENABLE_API_GATEWAY_PROXY_SOCKET = True
 ```
