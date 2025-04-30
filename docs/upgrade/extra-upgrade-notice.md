@@ -105,6 +105,9 @@ Of course, you can skip this script and make the changes manually. The following
 
         Remove the configuration file `/opt/seatable-server/seatable/conf/ccnet.conf`.
 
+TODO: Hier noch einen **CHECKUP** der Konfiguration einbauen. Mindestkonfiguration.
+TODO: SDOC Installation hinzufügen!
+
 ## 5.2
 
 ??? warning "From Two to One: Redis Unifies Caching, Retiring Memcached"
