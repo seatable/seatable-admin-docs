@@ -43,7 +43,7 @@ TIME_ZONE='Europe/Berlin'
 SEATABLE_SERVER_HOSTNAME=seatable.your-url.com
 
 # database
-SEATABLE_MYSQL_ROOT_PASSWORD=
+MARIADB_PASSWORD=
 
 # python-pipeline-standalone
 PYTHON_SCHEDULER_HOSTNAME=python.your-url.com
