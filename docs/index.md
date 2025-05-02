@@ -15,15 +15,15 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
     SeaTable Cloud is the product of choice for small- and medium-sized enterprises that just want to use SeaTable - quickly and at transparent cost. SeaTable Cloud can be used free-of-charge with the Free subscription. Registration for SeaTable Cloud requires only an email address. More features and higher resource limits are available in SeaTable Cloud's [paid subscriptions](https://seatable.com/en/preise/).
 
-    [Register now for SeaTable Cloud](https://seatable.io/registrierung/?lang=auto){ .md-button .md-button--primary }
+    [Register now for SeaTable Cloud](https://seatable.com/registration/){ .md-button .md-button--primary }
 
 ??? tip "SeaTable Dedicated: private SAAS"
 
-    [SeaTable Dedicated](https://seatable.com/en/dedicated/) is a custom SeaTable Server instance for you and your team operated by the SeaTable exports. You define which URL to use, which logo or color code should greet your users.
+    [SeaTable Dedicated](https://seatable.com/dedicated/) is a custom SeaTable Server instance for you and your team operated by the SeaTable exports. You define which URL to use, which logo or color code should greet your users.
 
     **Important**: SeaTable Dedicated requires a minimum of 100 Users.
 
-    [Contact us and get a quote](https://seatable.io/kontakt/?lang=auto){ .md-button .md-button--primary }
+    [Contact us and get a quote](https://seatable.com/contact/){ .md-button .md-button--primary }
 
 
 ## Scope of this Manual
