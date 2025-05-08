@@ -152,6 +152,13 @@ DTABLE_SERVER_URL = ''
 DTABLE_DB_URL = ''
 ```
 
+AND you need to configure dtable-web url in .env.
+
+```env
+SEATABLE_SERVER_HOSTNAME=seatable.your-url.com
+SEATABLE_SERVER_PROTOCOL=http
+```
+
 Restart SeaTable AI
 
 ```bash
