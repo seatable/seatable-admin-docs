@@ -34,12 +34,12 @@ Caddy will generate a let's encrypt certificate.
 
 ## Deployment of the Python Pipeline
 
-The deployment of a separate python pipeline is simple. Get seatable-release from github like described in the installation of seatable server and only use `python-pipeline-standalone.yml`.
+The deployment of a separate python pipeline is simple. Get seatable-release from github like described in the installation of seatable server and only use `caddy.yml` and `python-pipeline-standalone.yml`.
 
 Update your `.env`, that it looks like this and add/update the values according to your needs:
 
 ```
-COMPOSE_FILE='python-pipeline-standalone.yml'
+COMPOSE_FILE='caddy.yml,python-pipeline-standalone.yml'
 COMPOSE_PATH_SEPARATOR=','
 
 # system settings
