@@ -4,11 +4,25 @@ status: wip
 
 ## Configuration
 
-The Python Pipeline provides multiple environment variables for further customization. The available parameters are:
+The Python Pipeline can be configured through environment variables for further customization. The available parameters inside your `.env` file are:
 
-```bash
-...
-```
+### Resources
+
+| Parameter                                 | Description                                                                                                     | Default             |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `PYTHON_PROCESS_TIMEOUT`                  | The timeout for a single script (in seconds)                                                                    | `60`                |
+| `PYTHON_TRANSFER_DIRECTORY_PATH`          | The directory on the host where python-starter creates a folder for each individual script job                  | `/tmp`              |
+| `PYTHON_RUNNER_CONTAINER_CPUS`            | The number of CPUs available to each script container                                                           | `1`                 |
+| `PYTHON_RUNNER_CONTAINER_MEMORY`          | The amount of memory available to each script container                                                         | `1g`                |
+| `PYTHON_RUNNER_READ_ONLY_FILESYSTEM`      | Whether the root filesystem should be mounted as read-only (`true` or `false`)                                  | `true`              |
+| `PYTHON_RUNNER_TMPFS_MOUNT_SIZE_IN_BYTES` | Maximum size of the `tmpfs` mount (mounted at `/tmp` inside the container) for each script container (in bytes) | `104857600` (100MB) |
+
+### Logging
+
+| Parameter                    | Description                                                                                | Default   |
+| ---------------------------- | ------------------------------------------------------------------------------------------ | --------- |
+| `PYTHON_SCHEDULER_LOG_LEVEL` | The log level for the python-scheduler (`DEBUG`, `INFO`, `WARNING`, `ERROR` or `CRITICAL`) | `WARNING` |
+| `PYTHON_STARTER_LOG_LEVEL`   | The log level for the python-starter (`DEBUG`, `INFO`, `WARNING`, `ERROR` or `CRITICAL`)   | `WARNING` |
 
 ## Limiting Volume Size
 
