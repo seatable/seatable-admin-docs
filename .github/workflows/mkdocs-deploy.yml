@@ -2,12 +2,40 @@ name: Deploy mkdocs to github pages
 
 on:
   push:
-    branches:
-      - main
+      branches:
+          - main
+  pull_request:
+      branches:
+          - main
+
+env:
+  GO_VERSION: 1.24.1
+  MUFFET_VERSION: v2.10.7
 
 jobs:
+  check-links:
+    name: Check links
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: Start development server
+        run: ./preview.sh
+      - name: Add $GOPATH/bin to $PATH
+        run: |
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+      - name: Install muffet
+        run: go install github.com/raviqqe/muffet/v2@${MUFFET_VERSION}
+      - name: Check links
+        run: muffet -t60 -c10 -f -i 'http://127*' -i 'http://localhost' http://127.0.0.1:8000
   deploy:
     runs-on: ubuntu-latest
+    needs:
+      - check-links
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
         with:
