@@ -8,14 +8,16 @@ The Python Pipeline can be configured through environment variables for further 
 
 ### Resources
 
-| Parameter                                 | Description                                                                                                     | Default             |
-| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------- |
-| `PYTHON_PROCESS_TIMEOUT`                  | The timeout for a single script (in seconds)                                                                    | `60`                |
-| `PYTHON_TRANSFER_DIRECTORY_PATH`          | The directory on the host where python-starter creates a folder for each individual script job                  | `/tmp`              |
-| `PYTHON_RUNNER_CONTAINER_CPUS`            | The number of CPUs available to each script container                                                           | `1`                 |
-| `PYTHON_RUNNER_CONTAINER_MEMORY`          | The amount of memory available to each script container                                                         | `1g`                |
-| `PYTHON_RUNNER_READ_ONLY_FILESYSTEM`      | Whether the root filesystem should be mounted as read-only (`true` or `false`)                                  | `true`              |
-| `PYTHON_RUNNER_TMPFS_MOUNT_SIZE_IN_BYTES` | Maximum size of the `tmpfs` mount (mounted at `/tmp` inside the container) for each script container (in bytes) | `104857600` (100MB) |
+| Parameter                                 | Description                                                                                                                                                                                                                          | Default             |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- |
+| `PYTHON_PROCESS_TIMEOUT`                  | The timeout for a single script (in seconds)                                                                                                                                                                                         | `60`                |
+| `PYTHON_TRANSFER_DIRECTORY_PATH`          | The directory on the host where python-starter creates a folder for each individual script job                                                                                                                                       | `/tmp`              |
+| `PYTHON_RUNNER_CONTAINER_CPUS`            | The number of CPUs available to each script container                                                                                                                                                                                | `1`                 |
+| `PYTHON_RUNNER_CONTAINER_MEMORY`          | The amount of memory available to each script container                                                                                                                                                                              | `1g`                |
+| `PYTHON_RUNNER_READ_ONLY_FILESYSTEM`      | Whether the root filesystem should be mounted as read-only (`true` or `false`)                                                                                                                                                       | `true`              |
+| `PYTHON_RUNNER_TMPFS_MOUNT_SIZE_IN_BYTES` | Maximum size of the `tmpfs` mount (mounted at `/tmp` inside the container) for each script container (in bytes)                                                                                                                      | `104857600` (100MB) |
+| `PYTHON_RUNNER_DROPPED_CAPABILITIES`      | Comma-separated list of capabilities that should be removed from the container. Please refer to the [Docker documentation](https://docs.docker.com/engine/containers/run/#runtime-privilege-and-linux-capabilities) for more details | `CAP_NET_RAW`       |
+| `PYTHON_RUNNER_NO_NEW_PRIVILEGES`         | Whether container processes should be prevented from gaining additional privileges                                                                                                                                                   | `true`              |
 
 ### Logging
 
