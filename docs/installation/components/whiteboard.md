@@ -54,7 +54,15 @@ After a few seconds, check `https://<your-seatable-url>:6239/ping`. You should s
 
 This confirms that the `tldraw-worker` is operational. If you don't see this message, check that port 6239 is allowed and the container logs.
 
-## Custom Certificate
+## Final Steps
+
+With the server-side installation complete, you can now install the whiteboard plugin through the SeaTable interface and begin using this creative tool.
+
+---
+
+## Advanced Configuration
+
+### Custom Certificate
 
 You need to make some changes to your `tldraw-worker` deployment in case your SeaTable server uses an internal CA.
 It is not recommended to make changes to the provided `tldraw.yml` file.
@@ -74,7 +82,3 @@ services:
       # Mount the CA file into the container
       - ./MY-CA.pem:/usr/local/share/ca-certificates/MY-CA.pem:ro
 ```
-
-## Final Steps
-
-With the server-side installation complete, you can now install the whiteboard plugin through the SeaTable interface and begin using this creative tool.
