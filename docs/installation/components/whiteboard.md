@@ -82,3 +82,9 @@ services:
       # Mount the CA file into the container
       - ./MY-CA.pem:/usr/local/share/ca-certificates/MY-CA.pem:ro
 ```
+
+### Subfolder Installation
+
+Deploying the tldraw-worker using a subfolder (e.g. `/tldraw`) instead of port 6239 is **not yet supported**.
+
+You can refer to the following forum post for details regarding the required changes in your reverse proxy and the whiteboard plugin itself: [forum.seatable.io/t/configuring-new-whiteboard-plugin-tldraw/6482](https://forum.seatable.io/t/configuring-new-whiteboard-plugin-tldraw/6482)
