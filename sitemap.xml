@@ -2,406 +2,406 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://admin.seatable.io/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/autostart/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/base-rows-limit/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/ccnet-conf/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/dtable-api-gateway-conf/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/dtable-db-conf/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/dtable-events-conf/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/dtable-server-config/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/dtable-storage-server-conf/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/dtable-web-settings/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/environment-variables/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/integrate-with-seafile/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/plugins/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/roles-and-permissions/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/seafile-conf/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/seatable-controller-conf/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/sending-email/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/universal-apps/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/authentication/auth-switch/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/authentication/jwt/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/authentication/ldap/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/authentication/oauth/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/authentication/overview/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/authentication/saml-team/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/authentication/saml/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/authentication/two-factor-auth/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/user-hierarchy/departments/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/user-hierarchy/groups/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/user-hierarchy/overview/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/configuration/user-hierarchy/teams-organizations/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/custom-css/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/customize-email-notifications/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/email-templates/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/favicon/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/logo/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/main-color/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/manual-in-nav/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/nav-items/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/overview/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/page-templates/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/site-title/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/customization/templates/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/basic-setup/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/deployment-approach/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/faq/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/start/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/additional-subdomains/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/air-gap-installation/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/custom-certificates/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/custom-proxy/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/database-standalone/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/http-only/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/ipv6-support/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/maintenance-mode/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/python-pipeline-configuration/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/python-pipeline-custom-python-runner/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/python-pipeline-dedicated-server/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/python-pipeline-workflow/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/s3-migration/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/s3/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/seafile/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/settings-caddy/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/advanced/webserver-security/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/cluster/dtable-db-standalone/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/cluster/dtable-events-background-node/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/cluster/dtable-server-cluster/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/cluster/seatable-cluster/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/clamav/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/collabora/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/n8n/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/onlyoffice/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/python-pipeline/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/restic/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/uptime-kuma/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/whiteboard/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/installation/components/zabbix/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/introduction/architecture/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/introduction/dtable-server-license/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/introduction/editions/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/introduction/get-support/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/introduction/requirements/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/introduction/security/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/introduction/server-changelog/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/introduction/system-limitations/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/backup-recovery/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/base-export/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/change-url/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/command-line-tools/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/database-cleanup/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/debugging/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/domain-change/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/filesystem-check/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/garbage-collection/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/logs/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/password-reset/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/repair-base/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/maintenance/secrets/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/upgrade/extra-upgrade-notice/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/upgrade/migrate-seatable-editions/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/upgrade/migrate-seatable-release/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
     <url>
          <loc>https://admin.seatable.io/upgrade/upgrade-manual/</loc>
-         <lastmod>2025-04-30</lastmod>
+         <lastmod>2025-05-23</lastmod>
     </url>
 </urlset>
