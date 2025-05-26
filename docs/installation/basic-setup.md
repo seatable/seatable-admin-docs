@@ -90,10 +90,11 @@ The expected output should appear as follows.
 
 SeaTable is configured with the hidden `.env` file (=enviroment configuration file) that is stored in the folder `/opt/seatable-compose`.
 
-Now use the command line tool `pwgen` to create secure passwords for your _admin account_, the _database root password_ and a secret for secure communication. The following commands will generate three such passwords and insert them in the `.env'` file.
+Now use the command line tool `pwgen` to create secure passwords for your _admin account_, the _database root password_, the _Redis_ instance and a secret for secure communication. The following commands will generate four such passwords and insert them in the `.env'` file.
 
     sed -i "s/^SEATABLE_ADMIN_PASSWORD=.*/SEATABLE_ADMIN_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^MARIADB_PASSWORD=.*/MARIADB_PASSWORD=$(pwgen 40 1)/" .env
+    sed -i "s/^REDIS_PASSWORD=.*/REDIS_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^JWT_PRIVATE_KEY=.*/JWT_PRIVATE_KEY=$(pwgen 40 1)/" .env
 
 Alternatively, you can manually add your own passwords.
@@ -132,6 +133,9 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
     # database
     MARIADB_PASSWORD='alsotopsecret'
+
+    # redis
+    REDIS_PASSWORD='anotherverysecurepassword'
 
     # shared secret for secure communication
     JWT_PRIVATE_KEY='anothersecret'
