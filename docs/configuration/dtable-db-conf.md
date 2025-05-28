@@ -1,6 +1,6 @@
 # Configuration of dtable-db
 
-This is a cheat sheet for the [dtable-db](/introduction/architecture/#seatable-server-container) configuration file `dtable-db.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the [dtable-db](/introduction/architecture/#dtable-db) configuration file `dtable-db.conf`. It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 
@@ -17,13 +17,6 @@ In the default values below, a value in the form `$XYZ` refers to an environment
     Comments in the configuration file start with the hash symbol `#` and extend to the end of the line.
 
     When dealing with special characters like single quotes `'`, double quotes `"` or the hash symbol `#`, it's generally best to enclose the value in double quotes.
-
-!!! warning "dtable-db reads values from dtable_server_config.json"
-
-    Note that `dtable-db` reads `dtable_server_config.json` for Redis, MariaDB, and private key settings, even if `dtable-server` is disabled or runs separately. Ensure these configurations are correct.
-
-
-    Other configuration files are not used, if you run dtable-db separately.
 
 The following options are grouped by their sections.
 
@@ -127,7 +120,8 @@ Section `[backup]` contains options to configure backup functions for big data b
 
 ??? note "[database] is not necessary anymore"
 
-    Since version 2.7 this complete section `[database]` is no longer used. `dtable-db` will use the database settings in `conf/dtable_server_config.json`.
+    Since version 5.3, `dtable-db` reads database connection settings from [environment variables](/configuration/environment-variables).
+    From version 2.7 to version 5.2, `dtable-db` used the database settings in `dtable_server_config.json`.
 
     The section `[database]` contained options for accessing the MySQL database used by dtable-server.
 
