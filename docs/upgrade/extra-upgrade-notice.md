@@ -89,6 +89,22 @@ Of course, you can skip this script and make the changes manually. The following
     seatable.sh python-env manage.py merge_app_comments_to_base
     ```
 
+??? info "Database Cleanup"
+
+    With 5.3, SeaTable automatically enables periodic database cleanup tasks **for new installations** .
+    This behavior is deliberately not enabled for existing installations.
+
+    However, we strongly recommend enabling these tasks to ensure that your database stays performant. It also prevents your server from running out of disk space.
+
+    You can achieve this by setting the following option in `/opt/seatable-server/seatable/conf/dtable-events.conf`:
+
+    ```ini
+    [CLEAN DB]
+    enabled = true
+    ```
+
+    Please refer to [this document](../configuration/dtable-events-conf.md#clean-db) for detailed information on the possible configuration options.
+
 ??? info "ccnet.conf is obsolete"
 
     The configuration file `ccnet.conf` is no longer necessary and can be removed. 
