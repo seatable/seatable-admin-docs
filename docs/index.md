@@ -68,7 +68,7 @@ There is a _Single-Node Setup_, where all components of SeaTable Server are inst
 
 ### Advanced Setup
 
-The _'Advanced Setup_ section doesn't entail a distinct installation method; rather, it offers detailed guidance on operating each component independently. It equips you with the knowledge needed to scale your SeaTable Server effectively. Whether you're seeking insights to enhance performance or aiming to construct a highly available cluster setup capable of supporting hundreds of thousands of users, this section provides comprehensive instructions to meet your objectives.
+The _Advanced Setup_ section doesn't entail a distinct installation method; rather, it offers detailed guidance on operating each component independently. It equips you with the knowledge needed to scale your SeaTable Server effectively. Whether you're seeking insights to enhance performance or aiming to construct a highly available cluster setup capable of supporting hundreds of thousands of users, this section provides comprehensive instructions to meet your objectives.
 
 ## Impressions of SeaTable
 
