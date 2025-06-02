@@ -49,6 +49,8 @@ flowchart TB
             PSt[python-starter]
             PR[python-runner]
             C<-->SS
+            C<-->Tld
+            C<-->OO
             SS<-->MDB
             MDB<-->PSc
                subgraph p[Python Pipeline]
@@ -65,6 +67,12 @@ flowchart TB
         F@{ shape: bow-rect, label: "Storage"}
     end
 ```
+
+!!! warning "Single domain and exposed ports"
+
+    By default, SeaTable requires only a single publicly accessible URL. However, some user-facing services (such as Collabora, OnlyOffice, and tldraw) are exposed on separate ports (typically between 6230 and 6239). Experienced administrators can configure separate URLs or subdomains for these services if needed, for example by creating custom YAML files.
+
+    Note: Not all services support operation under subfolders. For example, tldraw cannot be accessed via a subfolder.
 
 The rest of this article focuses exclusively on the required containers and services of a SeaTable Server instance.
 
