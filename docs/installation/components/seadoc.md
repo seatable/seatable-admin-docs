@@ -30,30 +30,24 @@ Simply copy and paste (:material-content-copy:) the following code into your com
 
 ```bash
 sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seadoc.yml'/" /opt/seatable-compose/.env
+echo "ENABLE_SEADOC=true" >> /opt/seatable-compose/.env
 ```
 
 !!! warning "Avoid space in `COMPOSE_FILE`"
-
     When manually adding `seadoc.yml` to the `COMPOSE_FILE` variable using your preferred text editor, make sure that you do not enter a space (:material-keyboard-space:). After the modification, your `COMPOSE_FILE` variable should look like this:
 
     ```bash
     COMPOSE_FILE='caddy.yml,seatable-server.yml,seadoc.yml'
     ```
 
-### Enable SeaDoc editor by modifying `dtable_web_settings.py`
+### Restart the SeaTable server and enable ***Report Design*** Plugin
 
-Add or modify the following fields in your `dtable_web_settings.py`:
+1. Restart the Docker compose of SeaTable server to make the modifications take effect.
 
-```py
-ENABLE_SEADOC = True
-SEADOC_SERVER_URL = 'https://seatable.example.com/sdoc-server/'
-```
+    ```sh
+    cd /opt/seatable-compose
+    docker compose down && docker compose up -d
+    ```
+2. Import ***Report Design*** plugin in the page *System admin* - *Plugins* - *Import plugin from market*.
 
-### Restart the Docker compose to enable this feature
-
-```sh
-cd /opt/seatable-compose
-docker compose down && docker compose up -d
-```
-
-:material-party-popper: **Great!**: You can create and modify the `.sdoc` type documents online with your SeaTable server.
+:material-party-popper: **Great!**: You can create and modify the documents online within the plugin ***Report Design*** in a base.
