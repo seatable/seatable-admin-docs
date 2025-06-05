@@ -15,7 +15,7 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
     SeaTable Cloud is the product of choice for small- and medium-sized enterprises that just want to use SeaTable - quickly and at transparent cost. SeaTable Cloud can be used free-of-charge with the Free subscription. Registration for SeaTable Cloud requires only an email address. More features and higher resource limits are available in SeaTable Cloud's [paid subscriptions](https://seatable.com/en/preise/).
 
-    [Register now for SeaTable Cloud](https://seatable.io/registrierung/?lang=auto){ .md-button .md-button--primary }
+    [Register now for SeaTable Cloud](https://seatable.com/registration/){ .md-button .md-button--primary }
 
 ??? tip "SeaTable Dedicated: private SAAS"
 
@@ -23,18 +23,18 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
     **Important**: SeaTable Dedicated requires a minimum of 100 Users.
 
-    [Contact us and get a quote](https://seatable.io/kontakt/?lang=auto){ .md-button .md-button--primary }
+    [Contact us and get a quote](https://seatable.com/contact/){ .md-button .md-button--primary }
 
 
 ## Scope of this Manual
 
 This Manual covers all relevant admin topics, from installation, configuration, upgrade, and maintenance, and provides background information on software architecture, requirements, and development.
 
-This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://docs.seatable.io/).
+This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://help.seatable.com/).
 
-If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.io) and the [API Reference](https://api.seatable.io).
+If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.com) and the [API Reference](https://api.seatable.io).
 
-This is not the place for discussion either. You can ask questions about SeaTable in the [SeaTable Forum](https://forum.seatable.io). Looking forward to seeing you there!
+This is not the place for discussion either. You can ask questions about SeaTable in the [SeaTable Forum](https://forum.seatable.com). Looking forward to seeing you there!
 
 ## Contributing to this Manual
 

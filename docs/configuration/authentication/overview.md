@@ -127,7 +127,7 @@ mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 
 ### Table id_in_org_tuple
 
-This table stores the [user IDs](https://seatable.io/en/docs/ansichtsoptionen/was-ist-die-id-des-users-und-warum-kann-man-danach-filtern/?lang=auto). Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.
+This table stores the user IDs. Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.
 
 ```
 mysql> select * from dtable_db.id_in_org_tuple;

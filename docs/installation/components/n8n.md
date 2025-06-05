@@ -70,7 +70,7 @@ Click on `install`, input **n8n-nodes-seatable**, and proceed with the confirmat
 
 ![n8n SeaTable Community node](../../assets/images/n8n-seatable-community-node.png)
 
-[Read more about this community node in SeaTable Forum →](https://forum.seatable.io/t/rework-of-n8n-seatable-integration/2745/10)
+[Read more about this community node in SeaTable Forum →](https://forum.seatable.com/t/rework-of-n8n-seatable-integration/2745/10)
 
 ## Limitations of the Community Edition of n8n
 
