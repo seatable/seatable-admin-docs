@@ -1,6 +1,6 @@
 # Create your own SeaTable Python Runner
 
-The SeaTable Python Pipeline includes a pre-configured python-runner image with numerous third-party Python libraries to execute your scripts. For a complete list of the included libraries, refer to the [Developer Manual](https://developer.seatable.io/scripts/python/common_questions/#install-and-use-custom-python-libraries).
+The SeaTable Python Pipeline includes a pre-configured python-runner image with numerous third-party Python libraries to execute your scripts. For a complete list of the included libraries, refer to the [Developer Manual](https://developer.seatable.com/scripts/python/common_questions/#install-and-use-custom-python-libraries).
 
 If you require additional Python packages, you can either contact support to request their inclusion in future versions or build your own custom image by extending the existing one.
 

@@ -212,10 +212,10 @@ docker compose up -d
 
 Be patient and give the containers time to start. Then open your browser and check if you can access your SeaTable Server.
 
-If your SeaTable Server does not react as expected, check the [FAQ/Troubleshooting](../installation/faq.md) article. In case your mariadb container stays unhealthy, check the [Extra upgrade notices for version 4.3](https://admin.seatable.io/upgrade/extra-upgrade-notice/).
+If your SeaTable Server does not react as expected, check the [FAQ/Troubleshooting](../installation/faq.md) article. In case your mariadb container stays unhealthy, check the [Extra upgrade notices for version 4.3](https://admin.seatable.com/upgrade/extra-upgrade-notice/).
 
 Please note that additional components like the Python Pipeline or an integrated Online Editor will not be working at this point.
 
 ### 10. Add additional components
 
-To setup the Python Pipeline or an Online Editor, please follow the manuals in the [Installation](https://admin.seatable.io/installation/deployment-approach.md) section.
+To setup the Python Pipeline or an Online Editor, please follow the manuals in the [Installation](https://admin.seatable.com/installation/deployment-approach.md) section.

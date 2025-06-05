@@ -1,4 +1,4 @@
 # Command line tools
 
 see here:
-https://forum.seatable.io/t/reset-export-setting/4236
+https://forum.seatable.com/t/reset-export-setting/4236

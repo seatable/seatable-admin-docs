@@ -160,7 +160,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
 !!! success "Three users, two years - for free."
 
-    You can use SeaTable Server Enterprise Edition for free with up to three users, but you must request and download a license file. The license file is valid for two years. You can generate a new license file at any time. If you want to use SeaTable Server Enterprise Edition with more than three users, [please get in touch with SeaTable Sales](https://seatable.io/kontakt/?lang=auto).
+    You can use SeaTable Server Enterprise Edition for free with up to three users, but you must request and download a license file. The license file is valid for two years. You can generate a new license file at any time. If you want to use SeaTable Server Enterprise Edition with more than three users, [please get in touch with SeaTable Sales](https://seatable.com/contact).
 
 Run the following command, replacing `me@example.com` with your valid email address. Shortly after, you'll receive an email with instructions to download your license to the current directory.
 
@@ -195,6 +195,6 @@ Your SeaTable journey has just begun! While you can dive straight into SeaTable,
 
 This manual covers a range of topics, from **advanced cluster installations** to detailed **configuration options**. Take your time to explore these possibilities. If you can't find what you need or require assistance, consider posting in the community forum.
 
-Encounter an issue or need clarity? Feel free to create a post on the [SeaTable community forum](https://forum.seatable.io). We're here to assist and improve this manual based on your feedback.
+Encounter an issue or need clarity? Feel free to create a post on the [SeaTable community forum](https://forum.seatable.com). We're here to assist and improve this manual based on your feedback.
 
 For sure you can also contribute directly and create a pull request at GitHub.

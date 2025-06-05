@@ -4,11 +4,11 @@ SeaTable, as a dynamic platform, undergoes frequent updates and enhancements to 
 
 ## Functions
 
-For a comprehensive overview of updates to the SeaTable Server, users can refer to our detailed changelog available at [SeaTable Server Changelog](https://seatable.io/docs/changelog/). Here, they can explore the latest features, improvements, and bug fixes implemented in each release, ensuring they stay up-to-date with the platform's evolution.
+For a comprehensive overview of updates to the SeaTable Server, users can refer to our detailed changelog available at [SeaTable Server Changelog](https://seatable.com/changelog/). Here, they can explore the latest features, improvements, and bug fixes implemented in each release, ensuring they stay up-to-date with the platform's evolution.
 
 ## Blog with Release Notes
 
-In addition to the detailed changelogs mentioned above, we curate a blog featuring [release notes](https://seatable.io/category/news/) that highlight the most significant changes in each version. This narrative-style format provides users with a concise yet informative overview of key updates, allowing them to quickly grasp the impactful enhancements introduced in a particular release. You can explore our blog at SeaTable Release Notes Blog.
+In addition to the detailed changelogs mentioned above, we curate a blog featuring [release notes](https://seatable.com/blog/) that highlight the most significant changes in each version. This narrative-style format provides users with a concise yet informative overview of key updates, allowing them to quickly grasp the impactful enhancements introduced in a particular release. You can explore our blog at SeaTable Release Notes Blog.
 
 ## New API Calls
 
