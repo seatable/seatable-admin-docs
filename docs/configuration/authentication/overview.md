@@ -97,7 +97,7 @@ mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.prof
 
 `contact_email` is the real email address of the user. SeaTable sends notifications to this address.
 
-`login_id` is an alternative to the username that the user can use to log in. The `login_id` can only be set via [SeaTable API](https://api.seatable.io/reference/update-user) and not in system administration in SeaTable's web interface.
+`login_id` is an alternative to the username that the user can use to log in. The `login_id` can only be set via [SeaTable API](https://api.seatable.com/reference/update-user) and not in system administration in SeaTable's web interface.
 
 > **Three valid combos for default authentication**
 >

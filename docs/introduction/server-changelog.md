@@ -12,7 +12,7 @@ In addition to the detailed changelogs mentioned above, we curate a blog featuri
 
 ## New API Calls
 
-As the SeaTable API evolves to meet the changing needs of our users and developers, we document all new API calls and changes in our [API Changelog](https://api.seatable.io/reference/changelog). This resource, available at SeaTable API Changelog, provides developers with insights into the latest API updates, enabling them to leverage new functionalities and enhancements in their integrations and applications.
+As the SeaTable API evolves to meet the changing needs of our users and developers, we document all new API calls and changes in our [API Changelog](https://api.seatable.com/reference/changelog). This resource, available at SeaTable API Changelog, provides developers with insights into the latest API updates, enabling them to leverage new functionalities and enhancements in their integrations and applications.
 
 ## Extra Upgrade Notices
 

@@ -4,7 +4,7 @@ Next to this administration manual there are more documentations available. To l
 
 - [SeaTable User Manual](https://help.seatable.com)
 - [SeaTable Developer Manual](https://developer.seatable.com)
-- [SeaTable API Reference](https://api.seatable.io)
+- [SeaTable API Reference](https://api.seatable.com)
 
 See the [official SeaTable channel](https://youtube.com/seatable) on YouTube for tutorials, guides and overviews. Visit [our blog](https://seatable.com/blog/) for latest news and to learn more about what is going on in and around SeaTable.
 

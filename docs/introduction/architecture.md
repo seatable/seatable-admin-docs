@@ -140,7 +140,7 @@ When actions are not executed immediately but with a time delay, SeaTable employ
 
 ### api-gateway
 
-The api-gateway is as a proxy for dtable-server and dtable-db. All API calls for [base operations](https://api.seatable.io/reference/getbaseinfo) are routed through this component. It also essential for the effective enforcement of API rate and request limits.
+The api-gateway is as a proxy for dtable-server and dtable-db. All API calls for [base operations](https://api.seatable.com/reference/getbaseinfo) are routed through this component. It also essential for the effective enforcement of API rate and request limits.
 
 ## Container mariadb
 
@@ -228,4 +228,4 @@ The second backend, known as the _big data backend_, diverges from the conventio
 
 To access data stored in the big data backend, users must create a [Big Data View](https://seatable.io/docs/big-data/so-erstellen-sie-ein-big-data-ansicht/), which, unlike conventional views, loads a preview of up to 1k rows by default. To retrieve additional rows, users can make requests within the web interface to get more data.
 
-Unlike the default backend, the Big Data backend does not load data into the server's memory, rendering real-time collaboration unsupported. Given the challenges of interacting with millions of rows within a browser-based spreadsheet interface, users typically access such large datasets via the **SQL query Plugin**, the [SeaTable API](https://api.seatable.io) or through the SQL-like query language provided by dtable-db.
+Unlike the default backend, the Big Data backend does not load data into the server's memory, rendering real-time collaboration unsupported. Given the challenges of interacting with millions of rows within a browser-based spreadsheet interface, users typically access such large datasets via the **SQL query Plugin**, the [SeaTable API](https://api.seatable.com) or through the SQL-like query language provided by dtable-db.

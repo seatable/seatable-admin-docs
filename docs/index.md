@@ -32,7 +32,7 @@ This Manual covers all relevant admin topics, from installation, configuration, 
 
 This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://help.seatable.com/).
 
-If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.com) and the [API Reference](https://api.seatable.io).
+If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.com) and the [API Reference](https://api.seatable.com).
 
 This is not the place for discussion either. You can ask questions about SeaTable in the [SeaTable Forum](https://forum.seatable.com). Looking forward to seeing you there!
 
