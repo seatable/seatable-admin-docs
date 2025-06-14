@@ -87,4 +87,5 @@ If you find n8n useful (which you most likely will), consider [purchasing an Ent
 
 ## Next steps
 
-Check the docs of n8n at [https://docs.n8n.io/](https://docs.n8n.io/).
+Create your first workflow in n8n, add your first node and search for `SeaTable`. Currently SeaTable supports three triggers and 16 actions.
+Alternatively check the docs of n8n at [https://docs.n8n.io/](https://docs.n8n.io/) for more details or do their [text courses](https://docs.n8n.io/courses/) to get a better understanding of n8n.
