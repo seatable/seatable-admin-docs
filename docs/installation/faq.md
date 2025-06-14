@@ -37,10 +37,11 @@ status: wip
     {"version":"4.3.8","edition":"enterprise edition"}
     ```
 
-    If you don't see this, SeaTable Service is definately not running. Try to start the service from the docker container and check the logs for more details.
-    Here are the two commands...
+    If you don't see this, SeaTable Service is definately not running. Try to [restart the service](../maintenance/restart-seatable.md) and check the logs for more details.
 
-    - `docker exec -it seatable-server seatable.sh`
+    Here are the two commands for more logs
+
+    - `cd /opt/seatable-compose && docker compose logs -f`
     - `tail -f /opt/seatable-server/seatable/logs/*.log`
 
     Probably you have a wrong configuration value in `dtable_web_settings.py`.

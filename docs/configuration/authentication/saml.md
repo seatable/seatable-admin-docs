@@ -123,12 +123,7 @@ SAML_CERTS_DIR = '/shared/certs'
 
 ### Testing
 
-A restart of the SeaTable service to activate the configuration settings.
-
-```
-# docker exec -it seatable bash
-# seatable.sh restart
-```
+Now [restart SeaTable](../../maintenance/restart-seatable.md) to activate the configuration settings.
 
 Navigate to the login page of your SeaTable Server and click on "Single Sign-On" and try to log in. If the configuration is correct, you'll be redirected the IdP's login. Enter the credentials of a user that was assigned to the application created above.
 

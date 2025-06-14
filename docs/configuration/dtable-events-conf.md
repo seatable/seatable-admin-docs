@@ -38,6 +38,8 @@ The following options are grouped by their sections.
 By default, `dtable-events.conf` will be empty after the first startup of SeaTable:
 
 ```python
+[CLEAN DB]
+enabled = true
 ```
 
 ## Available configuration options

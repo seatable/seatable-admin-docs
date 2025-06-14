@@ -34,10 +34,6 @@ INNER_DTABLE_DB_URL = 'http://192.168.0.3'  # LAN dtable-db server's url
 ```sh
 docker compose up -d
 
-docker exec -it seatable bash
-
-seatable.sh
-
 ```
 
 When you see following in the output log, it means success:
@@ -63,9 +59,7 @@ Modify dtable-server configuration file `/Your SeaTable data volume/seatable/con
 
 ```sh
 docker compose up -d
-
 docker exec -it seatable bash
-
 seatable.sh
 
 ```
@@ -201,10 +195,7 @@ DTABLE_EVENTS_TASK_MODE=all
 
 ```sh
 docker compose up -d
-
-docker exec -it seatable bash
-
-seatable.sh
+docker exec seatable-server /opt/seatable/scripts/seatable.sh
 
 ```
 

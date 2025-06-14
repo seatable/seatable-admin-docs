@@ -20,7 +20,9 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 The following options are grouped by their sections.
 
-Please note that SeaTable does not create the `dtable-api-gateway.conf` file by default. The `api-gateway` will use the default configuration values if the file does not exist.
+## Example configuration
+
+SeaTable does not create the `dtable-api-gateway.conf` file by default. The `api-gateway` will use the default configuration values if the file does not exist.
 
 ## Available configuration options
 

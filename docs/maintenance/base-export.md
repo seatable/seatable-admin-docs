@@ -1,3 +1,7 @@
+---
+status: wip
+---
+
 # Exporting a Base from the Command Line
 
 SeaTable allows you to export a base using the command line, bypassing typical limitations from the web interface.

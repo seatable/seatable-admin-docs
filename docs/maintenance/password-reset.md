@@ -12,4 +12,11 @@ In a private server, the default settings doesn't support users to reset their p
 
 #### Forgot Admin Account or Password?
 
-You may create a new admin account by running `seatable.sh superuser` script under the scripts directory. After logging in the new admin account, you can reset the original admin account's password.
+You may create a new admin account from the command line. Use these commands and follow the instructions on the screen.
+
+```bash
+docker exec -it seatable-server bash
+seatable.sh superuser
+```
+
+After logging in the new admin account, you can reset the original admin account's password.

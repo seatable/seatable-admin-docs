@@ -22,8 +22,4 @@ Keep this in mind, but the articles will explain precisely where you should do t
 ## How to restart SeaTable?
 
 Changes in the configuration files, require a restart of the SeaTable container or the SeaTable service.
-SeaTable service can be restarted with this command:
-
-```
-docker exec -i seatable-server /templates/seatable.sh restart
-```
+Read [here, how to restart SeaTable or the complete container](../maintenance/restart-seatable.md).

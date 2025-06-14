@@ -56,8 +56,8 @@ Now it is time to start the Python Pipeline.
 
 ```bash
 cd /opt/seatable-compose && \
-docker compose up -d && \
-docker exec -i seatable-server /templates/seatable.sh restart
+docker stop seatable-server && \
+docker compose up -d
 ```
 
 #### Check the functionality Python Pipeline

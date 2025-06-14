@@ -1,10 +1,6 @@
 # dtable web settings
 
-You need to restart SeaTable so that your changes take effect. Just execute the following command at your command line.
-
-```bash
-docker exec -i seatable-server /templates/seatable.sh restart
-```
+You need to [restart SeaTable](../maintenance/restart-seatable.md) so that your changes take effect. 
 
 You can also modify some of the config items as system administrator via web interface. These config items are saved in the database table (dtable_db/constance_config). The configuration in the database has a higher priority then the items in config file. If you want to disable settings via web interface, you can add `ENABLE_SETTINGS_VIA_WEB = False` to `dtable_web_settings.py`.
 

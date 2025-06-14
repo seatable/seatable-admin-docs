@@ -6,18 +6,27 @@ status: wip
 
 Managed Database is an often used managed service. SeaTable can easily be configured to use a separate database. We recommend to initialize SeaTable with the default mariadb container. Then dump the database, load the dump to a separate database, update the `.env` file and restart SeaTable. Due to this assumption, this manual is the same for a new SeaTable Server or a service where you want to migrate the database.
 
-## Stop Database container and SeaTable
+## Stop SeaTable
 
 ```bash
-docker stop mariadb
-docker exec -it seatable-server seatable.sh stop
+docker stop seatable-server
 ```
+
+Now you can be sure, that no more records are written or modified in the database.
 
 ## Dump and restore to another database
 
 Please refer to [Backup and Recovery](../../maintenance/backup-recovery.md#mariadb-database) for instructions regarding the backup process for the MariaDB database.
 
 You can use the `mariadb` CLI to import the contents of the dumped databases into the managed databases.
+
+## Stop Mariadb
+
+After the dump, stop also the database container:
+
+```bash
+docker stop mariadb
+```
 
 ## Don't start mariadb container
 
@@ -47,11 +56,7 @@ MARIADB_PASSWORD=
 
 ## Restart SeaTable
 
-After that you can restart SeaTable service.
-
-```bash
-docker restart seatable-server
-```
+After that you can [restart SeaTable](../../maintenance/restart-seatable.md).
 
 ## Troubleshooting
 

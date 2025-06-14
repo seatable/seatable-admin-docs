@@ -94,11 +94,7 @@ DTABLE_EVENTS_TASK_MODE=background
 
 ```sh
 docker compose up -d
-
-docker exec -it seatable bash
-
-seatable.sh
-
+docker exec seatable-server /opt/seatable/scripts/seatable.sh
 ```
 
 When you see following in the output log, it means success:
@@ -133,10 +129,7 @@ DTABLE_EVENTS_TASK_MODE=foreground
 ### Restart dtable-web nodes
 
 ```sh
-docker exec -it seatable bash
-
-seatable.sh
-
+docker exec seatable-server /opt/seatable/scripts/seatable.sh
 ```
 
 When you see following in the output log, it means success:

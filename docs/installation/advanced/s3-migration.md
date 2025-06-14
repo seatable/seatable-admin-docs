@@ -42,10 +42,9 @@ docker exec -it seatable-server bash
 cd /templates
 ./migrate-seafile-data.sh
 ./migrate-storage-data.sh
-
-# after the migration has finished, you can restart SeaTable
-seatable.sh restart
 ```
+
+After the migration has finished, you can [restart SeaTable](../../maintenance/restart-seatable.md)
 
 ### Avatars
 

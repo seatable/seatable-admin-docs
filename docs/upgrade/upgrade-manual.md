@@ -137,7 +137,6 @@ This part of the manual is only for older version, meaning if you are updating t
 
     Now you can start the SeaTable service. Execute the following command in the host server:
 
-    ```
+    ```bash
     docker exec -d seatable /shared/seatable/scripts/seatable.sh start
-
     ```
