@@ -154,6 +154,7 @@ nav:
           - Python Pipeline: installation/components/python-pipeline.md
           - Whiteboard: installation/components/whiteboard.md
           - n8n: installation/components/n8n.md
+          - Report Design: installation/components/seadoc.md
           - Office Editors:
               - Collabora: installation/components/collabora.md
               - OnlyOffice: installation/components/onlyoffice.md
