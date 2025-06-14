@@ -25,5 +25,5 @@ Changes in the configuration files, require a restart of the SeaTable container 
 SeaTable service can be restarted with this command:
 
 ```
-docker exec -d seatable-server /shared/seatable/scripts/seatable.sh restart
+docker exec -i seatable-server /templates/seatable.sh restart
 ```

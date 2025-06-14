@@ -107,7 +107,7 @@ dtable_server_config.json
 Then restart dtable-server-01
 
 ```bash
-docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
+docker exec -i seatable-server /templates/seatable.sh restart
 ```
 
 Note, the `node_url` is used by the end user to connect to the server. The `local_node_url` is used by the dtable-server-proxy to connect to the server.

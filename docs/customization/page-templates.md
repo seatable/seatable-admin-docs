@@ -185,7 +185,7 @@ $(function() {
 Only one command is missing to restart SeaTable and to activate your new login page.
 
 ```
-docker exec -d seatable /shared/seatable/scripts/seatable.sh restart
+docker exec -i seatable-server /templates/seatable.sh restart
 ```
 
 ## Customize CSS
