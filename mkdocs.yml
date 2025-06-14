@@ -217,7 +217,6 @@ nav:
       - Available Configuration Options:
           - Environment variables: configuration/environment-variables.md
           - Configuration files:
-              - ccnet.conf: configuration/ccnet-conf.md
               - dtable-db.conf: configuration/dtable-db-conf.md
               - dtable-events.conf: configuration/dtable-events-conf.md
               - dtable_server_config.json: configuration/dtable-server-config.md
@@ -225,7 +224,6 @@ nav:
               - dtable_web_settings.py: configuration/dtable-web-settings.md
               - seafile.conf: configuration/seafile-conf.md
               - dtable-api-gateway.conf: configuration/dtable-api-gateway-conf.md
-              - seatable-controller.conf: configuration/seatable-controller-conf.md
 
   - UI Customization:
       - Overview: customization/overview.md

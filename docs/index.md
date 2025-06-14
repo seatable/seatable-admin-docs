@@ -19,7 +19,7 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
 ??? tip "SeaTable Dedicated: private SAAS"
 
-    [SeaTable Dedicated](https://seatable.com/en/dedicated/) is a custom SeaTable Server instance for you and your team operated by the SeaTable exports. You define which URL to use, which logo or color code should greet your users.
+    [SeaTable Dedicated](https://seatable.com/dedicated/) is a custom SeaTable Server instance for you and your team operated by the SeaTable exports. You define which URL to use, which logo or color code should greet your users.
 
     **Important**: SeaTable Dedicated requires a minimum of 100 Users.
 
@@ -68,7 +68,7 @@ There is a _Single-Node Setup_, where all components of SeaTable Server are inst
 
 ### Advanced Setup
 
-The _'Advanced Setup_ section doesn't entail a distinct installation method; rather, it offers detailed guidance on operating each component independently. It equips you with the knowledge needed to scale your SeaTable Server effectively. Whether you're seeking insights to enhance performance or aiming to construct a highly available cluster setup capable of supporting hundreds of thousands of users, this section provides comprehensive instructions to meet your objectives.
+The _Advanced Setup_ section doesn't entail a distinct installation method; rather, it offers detailed guidance on operating each component independently. It equips you with the knowledge needed to scale your SeaTable Server effectively. Whether you're seeking insights to enhance performance or aiming to construct a highly available cluster setup capable of supporting hundreds of thousands of users, this section provides comprehensive instructions to meet your objectives.
 
 ## Impressions of SeaTable
 

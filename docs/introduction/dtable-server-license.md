@@ -80,6 +80,7 @@ IN NO EVENT, UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING, WILL SEA
 THERE IS NO WARRANTY FOR THE SERVER, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH THE END USER. SHOULD THE PROGRAM PROVE DEFECTIVE, THE END USER ASSUMES THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 
 ## 11. Final Provisions
+
 1. Any notifications and declarations in connection with the EULA will be made through public announcements on the website https://seatable.com and/or the Community Forum at https://forum.seatable.com. The End User is responsible for checking these two sites regularly.
 
 2. The EULA and any disputes in connection with it are solely governed by, and construed in accordance with, the law of the People's Republic of China.

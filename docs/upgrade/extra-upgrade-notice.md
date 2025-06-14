@@ -1,5 +1,129 @@
 # Extra upgrade notice
 
+## 5.3
+
+SeaTable v5.3 requires some changes. We have tried to make these changes as easy as possible by providing a script that will handle the heavy lifting for you.
+Of course, you can skip this script and make the changes manually. The following sections explain each change in detail, but this approach requires a deeper understanding of SeaTable and Docker.
+
+??? warning "Centralized secret for secure communication"
+
+    SeaTable uses a **JWT secret** for secure communcation between the SeaTable components: `dtable-web`, `dtable-server` and `dtable-db`. 
+    
+    Before v5.3, this secret was stored in `dtable_web_settings.py` and `dtable_server_config.json`. 
+    
+    Starting with v5.3, this **JWT secret** should be provided via environment variable `JWT_PRIVATE_KEY` in your `/opt/seatable-compose/.env` file. 
+
+    === "Script (easy way)"
+
+        Execute the migration script below; you only need to run it once.
+ 
+        ```bash
+        bash /opt/seatable-compose/migrate/migrate_5.2_5.3.sh
+        ```
+
+    === "Manual"
+
+        - Retrieve the value of `private_key` from `dtable_server_config.json`.
+        - Add the environment variable `JWT_PRIVATE_KEY=xxx` to your .env file.
+        - Remove the `private_key` entry from `dtable_server_config.json`.
+        - Remove the `DTABLE_PRIVATE_KEY` entry from `dtable_web_settings.py`.
+
+??? warning "Centralized MariaDB and Redis configuration"
+
+     Starting with version 5.3, SeaTable no longer stores database and Redis credentials in configuration files, but centrally as environment variables. This eliminates redundant configuration settings and makes the configuration files much smaller.
+
+    === "Script (easy way)"
+
+        Execute the migration script below; you only need to run it once.
+
+        ```bash
+        bash /opt/seatable-compose/migrate/migrate_5.2_5.3.sh
+        ```
+
+    === "Manual"
+
+        - Open `/opt/seatable-compose/.env` and rename the variable `SEATABLE_MYSQL_ROOT_PASSWORD` to `MARIADB_PASSWORD`.
+        - Open `/opt/seatable-server/seatable/conf/dtable-events.conf` and remove the entire `[DATABASE]` and `[REDIS]` sections.
+        - Open `/opt/seatable-server/seatable/conf/dtable_server_config.json` and remove the three lines with `redis_` and the five lines related to `mariadb` (host, user, password, database, port).
+        - Open `/opt/seatable-server/seatable/conf/dtable_web_settings.py` and remove the entire blocks for `DATABASES = {...}` and `CACHES = {...}`.
+        - Open `/opt/seatable-server/seatable/conf/seafile.conf` and remove the entire `[database]` section.
+
+        In most cases the `dtable_server_config.json` should now only contain `{}`.
+
+??? warning "Mandatory API Gateway in Nginx"
+
+    Starting with version 5.3, the SeaTable API Gateway is used to handle all base loading and websocket connections. This requires significant changes to the nginx configuration file.
+    Due to the complexity and potential for errors, we have decided to provide the nginx configuration file together with the yml files and to mount the configuration into the container.
+
+    === "Mount configuration file (easy way)"
+
+        You don't have to do anything. The file `/opt/seatable-compose/config/seatable-nginx.conf` will be mounted to the container. 
+        The old configuration file located at `/opt/seatable-server/seatable/config/nginx.conf` is no longer used and can be removed.
+
+    === "Manual"
+
+        - Remove or comment out the volume mount of the nginx configuration from `seatable-server.yml`. Please note that changes to the .yml files are overwritten with the next update. Create a `custom-xxx.yml` file instead.
+        - Remove the locations `/dtable-db` and `dtable-server`
+        - Change the location `/socket.io` to `/api-gateway/socket.io/`, and update `http://dtable_servers` to `http://127.0.0.1:7780/socket.io/`
+
+        It should look like this:
+
+        ```conf
+            # OLD:
+            #location /socket.io {
+            #    proxy_pass http://dtable_servers;
+
+            # NEW:
+            location /api-gateway/socket.io/ {
+                proxy_pass http://127.0.0.1:7780/socket.io/;
+        ```
+
+??? info "Migration of comments"
+
+    Before 5.3, comments in the base and universal app were handled separately. With 5.3, these comments are merged. 
+    After starting the SeaTable container, you need to run this command once to migrate the comments.
+
+    ```bash
+    docker exec -it seatable-server bash
+    cd /opt/seatable/seatable-server-latest/dtable-web
+    seatable.sh python-env manage.py merge_app_comments_to_base
+    ```
+
+??? info "Database Cleanup"
+
+    With 5.3, SeaTable automatically enables periodic database cleanup tasks **for new installations** .
+    This behavior is deliberately not enabled for existing installations.
+
+    However, we strongly recommend enabling these tasks to ensure that your database stays performant. It also prevents your server from running out of disk space.
+
+    You can achieve this by setting the following option in `/opt/seatable-server/seatable/conf/dtable-events.conf`:
+
+    ```ini
+    [CLEAN DB]
+    enabled = true
+    ```
+
+    Please refer to [this document](../configuration/dtable-events-conf.md#clean-db) for detailed information on the possible configuration options.
+
+??? info "ccnet.conf is obsolete"
+
+    The configuration file `ccnet.conf` is no longer necessary and can be removed. 
+
+    === "Script (Easy Way)"
+
+        Execute the migration script below; you only need to run it once.
+
+        ```bash
+        bash /opt/seatable-compose/migrate/migrate_5.2_5.3.sh
+        ```
+
+    === "Manual"
+
+        Remove the configuration file `/opt/seatable-server/seatable/conf/ccnet.conf`.
+
+TODO: Hier noch einen **CHECKUP** der Konfiguration einbauen. Mindestkonfiguration.
+TODO: SDOC Installation hinzufügen!
+
 ## 5.2
 
 ??? warning "From Two to One: Redis Unifies Caching, Retiring Memcached"

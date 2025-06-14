@@ -1,63 +1,93 @@
-# DTable Storage Server config
+# Configuration of dtable-storage-server
 
-DTable storage server provides persistent storage for bases and backup service for dtable-db. It supports file system, S3 storage backends. This component is added in version 3.0.
+This is a cheat sheet for the [dtable-storage-server](/introduction/architecture/#dtable-storage-server) configuration file `dtable-storage-server.conf`. It contains all possible settings that can be configured as well as their default values.
 
-## Configuration example
+The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 
-```
+In the default values below, a value in the form `$XYZ` refers to an environment variable.
+
+??? tip "Configuration changes require a restart"
+
+    New configuration options will only apply after a restart of SeaTable.
+
+??? abstract "Notes about the configuration file format"
+
+    The configuration file uses the **INI format**, which is a simple text-based format for storing configuration data. It consists of sections (denoted by square brackets, e.g., [general]) and key-value pairs.
+
+    Comments in the configuration file start with the hash symbol `#` and extend to the end of the line.
+
+    When dealing with special characters like single quotes `'`, double quotes `"` or the hash symbol `#`, it's generally best to enclose the value in double quotes.
+
+The following options are grouped by their sections.
+
+## Example configuration
+
+This is a typical configuration file, created automatically on the first startup by SeaTable.
+
+```ini
 [general]
-host = 127.0.0.1
-port = 6666
-log_dir = .
-temp_file_dir = ./tmp
+log_dir = /opt/seatable/logs
+temp_file_dir = /tmp/tmp-storage-data
 
 [storage backend]
 type = filesystem
-path = /path/to/storage
+path = /opt/seatable/storage-data
 
 [snapshot]
 interval = 86400
 keep_days = 180
 ```
 
-## Configuration
+## Available configuration options
 
-### general
+### `[general]`
 
-In `[general]` section:
+This section contains general settings about the `dtable-storage-server` service.
 
-- `host`: The address that dtable-storage-server listens on. Default is `127.0.0.1`.
-- `port`: The port that dtable-storage-server listens on. Default is `6666`.
-- `log_dir`: The directory that dtable-storage-server writes logs to. Default is the dir of configuration file.
-- `temp_file_dir`: The directory that dtable-storage-server create buffers in. _Required_
+| Parameter       | Description                                                                            | Default                             |
+| --------------- | -------------------------------------------------------------------------------------- | ----------------------------------- |
+| `host`          | The address `dtable-storage-server` listens on.                                        | `127.0.0.1`                         |
+| `port`          | The port `dtable-storage-server` listens on.                                           | `6666`                              |
+| `log_dir`       | The directory that dtable-storage-server writes logs to.                               | Directory of the configuration file |
+| `temp_file_dir` | The directory that dtable-storage-server creates buffers in. This setting is required. |                                     |
 
-### Storage backend
+### `[storage backend]`
 
-In `[storage backend]` section:
+This section is used to configure the storage backend.
 
-- `type`: The type of storage backend. Options are `filesystem`, and `s3`. Default is `filesystem`.
+| Parameter | Description                                                     | Default     |
+| --------- | --------------------------------------------------------------- | ----------- |
+| `type`    | The type of storage backend. Options are `filesystem` and `s3`. | `fileystem` |
 
-For filesystem storage backend:
+Depending on the chosen storage backend, there are additional settings:
 
-- `path`: The filepath of storage backend.
+#### Filesystem Storage Backend
 
-For S3 storage backend:
+| Parameter | Description                      | Default                      |
+| --------- | -------------------------------- | ---------------------------- |
+| `path`    | The filepath of storage backend. | `/opt/seatable/storage-data` |
 
-- `bucket`: The bucket name of S3 backend.
-- `key_id`: The access key id of S3 backend.
-- `key`: The access key of S3 backend.
-- `use_v4_signature`: Whether to use v4 signature. For a S3-compatible storage, it should be `false`.
-- `aws_region`: The region of S3 backend. (only when v4 signature is used)
-- `host`: The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.
-- `path_style_request`: Whether to use path style requests. For a S3-compatible storage, it should be `true`.
-- `use_https`: Whether to use https.
-- `sse_c_key`: Use server-side encryption with customer-provided keys (SSE-C).
+#### S3 Storage Backend
+
+| Parameter            | Description                                                                                                                      | Default |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `bucket`             | The bucket name for the S3 backend.                                                                                              |         |
+| `key_id`             | The access key id for the bucket.                                                                                                |         |
+| `key`                | The secret access key fro the bucket.                                                                                            |         |
+| `use_v4_signature`   | Whether to use v4 signature. For a S3-compatible storage, it should be `false`.                                                  |         |
+| `aws_region`         | The AWS region (only when v4 signature is used).                                                                                 |         |
+| `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use. |         |
+| `path_style_request` | Whether to use path style requests. For a S3-compatible storage, it should be `true`.                                            |         |
+| `use_https`          | Whether to use https.                                                                                                            |         |
+| `sse_c_key`          | Use server-side encryption with customer-provided keys (SSE-C). This setting is optional.                                        |         |
+
+##### SSE-C
 
 `sse_c_key` is a string of 32 characters.
 
 You can generate `sse_c_key` with the following command：
 
-```
+```bash
 openssl rand -base64 24
 ```
 
@@ -76,7 +106,7 @@ openssl rand -base64 24
 
 !!! warning "Example of new tiered snapshot retention"
 
-    By default, it creates daily snapshots for changed bases, deleting snapshots older than 180 days.
+    By default, SeaTable creates daily snapshots for changed bases, deleting snapshots older than 180 days.
 
     Since version 5.2, SeaTable offers a tiered retention strategy for snapshots. This approach balances recent, detailed backups with efficient long-term storage.
     For example, setting `keep_days = 180` and `keep_frequency_days = 7` would retail:

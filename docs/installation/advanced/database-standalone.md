@@ -4,7 +4,7 @@ status: wip
 
 # Standalone Database
 
-Managed Database is a often used managed service. SeaTable can easily be configured to use a separate database. We recommend to initialize SeaTable with the default mariadb container. Then dump the database, load the dump to a separate database, update all config files and restart SeaTable. Due to this assumption, this manual is the same for an new SeaTable Server or a service where you want to migrate the database.
+Managed Database is an often used managed service. SeaTable can easily be configured to use a separate database. We recommend to initialize SeaTable with the default mariadb container. Then dump the database, load the dump to a separate database, update the `.env` file and restart SeaTable. Due to this assumption, this manual is the same for a new SeaTable Server or a service where you want to migrate the database.
 
 ## Stop Database container and SeaTable
 
@@ -15,13 +15,14 @@ docker exec -it seatable-server seatable.sh stop
 
 ## Dump and restore to another database
 
-```bash
-...
-```
+Please refer to [Backup and Recovery](../../maintenance/backup-recovery.md#mariadb-database) for instructions regarding the backup process for the MariaDB database.
+
+You can use the `mariadb` CLI to import the contents of the dumped databases into the managed databases.
 
 ## Don't start mariadb container
 
-Create a copy of seatable-server.yml and rename it custom-seatable-server.yml. Remove all ...
+Create a copy of `seatable-server.yml` and rename it to `custom-seatable-server.yml`.
+You should remove the `mariadb` service definition and update the `depends_on` declaration for the `seatable-server` service to ensure that it can start up.
 
 ```bash
 services:
@@ -34,27 +35,22 @@ services:
     ...                               # with all lines
 ```
 
-## Update all config files
+## Update environment variables
 
-These configuration files have to be changed:
+You should update/set the following environment variables in your `.env` file:
 
-- ccnet.cont
-- dtable-db.conf
-- dtable-events.conf
-- dtable_server_config.js
-- dtable_web_settings.py
-- seafile.conf
-
-!!! warning "Variable names are different"
-
-    Variable names differ in SeaTable config files. In seafile.conf the variable is `host`, in dtable_web_settings.py it is `HOST`. Don't mix things up.
+```ini
+MARIADB_HOST=
+MARIADB_PORT=
+MARIADB_PASSWORD=
+```
 
 ## Restart SeaTable
 
 After that you can restart SeaTable service.
 
 ```bash
-docker exec -it seatable-server seatable.sh restart
+docker restart seatable-server
 ```
 
 ## Troubleshooting

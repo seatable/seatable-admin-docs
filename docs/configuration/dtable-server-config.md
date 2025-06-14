@@ -1,6 +1,6 @@
 # Configuration of dtable-server
 
-This is a cheat sheet for the [dtable-server](/introduction/architecture/#seatable-server-container) configuration file `dtable_server_config.json`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the [dtable-server](/introduction/architecture/#dtable-server) configuration file `dtable_server_config.json`. It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 
@@ -20,59 +20,35 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 ## Example configuration
 
-This is a typical configuration file, created automatically on the first startup by SeaTable.e
+By default, `dtable_server_config.json` will be empty after the first startup of SeaTable:
 
-```
-{
-    "host": "mariadb",
-    "user": "root",
-    "password": "aeaicoo6eDui1ns1d6ae5VoM0raho8eethah3kae",
-    "database": "dtable_db",
-    "port": 3306,
-    "private_key": "9uc)v0epyur^gf-j!@gabem7*-8^@d@z_!g!s^o$inp+#8ujk-",
-    "redis_host": "redis",
-    "redis_port": 6379,
-    "redis_password": ""
-}
+```json
+{}
 ```
 
 ## Available configuration options
 
-### Mariadb Database Connection
-
-| Parameter  | Description            | Default           |
-| ---------- | ---------------------- | ----------------- |
-| `host`     | MariaDB server address | `$DB_HOST`        |
-| `user`     | MariaDB username       | root              |
-| `password` | MariaDB password       | `$DB_ROOT_PASSWD` |
-| `database` | Database name          | dtable_db         |
-| `port`     | MariaDB server port    | 3306              |
-
-### Redis Connection
+### Redis
 
 | Parameter                     | Description                              | Default |
 | ----------------------------- | ---------------------------------------- | ------- |
-| `redis_host`                  | Redis server address                     | redis   |
-| `redis_password`              | Redis password (often empty)             |         |
-| `redis_port`                  | Redis server port                        | 6379    |
 | `enable_notification_publish` | Enable real-time notifications via Redis | false   |
 
-### Persist data
+### Persistence
 
-SeaTable Server process bases in memory. After a certain time, the bases are persisted to storage (via dtable-storage-server)
+`dtable-server` keeps bases in memory. After a certain time, the bases are persisted to storage (via dtable-storage-server).
 
 | Parameter       | Description                                                             | Default |
 | --------------- | ----------------------------------------------------------------------- | ------- |
 | `save_interval` | Auto-save interval for modified bases, in milliseconds. (300000 = 5min) | 300000  |
 
-### Other Connections
+### Service URLs
 
-| Parameter                   | Description                                                                                          | Default                |
-| --------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------- |
-| `private_key`               | Shared secret for dtable_web connection. Must match `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py` |                        |
-| `dtable_web_service_url`    | dtable-web service URL                                                                               | http://127.0.0.1:8000/ |
-| `dtable_db_service_url`     | dtable-db service URL                                                                                | http://127.0.0.1:7777/ |
-| `dtable_storage_server_url` | dtable-storage-server URL                                                                            | http://127.0.0.1:6666/ |
+| Parameter                   | Description               | Default                |
+| --------------------------- | ------------------------- | ---------------------- |
+| `dtable_web_service_url`    | dtable-web service URL    | http://127.0.0.1:8000/ |
+| `dtable_db_service_url`     | dtable-db service URL     | http://127.0.0.1:7777/ |
+| `dtable_storage_server_url` | dtable-storage-server URL | http://127.0.0.1:6666/ |
 
 ??? warning "API-Gateway is not configurable"
 
@@ -109,6 +85,40 @@ It is not recommended to change these values
 For more information on setting up a SeaTable cluster, which is typically suitable for systems supporting hundreds of users, please contact us.
 
 ## Deprecated settings
+
+### MariaDB Database Connection
+
+`dtable-server` used to read the database connection settings from `dtable_server_config.json`.
+Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/environment-variables) instead.
+
+| Parameter  | Description            | Default           |
+| ---------- | ---------------------- | ----------------- |
+| `host`     | MariaDB server address | `$DB_HOST`        |
+| `user`     | MariaDB username       | root              |
+| `password` | MariaDB password       | `$DB_ROOT_PASSWD` |
+| `database` | Database name          | dtable_db         |
+| `port`     | MariaDB server port    | 3306              |
+
+### Redis Connection
+
+`dtable-server` used to read the Redis connection settings from `dtable_server_config.json`.
+Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/environment-variables) instead.
+
+| Parameter                     | Description                              | Default |
+| ----------------------------- | ---------------------------------------- | ------- |
+| `redis_host`                  | Redis server address                     | redis   |
+| `redis_password`              | Redis password (often empty)             |         |
+| `redis_port`                  | Redis server port                        | 6379    |
+| `enable_notification_publish` | Enable real-time notifications via Redis | false   |
+
+### Private Key
+
+Starting with version 5.3, it is no longer required to provide `private_key` that is used to sign JWTs inside the configuration file.
+`dtable-server` reads this value from the `JWT_PRIVATE_KEY` [environment variable](/configuration/environment-variables) instead.
+
+| Parameter     | Description                                                                                          | Default |
+| ------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `private_key` | Shared secret for dtable_web connection. Must match `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py` |         |
 
 ### API-Limits
 

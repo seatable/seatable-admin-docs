@@ -73,6 +73,6 @@ Most of the additional components will require **additional ports** in the range
 
 ## License
 
-**SeaTable Enterprise Edition** requires a license to start. A free license for two years and three users can be obtained at [https://seatable.com/on-premises/](https://seatable.com/on-premises/) or via the command line, which will be explained during the installation. Licenses with more than three users can be obtained from SeaTable Sales. [Just contact us and ask for a quote](https://seatable.com/contact/).
+**SeaTable Enterprise Edition** requires a license to start. A free license for two years and three users can be obtained at [https://seatable.com/on-premises/](https://seatable.com/on-premises) or via the command line, which will be explained during the installation. Licenses with more than three users can be obtained from [SeaTable Website](https://seatable.com/prices/).
 
 **SeaTable Developer Edition** does not require a license.

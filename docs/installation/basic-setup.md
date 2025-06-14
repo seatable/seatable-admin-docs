@@ -62,16 +62,17 @@ The expected output should appear as follows.
 # this should be the output of the tree command
 /opt/seatable-compose
 ├── caddy.yml
+├── clamav.yml
 ├── collabora.yml
 ├── .env
 ├── .env-release
-├── n8n-init-data.sh
-├── n8n.yml
-├── onlyoffice.yml
-├── python-pipeline-standalone.yml
+...
 ├── python-pipeline.yml
 ├── restic.yml
+├── seadoc.yml
 ├── seatable-server.yml
+├── tldraw.yml
+├── tools
 ├── uptime-kuma.yml
 └── zabbix.yml
 ```
@@ -89,10 +90,12 @@ The expected output should appear as follows.
 
 SeaTable is configured with the hidden `.env` file (=enviroment configuration file) that is stored in the folder `/opt/seatable-compose`.
 
-Now use the command line tool `pwgen` to create secure passwords for your _admin account_ and the _database root password_. The following commands will generate two such passwords and insert them in the `.env'` file.
+Now use the command line tool `pwgen` to create secure passwords for your _admin account_, the _database root password_, the _Redis_ instance and a secret for secure communication. The following commands will generate four such passwords and insert them in the `.env'` file.
 
     sed -i "s/^SEATABLE_ADMIN_PASSWORD=.*/SEATABLE_ADMIN_PASSWORD=$(pwgen 40 1)/" .env
-    sed -i "s/^SEATABLE_MYSQL_ROOT_PASSWORD=.*/SEATABLE_MYSQL_ROOT_PASSWORD=$(pwgen 40 1)/" .env
+    sed -i "s/^MARIADB_PASSWORD=.*/MARIADB_PASSWORD=$(pwgen 40 1)/" .env
+    sed -i "s/^REDIS_PASSWORD=.*/REDIS_PASSWORD=$(pwgen 40 1)/" .env
+    sed -i "s/^JWT_PRIVATE_KEY=.*/JWT_PRIVATE_KEY=$(pwgen 40 1)/" .env
 
 Alternatively, you can manually add your own passwords.
 
@@ -129,7 +132,13 @@ Continue setting up your SeaTable server by adjusting only three more variables.
     SEATABLE_ADMIN_PASSWORD='topsecret'
 
     # database
-    SEATABLE_MYSQL_ROOT_PASSWORD='alsotopsecret'
+    MARIADB_PASSWORD='alsotopsecret'
+
+    # redis
+    REDIS_PASSWORD='anotherverysecurepassword'
+
+    # shared secret for secure communication
+    JWT_PRIVATE_KEY='anothersecret'
     ```
 
     1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
@@ -160,7 +169,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
 !!! success "Three users, two years - for free."
 
-    You can use SeaTable Server Enterprise Edition for free with up to three users, but you must request and download a license file. The license file is valid for two years. You can generate a new license file at any time. If you want to use SeaTable Server Enterprise Edition with more than three users, [please get in touch with SeaTable Sales](https://seatable.com/contact).
+    You can use SeaTable Server Enterprise Edition for free with up to three users, but you must request and download a license file. The license file is valid for two years. You can generate a new license file at any time. If you want to use SeaTable Server Enterprise Edition with more than three users, [you can buy a (on-premises) license on seatable.com/prices](https://seatable.com/prices/).
 
 Run the following command, replacing `me@example.com` with your valid email address. Shortly after, you'll receive an email with instructions to download your license to the current directory.
 
