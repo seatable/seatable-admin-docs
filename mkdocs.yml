@@ -214,7 +214,7 @@ nav:
               #- SAML for teams: configuration/authentication/saml-team.md
               - JWT-Token: configuration/authentication/jwt.md
           - Switch authentication: configuration/authentication/auth-switch.md
-      - Available Configuration Options:
+      - Configuration Files / Options:
           - Environment variables: configuration/environment-variables.md
           - Configuration files:
               - dtable-db.conf: configuration/dtable-db-conf.md
@@ -222,8 +222,10 @@ nav:
               - dtable_server_config.json: configuration/dtable-server-config.md
               - dtable-storage-server.conf: configuration/dtable-storage-server-conf.md
               - dtable_web_settings.py: configuration/dtable-web-settings.md
-              - seafile.conf: configuration/seafile-conf.md
               - dtable-api-gateway.conf: configuration/dtable-api-gateway-conf.md
+              - seafile.conf: configuration/seafile-conf.md
+              - gunicorn.py: configuration/gunicorn-py.md
+              - nginx.conf: configuration/nginx-conf.md
 
   - UI Customization:
       - Overview: customization/overview.md
@@ -247,6 +249,7 @@ nav:
           - Switch Installation Method (v4.3): upgrade/migrate-seatable-release.md
 
   - Maintenance:
+      - Restart SeaTable: maintenance/restart-seatable.md
       - Backup and Recovery: maintenance/backup-recovery.md
       - Clean Database: maintenance/database-cleanup.md
       - Clean Storage: maintenance/garbage-collection.md
