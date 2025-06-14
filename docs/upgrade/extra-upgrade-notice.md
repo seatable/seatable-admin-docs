@@ -126,6 +126,10 @@ Of course, you can skip this script and make the changes manually. The following
 
         Remove the configuration file `/opt/seatable-server/seatable/conf/ccnet.conf`.
 
+??? info "New Report Design plugin"
+
+    We've developed a new report design plugin, which requires an additional Docker container on your SeaTable server. For installation, follow the instructions available [here](../installation/components/seadoc.md). 
+
 - TODO: Hier noch einen **CHECKUP** der Konfiguration einbauen. Mindestkonfiguration.
 - TODO: SDOC Installation hinzufügen!
 
