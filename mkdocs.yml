@@ -1,5 +1,5 @@
 site_name: SeaTable Admin Manual
-site_url: https://admin.seatable.io/
+site_url: https://admin.seatable.com/
 site_author: SeaTable GmbH
 site_description: >
   Official SeaTable Admin Manual.
@@ -66,7 +66,7 @@ plugins:
       enable_creation_date: true
   - redirects:
       redirect_maps:
-        "changelog/changelog-for-seatable-professional-server.md": "https://seatable.io/docs/changelog/"
+        "changelog/changelog-for-seatable-professional-server.md": "https://seatable.com/changelog/"
         "docker/Python-Runner/Deploy SeaTable Python Runner.md": "installation/components/python-pipeline.md"
         "docker/Enterprise-Edition/Deploy SeaTable-EE with Docker.md": "installation/basic-setup.md"
         "docker/Enterprise-Edition/migrate_seatable_editions.md": "upgrade/migrate-seatable-editions.md"
@@ -258,6 +258,7 @@ nav:
       - Logging: maintenance/logs.md
       - Add custom error messages: maintenance/debugging.md
       - Secrets Management: maintenance/secrets.md
+      - Helper Scripts: maintenance/helper-scripts.md
 #  - Migration:
 #      - Mysql: config/ccnet-conf.md
 #      - Postgres: config/ccnet-conf.md

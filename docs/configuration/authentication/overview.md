@@ -97,7 +97,7 @@ mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.prof
 
 `contact_email` is the real email address of the user. SeaTable sends notifications to this address.
 
-`login_id` is an alternative to the username that the user can use to log in. The `login_id` can only be set via [SeaTable API](https://api.seatable.io/reference/update-user) and not in system administration in SeaTable's web interface.
+`login_id` is an alternative to the username that the user can use to log in. The `login_id` can only be set via [SeaTable API](https://api.seatable.com/reference/update-user) and not in system administration in SeaTable's web interface.
 
 > **Three valid combos for default authentication**
 >
@@ -127,7 +127,7 @@ mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 
 ### Table id_in_org_tuple
 
-This table stores the [user IDs](https://seatable.io/en/docs/ansichtsoptionen/was-ist-die-id-des-users-und-warum-kann-man-danach-filtern/?lang=auto). Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.
+This table stores the user IDs. Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.
 
 ```
 mysql> select * from dtable_db.id_in_org_tuple;

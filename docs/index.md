@@ -30,11 +30,11 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
 This Manual covers all relevant admin topics, from installation, configuration, upgrade, and maintenance, and provides background information on software architecture, requirements, and development.
 
-This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://docs.seatable.io/).
+This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://help.seatable.com/).
 
-If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.io) and the [API Reference](https://api.seatable.io).
+If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.com) and the [API Reference](https://api.seatable.com).
 
-This is not the place for discussion either. You can ask questions about SeaTable in the [SeaTable Forum](https://forum.seatable.io). Looking forward to seeing you there!
+This is not the place for discussion either. You can ask questions about SeaTable in the [SeaTable Forum](https://forum.seatable.com). Looking forward to seeing you there!
 
 ## Contributing to this Manual
 

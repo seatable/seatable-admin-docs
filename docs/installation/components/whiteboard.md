@@ -57,3 +57,34 @@ This confirms that the `tldraw-worker` is operational. If you don't see this mes
 ## Final Steps
 
 With the server-side installation complete, you can now install the whiteboard plugin through the SeaTable interface and begin using this creative tool.
+
+---
+
+## Advanced Configuration
+
+### Custom Certificate
+
+You need to make some changes to your `tldraw-worker` deployment in case your SeaTable server uses an internal CA.
+It is not recommended to make changes to the provided `tldraw.yml` file.
+You should copy `tldraw.yml` to `custom-tldraw.yml` and reference this file in your `.env` file instead.
+
+The following changes need to be made in order to use an internal CA:
+
+```yaml
+services:
+  tldraw-worker:
+    # ...
+    environment:
+      # ...
+      # Configure Extra CA (chain) for node.js
+      - NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/MY-CA.pem
+    volumes:
+      # Mount the CA file into the container
+      - ./MY-CA.pem:/usr/local/share/ca-certificates/MY-CA.pem:ro
+```
+
+### Subfolder Installation
+
+Deploying the tldraw-worker using a subfolder (e.g. `/tldraw`) instead of port 6239 is **not yet supported**.
+
+You can refer to the following forum post for details regarding the required changes in your reverse proxy and the whiteboard plugin itself: [forum.seatable.com/t/configuring-new-whiteboard-plugin-tldraw/6482](https://forum.seatable.com/t/configuring-new-whiteboard-plugin-tldraw/6482)

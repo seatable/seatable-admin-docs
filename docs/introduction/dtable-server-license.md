@@ -15,7 +15,7 @@ Seafile is entitled to amend this EULA. SeaTable posts the amended EULA on the w
 
 2. The Server is made available to the End User by download, bundled with other software in the form of the application SeaTable Community Edition ("SeaTable CE"), of which the Server is a key component and without which SeaTable CE is not functional.  This applies for installation media as well as updates.
 
-3. The End User is responsible for installation and configuration. Seafile does not offer any kind of support for the Server nor has the End User any claim. Seafile and its affiliates operate a Community Forum at https://forum.seatable.io where End Users can help one another.
+3. The End User is responsible for installation and configuration. Seafile does not offer any kind of support for the Server nor has the End User any claim. Seafile and its affiliates operate a Community Forum at https://forum.seatable.com where End Users can help one another.
 
 4. Seafile will regularly release new versions of the Server. At its sole discretion, it may add/modify/remove functions and features and/or supported platforms. Seafile informs about new releases and associated changes on its blog and in the Community Forum. 
 
@@ -80,7 +80,8 @@ IN NO EVENT, UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING, WILL SEA
 THERE IS NO WARRANTY FOR THE SERVER, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH THE END USER. SHOULD THE PROGRAM PROVE DEFECTIVE, THE END USER ASSUMES THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 
 ## 11. Final Provisions
-1. Any notifications and declarations in connection with the EULA will be made through public announcements on the website https://seatable.com and/or the Community Forum at https://forum.seatable.io. The End User is responsible for checking these two sites regularly.
+
+1. Any notifications and declarations in connection with the EULA will be made through public announcements on the website https://seatable.com and/or the Community Forum at https://forum.seatable.com. The End User is responsible for checking these two sites regularly.
 
 2. The EULA and any disputes in connection with it are solely governed by, and construed in accordance with, the law of the People's Republic of China.
 

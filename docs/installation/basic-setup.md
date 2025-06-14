@@ -204,6 +204,6 @@ Your SeaTable journey has just begun! While you can dive straight into SeaTable,
 
 This manual covers a range of topics, from **advanced cluster installations** to detailed **configuration options**. Take your time to explore these possibilities. If you can't find what you need or require assistance, consider posting in the community forum.
 
-Encounter an issue or need clarity? Feel free to create a post on the [SeaTable community forum](https://forum.seatable.io). We're here to assist and improve this manual based on your feedback.
+Encounter an issue or need clarity? Feel free to create a post on the [SeaTable community forum](https://forum.seatable.com). We're here to assist and improve this manual based on your feedback.
 
 For sure you can also contribute directly and create a pull request at GitHub.

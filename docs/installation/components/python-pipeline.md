@@ -9,7 +9,7 @@ Explore various use cases from other SeaTable users:
 - Capture submissions from form.io and store the results.
 - Identify duplicate entries and apply specific tags.
 
-Find additional Python functions and code examples in the [SeaTable Developer Manual](https://developer.seatable.io).
+Find additional Python functions and code examples in the [SeaTable Developer Manual](https://developer.seatable.com).
 
 ![SeaTable Python Pipeline Page](../../assets/images/screenshot_python_script_execution.png)
 

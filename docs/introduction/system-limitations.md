@@ -42,4 +42,4 @@
 |                  | SQL calling for a single base                     | 5 000/day                                    |                                                                                                             |
 
 
-For more information on the limits of SeaTable's API, please consult the [API documentation](https://api.seatable.io/reference/limits).
+For more information on the limits of SeaTable's API, please consult the [API documentation](https://api.seatable.com/reference/limits).

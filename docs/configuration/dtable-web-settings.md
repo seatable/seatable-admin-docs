@@ -24,7 +24,7 @@ DTABLE_SOCKET_URL = 'https://seatable.yourdomain.com/'
 DTABLE_WEB_SERVICE_URL = 'https://seatable.yourdomain.com/'
 
 # The help link URL
-HELP_LINK = 'https://seatable.io/help/'
+HELP_LINK = 'https://seatable.com/help/'
 
 # The file server URL
 FILE_SERVER_ROOT = 'https://seatable.yourdomain.com/seafhttp/'
@@ -163,7 +163,7 @@ SITE_TITLE = 'Private SeaTable'
 
 
 # Configure user help pages
-HELP_LINK = 'https://seatable.io/help/'
+HELP_LINK = 'https://seatable.com/help/'
 
 # Add privacy policy link and terms link
 PRIVACY_POLICY_LINK = ''

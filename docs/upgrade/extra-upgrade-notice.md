@@ -194,7 +194,7 @@ TODO: SDOC Installation hinzufügen!
 
     The Excalidraw-based whiteboard plugin introduced in v5.0 is now deprecated and will be removed in v5.3. We've developed a new whiteboard plugin using [tldraw](https://tldraw.dev), which requires an additional Docker container on your SeaTable server.
 
-    For installation, follow the instructions available [here](../installation/components/whiteboard.md). You can easily copy and paste your drawings from the old plugin to the new one. If you have any problems, please report at the [forum](https://forum.seatable.io).
+    For installation, follow the instructions available [here](../installation/components/whiteboard.md). You can easily copy and paste your drawings from the old plugin to the new one. If you have any problems, please report at the [forum](https://forum.seatable.com).
 
 ## 5.1
 
@@ -342,10 +342,10 @@ There are no version-specific changes required.
     We have provided a simple script for you to download and create the necessary health check user. Please use the following commands to download and execute it. The script assumes the MariaDB container is running and that you have followed all installation instructions outlined in this manual.
 
     ```bash
-    curl -sSL https://admin.seatable.io/downloads/add_mariadb_healthcheck.sh | bash
+    curl -sSL https://admin.seatable.com/downloads/add_mariadb_healthcheck.sh | bash
     ```
 
-    If you wish to review the script's functionality, simply open it in your browser: [Add MariaDB Healthcheck Script](https://admin.seatable.io/downloads/add_mariadb_healthcheck.sh).
+    If you wish to review the script's functionality, simply open it in your browser: [Add MariaDB Healthcheck Script](https://admin.seatable.com/downloads/add_mariadb_healthcheck.sh).
 
     The script essentially adds the user `healthcheck` to the MariaDB database and stores the credentials in a file accessible to the container."
 

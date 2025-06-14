@@ -38,8 +38,8 @@ To update a plugin, simply upload the latest version as a zip file. SeaTable wil
 
 SeaTable Server offers API endpoints for installing and updating plugins. For further details, please refer to the API reference documentation.
 
-- <https://api.seatable.io/reference/addplugin>
-- <https://api.seatable.io/reference/updateplugin>
+- <https://api.seatable.com/reference/addplugin>
+- <https://api.seatable.com/reference/updateplugin>
 
 ## Configuration of the plugins
 

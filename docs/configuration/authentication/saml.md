@@ -202,7 +202,7 @@ Switch to the tab 'Assignments', click the 'Assign' button, and add user to the 
 
 ![Assign users](../../assets/images/auto-upload/Authentication_SAML_Okta_AssignUsers.png)
 
-Proceed with the [upload of the certificate file to SeaTable](https://manual.seatable.io/authentication/saml/#uploading-the-idps-certificate-to-seatable). The SAML configuration in `dtable_web_settings.py` should look like this:
+Proceed with the [upload of the certificate file to SeaTable](#uploading-the-idps-certificate-to-seatable). The SAML configuration in `dtable_web_settings.py` should look like this:
 
 ```Python
 ENABLE_SAML = True
@@ -239,7 +239,7 @@ Next, switch to the 'Settings' tab. Enter the URL of the [SeaTable's assertion c
 
 Once you did that, scroll down a bit to finish the process by clicking 'enable'.
 
-Proceed with the [upload of the certificate file to SeaTable](https://manual.seatable.io/authentication/saml/#uploading-the-idps-certificate-to-seatable) that you obtained in step 2. The SAML configuration in `dtable_web_settings.py` should look like this:
+Proceed with the [upload of the certificate file to SeaTable](#uploading-the-idps-certificate-to-seatable) that you obtained in step 2. The SAML configuration in `dtable_web_settings.py` should look like this:
 
 ```Python
 ENABLE_SAML = True

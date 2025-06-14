@@ -2,7 +2,7 @@
 
 Welcome to the SeaTable Admin Docs Repository! 🌊🔍✨
 
-This repository serves as the foundational source for the SeaTable Admin Manual available at https://admin.seatable.io. The admin manual is generated with the help of MkDocs Material and is a comprehensive guide and resource hub for administrators to install, configure and maintain their own SeaTable Server.
+This repository serves as the foundational source for the SeaTable Admin Manual available at https://admin.seatable.com. The admin manual is generated with the help of MkDocs Material and is a comprehensive guide and resource hub for administrators to install, configure and maintain their own SeaTable Server.
 
 This repository contains the SeaTable Admin documentation. The documentation is built using , a fast and simple static site generator. The pages are being built using Github workflows and hosted on Github Pages.
 
@@ -64,4 +64,4 @@ git push
 
 Feel free to raise issues or reach out with any questions, feedback, or suggestions. We're here to support your SeaTable admin endeavors! We welcome contributions and feedback from the SeaTable community.
 
-Another source of information is the [SeaTable community forum](https://forum.seatable.io). A lot of questions regarding the installation, configuration and maintenance was already raised and answered there.
+Another source of information is the [SeaTable community forum](https://forum.seatable.com). A lot of questions regarding the installation, configuration and maintenance was already raised and answered there.
