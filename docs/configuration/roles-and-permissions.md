@@ -3,7 +3,7 @@
 <!-- md:version 1.0 -->
 <!-- md:flag enterprise -->
 
-In SeaTable Enterprise Edition (SeaTable EE), user and administor roles determine a user's/an administrator's permissions and quotas. (For org users, some permissions and quotes are also determined by the role assigned to the organization.)
+In SeaTable Enterprise Edition, user and administor roles determine a user's/an administrator's permissions and quotas. (For org users, some permissions and quotes are also determined by the role assigned to the organization.)
 
 All changes relating to the SeaTable's roles are done in the configuration file `dtable_web_settings.py`.
 

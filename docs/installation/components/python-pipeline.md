@@ -6,7 +6,7 @@ Explore various use cases from other SeaTable users:
 
 - Retrieve current stock prices and store them in SeaTable.
 - Validate DNS settings of specified domains for specific TXT entries.
-- Capture submissions from form.io and store the results.
+- Capture submissions from [Jotform](https://www.jotform.com/) or [tally](https://tally.so/) and store the results.
 - Identify duplicate entries and apply specific tags.
 
 Find additional Python functions and code examples in the [SeaTable Developer Manual](https://developer.seatable.com).

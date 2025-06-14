@@ -1,8 +1,13 @@
 # Extra upgrade notice
 
-## 5.3
+## 5.3 (will be released on June 16th, 2025)
 
 SeaTable v5.3 requires some changes. We have tried to make these changes as easy as possible by providing a script that will handle the heavy lifting for you.
+
+```bash
+bash /opt/seatable-compose/migrate/migrate_5.2_5.3.sh
+```
+
 Of course, you can skip this script and make the changes manually. The following sections explain each change in detail, but this approach requires a deeper understanding of SeaTable and Docker.
 
 ??? warning "Centralized secret for secure communication"
@@ -121,8 +126,8 @@ Of course, you can skip this script and make the changes manually. The following
 
         Remove the configuration file `/opt/seatable-server/seatable/conf/ccnet.conf`.
 
-TODO: Hier noch einen **CHECKUP** der Konfiguration einbauen. Mindestkonfiguration.
-TODO: SDOC Installation hinzufügen!
+- TODO: Hier noch einen **CHECKUP** der Konfiguration einbauen. Mindestkonfiguration.
+- TODO: SDOC Installation hinzufügen!
 
 ## 5.2
 

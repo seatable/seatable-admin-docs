@@ -4,7 +4,7 @@ SeaTable Server supports [multiple authentication types](./overview.md). Switchi
 
 !!! note
 
-        Before manually manipulating your database, make a database backup, so you can restore your system if anything goes wrong!
+      Before manually manipulating your database, make a database backup, so you can restore your system if anything goes wrong!
 
 See more about [make a database backup](../../maintenance/backup-recovery.md).
 

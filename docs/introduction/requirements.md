@@ -43,9 +43,9 @@ This manual assumes that you have **one domain or subdomain** that points to you
 
 ```mermaid
 flowchart LR
-    A[User /\nBrowser]
-    B[Domain / Subdomain\nPorts 80+443]
-    C[Server or VM\nwith Docker]
+    A["User /<br>Browser"]
+    B[Domain / Subdomain<br>Ports 80+443]
+    C[Server or VM<br>with Docker]
     A-->B
     B-->C
 ```
@@ -73,6 +73,6 @@ Most of the additional components will require **additional ports** in the range
 
 ## License
 
-**SeaTable Enterprise Edition** requires a license to start. A free license for two years and three users can be obtained at [https://seatable.com/on-premises/](https://seatable.com/on-premises) or via the command line, which will be explained during the installation. Licenses with more than three users can be obtained from [SeaTable Website](https://seatable.com/prices/).
+**SeaTable Enterprise Edition** requires a license to start. A free license for two years and three users can be obtained via the command line, which will be explained during the installation. Licenses with more than three users can be obtained from [SeaTable Website](https://seatable.com/prices/).
 
 **SeaTable Developer Edition** does not require a license.

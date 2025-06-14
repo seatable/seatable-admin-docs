@@ -1,7 +1,3 @@
----
-status: new
----
-
 # Additional Navigation Items
 
 SeaTable provides an easy way to add custom navigation items below the _Help and Resources_ section on the left side of the page. For example, you can add a link to a status page (like from Gatus or Uptime Kuma).
@@ -26,7 +22,7 @@ CUSTOM_NAV_ITEMS = [
 
 ## Search for Icons in SeaTable
 
-Browse through nearly 400 available icons in SeaTable by typing a keyword and pressing Enter. This will display all matching results. For a comprehensive view, type `dtable-icon` to see the entire collection of available icons.
+Browse through nearly 400 available icons in SeaTable by typing a keyword and pressing **Enter**. This will display all matching results. For a comprehensive view, type `dtable-icon` to see the entire collection of available icons.
 
 <input id="iconSearch" class="md-input md-input--stretch mdx-iconsearch__input" placeholder="Search available icons in SeaTable" data-mdx-component="iconsearch-query" onchange="returnAvailableIcons()">
 <div id="iconResults"></div>

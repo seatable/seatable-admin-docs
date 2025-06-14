@@ -62,16 +62,6 @@ To set up your initial admin user, n8n offers a convenient Web UI accessible at 
 
 Please note that the Community Edition of n8n only permits the creation of multiple accounts with just one admin account. Further details regarding the features of this version will be elaborated later in this article.
 
-#### Obtaining the Latest SeaTable Node
-
-Regrettably, the current version of n8n comes with an outdated SeaTable node. To address this, it's advisable to install the most recent version of the SeaTable node as a community node. Simply navigate to `Settings` and then choose `Community nodes`. From there, you can add any community node from <https://www.npmjs.com>.
-
-Click on `install`, input **n8n-nodes-seatable**, and proceed with the confirmation. Within seconds, you'll notice that the community node is successfully installed.
-
-![n8n SeaTable Community node](../../assets/images/n8n-seatable-community-node.png)
-
-[Read more about this community node in SeaTable Forum →](https://forum.seatable.com/t/rework-of-n8n-seatable-integration/2745/10)
-
 ## Limitations of the Community Edition of n8n
 
 The installed n8n version on this server is the self-hosted free Community Edition, which aligns with the **Starter Cloud version**.
@@ -97,4 +87,4 @@ If you find n8n useful (which you most likely will), consider [purchasing an Ent
 
 ## Next steps
 
-Check the docs of n8n at https://docs.n8n.io/.
+Check the docs of n8n at [https://docs.n8n.io/](https://docs.n8n.io/).

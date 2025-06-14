@@ -65,7 +65,7 @@ SEATABLE_REDIS_IMAGE=
 IMAGE_CADDY=
 
 # Miscellaneous
-SEATABLE_HELP_LINK=https://docs.seatable.io # (11)!
+SEATABLE_HELP_LINK=https://help.seatable.com # (11)!
 ```
 
 1.  COMPOSE_FILE is a comma separated list of files **without spaces**. This list defines which components should run on this server.

@@ -34,17 +34,6 @@ keep_days = 60
 
 ## Available configuration options
 
-### `[database]`
-
-Since version 5.3, Seafile reads the main database configuration settings from [environment variables](/configuration/environment-variables).
-
-The following options are optional and can be used to further tweak Seafile:
-
-| Parameter            | Description                                           | Default |
-| -------------------- | ----------------------------------------------------- | ------- |
-| `connection_charset` | The connection charset to use.                        |         |
-| `max_connections`    | Size of the connection pool for database connections. | 100     |
-
 ### `[fileserver]`
 
 | Parameter        | Description                                                                                        | Default |
@@ -58,6 +47,17 @@ The following options are optional and can be used to further tweak Seafile:
 | Parameter   | Description                                    | Default |
 | ----------- | ---------------------------------------------- | ------- |
 | `keep_days` | How many days the file history should be kept. | 60      |
+
+### `[database]`
+
+Since version 5.3, Seafile reads the main database configuration settings from [environment variables](/configuration/environment-variables).
+
+The following options are optional and can be used to further tweak Seafile:
+
+| Parameter            | Description                                           | Default |
+| -------------------- | ----------------------------------------------------- | ------- |
+| `connection_charset` | The connection charset to use.                        |         |
+| `max_connections`    | Size of the connection pool for database connections. | 100     |
 
 ## Deprecated or removed options
 

@@ -20,11 +20,11 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 !!! warning "dtable-events reads values from dtable_web_settings.py"
 
-    Note that `dtable-events` reads `dtable_web_settings.py` for internal URLS and various key settings. Ensure these configurations are correct.
+    Before SeaTable 5.3, `dtable-events` reads `dtable_web_settings.py` for internal URLs and various key settings. Ensure these configurations are correct.
 
     Other configuration files are not used, if you run dtable-events separately.
 
-!!! note "Configurations in dtable-events.conf`"
+!!! note "Configurations in dtable-events.conf"
 
     Since SeaTable 5.3, by default, you can start the dtable-events service without adding any configurations to `dtable-events.conf`, as the the key startup configurations (i.e. *MySQL* and *Redis*) are already configured in the environment variables by default (i.e., `.env`). On the other hand, you can also add other dtable-events service related configurations to `dtable-events.conf`, which mainly contains some sections and their options: 
     
@@ -33,12 +33,19 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 The following options are grouped by their sections.
 
+## Example configuration
+
+By default, `dtable-events.conf` will be empty after the first startup of SeaTable:
+
+```python
+```
+
 ## Available configuration options
 
 ### `[DATABASE]`
 
 ??? success "Database can configure in .env"
-    From SeaTable 5.3, you can specify the database configurations in [`.env`](./environment-variables.md#table-of-settings).
+    From SeaTable 5.3, you can specify the database configurations in [`.env`](./environment-variables.md#table-of-settings). There is no need to keep this configuration in your `dtable-events.conf`.
 
 | Parameter  | Description                                                                                             | Default           |
 | ---------- | ------------------------------------------------------------------------------------------------------- | ----------------- |
@@ -48,6 +55,17 @@ The following options are grouped by their sections.
 | `db_name`  | Database name                                                                                           | dtable_db         |
 | `username` | MariaDB username                                                                                        | root              |
 | `password` | MariaDB password                                                                                        | `$DB_ROOT_PASSWD` |
+
+### `[REDIS]`
+
+??? success "Redis can configure in .env"
+    From SeaTable 5.3, you can specify the redis configurations in [`.env`](./environment-variables.md#table-of-settings). There is no need to keep this configuration in your `dtable-events.conf`.
+
+| Parameter  | Description           | Default |
+| ---------- | --------------------- | ------- |
+| `host`     | Redis server address  | redis   |
+| `port`     | Redis server port     | 6379    |
+| `password` | Redis server password |         |
 
 ### `[CLEAN DB]`
 
@@ -72,17 +90,6 @@ Setting any value to `0` or `-1` causes the cleanup task to be skipped for the c
 | `keep_session_log_days`                    | Retention period for session log entries (in days)                         | 30      |
 | `keep_auto_rules_task_log_days`            | Retention period for automation rule logs (in days)                        | 30      |
 | `keep_user_activity_statistics_days`       | Retention period for user activity statistics (in days)                    | 0       |
-
-### `[REDIS]`
-
-??? success "Redis can configure in .env"
-    From SeaTable 5.3, you can specify the redis configurations in [`.env`](./environment-variables.md#table-of-settings).
-
-| Parameter  | Description           | Default |
-| ---------- | --------------------- | ------- |
-| `host`     | Redis server address  | redis   |
-| `port`     | Redis server port     | 6379    |
-| `password` | Redis server password |         |
 
 ### `[EMAIL SENDER]`
 

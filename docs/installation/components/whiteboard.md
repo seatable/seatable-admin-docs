@@ -1,7 +1,3 @@
----
-status: new
----
-
 # Whiteboard (tldraw)
 
 <!-- md:version 5.2 -->
@@ -10,10 +6,6 @@ status: new
 SeaTable's whiteboard plugin offers a versatile platform for capturing thoughts and data, independent of base data. This plugin utilizes the [tldraw SDK](https://tldraw.dev) and requires special installation steps, including server-side components for collaborative drawing.
 
 ![Whiteboard Plugin](../../assets/images/tldraw-plugin.png)
-
-!!! warning "Action Required: Migrate to the New Whiteboard Plugin"
-
-    Important: The original Whiteboard plugin (Excalidraw) is being deprecated and will be removed in version 5.3. To continue using whiteboards, migrate your drawings to the new Whiteboard plugin, which uses tldraw for improved collaboration.
 
 ## Installation Requirements
 
@@ -56,7 +48,7 @@ This confirms that the `tldraw-worker` is operational. If you don't see this mes
 
 ## Final Steps
 
-With the server-side installation complete, you can now install the whiteboard plugin through the SeaTable interface and begin using this creative tool.
+With the server-side installation complete, you can now install the **whiteboard plugin** through the SeaTable admin interface and begin using this creative tool.
 
 ---
 

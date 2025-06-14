@@ -79,7 +79,7 @@ The expected output should appear as follows.
 
 !!! warning "Don't change the default YML-files"
 
-    Generally, there's no need to make changes to the YML-files. Modifications should only be made by experienced Docker administrators. If you do, it is recommended to duplicate the file(s) first and rename the file(s).
+    Generally, there's no need to make changes to the YML-files. Modifications should only be made by experienced Docker administrators. If you do, it is recommended to duplicate the file(s) first and rename the file(s) because the default yml files are overwritten with the next update.
 
     ```bash
     # create a custom copy
@@ -90,7 +90,7 @@ The expected output should appear as follows.
 
 SeaTable is configured with the hidden `.env` file (=enviroment configuration file) that is stored in the folder `/opt/seatable-compose`.
 
-Now use the command line tool `pwgen` to create secure passwords for your _admin account_, the _database root password_, the _Redis_ instance and a secret for secure communication. The following commands will generate four such passwords and insert them in the `.env'` file.
+Now use the command line tool `pwgen` to create secure passwords for your _admin account_, the _database root password_, the _Redis_ instance and a secret for secure communication between the SeaTable components. The following commands will generate four such passwords and insert them in the `.env'` file.
 
     sed -i "s/^SEATABLE_ADMIN_PASSWORD=.*/SEATABLE_ADMIN_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^MARIADB_PASSWORD=.*/MARIADB_PASSWORD=$(pwgen 40 1)/" .env
@@ -159,13 +159,11 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
 !!! warning "Mind the quotation marks"
 
-    The variable values in the `.env` are strings. So they must be put in ' '.
+    The variable values in the `.env` are strings. So they should be put in ' '.
 
 #### 4. Get a license
 
-!!! warning "SeaTable Enterprise requires a license to start"
-
-    This step is solely required when installing SeaTable Server Enterprise Edition. You can skip this step for **SeaTable Server Developer Edition** and just create an empty `seatable-license.txt`.
+SeaTable Enterprise requires a license to start. 
 
 !!! success "Three users, two years - for free."
 
@@ -174,7 +172,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 Run the following command, replacing `me@example.com` with your valid email address. Shortly after, you'll receive an email with instructions to download your license to the current directory.
 
 ```
-curl https://get.seatable.io/license/me@example.com
+curl https://get.seatable.com/license/me@example.com
 # ... follow the steps in the email ...
 ```
 
@@ -199,8 +197,8 @@ Your SeaTable journey has just begun! While you can dive straight into SeaTable,
 
 - Expand functionality by installing additional components like the [Python Pipeline](./components/python-pipeline.md) or [n8n](./components/n8n.md).
 - Integrate [Plugins](../configuration/plugins.md) into your SeaTable Server to enable users to utilize them within a base.
-- Configure your server to enable **email notifications**, **templates**, or **Single Sign-On (SSO)**.
-- For troubleshooting or queries during installation, refer to the **FAQ section** for assistance.
+- Configure your server to enable [email notifications](../configuration/sending-email.md), [templates](../customization/templates.md), or [Single Sign-On (SSO)](../configuration/authentication/saml.md).
+- For troubleshooting or queries during installation, refer to the [FAQ section](./faq.md) for assistance.
 
 This manual covers a range of topics, from **advanced cluster installations** to detailed **configuration options**. Take your time to explore these possibilities. If you can't find what you need or require assistance, consider posting in the community forum.
 

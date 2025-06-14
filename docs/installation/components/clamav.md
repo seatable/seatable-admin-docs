@@ -1,7 +1,3 @@
----
-status: new
----
-
 # Deploy ClamAV with SeaTable
 
 <!-- md:version 5.2 -->

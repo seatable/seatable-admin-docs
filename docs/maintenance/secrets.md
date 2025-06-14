@@ -27,9 +27,14 @@ If you absolutely must change the `SECRET_KEY`, follow these steps:
 
 ## PRIVATE_KEY
 
-SeaTable generates a `PRIVATE_KEY` during initialization for secure inter-component communication between dtable-web and dtable-server/dtable-db. This key is used in two configuration files and must be identical:
+!!! success "Configured via environment variable since 5.3"
+    **Starting with v5.3**, this secret should be provided via environment variable `JWT_PRIVATE_KEY` in your `/opt/seatable-compose/.env` file. There is no need to keep the two variables in your configuration files.
 
-1. `dtable_server_config.json`: as `private_key`
-1. `dtable_web_settings.py`: as `DTABLE_PRIVATE_KEY`
+??? warning "Configured in configuration files before 5.3"
 
-If you update this `PRIVATE_KEY`, always ensure that these PRIVATE_KEY values match across both configuration files to maintain proper system functionality.
+    SeaTable generates a `PRIVATE_KEY` during initialization for secure inter-component communication between dtable-web and dtable-server/dtable-db. This key is used in two configuration files and must be identical:
+
+    1. `dtable_server_config.json`: as `private_key`
+    2. `dtable_web_settings.py`: as `DTABLE_PRIVATE_KEY`
+
+    If you update this `PRIVATE_KEY`, always ensure that these PRIVATE_KEY values match across both configuration files to maintain proper system functionality.

@@ -1,3 +1,7 @@
+---
+status: wip
+---
+
 # Integrate with Seafile
 
 <!-- md:version 4.0 -->

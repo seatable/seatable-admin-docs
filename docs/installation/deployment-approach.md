@@ -10,29 +10,29 @@ In addition, consistently maintaining correct indentation and syntax alignment i
 
 ## We want to keep it simple ...
 
-Instead of handling one extensive docker-compose.yml file, we present a more structured approach:
+Instead of handling one extensive `docker-compose.yml` file, we present a more structured approach:
 
-- We provide a set of individual yml files and one .env file.
+- We provide a set of individual yml files and one `.env` file.
 - Each yml file defines commands for installing a specific component, such as the SeaTable Server, web proxy (caddy), or python pipeline.
-- An accompanying .env file manages environment variables to configure your setup.
+- An accompanying `.env` file manages environment variables to configure your setup.
 
 ## Layered structure
 
-Think of the .env file as a recipe for your setup and the yml files are like ingredients.
+Think of the `.env` file as a recipe for your setup and the yml files are like ingredients.
 
 !!! danger "Create copy for custom changes of the yml files"
 
-    Generally, there's no need to modify the YAML files. We provide updated YAML files with each new SeaTable version. However, if you wish to make alterations, create a copy and name it something like `custom-...yml`.
+    Generally, there's no need to modify the YAML files. We provide updated YAML files with each new SeaTable version. However, if you wish to make alterations, create a copy and name it something like `custom-<original-name>.yml`.
 
-You can configure components in the .env file, determining which ones to install. Start with essential components like SeaTable Server and Caddy web proxy.
+You can configure components in the `.env` file, determining which ones to install. Start with essential components like SeaTable Server and Caddy web proxy.
 
-Example in the .env file:
+Example in the `.env` file:
 
 ```bash
 COMPOSE_FILE='caddy.yml,seatable-server.yml'
 ```
 
-By adding or removing yml files from this list, you control the composition during runtime, eliminating the need for a single, extensive docker-compose.yml file.
+By adding or removing yml files from this list, you control the composition during runtime, eliminating the need for a single, extensive `docker-compose.yml` file.
 
 ![SeaTable Python Pipeline Page](../assets/images/layered-structure-seatable.png)
 
@@ -50,8 +50,8 @@ These are the assumptions that we assume:
 
 - Your SeaTable Basic Setup is up and running
 - Your server is public reachable and you use a let's encrypt certificate
-- Additional services are provided by port (and not by subdomain)
-- If you block incoming traffic with a firewall, you have to open some ports to make the soluation reachable over the internet.
+- Additional services are provided by port (and not by subdomain or subfolder)
+- If you block incoming traffic with a firewall, you have to open some ports to make the solution reachable over the internet.
 
 ## Used Ports
 
