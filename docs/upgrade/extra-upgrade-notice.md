@@ -130,6 +130,10 @@ Of course, you can skip this script and make the changes manually. The following
 
     We've developed a new report design plugin, which requires an additional Docker container on your SeaTable server. For installation, follow the instructions available [here](../installation/components/seadoc.md). 
 
+??? info "Maps Plugin utilizes two API Keys"
+
+    The Google Maps Plugin now uses two separate Google API keys instead of one. Please refer to the [documentation for further details](../configuration/plugins.md).
+
 - TODO: Hier noch einen **CHECKUP** der Konfiguration einbauen. Mindestkonfiguration.
 - TODO: SDOC Installation hinzufügen!
 

@@ -50,17 +50,25 @@ Typically, plugins do not necessitate additional configuration. However, there a
 
 ### Map Plugin
 
-The Map plugin exclusively supports the Google Maps Platform. To enable access to Google Maps data, a <a href="https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en">Google API Key</a> is required.
+The Map plugin exclusively supports the Google Maps Platform. To enable access to Google Maps data, two <a href="https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en">Google API Keys</a> are required.
 
 ![Create Google Maps API key](../assets/images/google-maps-api.png)
 
-Generate an API key and append the following line to the configuration file `dtable_web_settings.py`.
+Generate two API keys and append the following lines to the configuration file `dtable_web_settings.py`.
 
 ```bash
 DTABLE_GOOGLE_MAP_KEY = '<replace with your Google Maps API Key>'
+SERVER_GOOGLE_MAP_KEY = '<replace with your Google Maps API Key>'
 ```
 
-Remember to restart the SeaTable Service to apply the changes from the updated configuration file.
+**Required Scope of the API Keys**
+
+- `DTABLE_GOOGLE_MAP_KEY` requires the permission for the **Maps Javascript API**
+- `SERVER_GOOGLE_MAP_KEY` requires the permission for the **Geocoding API**
+
+![The required API key permissions](../assets/images/maps-plugin-api-keys.png)
+
+Remember to [restart the SeaTable Service](../maintenance/restart-seatable.md) to apply the changes from the updated configuration file.
 
 ### Whiteboard Plugin
 
