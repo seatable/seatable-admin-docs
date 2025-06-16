@@ -3,14 +3,13 @@
 <!-- md:version 4.0 -->
 <!-- md:flag enterprise -->
 
-When integrating SeaTable and Seafile, users can add files from Seafile libraries in file columns and users can transfer files from SeaTable to Seafile.
+When integrating SeaTable and Seafile, users can add files from Seafile libraries in file columns.
 
 ### Scope of the Connection
 
 The Seafile connection to SeaTable enables you to
 
 - Choose a file as attachment from the Seafile library in SeaTable
-- Save attachments in a SeaTable base to your Seafile library
 
 ### How to Setup the Connection on SeaTable Server Side
 
