@@ -39,7 +39,7 @@ Of course, you can skip this script and make the changes manually. The following
 
     === "Script (easy way)"
 
-        Execute the migration script below; you only need to run it once.
+        Execute the migration script below; **you only need to run it once**, otherwise it will migrate your comments twice.
 
         ```bash
         bash /opt/seatable-compose/migrate/migrate_5.2_5.3.sh
