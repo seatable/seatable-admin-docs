@@ -10,6 +10,7 @@ When integrating SeaTable and Seafile, users can add files from Seafile librarie
 The Seafile connection to SeaTable enables you to
 
 - Choose a file as attachment from the Seafile library in SeaTable
+- Save attachments in a SeaTable base to your Seafile library (WIP)
 
 ### How to Setup the Connection on SeaTable Server Side
 
