@@ -1,8 +1,8 @@
 # Extra upgrade notice
 
-## 5.3 (will be released on June 16th, 2025)
+## 5.3
 
-SeaTable v5.3 requires some changes. We have tried to make these changes as easy as possible by providing a script that will handle the heavy lifting for you.
+SeaTable v5.3 introduces several significant changes. To make the transition as smooth as possible, we’ve provided a script that handles most of the work for you. Simply run the script to get started.
 
 ```bash
 bash /opt/seatable-compose/migrate/migrate_5.2_5.3.sh
@@ -133,9 +133,6 @@ Of course, you can skip this script and make the changes manually. The following
 ??? info "Maps Plugin utilizes two API Keys"
 
     The Google Maps Plugin now uses two separate Google API keys instead of one. Please refer to the [documentation for further details](../configuration/plugins.md).
-
-- TODO: Hier noch einen **CHECKUP** der Konfiguration einbauen. Mindestkonfiguration.
-- TODO: SDOC Installation hinzufügen!
 
 ## 5.2
 
