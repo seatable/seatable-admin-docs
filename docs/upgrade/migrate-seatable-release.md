@@ -9,7 +9,15 @@ To bring your SeaTable Server into the /opt/seatable-compose form used by versio
 - Modify configuration files
 - Remove Python Runner, FAAS Scheduler and OnlyOffice (will be activated again after the migration)
 
-!!! warning "Backup is recommended"
+!!! warning "SeaTable 5.3. renders parts of this documentation obsolete"
+
+    A key part of this migration is the change in how MariaDB and Redis connections are configured. Beginning with version 5.3, MariaDB and Redis are now managed through the `.env` file, so you can remove these entries from the configuration files.
+
+    Additionally, you will need to add new variables to the `.env` file.
+
+    Please read the [Extra upgrade notices](../upgrade/extra-upgrade-notice.md) carefully.
+
+!!! danger "Backup is recommended"
 
     Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, we recommend to create a backup/dump of your databases before the update. See [backup and recovery](../maintenance/backup-recovery.md) for more details.
 
