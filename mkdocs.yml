@@ -159,6 +159,7 @@ nav:
               - Collabora: installation/components/collabora.md
               - OnlyOffice: installation/components/onlyoffice.md
           - Monitoring:
+              - Gatus: installation/components/gatus.md
               - Uptime Kuma: installation/components/uptime-kuma.md
               - Zabbix: installation/components/zabbix.md
           - Backup: installation/components/restic.md
