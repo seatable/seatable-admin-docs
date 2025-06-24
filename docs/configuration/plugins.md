@@ -45,7 +45,7 @@ SeaTable Server offers API endpoints for installing and updating plugins. For fu
 
 Typically, plugins do not necessitate additional configuration. However, there are two exceptions:
 
-- the Map plugin, which presently relies on the Google Maps API and requires an API key.
+- the Map plugin, which presently relies on the Google Maps API and requires two API keys.
 - the Whiteboard Plugin (tldraw), which requires a separate Docker container.
 
 ### Map Plugin
@@ -61,14 +61,18 @@ DTABLE_GOOGLE_MAP_KEY = '<replace with your Google Maps API Key>'
 SERVER_GOOGLE_MAP_KEY = '<replace with your Google Maps API Key>'
 ```
 
-**Required Scope of the API Keys**
+!!! warning "Required scope of the API keys"
 
-- `DTABLE_GOOGLE_MAP_KEY` requires the permission for the **Maps Javascript API**
-- `SERVER_GOOGLE_MAP_KEY` requires the permission for the **Geocoding API**
+    To safeguard your Google API Keys from abuse, restrict their usage. However, even with restrictions in place, abuse remains a risk—especially since `DTABLE_GOOGLE_MAP_KEY` must be included in your source code and is therefore publicly accessible. Additionally, heavy use of the maps plugin may increase your Google billing, so monitor your spending closely.
 
-![The required API key permissions](../assets/images/maps-plugin-api-keys.png)
+    | Key | Application restriction | API restriction | 
+    | --- | --- | --- |
+    | `DTABLE_GOOGLE_MAP_KEY` | Restrict to your Server URL,<br>like `https://cloud.seatable.io` | Maps Javascript API |
+    | `SERVER_GOOGLE_MAP_KEY` | **No website restriction** | Geocoding API | 
 
 Remember to [restart the SeaTable Service](../maintenance/restart-seatable.md) to apply the changes from the updated configuration file.
+
+![The required API key permissions](../assets/images/maps-plugin-api-keys.png)
 
 ### Whiteboard Plugin
 
