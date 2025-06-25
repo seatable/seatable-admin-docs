@@ -88,8 +88,15 @@ Of course, you can skip this script and make the changes manually. The following
     Before 5.3, comments in the base and universal app were handled separately. With 5.3, these comments are merged. 
     After starting the SeaTable container, you need to run this command *once* to migrate the comments. Don't re-execute it, otherwise your comments will be merged twice.
 
+    First enter the docker container.
+
     ```bash
     docker exec -it seatable-server bash
+    ```
+
+    Then merge the comments.
+
+    ```bash
     cd /opt/seatable/seatable-server-latest/dtable-web
     seatable.sh python-env manage.py merge_app_comments_to_base
     ```

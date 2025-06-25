@@ -2,45 +2,30 @@
 
 Updating/Upgrade (we don't differenciate) a SeaTable Server should take just a few seconds. Simply pull the latest Docker images for all components, restart the containers, and let the system automatically handle necessary database updates. Within moments, all essential services of the SeaTable Server will be accessible.
 
-!!! warning "Backup is recommended"
+!!! danger "Backup is recommended"
 
     Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, create a backup of your database first. See [backup and recovery](../maintenance/backup-recovery.md) for more details.
 
 ## How to update SeaTable Server
 
-With version 4.3 we introduced a new way to install, update and maintain a SeaTable server. Before 4.3 you used to have one big docker-compose.yml. Even if it not mandatory to switch this setup, but we recommend it. Please check out this [article for more details](./migrate-seatable-release.md).
+Just ran this command to update SeaTable and all additional components.
 
-To update, choose the appropriate setup of yours.
+```
+cd /opt/seatable-compose && \
+wget -c https://github.com/seatable/seatable-release/releases/latest/download/seatable-compose.tar.gz \
+-O - | tar -xz -C /opt/seatable-compose && \
+docker compose pull
+docker compose down
+docker compose up -d
+```
 
-??? success "Setup with `/opt/seatable-compose` folder (new)"
+!!! warning "SeaTable does not start - follow extra upgrade notices first"
 
-    Just ran this command to update SeaTable and all additional components.
+    If your SeaTable Server fails to start after updating the YAML files, required update-specific changes may be missing. Please review and follow the [extra upgrade notices](./extra-upgrade-notice.md) and then run `docker compose up -d` again.
 
-    ```
-    cd /opt/seatable-compose && \
-    wget -c https://github.com/seatable/seatable-release/releases/latest/download/seatable-compose.tar.gz \
-    -O - | tar -xz -C /opt/seatable-compose && \
-    docker compose pull
-    docker compose down
-    docker compose up -d
-    ```
+!!! danger "The default yml files will be overwritten! Use custom files instead."
 
-    !!! warning "The default yml files will be overwritten! Use custom files instead."
-
-        This command replaces all predefined yml files in your `/opt/seatable-compose` folder. It will not touch your .env file and your "custom" yml files. If you made some changes to the predefined yml files, make sure to save these changes and follow the recommendations to create custom copies in the future.
-
-??? success "Setup with one docker-compose.yml (deprecated)"
-
-    Open your docker-compose.yml file and search for `seatable/seatable-enterprise:{tag}`. Replace the {tag} with the latest version and save the file.
-
-    Now, execute these commands to pull and start the newest version.
-
-    ```bash
-    docker compose pull
-    docker compose up -d
-    ```
-
-    This will not update any other service in your docker-compose file. You have to take care by yourself to keep the other services up-to-date.
+    This command replaces all predefined yml files in your `/opt/seatable-compose` folder. It will not touch your .env file and your "custom" yml files. If you made some changes to the predefined yml files, make sure to save these changes and follow the recommendations to create custom copies in the future.
 
 After some seconds your SeaTable Server should be reachable again. You can check the current version of your SeaTable Server opening the URL `https://<your-seatable-domain>/server-info`.
 
@@ -64,7 +49,22 @@ Some software solutions require that you follow a specific update path. Meaning 
 
 You can update from any version to the last one in one step. SeaTable v4.3 and newer take care of the required database updates.
 
-## Update procedure before v4.3
+## Update procedure with one single docker-compose.yml (deprecated)
+
+With version 4.3 we introduced a new way to install, update and maintain a SeaTable server. Before 4.3 you used to have one big docker-compose.yml. Even if it not mandatory to switch this setup, but we recommend it. Please check out this [article for more details](./migrate-seatable-release.md).
+
+Open your `docker-compose.yml` file and search for `seatable/seatable-enterprise:{tag}`. Replace the {tag} with the latest version and save the file.
+
+Now, execute these commands to pull and start the newest version.
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+This will not update any other service in your docker-compose file. You have to take care by yourself to keep the other services up-to-date. Therefore it is recommended to migrate to the newest installation method with multiple YAML files.
+
+## Update procedure before v4.3 (deprecated)
 
 This part of the manual is only for older version, meaning if you are updating to version v4.2 or older. As soon as you update to version 4.3 or newer, you can ignore the following part.
 
