@@ -127,6 +127,8 @@ You should receive the following response:
 {"ret":"pong"}
 ```
 
+Add s3 configuration to conf/dtable-storage-server.conf - analog zu node 1
+
 ---
 
 ## ... switch utilization to new dtable-db
