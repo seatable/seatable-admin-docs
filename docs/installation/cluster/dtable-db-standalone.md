@@ -1,33 +1,158 @@
----
-status: wip
----
-
 # dtable-db Standalone
 
-On the basis of the previous manual, you can also deploy dtable-db separately.
+To improve scalability and reliability, the next step is to move `dtable-db` to its own dedicated node.
 
-In the following manual, we will show the steps to setup a three nodes deployment
+![SeaTable Cluster: dtable-db standalone](../../assets/images/seatable-cluster-dtable-db-standalone.png)
 
-- A dtable-web node running dtable-web, seaf-server, dtable-events and dtable-storage-server
-- A dtable-server node running dtable-server, dtable-storage-server
-- A dtable-db node running dtable-db, dtable-storage-server
+## Setting Up a Standalone dtable-db Server
 
-## Modify dtable-web server configuration file
+Prepare a new node with Docker installed, and copy the following files from your first node to this new node:
 
-Modify the configuration file : `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
+- `/opt/seatable-compose/.env`
+- `/opt/seatable-compose/seatable-license.txt`
 
-```sh
-ENABLE_DTABLE_DB=false
+Open the `.env` file on the new node and ensure that the `COMPOSE_FILE` variable references only a single YAML file, like this:
 
 ```
+COMPOSE_FILE='dtable-db.yml'
+```
 
-Modify dtable-web configuration file `/Your SeaTable data volume/seatable/conf/dtable_web_settings.py`
+### Create `dtable-db.yml`
+
+Now, create the `dtable-db.yml` file. You can either copy `seatable-cluster.yml` from the first node or use `seatable-server.yml` from the SeaTable release as a template.
+
+Apply the following required changes to this file:
+
+??? success "Remove all services except seatable-server"
+
+    The dtable-db node only requires the `seatable-server` service. Remove all other services (such as redis, mariadb, or caddy).
+
+??? success "Remove all labels"
+
+    Since dtable-db does not require Caddy or any TLS termination, remove all labels from the `seatable-server` service.
+
+??? success "Add additional environment variables"
+
+    Add or update the following environment variables to ensure only dtable-db is enabled:
+
+    ```
+    environment:
+      #... all default environment variables in seatable-server.yml ...
+      # this node should only run dtable-db, all other services are disabled
+      - ENABLE_DTABLE_DB=true                # that is, what we want
+      - ENABLE_DTABLE_STORAGE_SERVER=true    # required for big data backup
+      - ENABLE_SEAFILE_SERVER=false
+      - ENABLE_DTABLE_WEB=false
+      - ENABLE_DTABLE_SERVER=false
+      - ENABLE_DTABLE_EVENTS=false
+      - ENABLE_API_GATEWAY=false
+      - SEATABLE_START_MODE=cluster          # Don't run any database update processes
+    ```
+
+??? success "Expose port 7777"
+
+    The dtable-db node must be accessible to other nodes. Add the following to the `seatable-server` service:
+
+    ```
+    ports:
+      - 7777:7777
+    ```
+
+??? success "Configure internal network communication"
+
+    Node-to-node communication uses the internal network. Ensure all nodes can reach each other by adding their names and private IP addresses:
+
+    ```
+    extra_hosts:
+      - "seatable-n1:10.0.0.2"
+      - "seatable-n2:10.0.0.4"
+    ```
+
+For reference, here is an example of what your `dtable-db.yml` might look like (do not copy and paste directly — adapt as needed):
 
 ```
-DTABLE_DB_URL = 'https://dtable-db.example.com'  # dtable-db server's url
-INNER_DTABLE_DB_URL = 'http://192.168.0.3'  # LAN dtable-db server's url
+---
+services:
+  seatable-server:
+    image: ${SEATABLE_IMAGE:-seatable/seatable-enterprise:x.x.x}
+    restart: unless-stopped
+    container_name: seatable-server
+    volumes:
+      - "/opt/seatable-server:/shared"
+      - type: bind
+        source: "./seatable-license.txt"
+        target: "/shared/seatable/seatable-license.txt"
+        read_only: ${SEATABLE_LICENSE_FORCE_READ_ONLY:-false}
+    environment:
+      ...
+      ...
+      # this node should only run dtable-db
+      - ENABLE_DTABLE_DB=true
+      - ENABLE_DTABLE_STORAGE_SERVER=true
+      - ENABLE_SEAFILE_SERVER=false
+      - ENABLE_DTABLE_WEB=false
+      - ENABLE_DTABLE_SERVER=false
+      - ENABLE_DTABLE_EVENTS=false
+      - ENABLE_API_GATEWAY=false
+      - SEATABLE_START_MODE=cluster
+    ports:
+      - 7777:7777
+    extra_hosts:
+      - "seatable-n1:10.0.0.2"
+      - "seatable-n2:10.0.0.4"
+    networks:
+      - frontend-net
+networks:
+  frontend-net:
+    name: frontend-net
+```
+
+Now, start dtable-db for the first time and monitor the logs:
 
 ```
+docker compose up -d
+```
+
+### Verify installation
+
+To verify that dtable-db is running and port 7777 is exposed, run:
+
+```
+curl 127.0.0.1:7777/ping/
+```
+
+You should receive the following response:
+
+```
+{"ret":"pong"}
+```
+
+---
+
+## ... switch utilization to new dtable-db
+
+
+
+### Änderung 1
+
+Use .env to disable dtable-db from node 1.
+
+### Änderung 2
+
+Add `INNER_DTABLE_DB_URL` to dtable_web_settings.py
+
+```
+INNER_DTABLE_DB_URL = 'http://seatable-n2:7777/'   # or use internal ip of dtable-db node
+# brauche ich DTABLE_DB_URL? wahrscheinlich nicht https://url/dtable-db/
+```
+
+and "dtable_db_service_url": "http://seatable-n2:7777" to dtable_server_config.json
+
+### Änderung 3
+
+Rename dtable-db.conf to dtable-db.conf-obsolete
+
+
 
 ### Restart dtable-web server
 
@@ -36,177 +161,10 @@ docker compose up -d
 
 ```
 
-When you see following in the output log, it means success:
+---
 
-```
-Skip dtable-server
-Skip dtable-db
+## Verify complete setup 
 
-SeaTable started
+open a universal app in the webinterface. see log entries on second node.
 
-```
-
-## Modify dtable-server server configuration file
-
-Modify dtable-server configuration file `/Your SeaTable data volume/seatable/conf/dtable_server_config.json`
-
-```
-"dtable_db_service_url":  "https://dtable-db.example.com"  // dtable-db server's url
-
-```
-
-### Restart dtable-server server
-
-```sh
-docker compose up -d
-docker exec -it seatable bash
-seatable.sh
-
-```
-
-When you see following in the output log, it means success:
-
-```
-Skip seafile-server
-Skip dtable-events
-Skip dtable-web
-Skip dtable-db
-
-SeaTable started
-
-```
-
-## Setup dtable-db
-
-### Copy and modify docker-compose.yml
-
-The default directory for SeaTable is `/opt/seatable`. Create the directory:
-
-```
-mkdir /opt/seatable
-
-```
-
-**Copy the docker-compose.yml file on the dtable-web server and modify docker-compose.yml.**
-
-vim /opt/seatable/docker-compose.yml
-
-```
-services:
-  seatable:
-    image: seatable/seatable-enterprise:latest
-    container_name: seatable
-    ports:
-      - "80:80"
-      - "443:443"  # If https is enabled, cancel the comment.
-    volumes:
-      - /opt/seatable/shared:/shared  # Requested, specifies the path to Seafile data persistent store.
-    environment:
-      - SEATABLE_SERVER_HOSTNAME=dtable-db.example.com # Specifies your host name if https is enabled
-      - SEATABLE_SERVER_LETSENCRYPT=True
-      - TIME_ZONE=Asia/Shanghai # Optional, default is UTC. Should be uncomment and set to your local time zone.
-    networks:
-      - dtable-net
-
-networks:
-  dtable-net:
-
-```
-
-### Copy and modify configuration file
-
-**Prepare configuration file directory**
-
-```
-mkdir -p /opt/seatable/shared/seatable/conf
-
-```
-
-**Copy the configuration file on the dtable-web server to the conf directory.**
-
-Modify the Nginx configuration file : `/Your SeaTable data volume/seatable/conf/nginx.conf`
-
-```
-server {
-    if ($host = dtable-db.example.com) {
-        return 301 https://$host$request_uri;
-    }
-    listen 80;
-    server_name dtable-db.example.com;
-    return 404;
-}
-
-server {
-    server_name dtable-db.example.com;
-    listen 443 ssl;
-    ssl_certificate /shared/ssl/<your-ssl.cer>;
-    ssl_certificate_key /shared/ssl/<your-ssl.key>;
-
-    proxy_set_header X-Forwarded-For $remote_addr;
-
-    location / {
-        if ($request_method = 'OPTIONS') {
-            add_header Access-Control-Allow-Origin *;
-            add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
-            add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
-            return 204;
-        }
-
-        proxy_pass         http://127.0.0.1:7777/;
-    ...
-    }
-}
-
-server {
-    server_name 192.168.0.3;
-    listen 80;
-
-    proxy_set_header X-Forwarded-For $remote_addr;
-
-    location / {
-        if ($request_method = 'OPTIONS') {
-            add_header Access-Control-Allow-Origin *;
-            add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;
-            add_header Access-Control-Allow-Headers "deviceType,token, authorization, content-type";
-            return 204;
-        }
-
-        proxy_pass         http://127.0.0.1:7777/;
-    ...
-    }
-}
-
-```
-
-Create configuration file : `/Your SeaTable data volume/seatable/conf/seatable-controller.conf`
-
-```sh
-ENABLE_SEAFILE_SERVER=false
-ENABLE_DTABLE_WEB=false
-ENABLE_DTABLE_SERVER=false
-ENABLE_DTABLE_DB=true
-ENABLE_DTABLE_STORAGE_SERVER=true
-ENABLE_DTABLE_EVENTS=false
-DTABLE_EVENTS_TASK_MODE=all
-
-```
-
-### Start dtable-db
-
-```sh
-docker compose up -d
-docker exec seatable-server /opt/seatable/scripts/seatable.sh
-
-```
-
-When you see following in the output log, it means success:
-
-```
-Skip seafile-server
-Skip dtable-events
-Skip dtable-web
-Skip dtable-server
-
-SeaTable started
-
-```
+TODO: add environment variables to  http://localhost:8000/configuration/environment-variables/

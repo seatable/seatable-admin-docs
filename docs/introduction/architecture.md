@@ -114,6 +114,10 @@ flowchart LR
 
 All services in the container `seatable-server` connect to the containers `mariadb` and `redis` to read (and write). All components also read (and write) to local disk.
 
+!!! success "Don't be confused by the term `dtable`"
+
+    Originally (a long time ago), SeaTable was going to be called `dtable` (short for _database table_). Although this term was later replaced with *SeaTable*, many internal components and log entries still use the old name `dtable`. Whenever you see `dtable`, it simply refers to a component of SeaTable.
+
 ### dtable-web
 
 The task of the service dtable-web is to deliver all pages except for the bases themselves. This includes essential features such as the login page, home page, system administration area, team administration, personal settings, and API endpoints. All these functionalities are provided by dtable-web, which is built on the Django framework.

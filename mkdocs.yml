@@ -149,7 +149,7 @@ nav:
   - Installation:
       - How to start: installation/start.md
       - Our deployment approach: installation/deployment-approach.md
-      - Single-Node Installation:
+      - Single-Node Deployment:
           - SeaTable Server: installation/basic-setup.md
           - Python Pipeline: installation/components/python-pipeline.md
           - Whiteboard: installation/components/whiteboard.md
@@ -188,10 +188,15 @@ nav:
           - MariaDB (standalone): installation/advanced/database-standalone.md
           - Seafile (external): installation/advanced/seafile.md
 
-      - Cluster Setup:
+      - Cluster Deployment:
+          - Introduction: installation/cluster/introduction.md
+          - Requirements: installation/cluster/requirements.md
+          - Step-by-step guide:
+            - Basic setup: installation/cluster/basic-setup-with-external-services.md
+            - dtable-db (standalone): installation/cluster/dtable-db-standalone.md
           - SeaTable Cluster: installation/cluster/seatable-cluster.md
           - dtable-server cluster: installation/cluster/dtable-server-cluster.md
-          - dtable-db (standalone): installation/cluster/dtable-db-standalone.md
+          #- dtable-db (standalone): installation/cluster/dtable-db-standalone.md
           - dtable-events (standalone): installation/cluster/dtable-events-background-node.md
 
   - Configuration:
