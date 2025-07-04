@@ -1,3 +1,7 @@
+---
+status: wip
+---
+
 # Basic Setup of a SeaTable Cluster
 
 SeaTable currently does not support installing a cluster with a single command. This may change in the future, but for now, some configuration changes and migrations are required after deploying the Docker containers.
@@ -18,7 +22,7 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
     ```
     # components to be used; IMPORTANT: there should be no space between
     # the files names!
-    COMPOSE_FILE='caddy.yml,seatable-cluster.yml'
+    COMPOSE_FILE='caddy.yml,dtable-web.yml'
     COMPOSE_PATH_SEPARATOR=','
 
     # system settings
@@ -33,12 +37,12 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
     SEATABLE_ADMIN_PASSWORD='topsecret'
 
     # database (managed service)
-    MARIADB_HOST=10.0.0.3
+    MARIADB_HOST=10.0.0.99
     MARIADB_USER=root
     MARIADB_PASSWORD='topsecret'
 
     # redis (managed service)
-    REDIS_HOST=10.0.0.3
+    REDIS_HOST=10.0.0.99
     REDIS_PORT=6379
     REDIS_PASSWORD='topsecret'
 
@@ -48,7 +52,7 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
 
 ??? success "Remove Redis and Mariadb from your YAML file."
 
-    Create a copy of `seatable-server.yml` and name it, for example, `seatable-cluster.yml`. Make the following changes to this file:
+    Create a copy of `seatable-server.yml` and name it, for example, `dtable-web.yml`. Make the following changes to this file:
 
     - Remove the `depends_on:` entries for Redis and MariaDB.
     - Remove the `backend-seatable-net` network, as it is no longer needed.

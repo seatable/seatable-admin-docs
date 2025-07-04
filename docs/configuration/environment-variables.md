@@ -81,3 +81,7 @@ SEATABLE_HELP_LINK=https://help.seatable.com # (11)!
 11. Please refer to [Manual Link](../customization/manual-in-nav.md) for more information.
 12. Please refer to [Email Sending](./sending-email.md) for more information.
 13. Please refer to [Python Pipeline](../installation/components/python-pipeline.md) for more information.
+
+<!--
+TODO: add environment variables for cluster setup!
+-->

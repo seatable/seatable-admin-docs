@@ -1,5 +1,5 @@
 ---
-status: new
+status: wip
 ---
 
 # Requirements
@@ -29,9 +29,10 @@ This configuration is designed to handle typical workloads, but you should consi
 
 | Server component | CPUs | RAM (in GB) | Local storage (in GB) |
 | --- | --- | --- | --- | 
-| dtable-web        | 4 | 8 | 100 |
+| dtable-web        | 4 | 16 | 100 |
 | dtable-db         | 4 | 16 | 100 |
 | dtable-server-1   | 4 | 8 | 50 |
 | dtable-server-2   | 4 | 8 | 50 |
+| dtable-server-3   | 4 | 8 | 50 |
 | mariadb (self-hosted) | 4 | 16 | 100 |
 | python pipeline | 2 | 4 | 50 |

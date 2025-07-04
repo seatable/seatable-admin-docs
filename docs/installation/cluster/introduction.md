@@ -1,12 +1,10 @@
 ---
-status: new
+status: wip
 ---
 
 # Introduction to the Cluster Setup
 
 SeaTable can be operated both as a **single-node installation** and in **cluster mode**. The following section explains when each setup is appropriate and what advantages a cluster setup offers.
-
-![SeaTable Cluster Overview](../../assets/images/seatable-cluster-overview.png)
 
 <!-- TODO: Picture of final cluster setup! with open ports... -->
 <!-- TODO: Hardware recommendations -->
@@ -15,12 +13,16 @@ SeaTable can be operated both as a **single-node installation** and in **cluster
 
     Originally (a long time ago), SeaTable was going to be called `dtable` (short for _database table_). Although this term was later replaced with *SeaTable*, many internal components and log entries still use the old name `dtable`. Whenever you see `dtable`, it simply refers to a component of SeaTable.
 
-In the following, I will use these names for the various nodes as naming convention. Adapt them to your needs.
+## Naming conventions
 
-- node 1: dtable-web (10.0.0.2)
-- node 2: dtable-db  (10.0.0.3)
-- node 3: dtable-server-1 (10.0.0.4)
-- node 4: dtable-server-2 (10.0.0.5)
+In the following instructions for deploying a SeaTable Cluster, I will use the node names and roles listed below as a naming convention. Please adapt these to fit your specific environment.
+
+| Node | Main service / Name | Private IP address |
+| --- | --- | --- |
+| node1 | dtable-web | 10.0.0.2 |
+| node2 | dtable-db | 10.0.0.3 |
+| node3 | dtable-server-1 | 10.0.0.4 |
+| node4 | dtable-server-2 | 10.0.0.5 |
 
 ## When is a single-node installation suitable?
 
@@ -59,6 +61,8 @@ Once the single-node setup reaches its performance limits, it is advisable to sw
 - All nodes use the same Docker image, but individual components are selectively enabled or disabled.
 - The setup usually starts as a single-node installation. Gradually, individual components are moved to separate nodes.
 - In the maximum expansion stage, each service runs on its own node; multiple `dtable-servers` and multiple `dtable-web` can run in parallel.
+
+![SeaTable Cluster Overview](../../assets/images/seatable-cluster-overview.png)
 
 ### Advantages of a cluster setup
 

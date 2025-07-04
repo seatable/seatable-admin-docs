@@ -1,3 +1,7 @@
+---
+status: wip
+---
+
 # Installation multiple dtable-server
 
 Since dtable-server is typically the first bottleneck if you system increases, it makes sense to scale your dtable-server horizontally. Then we will add a proxy to the dtable-web node, to share the base requests for these two servers. 
