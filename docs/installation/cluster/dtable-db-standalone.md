@@ -113,7 +113,25 @@ Now, start dtable-db for the first time and monitor the logs:
 docker compose up -d
 ```
 
-### Verify installation
+---
+
+> das folgende stimmt, aber noch ausformulieren
+
+Es sind drei Änderungen notwendig:
+
+- Add s3 configuration to conf/dtable-storage-server.conf - analog zu node 1
+- zwei Änderungen in dtable-db.conf:
+
+[general]
+host = 0.0.0.0
+
+[dtable cache]
+#dtable_server_url = "http://127.0.0.1:5000"  # old
+dtable_server_url = "http://seatable-n1:5000"   # new
+
+Man kann hier noch nicht kontrollieren, weil 5000 nicht erreichbar ist.
+
+### Verify installation on dtable-db
 
 To verify that dtable-db is running and port 7777 is exposed, run:
 
@@ -127,25 +145,31 @@ You should receive the following response:
 {"ret":"pong"}
 ```
 
-Add s3 configuration to conf/dtable-storage-server.conf - analog zu node 1
+
 
 ---
 
 ## ... switch utilization to new dtable-db
 
-
-
 ### Änderung 1
 
-Use .env to disable dtable-db from node 1.
+Use seatable-cluster.yml to disable dtable-db from node 1.
+expose port 5000
+extra_hosts hinzufügen
 
 ### Änderung 2
+
+dtable-api-gateway.conf
+
+[dtable-db]
+server_address = "http://seatable-n2:7777"
+
+### Änderung 3
 
 Add `INNER_DTABLE_DB_URL` to dtable_web_settings.py
 
 ```
-INNER_DTABLE_DB_URL = 'http://seatable-n2:7777/'   # or use internal ip of dtable-db node
-# brauche ich DTABLE_DB_URL? wahrscheinlich nicht https://url/dtable-db/
+INNER_DTABLE_DB_URL = 'http://seatable-n2:7777/'
 ```
 
 and "dtable_db_service_url": "http://seatable-n2:7777" to dtable_server_config.json
@@ -160,13 +184,14 @@ Rename dtable-db.conf to dtable-db.conf-obsolete
 
 ```sh
 docker compose up -d
-
 ```
 
 ---
 
 ## Verify complete setup 
 
-open a universal app in the webinterface. see log entries on second node.
+open a universal app in the webinterface. see log entries on second node in /logs/dtable-db-access.log
 
 TODO: add environment variables to  http://localhost:8000/configuration/environment-variables/
+
+Congratulations. dtable-db is now standalone.

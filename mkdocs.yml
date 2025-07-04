@@ -194,10 +194,12 @@ nav:
           - Step-by-step guide:
             - Basic setup: installation/cluster/basic-setup-with-external-services.md
             - dtable-db (standalone): installation/cluster/dtable-db-standalone.md
-          - SeaTable Cluster: installation/cluster/seatable-cluster.md
-          - dtable-server cluster: installation/cluster/dtable-server-cluster.md
+            - dtable-server (standalone): installation/cluster/dtable-server-standalone.md
+            - dtable-server (two or more): installation/cluster/dtable-server-multiple.md
+          #- SeaTable Cluster: installation/cluster/seatable-cluster.md
+          #- dtable-server cluster: installation/cluster/dtable-server-cluster.md
           #- dtable-db (standalone): installation/cluster/dtable-db-standalone.md
-          - dtable-events (standalone): installation/cluster/dtable-events-background-node.md
+          #- dtable-events (standalone): installation/cluster/dtable-events-background-node.md
 
   - Configuration:
       - Plugins: configuration/plugins.md

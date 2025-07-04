@@ -6,9 +6,21 @@ status: new
 
 SeaTable can be operated both as a **single-node installation** and in **cluster mode**. The following section explains when each setup is appropriate and what advantages a cluster setup offers.
 
+![SeaTable Cluster Overview](../../assets/images/seatable-cluster-overview.png)
+
+<!-- TODO: Picture of final cluster setup! with open ports... -->
+<!-- TODO: Hardware recommendations -->
+
 !!! success "Don't be confused by the term `dtable`"
 
     Originally (a long time ago), SeaTable was going to be called `dtable` (short for _database table_). Although this term was later replaced with *SeaTable*, many internal components and log entries still use the old name `dtable`. Whenever you see `dtable`, it simply refers to a component of SeaTable.
+
+In the following, I will use these names for the various nodes as naming convention. Adapt them to your needs.
+
+- node 1: dtable-web (10.0.0.2)
+- node 2: dtable-db  (10.0.0.3)
+- node 3: dtable-server-1 (10.0.0.4)
+- node 4: dtable-server-2 (10.0.0.5)
 
 ## When is a single-node installation suitable?
 
