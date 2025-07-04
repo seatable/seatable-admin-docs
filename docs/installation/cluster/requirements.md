@@ -31,7 +31,7 @@ This configuration is designed to handle typical workloads, but you should consi
 | --- | --- | --- | --- | 
 | dtable-web        | 4 | 16 | 100 |
 | dtable-db         | 4 | 16 | 100 |
-| dtable-server-1   | 4 | 8 | 50 |
+| dtable-server   | 4 | 8 | 50 |
 | dtable-server-2   | 4 | 8 | 50 |
 | dtable-server-3   | 4 | 8 | 50 |
 | mariadb (self-hosted) | 4 | 16 | 100 |

@@ -21,7 +21,7 @@ In the following instructions for deploying a SeaTable Cluster, I will use the n
 | --- | --- | --- |
 | node1 | dtable-web | 10.0.0.2 |
 | node2 | dtable-db | 10.0.0.3 |
-| node3 | dtable-server-1 | 10.0.0.4 |
+| node3 | dtable-server | 10.0.0.4 |
 | node4 | dtable-server-2 | 10.0.0.5 |
 
 ## When is a single-node installation suitable?
