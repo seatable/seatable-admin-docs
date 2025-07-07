@@ -154,7 +154,7 @@ You should receive the following response:
 {"ret":"pong"}
 ```
 
-## Tell dtable-web where to find dtable-db
+## Configure dtable-web to use the standalone dtable-db
 
 Now that dtable-db is up and running, it is time to tell dtable-web to use this separate node instead of the internal component. 
 These are the changes, you have to do.

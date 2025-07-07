@@ -2,34 +2,49 @@
 status: wip
 ---
 
-# Installation multiple dtable-server
+# Installation multiple dtable-servers
 
-Since dtable-server is typically the first bottleneck if you system increases, it makes sense to scale your dtable-server horizontally. Then we will add a proxy to the dtable-web node, to share the base requests for these two servers. 
+As your system grows, the `dtable-server` often becomes the first bottleneck. To address this, you can **scale dtable-server horizontally**. This guide explains how to set up multiple dtable-servers and configure a proxy on the `dtable-web` node to distribute base requests between them.
 
 ![SeaTable Cluster: multiple dtable-servers](../../assets/images/seatable-cluster-dtable-server-multiple.png)
 
-## Routing logic with multiple dtable-server
+## Routing logic with multiple dtable-servers
 
-The routing logic to dtable-server must be defined in advance. Why?
-stateless, but same base must always be opened on the same server. therefore no change or ...
+Proper routing logic is essential when running multiple dtable-servers. While `seatable-server` itself is stateless, it is **crucial that all users open a specific base on the same dtable-server**. 
 
-All bases starting with 0-9 will be handled by the first dtable-server.
-All bases starting with a-f will be handled by the second dtable-server.
+- When a base is opened, dtable-server loads it into memory and only writes updates to disk every five minutes.
+- If the same base is opened on two different dtable-servers, their changes can overwrite each other — this must be avoided.
 
+To ensure consistency, implement a **fixed mapping of bases to dtable-servers** using the `base_uuid`. This ensures each base is always handled by the same server. This setup is not a failover solution, but it scales horizontally and can support thousands or even tens of thousands of users.
 
-<!-- TODO: Grafik -->
+**Example mapping logic:**
 
-## Installation of second dtable-server
+- Bases starting with `0-9`: handled by the first dtable-server.
+- Bases starting with `a-f`: handled by the second dtable-server.
 
-Install another dtable-server like described in the dtable-server (standalone). Check that the dtable-server is available via port 5000, too.
+## Setting up a of second dtable-server
 
-Dont forget to add the new server to the extra_hosts section...
+1. **Install a second dtable-server** as described in the [dtable-server (standalone)](dtable-db-standalone.md) section. Name it `dtable-server-2`.
 
-Test that dtable-server is available via port 5000
+2. **Update the private network configuration**: Add the IP address of the new server to the `extra_hosts` section on all nodes.
 
-## Add proxy to the frontend to split the requests
+    ```
+      extra_hosts:
+        - "dtable-web:10.0.0.2"
+        - "dtable-db:10.0.0.3"
+        - "dtable-server:10.0.0.4"
+        - "dtable-server-2:10.0.0.5
+    ```
 
-alle anfragen gehen nun über einen neuen proxy, den wir auf dtable-web anlegen.
+3. **Verify** that `dtable-server-2` is accessible on port 5000.
+
+## Adding a Proxy to Distribute Requests
+
+To route requests to the correct `dtable-server`, add a **proxy component** (using nginx), called `dtable-server-proxy`. Deploy this on the `dtable-web` node.
+
+### Create the Proxy Service
+
+Create `/opt/seatable-compose/dtable-server-proxy.yml` on `dtable-web`:
 
 ```
 ---
@@ -61,7 +76,10 @@ networks:
     name: frontend-net
 ```
 
-nginx-proxy.conf
+### Configure nginx Routing
+
+Create `/opt/seatable-compose/nginx-proxy.conf` on `dtable-web`. This configuration defines two upstream servers and a routing map:
+
 ```
 worker_processes auto;
 
@@ -87,10 +105,10 @@ http {
 
   # Map to dynamically determine the upstream server based on the UUID in the URL
   map $request_uri $dtable_upstream {
-    default dtable_server_a_z;                  # Default to the a-z server
-    "~*ff84e1a1-66e2" dtable_server_0_9;        # force that this base uuid goes to server 2
-    "~*([a-zA-Z])([0-9a-f]{7}-[0-9a-f]{4})" dtable_server_a_z;
-    "~*([0-9])([0-9a-f]{7}-[0-9a-f]{4})" dtable_server_0_9;
+    default                                  dtable_server_a_z;    # Default to the a-z server
+    "~*ff84e1a1-66e2"                        dtable_server_0_9;    # force this base to server 2
+    "~*([a-zA-Z])([0-9a-f]{7}-[0-9a-f]{4})"  dtable_server_a_z;
+    "~*([0-9])([0-9a-f]{7}-[0-9a-f]{4})"     dtable_server_0_9;
   }
 
 server {
@@ -111,41 +129,83 @@ server {
 }
 ```
 
-dtable-server-proxy.yml to .env
-remove ports 5000 from seatable-server, but add port 8000.
+You can adapt the routing logic as needed, for example by splitting bases differently or forcing specific `base_uuid`s to a particular server.
 
-INNER_DTABLE_SERVER auf dtable-web:5000 ändern!
-in api-gateway dtable-server:5000 zu dtable-web:5000 ändern
+## Required Configuration Changes
 
-in gunicorn.py
+??? success "Start dtable-server-proxy"
 
-bind = '0.0.0.0:8000'
+    Add `dtable-server-proxy.yml` to your `.env` by including it in the `COMPOSE_FILE` variable. This ensures the proxy container starts.
 
-- die config/seatable-nginx.conf verweist bei /dtable-server/ping und /dtable-db/ping auf falsche ziele.
-somit geht nicht: https://<your-url>/dtable-db/ping/
+??? success "Allow direct access to dtable-web"
 
+    Edit `conf/gunicorn.py` and update the bind address:
 
-### umstellung auf dtable-db
+    ```
+    bind = '0.0.0.0:8000'
+    ```
 
-dtable-db.conf wieder auf 
+??? success "Update INNER_DTABLE_SERVER"
 
-[dtable cache]
-dtable_server_url = "http://dtable-web:5000"
+    Edit `conf/dtable_web_settings.py` and set:
 
+    ```
+    INNER_DTABLE_SERVER = 'http://dtable-web:5000/'
+    ```
 
----
+??? success "Update Ping endpoints"
 
-Wichtig: seatable-n1 und seatable-n2 neu starten.
+    Edit `/opt/seatable-compose/config/seatable-nginx.conf` to update ping endpoints:
 
-testen:
-- auf seatable-web sollte nun wieder ein curl http://127.0.0.1:5000/ping/ gehen.
-- auf seatable-web sollte ein curl 127.0.0.1:8000/api2/ping/ gehen.
-- aufruf jeweils einer base mit 0-9 oder a-f, man sieht die logs in dtable-server-1 und dtable-server-2
-vollständiger funktionstest: 
+    ```
+    # ping endpoints
+    location = /dtable-server/ping/ {
+        proxy_pass http://dtable-web:5000/ping/;
+    }
+    location = /dtable-db/ping/ {
+        proxy_pass http://dtable-db:7777/ping/;
+    }
+    ```
 
-- bases öffnen
-- app anlegen und daten abrufen, ändern
-- big data view anlegen und daten übertragen
+Restart all containers on `dtable-web` to apply the changes.
 
+### Updates on dtable-db
 
-TODO: klären, ob anderes netzwerk als frontend-net
+Since the routing logic has changed, update `dtable-db` so it always uses the proxy instead of contacting `dtable-server` directly.
+
+??? success "Use dtable-server-proxy on dtable-db"
+
+    Edit `conf/dtable-db` and set:
+
+    ```
+    [dtable cache]
+    dtable_server_url = "http://dtable-web:5000"
+    ```
+
+### Unload all bases on dtable-servers
+
+To ensure no bases remain in memory on the dtable-servers, **restart both servers**. This prevents issues with parallel saving of bases.
+
+!!! danger "Unloading is crucial"
+
+    Any time you modify the proxy logic in your nginx configuration, you must restart all dtable-servers. Since `dtable-server` can keep bases in memory for up to 24 hours, failing to restart may result in data loss or inconsistencies.
+
+## Verify your setup
+
+Use the following tests to confirm your configuration:
+
+| Where to execute | Test | Expected result |
+| --- | --- | --- |
+| dtable-web | `curl http://127.0.0.1:5000/ping/` | pong |
+| dtable-web | `curl http://127.0.0.1:8000/api2/ping/` | pong |
+| Browser | Open a base with `base_uuid` starting a-z | Log entries on `dtable-server` |
+| Browser | Open a base with `base_uuid` starting 0-9 | Log entries on `dtable-server-2` |
+| Browser | Open a universal app | Log entries on `dtable-db` |
+
+## Final thoughts
+
+Congratulations! Your setup now uses two dtable-servers, laying the foundation for even greater scalability. To add additional dtable-servers, repeat these steps:
+
+- Set up another dtable-server.
+- Add the new upstream to `nginx.conf` (dtable-server-proxy).
+- Restart all dtable-servers to clear their memory.

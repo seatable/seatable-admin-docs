@@ -2,36 +2,38 @@
 status: wip
 ---
 
-# Installation dtable-server standalone
+# Installation dtable-server as a standalone node
 
-Next step in the build of of this cluster is to move dtable-server to a separate node.
+The next step in building your SeaTable cluster is to move the `dtable-server` to a separate node.
 
 ![SeaTable Cluster: dtable-server standalone](../../assets/images/seatable-cluster-dtable-server-standalone.png)
 
-## Setting Up a Standalone dtable-server
+## Setting up a standalone dtable-server
 
-Prepare a new node with Docker installed, and copy the following files from one of your other nodes to this new node:
+Prepare a new node with Docker installed, and copy the following files from one of your existing nodes to the new node:
 
 - `/opt/seatable-compose/.env`
 - `/opt/seatable-compose/seatable-license.txt`
 
-Open the `.env` file on the new node and ensure that the `COMPOSE_FILE` variable references only a single YAML file, like this:
+Edit the `.env` file on the new node and ensure the `COMPOSE_FILE` variable references only a single YAML file:
 
 ```
 COMPOSE_FILE='seatable-server-standalone.yml'
 ```
 
-Copy `seatable-server.yml` to `seatable-server-standalone.yml` and make the following changes to make this a standalone dtable-server.
+Copy `seatable-server.yml` to `seatable-server-standalone.yml` and make the following changes to configure it as a standalone `dtable-server`.
+
+### Required changes to `seatable-server-standalone.yml`
 
 Apply the following required changes to this file:
 
 ??? success "Remove all services except seatable-server"
 
-        The `dtable-db` node only requires the `seatable-server` service. Remove all other services (such as redis, mariadb, or caddy).
+    The standalone node only requires the `seatable-server` service. Remove all other services (such as redis, mariadb, or caddy).
 
 ??? success "Add additional environment variables"
 
-    Add or update the following environment variables to ensure only `dtable-db` is enabled:
+    Add or update the following environment variables to ensure only the `dtable-server` is enabled:
 
     ```
     environment:
@@ -67,7 +69,9 @@ Apply the following required changes to this file:
       - "dtable-server:10.0.0.4"
     ```
 
-For reference, here is an example of what your `dtable-server-standalone.yml` might look like (do not copy and paste directly — adapt as needed):
+### Example: `dtable-server-standalone.yml`
+
+For reference, here is an example of what your `dtable-server-standalone.yml` might look like. Do not copy and paste directly — adapt to your environment as needed.
 
 ```
 ---
@@ -107,7 +111,7 @@ networks:
     name: frontend-net
 ```
 
-Now, start dtable-db for the first time and monitor the logs:
+Now, start `dtable-db` for the first time and monitor the logs:
 
 ```
 docker compose up -d
@@ -115,15 +119,15 @@ docker compose up -d
 
 ## Changes after first start
 
-After the first start of `dtable-server` you need to make the following changes to newly created configuration files:
+After the first start of `dtable-server`, make the following changes to the newly created configuration files:
 
 ??? success "Add S3 configuration"
 
-    Add the S3 configuration to `conf/dtable-storage-server.conf - analog to your first or second node. 
+    Add the S3 configuration to `conf/dtable-storage-server.conf`, analogous to your first or second node.
 
-??? success "Two additional configuration changes"
+??? success "Additional configuration changes"
 
-    Open `conf/dtable_server_config.json` and add these two entries:
+    Open `conf/dtable_server_config.json` and add these entries:
 
     ```
     {
@@ -132,18 +136,17 @@ After the first start of `dtable-server` you need to make the following changes 
     }
     ```
 
-Now it is time to restart dtable-server and verify that the service is running, port 5000 is exposed and a `pong` is returned. Simply run:
+Now it is time to restart dtable-server and verify that the service is running, port 5000 is exposed and a `pong` is returned:
 
 ```
 curl 127.0.0.1:5000/ping/
 ```
 
-## Tell dtable-web where to find dtable-server
+## Configure dtable-web to use the standalone dtable-server
 
-Now that dtable-server is up and running, it is time to tell dtable-web to use this separate node instead of the internal component. 
-These are the changes, you have to do.
+Now that `dtable-server` is running on a separate node, update `dtable-web` to use this node instead of the internal component.
 
-??? success "Disable dtable-server in `.env`"
+??? success "Disable dtable-server in dtable-web"
 
     Open `/opt/seatable-compose/dtable-web.yml` and make these changes:
 
@@ -161,7 +164,7 @@ These are the changes, you have to do.
 
 ??? success "Update API-Gateway"
 
-    Open the configuration file `conf/dtable-api-gateway.conf` and add these lines to tell this node, where to find `dtable-server`
+    Open the configuration file `conf/dtable-api-gateway.conf` and add these lines to specify the location of `dtable-server`:
 
     ```
     [dtable-server]
@@ -170,7 +173,7 @@ These are the changes, you have to do.
 
 ??? success "Update `dtable_web_settings.py`"
 
-    Open the configuration file `/conf/dtable_web_settings.py` and add this line:
+    Open `/conf/dtable_web_settings.py` and add:
 
     ```
     INNER_DTABLE_SERVER_URL = 'http://dtable-server:5000/'
@@ -178,11 +181,11 @@ These are the changes, you have to do.
 
 ## Additional changes on dtable-db
 
-Also on dtable-db it is necessary to tell where to find dtable-server.
+Specify the location of `dtable-server` in `dtable-db` as well.
 
 ??? success "Update `dtable-db.conf`"
 
-    Search for this section and update the values.
+     Find the relevant section and update the value:
 
     ```
     [dtable cache]
@@ -197,5 +200,6 @@ docker compose up -d
 
 ## Verify complete setup 
 
-Open any base in your webbrowser and verify that logs are created in dtable-server.
-Congratulations. You're running now a separate dtable-server and you achieved the next step on your build of a SeaTable Cluster.
+Open any base in your web browser and check that logs are being created on the `dtable-server` node.
+
+Congratulations! You are now running a separate `dtable-server` and have completed the next step in building your SeaTable cluster.
