@@ -162,6 +162,7 @@ nav:
               - Gatus: installation/components/gatus.md
               - Uptime Kuma: installation/components/uptime-kuma.md
               - Zabbix: installation/components/zabbix.md
+              - Releem: installation/components/releem.md
           - Backup: installation/components/restic.md
           - Antivirus: installation/components/clamav.md
           - FAQ / Troubleshooting: installation/faq.md
