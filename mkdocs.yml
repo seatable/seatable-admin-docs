@@ -188,6 +188,7 @@ nav:
               - Python Pipeline Workflow: installation/advanced/python-pipeline-workflow.md
           - MariaDB (standalone): installation/advanced/database-standalone.md
           - Seafile (external): installation/advanced/seafile.md
+          - SeaTable AI: installation/advanced/seatable-ai.md
 
       - Cluster Deployment:
           - Introduction: installation/cluster/introduction.md
