@@ -48,7 +48,7 @@ SEASEARCH_TOKEN=  # get from `echo -n 'INIT_SS_ADMIN_USER:INIT_SS_ADMIN_PASSWORD
     ```
 
 !!! tip "Use the custom models not from OpenAI Ltc."
-    SeaTable AI supports users to use large language models (LLM) that are not provided by OpenAI Ltd. However, the model service selected by the user needs to be compatible with the OpenAI API. To use custom models, please make the following changes in `.env`:
+    SeaTable AI supports users to use **multimodality large language models** (**multimodality LLM**, i.e., image recognition support is necessary) that are not provided by OpenAI Ltd. However, the model service selected by the user needs to be compatible with the OpenAI API. To use custom models, please make the following changes in `.env`:
 
     ```env
     SEATABLE_AI_LLM_TYPE=other
@@ -146,7 +146,7 @@ SEASEARCH_TOKEN=  # get from `echo -n 'INIT_SS_ADMIN_USER:INIT_SS_ADMIN_PASSWORD
     ```
 
 !!! tip "Use the custom models not from OpenAI Ltc."
-    SeaTable AI supports users to use large language models (LLM) that are not provided by OpenAI Ltd. However, the model service selected by the user needs to be compatible with the OpenAI API. To use custom models, please make the following changes in `.env`:
+    SeaTable AI supports users to use custom **multimodality large language models** (**multimodality LLM**, i.e., image recognition support is necessary) that are not provided by OpenAI Ltd. However, the model service selected by the user needs to be compatible with the OpenAI API. To use custom models, please make the following changes in `.env`:
 
     ```env
     SEATABLE_AI_LLM_TYPE=other
