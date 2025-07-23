@@ -70,27 +70,15 @@ Now SeaTable AI can be used.
 
 ## Deploy SeaTable AI standalone
 
-The deployment of a separate SeaTable AI is simple. Get seatable-release from github like described in the installation of seatable server and only use `seatable-ai.yml` and `seasearch.yml`.
+The deployment of a separate SeaTable AI is simple. Get seatable-release from github like described in the installation of seatable server and only use `seatable-ai-standlone.yml` and `seasearch.yml`.
 
-### Update `seatable-ai.yml` and expose service port
-
-Update your `seatable-ai.yml` and expose service port:
-
-```yml
-services:
-  seatable-ai:
-    ...
-    ports:
-      - "8888:8888"
-    ...
-```
 
 ### Update `.env` in the host will deploy SeaTable AI
 
 Update your `.env`, that it looks like this and add/update the values according to your needs:
 
 ```env
-COMPOSE_FILE='seatable-ai,seasearch.yml'
+COMPOSE_FILE='seatable-ai-standlone.yml,seasearch.yml'
 COMPOSE_PATH_SEPARATOR=','
 
 # system settings
