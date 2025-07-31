@@ -2,9 +2,11 @@
 
 Updating/Upgrade (we don't differenciate) a SeaTable Server should take just a few seconds. Simply pull the latest Docker images for all components, restart the containers, and let the system automatically handle necessary database updates. Within moments, all essential services of the SeaTable Server will be accessible.
 
-!!! danger "Backup is recommended"
+!!! danger "No Rollback After Upgrade, Backup first!"
 
-    Updating SeaTable Server might entail changes to your database. To make sure your data is protected in any case, create a backup of your database first. See [backup and recovery](../maintenance/backup-recovery.md) for more details.
+    After upgrading SeaTable, rolling back to a previous version is not supported due to possible changes in the database and files. Attempting to downgrade can cause data loss or system errors.
+
+    **Always make a full backup before upgrading.** For instructions, see [Backup and Recovery](../maintenance/backup-recovery.md) for more details.
 
 ## How to update SeaTable Server
 
