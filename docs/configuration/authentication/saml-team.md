@@ -40,6 +40,26 @@ cd /opt/seatable-server/
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout sp.key -out sp.crt
 ```
 
+## Property Mappings
+
+The IDP must provide the following SAML properties:
+
+- `contact_email`
+- `name`
+- `uid`
+
+The exact configuration depends on your specific IDP.
+
+### Authentik
+
+Create three property mappings of type `SAML Provider Property Mapping` under `Customization -> Property Mappings` with the following settings:
+
+| Name          | SAML Attribute Name | Expression                  |
+| ------------- | ------------------- | --------------------------- |
+| contact_email | `contact_email`     | `return request.user.email` |
+| name          | `name`              | `return request.user.name`  |
+| uid           | `uid`               | `return request.user.pk`    |
+
 ```python
 #SAML_CERTS_DIR = '/opt/seatable/seatable-data'
 #SAML_ATTRIBUTE_MAP = {
@@ -48,6 +68,8 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout sp.key -out sp.crt
 # 'name': 'name',
 #}
 ```
+
+## Cookie Settings
 
 If the SAML provider is on a separate domain (which it will definitely be in case of `cloud.seatable.io`), the following settings must be configured to prevent issues with cross-site cookies:
 
