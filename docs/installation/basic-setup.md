@@ -99,6 +99,13 @@ Now use the command line tool `pwgen` to create secure passwords for your _admin
 
 Alternatively, you can manually add your own passwords.
 
+!!! danger "Avoid special characters in passwords"
+
+    When setting passwords manually (without `pwgen`), do **not** use special characters such as `%`, `#`, `$`, `&`, `'`, `"` or similar. These may cause issues with Python libraries during installation and can prevent your 
+    SeaTable Server Docker container from leaving *unhealthy* mode.
+
+    Instead, choose a **long password** using uppercase, lowercase, and digits to ensure both compatibility and security. Alternatively, you can use `pwgen 40` to generate several secure 40-character passwords.
+
 #### 3. Complete settings in the .env file
 
 Open the `.env` file with the text editor of your choice, like `nano` or `vim`.
