@@ -86,17 +86,18 @@ docker exec -it mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} -
 !!! warning "Cronjob require other parameters"
 
     If you want to execute the `docker ... mariadb-dump` command directly as a cronjob, your have to remove the parameters `-it`. Otherwise you will only create an empty dump file.
+    Sometimes cronjob has problems with the path and `docker` is not sufficient.
 
-!!! tip "Reduce database dump size"
+!!! tip "How to manage large database dump sizes"
 
-    To reduce the size of your database dump, you can exclude certain database tables that typically grow large and are not always necessary. Examples include:
+    SeaTable stores various logs in the database, which can cause your database dump to grow significantly, especially for the tables `operation_log`, `delete_operation_log`, `session_log` and `activities`.
 
-    - operation_log
-    - delete_operation_log
-    - session_log
-    - activities
+    To manage this, you have two effective options:
 
-    To exclude these tables, use the `--ignore-table` parameter one or more times in the `mariadb-dump` command.
+    - Use Seatable’s built-in function to regularly [clean old log entries](./database-cleanup.md), keeping your database size manageable without losing recent data.
+    - During backups, use the `--ignore-table` parameter to split your dump into two parts: a core dump excluding large log tables, and a separate dump for the log tables.
+
+    This strategy reduces dump size and enables selective restoration of core data and logs as needed.
 
 ### Base content
 
