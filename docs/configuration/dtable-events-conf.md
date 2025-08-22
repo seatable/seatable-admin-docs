@@ -92,6 +92,7 @@ Setting any value to `0` or `-1` causes the cleanup task to be skipped for the c
 | `keep_session_log_days`                    | Retention period for session log entries (in days)                         | 30      |
 | `keep_auto_rules_task_log_days`            | Retention period for automation rule logs (in days)                        | 30      |
 | `keep_user_activity_statistics_days`       | Retention period for user activity statistics (in days)                    | 0       |
+| `keep_dtable_app_pages_operation_log_days` | Retention period for app pages operation log entries (in days)             | 14      |
 
 ### `[EMAIL SENDER]`
 

@@ -61,13 +61,16 @@ The following tables will be cleaned:
 
 | Database table                 | Table description                                                                             | Retention period |
 | ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------- |
-| activities                     | Aggregated log (based on operation_log) recording row creations, modifications, and deletions | 30 days          |
-| delete_operation_log           | High level log (based on operation_log) recording all row deletions                           | 30 days          |
-| dtable_notifications           | User notifications inside the bases                                                           | 30 days          |
 | dtable_snapshots               | Snapshots of bases that are not store in dtable-storage-server                                | 365 days         |
+| activities                     | Aggregated log (based on operation_log) recording row creations, modifications, and deletions | 30 days          |
+| operation_log                  | Low level log recording all operations (of dtable-server)                                     | 14 days          |
+| delete_operation_log           | High level log (based on operation_log) recording all row deletions                           | 30 days          |
+| dtable_db_op_log               | Low level log recording all operations (of dtable-db)                                         | 14 days          |
 | notifications_usernotification | User notifications on the home page                                                           | 30 days          |
-| operation_log                  | Low level log recording all operations                                                        | 14 days          |
+| dtable_notifications           | User notifications inside the bases                                                           | 30 days          |
 | session_log                    | Low level log recording all user sessions                                                     | 30 days          |
+| auto_rules_task_log            | Logs of automation rules                                                                      | 14 days          |
+| dtable_app_pages_operation_log | Low level log recording all app operations                                                    | 14 days          |
 
 ### Cronjob
 
