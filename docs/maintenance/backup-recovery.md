@@ -78,9 +78,9 @@ The mariadb container persists the database information in the directory `/opt/m
 
 source /opt/seatable-compose/.env
 mkdir -p /opt/seatable-backup && cd /opt/seatable-backup
-docker exec -it mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
-docker exec -it mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
-docker exec -it mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
+docker exec -it mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
+docker exec -it mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt seafile_db > ./seafile_db.sql
+docker exec -it mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt dtable_db > ./dtable_db.sql
 ```
 
 !!! warning "Cronjob require other parameters"
@@ -143,9 +143,9 @@ mkdir -p /opt/seatable-backup/
 # mariadb dumps
 source /opt/seatable-compose/.env
 cd /opt/seatable-backup
-docker exec mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
-docker exec mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt seafile_db > ./seafile_db.sql
-docker exec mariadb mariadb-dump -u root -p${SEATABLE_MYSQL_ROOT_PASSWORD} --opt dtable_db > ./dtable_db.sql
+docker exec mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt ccnet_db > ./ccnet_db.sql
+docker exec mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt seafile_db > ./seafile_db.sql
+docker exec mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt dtable_db > ./dtable_db.sql
 
 # force dump of big data to storage-data folder
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh backup-all
