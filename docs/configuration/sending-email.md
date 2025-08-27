@@ -28,6 +28,8 @@ There are two ways to configure this SMTP account for system wide emails.
     | `SEATABLE_DEFAULT_FROM_EMAIL`  | Used for `From:`                            | `seatable@gmx.de`              |
     | `SEATABLE_SERVER_EMAIL`        | Used for `From:` in case of error reporting | `seatable@gmx.de`              |
 
+    See the examples at the end of this article for easy copy-and-paste use.
+
 === "Configuration file"
 
     Add the following lines to `dtable_web_settings.py` to enable email sending.
@@ -46,6 +48,11 @@ There are two ways to configure this SMTP account for system wide emails.
 
     If you want to use the email service without authentication, leave `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD` **blank** (`''`).
 
+!!! warning "SSL (instead of TLS) is not yet supported via environment variable"
+
+    If you mail provider requires SSL instead of TLS, you need to configure your SMTP Settings via the configuration file `dtable_web_settings.py`.
+    SSL can not be set via environment variable.
+
 Restart SeaTable service to reload the changes.
 
 ## Debugging
@@ -55,6 +62,7 @@ Otherwise use a command line tool like [Swaks](https://github.com/jetmore/swaks)
 
 ```bash
 # example of a swaks command to verify your settings
+# (use -tls for TLS and -tlsc for SSL)
 swaks --auth -tls \
 --server <EMAIL_HOST> \
 --protocol SMTP \
@@ -73,15 +81,29 @@ swaks --auth -tls \
 
 If you are using Gmail as email server, you can use the following settings.
 
-```python
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'username@gmail.com'
-EMAIL_HOST_PASSWORD = 'password'
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'username@gmail.com'
-SERVER_EMAIL = 'username@gmail.com'
-```
+=== "Environment variables"
+
+    ```python
+    SEATABLE_EMAIL_USE_TLS = True
+    SEATABLE_EMAIL_HOST = 'smtp.gmail.com'
+    SEATABLE_EMAIL_HOST_USER = 'username@gmail.com'
+    SEATABLE_EMAIL_HOST_PASSWORD = 'password'
+    SEATABLE_EMAIL_PORT = 587
+    SEATABLE_DEFAULT_FROM_EMAIL = 'username@gmail.com'
+    SEATABLE_SERVER_EMAIL = 'username@gmail.com'
+    ```
+
+=== "Configuration file"
+
+    ```python
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'username@gmail.com'
+    EMAIL_HOST_PASSWORD = 'password'
+    EMAIL_PORT = 587
+    DEFAULT_FROM_EMAIL = 'username@gmail.com'
+    SERVER_EMAIL = 'username@gmail.com'
+    ```
 
 !!! warning "Allow access to less secure apps"
 
@@ -94,12 +116,50 @@ SERVER_EMAIL = 'username@gmail.com'
 
 SeaTable Cloud uses the SMTP relay of Brevo.
 
-```python
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp-relay.sendinblue.com'
-EMAIL_HOST_USER = 'username@domain.com'
-EMAIL_HOST_PASSWORD = 'xsmtpsib-xxx'
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'SeaTable <noreply@domain.com>'
-SERVER_EMAIL = 'noreply@domain.com'
-```
+=== "Environment variables"
+
+    ```python
+    SEATABLE_EMAIL_USE_TLS = True
+    SEATABLE_EMAIL_HOST = 'smtp-relay.sendinblue.com'
+    SEATABLE_EMAIL_HOST_USER = 'username@domain.com'
+    SEATABLE_EMAIL_HOST_PASSWORD = 'xsmtpsib-xxx'
+    SEATABLE_EMAIL_PORT = 587
+    SEATABLE_DEFAULT_FROM_EMAIL = 'SeaTable <noreply@domain.com>'
+    SEATABLE_SERVER_EMAIL = 'noreply@domain.com'
+    ```
+
+=== "Configuration file"
+
+    ```python
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp-relay.sendinblue.com'
+    EMAIL_HOST_USER = 'username@domain.com'
+    EMAIL_HOST_PASSWORD = 'xsmtpsib-xxx'
+    EMAIL_PORT = 587
+    DEFAULT_FROM_EMAIL = 'SeaTable <noreply@domain.com>'
+    SERVER_EMAIL = 'noreply@domain.com'
+    ```
+
+### Infomaniak
+
+If you are using Infomaniak as email server, you can use the following settings.
+
+=== "Environment variables"
+
+    !!! warning "SSL support missing"
+    
+        Infomaniak requires SSL instead of TLS, therefore a configuration via environment variables is not yet possible.
+        Please use the configuration file approach instead.
+
+=== "Configuration file" 
+
+    ```python
+    EMAIL_USE_TLS = False
+    EMAIL_USE_SSL = True
+    EMAIL_HOST = 'mail.infomaniak.com'
+    EMAIL_HOST_USER = 'username@domain.com'
+    EMAIL_HOST_PASSWORD = 'password'
+    EMAIL_PORT = 465
+    DEFAULT_FROM_EMAIL = 'SeaTable <noreply@domain.com>'
+    SERVER_EMAIL = 'noreply@domain.com'
+    ```
