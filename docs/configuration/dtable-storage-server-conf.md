@@ -97,19 +97,28 @@ openssl rand -base64 24
 
 ### `[snapshot]`
 
+<!-- md:version 5.2 -->
+
 | Parameter             | Description                                                                                                                                                                                | Default |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
 | `interval`            | The interval for generating snapshots of a base, if there are changes to the base. Unit is in seconds.                                                                                     | 86400   |
 | `enable_cleanup`      | Controls snapshot cleanup. Activate on only one node in multi-server setups.                                                                                                               | true    |
 | `keep_days`           | Specifies the snapshot retention period in days. Older snapshots are deleted. As of version 5.2, the default is 180 days; previously, it was unlimited (0).                                | 180     |
 | `keep_frequency_days` | Specifies daily snapshot period for changed bases. After this, only one snapshot per month is kept. Default is 0 (always daily). Requires keep_days to be set and > `keep_frequency_days`. | 0       |
+| `cleanup_at`          | Specifies the time when old snapshots are deleted.                                                                                                                                         | 03:00   |
 
-!!! warning "Example of new tiered snapshot retention"
+By default, SeaTable creates daily snapshots for changed bases, deleting snapshots older than 180 days. The cleanup
 
-    By default, SeaTable creates daily snapshots for changed bases, deleting snapshots older than 180 days.
+**Since version 5.2**, SeaTable offers a tiered retention strategy for snapshots. This approach balances recent, detailed backups with efficient long-term storage.
+For example, setting `keep_days = 180` and `keep_frequency_days = 7` would retail:
 
-    Since version 5.2, SeaTable offers a tiered retention strategy for snapshots. This approach balances recent, detailed backups with efficient long-term storage.
-    For example, setting `keep_days = 180` and `keep_frequency_days = 7` would retail:
+- Daily snapshots for the past week
+- Monthly snapshots for the past six months, except for the past week.
 
-    - Daily snapshots for the past week
-    - Monthly snapshots for the past six months, except for the past week.
+#### Possible combinations of  `keep_days` and `keep_frequency_days` for new tiered snapshot retention
+
+| Condition	| Action | 
+| --- | ---- | 
+| `keep_days = 0` | No snapshots are deleted, no matter of `keep_frequency_days`. |
+| `keep_frequency_days = 0` and `keep_days > 0` | All snapshots older than `keep_days` are deleted. |
+| `keep_frequency_days > 0` and `keep_days > 0` | Snapshots older than `keep_days` are deleted immediately, while snapshots older than `keep_frequency_days` but not exceeding `keep_days` are grouped by month to apply frequency-based cleaning logic. |

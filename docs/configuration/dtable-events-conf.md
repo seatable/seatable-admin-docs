@@ -46,7 +46,8 @@ enabled = true
 
 ### `[DATABASE]`
 
-??? success "Database can configure in .env"
+??? success "Database can be configured in .env"
+
     From SeaTable 5.3, you can specify the database configurations in [`.env`](./environment-variables.md#table-of-settings). There is no need to keep this configuration in your `dtable-events.conf`.
 
 | Parameter  | Description                                                                                             | Default           |
@@ -60,7 +61,7 @@ enabled = true
 
 ### `[REDIS]`
 
-??? success "Redis can configure in .env"
+??? success "Redis can be configured in .env"
     From SeaTable 5.3, you can specify the redis configurations in [`.env`](./environment-variables.md#table-of-settings). There is no need to keep this configuration in your `dtable-events.conf`.
 
 | Parameter  | Description           | Default |

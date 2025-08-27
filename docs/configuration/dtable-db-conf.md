@@ -96,7 +96,7 @@ General configuration options of the output of the SQL endpoint.
 <!-- md:version 3.0 -->
 <!-- md:feature -->
 
-Section `[backup]` contains options to configure backup functions for big data backend:
+Section `[backup]` contains options to configure backup functions for big data backend.
 
 | Parameter                   | Description                                                                                                                                              | Default               |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
