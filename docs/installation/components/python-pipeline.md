@@ -17,6 +17,11 @@ Find additional Python functions and code examples in the [SeaTable Developer Ma
 
 This how-to explains the deployment of the Python Pipeline next to your SeaTable Server instance.
 
+!!! warning "Security Considerations"
+
+    If you allow untrusted users or users with limited trust to execute Python scripts within SeaTable, you should deploy the Python Pipeline on a separate node without private network access to your SeaTable server instance.
+    Please follow the [documentation](../advanced/python-pipeline-dedicated-server.md) on how to achieve this.
+
 #### Amend the .env file
 
 To install the Python Pipeline, append `python-pipeline.yml` to the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for the Python Pipeline.
