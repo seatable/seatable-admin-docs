@@ -17,12 +17,13 @@ SeaTable can be operated both as a **single-node installation** and in **cluster
 
 In the following instructions for deploying a SeaTable Cluster, I will use the node names and roles listed below as a naming convention. Please adapt these to fit your specific environment.
 
-| Node | Main service / Name | Private IP address |
-| --- | --- | --- |
-| node1 | dtable-web | 10.0.0.2 |
-| node2 | dtable-db | 10.0.0.3 |
-| node3 | dtable-server | 10.0.0.4 |
-| node4 | dtable-server-2 | 10.0.0.5 |
+| Node  | Main service / Name | Private IP address |
+| ----- | ------------------- | ------------------ |
+| node1 | dtable-web          | 10.0.0.2           |
+| node2 | dtable-db           | 10.0.0.3           |
+| node3 | dtable-server       | 10.0.0.4           |
+| node4 | dtable-server-2     | 10.0.0.5           |
+| node5 | dtable-events       | 10.0.0.6           |
 
 ## When is a single-node installation suitable?
 

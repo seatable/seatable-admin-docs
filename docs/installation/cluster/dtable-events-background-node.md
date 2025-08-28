@@ -32,8 +32,11 @@ SeaTable allows you to **split dtable-events**, moving background tasks to a ded
 1. **Prepare a new node** with Docker installed.
 
 2. **Copy the following files** from your first node to the new node:
-   - `/opt/seatable-compose/.env`
-   - `/opt/seatable-compose/seatable-license.txt`
+      - `/opt/seatable-compose/.env`
+      - `/opt/seatable-compose/seatable-license.txt`
+      - `/opt/seatable-server/seatable/conf/dtable_web_settings.py`
+
+        This is mandatory since **dtable-events** reads some configuration settings from `dtable_web_settings.py`.
 
 3. **Edit the `.env` file** on the new node and set the `COMPOSE_FILE` variable to reference only a single YAML file:
 
