@@ -61,7 +61,7 @@ Once the single-node setup reaches its performance limits, it is advisable to sw
 
 - All nodes use the same Docker image, but individual components are selectively enabled or disabled.
 - The setup usually starts as a single-node installation. Gradually, individual components are moved to separate nodes.
-- In the maximum expansion stage, each service runs on its own node; multiple `dtable-servers` and multiple `dtable-web` can run in parallel.
+- In the maximum expansion stage, each service runs on its own node; multiple `dtable-servers` and multiple `dtable-web` can run in parallel. Please note that the latter requires _sticky sessions_.
 
 ![SeaTable Cluster Overview](../../assets/images/seatable-cluster-overview.png)
 
