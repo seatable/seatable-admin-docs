@@ -11,7 +11,8 @@ The requirements for running a SeaTable cluster build upon those for a single-no
 - One node (running dtable-web) must be publically available via **port 80 and 443**.
 - **S3-compatible object storage** is required for storing files and attachments. (Alternative storage technologies may be possible but are not covered in detail here.)
 - **Centralized MariaDB and Redis services**: These must be accessible to all nodes in the private network. You can either use managed services or operate your own MariaDB and Redis instances.
-- If you plan to use the **Office Editor** or the **Python Pipeline**, these services must also be provided as separate services within the private network.
+- If you plan to use the **Office Editor**, the service should be deployed within the private network.
+- You can deploy the **Python Pipeline** on the [same node as **dtable-web**](../components/python-pipeline.md) or on a [separate node](../advanced/python-pipeline-dedicated-server.md).
 
 !!! warning "Network communication is often the main challenge"  
 

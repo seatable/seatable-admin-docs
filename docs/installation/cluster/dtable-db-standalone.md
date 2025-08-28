@@ -123,7 +123,7 @@ After the first start of `dtable-db` you need to make the following changes to n
 
 ??? success "Add S3 configuration"
 
-    Add the S3 configuration to `conf/dtable-storage-server.conf - analog to your first node. 
+    Add the S3 configuration to `conf/dtable-storage-server.conf` - analog to your first node.
 
 ??? success "Two additional configuration changes"
 
@@ -166,7 +166,6 @@ These are the changes, you have to do.
     ```
     environment:
       - ENABLE_DTABLE_DB=false
-      - SEATABLE_START_MODE=first
     extra_hosts:
       - "dtable-web:10.0.0.2"
       - "dtable-db:10.0.0.3"
