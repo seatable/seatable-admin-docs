@@ -63,6 +63,9 @@ This is the list of ports that the components use. You only have to open them if
 - OnlyOffice: 6233
 - Uptime Kuma: 6230
 - Zabbix: 6235
+- Whiteboard (tldraw): 6239
+- Report Design (seadoc): 6240
+- Gatus Monitoring: 6220 
 
 ## Separate server or subdomain
 
