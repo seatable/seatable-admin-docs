@@ -1,5 +1,7 @@
 # SeaTable AI Integration
 
+<!-- md:version 6.0 -->
+
 SeaTable AI is an extension of SeaTable that providing AI functions.
 
 SeaSearch, a file indexer with more lightweight and efficiency than Elasticsearch.
@@ -130,10 +132,9 @@ COMPOSE_PATH_SEPARATOR=','
 TIME_ZONE='Europe/Berlin'
 
 # database
-SEATABLE_MYSQL_DB_HOST=
-SEATABLE_MYSQL_DB_PORT=3306
-SEATABLE_MYSQL_DB_USER=
-SEATABLE_MYSQL_DB_PASSWORD=
+MARIADB_HOST=
+MARIADB_PORT=3306
+MARIADB_PASSWORD=
 
 # redis
 REDIS_HOST=
