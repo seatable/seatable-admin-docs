@@ -225,6 +225,15 @@ CONTEXT_TOOLS_VALID_TIME = 24 # hour
 CONTEXT_CONVERSATION_VALID_TIME = 168 # hour
 ```
 
+### Custom LLM parameters
+
+SeaTable AI supports customizing the following LLM parameters by modifying `/opt/seatable-server/seatable/conf/seatable_ai_settings.py`:
+
+- LLM_TEMPERATURE: Temperature is a key floating-point parameter (**ranging from 0 to 1**) in LLM that controls the randomness (creativity) and determinism of generated text. Lower temperature yields more accurate results.
+
+!!! warning "Temperature for ***GPT-5*** series model"
+    GPT-5 series models(including ***gpt-5***, ***gpt-5-mini***, ***gpt-5-nano***, and ***gpt-5-chat***) no longer support custom temperature values and only receive `temperature=1`. If you would like to use ***GPT-5*** series model, please set `LLM_TEMPERATURE = 1`.
+
 ## SeaTable AI directory structure
 
 `/opt/seatable-server`
