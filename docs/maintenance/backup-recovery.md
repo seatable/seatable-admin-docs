@@ -10,6 +10,10 @@ To understand what needs to be backed up, you must first understand the architec
 
 This article details what should and must be included in your backup, providing you with the knowledge to create your own backup procedure.
 
+!!! danger "Backup scope is limited to SeaTable"
+
+    These instructions only cover the backup and restore of the SeaTable Server. Other tools or services on the same host (e.g. n8n, monitoring, reverse proxies) must be backed up separately. The steps assume a standard installation; if you have custom paths, containers, or configs, adjust them accordingly.
+
 ## Data and folder structure
 
 If you set up your SeaTable server according to this manual, your server should have a folder structure similar to the following.
