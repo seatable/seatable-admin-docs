@@ -212,6 +212,9 @@ docker compose down && docker compose up -d
 You can manage SeaTable AI's context policies by modifying `/opt/seatable-server/seatable/conf/seatable_ai_settings.py`:
 
 ```py
+# If you would like to disable context, set this variable to True 
+DISABLE_CONTEXT = False
+
 # The maximum number of entries in the context record, default is 10. When set to 0, the entire history of the current session will be read
 CONTEXT_WINDOW_LIMIT = 10
 
