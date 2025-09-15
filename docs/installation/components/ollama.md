@@ -13,7 +13,7 @@
         networks:
         - backend-seatable-net
         volumes:
-        - /opt/ollama:/root/ollama
+        - /opt/ollama:/root/.ollama
     ```
 - Add `ollama.yml` to the `COMPOSE_FILE` variable inside the `.env` file
 - Add the following variables to `.env`:
