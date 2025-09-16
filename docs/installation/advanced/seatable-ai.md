@@ -4,8 +4,6 @@
 
 SeaTable AI is an extension of SeaTable that providing AI functions.
 
-SeaSearch, a file indexer with more lightweight and efficiency than Elasticsearch.
-
 ## Deployment SeaTable AI
 
 The easiest way to deployment SeaTable AI is to deploy it with SeaTable server on the same host. If in some situations, you need to deployment SeaTable AI standalone, you can follow the next section.
@@ -14,36 +12,20 @@ The easiest way to deployment SeaTable AI is to deploy it with SeaTable server o
 
 ### Change the .env file
 
-To install SeaTable AI, include `seatable-ai.yml` and `seasearch.yml`in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for SeaTable AI.
+To install SeaTable AI, include `seatable-ai.yml` in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for SeaTable AI.
 
 Simply copy and paste (:material-content-copy:) the following code into your command line:
 
 ```bash
-sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seatable-ai.yml,seasearch.yml'/" /opt/seatable-compose/.env
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seatable-ai.yml'/" /opt/seatable-compose/.env
 ```
 
-Then add SeaTable AI server and SeaSearch configurations in `.env`:
+Then add SeaTable AI server configurations in `.env`:
 
 ```env
 ENABLE_SEATABLE_AI=true
 SEATABLE_AI_SERVER_URL=http://seatable-ai:8888
-
-ENABLE_SEARCH=true
-INIT_SS_ADMIN_USER=
-INIT_SS_ADMIN_PASSWORD=
-SEASEARCH_SERVER_URL=http://seasearch:4080
-SEASEARCH_TOKEN=  # get from `echo -n 'INIT_SS_ADMIN_USER:INIT_SS_ADMIN_PASSWORD' | base64`
 ```
-
-!!! note "Details for `SEASEARCH_TOKEN`"
-    Get your authorization token (SEASEARCH_TOKEN) by base64 code consist of INIT_SS_ADMIN_USER and INIT_SS_ADMIN_PASSWORD defined in .env firstly, which is used to authorize when calling the SeaSearch API:
-
-    ```bash
-    echo -n 'username:password' | base64
-
-    # example output
-    YWRtaW46YWRtaW5fcGFzc3dvcmQ=
-    ```
 
 SeaTable AI will use AI functions in conjunction with the Large Language Model (LLM) service. Therefore, in order for SeaTable AI to work properly, you also need to add LLM configuration information to `.env`:
 
@@ -102,7 +84,7 @@ SeaTable AI will use AI functions in conjunction with the Large Language Model (
 
 !!! note "About model selection"
 
-    SeaTable AI supports using large model providers from [LiteLLM](https://docs.litellm.ai/docs/providers) or large model services with OpenAI-compatible endpoints. Therefore, SeaTable AI is compatible with most custom large model services except the default model (*gpt-4.1*), but in order to ensure the normal use of SeaTable AI features, you need to select a **multimodal large model** (such as supporting image input and recognition)
+    SeaTable AI supports using large model providers from [LiteLLM](https://docs.litellm.ai/docs/providers) or large model services with OpenAI-compatible endpoints. Therefore, SeaTable AI is compatible with most custom large model services, but in order to ensure the normal use of SeaTable AI features, you need to select a **multimodal large model** (such as supporting image input and recognition)
 
 
 ### Download SeaTable AI image and restart
@@ -118,14 +100,14 @@ Now SeaTable AI can be used.
 
 ## Deploy SeaTable AI standalone
 
-The deployment of a separate SeaTable AI is simple. Get seatable-release from github like described in the installation of seatable server and only use `seatable-ai-standlone.yml` and `seasearch.yml`.
+The deployment of a separate SeaTable AI is simple. Get seatable-release from github like described in the installation of seatable server and only use `seatable-ai-standlone.yml`.
 
 ### Update `.env` in the host will deploy SeaTable AI
 
 Update your `.env`, that it looks like this and add/update the values according to your needs:
 
 ```env
-COMPOSE_FILE='seatable-ai-standlone.yml,seasearch.yml'
+COMPOSE_FILE='seatable-ai-standlone.yml'
 COMPOSE_PATH_SEPARATOR=','
 
 # system settings
@@ -155,14 +137,7 @@ INNER_DTABLE_DB_URL=https://seatable.your-domain.com/dtable-db/
 SEATABLE_AI_LLM_TYPE=openai
 SEATABLE_AI_LLM_URL=
 SEATABLE_AI_LLM_KEY=...
-SEATABLE_AI_LLM_MODEL=gpt-4.1
-
-# SeaSearch
-ENABLE_SEARCH=true
-INIT_SS_ADMIN_USER=
-INIT_SS_ADMIN_PASSWORD=
-SEASEARCH_SERVER_URL=http://seasearch:4080
-SEASEARCH_TOKEN=  # get from `echo -n 'INIT_SS_ADMIN_USER:INIT_SS_ADMIN_PASSWORD' | base64`
+SEATABLE_AI_LLM_MODEL=gpt-4o-mini # recommend
 ```
 
 !!! warning
@@ -170,19 +145,9 @@ SEASEARCH_TOKEN=  # get from `echo -n 'INIT_SS_ADMIN_USER:INIT_SS_ADMIN_PASSWORD
 
     - If Redis has no REDIS_PASSWORD, leave it as empty after "=", do not use empty string (like REDIS_PASSWORD="")
 
-!!! note "Details for `SEASEARCH_TOKEN`"
-    Get your authorization token (SEASEARCH_TOKEN) by base64 code consist of INIT_SS_ADMIN_USER and INIT_SS_ADMIN_PASSWORD defined in .env firstly, which is used to authorize when calling the SeaSearch API:
-
-    ```bash
-    echo -n 'username:password' | base64
-
-    # example output
-    YWRtaW46YWRtaW5fcGFzc3dvcmQ=
-    ```
-
 !!! note "About model selection and LLM configurations"
 
-    SeaTable AI supports using large model providers from [LiteLLM](https://docs.litellm.ai/docs/providers) or large model services with OpenAI-compatible endpoints. Therefore, SeaTable AI is compatible with most custom large model services except the default model (*gpt-4.1*), but in order to ensure the normal use of SeaTable AI features, you need to select a **multimodal large model** (such as supporting image input and recognition).
+    SeaTable AI supports using large model providers from [LiteLLM](https://docs.litellm.ai/docs/providers) or large model services with OpenAI-compatible endpoints. Therefore, SeaTable AI is compatible with most custom large model services, but in order to ensure the normal use of SeaTable AI features, you need to select a **multimodal large model** (such as supporting image input and recognition).
 
     We also provide some [reference configurations](#llm-configuration) for the LLM service provider in this manual (it is irrelevant to whether SeaTable AI is deployed standalone). You can also adjust these configurations based on your actual situation.
 
@@ -229,10 +194,30 @@ CONTEXT_CONVERSATION_VALID_TIME = 168 # hour
 
 SeaTable AI supports customizing the following LLM parameters by modifying `/opt/seatable-server/seatable/conf/seatable_ai_settings.py`:
 
-- LLM_TEMPERATURE: Temperature is a key floating-point parameter (**ranging from 0 to 1**) in LLM that controls the randomness (creativity) and determinism of generated text. Lower temperature yields more accurate results.
+- **LLM_TEMPERATURE**: Temperature is a key floating-point parameter (**ranging from 0 to 1**) in LLM that controls the randomness (creativity) and determinism of generated text. Lower temperature yields more accurate results.
 
 !!! warning "Temperature for ***GPT-5*** series model"
     GPT-5 series models(including ***gpt-5***, ***gpt-5-mini***, ***gpt-5-nano***, and ***gpt-5-chat***) no longer support custom temperature values and only receive `temperature=1`. If you would like to use ***GPT-5*** series model, please set `LLM_TEMPERATURE = 1`.
+
+### Token usage and fee statistics
+
+SeaTable AI supports enabling token usage and fee statistics (viewable when the user moves the mouse over the avatar). 
+
+1. Add the following content to `/opt/seatable-server/seatable/conf/dtable_web_settings.py` to enable token usage and fee statistics:
+
+    ```py
+    AI_PRICES = {
+        "your_model_id": { # your model name, same as SEATABLE_AI_LLM_MODEL
+            "input_tokens_1k": 0.01827, # price / 1000 tokens
+            "output_tokens_1k": 0.07309 # price / 1000 tokens
+        },
+    }
+    ```
+
+2. Refer management of [roles and permission](../../configuration/roles-and-permissions.md#user-quotas) to specify `monthly_ai_credit_per_user` (-1 is unlimited), and the unit should be the same as in `AI_PRICES`.
+
+!!! note "`monthly_ai_credit_per_user` for organization user"
+    For organizational team users, `monthly_ai_credit_per_user` will apply to the entire team. For example, when `monthly_ai_credit_per_user` is set to `2` (unit of doller for example) and there are 10 members in the team, so all members in the team will share the quota of 20.
 
 ## SeaTable AI directory structure
 
@@ -244,10 +229,6 @@ Placeholder spot for shared volumes. You may elect to store certain persistent i
 * /opt/seatable-server/logs: This is the directory for SeaTable AI logs.
 * /opt/seatable-server/ai-data/assets: This is the directory for SeaTable AI assets.
 * /opt/seatable-server/ai-data/index-info: This is the directory for SeaTable AI index.
-
-`/opt/seasearch-data`
-
-* /opt/seasearch-data/logs: This is the directory for SeaSearch logs.
 
 ## Database used by SeaTable AI
 
