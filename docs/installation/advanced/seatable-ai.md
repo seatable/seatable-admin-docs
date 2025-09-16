@@ -172,36 +172,9 @@ docker compose down && docker compose up -d
 
 ## Advanced operations
 
-### Context management
-
-You can manage SeaTable AI's context policies by modifying `/opt/seatable-server/seatable/conf/seatable_ai_settings.py`:
-
-```py
-# If you would like to disable context, set this variable to True 
-DISABLE_CONTEXT = False
-
-# The maximum number of entries in the context record, default is 10. When set to 0, the entire history of the current session will be read
-CONTEXT_WINDOW_LIMIT = 10
-
-# The validity time (hour) of tool calls' history in the context within CONTEXT_WINDOW_LIMIT. When set to 0, all tool calls' history will be loaded into the context
-CONTEXT_TOOLS_VALID_TIME = 24 # hour
-
-# The validity time (hour) of common conversations' history (user input and assistant output) in the context within CONTEXT_WINDOW_LIMIT. When set to 0, all common conversations' history will be loaded into the context
-CONTEXT_CONVERSATION_VALID_TIME = 168 # hour
-```
-
-### Custom LLM parameters
-
-SeaTable AI supports customizing the following LLM parameters by modifying `/opt/seatable-server/seatable/conf/seatable_ai_settings.py`:
-
-- **LLM_TEMPERATURE**: Temperature is a key floating-point parameter (**ranging from 0 to 1**) in LLM that controls the randomness (creativity) and determinism of generated text. Lower temperature yields more accurate results.
-
-!!! warning "Temperature for ***GPT-5*** series model"
-    GPT-5 series models(including ***gpt-5***, ***gpt-5-mini***, ***gpt-5-nano***, and ***gpt-5-chat***) no longer support custom temperature values and only receive `temperature=1`. If you would like to use ***GPT-5*** series model, please set `LLM_TEMPERATURE = 1`.
-
 ### Token usage and fee statistics
 
-SeaTable AI supports enabling token usage and fee statistics (viewable when the user moves the mouse over the avatar). 
+SeaTable AI supports enabling token usage and fee statistics (can view it by moving the mouse to the statistics column when move the mouse to the avatar). 
 
 1. Add the following content to `/opt/seatable-server/seatable/conf/dtable_web_settings.py` to enable token usage and fee statistics:
 
@@ -214,10 +187,10 @@ SeaTable AI supports enabling token usage and fee statistics (viewable when the 
     }
     ```
 
-2. Refer management of [roles and permission](../../configuration/roles-and-permissions.md#user-quotas) to specify `monthly_ai_credit_per_user` (-1 is unlimited), and the unit should be the same as in `AI_PRICES`.
+2. Refer management of [roles and permission](../../configuration/roles-and-permissions.md#user-quotas) to specify `ai_credit_per_user` (-1 is unlimited), and the unit should be the same as in `AI_PRICES`.
 
-!!! note "`monthly_ai_credit_per_user` for organization user"
-    For organizational team users, `monthly_ai_credit_per_user` will apply to the entire team. For example, when `monthly_ai_credit_per_user` is set to `2` (unit of doller for example) and there are 10 members in the team, so all members in the team will share the quota of 20.
+!!! note "`ai_credit_per_user` for organization user"
+    For organizational team users, `ai_credit_per_user` will apply to the entire team. For example, when `ai_credit_per_user` is set to `2` (unit of doller for example) and there are 10 members in the team, so all members in the team will share the quota of 20.
 
 ## SeaTable AI directory structure
 
