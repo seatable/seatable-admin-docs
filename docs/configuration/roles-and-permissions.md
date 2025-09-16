@@ -45,6 +45,7 @@ The following quotas are supported in user roles:
 | scripts_running_limit          | 2.3              | Total number of _Python_ scripts run within a month: 100 means 100 script runs per month; -1 means unlimited script runs                                         | The script run counter is reset at the beginning of every month.  |
 | snapshot_days                  | 2.1              | Retention period for snapshots in days: 180 means a storage period of 180 days; no value means an unlimited retention period                                     | Snapshots older than the retention period are automatically removed.   |
 | share_limit                    |                  | Max number of users a base can be shared with: 100 means a base can be shared with 100 users             |    |
+| ai_credit_per_user                  | 6.0              |   The maximum AI quota allowed per user per month (i.e., the maximum amount of tokens that can be used in a single month, converted into an amount. In team mode, the total quota within the team will be shared). `-1` means unlimited quota.                                   |    |
 
 
 ### Standard User Roles
