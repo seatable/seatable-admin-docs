@@ -66,7 +66,9 @@ SERVER_GOOGLE_MAP_KEY = '<your Geocoding API key here>'
 
 !!! danger "Required scope of the API keys"
 
-    To safeguard your Google API Keys from abuse, restrict their usage. However, even with restrictions in place, abuse remains a risk—especially since `DTABLE_GOOGLE_MAP_KEY` must be included in your source code and is therefore publicly accessible. Additionally, heavy use of the maps plugin may increase your Google billing, so monitor your spending closely.
+    To safeguard your Google API Keys from abuse, restrict their usage. However, even with restrictions in place, abuse remains a risk—especially since `DTABLE_GOOGLE_MAP_KEY` must be included in your source code and is therefore publicly accessible. 
+    
+    Additionally, heavy use of the maps plugin may increase your Google billing, so **monitor your spending closely**.
 
     | Key | Application restriction | API restriction | 
     | --- | --- | --- |
