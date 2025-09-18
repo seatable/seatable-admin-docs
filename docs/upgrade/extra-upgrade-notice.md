@@ -139,7 +139,7 @@ Of course, you can skip this script and make the changes manually. The following
 
 ??? info "Maps Plugin utilizes two API Keys"
 
-    The Google Maps Plugin now uses two separate Google API keys instead of one. Please refer to the [documentation for further details](../configuration/plugins.md).
+    The Google Maps Plugin now uses two separate Google API keys instead of one. Please refer to the [documentation for further details](../configuration/plugins.md#map-plugin).
 
 ## 5.2
 
