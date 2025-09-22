@@ -196,6 +196,7 @@ BIG_DATA_ROW_UPDATE_LIMIT = 500000
 ## Base export limit
 
 SeaTable exports bases in DTABLE files. A DTABLE file contains all tabular data, assets, and a lot of metadata and can thus become large.
+This is the max size allowed for an export via the Webinterface of SeaTable. For the export via command line, there is another parameter `max_download_dir_size` in seafile.conf.
 
 ```python
 DTABLE_EXPORT_MAX_SIZE = 100 # in MB, 100MB is the default value

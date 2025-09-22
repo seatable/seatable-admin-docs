@@ -41,6 +41,7 @@ keep_days = 60
 | `host`           | The address the fileserver listens on. You can set this to `127.0.0.1` to further restrict access. | 0.0.0.0 |
 | `port`           | The port the fileserver listens on.                                                                | 8082    |
 | `worker_threads` | The number of worker threads used to serve HTTP requests.                                          | 10      |
+| `max_download_dir_size` | Maximum size of the assets in a base that could be exported via command line in MB.         | 100     |
 
 ### `[history]`
 
