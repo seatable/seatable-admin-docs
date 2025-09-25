@@ -70,6 +70,10 @@ services:
       - frontend-net
     volumes:
       - ~/.cache/huggingface:/root/.cache/huggingface
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      start_period: 300s
     labels:
       caddy: ${VLLM_HOSTNAME:?Variable is not set or empty}
       caddy.@denied.not_0: "remote_ip ${VLLM_ALLOWED_IPS:?Variable is not set or empty} private_ranges"
