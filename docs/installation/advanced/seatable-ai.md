@@ -2,13 +2,13 @@
 
 <!-- md:version 6.0 -->
 
-SeaTable AI is an extension of SeaTable that providing AI functions.
+SeaTable AI is a SeaTable extension that provides AI functions such as support for executing AI-based automation steps within SeaTable.
 
-## Deployment SeaTable AI
+## Deployment
 
-The easiest way to deployment SeaTable AI is to deploy it with SeaTable server on the same host. If in some situations, you need to deployment SeaTable AI standalone, you can follow the next section.
+The easiest way to deploy SeaTable AI is to deploy it on the same host as SeaTable Server. A standalone deployment (on a separate host or virtual machine) is [explained below](#standalone-deployment).
 
-!!! note "Deploy SeaTable AI requires SeaTable 6.0"
+!!! note "SeaTable AI requires SeaTable 6.0"
 
 ### Change the .env file
 
@@ -27,20 +27,20 @@ ENABLE_SEATABLE_AI=true
 SEATABLE_AI_SERVER_URL=http://seatable-ai:8888
 ```
 
-SeaTable AI will use AI functions in conjunction with the Large Language Model (LLM) service. Therefore, in order for SeaTable AI to work properly, you also need to add LLM configuration information to `.env`:
+SeaTable AI will use AI functions in conjunction with a Large Language Model (LLM) service. Therefore, in order for SeaTable AI to work properly, you also need to configure an LLM service inside your `.env` file:
 
 <a id="llm-configuration"></a>
 === "OpenAI"
     ```
     SEATABLE_AI_LLM_TYPE=openai
     SEATABLE_AI_LLM_KEY=<your openai LLM access key>
-    SEATABLE_AI_LLM_MODEL=gpt-4o-mini # recommend
+    SEATABLE_AI_LLM_MODEL=gpt-4o-mini # recommended
     ```
 === "Deepseek"
     ```
     SEATABLE_AI_LLM_TYPE=deepseek
     SEATABLE_AI_LLM_KEY=<your LLM access key>
-    SEATABLE_AI_LLM_MODEL=deepseek-chat # recommend
+    SEATABLE_AI_LLM_MODEL=deepseek-chat # recommended
     ```
 === "Azure OpenAI"
     ```
@@ -51,7 +51,7 @@ SeaTable AI will use AI functions in conjunction with the Large Language Model (
     ```
 === "Ollama"
     ```
-    SEATABLE_AI_LLM_TYPE=ollama
+    SEATABLE_AI_LLM_TYPE=ollama_chat
     SEATABLE_AI_LLM_URL=<your LLM endpoint>
     SEATABLE_AI_LLM_KEY=<your LLM access key>
     SEATABLE_AI_LLM_MODEL=<your model-id>
@@ -63,7 +63,7 @@ SeaTable AI will use AI functions in conjunction with the Large Language Model (
     SEATABLE_AI_LLM_KEY=<your huggingface API key>
     SEATABLE_AI_LLM_MODEL=<model provider>/<model-id>
     ```
-=== "Self-proxy Server"
+=== "Self-Hosted Proxy Server"
     ```
     SEATABLE_AI_LLM_TYPE=proxy
     SEATABLE_AI_LLM_URL=<your proxy url>
@@ -84,12 +84,12 @@ SeaTable AI will use AI functions in conjunction with the Large Language Model (
 
 !!! note "About model selection"
 
-    SeaTable AI supports using large model providers from [LiteLLM](https://docs.litellm.ai/docs/providers) or large model services with OpenAI-compatible endpoints. Therefore, SeaTable AI is compatible with most custom large model services, but in order to ensure the normal use of SeaTable AI features, you need to select a **multimodal large model** (such as supporting image input and recognition)
+    SeaTable AI supports using large model providers from [LiteLLM](https://docs.litellm.ai/docs/providers) or large model services with OpenAI-compatible endpoints. Therefore, SeaTable AI is compatible with most custom large model services, but in order to ensure the normal use of SeaTable AI features, you need to select a **large multimodal model** (such as supporting image input and recognition).
 
 
 ### Download SeaTable AI image and restart
 
-One more step is necessary to download the SeaTable AI image and restart the SeaTable service.
+One more step is necessary to download the SeaTable AI image and restart the SeaTable service:
 
 ```bash
 cd /opt/seatable-compose
@@ -98,16 +98,16 @@ docker compose down && docker compose up -d
 
 Now SeaTable AI can be used.
 
-## Deploy SeaTable AI standalone
+## Standalone Deployment
 
-The deployment of a separate SeaTable AI is simple. Get seatable-release from github like described in the installation of seatable server and only use `seatable-ai-standlone.yml`.
+The deployment of a separate SeaTable AI instance is simple. Download `seatable-release` from GitHub as described in the [installation of Seatable Server](../basic-setup.md) and only use `seatable-ai-standalone.yml`.
 
 ### Update `.env` in the host will deploy SeaTable AI
 
 Update your `.env`, that it looks like this and add/update the values according to your needs:
 
 ```env
-COMPOSE_FILE='seatable-ai-standlone.yml'
+COMPOSE_FILE='seatable-ai-standalone.yml'
 COMPOSE_PATH_SEPARATOR=','
 
 # system settings
@@ -137,34 +137,34 @@ INNER_DTABLE_DB_URL=https://seatable.your-domain.com/dtable-db/
 SEATABLE_AI_LLM_TYPE=openai
 SEATABLE_AI_LLM_URL=
 SEATABLE_AI_LLM_KEY=...
-SEATABLE_AI_LLM_MODEL=gpt-4o-mini # recommend
+SEATABLE_AI_LLM_MODEL=gpt-4o-mini # recommended
 ```
 
 !!! warning
-    - `JWT_PRIVATE_KEY`, same as the `JWT_PRIVATE_KEY` field in SeaTable `.env` file.
+    - `JWT_PRIVATE_KEY` must have the same as the `JWT_PRIVATE_KEY` field in SeaTable Server's `.env` file.
 
-    - If Redis has no REDIS_PASSWORD, leave it as empty after "=", do not use empty string (like REDIS_PASSWORD="")
+    - If Redis has no REDIS_PASSWORD, do not specify a value after the equals sign ("="). Specifying an empty string will cause problems (like REDIS_PASSWORD="").
 
 !!! note "About model selection and LLM configurations"
 
-    SeaTable AI supports using large model providers from [LiteLLM](https://docs.litellm.ai/docs/providers) or large model services with OpenAI-compatible endpoints. Therefore, SeaTable AI is compatible with most custom large model services, but in order to ensure the normal use of SeaTable AI features, you need to select a **multimodal large model** (such as supporting image input and recognition).
+    SeaTable AI supports using large model providers from [LiteLLM](https://docs.litellm.ai/docs/providers) or large model services with OpenAI-compatible endpoints. Therefore, SeaTable AI is compatible with most custom large model services, but in order to ensure the normal use of SeaTable AI features, you need to select a **large multimodal model** (such as supporting image input and recognition).
 
-    We also provide some [reference configurations](#llm-configuration) for the LLM service provider in this manual (it is irrelevant to whether SeaTable AI is deployed standalone). You can also adjust these configurations based on your actual situation.
+    We also provide some [reference configurations](#llm-configuration) for the LLM service provider in this manual. These configuration details do not change depending on your deployment topology. You can also adjust these configurations based on your needs.
 
 Execute `docker compose up -d` to fire up your separate SeaTable AI.
 
 ### Configurations of SeaTable Server
 
-SeaTable must know where to get the SeaTable AI.
+SeaTable must know how to access SeaTable AI.
 
-Add SeaTable AI configurations to `.env` file where deployed SeaTable.
+Add the following configuration settings to your `.env` file on SeaTable Server's host:
 
-```py
-ENABLE_SEATABLE_AI = True
-SEATABLE_AI_SERVER_URL = 'http://seatable-ai.example.com:8888'
+```env
+ENABLE_SEATABLE_AI=true
+SEATABLE_AI_SERVER_URL='http://seatable-ai.example.com:8888'
 ```
 
-Restart seatable service and test your SeaTable AI.
+Restart the `seatable-server` service and test your SeaTable AI.
 
 ```bash
 docker compose down && docker compose up -d
@@ -187,10 +187,10 @@ SeaTable AI supports enabling token usage and fee statistics (can view it by mov
     }
     ```
 
-2. Refer management of [roles and permission](../../configuration/roles-and-permissions.md#user-quotas) to specify `ai_credit_per_user` (-1 is unlimited), and the unit should be the same as in `AI_PRICES`.
+2. Refer to management of [roles and permission](../../configuration/roles-and-permissions.md#user-quotas) to specify `ai_credit_per_user` (-1 is unlimited), and the unit should be the same as in `AI_PRICES`.
 
-!!! note "`ai_credit_per_user` for organization user"
-    For organizational team users, `ai_credit_per_user` will apply to the entire team. For example, when `ai_credit_per_user` is set to `2` (unit of doller for example) and there are 10 members in the team, so all members in the team will share the quota of 20.
+!!! note "`ai_credit_per_user` for organization users"
+    For organizational team users, `ai_credit_per_user` will apply to the entire team. For example, when `ai_credit_per_user` is set to `2` (unit of dollars for example) and there are 10 members in the team, all members in the team will share the same quota of 20 AI credits per month.
 
 ## SeaTable AI directory structure
 
@@ -205,4 +205,4 @@ Placeholder spot for shared volumes. You may elect to store certain persistent i
 
 ## Database used by SeaTable AI
 
-SeaTable AI used several database tables like `dtable_db.ai_assistant` to store records.
+SeaTable AI uses several database tables such as `ai_assistant` inside the `dtable_db` database to store records.
