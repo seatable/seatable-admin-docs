@@ -155,6 +155,7 @@ nav:
           - Python Pipeline: installation/components/python-pipeline.md
           - Whiteboard: installation/components/whiteboard.md
           - Ollama: installation/components/ollama.md
+          - vLLM: installation/components/vllm.md
           - n8n: installation/components/n8n.md
           - Report Design: installation/components/seadoc.md
           - Office Editors:
