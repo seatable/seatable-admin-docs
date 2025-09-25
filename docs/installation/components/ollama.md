@@ -1,35 +1,63 @@
+<!-- md:version 6.0 -->
+
 # Ollama
+
+[Ollama](https://docs.ollama.com/) is a framework that allows you to run various LLMs (Large Language Models) on your own hardware.
+
+## Prerequisites
+
+This guide assumes that you have a fully functioning [SeaTable Server installation](../basic-setup.md) and have successfully installed SeaTable AI.
+
+### GPU Usage
+
+**Notice:** Please refer to [Ollama's documentation](https://github.com/ollama/ollama/blob/main/docs/docker.md) for instructions regarding GPU usage.
+Depending on your GPU, this will require installing proprietary NVIDIA drivers and the NVIDIA Container Toolkit or adding additional arguments to the `ollama.yml` file shown below.
 
 ## Instructions
 
-**Notice:** Please refer to [Ollama's documentation](https://github.com/ollama/ollama/blob/main/docs/docker.md) for instructions regarding GPU usage.
-Depending on your GPU, this requires installing the NVIDIA Container Toolkit or adding additional arguments to the `ollama.yml` file shown below.
+### Create `ollama.yml`
 
-- Create `/opt/seatable-compose/ollama.yml`:
-    ```yml
-    services:
-    ollama:
-        image: ollama/ollama:0.11.10
-        restart: unless-stopped
-        container_name: ollama
-        # Comment out the following line if you don't have a GPU
-        gpus: all
-        # TODO: Optimization: Only allow access by seatable-ai by creating dedicated network?
-        networks:
-        - backend-seatable-net
-        volumes:
-        - /opt/ollama:/root/.ollama
-    ```
-- Add `ollama.yml` to the `COMPOSE_FILE` variable inside the `.env` file
-- Add the following variables to `.env`:
-    ```ini
-    ENABLE_SEATABLE_AI=true
-    SEATABLE_AI_LLM_TYPE='ollama_chat'
-    SEATABLE_AI_LLM_URL='http://ollama:11434'
-    # Choose a model: https://ollama.com/library
-    SEATABLE_AI_LLM_MODEL='tinyllama'
-    ```
-- Start `ollama` by running `docker compose up -d` inside `/opt/seatable-compose`
-- Pull the chosen model by running `docker exec -it ollama ollama pull $MODEL`. This is a one-time task.
+Create `/opt/seatable-compose/ollama.yml` with the following contents:
 
-You are now able to run AI steps inside SeaTable via your local Ollama deployment!
+```yaml
+services:
+  ollama:
+    image: ollama/ollama:0.11.10
+    restart: unless-stopped
+    container_name: ollama
+    # Comment out the following line if you don't have a GPU
+    gpus: all
+    networks:
+      - backend-seatable-net
+    volumes:
+      - /opt/ollama:/root/.ollama
+```
+
+Afterwards, you should add `ollama.yml` to the `COMPOSE_FILE` variable inside your `.env` file:
+
+```bash
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,ollama.yml'/" /opt/seatable-compose/.env
+```
+
+### Configuration
+
+In order to use Ollama to execute AI-based automation steps inside SeaTable, you must add the following configuration settings to your `.env` file:
+
+```ini
+SEATABLE_AI_LLM_TYPE='ollama_chat'
+SEATABLE_AI_LLM_URL='http://ollama:11434'
+# Choose a model: https://ollama.com/library
+SEATABLE_AI_LLM_MODEL='tinyllama'
+```
+
+### Start Ollama
+
+You can now start Ollama by running `docker compose up -d` inside `/opt/seatable-compose`.
+
+In addition, it is necessary to manually download the chosen AI model by executing the following command **once**:
+
+```bash
+docker exec -it ollama ollama pull $MODEL
+```
+
+You are now able to run AI-based automations steps inside SeaTable via your local Ollama deployment!
