@@ -181,6 +181,7 @@ nav:
               - Advanced Settings for Caddy: installation/advanced/settings-caddy.md
           - SeaTable AI:
               - SeaTable AI (standalone): installation/advanced/seatable-ai-standalone.md
+              - AI Token Pricing: installation/advanced/seatable-ai-token-pricing.md
           - S3 Object Storage:
               - Configuration: installation/advanced/s3.md
               - Migration: installation/advanced/s3-migration.md

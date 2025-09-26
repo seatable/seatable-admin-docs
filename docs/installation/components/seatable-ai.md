@@ -113,25 +113,3 @@ docker compose up -d
 ```
 
 Now SeaTable AI can be used.
-
-## Advanced operations
-
-### Token usage and fee statistics
-
-SeaTable AI supports enabling token usage and fee statistics (can view it by moving the mouse to the statistics column when move the mouse to the avatar). 
-
-1. Add the following content to `/opt/seatable-server/seatable/conf/dtable_web_settings.py` to enable token usage and fee statistics:
-
-    ```py
-    AI_PRICES = {
-        "your_model_id": { # your model name, same as SEATABLE_AI_LLM_MODEL
-            "input_tokens_1k": 0.01827, # price / 1000 tokens
-            "output_tokens_1k": 0.07309 # price / 1000 tokens
-        },
-    }
-    ```
-
-2. Refer to management of [roles and permission](../../configuration/roles-and-permissions.md#user-quotas) to specify `ai_credit_per_user` (-1 is unlimited), and the unit should be the same as in `AI_PRICES`.
-
-!!! note "`ai_credit_per_user` for organization users"
-    For organizational team users, `ai_credit_per_user` will apply to the entire team. For example, when `ai_credit_per_user` is set to `2` (unit of dollars for example) and there are 10 members in the team, all members in the team will share the same quota of 20 AI credits per month.
