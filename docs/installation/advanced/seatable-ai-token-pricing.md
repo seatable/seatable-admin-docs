@@ -2,8 +2,8 @@
 
 ## AI Credits
 
-SeaTable's AI credits can be understood as its own dedicated currency that is used to price AI usage within SeaTable.
-AI Credits directly map to the number of tokens used by using AI-based features through the [configured prices](#pricing-configuration) per AI model.
+AI credits serve as an internal unit of currency for measuring AI-related usage within SeaTable.
+They are directly linked to the number of tokens consumed by using AI-based features according to the [configured price](#pricing-configuration) of each AI model.
 
 SeaTable supports role-based AI credit limits by configuring the `ai_credit_per_user` option on a user role.
 Please refer to the documentation on [user quotas](../../configuration/roles-and-permissions.md#user-quotas) for more details.
