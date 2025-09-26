@@ -151,6 +151,7 @@ nav:
       - Our deployment approach: installation/deployment-approach.md
       - Single-Node Deployment:
           - SeaTable Server: installation/basic-setup.md
+          - SeaTable AI: installation/components/seatable-ai.md
           - Python Pipeline: installation/components/python-pipeline.md
           - Whiteboard: installation/components/whiteboard.md
           - n8n: installation/components/n8n.md
@@ -178,6 +179,8 @@ nav:
               - Webserver Security: installation/advanced/webserver-security.md
               - Maintenance Mode: installation/advanced/maintenance-mode.md
               - Advanced Settings for Caddy: installation/advanced/settings-caddy.md
+          - SeaTable AI:
+              - SeaTable AI (standalone): installation/advanced/seatable-ai-standalone.md
           - S3 Object Storage:
               - Configuration: installation/advanced/s3.md
               - Migration: installation/advanced/s3-migration.md
@@ -188,7 +191,6 @@ nav:
               - Python Pipeline Workflow: installation/advanced/python-pipeline-workflow.md
           - MariaDB (standalone): installation/advanced/database-standalone.md
           - Seafile (external): installation/advanced/seafile.md
-          - SeaTable AI: installation/advanced/seatable-ai.md
 
       - Cluster Deployment:
           - Introduction: installation/cluster/introduction.md
