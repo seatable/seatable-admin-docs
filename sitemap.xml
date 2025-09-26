@@ -213,6 +213,10 @@
          <lastmod>2025-09-26</lastmod>
     </url>
     <url>
+         <loc>https://admin.seatable.com/installation/advanced/ollama/</loc>
+         <lastmod>2025-09-26</lastmod>
+    </url>
+    <url>
          <loc>https://admin.seatable.com/installation/advanced/python-pipeline-configuration/</loc>
          <lastmod>2025-09-26</lastmod>
     </url>
@@ -250,6 +254,10 @@
     </url>
     <url>
          <loc>https://admin.seatable.com/installation/advanced/settings-caddy/</loc>
+         <lastmod>2025-09-26</lastmod>
+    </url>
+    <url>
+         <loc>https://admin.seatable.com/installation/advanced/vllm/</loc>
          <lastmod>2025-09-26</lastmod>
     </url>
     <url>
