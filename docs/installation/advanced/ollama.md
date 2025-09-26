@@ -4,6 +4,12 @@
 
 [Ollama](https://docs.ollama.com/) is a framework that allows you to run various LLMs (Large Language Models) on your own hardware.
 
+!!! warning "Ollama vs vLLM"
+
+    This guides showcases a **very basic** Ollama deployment meant for trying out a self-hosted LLM deployed on the same server as SeaTable itself.
+    You should take a look at [vLLM](./vllm.md) in case you plan on deploying a **production-ready** LLM inference/serving engine.
+    Compared to Ollama, vLLM provides much better performance when handling concurrent requests.
+
 ## Prerequisites
 
 This guide assumes that you have a fully functioning [SeaTable Server installation](../basic-setup.md) and have successfully installed [SeaTable AI](../components/seatable-ai.md).
