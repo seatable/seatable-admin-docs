@@ -154,8 +154,6 @@ nav:
           - SeaTable AI: installation/components/seatable-ai.md
           - Python Pipeline: installation/components/python-pipeline.md
           - Whiteboard: installation/components/whiteboard.md
-          - Ollama: installation/components/ollama.md
-          - vLLM: installation/components/vllm.md
           - n8n: installation/components/n8n.md
           - Report Design: installation/components/seadoc.md
           - Office Editors:
@@ -184,6 +182,9 @@ nav:
           - SeaTable AI:
               - SeaTable AI (standalone): installation/advanced/seatable-ai-standalone.md
               - AI Token Pricing: installation/advanced/seatable-ai-token-pricing.md
+              - LLM Self-Hosting:
+                  - Ollama: installation/advanced/ollama.md
+                  - vLLM: installation/advanced/vllm.md
           - S3 Object Storage:
               - Configuration: installation/advanced/s3.md
               - Migration: installation/advanced/s3-migration.md

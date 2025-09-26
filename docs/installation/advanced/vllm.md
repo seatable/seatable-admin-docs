@@ -7,7 +7,7 @@ Compared to [Ollama](./ollama.md), vLLM provides better throughput under high-co
 
 ## Prerequisites
 
-This guide assumes that you have a fully functioning [SeaTable Server installation](../basic-setup.md) and have successfully installed SeaTable AI.
+This guide assumes that you have a fully functioning [SeaTable Server installation](../basic-setup.md) and have successfully installed [SeaTable AI](../components/seatable-ai.md).
 
 ### GPU
 

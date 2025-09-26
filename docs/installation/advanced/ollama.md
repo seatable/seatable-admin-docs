@@ -6,7 +6,7 @@
 
 ## Prerequisites
 
-This guide assumes that you have a fully functioning [SeaTable Server installation](../basic-setup.md) and have successfully installed SeaTable AI.
+This guide assumes that you have a fully functioning [SeaTable Server installation](../basic-setup.md) and have successfully installed [SeaTable AI](../components/seatable-ai.md).
 
 ### GPU Usage
 
@@ -47,7 +47,7 @@ In order to use Ollama to execute AI-based automation steps inside SeaTable, you
 SEATABLE_AI_LLM_TYPE='ollama_chat'
 SEATABLE_AI_LLM_URL='http://ollama:11434'
 # Choose a model: https://ollama.com/library
-SEATABLE_AI_LLM_MODEL='tinyllama'
+SEATABLE_AI_LLM_MODEL='gemma3:12b'
 ```
 
 ### Start Ollama
