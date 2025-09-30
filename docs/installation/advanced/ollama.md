@@ -10,15 +10,6 @@
     You should take a look at [vLLM](./vllm.md) in case you plan on deploying a **production-ready** LLM inference/serving engine.
     Compared to Ollama, vLLM provides much better performance when handling concurrent requests.
 
-## Prerequisites
-
-This guide assumes that you have a fully functioning [SeaTable Server installation](../basic-setup.md) and have successfully installed [SeaTable AI](../components/seatable-ai.md).
-
-### GPU Usage
-
-**Notice:** Please refer to [Ollama's documentation](https://github.com/ollama/ollama/blob/main/docs/docker.md) for instructions regarding GPU usage.
-Depending on your GPU, this will require installing proprietary NVIDIA drivers and the NVIDIA Container Toolkit or adding additional arguments to the `ollama.yml` file shown below.
-
 ## Instructions
 
 ### Create `ollama.yml`

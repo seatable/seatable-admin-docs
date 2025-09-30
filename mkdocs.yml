@@ -183,6 +183,7 @@ nav:
               - SeaTable AI (standalone): installation/advanced/seatable-ai-standalone.md
               - AI Token Pricing: installation/advanced/seatable-ai-token-pricing.md
               - LLM Self-Hosting:
+                  - Prerequisites: installation/advanced/seatable-ai-prerequisites.md
                   - Ollama: installation/advanced/ollama.md
                   - vLLM: installation/advanced/vllm.md
           - S3 Object Storage:

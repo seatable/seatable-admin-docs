@@ -5,22 +5,7 @@
 [vLLM](https://docs.vllm.ai/en/stable/) is an inference and serving engine for LLMs (Large Language Models) that allows you to run AI models on your own hardware.
 Compared to [Ollama](./ollama.md), vLLM provides better throughput under high-concurrency scenarios.
 
-## Prerequisites
-
-This guide assumes that you have a fully functioning [SeaTable Server installation](../basic-setup.md) and have successfully installed [SeaTable AI](../components/seatable-ai.md).
-
-### GPU
-
-!!! note "GPU Usage"
-
-    The exact requirements depend on your specific GPU. Since vLLM does not provide specific instructions, you can refer to [Ollama's documentation](https://github.com/ollama/ollama/blob/main/docs/docker.md) instead.
-    Depending on your GPU, this will require installing proprietary NVIDIA drivers and the NVIDIA Container Toolkit or adding additional arguments to the `vllm.yml` file shown below.
-
-For **Debian**-based systems with **NVIDIA** GPUs, the following steps were carried out to successfully run vLLM:
-
-1. Install the proprietary NVIDIA drivers. The [Debian Wiki](https://wiki.debian.org/NvidiaGraphicsDrivers) contains installation instructions for the latest Debian releases.
-1. Remember to restart your system before proceeding with the following steps.
-2. Install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
+## Additional Prerequisites
 
 ### HuggingFace Access Token
 
