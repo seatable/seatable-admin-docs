@@ -49,11 +49,9 @@ SEATABLE_AI_LLM_KEY=
 SEATABLE_AI_LLM_MODEL=
 ```
 
-!!! warning
-    - In case you are not using password authentication for Redis, you should not specify a value after the equals sign (`=`) for the `REDIS_PASSWORD` variable.
-      Specifying an empty string (e.g. `REDIS_PASSWORD=""`) will cause problems.
+!!! warning "Ports are not exposed by default"
 
-    - By default, the ports of `dtable-server` (5000) and `dtable-db` (7777) are not exposed to the host. This requires a manual change inside the `.yml` file.
+    By default, the ports of `dtable-server` (5000) and `dtable-db` (7777) are not exposed to the host. This requires a manual change inside the `.yml` file.
 
 ### LLM Provider Configuration
 
