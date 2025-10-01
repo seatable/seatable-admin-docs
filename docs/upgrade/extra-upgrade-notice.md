@@ -1,5 +1,11 @@
 # Extra upgrade notice
 
+## 6.0
+
+**No special steps are required for this upgrade.**
+
+Most services received updated Docker image tags. For example, MariaDB was upgraded from version 11.4 to 11.8. These updates run smoothly and do not require any changes on your side.
+
 ## 5.3
 
 SeaTable v5.3 introduces several significant changes. To make the transition as smooth as possible, we’ve provided a script that handles most of the work for you. Simply run the script to get started.
