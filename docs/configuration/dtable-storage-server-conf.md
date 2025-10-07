@@ -103,8 +103,8 @@ For example, setting `keep_days = 180` and `keep_frequency_days = 7` would retai
 
 #### Possible combinations of  `keep_days` and `keep_frequency_days` for new tiered snapshot retention
 
-| Condition	| Action | 
-| --- | ---- | 
-| `keep_days = 0` | No snapshots are deleted, no matter of `keep_frequency_days`. |
-| `keep_frequency_days = 0` and `keep_days > 0` | All snapshots older than `keep_days` are deleted. |
+| Condition                                     | Action                                                                                                                                                                                                 |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `keep_days = 0`                               | No snapshots are deleted, no matter of `keep_frequency_days`.                                                                                                                                          |
+| `keep_frequency_days = 0` and `keep_days > 0` | All snapshots older than `keep_days` are deleted.                                                                                                                                                      |
 | `keep_frequency_days > 0` and `keep_days > 0` | Snapshots older than `keep_days` are deleted immediately, while snapshots older than `keep_frequency_days` but not exceeding `keep_days` are grouped by month to apply frequency-based cleaning logic. |
