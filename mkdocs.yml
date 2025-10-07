@@ -189,6 +189,7 @@ nav:
           - S3 Object Storage:
               - Configuration: installation/advanced/s3.md
               - Migration: installation/advanced/s3-migration.md
+              - Encryption: installation/advanced/s3-encryption.md
           - Python Pipeline:
               - Custom Python Runner: installation/advanced/python-pipeline-custom-python-runner.md
               - Separate Python Pipeline: installation/advanced/python-pipeline-dedicated-server.md

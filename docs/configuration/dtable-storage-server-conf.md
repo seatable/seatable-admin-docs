@@ -69,31 +69,17 @@ Depending on the chosen storage backend, there are additional settings:
 
 #### S3 Storage Backend
 
-| Parameter            | Description                                                                                                                      | Default |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `bucket`             | The bucket name for the S3 backend.                                                                                              |         |
-| `key_id`             | The access key id for the bucket.                                                                                                |         |
-| `key`                | The secret access key fro the bucket.                                                                                            |         |
-| `use_v4_signature`   | Whether to use v4 signature. For a S3-compatible storage, it should be `false`.                                                  |         |
-| `aws_region`         | The AWS region (only when v4 signature is used).                                                                                 |         |
-| `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use. |         |
-| `path_style_request` | Whether to use path style requests. For a S3-compatible storage, it should be `true`.                                            |         |
-| `use_https`          | Whether to use https.                                                                                                            |         |
-| `sse_c_key`          | Use server-side encryption with customer-provided keys (SSE-C). This setting is optional.                                        |         |
-
-##### SSE-C
-
-`sse_c_key` is a string of 32 characters.
-
-You can generate `sse_c_key` with the following command：
-
-```bash
-openssl rand -base64 24
-```
-
-!!! warning "Incompatibility with Ceph-based object storage"
-
-    Please note that certain object storage providers that are based on Ceph (e.g. Hetzner Object Storage) currently do not support `CopyObject` operations when using SSE-C. This makes them incompatible with SeaTable. There is an [open issue](https://tracker.ceph.com/issues/23264) over at the Ceph issue tracker.
+| Parameter            | Description                                                                                                                            | Default |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `bucket`             | The bucket name for the S3 backend.                                                                                                    |         |
+| `key_id`             | The access key id for the bucket.                                                                                                      |         |
+| `key`                | The secret access key fro the bucket.                                                                                                  |         |
+| `use_v4_signature`   | Whether to use v4 signature. For a S3-compatible storage, it should be `false`.                                                        |         |
+| `aws_region`         | The AWS region (only when v4 signature is used).                                                                                       |         |
+| `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.       |         |
+| `path_style_request` | Whether to use path style requests. For a S3-compatible storage, it should be `true`.                                                  |         |
+| `use_https`          | Whether to use https.                                                                                                                  |         |
+| `sse_c_key`          | Use [server-side encryption with customer-provided keys](../installation/advanced/s3-encryption.md) (SSE-C). This setting is optional. |         |
 
 ### `[snapshot]`
 
