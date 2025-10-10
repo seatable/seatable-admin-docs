@@ -21,10 +21,11 @@ In the article, we assume that your certificates were saved as `cert.pem` and `k
 
 !!! info "Command to generate custom certificates"
 
-    With this command, you can generate your own custom certificates. Please be aware that custom certicates can not be used for ip-adresses.
-    ```
+    With this command, you can generate your own custom certificates. Please be aware that custom certicates can not be used for ip-adresses. Remember to replace `${HOSTNAME}` with the actual hostname.
+
+    ```bash
     cd /opt/caddy/certs
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./key.pem -out ./cert.pem
+    openssl req -x509 -nodes -days 365 -addext "subjectAltName = DNS:${HOSTNAME}" -newkey rsa:2048 -keyout ./key.pem -out ./cert.pem
     ```
 
 ## Configure SeaTable Container to use custom certificates
