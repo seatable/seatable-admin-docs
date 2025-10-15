@@ -34,7 +34,7 @@ Create `/opt/seatable-compose/vllm.yml` with the following contents:
 ```yaml
 services:
   vllm:
-    image: vllm/vllm-openai:v0.10.2
+    image: vllm/vllm-openai:v0.11.0
     container_name: vllm
     restart: unless-stopped
     runtime: nvidia
@@ -59,6 +59,13 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 10s
       start_period: 300s
+    logging:
+      driver: json-file
+      options:
+        # Maximum size per file
+        max-size: 10m
+        # Maximum number of files
+        max-file: 3
     labels:
       caddy: ${VLLM_HOSTNAME:?Variable is not set or empty}
       caddy.@denied.not_0: "remote_ip ${VLLM_ALLOWED_IPS:?Variable is not set or empty} private_ranges"
