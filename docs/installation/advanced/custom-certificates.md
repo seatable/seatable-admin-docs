@@ -1,10 +1,13 @@
 # Custom root certificates
 
-Usually we use let's encrypt to generate valid certificates for public access. Nethertheless caddy provides an easy way to use custom certificates. This article assumes that you want to use a valid (standard or wildcard) certificate from a widely trusted authority.
+By default, Seatable uses Let's Encrypt to generate valid certificates for public access. However, Caddy also provides an easy way to use custom certificates. This section assumes that you intend to use a **valid (standard or wildcard) certificate issued by a widely trusted certificate authority**.  
 
-!!! warning "Self signed certificates are not fully supported"
+!!! warning "Limitations of Self-Signed Certificates"
 
-    The use of a self signed certificate is not recommended. Even if you clients (browsers) trust the certificate, the docker containers do not trust each other by default. The Python Pipeline will not work etc...
+    Self-signed certificates should only be used for testing purposes. Even if your clients or browsers trust the certificate, Docker containers do not trust each other by default.  
+    As a result, the Python Runner will be unable to communicate with your Base data, and the Python Pipeline will not work with an **untrusted** self-signed certificate.  
+
+    To avoid these issues, use a valid (standard or wildcard) certificate issued by a recognized certificate authority.  
 
 ## Make certificates available to caddy
 
