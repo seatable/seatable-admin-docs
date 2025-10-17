@@ -165,6 +165,7 @@ nav:
               - Zabbix: installation/components/zabbix.md
               - Releem: installation/components/releem.md
           - Backup: installation/components/restic.md
+          - Ofelia: installation/components/ofelia.md
           - Antivirus: installation/components/clamav.md
           - FAQ / Troubleshooting: installation/faq.md
 
