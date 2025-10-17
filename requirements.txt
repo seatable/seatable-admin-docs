@@ -6,3 +6,6 @@ mkdocs-minify-plugin
 mkdocs-exclude-search
 mkdocs-git-committers-plugin-2
 mkdocs-exclude-search
+
+# Fix for broken file watching (https://github.com/mkdocs/mkdocs/issues/4032)
+click==8.2.1
