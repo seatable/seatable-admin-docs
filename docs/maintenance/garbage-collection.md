@@ -4,6 +4,11 @@ SeaTable uses storage de-duplication technology to reduce storage usage. The und
 
 To release the storage space occupied by unused blocks, you have to run a **garbage collection** program to clean up unused blocks on your server.
 
+!!! note "Use Ofelia to enable scheduled garbage collection"
+
+    You can add [Ofelia](../installation/components/ofelia.md) to your SeaTable deployment to run the garbage collection process on a [configurable interval](../installation/components/ofelia.md#configuration).
+    This ensures that any unused data blocks will be automatically cleaned up.
+
 ## Configuration
 
 Add the following lines to `seafile.conf` to keep deleted files for only 60 days:
