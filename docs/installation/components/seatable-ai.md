@@ -33,7 +33,6 @@ Then add SeaTable AI server configurations in `.env`:
 
 ```ini
 ENABLE_SEATABLE_AI=true
-SEATABLE_AI_SERVER_URL=http://seatable-ai:8888
 ```
 
 #### LLM Provider Configuration
