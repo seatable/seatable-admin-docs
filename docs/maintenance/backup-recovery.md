@@ -197,7 +197,7 @@ This section covers typical custom cases and provides additional advanced topics
 
 ??? success "URL Change during restore"
 
-    If you restore your SeaTable Server with a new URL, don't forget to execute the [command line tool to update the URL](./change-url.md). Otherwise assets from the image and file columns will not be accessable.
+    If you restore your SeaTable Server with a new URL, don't forget to execute the [command line tool to update the URL](./domain-change.md). Otherwise assets from the image and file columns will not be accessable.
 
 ??? success "Take care to take over the PLUGINS_REPO_ID"
 

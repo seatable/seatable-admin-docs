@@ -48,7 +48,7 @@ This step must be done only once. It generates the setup that you can start over
 ```
 cd /opt/seatable-server/seatable/seahub-data
 mkdir -p custom/templates/registration
-docker exec -it seatable ln -s /shared/seatable/seahub-data/custom /opt/seatable/seatable-server-latest/dtable-web/media/custom
+docker exec -it seatable-server ln -s /shared/seatable/seahub-data/custom /opt/seatable/seatable-server-latest/dtable-web/media/custom
 ```
 
 ### 2. Copy the original login.html to your custom folder
@@ -192,7 +192,7 @@ Create customize folder, add your css file to custom/, for example, `custom.css`
 mkdir -p /opt/seatable-server/seatable/seahub-data/custom
 cd /opt/seatable-server/seatable/seahub-data/custom
 vim custom.css
-docker exec -it seatable ln -s /shared/seatable/seahub-data/custom /opt/seatable/seatable-server-latest/dtable-web/media/custom
+docker exec -it seatable-server ln -s /shared/seatable/seahub-data/custom /opt/seatable/seatable-server-latest/dtable-web/media/custom
 ```
 
 Then modify `BRANDING_CSS` in `dtable_web_settings.py`
