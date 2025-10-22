@@ -11,7 +11,7 @@ SeaTable server comes with a seaf-fsck tool to help you recover from this corrup
 We provide a seaf-fsck.sh script. The seaf-fsck tool accepts the following arguments:
 
 ```
-docker exec -it seatable /opt/seatable/seatable-server-latest/seaf-fsck.sh [--repair|-r] [--export|-E export_path] [repo_id_1 [repo_id_2 ...]]
+docker exec -it seatable-server /opt/seatable/seatable-server-latest/seaf-fsck.sh [--repair|-r] [--export|-E export_path] [repo_id_1 [repo_id_2 ...]]
 
 ```
 
@@ -26,7 +26,7 @@ There are three modes of operation for seaf-fsck:
 Running seaf-fsck.sh without any arguments will run a **read-only** integrity check for all tables.
 
 ```
-docker exec -it seatable /opt/seatable/seatable-server-latest/seaf-fsck.sh
+docker exec -it seatable-server /opt/seatable/seatable-server-latest/seaf-fsck.sh
 
 ```
 
