@@ -21,6 +21,11 @@ There are three modes of operation for seaf-fsck:
 2. repairing corrupted tables.
 3. exporting tables.
 
+!!! note "Use Ofelia to enable scheduled filesystem checks"
+
+    You can add [Ofelia](../installation/components/ofelia.md) to your SeaTable deployment to run the `seaf-fsck` tool on a [configurable interval](../installation/components/ofelia.md#configuration).
+    This will regularly verify the integrity of all Seafile libraries.
+
 ## Checking Integrity of Libraries
 
 Running seaf-fsck.sh without any arguments will run a **read-only** integrity check for all tables.
