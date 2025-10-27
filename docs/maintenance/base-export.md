@@ -32,7 +32,7 @@ seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py
 
 ## Troubleshooting Large Asset Exports
 
-If your base contains numerous assets, SeaTable may refuse to export with assets included. To resolve this, increase the `max_download_dir_size` value in the `seafile.conf` file and restart SeaTable:
+If your base contains numerous assets, SeaTable may refuse to export with assets included. To resolve this, increase the `max_download_dir_size` value in the `seafile.conf` file and [restart SeaTable](../maintenance/restart-seatable.md):
 
 ```
 [fileserver]
