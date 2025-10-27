@@ -228,7 +228,7 @@ nav:
               - LDAP: configuration/authentication/ldap.md
               - OAuth: configuration/authentication/oauth.md
               - SAML: configuration/authentication/saml.md
-              #- SAML for teams: configuration/authentication/saml-team.md
+              - SAML for teams: configuration/authentication/saml-team.md
               - JWT-Token: configuration/authentication/jwt.md
           - Switch authentication: configuration/authentication/auth-switch.md
       - Configuration Files / Options:

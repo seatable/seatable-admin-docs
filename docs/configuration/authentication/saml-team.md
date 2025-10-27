@@ -4,7 +4,11 @@ search:
   exclude: true
 ---
 
-# SAML Authentication for teams
+# SAML Authentication (for multi-tenancy environments)
+
+The Team SAML feature allows each team in a multi-tenant SeaTable environment to configure its own SAML identity provider (IdP) for single sign-on. While the functionality is available in all deployments, configuration only makes sense in environments such as **cloud.seatable.io**, where multiple independent teams share the same infrastructure.
+
+## Activation
 
 in `dtable_web_settings.py` add these settings:
 
