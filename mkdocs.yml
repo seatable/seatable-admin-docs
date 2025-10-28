@@ -269,7 +269,8 @@ nav:
       - Restart SeaTable: maintenance/restart-seatable.md
       - Backup and Recovery: maintenance/backup-recovery.md
       - Clean Database: maintenance/database-cleanup.md
-      - Clean Storage: maintenance/garbage-collection.md
+      - Clean Storage: maintenance/storage-cleanup.md
+      - Clean Big Data: maintenance/big-data-cleanup.md
       - Filesystem check: maintenance/filesystem-check.md
       - Change URL: maintenance/domain-change.md
       - Export Base: maintenance/base-export.md
