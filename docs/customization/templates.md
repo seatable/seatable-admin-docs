@@ -93,10 +93,10 @@ Equiped with API token and your template base, you can activate the templates in
 
     | Environment variable                        | Description                                     | Example values          |
     | ------------------------------------------- | ----------------------------------------------- | ----------------------- |
-    | `SEATABLE_SHOW_TEMPLATES_LINK`              | Activate to show the link on the home page      | `True` or leave empty   |
+    | `SEATABLE_SHOW_TEMPLATES_LINK`              | Activate to show the link on the home page      | `true` or leave empty   |
     | `SEATABLE_TEMPLATE_BASE_API_TOKEN`          | API token of the base containing your templates | `759...3a05f8`          |
     | `SEATABLE_TEMPLATE_TABLE_NAME`              | Name of the table containing your templates     | `Table1` or `Templates` |
-    | `SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE` | Allow the creation of new bases from templates  | `True` or leave empty.  |
+    | `SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE` | Allow the creation of new bases from templates  | `true` or leave empty.  |
 
 === "Configuration file"
 

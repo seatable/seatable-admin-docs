@@ -20,7 +20,7 @@ There are two ways to configure this SMTP account for system wide emails.
 
     | Environment variable           | Description                                 | Example values                 |
     | ------------------------------ | ------------------------------------------- | ------------------------------ |
-    | `SEATABLE_EMAIL_USE_TLS`       | Activate/Deactivate TLS/SSL encryption      | `True` or leave empty.         |
+    | `SEATABLE_EMAIL_USE_TLS`       | Activate/Deactivate TLS/SSL encryption      | `true` or leave empty.         |
     | `SEATABLE_EMAIL_HOST`          | URL or IP address or the SMTP server        | `mail.gmx.net`                 |
     | `SEATABLE_EMAIL_HOST_USER`     | Username for authentication                 | `seatable@gmx.de`              |
     | `SEATABLE_EMAIL_HOST_PASSWORD` | Password for authentication                 | `topsecret`                    |
