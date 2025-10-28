@@ -1,7 +1,7 @@
 ---
 status: wip
-search:
-  exclude: true
+#search:
+#  exclude: true
 ---
 
 # SAML Authentication (for multi-tenancy environments)
