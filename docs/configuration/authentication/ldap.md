@@ -88,7 +88,7 @@ To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the
 Additionally, the following parameters must be added to `dtable-events.conf`:
 
 ```
-[LDAP_SYNC]
+[LDAP SYNC]
 enabled = true
 sync_interval = 60  # The unit is seconds
 ```
