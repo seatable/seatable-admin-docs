@@ -35,7 +35,7 @@ The following options are grouped by their sections.
 
 ## Example configuration
 
-By default, `dtable-events.conf` will be empty after the first startup of SeaTable:
+By default, `dtable-events.conf` will contain the following configuration after the first startup of SeaTable:
 
 ```python
 [CLEAN DB]
@@ -72,7 +72,7 @@ enabled = true
 
 ### `[CLEAN DB]`
 
-**enabled** by default.
+**disabled** by default.
 
 This setting controls whether SeaTable runs automated database cleanup tasks at 00:30 every day.
 Enabling this task ensures that your database stays lean and performs well. It also prevents the server from running out of disk space, since operation logs can take up quite a lot of space.
@@ -82,7 +82,7 @@ Setting any value to `0` or `-1` causes the cleanup task to be skipped for the c
 
 | Parameter                                  | Description                                                                | Default |
 | ------------------------------------------ | -------------------------------------------------------------------------- | ------- |
-| `enabled`                                  | Enables or disables the email notifications for base updates               | true    |
+| `enabled`                                  | Enables or disables the email notifications for base updates               | false   |
 | `keep_dtable_snapshot_days`                | Retention period for snapshot entries in the database (in days)            | 365     |
 | `keep_activities_days`                     | Retention period for activities (in days)                                  | 30      |
 | `keep_operation_log_days`                  | Retention period for operation log entries (in days)                       | 14      |
