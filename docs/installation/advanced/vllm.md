@@ -5,6 +5,17 @@
 [vLLM](https://docs.vllm.ai/en/stable/) is an inference and serving engine for LLMs (Large Language Models) that allows you to run AI models on your own hardware.
 Compared to [Ollama](./ollama.md), vLLM provides better throughput under high-concurrency scenarios.
 
+!!! danger "Check GPU Driver and Docker Setup"
+
+    Ensure that GPU drivers are correctly installed on your GPU server **and** that they can be passed through to Docker.  
+    These steps depend on your specific environment and are **not covered** in this guide.  
+    Also verify that your setup meets all [requirements](./seatable-ai-prerequisites.md).
+
+!!! warning "Adjust NVIDIA Runtime if Necessary"
+
+    In the sample `vllm.yml` provided for vLLM, the NVIDIA runtime is already configured.  
+    Review and adjust this configuration if your system requires different runtime settings.
+
 ## Additional Prerequisites
 
 ### HuggingFace Access Token
@@ -50,6 +61,7 @@ services:
     environment:
       - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_TOKEN:?Variable is not set or empty}
       - VLLM_API_KEY=${VLLM_API_KEY:?Variable is not set or empty}
+      # If set to true, enables logging of all API server responses from vLLM. Don't use this in production.
       - VLLM_DEBUG_LOG_API_SERVER_RESPONSE=${VLLM_DEBUG_LOG_API_SERVER_RESPONSE:-false}
     networks:
       - frontend-net
@@ -97,13 +109,94 @@ VLLM_API_KEY=''
 
 HUGGING_FACE_TOKEN='YOUR_HUGGING_FACE_TOKEN'
 
-# Model identifier from HuggingFace (e.g. RedHatAI/gemma-3-12b-it-quantized.w4a16)
+# Model identifier from HuggingFace
+# (e.g. RedHatAI/gemma-3-12b-it-quantized.w4a16)
 VLLM_MODEL=''
 ```
 
-### SeaTable AI Configuration
+### Start vLLM
 
-In order to use vLLM to execute AI-based automation steps inside SeaTable, you must add the following configuration settings to the `.env` file on the host where SeaTable AI is deployed:
+You can start vLLM by running the following command inside inside `/opt/seatable-compose`:
+
+```bash
+docker compose up -d
+```
+
+Starting vLLM may take several minutes depending on the model size and computing resources. 
+On first startup, vLLM will automatically download the configured model from [HuggingFace](https://huggingface.co).
+Wait for the Docker container to report a healthy status before proceeding.
+
+### Test vLLM from the command line
+
+You can send your first request to vLLM from the command line with the following example. This requires `curl` and `jq` to be installed on the server. 
+To prevent Caddy from blocking the request, add the server's IP address to `VLLM_ALLOWED_IPS` environment variable.
+
+```bash
+cd /opt/seatable-compose
+source ./.env
+curl -fsSL https://${VLLM_HOSTNAME}/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${VLLM_API_KEY}" \
+  -d '{  
+    "model": "RedHatAI/gemma-3-12b-it-quantized.w4a16",
+    "messages": [                                                     
+        {"role": "system", "content": "You are a helpful assistant."},    
+        {"role": "user", "content": "How many inhabitants does Germany have?"}
+    ]
+  }' | jq
+```
+
+### Example output
+
+Here is an example response from vLLM:
+
+```bash
+{
+  "id": "chatcmpl-02d3a0161ed647e988b5a93088435670",
+  "object": "chat.completion",
+  "created": 1761910895,
+  "model": "RedHatAI/gemma-3-12b-it-quantized.w4a16",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "As of late 2023/early 2024, Germany has approximately
+            **83.24 million** inhabitants.\n\nIt's always good to remember
+            that population figures are constantly changing!\n\n\n\nDo you
+            want to know anything else about Germany?",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [],
+        "reasoning_content": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "stop_reason": 106,
+      "token_ids": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": null,
+  "usage": {
+    "prompt_tokens": 23,
+    "total_tokens": 79,
+    "completion_tokens": 56,
+    "prompt_tokens_details": null
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "kv_transfer_params": null
+}
+```
+
+Perfekt! Your local vLLM deployment is ready to use.
+
+## SeaTable AI Configuration
+
+To use vLLM for AI-based automation inside SeaTable, add the following settings to the `.env` file on the host where SeaTable AI is deployed:
 
 ```ini
 SEATABLE_AI_LLM_TYPE='hosted_vllm'
@@ -113,17 +206,9 @@ SEATABLE_AI_LLM_URL='https://<YOUR_VLLM_HOSTNAME>/v1'
 # API key for requests to vLLM (use the same key as above)
 SEATABLE_AI_LLM_KEY=''
 
-# Model identifier from HuggingFace (e.g. RedHatAI/gemma-3-12b-it-quantized.w4a16)
+# Model identifier from HuggingFace
+# (e.g. RedHatAI/gemma-3-12b-it-quantized.w4a16)
 SEATABLE_AI_LLM_MODEL=''
 ```
 
-Remember to restart SeaTable AI after making any changes by running `docker compose up -d` inside `/opt/seatable-compose`.
-
-### Start vLLM
-
-You can now start vLLM by running `docker compose up -d` inside `/opt/seatable-compose`.
-
-Starting vLLM can take several minutes, depending on the model size and your computing resources.
-vLLM will automatically pull down the configured model from [HuggingFace](https://huggingface.co) on first startup.
-
-You are now able to run AI-based automations steps inside SeaTable via your local vLLM deployment!
+Remember to restart SeaTable AI after making any changes.
