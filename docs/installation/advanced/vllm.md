@@ -116,7 +116,7 @@ VLLM_MODEL=''
 
 ### Start vLLM
 
-You can start vLLM by running the following command inside inside `/opt/seatable-compose`:
+You can start vLLM by running the following command inside `/opt/seatable-compose`:
 
 ```bash
 docker compose up -d
@@ -126,24 +126,47 @@ Starting vLLM may take several minutes depending on the model size and computing
 On first startup, vLLM will automatically download the configured model from [HuggingFace](https://huggingface.co).
 Wait for the Docker container to report a healthy status before proceeding.
 
-### Test vLLM from the command line
+Perfekt! Your local vLLM deployment is ready to use.
 
-You can send your first request to vLLM from the command line with the following example. This requires `curl` and `jq` to be installed on the server. 
-To prevent Caddy from blocking the request, add the server's IP address to `VLLM_ALLOWED_IPS` environment variable.
+## SeaTable AI Configuration
+
+To use vLLM for AI-based automation inside SeaTable, add the following settings to the `.env` file on the host where SeaTable AI is deployed:
+
+```ini
+SEATABLE_AI_LLM_TYPE='hosted_vllm'
+
+SEATABLE_AI_LLM_URL='https://<YOUR_VLLM_HOSTNAME>/v1'
+
+# API key for requests to vLLM (use the same key as above)
+SEATABLE_AI_LLM_KEY=''
+
+# Model identifier from HuggingFace
+# (e.g. RedHatAI/gemma-3-12b-it-quantized.w4a16)
+SEATABLE_AI_LLM_MODEL=''
+```
+
+Remember to restart SeaTable AI after making any changes.
+
+## Test vLLM
+
+### Send a request
+
+You can send your first request to vLLM with the following example from the command line of the **SeaTable AI container**. 
+This makes sure that all your environment variables are correctly set and that the ip address of SeaTable AI is part of the list of allowed IP addresses configured with `VLLM_ALLOWED_IPS`. 
 
 ```bash
-cd /opt/seatable-compose
-source ./.env
-curl -fsSL https://${VLLM_HOSTNAME}/v1/chat/completions \
+docker exec -i seatable-ai bash -s <<EOF
+curl -fsSL \$SEATABLE_AI_LLM_URL/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer ${VLLM_API_KEY}" \
+  -H "Authorization: Bearer \$SEATABLE_AI_LLM_KEY" \
   -d '{  
-    "model": "RedHatAI/gemma-3-12b-it-quantized.w4a16",
+    "model": "$SEATABLE_AI_LLM_MODEL",
     "messages": [                                                     
-        {"role": "system", "content": "You are a helpful assistant."},    
-        {"role": "user", "content": "How many inhabitants does Germany have?"}
+      {"role": "system", "content": "You are a helpful assistant."},    
+      {"role": "user", "content": "How many inhabitants does Germany have?"}
     ]
-  }' | jq
+  }'
+EOF
 ```
 
 ### Example output
@@ -192,23 +215,4 @@ Here is an example response from vLLM:
 }
 ```
 
-Perfekt! Your local vLLM deployment is ready to use.
-
-## SeaTable AI Configuration
-
-To use vLLM for AI-based automation inside SeaTable, add the following settings to the `.env` file on the host where SeaTable AI is deployed:
-
-```ini
-SEATABLE_AI_LLM_TYPE='hosted_vllm'
-
-SEATABLE_AI_LLM_URL='https://<YOUR_VLLM_HOSTNAME>/v1'
-
-# API key for requests to vLLM (use the same key as above)
-SEATABLE_AI_LLM_KEY=''
-
-# Model identifier from HuggingFace
-# (e.g. RedHatAI/gemma-3-12b-it-quantized.w4a16)
-SEATABLE_AI_LLM_MODEL=''
-```
-
-Remember to restart SeaTable AI after making any changes.
+:partying_face: **Congratulations!** Everything is set up and you can start to build AI-powered automations in SeaTable with your own self-hosted vLLM.
