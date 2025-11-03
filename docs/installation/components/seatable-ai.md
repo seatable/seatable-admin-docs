@@ -15,7 +15,9 @@ At the time of writing, the following types of automation steps are supported:
 
 ## Deployment
 
-!!! note "SeaTable AI requires SeaTable 6.0"
+!!! warning "SeaTable AI Is Not an AI Engine"
+
+    The SeaTable AI container does not provide any AI functionality by itself. It only manages the connection between SeaTable and an external large language model (LLM) service. You can connect it to a commercial provider (e.g., OpenAI, Deepseek) or to a self-hosted LLM running on your own infrastructure.
 
 The easiest way to deploy SeaTable AI is to deploy it on the same host as SeaTable Server. A standalone deployment (on a separate host or virtual machine) is explained [here](../advanced/seatable-ai-standalone.md).
 
@@ -39,11 +41,11 @@ ENABLE_SEATABLE_AI=true
 
 SeaTable AI will use AI functions in conjunction with a Large Language Model (LLM) service.
 
-!!! note "Supported LLM Providers"
+!!! success "Supported LLM Providers"
 
     SeaTable AI supports a wide variety of LLM providers through [LiteLLM](https://docs.litellm.ai/docs) as well as any LLM services with OpenAI-compatible endpoints. Please refer to [LiteLLM's documentation](https://docs.litellm.ai/docs/providers) in case you run into issues while trying to use a specific provider.
 
-!!! note "Model Selection"
+!!! success "Model Selection"
 
     In order to ensure the efficient use of SeaTable AI features, you need to select a **large, multimodal model**.
     This requires the chosen model to support image input and recognition (e.g. for running OCR as part of automations).
