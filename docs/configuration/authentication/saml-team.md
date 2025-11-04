@@ -36,11 +36,12 @@ ENABLED_ROLE_PERMISSIONS = {
 ```
 
 Server certificates have to be created in the host system and made available to SeaTable Server.
+The generated certificates are valid for 10 years.
 
 ```bash
 # executed in the host
 mkdir /opt/seatable-server/certs
-cd /opt/seatable-server/
+cd /opt/seatable-server/certs
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout sp.key -out sp.crt
 ```
 
