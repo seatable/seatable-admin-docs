@@ -140,6 +140,33 @@ security headers vielleicth im Bereich Proxy.
 
     You can opt out of using Caddy and use another webserver of your choice. In this case, remove `caddy.yml` from the COMPOSE_FILE variable in the `.env` file and follow the instructions in section [Custom Revers Proxy](./advanced/custom-proxy.md).
 
+??? question "SeaTable terminates with `/shared/seatable/seatable-license.txt: Is a directory`"
+
+    In the `seatable-server.yml` file, the SeaTable license file is mounted into the container:
+
+    ``` 
+    - type: bind
+      source: "./seatable-license.txt"
+      target: "/shared/seatable/seatable-license.txt"
+      read_only: ${SEATABLE_LICENSE_FORCE_READ_ONLY:-false}   
+    ```
+
+    This error occurs when SeaTable is started before the `seatable-license.txt` file exists in the `/opt/seatable-compose` directory. In this case, Docker automatically creates a directory named `seatable-license.txt` instead of a file. Even after adding the license file later, SeaTable cannot start because the directory remains in place.
+
+    **Solution**
+
+    Stop the SeaTable container, remove the directory that Docker created by mistake: and restart SeaTable.
+
+    ```
+    docker stop seatable-server
+    rm -r /opt/seatable-server/seatable/seatable-license.txt
+    docker start seatable-server
+    ```
+
+    Ensure that the license file `seatable-license.txt` is present in `/opt/seatable-compose` before starting SeaTable again.
+
+
+
 <!--
 - spaces in the COMPOSE_FILE
 - activate logging (gehört hier nciht hin.)
