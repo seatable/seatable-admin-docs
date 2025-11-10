@@ -37,7 +37,7 @@ Run one of the following commands:
     To change the domain from `https://old.example.com` to `https://new.example.com`, run:
 
     ```
-    seatable.sh python-env ./manage.py domain_transfer -od https://old.example.com -nd https://new.example.com
+    seatable.sh python-env ./manage.py domain_transfer -all -od https://old.example.com -nd https://new.example.com
     ```
 
 ??? success "For a single base"
