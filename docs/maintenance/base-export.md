@@ -50,7 +50,8 @@ max_download_dir_size=1000
 ```
 
 Then [restart SeaTable](../maintenance/restart-seatable.md)
-This allows `.dtable` exports up to 1 GB in size.
+
+This setting determines the maximum export size for `.dtable` files. For example, with `max_download_dir_size=1000`, exports up to 1 GB are allowed. You can set this value to any size you require.
 
 ## Advanced Export: Export to a Folder with All Data
 

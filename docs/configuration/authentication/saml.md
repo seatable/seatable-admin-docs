@@ -4,9 +4,9 @@ Security Assertion Markup Language (SAML) is an open standard for exchanging aut
 
 This document assumes that you have a basic understanding of SAML and that you understand the related terminology.
 
-!!! Recent revision of SAML configuration
+!!! warning "Recent revision of SAML configuration"
 
-        SeaTable's SAML configuration has undergone substantial changes in SeaTable 3.5. It is highly recommended to update to SeaTable 3.5 or younger if you use SAML. The SAML configuration in prior versions is no longer included in this document. You can still find it in Github.
+    SeaTable's SAML configuration has undergone substantial changes in SeaTable 3.5. It is highly recommended to update to SeaTable 3.5 or younger if you use SAML. The SAML configuration in prior versions is no longer included in this document. You can still find it in Github.
 
 ## SSO with SAML in SeaTable
 
@@ -116,10 +116,10 @@ SAML_ATTRIBUTE_MAP = {
 SAML_CERTS_DIR = '/shared/certs'
 ```
 
-!!! Details about the SAML_ATTRIBUTE_MAP
+!!! warning "Details about the SAML_ATTRIBUTE_MAP"
 
-        The `SAML_ATTRIBUTE_MAP` defines the values provided by the IdP that SeaTable uses to create a user or update the user's profile.
-        Key is the uid which is the unique identifier from the identity providers (not the username within SeaTable). The value of the uid should never change over the life cycle of the user. If you choose the email address as uid and the address changes, SeaTable will create a new user the next time the user logs in.
+    The `SAML_ATTRIBUTE_MAP` defines the values provided by the IdP that SeaTable uses to create a user or update the user's profile.
+    Key is the uid which is the unique identifier from the identity providers (not the username within SeaTable). The value of the uid should never change over the life cycle of the user. If you choose the email address as uid and the address changes, SeaTable will create a new user the next time the user logs in.
 
 ### Testing
 
