@@ -89,6 +89,7 @@ LDAP_CONTACT_EMAIL_ATTR = 'mail'
 !!! note "Just Name not sur- and lastname"
 
     You can simply use either LDAP_USER_FIRST_NAME_ATTR or LDAP_USER_LAST_NAME_ATTR and use the attribute with the full name.
+    But it is recommended to send at least one name. If you don't use any values/attributes for the name, the users name will be empty and the contact_email will be used.
 
 ### Authentication via SASL
 
