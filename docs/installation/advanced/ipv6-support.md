@@ -63,11 +63,11 @@ This enables IPv6 addressing for the container and ensures accurate logging of c
 
 !!! warning "What if IPv6 is completely diabled on your server?"
 
-If IPv6 is completely disabled, Docker may fail to start containers with errors such as:
+    If IPv6 is completely disabled, Docker may fail to start containers with errors such as:
 
-- `cannot read IPv6 setup`
-- `cannot assign requested address`
-- `failed to start container ... error="driver failed programming external connectivity`
-- `error response from daemon: attaching to network failed`
+    - `cannot read IPv6 setup`
+    - `cannot assign requested address`
+    - `failed to start container ... error="driver failed programming external connectivity`
+    - `error response from daemon: attaching to network failed`
 
-In this case, set `ENABLE_IPV6=false` in your `.env` file to disable IPv6 support in Docker, allowing containers to start successfully.
+    In this case, set `ENABLE_IPV6=false` in your `.env` file to disable IPv6 support in Docker, allowing containers to start successfully.
