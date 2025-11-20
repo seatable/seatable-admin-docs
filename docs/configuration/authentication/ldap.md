@@ -73,12 +73,22 @@ LDAP_CONTACT_EMAIL_ATTR = 'mail'
 | Parameter                   | Description                                                               | Values                                                         |
 | --------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `LDAP_FILTER`               | Filter for users who can log in, e.g. a certain security group            | LDAP filter, e.g. 'memberOf=CN=group,CN=dev,DC=example,DC=com' |
-| `LDAP_USER_ROLE_ATTR`       | Name of user role in the LDAP server                                      | `my_custom_role`                                               |
-| `LDAP_SAML_USE_SAME_UID`    | Option to allow users to log in via LDAP and SAML using the same username | `True`or `False` (default: `False`)                            |
-| `LDAP_EMPLOYEE_ID_ATTR`     | ID of the employee                                                        | `employeeNumber`                                               |
 | `LDAP_USER_FIRST_NAME_ATTR` | First part of the user's SeaTable name                                    | `givenName`                                                    |
 | `LDAP_USER_LAST_NAME_ATTR`  | Second part of the user's SeaTable name                                   | `sn`                                                           |
 | `LDAP_USER_NAME_REVERSE`    | Option to reverse order of first name and last name                       | `True`or `False` (default: `False`)                            |
+| `LDAP_USER_ROLE_ATTR`       | Name of user role in the LDAP server                                      | `my_custom_role`                                               |
+| `LDAP_EMPLOYEE_ID_ATTR`     | ID of the employee                                                        | `employeeNumber`                                               |
+| `LDAP_UPDATE_USER`          | Option to update name, email after successful login                       | `True` or `False` (default: `True`)                            |
+| `LDAP_SAML_USE_SAME_UID`    | Option to allow users to log in via LDAP and SAML using the same username | `True`or `False` (default: `False`)                            |
+
+!!! note "Update User after successful login"
+
+    By default the user account is updated after a successful login. Meaning a new role, employee id, name or email is automatically updated in SeaTable.
+    With `LDAP_UPDATE_USER` you can disable the update of `name` and `email`. Role and employee id is always updated.
+
+!!! note "Just Name not sur- and lastname"
+
+    You can simply use either LDAP_USER_FIRST_NAME_ATTR or LDAP_USER_LAST_NAME_ATTR and use the attribute with the full name.
 
 ### Authentication via SASL
 
@@ -120,17 +130,17 @@ sync_interval = 3600
 
 !!! bug "Needs rework!"
 
-| Parameter                   | Description                                                                                       | Values                                                                            |
-| --------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `LDAP_SYNC_GROUP`           | On/off switch for group sync                                                                      | `True`or `False`                                                                  |
-| `LDAP_GROUP_FILTER`         |                                                                                                   |                                                                                   |
-| `LDAP_GROUP_MEMBER_ATTR`      | Attribute used when syncing group members                                                         | `member` or `memberUid`.                                                          |
-| `LDAP_GROUP_MEMBER_UID_ATTR`  | User attribute set in 'memberUid' option, which is used in "posixGroup"; default value is `uid`   |                                                                                   |
-| `LDAP_USER_OBJECT_CLASS`      | Name of the class used to search for user objects; default value is `person`                      |                                                                                   |
-| `LDAP_GROUP_OBJECT_CLASS`     | Name of the class used to search for group objects; default value is `group`                      | `groupOfNames`, `posixGroup` or `group` |
-| `LDAP_GROUP_UUID_ATTR`        | ...; default value is `ObjectGUID`                                                                | For LDAP: refer to <br />For AD: `ObjectGUID`                                     |
-| `SYNC_GROUP_AS_DEPARTMENT`    | Option to sync LDAP groups as departments rather than SeaTable groups                             | `True`or `False`                                                                  |
-| `LDAP_DEPARTMENT_NAME_ATTR` | Name of department when SYNC_GROUP_AS_DEPARTMENT=True, the default department name is the OU name | Object name, e.g. `description`                                                   |
+| Parameter                    | Description                                                                                       | Values                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `LDAP_SYNC_GROUP`            | On/off switch for group sync                                                                      | `True`or `False`                              |
+| `LDAP_GROUP_FILTER`          |                                                                                                   |                                               |
+| `LDAP_GROUP_MEMBER_ATTR`     | Attribute used when syncing group members                                                         | `member` or `memberUid`.                      |
+| `LDAP_GROUP_MEMBER_UID_ATTR` | User attribute set in 'memberUid' option, which is used in "posixGroup"; default value is `uid`   |                                               |
+| `LDAP_USER_OBJECT_CLASS`     | Name of the class used to search for user objects; default value is `person`                      |                                               |
+| `LDAP_GROUP_OBJECT_CLASS`    | Name of the class used to search for group objects; default value is `group`                      | `groupOfNames`, `posixGroup` or `group`       |
+| `LDAP_GROUP_UUID_ATTR`       | ...; default value is `ObjectGUID`                                                                | For LDAP: refer to <br />For AD: `ObjectGUID` |
+| `SYNC_GROUP_AS_DEPARTMENT`   | Option to sync LDAP groups as departments rather than SeaTable groups                             | `True`or `False`                              |
+| `LDAP_DEPARTMENT_NAME_ATTR`  | Name of department when SYNC_GROUP_AS_DEPARTMENT=True, the default department name is the OU name | Object name, e.g. `description`               |
 
 How to determine if member or memberUid? (posixGroup?)
 More examples!!!
