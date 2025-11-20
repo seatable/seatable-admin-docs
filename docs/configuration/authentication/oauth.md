@@ -1,3 +1,7 @@
+---
+status: wip
+---
+
 # OAuth
 
 First, register the Client App on the OAuth authorization server (such as [Github](https://github.com/settings/developers)), remember the Client ID and Client Secret, and set the Redirect Uri (Authorization callback URL in Github).

@@ -34,16 +34,16 @@ SeaTable's databases encompass almost 100 tables. Four of those are relevant for
 
 | Database  | Table                                                           |
 | :-------- | :-------------------------------------------------------------- |
-| ccnet_db  | [EmailUser](#table-emailuser)                                   |
-| dtable_db | [profile_profile](#table-profile_profile)                       |
-| dtable_db | [social_auth_usersocialauth](#table-social_auth_usersocialauth) |
-| dtable_db | [id_in_org_tuple](#table-id_in_org_tuple)                       |
+| ccnet_db  | [EmailUser](#emailuser)                                   |
+| dtable_db | [profile_profile](#profile_profile)                       |
+| dtable_db | [social_auth_usersocialauth](#social_auth_usersocialauth) |
+| dtable_db | [id_in_org_tuple](#id_in_org_tuple)                       |
 
-Note: The table LDAPUsers in ccnet_db is no longer used.
+!!! warning "The table LDAPUsers in ccnet_db is no longer used."
 
 The database tables shown in the following sections are for illustrative purposes only. Yet, they represent a possible system configuration and are internally consistent.
 
-### Table EmailUser
+### `EmailUser`
 
 The table EmailUser stores all user accounts of a SeaTable Server with the account status and privileges for every user account. Additionally, the table also contains the (hashed) passwords for all users that authenticate directly against SeaTable.
 
@@ -76,7 +76,7 @@ A `!` instead of a hash value means that the user uses _external authentication_
 
 The last three users in the sample table above are users authenticating using either LDAP, OAuth, or SAML.
 
-### Table profile_profile
+### `profile_profile`
 
 The table `profile_profile`, as the name indicates, contains profile information for every user in the system such as nickname, interface language, and contact email address. Every record in the table `EmailUser` has its correspondence in `profile_profile`.
 
@@ -93,20 +93,19 @@ mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.prof
 +---------------------------------------------+--------------+-----------+----------+-------------------+
 ```
 
-`nickname` is the display name of the user in the web interface of SeaTable.
+- `nickname` is the display name of the user in the web interface of SeaTable.
+- `contact_email` is the real email address of the user. SeaTable sends notifications to this address.
+- `login_id` is an alternative to the username that the user can use to log in. The `login_id` can only be set via [SeaTable API](https://api.seatable.com/reference/update-user) and not in system administration in SeaTable's web interface.
 
-`contact_email` is the real email address of the user. SeaTable sends notifications to this address.
+!!! success "Three valid combos for default authentication"
 
-`login_id` is an alternative to the username that the user can use to log in. The `login_id` can only be set via [SeaTable API](https://api.seatable.com/reference/update-user) and not in system administration in SeaTable's web interface.
+    Users authenticating against the local database can use the following three combinations to login:
 
-> **Three valid combos for default authentication**
->
-> Users authenticating against the local database can use the following three combinations to login:
-> \1) `contact_email` + `password`
-> \2) `login_id` + `password`
-> \3) `username` + `password`
+    1. `contact_email` + `password`
+    1. `login_id` + `password`
+    1. `username` + `password`
 
-### Table social_auth_usersocialauth
+### `social_auth_usersocialauth`
 
 The table `social_auth_usersocialauth` is critical for external authentication with LDAP, SAML, or OAuth. This table maps the user's SeaTable username to its unique identifiers from the identity providers. Every record in the table `EmailUser` without a password must have at least one correspondence in this table to be able to log into SeaTable using _external authentication_.
 
@@ -125,7 +124,7 @@ mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 
 `uid` in this table is the unique identifier as communicated by the external authentication service. The `uid` has to be provided by the external authentication method and allows to match the users from the external service with the users inside SeaTable. This `uid` must not be changed over the lifetime of the user (despite name, email address, ... changes) If the `uid` changes, SeaTable considers the user as a new user and creates a new `username` accordingly.
 
-### Table id_in_org_tuple
+### `id_in_org_tuple`
 
 This table stores the user IDs. Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.
 

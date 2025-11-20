@@ -1,99 +1,143 @@
+---
+status: wip
+---
+
 # LDAP
 
 Lightweight Directory Access Protocol (LDAP) is is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services. Microsoft's Active Directory (AD) is fully compatible with LDAP. For simplicity, this Manual refers to LDAP and AD when using the term LDAP unless explicitly stated otherwise.
-
-This document assumes that you have a basic understanding of LDAP and that you understand the related terminology.
 
 ## LDAP integration in SeaTable
 
 SeaTable supports two modes of operation with LDAP:
 
-- LDAP authentication: SeaTable uses the LDAP Server for user authentication.
-- LDAP synchronisation: SeaTable syncs users and groups with the LDAP server regularly.
+- **LDAP authentication**: SeaTable uses the LDAP Server for user authentication.
+- **LDAP synchronisation**: SeaTable syncs users and groups with the LDAP server regularly.
 
-Regardless of the mode of operation used, SeaTable requires each user in the LDAP server to have a unique ID.
+!!! success "LDAP can be combined with SAML"
 
-Additionally, LDAP in SeaTable can be configured to work seamlessly with SAML.
+    SeaTable supports multiple authentication methods simultaneously. You can have a local administrator account stored in the SeaTable database, while other users authenticate via LDAP or SAML.
+
+    Additionally, SeaTable enables seamless integration where user data is regularly synchronized from LDAP, but authentication is exclusively handled via SAML. This allows user accounts to be created, activated, and deactivated on schedule through LDAP synchronization, while login is simplified and secured through SAML Single Sign-On (SSO).
+
+    More details [at the end of this article](#ldap-and-saml).
 
 ## LDAP Authentication
 
-To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtable_web_settings.py`, customize to your environment, and restart the SeaTable service:
+To enable Authentification via LDAP, add the following parameters to `dtable_web_settings.py`, customize to your environment, and restart the SeaTable service:
 
-| Parameter           | Description                                                                                                               | Values                                          |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| ENABLE_LDAP         | On/off switch for authentication via LDAP                                                                                 | `True` or `False`                               |
-| LDAP_PROVIDER       | Internal name to refer to LDAP as authentication type                                                                     | Alphanumeric string, e.g. 'ldap'                |
-| LDAP_SERVER_URL     | URL of the LDAP server and port if non-standard                                                                           | URL, e.g. 'ldap://192.168.0.10:389'             |
-| LDAP_BASE_DN        | DN of the root node used for querying users - all users under this node can log in                                        | LDAP DN                                         |
-| LDAP_ADMIN_DN       | DN of the user used for querying the LDAP server - user must have the rights to access all information under LDAP_BASE_DN | For LDAP: LDAP DN<br />For AD: LDAP DN or email |
-| LDAP_ADMIN_PASSWORD | User password for LDAP_ADMIN_DN user                                                                                      | Alphanumeric string                             |
-| LDAP_LOGIN_ATTR     | User attribute used for logging in                                                                                        | 'mail', 'userPrincipalName' or 'sAMAccountName' |
+### Mandatory parameters
 
-This is a simple sample configuration:
+| Parameter                 | Description                                                                        | Values                                          |
+| ------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `ENABLE_LDAP`             | On/off switch for authentication via LDAP                                          | `True` or `False`                               |
+| `LDAP_PROVIDER`           | Internal identifier to refer to this specific LDAP server                          | Alphanumeric string, e.g. `ldap`                |
+| `LDAP_SERVER_URL`         | URL/IP of the LDAP server and port if non-standard                                 | URL/IP, e.g. 'ldap://192.168.0.10:389'          |
+| `LDAP_BASE_DN`            | DN of the root node used for querying users - all users under this node can log in | LDAP DN                                         |
+| `LDAP_ADMIN_DN`           | DN of the user used for querying the LDAP server                                   | LDAP DN of the admin user                       |
+| `LDAP_ADMIN_PASSWORD`     | User password for LDAP_ADMIN_DN user                                               | Password of the admin user                      |
+| `LDAP_LOGIN_ATTR`         | LDAP attribute used for logging in                                                 | `mail`, `userPrincipalName` or `sAMAccountName` |
+| `LDAP_USER_UNIQUE_ID`     | LDAP attribute used as Unique identifier to identify this user.                    | `uid` or `employeeUUID`                         |
+| `LDAP_CONTACT_EMAIL_ATTR` | LDAP attribute used as contact email                                               | `mail`                                          |
+
+This is a sample configuration:
 
 ```
 ENABLE_LDAP = True
-LDAP_PROVIDER = 'ldap'
+LDAP_PROVIDER = 'my-ldap-server1'
 LDAP_SERVER_URL = 'ldap://192.168.0.10'
 LDAP_BASE_DN = 'ou=test,ou=test,dc=example,dc=com'
-LDAP_ADMIN_DN = 'administrator@example.com'
-LDAP_ADMIN_PASSWORD = 'secret'
+LDAP_ADMIN_DN = 'cn=admin,dc=example,dc=com'
+LDAP_ADMIN_PASSWORD = 'topsecret'
 LDAP_LOGIN_ATTR = 'mail'
+LDAP_USER_UNIQUE_ID = 'uid'
+LDAP_CONTACT_EMAIL_ATTR = 'mail'
 ```
 
-Some tips on how to select LDAP_BASE_DN and LDAP_ADMIN_DN:
+!!! tip "Admin credentials must have the right to access all information"
 
-- To determine your LDAP_BASE_DN attribute, you first need to open the graphical interface of the domain manager and browse your organizational structure.
-- If you want all users in the system to be able to access SeaTable, you can use 'cn=users,dc=yourdomain,dc=com' as the BASE option (need to replace your domain name).
-- If you only want people in a certain department to be able to access, you can limit the scope to a certain OU. You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is `staffs`, you can run `dsquery ou -name staff`. More information can be found [here](https://technet.microsoft.com/en-us/library/cc770509.aspx).
-- Although AD supports the use of usernames in email address format as `LDAP_ADMIN_DN` such as administrator@example.com, it sometimes does not correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is `seatableuser`, run `dsquery user -name seatableuser` to find the user. More information can be found [here](https://technet.microsoft.com/en-us/library/cc725702.aspx).
+    The ldap user defined by `LDAP_ADMIN_DN` and `LDAP_ADMIN_PASSWORD` must have the rights to access all information under `LDAP_BASE_DN`. Otherwise the LDAP Login will not work at all.
+    This ldap admin user searches the complete LDAP directory for a match with the filter LDAP_LOGIN_ATTR = and ...
 
-The following parameters are also available, but optional:
+!!! warning "Every user needs a unique identifier"
 
-| Parameter                 | Description                                                                                                                                                            | Values                                                                |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| LDAP_FILTER               | Filter for users who can log in, e.g. a certain security group                                                                                                         | LDAP filter, e.g. 'memberOf=CN=group,CN=developers,DC=example,DC=com' |
-| LDAP_GROUP_FILTER         |                                                                                                                                                                        |                                                                       |
-| LDAP_USER_ROLE_ATTR       | Name of user role in the LDAP server                                                                                                                                   | Attribute name, e.g. `title`                                          |
-| LDAP_USER_FIRST_NAME_ATTR | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                               | Attribute name, e.g. `givenName`                                      |
-| LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                              | Attribute name, e.g. `sn`                                             |
-| LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                       | `True`or `False`                                                      |
-| LDAP_SAML_USE_SAME_UID    | Option to allow users to log in via LDAP and SAML using the same username                                                                                              | `True`or `False`                                                      |
-| LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is '' |                                                                       |
-| LDAP_EMPLOYEE_ID_ATTR     | ID of the employee                                                                                                                                                     | Attribute name, e.g. `33`                                             |
+    Names, emails and login attributes may change over time. To make sure that SeaTable always hits the right user, the values for `LDAP_PROVIDER` and `LDAP_USER_UNIQUE_ID` create a unique identifier.
+    Therefore it is recommended that you don't change the value of `LDAP_PROVIDER` in your configuration file and that the value of `LDAP_USER_UNIQUE_ID` stays the same for every user.
+    Try to avoid using an email, instead use `uid` oder `employeeUUID` or something similar.
+
+!!! example "Use ldapsearch to determine your LDAP structure"
+
+    With `/opt/seatable-server/tools/check-ldap.sh` we provide a simple tool to support you with determine the right BASE_DN and admin credentials. Try to configure everything as you think in your dtable_web_settings.py and then simply execute `check-ldap.sh`. It will do some basic checks and will help you construct a ldapsearch command to search your ldap dictionary.
+
+### Optional parameters
+
+| Parameter                   | Description                                                               | Values                                                         |
+| --------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `LDAP_FILTER`               | Filter for users who can log in, e.g. a certain security group            | LDAP filter, e.g. 'memberOf=CN=group,CN=dev,DC=example,DC=com' |
+| `LDAP_USER_ROLE_ATTR`       | Name of user role in the LDAP server                                      | `my_custom_role`                                               |
+| `LDAP_SAML_USE_SAME_UID`    | Option to allow users to log in via LDAP and SAML using the same username | `True`or `False` (default: `False`)                            |
+| `LDAP_EMPLOYEE_ID_ATTR`     | ID of the employee                                                        | `employeeNumber`                                               |
+| `LDAP_USER_FIRST_NAME_ATTR` | First part of the user's SeaTable name                                    | `givenName`                                                    |
+| `LDAP_USER_LAST_NAME_ATTR`  | Second part of the user's SeaTable name                                   | `sn`                                                           |
+| `LDAP_USER_NAME_REVERSE`    | Option to reverse order of first name and last name                       | `True`or `False` (default: `False`)                            |
+
+### Authentication via SASL
 
 To enable LDAP authentication via SASL, add the following parameters to `dtable_web_settings.py`:
 
-| Parameter          | Description                                                                                                                                     | Values                                                           |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| ENABLE_SASL        | On/off switch for LDAP authentication via SASL                                                                                                  | `True` or `False`                                                |
-| SASL_MECHANISM     | SASL mechanism configured on LDAP server                                                                                                        | SASL mechanism, e.g. `DIGEST-MD5`, `CRAM-MD5`, `GSSAPI`, `Plain` |
-| SASL_AUTHC_ID_ATTR | User attribute used for [authentication identity mapping](https://www.openldap.org/doc/admin26/sasl.html#Mapping%20Authentication%20Identities) | Attribute name, e.g. `uid`, `cn`                                 |
+| Parameter          | Description                                               | Values                                                           |
+| ------------------ | --------------------------------------------------------- | ---------------------------------------------------------------- |
+| ENABLE_SASL        | On/off switch for LDAP authentication via SASL            | `True` or `False`                                                |
+| SASL_MECHANISM     | SASL mechanism configured on LDAP server                  | SASL mechanism, e.g. `DIGEST-MD5`, `CRAM-MD5`, `GSSAPI`, `Plain` |
+| SASL_AUTHC_ID_ATTR | User attribute used for authentication identity mapping\* | Attribute name, e.g. `uid`, `cn`                                 |
+
+More info about [authentication identity mapping](https://www.openldap.org/doc/admin26/sasl.html#Mapping%20Authentication%20Identities).
 
 ## LDAP Synchronisation
 
-To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the following parameters added to `dtable_web_settings`:
+LDAP Synchronisation can do these things for you:
 
-| Parameter                  | Description                                                                                             | Values                                                                                                                                 |
-| -------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| LDAP_SYNC_GROUP            | On/off switch for group sync                                                                            | `True`or `False`                                                                                                                       |
-| LDAP_GROUP_MEMBER_ATTR     | Attribute used when syncing group members                                                               | For most directory servers, the attributes is "member", which is the default value. For "posixGroup", it should be set to "memberUid". |
-| LDAP_GROUP_MEMBER_UID_ATTR | User attribute set in 'memberUid' option, which is used in "posixGroup"; default value is `uid`         |                                                                                                                                        |
-| LDAP_USER_OBJECT_CLASS     | Name of the class used to search for user objects; default value is `person`                            |                                                                                                                                        |
-| LDAP_GROUP_OBJECT_CLASS    | Name of the class used to search for group objects; default value is `group`                            | For LDAP: `groupOfNames`, `groupOfUniqueNames`, `posixGroup`<br />For AD: `group`                                                      |
-| LDAP_GROUP_UUID_ATTR       | ...; default value is `ObjectGUID`                                                                      | For LDAP: refer to https://ldapwiki.com/wiki/Universally%20Unique%20Identifier<br />For AD: `ObjectGUID`                               |
-| SYNC_GROUP_AS_DEPARTMENT   | Option to sync LDAP groups as departments rather than SeaTable groups                                   | `True`or `False`                                                                                                                       |
-| LDAP_DEPARTMENT_NAME_ATTR  | Name of the department when SYNC_GROUP_AS_DEPARTMENT = True, the default department name is the OU name | Object name, e.g. `description`                                                                                                        |
+- Creates new users (if newly added in your LDAP server)
+- Delete or deactivate users (if deactivated or remove in your LDAP server)
+- Update Names, E-Mails, roles or employee ideas
+- Assign Users to groups
 
-Additionally, the following parameters must be added to `dtable-events.conf`:
+To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured in two places:
+
+- `dtable-events.conf`
+- `dtable_web_settings`
+
+### Activation of the LDAP Synchronisation
+
+LDAP Synchronisation must be activated in dtable-events.conf. Currently only the sync interval (in seconds) can be configure. Meaning a sync_interval of 3600 means a LDAP synchroniation of every hour.
 
 ```
 [LDAP SYNC]
 enabled = true
-sync_interval = 60  # The unit is seconds
+sync_interval = 3600
 ```
 
+### Configuration of the LDAP Synchronisation
+
+!!! bug "Needs rework!"
+
+| Parameter                   | Description                                                                                       | Values                                                                            |
+| --------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `LDAP_SYNC_GROUP`           | On/off switch for group sync                                                                      | `True`or `False`                                                                  |
+| `LDAP_GROUP_FILTER`         |                                                                                                   |                                                                                   |
+| `LDAP_GROUP_MEMBER_ATTR`      | Attribute used when syncing group members                                                         | `member` or `memberUid`.                                                          |
+| `LDAP_GROUP_MEMBER_UID_ATTR`  | User attribute set in 'memberUid' option, which is used in "posixGroup"; default value is `uid`   |                                                                                   |
+| `LDAP_USER_OBJECT_CLASS`      | Name of the class used to search for user objects; default value is `person`                      |                                                                                   |
+| `LDAP_GROUP_OBJECT_CLASS`     | Name of the class used to search for group objects; default value is `group`                      | `groupOfNames`, `posixGroup` or `group` |
+| `LDAP_GROUP_UUID_ATTR`        | ...; default value is `ObjectGUID`                                                                | For LDAP: refer to <br />For AD: `ObjectGUID`                                     |
+| `SYNC_GROUP_AS_DEPARTMENT`    | Option to sync LDAP groups as departments rather than SeaTable groups                             | `True`or `False`                                                                  |
+| `LDAP_DEPARTMENT_NAME_ATTR` | Name of department when SYNC_GROUP_AS_DEPARTMENT=True, the default department name is the OU name | Object name, e.g. `description`                                                   |
+
+How to determine if member or memberUid? (posixGroup?)
+More examples!!!
+
 ## LDAP and SAML
+
+!!! bug "Needs rework!"
 
 In some situations, it is useful to configure LDAP - especially LDAP Sync - and SAML as authentication providers. In this case, SeaTable must be prevented from creating two different users (as identified by the `username`) for one and the same `uid`when the person authenticates via LDAP and SAML, which would be the default behavior.
 
@@ -101,6 +145,7 @@ Add the following parameter to `dtable_web_settings.py` to instruct SeaTable to 
 
 ```
 LDAP_SAML_USE_SAME_UID = True
+# this will disable LDAP login
 ```
 
 When enabled, SeaTable creates an additional record for the authenticating user in social_auth_usersocialauth when the user logs in using LDAP. This record maps the `username` to the `uid` for the SAML provider.
