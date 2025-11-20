@@ -55,7 +55,9 @@ theme:
 # Plugins
 plugins:
   - search:
-      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+      enabled: true
+      # separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])' 
+      # I try to remove this to fix the search issue with "ipv6 vs IPv6"
   - exclude-search:
       exclude:
       # - installation/advanced/example.md

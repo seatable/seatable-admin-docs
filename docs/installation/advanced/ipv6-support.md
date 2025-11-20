@@ -1,32 +1,73 @@
+---
+status: new
+---
+
 # Activate IPv6 Support for SeaTable
 
-The SeaTable Docker container does not activate IPv6 by default because Nginx is configured to listen only to IPv4.
+SeaTable supports IPv6 in general. There is no special activation required.
 
-To enable IPv6 on your Nginx server, you need to add a single line to the Nginx configuration file located at `/opt/seatable-server/seatable/conf/nginx.conf`.
+## Docker and IPv6
 
-Find the line `listen 80;` and add the following line below it, ensuring you include the trailing `;`:
+### Problem
+
+There is one area that requires additional attention. Docker, by default, does not assign IPv6 addresses to its containers; instead, containers receive only IPv4 addresses.
+
+Requests arriving via an IPv6 connection still reach SeaTable. However, a problem arises for services like nginx or SeaTable that log the source IP address. Every incoming IPv6 request is logged with the Docker network gateway IP address (e.g., `172.18.0.1`), not the client’s actual IPv6 address. In the following screenshot, you can see that *Thierry* connected from an IPv6 address.
+
+![Login Logs from SeaTable System Admin Area](../../assets/images/seatable-ipv6.png)
+
+You can confirm this by running `docker inspect seatable-server`:
+
+```json
+[
+    {
+        ...
+        "Networks": {
+            "frontend-net": {
+                ...
+                "Gateway": "172.18.0.1",
+                "IPAddress": "172.18.0.5",
+                "IPv6Gateway": "",
+                "GlobalIPv6Address": "",
+                ...
+            }
+        }
+    }
+]
+```
+
+While this does not cause immediate service disruptions, it presents some challenges:
+- Incorrect client IPs are logged.
+- Rate limiting or other IP-based limits may behave incorrectly.
+
+---
+
+### Solution
+
+<!-- md:version 6.0 -->
+
+The solution is straightforward. Add the following parameter to your Docker network configuration (for example, in caddy.yml):
 
 ```
-listen [::]:80;
+networks:
+  frontend-net:
+    name: frontend-net
+    enable_ipv6: ${ENABLE_IPV6:-true}
 ```
 
-After making this change, your configuration file should look like this:
+This enables IPv6 addressing for the container and ensures accurate logging of client IP addresses. **Starting with SeaTable version 6.0**, this feature is enabled by default.
 
-```
-...
-server {
-    server_name <your-server-url>
-    listen 80;
-    listen [::]:80;
-    ...
-}
-```
+---
 
-Next, run the following two commands. The first command checks the configuration file for errors. If there are no errors, execute the second command to reload Nginx:
+### Setups without IPv6
 
-```
-docker exec seatable-server nginx -t
-docker exec seatable-server nginx -s reload
-```
+!!! warning "What if IPv6 is completely diabled on your server?"
 
-Your SeaTable server will now support IPv6.
+If IPv6 is completely disabled, Docker may fail to start containers with errors such as:
+
+- `cannot read IPv6 setup`
+- `cannot assign requested address`
+- `failed to start container ... error="driver failed programming external connectivity`
+- `error response from daemon: attaching to network failed`
+
+In this case, set `ENABLE_IPV6=false` in your `.env` file to disable IPv6 support in Docker, allowing containers to start successfully.

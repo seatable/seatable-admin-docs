@@ -10,6 +10,13 @@ Most services received updated Docker image tags. For example, MariaDB was upgra
 
     Starting with SeaTable 6.0, AI-powered automations are available as an optional new feature. To enable this functionality, you must add the `seatable-ai` container to your existing SeaTable installation. The container handles all AI-related processing tasks. For installation and configuration details, see [seatable-ai](../installation/components/seatable-ai.md). 
 
+??? info "Assignment of IPv6 addresses to containers"
+
+    We updated the Caddy configuration to enable containers to receive proper IPv6 addresses, enhancing logging accuracy and network compatibility. If your server has IPv6 disabled, Docker containers may fail to start. In that case, set `ENABLE_IPV6=false` in your `.env` file to disable IPv6 support. 
+    
+    [Read more about IPv6 and Docker](../installation/advanced/ipv6-support.md)
+
+
 ## 5.3
 
 SeaTable v5.3 introduces several significant changes. To make the transition as smooth as possible, we’ve provided a script that handles most of the work for you. Simply run the script to get started.
