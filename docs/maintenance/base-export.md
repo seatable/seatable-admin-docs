@@ -94,12 +94,33 @@ This command creates:
 
 <!-- md:version 6.0 -->
 
-To import an exported base folder into another group/workspace, use the following command. 
+To import an exported base folder into another group/workspace, use the following command. The import takes typically much longer than the export.
 
 ```bash
 seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py import_dtable_folder --workspace-id="<workspace id>" --path="<path to folder>"
 ```
 
-Replace `<workspace id>` with the ID of the target workspace/group and provide the path to the folder containing the export.
+Replace `<workspace id>` with the ID of the target workspace/group and provide the path to the folder containing the export. 
+
+!!! success "How to get the workspace id?"
+
+    Open any base in the target workspace (group or "My Bases") via the web interface.
+    Extract the numeric ID from the URL. For example, in `https://cloud.seatable.io/workspace/156522/dtable/Customers/`, the workspace ID is `156522`.
+    
+    **Important**: The workspace ID is not the group id.
 
 After running the command, check that the output indicates a successful import.
+
+### Known Issues in Version 6.0
+
+!!! danger "Base name missing in database"
+
+    In SeaTable version 6.0, the import function has a known bug that prevents bases from being created correctly in the database, leaving the `name` field empty.
+    This disrupts the web interface for all users with access to the affected workspace.
+    
+    **Fix**: Manually set a name in the `dtable_db.dtables` table. This resolves the issue immediately.
+
+!!! warning "Avoid spaces and special characters in folder path"
+
+    SeaTable exports bases with spaces/special chars (e.g., "CRM and Sales" → `/share/CRM and Sales`), which `import_dtable_folder` rejects.
+    Rename folders to use only letters, numbers, underscores, or hyphens (e.g., `CRM_and_Sales` or `CRM-Sales`) before importing.
