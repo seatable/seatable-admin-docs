@@ -163,6 +163,7 @@ nav:
               - OnlyOffice: installation/components/onlyoffice.md
           - Monitoring:
               - Gatus: installation/components/gatus.md
+              - Dozzle: installation/components/dozzle.md
               - Uptime Kuma: installation/components/uptime-kuma.md
               - Zabbix: installation/components/zabbix.md
               - Releem: installation/components/releem.md
