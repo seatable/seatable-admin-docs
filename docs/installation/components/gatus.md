@@ -9,7 +9,7 @@
 - Certificate Expiration
 - Python Pipeline
 
-![Gatus provides a real-time status page of your SeaTable Server](../../assets/images/gatus-dashboard.png)
+![Gatus provides a real-time status page of your SeaTable Server](../../assets/images/gatus-dashboard.png){style="border-radius:12px; padding:16px; background-color:#020817"}
 
 ## Installation
 
