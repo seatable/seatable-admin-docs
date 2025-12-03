@@ -13,7 +13,7 @@ A dedicated sidecar container (`seatable-logs` based on `sumologic/tailing-sidec
 
 In a SeaTable context, it simplifies troubleshooting by aggregating logs from all services in your Docker Compose stack via the shared Docker socket.
 
-![Dozzle is an open-source web-based log viewer](../../assets/images/dozzle.png)
+![Dozzle is an open-source web-based log viewer](../../assets/images/dozzle.png){style="border-radius:12px; padding:16px; background-color:#f5f5f5"}
 
 !!! warning "Logs may contain sensitive data"
 
