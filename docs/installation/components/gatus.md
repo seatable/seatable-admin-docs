@@ -1,10 +1,6 @@
----
-status: new
----
-
 # Gatus
 
-Gatus provides your users with a real-time status page for your SeaTable Server and alerts you if any core components become unreachable. By default Gatus monitors the following components:
+[Gatus](https://github.com/TwiN/gatus) provides your users with a real-time status page for your SeaTable Server and alerts you if any core components become unreachable. By default Gatus monitors the following components:
 
 - SeaTable Login Page
 - SeaTable API Gateway
@@ -13,7 +9,7 @@ Gatus provides your users with a real-time status page for your SeaTable Server 
 - Certificate Expiration
 - Python Pipeline
 
-<!-- Insert sceenshot here -->
+![Gatus provides a real-time status page of your SeaTable Server](../../assets/images/gatus-dashboard.png)
 
 ## Installation
 
