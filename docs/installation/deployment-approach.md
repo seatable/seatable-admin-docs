@@ -66,6 +66,7 @@ This is the list of ports that the components use. You only have to open them if
 - Whiteboard (tldraw): 6239
 - Report Design (seadoc): 6240
 - Gatus Monitoring: 6220 
+- Dozzle Log Viewer: 6241
 
 ## Separate server or subdomain
 

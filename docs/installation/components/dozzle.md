@@ -23,7 +23,7 @@ In a SeaTable context, it simplifies troubleshooting by aggregating logs from al
 
 This guide explains how to install **Dozzle** on your SeaTable server.
 
-#### Change the .env file
+### Change the .env file
 
 As with other additional components, first add `dozzle.yml` to the `COMPOSE_FILE` variable in your `.env` file.
 
@@ -33,7 +33,7 @@ Copy and paste (:material-content-copy:) the following command into your termina
 sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,dozzle.yml'/" /opt/seatable-compose/.env
 ```
 
-## Create a dozzle admin login
+### Create a dozzle admin login
 
 Dozzle requires you to create login credentials. Use the command line tool `pwgen` to create a secure password for your *dozzle admin account*.
 
@@ -53,7 +53,7 @@ Alternatively, you can change the command and adapt it to your needs.
 
     Instead, choose a **long password** using uppercase, lowercase, and digits to ensure both compatibility and security. 
 
-#### Start Dozzle
+### Start Dozzle
 
 To start **Dozzle** for the first time, run:
 
@@ -61,3 +61,7 @@ To start **Dozzle** for the first time, run:
 cd /opt/seatable-compose && \
 docker compose up -d
 ```
+
+## Next steps
+
+After startup, **Dozzle** is accessible at `https://<your-seatable-server-hostname>:6241`.
