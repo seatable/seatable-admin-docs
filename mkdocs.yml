@@ -167,6 +167,7 @@ nav:
               - Uptime Kuma: installation/components/uptime-kuma.md
               - Zabbix: installation/components/zabbix.md
               - Releem: installation/components/releem.md
+              - Prometheus: installation/components/prometheus.md
           - Backup: installation/components/restic.md
           - Ofelia: installation/components/ofelia.md
           - Antivirus: installation/components/clamav.md
