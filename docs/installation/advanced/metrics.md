@@ -2,9 +2,10 @@
 
 <!-- md:version 6.0 -->
 
-Metrics allow insight into a **TODO**
+Metrics give insight into a system's health. In addition, they allow detection of changes happening over time.
+Automatic alerts (e.g. by using [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)) can be configured to provide notifications in case of error conditions or incidents.
 
-Currently, the following SeaTable components provide metrics:
+Currently, the following SeaTable components expose metrics in a [Prometheus](https://prometheus.io/)-compatible format:
 
 - api-gateway
 - dtable-db
