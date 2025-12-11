@@ -171,3 +171,72 @@ docker exec seatable-server curl -sS http://localhost:6000/metrics --user "<user
 
   ```
 </details>
+
+## Scraping
+
+You can use [Grafana Alloy](https://grafana.com/docs/alloy/latest/) to scrape metrics from SeaTable components and forward them to an existing [Prometheus server](https://prometheus.io/) using Prometheus' [remote-write](https://grafana.com/docs/alloy/latest/reference/components/prometheus/prometheus.remote_write/) functionality.
+
+The following YAML manifest can serve as a starting point to deploy Alloy:
+
+```yaml
+services:
+  alloy:
+    image: grafana/alloy:v1.12.0
+    container_name: alloy
+    restart: unless-stopped
+    environment:
+      - PROMETHEUS_URL=${PROMETHEUS_URL:?Variable is not set or empty}
+      - PROMETHEUS_USERNAME=${PROMETHEUS_USERNAME:?Variable is not set or empty}
+      - PROMETHEUS_PASSWORD=${PROMETHEUS_PASSWORD:?Variable is not set or empty}
+      - SEATABLE_METRICS_USERNAME=${SEATABLE_METRICS_USERNAME:?Variable is not set or empty}
+      - SEATABLE_METRICS_PASSWORD=${SEATABLE_METRICS_PASSWORD:?Variable is not set or empty}
+    networks:
+      - o11y-net
+    volumes:
+      - ./config.alloy:/etc/alloy/config.alloy:ro
+      - /opt/alloy-data:/var/lib/alloy/data
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - /etc/alloy/config.alloy
+
+  # Attach seatable-server container to o11y-net
+  # This allows Alloy to scrape metrics
+  seatable-server:
+    networks:
+      - o11y-net
+
+networks:
+  o11y-net:
+    name: o11y-net
+```
+
+The following `config.alloy` config file should be created inside the same directory:
+
+```alloy
+prometheus.remote_write "default" {
+  endpoint {
+    url = env("PROMETHEUS_URL")
+    basic_auth {
+      username = env("PROMETHEUS_USERNAME")
+      password = env("PROMETHEUS_PASSWORD")
+    }
+  }
+}
+
+prometheus.scrape "seatable_metrics" {
+  targets = [
+    {"__address__" = "seatable-server:7780", "instance" = "api-gateway"},
+    {"__address__" = "seatable-server:7777", "instance" = "dtable-db"},
+  ]
+
+  basic_auth {
+    username = env("SEATABLE_METRICS_USERNAME")
+    password = env("SEATABLE_METRICS_PASSWORD")
+  }
+
+  forward_to = [prometheus.remote_write.default.receiver]
+  scrape_interval = "15s"
+}
+```
