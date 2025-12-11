@@ -199,6 +199,7 @@ nav:
               - Separate Python Pipeline: installation/advanced/python-pipeline-dedicated-server.md
               - Configure Python Pipeline: installation/advanced/python-pipeline-configuration.md
               - Python Pipeline Workflow: installation/advanced/python-pipeline-workflow.md
+          - Metrics: installation/advanced/metrics.md
           - MariaDB (standalone): installation/advanced/database-standalone.md
           - Seafile (external): installation/advanced/seafile.md
 
