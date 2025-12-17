@@ -37,7 +37,7 @@ By default, `ofelia.yml` adds labels to the `seatable-server` service. These lab
 | Slug        | Description                                                                                                                     | Schedule  |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------- | --------- |
 | `clean-tmp` | Removes any files older than 3 days from the `/tmp` directory inside the container to the system from running out of disk space | `@weekly` |
-| `gc`        | Runs the [garbage collection](../../maintenance/storage-cleanup.md) process to clean up unused blocks                           | `@weekly` |
+| `gc`        | Runs the [garbage collection](../../maintenance/storage-cleanup.md) process to clean up unused `block` and `fs` objects         | `@weekly` |
 | `seaf-fsck` | Runs the [`seaf-fsck`](../../maintenance/filesystem-check.md) script to check the integrity of all Seafile libraries            | `@weekly` |
 
 You are free to modify the schedule of these commands and/or add your own commands via additional labels on the `seatable-server` container.
