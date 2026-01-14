@@ -1,3 +1,4 @@
+{% if config.extra.analytics.site_id %}
 <script>
     var site_id = "{{ config.extra.analytics.site_id }}";
     var provider_url = "{{ config.extra.analytics.provider_url }}";
@@ -14,4 +15,5 @@
           g.async=true; g.src=provider_url+'matomo.js'; s.parentNode.insertBefore(g,s);
       })();
     })
-  </script>
+</script>
+{% endif %}
