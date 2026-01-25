@@ -69,6 +69,12 @@ Please note that increasing this value requires corresponding updates in `dtable
 | --------------- | ------------------------------------------------------------------------- | ------- |
 | `base_max_size` | Maximum size of a base's JSON file (excluding assets and big data) in MB. | 200     |
 
+### Automation Limits
+
+| Parameter                  | Description                                                                                                                                              | Default |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `per_minute_trigger_limit` | Limits the number of automations that can be triggered per base per minute. This setting only works for SeaTable versions up to (and including) v6.0.10. | 50      |
+
 ### Expert Configuration
 
 It is not recommended to change these values
