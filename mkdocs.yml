@@ -107,9 +107,9 @@ extra:
     #provider_url: https://wp-stats.seatable.io/
 
     provider: posthog
-    posthog_api_key: phc_vIGSYAtCGptrMnB49dtq3PUZi21ivYsWaHQOiDlpF8Z
+    posthog_api_key: phc_wRHcvnLs4nsJLtycPXwtckL4NahZSAlw2uV3d4dm4hT
     posthog_api_host: https://ph.seatable.com
-    posthog_ui_host: https://eu.posthog.com
+    posthog_ui_host: https://ph.seatable.com
 
 extra_css:
   - assets/stylesheets/extra.css
