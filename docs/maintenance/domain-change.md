@@ -2,6 +2,15 @@
 
 When changing the domain of your SeaTable Server, you must not only update configuration files but also ensure that all internal file and image URLs inside bases are updated. This section describes all necessary steps.
 
+!!! warning "Current Limitations of Domain Transfer Command (v6.0)"
+
+    This command does not update all URLs within a base. The following will remain broken after execution:
+    
+    - Embedded images in TLDRAW drawings will no longer display (files exist, but links are outdated).
+    - Existing Page Design plugin templates cannot be opened.
+
+    For assistance, contact us at support@seatable.com.
+
 ## 1. Update Configuration
 
 If your SeaTable Server’s URL changes (for example, from `https://old.example.com` to `https://new.example.com`), start by updating the following files:
@@ -51,3 +60,4 @@ Run one of the following commands:
     ```
     seatable.sh python-env ./manage.py domain_transfer -uuid 695fa115-4927-4be1-b5b6-fbbbabd43b72 -od https://old.example.com -nd https://new.example.com
     ```
+
