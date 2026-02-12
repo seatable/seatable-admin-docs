@@ -76,6 +76,8 @@ This sections defines where the database files for bases with activated big data
 
 This sections contains options for caching bases from dtable-server.
 
+**TODO:** is now `inner_dtable_server_url`, but `dtable_server_url` is still read as of v6.1
+
 | Parameter           | Description                                                                                | Default               |
 | ------------------- | ------------------------------------------------------------------------------------------ | --------------------- |
 | `dtable_server_url` | local address for dtable-server. You must specify this option.                             | http://127.0.0.1:5000 |

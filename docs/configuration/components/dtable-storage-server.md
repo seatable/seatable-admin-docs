@@ -1,6 +1,6 @@
 # Configuration of dtable-storage-server
 
-This is a cheat sheet for the [dtable-storage-server](/introduction/architecture/#dtable-storage-server) configuration file `dtable-storage-server.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-storage-server](/introduction/architecture/#dtable-storage-server). It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 
@@ -9,6 +9,35 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 ??? tip "Configuration changes require a restart"
 
     New configuration options will only apply after a restart of SeaTable.
+
+## Environment Variables
+
+This section lists the environment variables read by [dtable-storage-server](/introduction/architecture/#dtable-storage-server).
+
+Please note that these variables are not included in `seatable-server.yml` by default.
+We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
+Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
+
+```yaml
+services:
+  seatable-server:
+    environment:
+      - STORAGE_SERVER_SNAPSHOT_KEEP_DAYS=720
+```
+
+This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
+This ensures that SeaTable upgrades stay seamless.
+
+### Snapshots
+
+| Environment Variable                          | Description                                                                                                                                                                                                                                  | Default |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `STORAGE_SERVER_ENABLE_SNAPSHOT_CLEANUP`      | Controls snapshot cleanup. Activate on only one node in multi-server setups.                                                                                                                                                                 | true    |
+| `STORAGE_SERVER_SNAPSHOT_CLEANUP_AT`          | Specifies the time when old snapshots are deleted.                                                                                                                                                                                           | 03:00   |
+| `STORAGE_SERVER_SNAPSHOT_KEEP_DAYS`           | Specifies the snapshot retention period in days. Older snapshots are deleted.                                                                                                                                                                | 180     |
+| `STORAGE_SERVER_SNAPSHOT_KEEP_FREQUENCY_DAYS` | Specifies daily snapshot period for changed bases. After this, only one snapshot per month is kept. Default is 0 (always daily). Requires `STORAGE_SERVER_SNAPSHOT_KEEP_DAYS` to be set and > `STORAGE_SERVER_SNAPSHOT_KEEP_FREQUENCY_DAYS`. | 0       |
+
+## Configuration File
 
 ??? abstract "Notes about the configuration file format"
 
@@ -20,7 +49,7 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 The following options are grouped by their sections.
 
-## Example configuration
+**Example Configuration**
 
 This is a typical configuration file, created automatically on the first startup by SeaTable.
 
@@ -37,8 +66,6 @@ path = /opt/seatable/storage-data
 interval = 86400
 keep_days = 180
 ```
-
-## Available configuration options
 
 ### `[general]`
 

@@ -56,6 +56,8 @@ This section contains settings about api-gateway working with dtable-db.
 | `cluster_mode`   | Indicates whether dtable-db is running in cluster mode. Can be `true` or `false`.                                                               | `false`        |
 | `server_address` | Address of the dtable-db instance. It's required if `cluster_mode` is set to `false`. You should not set it if `cluster_mode` is set to `true`. | 127.0.0.1:7777 |
 
+**TODO:** Is now `inner_dtable_db_url`, old setting is still read
+
 ### `[dtable-server]`
 
 This section contains settings about api-gateway working with dtable-server.
@@ -65,3 +67,4 @@ This section contains settings about api-gateway working with dtable-server.
 | `cluster_mode`   | Indicates whether dtable-server is running in cluster mode. Can be `true` or `false`.                                                               | `false`        |
 | `server_address` | Address of the dtable-server instance. It's required if `cluster_mode` is set to `false`. You should not set it if `cluster_mode` is set to `true`. | 127.0.0.1:7777 |
 
+**TODO:** Is now `inner_dtable_server_url`, old setting is still read
