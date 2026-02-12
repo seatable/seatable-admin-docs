@@ -240,7 +240,7 @@ nav:
               - JWT-Token: configuration/authentication/jwt.md
           - Switch authentication: configuration/authentication/auth-switch.md
       - Configuration:
-          - Environment Variables: configuration/environment-variables.md
+          - Overview: configuration/overview.md
           - Components:
               - dtable-api-gateway: configuration/components/dtable-api-gateway.md
               - dtable-db: configuration/components/dtable-db.md
