@@ -18,15 +18,16 @@ There are two ways to configure this SMTP account for system wide emails.
 
     The SeaTable Server image supports auto configuration via environment variables. Add these variables to your .env file to configure the SMTP account.
 
-    | Environment variable           | Description                                 | Example values                 |
-    | ------------------------------ | ------------------------------------------- | ------------------------------ |
-    | `SEATABLE_EMAIL_USE_TLS`       | Activate/Deactivate TLS/SSL encryption      | `true` or leave empty.         |
-    | `SEATABLE_EMAIL_HOST`          | URL or IP address or the SMTP server        | `mail.gmx.net`                 |
-    | `SEATABLE_EMAIL_HOST_USER`     | Username for authentication                 | `seatable@gmx.de`              |
-    | `SEATABLE_EMAIL_HOST_PASSWORD` | Password for authentication                 | `topsecret`                    |
-    | `SEATABLE_EMAIL_PORT`          | Port that should be used                    | Typically `25`, `587` or `465` |
-    | `SEATABLE_DEFAULT_FROM_EMAIL`  | Used for `From:`                            | `seatable@gmx.de`              |
-    | `SEATABLE_SERVER_EMAIL`        | Used for `From:` in case of error reporting | `seatable@gmx.de`              |
+    | Environment variable           | Description                                                    | Example values                 |
+    | ------------------------------ | -------------------------------------------------------------- | ------------------------------ |
+    | `SEATABLE_EMAIL_USE_TLS`       | Activate/Deactivate TLS/SSL encryption                         | `true` or leave empty.         |
+    | `SEATABLE_EMAIL_USE_SSL`       | Activate/Deactivate SSL encryption (only available as of v6.1) | `true` or leave empty.         |
+    | `SEATABLE_EMAIL_HOST`          | URL or IP address or the SMTP server                           | `mail.gmx.net`                 |
+    | `SEATABLE_EMAIL_HOST_USER`     | Username for authentication                                    | `seatable@gmx.de`              |
+    | `SEATABLE_EMAIL_HOST_PASSWORD` | Password for authentication                                    | `topsecret`                    |
+    | `SEATABLE_EMAIL_PORT`          | Port that should be used                                       | Typically `25`, `587` or `465` |
+    | `SEATABLE_DEFAULT_FROM_EMAIL`  | Used for `From:`                                               | `seatable@gmx.de`              |
+    | `SEATABLE_SERVER_EMAIL`        | Used for `From:` in case of error reporting                    | `seatable@gmx.de`              |
 
     See the examples at the end of this article for easy copy-and-paste use.
 
@@ -47,11 +48,6 @@ There are two ways to configure this SMTP account for system wide emails.
 !!! warning "SMTP without authentication"
 
     If you want to use the email service without authentication, leave `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD` **blank** (`''`).
-
-!!! warning "SSL (instead of TLS) is not yet supported via environment variable"
-
-    If you mail provider requires SSL instead of TLS, you need to configure your SMTP Settings via the configuration file `dtable_web_settings.py`.
-    SSL can not be set via environment variable.
 
 Restart SeaTable service to reload the changes.
 
@@ -130,7 +126,7 @@ SeaTable Cloud uses the SMTP relay of Brevo.
 
 === "Configuration file"
 
-    ```python
+    ```ini
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
     EMAIL_HOST_USER = 'username@domain.com'
@@ -148,8 +144,19 @@ If you are using Infomaniak as email server, you can use the following settings.
 
     !!! warning "SSL support missing"
     
-        Infomaniak requires SSL instead of TLS, therefore a configuration via environment variables is not yet possible.
-        Please use the configuration file approach instead.
+        Infomaniak requires SSL instead of TLS. Configuring this via environment variables is only possible as of v6.1.
+        Please use the configuration file approach instead in case you haven't upgraded yet.
+
+    ```ini
+    SEATABLE_EMAIL_USE_TLS=false
+    SEATABLE_EMAIL_USE_SSL=true
+    SEATABLE_EMAIL_HOST='mail.infomaniak.com'
+    SEATABLE_EMAIL_HOST_USER='username@domain.com'
+    SEATABLE_EMAIL_HOST_PASSWORD='password'
+    SEATABLE_EMAIL_PORT=465
+    SEATABLE_DEFAULT_FROM_EMAIL='SeaTable <noreply@domain.com>'
+    SEATABLE_SERVER_EMAIL='noreply@domain.com'
+    ```
 
 === "Configuration file" 
 
