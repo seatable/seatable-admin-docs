@@ -145,7 +145,7 @@ Since version 5.3, `dtable-server` reads these settings from [environment variab
 ### Private Key
 
 Starting with version 5.3, it is no longer required to provide `private_key` that is used to sign JWTs inside the configuration file.
-`dtable-server` reads this value from the `JWT_PRIVATE_KEY` [environment variable](/configuration/environment-variables) instead.
+`dtable-server` reads this value from the `JWT_PRIVATE_KEY` [environment variable](/configuration/overview) instead.
 
 | Parameter     | Description                                                                                          | Default |
 | ------------- | ---------------------------------------------------------------------------------------------------- | ------- |
