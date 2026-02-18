@@ -122,7 +122,7 @@ Section `[backup]` contains options to configure backup functions for big data b
 
 ??? note "[database] is not necessary anymore"
 
-    Since version 5.3, `dtable-db` reads database connection settings from [environment variables](/configuration/environment-variables).
+    Since version 5.3, `dtable-db` reads database connection settings from [environment variables](/configuration/overview).
     From version 2.7 to version 5.2, `dtable-db` used the database settings in `dtable_server_config.json`.
 
     The section `[database]` contained options for accessing the MySQL database used by dtable-server.
