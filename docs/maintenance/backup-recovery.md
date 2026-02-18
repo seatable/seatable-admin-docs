@@ -115,7 +115,7 @@ Inside the `/opt/seatable-server/seatable` directory, there are multiple folders
 
     The `db-data` directory contains big data content in a sql-like database structure. **It is not recommended to save this folder.** Instead the big data content is dumped to the storage-data folder automatically every 24 hours by default. Therefore it is already part of your backup.
 
-    1. To backup big data more often, change the [dtable-db settings](http://127.0.0.1:8000/configuration/dtable-db-conf/#backup).
+    1. To backup big data more often, change the [dtable-db settings](/configuration/components/dtable-db).
     2. To force the dump of big data you could execute the following command:
 
     ```sh

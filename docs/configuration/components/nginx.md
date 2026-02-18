@@ -24,6 +24,6 @@ When you update SeaTable, all default files in `/opt/seatable-compose` will be o
 3. **Update the .env File:**  
    In your `.env` file, update the `COMPOSE_FILES` variable to include your `custom-seatable-server.yml` file.
 
-After making changes, [restart the SeaTable container](../maintenance/restart-seatable.md) for your changes to take effect. 
+After making changes, [restart the SeaTable container](../../maintenance/restart-seatable.md) for your changes to take effect.
 
 This ensures that your custom configuration is used instead of the original files.

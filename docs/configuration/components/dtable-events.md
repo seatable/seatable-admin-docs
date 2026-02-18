@@ -85,7 +85,7 @@ enabled = true
 
 ??? success "Database can be configured in .env"
 
-    From SeaTable 5.3, you can specify the database configurations in [`.env`](./environment-variables.md#table-of-settings). There is no need to keep this configuration in your `dtable-events.conf`.
+    From SeaTable 5.3, you can specify the database configurations in [`.env`](../overview.md). There is no need to keep this configuration in your `dtable-events.conf`.
 
 | Parameter  | Description                                                                                             | Default           |
 | ---------- | ------------------------------------------------------------------------------------------------------- | ----------------- |
@@ -99,7 +99,7 @@ enabled = true
 ### `[REDIS]`
 
 ??? success "Redis can be configured in .env"
-    From SeaTable 5.3, you can specify the redis configurations in [`.env`](./environment-variables.md#table-of-settings). There is no need to keep this configuration in your `dtable-events.conf`.
+    From SeaTable 5.3, you can specify the redis configurations in [`.env`](../overview.md). There is no need to keep this configuration in your `dtable-events.conf`.
 
 | Parameter  | Description           | Default |
 | ---------- | --------------------- | ------- |
@@ -167,7 +167,7 @@ SeaTable runs this event at the 30th minute of every hour. The job processes ema
 
 **disabled** by default.
 
-SeaTable could sync LDAP accounts, if activated. This requires additional settings in `dtable_web_settings.py`. Please refer to [LDAP Authentication](../configuration/authentication/ldap.md).
+SeaTable could sync LDAP accounts, if activated. This requires additional settings in `dtable_web_settings.py`. Please refer to [LDAP Authentication](../authentication/ldap.md).
 
 | Parameter       | Description                                                                             | Default |
 | --------------- | --------------------------------------------------------------------------------------- | ------- |
@@ -203,7 +203,7 @@ This section configures how files are scanned for viruses:
 
 ??? note "[DATABASE] is not necessary anymore"
 
-    Since version 5.3, `dtable-events` reads database settings from [environment variables](/configuration/environment-variables).
+    Since version 5.3, `dtable-events` reads database settings from [environment variables](/configuration/overview).
 
     The section `[DATABASE]` contained options for accessing the MySQL database used by `dtable-events`.
 
@@ -218,7 +218,7 @@ This section configures how files are scanned for viruses:
 
 ??? note "[REDIS] is not necessary anymore"
 
-    Since version 5.3, `dtable-events` reads Redis connection settings from [environment variables](/configuration/environment-variables).
+    Since version 5.3, `dtable-events` reads Redis connection settings from [environment variables](/configuration/overview).
 
     The section `[REDIS]` used to contain the following options:
 

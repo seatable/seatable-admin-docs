@@ -82,7 +82,7 @@ By default, `dtable_server_config.json` will be empty after the first startup of
 
 ### Row Limits
 
-Please note that increasing this value requires corresponding updates in `dtable_web_settings.py`, as detailed [here](../configuration/base-rows-limit.md).
+Please note that increasing this value requires corresponding updates in `dtable_web_settings.py`, as detailed [here](../base-rows-limit.md).
 
 | Parameter             | Description                                                                        | Default |
 | --------------------- | ---------------------------------------------------------------------------------- | ------- |
@@ -120,7 +120,7 @@ You can use the environment variable `AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE` ins
 ### MariaDB Database Connection
 
 `dtable-server` used to read the database connection settings from `dtable_server_config.json`.
-Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/environment-variables) instead.
+Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/overview) instead.
 
 | Parameter  | Description            | Default           |
 | ---------- | ---------------------- | ----------------- |
@@ -133,7 +133,7 @@ Since version 5.3, `dtable-server` reads these settings from [environment variab
 ### Redis Connection
 
 `dtable-server` used to read the Redis connection settings from `dtable_server_config.json`.
-Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/environment-variables) instead.
+Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/overview) instead.
 
 | Parameter                     | Description                              | Default |
 | ----------------------------- | ---------------------------------------- | ------- |

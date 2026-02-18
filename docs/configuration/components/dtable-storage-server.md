@@ -106,7 +106,7 @@ Depending on the chosen storage backend, there are additional settings:
 | `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.       |         |
 | `path_style_request` | Whether to use path style requests. For a S3-compatible storage, it should be `true`.                                                  |         |
 | `use_https`          | Whether to use https.                                                                                                                  |         |
-| `sse_c_key`          | Use [server-side encryption with customer-provided keys](../installation/advanced/s3-encryption.md) (SSE-C). This setting is optional. |         |
+| `sse_c_key`          | Use [server-side encryption with customer-provided keys](../../installation/advanced/s3-encryption.md) (SSE-C). This setting is optional. |         |
 
 ### `[snapshot]`
 
