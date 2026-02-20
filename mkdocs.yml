@@ -181,6 +181,7 @@ nav:
           - Webserver:
               - Activate IPv6: installation/advanced/ipv6-support.md
               - Custom Reverse Proxy: installation/advanced/custom-proxy.md
+              - DNS-01 Challenge: installation/advanced/webserver-dns-challenge.md
               - Custom Certificates: installation/advanced/custom-certificates.md
               - Force HTTP: installation/advanced/http-only.md
               - Additional Subdomains: installation/advanced/additional-subdomains.md
