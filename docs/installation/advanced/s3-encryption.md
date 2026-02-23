@@ -11,13 +11,6 @@ This applies to both base snapshots and the content of file and image columns.
 
 ## Configuration
 
-To encrypt both base snapshots and assets, you must configure a valid encryption key in **two locations**:
-
-- `dtable-storage-server.conf` to encrypt base snapshots
-- `seafile.conf` to encrypt the files stored in file and image columns
-
-These encryption keys can be different.
-
 ### Key Generation
 
 SeaTable requires an encryption key that is exactly 32 characters long.
@@ -46,7 +39,44 @@ openssl rand -base64 24
 
     In addition, you must **strip** any trailing `=` signs at the end of the key that are used for padding before passing the key to `mc` commands such as `mc put` or `mc get`.
 
-### Base Snapshots
+### Environment Variables
+
+<!-- md:version 6.1 -->
+
+From version 6.1 onwards, SeaTable supports reading S3 configuration from environment variables.
+While the previous approach [via configuration files](#configuration-files) is still supported, we recommend using environment variables since this has numerous advantages:
+
+- All relevant credentials are configured inside your `.env` file instead of being distributed between different configuration files
+- Configuration based on environment variables allows for a declarative deployment using S3, which was not previously possible
+- Docker-Compose automatically detects changes to the values of environment variables when running `docker compose up -d` and restarts any dependent services
+
+!!! tip "Approach requires a single encryption key"
+
+    Please note that the approach based on environment variables **does not allow** configuring different encryption keys for the different buckets used by SeaTable.
+
+    Enabling SSE-C encryption via the `S3_SSE_C_KEY` environment variable **will enable SSE-C encryption** for base snapshots, files **and** assets.
+
+Configuring the encryption key via an environment variable requires S3 configuration via environment variables (see [this page](./s3.md#environment-variables) for details).
+
+To enable SSE-C encryption, simply set the `S3_SSE_C_KEY` inside your `.env` file to the value of the generated encryption key.
+
+You must restart SeaTable after applying this configuration change:
+
+```bash
+docker compose up -d
+```
+
+### Configuration Files
+
+Instead of using environment variables, you can also use the previous approach of configuring the encryption key inside the configuration files.
+To encrypt both base snapshots and assets, you must configure a valid encryption key in **two locations**:
+
+- `dtable-storage-server.conf` to encrypt base snapshots
+- `seafile.conf` to encrypt the files stored in file and image columns
+
+These encryption keys can be different.
+
+#### Base Snapshots
 
 To encrypt base snapshots at rest, you must configure an encryption key inside `dtable-storage-server.conf`:
 
@@ -62,7 +92,7 @@ You must restart SeaTable after applying this configuration change:
 docker restart seatable-server
 ```
 
-### Assets
+#### Assets
 
 To encrypt the file assets stored in file and image columns, you must configure an encryption key inside `seafile.conf` for all three object types (commits, fs and blocks):
 
