@@ -53,3 +53,29 @@ Afterwards, you should update your `.env` file and restart the python-starter by
 ```ini
 PYTHON_TRANSFER_DIRECTORY_PATH='/opt/python-pipeline-transfer'
 ```
+
+## Mounting Additional Directories
+
+If your `python-runner` containers require access to an additional host directory, you can use the environment variable `PYTHON_RUNNER_OTHER_OPTIONS` to specify additional arguments for the generated `docker run` command that is used to start the `python-runner` containers.
+
+However, this variable is not part of the `python-pipeline.yml` file by default.
+You should therefore create an additional `custom-python-pipeline.yml` file with the following contents to extend the default definition of the `python-starter` service.
+Docker Compose will automatically merge these two definitions together.
+
+```yaml
+services:
+  python-starter:
+    environment:
+      - PYTHON_RUNNER_OTHER_OPTIONS=["--volume=/path-on-the-host:/path-inside-the-container:rw"]
+```
+
+!!! info "Issues with Quotes"
+
+    You should make sure that there are no additional quotes around the square brackets (`[` and `]`) since this will cause issues.
+
+Afterwards, add `custom-python-pipeline.yml` to the `COMPOSE_FILE` variable inside your `.env` file and restart the `python-starter` container by running `docker compose up -d`.
+
+### Troubleshooting
+
+Set `PYTHON_STARTER_LOG_LEVEL` to `DEBUG` inside your `.env` file.
+This will cause the full `docker run` command to be logged to STDOUT, which can be retrieved by running `docker compose logs -f python-starter`.
