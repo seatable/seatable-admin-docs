@@ -76,12 +76,10 @@ This sections defines where the database files for bases with activated big data
 
 This sections contains options for caching bases from dtable-server.
 
-**TODO:** is now `inner_dtable_server_url`, but `dtable_server_url` is still read as of v6.1
-
-| Parameter           | Description                                                                                | Default               |
-| ------------------- | ------------------------------------------------------------------------------------------ | --------------------- |
-| `dtable_server_url` | local address for dtable-server. You must specify this option.                             | http://127.0.0.1:5000 |
-| `total_cache_size`  | The base cache size in MB. Default was increased from 500 (MB) to 2000 (MB) in version 4.4 | 2000                  |
+| Parameter                 | Description                                                                                | Default               |
+| ------------------------- | ------------------------------------------------------------------------------------------ | --------------------- |
+| `inner_dtable_server_url` | local address for dtable-server. You must specify this option.                             | http://127.0.0.1:5000 |
+| `total_cache_size`        | The base cache size in MB. Default was increased from 500 (MB) to 2000 (MB) in version 4.4 | 2000                  |
 
 ### `[SQL]`
 
@@ -141,6 +139,7 @@ Section `[backup]` contains options to configure backup functions for big data b
 
 - `private_key`: Must be the same value like `DTABLE_PRIVATE_KEY` in `dtable_web_settings.py`. Only necessary if your version is before "Enterprise edition 3.5.5". If your version is newer the value is read from `dtable_server_config.json`.
 - `clean_cache_interval`: Interval between cache cleaning. Unit is in seconds. Defaults to 300. This option is removed in "Enterprise edition 4.4.0". Since 4.4.0 a real-time eviction mechanism replaced regular cache cleanup mechanism.
+- `dtable_server_url`: This option has been renamed to `inner_dtable_server_url` in v6.1 for consistency reasons. `dtable_server_url` is still read as of v6.1.
 
 ### `[SQL]`
 
