@@ -132,7 +132,7 @@ Of course, you can skip this script and make the changes manually. The following
     enabled = true
     ```
 
-    Please refer to [this document](../configuration/dtable-events-conf.md#clean-db) for detailed information on the possible configuration options.
+    Please refer to [this document](../configuration/components/dtable-events.md#clean-db) for detailed information on the possible configuration options.
 
 ??? info "ccnet.conf is obsolete"
 
@@ -221,8 +221,8 @@ Of course, you can skip this script and make the changes manually. The following
 
     With version 5.2, SeaTable introduces a tiered retention strategy for Big Data Backups and Base Snapshots. While updating your settings is optional, it's recommended to take advantage of the new features. You can find the new options in:
 
-    - [dtable-db.conf](../configuration/dtable-db-conf.md)
-    - [dtable-storage-server.conf](../configuration/dtable-storage-server-conf.md)
+    - [dtable-db.conf](../configuration/components/dtable-db.md)
+    - [dtable-storage-server.conf](../configuration/components/dtable-storage-server.md)
 
 ??? info "New Whiteboard plugin"
 

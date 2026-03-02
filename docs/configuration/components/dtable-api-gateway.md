@@ -51,17 +51,26 @@ This section contains settings about api-gateway working with dtable-server or d
 
 This section contains settings about api-gateway working with dtable-db.
 
-| Parameter        | Description                                                                                                                                     | Default        |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `cluster_mode`   | Indicates whether dtable-db is running in cluster mode. Can be `true` or `false`.                                                               | `false`        |
-| `server_address` | Address of the dtable-db instance. It's required if `cluster_mode` is set to `false`. You should not set it if `cluster_mode` is set to `true`. | 127.0.0.1:7777 |
+| Parameter             | Description                                                                                                                                 | Default               |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `cluster_mode`        | Indicates whether dtable-db is running in cluster mode. Can be `true` or `false`.                                                           | `false`               |
+| `inner_dtable_db_url` | URL of the dtable-db instance. It's required if `cluster_mode` is set to `false`. You should not set it if `cluster_mode` is set to `true`. | http://127.0.0.1:7777 |
 
 ### `[dtable-server]`
 
 This section contains settings about api-gateway working with dtable-server.
 
-| Parameter        | Description                                                                                                                                         | Default        |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `cluster_mode`   | Indicates whether dtable-server is running in cluster mode. Can be `true` or `false`.                                                               | `false`        |
-| `server_address` | Address of the dtable-server instance. It's required if `cluster_mode` is set to `false`. You should not set it if `cluster_mode` is set to `true`. | 127.0.0.1:7777 |
+| Parameter                 | Description                                                                                                                                     | Default               |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `cluster_mode`            | Indicates whether dtable-server is running in cluster mode. Can be `true` or `false`.                                                           | `false`               |
+| `inner_dtable_server_url` | URL of the dtable-server instance. It's required if `cluster_mode` is set to `false`. You should not set it if `cluster_mode` is set to `true`. | http://127.0.0.1:5000 |
 
+## Deprecated or removed options
+
+### `[dtable-db]`
+
+- `server_address`: This option has been renamed to `inner_dtable_db_url` in v6.1 for consistency reasons. `server_address` is still read as of v6.1.
+
+### `[dtable-server]`
+
+- `server_address`: This option has been renamed to `inner_dtable_server_url` in v6.1 for consistency reasons. `server_address` is still read as of v6.1.

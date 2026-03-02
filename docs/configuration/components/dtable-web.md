@@ -1,6 +1,6 @@
 # dtable web settings
 
-You need to [restart SeaTable](../maintenance/restart-seatable.md) so that your changes take effect. 
+You need to [restart SeaTable](../../maintenance/restart-seatable.md) so that your changes take effect.
 
 You can also modify some of the config items as system administrator via web interface. These config items are saved in the database table (dtable_db/constance_config). The configuration in the database has a higher priority then the items in config file. If you want to disable settings via web interface, you can add `ENABLE_SETTINGS_VIA_WEB = False` to `dtable_web_settings.py`.
 
@@ -33,7 +33,7 @@ If you changed your domain, the URLs in above settings must be changed according
 
 ## Sending Email Notifications
 
-Refer to [email sending documentation](../configuration/sending-email.md).
+Refer to [email sending documentation](../sending-email.md).
 
 ## User management options
 

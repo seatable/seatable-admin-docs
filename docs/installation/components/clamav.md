@@ -70,7 +70,7 @@ ClamAV offers advanced configuration options in dtable-events.conf, such as:
 - **Ignored file extensions**: Specify file types to exclude from scanning.
 - **Thread count**: Define how many threads are used for scanning.
 
-For more details, refer to the [dtable-events configuration documentation](../../configuration/dtable-events-conf.md).
+For more details, refer to the [dtable-events configuration documentation](../../configuration/components/dtable-events.md).
 
 ## Updating Virus Signature Files
 
