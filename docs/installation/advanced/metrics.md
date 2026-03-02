@@ -9,7 +9,6 @@ Currently, the following SeaTable components expose metrics in a [Prometheus](ht
 
 - api-gateway
 - dtable-db
-- dtable-events
 
 ## SeaTable Components
 
@@ -133,46 +132,11 @@ docker exec seatable-server curl -sS http://localhost:7777/metrics --user "<user
   ```
 </details>
 
-### dtable-events
-
-dtable-events' `/metrics` endpoint is protected via a JWT.
-
-**TODO: Allow basic auth**
-
-By default, dtable-events' HTTP server only binds to `127.0.0.1`.
-In order to scrape the metrics published by dtable-events, you must configure the HTTP server to bind to all interfaces by adding the following configuration block inside `/opt/seatable-server/seatable/conf/dtable-events.conf`:
-
-```ini
-[DTABLE IO]
-host = 0.0.0.0
-```
-
-Remember to restart SeaTable by running the following command:
-
-```bash
-docker restart seatable-server
-```
-
-You can test the metrics endpoint by running the following command on the host:
-
-**TODO: dtable-events does not yet allow basic auth for /metrics**
-
-```bash
-docker exec seatable-server curl -sS http://localhost:6000/metrics --user "<username>:<password>"
-```
-
-**Note:** `curl` is executed inside the container since port 6000 is not exposed to the host by default.
-
-**TODO: Update example output, metric names are broken on v6.0.10**
-
-<details>
-<summary>Example Output</summary>
-  ```
-
-  ```
-</details>
-
 ## Scraping
+
+There are many ways to ingest the metrics into Prometheus.
+
+### Grafana Alloy
 
 You can use [Grafana Alloy](https://grafana.com/docs/alloy/latest/) to scrape metrics from SeaTable components and forward them to an existing [Prometheus server](https://prometheus.io/) using Prometheus' [remote-write](https://grafana.com/docs/alloy/latest/reference/components/prometheus/prometheus.remote_write/) functionality.
 
