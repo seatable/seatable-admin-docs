@@ -104,6 +104,14 @@ These must be configured inside your `.env` file:
     SEATABLE_AI_LLM_MODEL=...
     ```
 
+#### LLM Timeout Configuration (Optional)
+
+You can constrain the communication timeout with the LLM service by specifying `SEATABLE_AI_LLM_TIMEOUT` in `.env` (the default is 180 seconds):
+
+```ini
+SEATABLE_AI_LLM_TIMEOUT=180
+```
+
 ### Download SeaTable AI image and restart
 
 One more step is necessary to download the SeaTable AI image and restart the SeaTable service:
