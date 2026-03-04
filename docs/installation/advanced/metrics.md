@@ -204,3 +204,10 @@ prometheus.scrape "seatable_metrics" {
   scrape_interval = "15s"
 }
 ```
+
+## Grafana Dashboard
+
+We have published a [Grafana dashboard](https://grafana.com/grafana/dashboards/24942) that displays these metrics.
+You can import this dashboard into your Grafana instance by specifying its ID (`24942`).
+
+![Grafana Dashboard](../../assets/images/grafana-dashboard.png)
