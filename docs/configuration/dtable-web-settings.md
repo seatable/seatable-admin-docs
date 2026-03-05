@@ -196,6 +196,8 @@ BIG_DATA_ROW_IMPORT_LIMIT = 500000
 BIG_DATA_ROW_UPDATE_LIMIT = 500000
 ```
 
+In addition, there's a file size limit of 40MB per XLSX file. This limit cannot be configured.
+
 ## Base export limit
 
 SeaTable exports bases in DTABLE files. A DTABLE file contains all tabular data, assets, and a lot of metadata and can thus become large.
