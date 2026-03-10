@@ -75,7 +75,7 @@ These must be configured inside your `.env` file:
     ```
 === "Ollama"
     ```ini
-    SEATABLE_AI_LLM_TYPE=ollama_chat
+    SEATABLE_AI_LLM_TYPE=ollama
     SEATABLE_AI_LLM_URL=<your LLM endpoint>
     SEATABLE_AI_LLM_KEY=<your LLM access key>
     SEATABLE_AI_LLM_MODEL=<your model-id>
