@@ -106,7 +106,7 @@ These must be configured inside your `.env` file:
 
 #### LLM Timeout Configuration (Optional)
 
-You can constrain the communication timeout with the LLM service by specifying `SEATABLE_AI_LLM_TIMEOUT` in `.env` (the default is 180 seconds):
+You can configure the communication timeout with the LLM service by specifying `SEATABLE_AI_LLM_TIMEOUT` in `.env` (the default is 180 seconds):
 
 ```ini
 SEATABLE_AI_LLM_TIMEOUT=180
