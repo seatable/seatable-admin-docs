@@ -242,18 +242,18 @@ nav:
               - SAML for teams: configuration/authentication/saml-team.md
               - JWT-Token: configuration/authentication/jwt.md
           - Switch authentication: configuration/authentication/auth-switch.md
-      - Configuration Files / Options:
-          - Environment variables: configuration/environment-variables.md
-          - Configuration files:
-              - dtable-db.conf: configuration/dtable-db-conf.md
-              - dtable-events.conf: configuration/dtable-events-conf.md
-              - dtable_server_config.json: configuration/dtable-server-config.md
-              - dtable-storage-server.conf: configuration/dtable-storage-server-conf.md
-              - dtable_web_settings.py: configuration/dtable-web-settings.md
-              - dtable-api-gateway.conf: configuration/dtable-api-gateway-conf.md
-              - seafile.conf: configuration/seafile-conf.md
-              - gunicorn.py: configuration/gunicorn-py.md
-              - nginx.conf: configuration/nginx-conf.md
+      - Configuration:
+          - Overview: configuration/overview.md
+          - Components:
+              - dtable-api-gateway: configuration/components/dtable-api-gateway.md
+              - dtable-db: configuration/components/dtable-db.md
+              - dtable-events: configuration/components/dtable-events.md
+              - dtable-server: configuration/components/dtable-server.md
+              - dtable-storage-server: configuration/components/dtable-storage-server.md
+              - dtable-web: configuration/components/dtable-web.md
+              - seafile: configuration/components/seafile.md
+              - gunicorn: configuration/components/gunicorn.md
+              - nginx: configuration/components/nginx.md
 
   - UI Customization:
       - Overview: customization/overview.md

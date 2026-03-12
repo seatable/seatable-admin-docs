@@ -34,7 +34,7 @@ The deployment of a separate python pipeline is simple. Get seatable-release fro
 
 Update your `.env`, that it looks like this and add/update the values according to your needs:
 
-```
+```ini
 COMPOSE_FILE='caddy.yml,python-pipeline-standalone.yml'
 COMPOSE_PATH_SEPARATOR=','
 
@@ -60,11 +60,12 @@ Execute `docker compose up -d` to fire up your separate python pipeline.
 
 SeaTable must know how to access the Python Pipeline.
 
-Update the `.env` on the seatable server and add these two informations:
+Update the `.env` on the seatable server and add these variables:
 
-```bash
+```ini
+ENABLE_PYTHON_SCRIPT=true
 PYTHON_SCHEDULER_URL=https://python.your-url.com
 PYTHON_SCHEDULER_AUTH_TOKEN=shared secret with python scheduler
 ```
 
-Restart seatable service and test your python pipeline.
+Restart the `seatable-server` service by running `docker compose up -d` and test your python pipeline.

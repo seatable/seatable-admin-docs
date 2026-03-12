@@ -51,7 +51,7 @@ keep_days = 60
 
 ### `[database]`
 
-Since version 5.3, Seafile reads the main database configuration settings from [environment variables](/configuration/environment-variables).
+Since version 5.3, Seafile reads the main database configuration settings from [environment variables](/configuration/overview).
 
 The following options are optional and can be used to further tweak Seafile:
 
@@ -66,7 +66,7 @@ The following options are optional and can be used to further tweak Seafile:
 
 ??? note "[database] is not necessary anymore"
 
-    Since version 5.3, `Seafile` reads the main database settings from [environment variables](/configuration/environment-variables).
+    Since version 5.3, `Seafile` reads the main database settings from [environment variables](/configuration/overview).
 
     The section `[database]` contained options for accessing the MariaDB database used by `Seafile`.
 

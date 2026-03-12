@@ -1,6 +1,6 @@
 # Configuration of dtable-events
 
-This is a cheat sheet for the [dtable-events](/introduction/architecture/#dtable-events) configuration file `dtable-events.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-events](/introduction/architecture/#dtable-events). It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 
@@ -9,6 +9,45 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 ??? tip "Configuration changes require a restart"
 
     New configuration options will only apply after a restart of SeaTable.
+
+## Environment Variables
+
+This section lists the environment variables read by [dtable-events](/introduction/architecture/#dtable-events).
+
+Please note that these variables are not included in `seatable-server.yml` by default.
+We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
+Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
+
+```yaml
+services:
+  seatable-server:
+    environment:
+      - AUTOMATION_WORKERS=10
+```
+
+This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
+This ensures that SeaTable upgrades stay seamless.
+
+### Automations
+
+| Environment Variable                | Description                                                                                                                          | Default |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| `AUTOMATION_WORKERS`                | Configures the number of worker threads used to process automation rule events                                                       | 5       |
+| `AUTOMATION_RATE_LIMIT_WINDOW_SECS` | The time window (in seconds) used to calculate automation rate limits                                                                | 300     |
+| `AUTOMATION_RATE_LIMIT_PERCENT`     | The maximum percentage of total available automation capacity a single team can use within the defined time window. Defaults to 25%. | 0.25    |
+
+By default, these settings will limit a single team to 25% of the available automation running time (calculated by `AUTOMATION_WORKERS * AUTOMATION_RATE_LIMIT_WINDOW_SECS`) within 5 minutes.
+
+### PDF Generation
+
+| Environment Variable               | Description                                               | Default |
+| ---------------------------------- | --------------------------------------------------------- | ------- |
+| `CONVERT_PDF_BROWSERS`             | Number of browser processes started to generate PDF files | 2       |
+| `CONVERT_PDF_SESSIONS_PER_BROWSER` | Number of sessions per browser instance                   | 3       |
+
+## Configuration File
+
+The following section describes the structure and possible configuration values of the configuration file `dtable-events.conf`.
 
 ??? abstract "Notes about the configuration file format"
 
@@ -20,7 +59,7 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 !!! warning "dtable-events reads values from dtable_web_settings.py"
 
-    Before SeaTable 5.3, `dtable-events` reads `dtable_web_settings.py` for internal URLs and various key settings. Ensure these configurations are correct.
+    `dtable-events` reads `dtable_web_settings.py` for internal URLs and various key settings. Ensure these configurations are correct.
 
     Other configuration files are not used, if you run dtable-events separately.
 
@@ -33,22 +72,20 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 The following options are grouped by their sections.
 
-## Example configuration
+**Example Configuration**
 
 By default, `dtable-events.conf` will contain the following configuration after the first startup of SeaTable:
 
-```python
+```ini
 [CLEAN DB]
 enabled = true
 ```
-
-## Available configuration options
 
 ### `[DATABASE]`
 
 ??? success "Database can be configured in .env"
 
-    From SeaTable 5.3, you can specify the database configurations in [`.env`](./environment-variables.md#table-of-settings). There is no need to keep this configuration in your `dtable-events.conf`.
+    From SeaTable 5.3, you can specify the database configurations in [`.env`](../overview.md). There is no need to keep this configuration in your `dtable-events.conf`.
 
 | Parameter  | Description                                                                                             | Default           |
 | ---------- | ------------------------------------------------------------------------------------------------------- | ----------------- |
@@ -62,7 +99,7 @@ enabled = true
 ### `[REDIS]`
 
 ??? success "Redis can be configured in .env"
-    From SeaTable 5.3, you can specify the redis configurations in [`.env`](./environment-variables.md#table-of-settings). There is no need to keep this configuration in your `dtable-events.conf`.
+    From SeaTable 5.3, you can specify the redis configurations in [`.env`](../overview.md). There is no need to keep this configuration in your `dtable-events.conf`.
 
 | Parameter  | Description           | Default |
 | ---------- | --------------------- | ------- |
@@ -105,17 +142,6 @@ SeaTable runs this task every hour to send base email notifications for base upd
 | --------- | ------------------------------------------------------------ | ------- |
 | `enabled` | Enables or disables the email notifications for base updates | true    |
 
-### `[AUTOMATION]`
-
-**enabled** by default.
-
-In SeaTable, users have the ability to define triggers and actions within an automation rule.  
-These rules are then automatically executed on a base.
-
-| Parameter                      | Description                                                         | Default |
-| ------------------------------ | ------------------------------------------------------------------- | ------- |
-| `per_update_auto_rule_workers` | Number of worker threads used for processing automation rule events | 3       |
-
 ### `[COMMON DATASET SYNCER]`
 
 **enabled** by default.
@@ -141,7 +167,7 @@ SeaTable runs this event at the 30th minute of every hour. The job processes ema
 
 **disabled** by default.
 
-SeaTable could sync LDAP accounts, if activated. This requires additional settings in `dtable_web_settings.py`. Please refer to [LDAP Authentication](../configuration/authentication/ldap.md).
+SeaTable could sync LDAP accounts, if activated. This requires additional settings in `dtable_web_settings.py`. Please refer to [LDAP Authentication](../authentication/ldap.md).
 
 | Parameter       | Description                                                                             | Default |
 | --------------- | --------------------------------------------------------------------------------------- | ------- |
@@ -177,7 +203,7 @@ This section configures how files are scanned for viruses:
 
 ??? note "[DATABASE] is not necessary anymore"
 
-    Since version 5.3, `dtable-events` reads database settings from [environment variables](/configuration/environment-variables).
+    Since version 5.3, `dtable-events` reads database settings from [environment variables](/configuration/overview).
 
     The section `[DATABASE]` contained options for accessing the MySQL database used by `dtable-events`.
 
@@ -192,7 +218,7 @@ This section configures how files are scanned for viruses:
 
 ??? note "[REDIS] is not necessary anymore"
 
-    Since version 5.3, `dtable-events` reads Redis connection settings from [environment variables](/configuration/environment-variables).
+    Since version 5.3, `dtable-events` reads Redis connection settings from [environment variables](/configuration/overview).
 
     The section `[REDIS]` used to contain the following options:
 
@@ -203,6 +229,7 @@ This section configures how files are scanned for viruses:
 ### `[AUTOMATION]`
 
 - `per_minute_trigger_limit`: This setting allowed an administrator to restrict the frequency of automation rule executions. It has been removed in SeaTable 5.3.
+- `per_update_auto_rule_workers`: This setting allowed an administrator to configure the number of worker threads used to process automation rule events. It has been removed in SeaTable 6.1. You should use the environment variable `AUTOMATION_WORKERS` instead.
 
 ### `[ROWS COUNTER]`
 
