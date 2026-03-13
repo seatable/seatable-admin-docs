@@ -255,10 +255,9 @@ API_THROTTLE_RATES = {
 }
 
 # Throttling whitelist used to disable throttle for certain IPs.
-# e.g. REST_FRAMEWORK_THROTTLING_WHITELIST = ['127.0.0.1', '192.168.1.1']
-# Please make sure `REMOTE_ADDR` header is configured in Nginx conf
-REST_FRAMEWORK_THROTTLING_WHITELIST = []
-
+# e.g. REST_FRAMEWORK_THROTTING_WHITELIST = ['127.0.0.1', '192.168.1.1']
+# Note: The name of this setting contains an unintended typo (`THROTTING` instead of `THROTTLING`)
+REST_FRAMEWORK_THROTTING_WHITELIST = []
 ```
 
 ## Trash retention period
