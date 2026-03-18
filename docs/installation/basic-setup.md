@@ -88,9 +88,9 @@ The expected output should appear as follows.
 
 #### 2. Add secrets
 
-SeaTable is configured with the hidden `.env` file (=enviroment configuration file) that is stored in the folder `/opt/seatable-compose`.
+SeaTable is configured with the hidden `.env` file (=environment configuration file) that is stored in the folder `/opt/seatable-compose`.
 
-Now use the command line tool `pwgen` to create secure passwords for your _admin account_, the _database root password_, the _Redis_ instance and a secret for secure communication between the SeaTable components. The following commands will generate four such passwords and insert them in the `.env'` file.
+Now use the command line tool `pwgen` to create secure passwords for your _admin account_, the _database root password_, the _Redis_ instance and a secret for secure communication between the SeaTable components. The following commands will generate four such passwords and insert them in the `.env` file.
 
     sed -i "s/^SEATABLE_ADMIN_PASSWORD=.*/SEATABLE_ADMIN_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^MARIADB_PASSWORD=.*/MARIADB_PASSWORD=$(pwgen 40 1)/" .env

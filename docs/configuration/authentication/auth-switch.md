@@ -10,7 +10,7 @@ See more about [make a database backup](../../maintenance/backup-recovery.md).
 
 ## Migrating from local user database to external authentication
 
-As an organisation grows and its IT infrastructure matures, the migration from local authentication to external authentication like LDAP, SAML, OAUTH is common requirement. Fortunately, the switch is comparatively simple.
+As an organisation grows and its IT infrastructure matures, the migration from local authentication to external authentication like LDAP, SAML, OAUTH is a common requirement. Fortunately, the switch is comparatively simple.
 
 ### General procedure
 

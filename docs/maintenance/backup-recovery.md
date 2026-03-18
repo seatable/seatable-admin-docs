@@ -67,7 +67,7 @@ Let us clarify where you find which content and how we should backup them.
 
     A common misunderstanding is the assumption that the content of SeaTable bases is stored in the MariaDB container. This is not the case. Refer to the chapter about [SeaTable architecture](../../introduction/architecture/) for more details.
 
-SeaTable creates three database in the `mariadb` Docker container, storing these kind of data types:
+SeaTable creates three databases in the `mariadb` Docker container, storing these kind of data types:
 
 - **ccnet_db:** User accounts, Groups and team assignment.
 - **seafile_db:** Workspace definitions and versioning information for the files and images.
@@ -87,9 +87,9 @@ docker exec -it mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt seafile
 docker exec -it mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt dtable_db > ./dtable_db.sql
 ```
 
-!!! warning "Cronjob require other parameters"
+!!! warning "Cronjobs require other parameters"
 
-    If you want to execute the `docker ... mariadb-dump` command directly as a cronjob, your have to remove the parameters `-it`. Otherwise you will only create an empty dump file.
+    If you want to execute the `docker ... mariadb-dump` command directly as a cronjob, you have to remove the parameters `-it`. Otherwise you will only create an empty dump file.
     Sometimes cronjob has problems with the path and `docker` is not sufficient.
 
 !!! tip "How to manage large database dump sizes"
@@ -107,7 +107,7 @@ docker exec -it mariadb mariadb-dump -u root -p${MARIADB_PASSWORD} --opt dtable_
 
 Inside the `/opt/seatable-server/seatable` directory, there are multiple folders containing user data, most importantly, the content of all SeaTable bases. Each base has a unique ID (base_uuid) used in the folder structure. The three folders that must be included in the backup are:
 
-- **storage-data**: contains base base, base snapshots and big data dumps.
+- **storage-data**: contains base data, base snapshots and big data dumps.
 - **seafile-data**: contains uploaded files for file and image columns.
 - **seahub-data**: contains data used by web front-end, such as avatars
 
@@ -197,7 +197,7 @@ This section covers typical custom cases and provides additional advanced topics
 
 ??? success "URL Change during restore"
 
-    If you restore your SeaTable Server with a new URL, don't forget to execute the [command line tool to update the URL](./domain-change.md). Otherwise assets from the image and file columns will not be accessable.
+    If you restore your SeaTable Server with a new URL, don't forget to execute the [command line tool to update the URL](./domain-change.md). Otherwise assets from the image and file columns will not be accessible.
 
 ??? success "Take care to take over the PLUGINS_REPO_ID"
 

@@ -22,9 +22,9 @@ To ensure consistency, implement a **fixed mapping of bases to dtable-servers** 
 - Bases starting with `0-9`: handled by the first dtable-server.
 - Bases starting with `a-f`: handled by the second dtable-server.
 
-## Setting up a of second dtable-server
+## Setting up a second dtable-server
 
-1. **Install a second dtable-server** as described in the [dtable-server (standalone)](dtable-db-standalone.md) section. Name it `dtable-server-2`.
+1. **Install a second dtable-server** as described in the [dtable-server (standalone)](dtable-server-standalone.md) section. Name it `dtable-server-2`.
 
 2. **Update the private network configuration**: Add the IP address of the new server to the `extra_hosts` section on all nodes.
 

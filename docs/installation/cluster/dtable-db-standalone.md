@@ -206,6 +206,6 @@ docker compose up -d
 
 ## Verify complete setup 
 
-A good way to verify, that the two nodes are working fine, is to ppen a universal app in the webinterface. You should see log entries on `dtable-db` in `/logs/dtable-db-access.log`.
+A good way to verify, that the two nodes are working fine, is to open a universal app in the webinterface. You should see log entries on `dtable-db` in `/logs/dtable-db-access.log`.
 
 Congratulations. dtable-db is now standalone.

@@ -22,7 +22,7 @@ These encryption keys can be different.
 
 SeaTable requires an encryption key that is exactly 32 characters long.
 
-You can generate a valid key with the following command：
+You can generate a valid key with the following command:
 
 ```bash
 openssl rand -base64 24

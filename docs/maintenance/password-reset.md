@@ -2,7 +2,7 @@
 
 #### User Management
 
-When you setup SeaTable, you should have setup a admin account. After you logged in a admin, you may add/delete users.
+When you set up SeaTable, you should have set up an admin account. After you log in as an admin, you may add/delete users.
 
 #### Resetting User Password
 

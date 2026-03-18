@@ -6,7 +6,7 @@ It is not recommended to run SeaTable without https. Still it is possible. Durin
 
 ## Switching after the installation
 
-If you want to force http after the initial setup, you also have to adapt these configuraton files and replace all https:// values with http://:
+If you want to force http after the initial setup, you also have to adapt these configuration files and replace all https:// values with http://:
 
 - dtable_web_settings.py
 - ccnet.conf

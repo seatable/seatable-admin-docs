@@ -10,7 +10,7 @@ This article introduces this form of customizing.
 
 SeaTable uses predefined HTML templates for almost all web pages and emails, which can be customized. Changes to the base editor are thus not possible, but adjustments to the login page or changes to individual email texts are possible without problems.
 
-The basic idea is simple. You take the files provided by seatable and copy them to a special place outside the container. These copied files can then be customized. If SeaTable (after a restart) finds these files, they will be used instead of the original files. The duplicated and customized files are stored outside the SeaTable docker container, so that the customizations survive an update vno seatable.
+The basic idea is simple. You take the files provided by seatable and copy them to a special place outside the container. These copied files can then be customized. If SeaTable (after a restart) finds these files, they will be used instead of the original files. The duplicated and customized files are stored outside the SeaTable docker container, so that the customizations survive an update of SeaTable.
 
 All files below `/opt/seatable/seatable-server-latest/dtable-web/seahub/templates/` (inside the SeaTable container) can be customized. Here are a few examples that lend themselves to this:
 
@@ -65,7 +65,7 @@ Now you can start editing your login.html. Otherwise you can take one of these e
 
 ![](../assets/images/auto-upload/simple-login-form.png)
 
-Copy the following content to your login.html. As you can see, the login page was reduced to the maximum. There is no box around the input fields, there is no _language selector_, no _single sign on_, no _signup_ or _forget password_. Error messages are still shown and security features like _CSCF_ and _Captcha_ is still part of the login page.
+Copy the following content to your login.html. As you can see, the login page was reduced to the maximum. There is no box around the input fields, there is no _language selector_, no _single sign on_, no _signup_ or _forget password_. Error messages are still shown and security features like _CSRF_ and _Captcha_ is still part of the login page.
 
 ```
 {% extends "base_clean.html" %}

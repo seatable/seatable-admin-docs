@@ -16,9 +16,9 @@ Since version 5.3, SeaTable automatically cleans up its database. A background t
 
 Although SeaTable has a cleanup mechanism for its database, it is not activated by default. Even if you have a small setup, it is recommended that you setup a single cronjob for cleanup to run for example once a week. Otherwise your database will become bigger and bigger. This article explains all the details.
 
-## Why does the database become to big?
+## Why does the database become too big?
 
-The main reason why the SeaTable database grows quickly is due to the storage of the operation log. Every time you change something in a base, this change is stored in the so called operation log. The operation log contains the base, the table, the row and the concrete change. Might might imagine how fast this database table gets if such a huge amount of data is stored every time you change something in the database.
+The main reason why the SeaTable database grows quickly is due to the storage of the operation log. Every time you change something in a base, this change is stored in the so called operation log. The operation log contains the base, the table, the row and the concrete change. You might imagine how fast this database table gets if such a huge amount of data is stored every time you change something in the database.
 
 ```json
 {
@@ -37,7 +37,7 @@ In addition, every 5 minutes `dtable-server` automatically persists all changes 
 
 In addition the operation log is used for the log display inside the base.
 
-Let me summarize, the operation log has to purposes:
+Let me summarize, the operation log has two purposes:
 
 1. the operation log protects against data loss in the event that SeaTable Server crashes before the changes are persisted to the json file.
 2. the operation log is used for the log/history display inside the base.
@@ -61,7 +61,7 @@ The following tables will be cleaned:
 
 | Database table                 | Table description                                                                             | Retention period |
 | ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------- |
-| dtable_snapshots               | Snapshots of bases that are not store in dtable-storage-server                                | 365 days         |
+| dtable_snapshots               | Snapshots of bases that are not stored in dtable-storage-server                                | 365 days         |
 | activities                     | Aggregated log (based on operation_log) recording row creations, modifications, and deletions | 30 days          |
 | operation_log                  | Low level log recording all operations (of dtable-server)                                     | 14 days          |
 | delete_operation_log           | High level log (based on operation_log) recording all row deletions                           | 30 days          |
@@ -92,12 +92,12 @@ The cronjob might look like this:
 
 <!-- md:version 4.1 -->
 
-If you system becomes really big, you might want to clean up the operation log faster. Therefore a new more efficient and reliable command was added to clear the useless data in the operation_log table after three days. You can add a cron job to run the command every day.
+If your system becomes really big, you might want to clean up the operation log faster. Therefore a new more efficient and reliable command was added to clear the useless data in the operation_log table after three days. You can add a cron job to run the command every day.
 
 This command has two advantages over the above command:
 
 1. It will make sure all pending operations be applied to the base before clearing the logs.
-2. It will clear the logs in small batch, avoiding consume too much database resource in a short time.
+2. It will clear the logs in small batch, avoiding consuming too much database resource in a short time.
 
 ```
 $ docker exec seatable-server /opt/seatable/scripts/seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_operation_log
@@ -174,7 +174,7 @@ DROP TABLE operation_log
 RENAME TABLE operation_log_copy TO operation_log;
 ```
 
-### Option 2: Delete and Recreate a Operation Log Table
+### Option 2: Delete and Recreate an Operation Log Table
 
 !!! danger "Warning"
 

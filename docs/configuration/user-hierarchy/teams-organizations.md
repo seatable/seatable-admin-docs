@@ -6,7 +6,7 @@ status: wip
 
 Teams / Organizations is a feature mainly for bigger installations where groups of people should be completely separated. In fact, cloud.seatable.io uses this feature to separate the teams from each other. The users of a team can see each other, but other users are invisible for them.
 
-Besides Teams, SeaTable offers also deparments and groups. This article is focusing on teams only.
+Besides Teams, SeaTable offers also departments and groups. This article is focusing on teams only.
 
 !!! question "Are Teams and Organizations the same?"
 

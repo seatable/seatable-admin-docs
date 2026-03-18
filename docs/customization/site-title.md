@@ -10,7 +10,7 @@
 
 ## Configuration via the web interface
 
-Login to your SeaTable Server as system administrator and switch to the system admin area. Select the navigation point `Settings`. Team admins or normal users does not have the permission to access the system admin area.
+Login to your SeaTable Server as system administrator and switch to the system admin area. Select the navigation point `Settings`. Team admins or normal users do not have the permission to access the system admin area.
 
 ![SeaTable Site Title in System Administration](../assets/images/seatable_site_title2.png)
 

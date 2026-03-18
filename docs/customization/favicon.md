@@ -17,7 +17,7 @@ If the `custom` directory does not exist, you will need to create it.
 
 ### Custom Path
 
-If you prefer to use a different file name, you can modify this by adding the following settings to `dtable_web_settings.py`. The path must be publically available and is therefore relative to the media path. SeaTable supports both `png` and `ico` files.
+If you prefer to use a different file name, you can modify this by adding the following settings to `dtable_web_settings.py`. The path must be publicly available and is therefore relative to the media path. SeaTable supports both `png` and `ico` files.
 
 ```python
 CUSTOM_FAVICON_PATH = 'custom/my-favicon.png'

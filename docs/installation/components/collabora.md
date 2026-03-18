@@ -21,7 +21,7 @@ This manual assumes that SeaTable Enterprise Edition is installed and is running
 
 #### 1. Change the .env file
 
-To install OnlyOffice, include `collabora.yml` in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for OnlyOffice.
+To install Collabora, include `collabora.yml` in the `COMPOSE_FILE` variable within your `.env` file. This instructs Docker to download the required images for Collabora.
 
 Simply copy and paste (:material-content-copy:) the following code into your command line:
 
@@ -29,9 +29,9 @@ Simply copy and paste (:material-content-copy:) the following code into your com
 sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,collabora.yml'/" /opt/seatable-compose/.env
 ```
 
-#### Modify dtable_web_setings.py
+#### Modify dtable_web_settings.py
 
-Now execute the follwogin command to add the required configuration to `dtable_web_settings.py`. You don't have to replace `${SEATABLE_SERVER_HOSTNAME}`. It will replaced automatically.
+Now execute the following command to add the required configuration to `dtable_web_settings.py`. You don't have to replace `${SEATABLE_SERVER_HOSTNAME}`. It will replaced automatically.
 
 ```bash
 source /opt/seatable-compose/.env
@@ -100,7 +100,7 @@ SEATABLE_SERVER_HOSTNAME=<your-collabora-url>
 COLLABORA_PORT=443
 ```
 
-Have a look at collabora.yml and uncommend and update the value of `aliasgroup1`.
+Have a look at collabora.yml and uncomment and update the value of `aliasgroup1`.
 
 ### Configuration of SeaTable server
 

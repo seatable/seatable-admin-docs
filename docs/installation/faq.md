@@ -12,7 +12,7 @@ status: wip
 
     Check the following solutions to determine what is not running.
 
-??? question "Verify that SeaTabler Server is running"
+??? question "Verify that SeaTable Server is running"
 
     Execute `docker logs seatable-server`. This should result in:
 
@@ -37,7 +37,7 @@ status: wip
     {"version":"4.3.8","edition":"enterprise edition"}
     ```
 
-    If you don't see this, SeaTable Service is definately not running. Try to [restart the service](../maintenance/restart-seatable.md) and check the logs for more details.
+    If you don't see this, SeaTable Service is definitely not running. Try to [restart the service](../maintenance/restart-seatable.md) and check the logs for more details.
 
     Here are the two commands for more logs
 
@@ -122,7 +122,7 @@ Ports müssen offen sein
 security headers vielleicth im Bereich Proxy.
 -->
 
-## FAQ's
+## FAQs
 
 ??? question "If, for whatever reason, the installation fails, how do I to start from a clean slate again?"
 
@@ -132,13 +132,13 @@ security headers vielleicth im Bereich Proxy.
 
 ??? question "I want to run my SeaTable Server instance on my local machine? Can I do that?"
 
-    You can, but it is only recommended for testing purposes. Follow the [instructions for the single-node deployment](./basic-setup.md) and simply set SEATABLE_SERVER_HOSTNAME and SEATABLE_SERVER_PROTOCOL to `127.0.0.1` and 'http', respectively, in the `.env` file. To access your local SeaTable Server instance, enter http:\\127.0.0.1 in your browser.
+    You can, but it is only recommended for testing purposes. Follow the [instructions for the single-node deployment](./basic-setup.md) and simply set SEATABLE_SERVER_HOSTNAME and SEATABLE_SERVER_PROTOCOL to `127.0.0.1` and 'http', respectively, in the `.env` file. To access your local SeaTable Server instance, enter http://127.0.0.1 in your browser.
 
     If you want to enable https, consult section [Custom Certificates](./advanced/custom-certificates.md) for details.
 
 ??? question "I want to use my own reverse proxy / my custom certificate, how do I do that?"
 
-    You can opt out of using Caddy and use another webserver of your choice. In this case, remove `caddy.yml` from the COMPOSE_FILE variable in the `.env` file and follow the instructions in section [Custom Revers Proxy](./advanced/custom-proxy.md).
+    You can opt out of using Caddy and use another webserver of your choice. In this case, remove `caddy.yml` from the COMPOSE_FILE variable in the `.env` file and follow the instructions in section [Custom Reverse Proxy](./advanced/custom-proxy.md).
 
 ??? question "SeaTable terminates with `/shared/seatable/seatable-license.txt: Is a directory`"
 

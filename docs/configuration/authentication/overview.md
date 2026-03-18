@@ -121,7 +121,7 @@ mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 +---------------------------------------------+----------------+--------------------------------------+
 ```
 
-`provider` specifies the external authentication used. The name shown in this column is the name specified in the configuration of the external authentication source in`dtable_web_settings.py`.
+`provider` specifies the external authentication used. The name shown in this column is the name specified in the configuration of the external authentication source in `dtable_web_settings.py`.
 
 `uid` in this table is the unique identifier as communicated by the external authentication service. The `uid` has to be provided by the external authentication method and allows to match the users from the external service with the users inside SeaTable. This `uid` must not be changed over the lifetime of the user (despite name, email address, ... changes) If the `uid` changes, SeaTable considers the user as a new user and creates a new `username` accordingly.
 

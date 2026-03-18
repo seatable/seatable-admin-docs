@@ -97,7 +97,7 @@ cd seafile-server-latest
 
 ```
 
-After repairing, in the library history, seaf-fsck includes the list of files and folders that are corrupted. So it's much easier to located corrupted paths.
+After repairing, in the library history, seaf-fsck includes the list of files and folders that are corrupted. So it's much easier to locate corrupted paths.
 
 ### Best Practice for Repairing a Library
 

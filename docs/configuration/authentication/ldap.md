@@ -1,6 +1,6 @@
 # LDAP
 
-Lightweight Directory Access Protocol (LDAP) is is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services. Microsoft's Active Directory (AD) is fully compatible with LDAP. For simplicity, this Manual refers to LDAP and AD when using the term LDAP unless explicitly stated otherwise.
+Lightweight Directory Access Protocol (LDAP) is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services. Microsoft's Active Directory (AD) is fully compatible with LDAP. For simplicity, this Manual refers to LDAP and AD when using the term LDAP unless explicitly stated otherwise.
 
 This document assumes that you have a basic understanding of LDAP and that you understand the related terminology.
 
@@ -57,8 +57,8 @@ The following parameters are also available, but optional:
 | LDAP_USER_ROLE_ATTR       | Name of user role in the LDAP server                                                                                                                                   | Attribute name, e.g. `title`                                          |
 | LDAP_USER_FIRST_NAME_ATTR | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                               | Attribute name, e.g. `givenName`                                      |
 | LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                              | Attribute name, e.g. `sn`                                             |
-| LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                       | `True`or `False`                                                      |
-| LDAP_SAML_USE_SAME_UID    | Option to allow users to log in via LDAP and SAML using the same username                                                                                              | `True`or `False`                                                      |
+| LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                       | `True` or `False`                                                      |
+| LDAP_SAML_USE_SAME_UID    | Option to allow users to log in via LDAP and SAML using the same username                                                                                              | `True` or `False`                                                      |
 | LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is '' |                                                                       |
 | LDAP_EMPLOYEE_ID_ATTR     | ID of the employee                                                                                                                                                     | Attribute name, e.g. `33`                                             |
 
@@ -76,13 +76,13 @@ To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the
 
 | Parameter                  | Description                                                                                             | Values                                                                                                                                 |
 | -------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| LDAP_SYNC_GROUP            | On/off switch for group sync                                                                            | `True`or `False`                                                                                                                       |
+| LDAP_SYNC_GROUP            | On/off switch for group sync                                                                            | `True` or `False`                                                                                                                       |
 | LDAP_GROUP_MEMBER_ATTR     | Attribute used when syncing group members                                                               | For most directory servers, the attributes is "member", which is the default value. For "posixGroup", it should be set to "memberUid". |
 | LDAP_GROUP_MEMBER_UID_ATTR | User attribute set in 'memberUid' option, which is used in "posixGroup"; default value is `uid`         |                                                                                                                                        |
 | LDAP_USER_OBJECT_CLASS     | Name of the class used to search for user objects; default value is `person`                            |                                                                                                                                        |
 | LDAP_GROUP_OBJECT_CLASS    | Name of the class used to search for group objects; default value is `group`                            | For LDAP: `groupOfNames`, `groupOfUniqueNames`, `posixGroup`<br />For AD: `group`                                                      |
 | LDAP_GROUP_UUID_ATTR       | ...; default value is `ObjectGUID`                                                                      | For LDAP: refer to https://ldapwiki.com/wiki/Universally%20Unique%20Identifier<br />For AD: `ObjectGUID`                               |
-| SYNC_GROUP_AS_DEPARTMENT   | Option to sync LDAP groups as departments rather than SeaTable groups                                   | `True`or `False`                                                                                                                       |
+| SYNC_GROUP_AS_DEPARTMENT   | Option to sync LDAP groups as departments rather than SeaTable groups                                   | `True` or `False`                                                                                                                       |
 | LDAP_DEPARTMENT_NAME_ATTR  | Name of the department when SYNC_GROUP_AS_DEPARTMENT = True, the default department name is the OU name | Object name, e.g. `description`                                                                                                        |
 
 Additionally, the following parameters must be added to `dtable-events.conf`:
@@ -95,7 +95,7 @@ sync_interval = 60  # The unit is seconds
 
 ## LDAP and SAML
 
-In some situations, it is useful to configure LDAP - especially LDAP Sync - and SAML as authentication providers. In this case, SeaTable must be prevented from creating two different users (as identified by the `username`) for one and the same `uid`when the person authenticates via LDAP and SAML, which would be the default behavior.
+In some situations, it is useful to configure LDAP - especially LDAP Sync - and SAML as authentication providers. In this case, SeaTable must be prevented from creating two different users (as identified by the `username`) for one and the same `uid` when the person authenticates via LDAP and SAML, which would be the default behavior.
 
 Add the following parameter to `dtable_web_settings.py` to instruct SeaTable to use the same `username` no matter if a user (as identified by its `uid`) authenticates via LDAP or SAML.
 

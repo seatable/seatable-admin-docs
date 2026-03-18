@@ -9,7 +9,7 @@ Here's how to configure such a maintenance page using Caddy:
 1. Go to `/opt/seatable-compose/`
 2. Create a copy of your `seatable-server.yml` and name it `maintenance.yml`
 3. Replace the current labels of your SeaTable Server with the following labels.
-4. Replace `<your-allowed-ip>` with one IP adresses, that should have access to your server.
+4. Replace `<your-allowed-ip>` with one IP address, that should have access to your server.
 5. Open your `.env` file and replace `seatable-server.yml` with `maintenance.yml` (in the variable `COMPOSE_FILE`)
 6. Run `docker compose up -d`
 

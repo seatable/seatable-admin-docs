@@ -24,7 +24,7 @@ In the article, we assume that your certificates were saved as `cert.pem` and `k
 
 !!! info "Command to generate custom certificates"
 
-    With this command, you can generate your own custom certificates. Please be aware that custom certicates can not be used for ip-adresses. Remember to replace `${HOSTNAME}` with the actual hostname.
+    With this command, you can generate your own custom certificates. Please be aware that custom certificates can not be used for ip-addresses. Remember to replace `${HOSTNAME}` with the actual hostname.
 
     ```bash
     cd /opt/caddy/certs
@@ -96,11 +96,11 @@ services:
 
 ## Problems with local IP
 
-The current setup does not allow that you add a local IP adress as `SEATABLE_SERVER_HOSTNAME` in your .env file. There are two alternatives that we recommend to use:
+The current setup does not allow that you add a local IP address as `SEATABLE_SERVER_HOSTNAME` in your .env file. There are two alternatives that we recommend to use:
 
 #### use local address
 
-Instead of the IP adress you should use an address like `seatable.local`. This requires that you either use a self-signed certificate or a custom root certificate.
+Instead of the IP address you should use an address like `seatable.local`. This requires that you either use a self-signed certificate or a custom root certificate.
 
 #### use nip.io
 

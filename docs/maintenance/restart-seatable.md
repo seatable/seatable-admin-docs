@@ -32,7 +32,7 @@ When using an interactive shell, you do not need to specify the full path to `se
 
 Alternatively, you can restart the complete SeaTable Docker container. This is useful if you need to ensure all processes and services inside the container are refreshed.
 
-You need to vavigate to your SeaTable compose directory (commonly `/opt/seatable-compose`), then run:
+You need to navigate to your SeaTable compose directory (commonly `/opt/seatable-compose`), then run:
 
 ```bash
 /opt/seatable-compose

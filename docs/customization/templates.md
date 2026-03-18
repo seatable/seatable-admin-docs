@@ -2,7 +2,7 @@
 
 <!-- md:version 1.6 -->
 
-Templates offer a convenient method for offering predefined base structures to your users. Adding and managing templates in SeaTable is straightforward since each template is just a SeaTable base and essentially all templates are managed in a **main template** base..
+Templates offer a convenient method for offering predefined base structures to your users. Adding and managing templates in SeaTable is straightforward since each template is just a SeaTable base and essentially all templates are managed in a **main template** base.
 
 Simply by adding a row to the designated **main template** base, it instantly becomes available in the list of templates.
 
@@ -83,7 +83,7 @@ Make sure to note down the API token as you'll need it for the next step.
 
 ## Activate templates in SeaTable
 
-Equiped with API token and your template base, you can activate the templates in your SeaTable Server. There are two ways to do this:
+Equipped with API token and your template base, you can activate the templates in your SeaTable Server. There are two ways to do this:
 
 === "Environment variables"
 

@@ -238,7 +238,7 @@ CSRF_COOKIE_SECURE = True
 
 ## RESTful API
 
-API throttling related settings. Enlarger the rates if you got 429 response code during API calls.
+API throttling related settings. Enlarge the rates if you got 429 response code during API calls.
 API_THROTTLE_RATES is used to replace the old REST_FRAMEWORK option. API_THROTTLE_RATES is empty by default. You can add your custom THROTTLE_RATE to the option
 
 ```python

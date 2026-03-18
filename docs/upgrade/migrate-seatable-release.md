@@ -112,7 +112,7 @@ cp /opt/seatable/seatable-data/seatable-license.txt /opt/seatable-compose/
 
 ### 6. Move two folders
 
-Move two folders, which contain Docker volumnes, to new paths.
+Move two folders, which contain Docker volumes, to new paths.
 
 ```bash
 mv /opt/seatable/mysql-data /opt/mariadb
@@ -170,7 +170,7 @@ DATABASES = {
 }
 
 SEATABLE_FAAS_URL = 'https://seatable-faas.example.com'  # if you had the Python Runner and FAAS Scheduler configured, remove this variable entirely
-SEATABLE_FAAS_AUTH_TOKEN = 'secret_string'     # if you had the Pythong Runner and FAAS Scheduler configured, remove this variable entirely
+SEATABLE_FAAS_AUTH_TOKEN = 'secret_string'     # if you had the Python Runner and FAAS Scheduler configured, remove this variable entirely
 
 ENABLE_ONLYOFFICE = False  # if you had OnlyOffice configured, remove this variable entirely
 ONLYOFFICE_APIJS_URL = "https://seatable.example.com/onlyofficeds/web-apps/apps/api/documents/api.js"  # if you had OnlyOffice configured, remove this variable entirely
@@ -186,7 +186,7 @@ host = db   # change to mariadb
 
 ### 8. Remove HTTPS from nginx
 
-In this step, the configuration of nginx, which is included in the SeaTable Server container, must be changed to account for the addition of **caddy** in the new deplyoment method to take care of TLS termination and certificate management. Specifically, this requires that nginx no longer listens on port 443 (HTTPS), but only on port 80 (HTTP).
+In this step, the configuration of nginx, which is included in the SeaTable Server container, must be changed to account for the addition of **caddy** in the new deployment method to take care of TLS termination and certificate management. Specifically, this requires that nginx no longer listens on port 443 (HTTPS), but only on port 80 (HTTP).
 
 First let's make a copy of your current nginx file to make sure that we have a safety net just in case.
 
@@ -196,7 +196,7 @@ cp /opt/seatable-server/seatable/conf/nginx.conf /opt/seatable-server/seatable/c
 
 Now we want to make these changes in the `nginx.conf`:
 
-1. We want to remove the server block which is reponsible for listening to port **80** (or change it to another port)
+1. We want to remove the server block which is responsible for listening to port **80** (or change it to another port)
 2. We want to update the second server block and change port **443** to **80**
 3. We want to remove all lines that start with **ssl\_**
 

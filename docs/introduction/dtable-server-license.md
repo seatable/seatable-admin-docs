@@ -3,7 +3,7 @@ End User License Agreement for dtable-server
 Version: September 2020
 
 ## 1. Parties and Subject Matter
-1. The provisions of this End User License Agreement ("EULA") govern the relationship between Seafile Ltd., GuiGuLiangCheng, Block 2B, #310, HaiDian District, Beijing, China ("Seafile") and end users ("End Users") (collectively the "Parties") with respect to the licensing by Seafile of the software dtable-server ("Server" of "Software").
+1. The provisions of this End User License Agreement ("EULA") govern the relationship between Seafile Ltd., GuiGuLiangCheng, Block 2B, #310, HaiDian District, Beijing, China ("Seafile") and end users ("End Users") (collectively the "Parties") with respect to the licensing by Seafile of the software dtable-server ("Server" or "Software").
 
 2. A License Agreement between the Parties pursuant to this EULA is concluded when the End User downloads the Server, alone or bundled with other software. IF YOU DO NOT AGREE TO THIS EULA, DO NOT DOWNLOAD, INSTALL AND USE THE SERVER. The same applies for the software with which the Server is bundled.
 
@@ -51,7 +51,7 @@ Seafile is entitled to amend this EULA. SeaTable posts the amended EULA on the w
 ## 7. Obligations and Duties of the End User
 1. The End User is obliged to use the Server only in accordance with the provisions of this EULA and in accordance with laws and regulations applicable to such use and may not infringe on any third-party rights in connection with such use. The End User must, in particular, comply with all applicable data protection and export control provisions.
 
-2. The requirements for the Server are specified in the administrator manual. The End User familiarizes himself/hersef with these requirements prior to download, installation and use of the Server.
+2. The requirements for the Server are specified in the administrator manual. The End User familiarizes himself/herself with these requirements prior to download, installation and use of the Server.
 
 3. The End User reports errors and bugs ("Defects") on the Community Forum. The report of any Defect must include
 
@@ -87,4 +87,4 @@ THERE IS NO WARRANTY FOR THE SERVER, TO THE EXTENT PERMITTED BY APPLICABLE LAW. 
 
 3. The exclusive place of jurisdiction is Beijing, China. Seafile reserves the right to sue at the End User’s head office.
 
-4. If a provision of the EULA is found to be partly or wholly invalid or unenforceable, this shall not affect the validity and enforceablity of the remaining providions of the EULA. In place of the invalid or unenforceable provision, a valid and enforceable provision shall apply which reflects as closely as possible the commercial intention of the parties as regards the invalid or unenforceable provision.
+4. If a provision of the EULA is found to be partly or wholly invalid or unenforceable, this shall not affect the validity and enforceability of the remaining provisions of the EULA. In place of the invalid or unenforceable provision, a valid and enforceable provision shall apply which reflects as closely as possible the commercial intention of the parties as regards the invalid or unenforceable provision.

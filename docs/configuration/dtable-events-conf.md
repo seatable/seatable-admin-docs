@@ -26,7 +26,7 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 !!! note "Configurations in dtable-events.conf"
 
-    Since SeaTable 5.3, by default, you can start the dtable-events service without adding any configurations to `dtable-events.conf`, as the the key startup configurations (i.e. *MySQL* and *Redis*) are already configured in the environment variables by default (i.e., `.env`). On the other hand, you can also add other dtable-events service related configurations to `dtable-events.conf`, which mainly contains some sections and their options: 
+    Since SeaTable 5.3, by default, you can start the dtable-events service without adding any configurations to `dtable-events.conf`, as the key startup configurations (i.e. *MySQL* and *Redis*) are already configured in the environment variables by default (i.e., `.env`). On the other hand, you can also add other dtable-events service related configurations to `dtable-events.conf`, which mainly contains some sections and their options: 
     
     - Section names in `dtable-events.conf` compose of **uppercase** and **spaces** (such as `[COMMON DATASET SYNCER]`). 
     - Option names will be mainly **lowercase** with **underscores** (such as `per_update_auto_rule_workers`).

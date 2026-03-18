@@ -1,10 +1,10 @@
 # Python Pipeline on a separate server
 
-If your user base on your Seatable Server is growing, one of the first components that you could move to a separate server is the python pipeline. This frees up ressoures for the main server and it increases the security because customer python code is not executed on the main server.
+If your user base on your Seatable Server is growing, one of the first components that you could move to a separate server is the python pipeline. This frees up resources for the main server and it increases the security because customer python code is not executed on the main server.
 
 ## Requirements
 
-To install Python Pipeline on a separate server, use at least these ressources:
+To install Python Pipeline on a separate server, use at least these resources:
 
 - 2 CPU
 - 4 GB RAM

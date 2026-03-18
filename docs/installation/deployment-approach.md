@@ -44,7 +44,7 @@ With this understanding, the subsequent installation descriptions should be stra
 
 ## Additional Components
 
-Like the basic installation, the installation of the additional components will be easy and straight forward. Additional components are solutions that either extend the functionality of SeaTable or help your during your daily live.
+Like the basic installation, the installation of the additional components will be easy and straight forward. Additional components are solutions that either extend the functionality of SeaTable or help you during your daily life.
 
 These are the assumptions that we assume:
 

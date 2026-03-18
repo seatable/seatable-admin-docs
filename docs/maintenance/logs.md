@@ -6,7 +6,7 @@ status: wip
 
 ## Log files of SeaTable server
 
-The SeaTable logs are under `/shared/seatable/logs` in the docker, or `/Your SeaTable data volume/seatable/logs` in the server that run the docker.
+The SeaTable logs are under `/shared/seatable/logs` in the docker, or `/Your SeaTable data volume/seatable/logs` in the server that runs the docker.
 
 Main log files:
 
@@ -29,7 +29,7 @@ Other log files:
 
 ## Log files of Nginx server
 
-The Nginx logs are under `/shared/nginx-logs`, or `/Your SeaTable data volume/nginx-logs` in the server that run the docker.
+The Nginx logs are under `/shared/nginx-logs`, or `/Your SeaTable data volume/nginx-logs` in the server that runs the docker.
 
 - dtable-web.access.log
 - dtable-web.error.log

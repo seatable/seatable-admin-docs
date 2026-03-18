@@ -7,7 +7,7 @@ status: wip
 SeaTable currently does not support installing a cluster with a single command. This may change in the future, but for now, some configuration changes and migrations are required after deploying the Docker containers.
 
 Every SeaTable Cluster installation starts with the deployment of a single node. The main difference is that, from the beginning, you use external services instead of running Redis and MariaDB on the same machine as SeaTable.
-Arterwards we will move component after component to other nodes.
+Afterwards we will move component after component to other nodes.
 
 ![SeaTable Cluster: Basic Setup](../../assets/images/seatable-cluster-basic-setup.png)
 

@@ -1,10 +1,10 @@
 # Security measures
 
-Security is more than just activating a function or implementing a web-application firewall. Security is an ongoing process with a holistic view on all relevant topics. We try to define sinnvolle default values implementing best practies to improve the security without creating to many restrictions that might produce problems with some older clients.
+Security is more than just activating a function or implementing a web-application firewall. Security is an ongoing process with a holistic view on all relevant topics. We try to define sensible default values implementing best practices to improve the security without creating too many restrictions that might produce problems with some older clients.
 
 ## Web-Security
 
-Due to the fact that SeaTable is a mainly used via the browser, we took quiet some effort to implement good security measures. HTTPS is mandatory by default, modern ciphers are required and we enforce some security headers to prevent against typical script kiddies attacks.
+Due to the fact that SeaTable is a mainly used via the browser, we took quite some effort to implement good security measures. HTTPS is mandatory by default, modern ciphers are required and we enforce some security headers to prevent against typical script kiddies attacks.
 
 This configuration approach delivers good results, that are confirmed by known security experts in the internet:
 

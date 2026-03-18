@@ -61,7 +61,7 @@ This enables IPv6 addressing for the container and ensures accurate logging of c
 
 ### Setups without IPv6
 
-!!! warning "What if IPv6 is completely diabled on your server?"
+!!! warning "What if IPv6 is completely disabled on your server?"
 
     If IPv6 is completely disabled, Docker may fail to start containers with errors such as:
 

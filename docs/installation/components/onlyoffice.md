@@ -38,9 +38,9 @@ Copy and paste the following commands to generate the shared secret and write it
     echo -e "\n# OnlyOffice" >> /opt/seatable-compose/.env
     echo "ONLYOFFICE_JWT_SECRET=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 
-#### Modify dtable_web_setings.py
+#### Modify dtable_web_settings.py
 
-Now execute the follwogin command to add the required configuration to `dtable_web_settings.py`.
+Now execute the following command to add the required configuration to `dtable_web_settings.py`.
 
 ```python
 source /opt/seatable-compose/.env
@@ -124,7 +124,7 @@ docker compose up -d
 
 ## Advanced: OnlyOffice on a separate host and URL
 
-It is not that difficult to install OnlyOffice on a separate host to free the ressources of the main server. This manual assumes that onlyoffice will be accessable by a separate public availabe URL.
+It is not that difficult to install OnlyOffice on a separate host to free the resources of the main server. This manual assumes that onlyoffice will be accessible by a separate public available URL.
 
 ### Install OnlyOffice
 
@@ -148,7 +148,7 @@ Now execute `docker-compose up -d` and on this server only caddy and OnlyOffice 
 
 ### Configure SeaTable to use this new OnlyOffice host.
 
-The next step is to tell SeaTable where it can access OnlyOffice. Update the settings in `dtable_web_settings.py` accordingly. Make sure to use the excact same shared secret and use the public available URL of the OnlyOffice server.
+The next step is to tell SeaTable where it can access OnlyOffice. Update the settings in `dtable_web_settings.py` accordingly. Make sure to use the exact same shared secret and use the public available URL of the OnlyOffice server.
 
 In addition you have to extend the caddy security headers. Add the URL of your Onlyoffice host to the variables `script-src-elem` and `frame-src` in your `custom-seatable-server.yml`. Don't forget to restart all containers.
 

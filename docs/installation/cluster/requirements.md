@@ -8,7 +8,7 @@ The requirements for running a SeaTable cluster build upon those for a single-no
 
 - **At least 4 nodes** (physical or virtual) each with a minimum of 2 CPUs and 4 GB RAM.
 - All nodes are connected via a **private network**.
-- One node (running dtable-web) must be publically available via **port 80 and 443**.
+- One node (running dtable-web) must be publicly available via **port 80 and 443**.
 - **S3-compatible object storage** is required for storing files and attachments. (Alternative storage technologies may be possible but are not covered in detail here.)
 - **Centralized MariaDB and Redis services**: These must be accessible to all nodes in the private network. You can either use managed services or operate your own MariaDB and Redis instances.
 - If you plan to use the **Office Editor**, the service should be deployed within the private network.

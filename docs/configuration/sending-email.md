@@ -107,7 +107,7 @@ If you are using Gmail as email server, you can use the following settings.
 
 !!! warning "Allow access to less secure apps"
 
-    Google blocks by default external apps to authenticate against their SMTP servers. To enable SeaTable to send emails via your gmail account, you have to two possibilities:
+    Google blocks by default external apps to authenticate against their SMTP servers. To enable SeaTable to send emails via your gmail account, you have two possibilities:
 
     1.  If you have enabled 2-step-verification in your Gmail settings, you'll need an [App Password](https://support.google.com/accounts/answer/185833) instead of your login password.
     2.  If you haven't enabled 2-step-verification in your Gmail settings, you must then enable [Less Secure Apps](https://support.google.com/accounts/answer/6010255).

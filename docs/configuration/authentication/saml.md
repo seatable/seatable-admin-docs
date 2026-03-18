@@ -60,7 +60,7 @@ The IdP's certificate must be saved on the SeaTable Server. The volume of the Se
 The default host path for the SeaTable Docker container is `/opt/seatable-server/` which is mapped to `/shared/` in the container. It is recommended to create a directory here. If you decide to create the directory elsewhere - which you can - you'll need to account for the custom path in the following steps.
 
 ```
-$ mdkir /opt/seatable-server/certs/
+$ mkdir /opt/seatable-server/certs/
 ```
 
 Change into the directory, create a file idp.crt, and open the file with a text editor of your choice (here nano):
@@ -295,7 +295,7 @@ This will display the _true_ download URL in the location header. Take a note of
 
 You should also download the signing certificate and store it under `/opt/seatable-server/certs`.
 
-You should now run the `openssl` command described in [here]() to create `sp.crt` and `sp.key` inside `/opt/seatable-server/certs`.
+You should now run the `openssl` command described above to create `sp.crt` and `sp.key` inside `/opt/seatable-server/certs`.
 
 A basic SAML configuration in `dtable_web_settings.py` for authentik looks like this:
 

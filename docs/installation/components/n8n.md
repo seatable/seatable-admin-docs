@@ -32,7 +32,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,n8n.yml'/" /opt/seatable-compos
 
 #### Generate secrets for your postgres database
 
-Now let's create inital secrets and write them into the .env file.
+Now let's create initial secrets and write them into the .env file.
 
 ```
 echo -e "\n# n8n" >> /opt/seatable-compose/.env

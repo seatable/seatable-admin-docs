@@ -1,13 +1,13 @@
 # Requirements
 
-One of the main advantages of SeaTable against other solutions is, that you can run SeaTable on your own hardware or on any server your like. Still there are some requirements:
+One of the main advantages of SeaTable against other solutions is, that you can run SeaTable on your own hardware or on any server you like. Still there are some requirements:
 
 - Linux-Server with Root-Shell
 - Public domain pointing to your server
 - Open Ports for HTTP and HTTPS access (probably more ports for other components)
 - The ports should not be already in use by another proxy such as NGINX or Apache
 
-Does this sounds complicated? Not really. So lets get started.
+Does this sound complicated? Not really. So let's get started.
 
 [Let's begin with the installation in the root-shell](../installation/basic-setup.md){ .md-button .md-button--primary }
 
@@ -31,9 +31,9 @@ These resources guarantee good performance for most applications with up to 100 
 
 As soon as you have more than 100 users, you should consider extending your SeaTable Platform and move some components to separate VMs.
 
-!!! warning "Additional components need additional ressources"
+!!! warning "Additional components need additional resources"
 
-    These hardware requirements are for SeaTable Server. If you install additional components like n8n, collabora online or onlyoffice the requirements for these ressources stack up and you have to add additional ressources.
+    These hardware requirements are for SeaTable Server. If you install additional components like n8n, collabora online or onlyoffice the requirements for these resources stack up and you have to add additional resources.
 
 For sure we need a **root shell** on this server to execute the installation commands.
 

@@ -126,7 +126,7 @@ Starting vLLM may take several minutes depending on the model size and computing
 On first startup, vLLM will automatically download the configured model from [HuggingFace](https://huggingface.co).
 Wait for the Docker container to report a healthy status before proceeding.
 
-Perfekt! Your local vLLM deployment is ready to use.
+Perfect! Your local vLLM deployment is ready to use.
 
 ## SeaTable AI Configuration
 

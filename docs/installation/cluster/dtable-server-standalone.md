@@ -111,7 +111,7 @@ networks:
     name: frontend-net
 ```
 
-Now, start `dtable-db` for the first time and monitor the logs:
+Now, start `dtable-server` for the first time and monitor the logs:
 
 ```
 docker compose up -d

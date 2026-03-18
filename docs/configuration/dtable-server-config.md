@@ -83,7 +83,7 @@ It is not recommended to change these values
 | --------------------------- | -------------------------------------------------------------------------------------- | ------- |
 | `worker_threads_num`        | Number of worker threads serving list rows API (for custom shares or view shares only) | 2       |
 | `worker_threads_rows_limit` | Maximum rows, returned in custom shares or view shares                                 | 50000   |
-| `rows_api_max_limit`        | Maxmum number of rows returned by calling list rows API in dtable-server               | 1000    |
+| `rows_api_max_limit`        | Maximum number of rows returned by calling list rows API in dtable-server               | 1000    |
 | `redirect_list_rows_api`    | Redirect API requests to the API-Gateway.                                              | false   |
 
 ### Cluster Setup

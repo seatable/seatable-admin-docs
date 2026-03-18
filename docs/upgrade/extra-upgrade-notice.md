@@ -29,7 +29,7 @@ Of course, you can skip this script and make the changes manually. The following
 
 ??? warning "Centralized secret for secure communication"
 
-    SeaTable uses a **JWT secret** for secure communcation between the SeaTable components: `dtable-web`, `dtable-server` and `dtable-db`. 
+    SeaTable uses a **JWT secret** for secure communication between the SeaTable components: `dtable-web`, `dtable-server` and `dtable-db`. 
     
     Before v5.3, this secret was stored in `dtable_web_settings.py` and `dtable_server_config.json`. 
     
@@ -387,7 +387,7 @@ There are no version-specific changes required.
 
     Django 4.* has introduced a new check for the origin http header in CSRF verification. It now compares the values of the origin field in HTTP header and the host field in HTTP header. If they are different, an error is triggered.
 
-    If you deploy Seafile behind a proxy, if you use a non-standard port or if you deploy Seafile in cluster, it is likely that the origin field in HTTP header received by Django and the host field in HTTP header received by Django are different. This mismatch results in a CSRF error.
+    If you deploy SeaTable behind a proxy, if you use a non-standard port or if you deploy SeaTable in cluster, it is likely that the origin field in HTTP header received by Django and the host field in HTTP header received by Django are different. This mismatch results in a CSRF error.
 
     You can add `CSRF_TRUSTED_ORIGINS` to `dtable_web_settings.py` to solve the problem:
 

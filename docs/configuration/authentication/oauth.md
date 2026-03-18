@@ -27,7 +27,7 @@ The meaning of configuration option is as follows:
 
 #### **ENABLE_OAUTH_INSECURE_TRANSPORT**
 
-If https is not configured, you can add it in dtable_web_settings.py `ENABLE_OAUTH_INSECURE_TRANSPORT = True`。
+If https is not configured, you can add it in dtable_web_settings.py `ENABLE_OAUTH_INSECURE_TRANSPORT = True`.
 
 See more in <https://requests-oauthlib.readthedocs.io/en/latest/examples/examples.html>
 
@@ -41,7 +41,7 @@ OAUTH_SCOPE = ["openid", "https://www.googleapis.com/auth/userinfo.email", "http
 
 #### **OAUTH_PROVIDER**
 
-SeaTable uses this configuration to distinguish OAuth from other login methods，such as: github.com.
+SeaTable uses this configuration to distinguish OAuth from other login methods, such as: github.com.
 
 #### **OAUTH_REDIRECT_URL**
 

@@ -8,7 +8,7 @@ Login to your SeaTable Server as system administrator and switch to the system a
 
 ![SeaTable Site Title in System Administration](../assets/images/seatable_logo.png)
 
-Click an `Change` and select a new image file with the recommended resolution of 256\*64 px. After a page reload the new logo is visible.
+Click on `Change` and select a new image file with the recommended resolution of 256\*64 px. After a page reload the new logo is visible.
 
 It is recommended that your logo has a transparent background because it is used on the login-page, emails and also the web interface.
 

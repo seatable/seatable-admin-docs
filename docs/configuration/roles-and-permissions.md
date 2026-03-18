@@ -3,7 +3,7 @@
 <!-- md:version 1.0 -->
 <!-- md:flag enterprise -->
 
-In SeaTable Enterprise Edition, user and administor roles determine a user's/an administrator's permissions and quotas. (For org users, some permissions and quotes are also determined by the role assigned to the organization.)
+In SeaTable Enterprise Edition, user and administrator roles determine a user's/an administrator's permissions and quotas. (For org users, some permissions and quotas are also determined by the role assigned to the organization.)
 
 All changes relating to the SeaTable's roles are done in the configuration file `dtable_web_settings.py`.
 
@@ -11,7 +11,7 @@ NOTE: Admin privileges are not part of the user role.
 
 ## User Roles
 
-A user role is comprised of up to 10 permissions and up to 7 quotas. If a permissions or a quote is not specifically set in a role, the permission is assumed to be given (default value = True) and no quota is applied (default value = no value or empty string).
+A user role is comprised of up to 10 permissions and up to 7 quotas. If a permissions or a quota is not specifically set in a role, the permission is assumed to be given (default value = True) and no quota is applied (default value = no value or empty string).
 
 ### User Permissions
 
@@ -50,7 +50,7 @@ The following quotas are supported in user roles:
 
 ### Standard User Roles
 
-SeaTable has two standard, preconfigured user roles `default`and `guest`. They can be used in the Users' section of the system administration without prior configuration.
+SeaTable has two standard, preconfigured user roles `default` and `guest`. They can be used in the Users' section of the system administration without prior configuration.
 
 The standard user roles are defined as follows:
 
@@ -94,7 +94,7 @@ ENABLED_ROLE_PERMISSIONS = {
 }
 ```
 
-If you want to modify the permissions and quotes of either or both standard roles, copy-and-paste the above codeblock into `dtable_web_settings.py` and modify as per your needs. Restart SeaTable for the changes to take effect.
+If you want to modify the permissions and quotas of either or both standard roles, copy-and-paste the above codeblock into `dtable_web_settings.py` and modify as per your needs. Restart SeaTable for the changes to take effect.
 
 ### Custom User Roles
 
@@ -116,7 +116,7 @@ Restart SeaTable for the new role to become available in SeaTable.
 
 ## Administrator Roles
 
-Similar to a user role, an administrator role is comprised of several permissions, but no quotes.
+Similar to a user role, an administrator role is comprised of several permissions, but no quotas.
 
 ### Administrator Permissions
 
@@ -136,7 +136,7 @@ The following permissions are supported in administrator roles:
 | can_manage_organization        | 1.0              | See/access "Organizations" menu in System admin                                                           |  |
 
 
-### Standard Admininstrator Roles
+### Standard Administrator Roles
 
 SeaTable has four standard, preconfigured administrator roles `default admin`, `audit admin`, `daily admin` and `custom admin`. They can be used in the Users' section of the system administration without prior configuration.
 

@@ -1,11 +1,11 @@
 # Replace caddy with another proxy
 
-The Single-Node Installation describes an installation of a SeaTable server with the webserver caddy. We dediced to use Caddy because it simplifies the handling of let's encrypt certificates.
+The Single-Node Installation describes an installation of a SeaTable server with the webserver caddy. We decided to use Caddy because it simplifies the handling of let's encrypt certificates.
 If you create a DNS entry and point it to your server, caddy will do everything else for you. Also we configured caddy with state of the art security configurations.
 
 ## Custom proxy with SeaTable Server
 
-But of cause there might be reasons when you want to replace caddy with another proxy like ha-proxy, traffik, nginx, apache etc. The logic of replacing might be simple.
+But of course there might be reasons when you want to replace caddy with another proxy like ha-proxy, traefik, nginx, apache etc. The logic of replacing might be simple.
 
 You can use any proxy as long as your forward all traffic to the SeaTable Server. Part of the SeaTable Server container is a nginx web proxy, which routes the traffic by URL. **This port 80 is not exposed therefore your proxy has to be in the same docker network like SeaTable Server**.
 
@@ -31,7 +31,7 @@ The additional components run on separate ports. n8n uses the port 6231. If you 
 
 ### Option 2: other domains to access the services
 
-In this case, you use another (sub)domain to access the service. You create a proxy rule to route the traffic to the service with its internal port. Usually this requires that you also change the configuration of the service to be accessable via this additonal domain.
+In this case, you use another (sub)domain to access the service. You create a proxy rule to route the traffic to the service with its internal port. Usually this requires that you also change the configuration of the service to be accessible via this additional domain.
 
 ![Custom proxy for ](../../assets/images/custom_proxy3.png)
 

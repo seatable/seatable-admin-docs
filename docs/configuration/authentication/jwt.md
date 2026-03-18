@@ -1,15 +1,15 @@
 # JSON Web Tokens
 
-JSON Web Tokens (=JWT) is another authentication type SeaTable provides. It is used by the SeaTable API but it can also be used to allow server-to-server authentication. JWTs are used for example if you switch from (SeaTable Cloud)[https://cloud.seatable.io] to the (team administration)[https://account.seatable.io] without the need to re-authenticate. 
+JSON Web Tokens (=JWT) is another authentication type SeaTable provides. It is used by the SeaTable API but it can also be used to allow server-to-server authentication. JWTs are used for example if you switch from [SeaTable Cloud](https://cloud.seatable.io) to the [team administration](https://account.seatable.io) without the need to re-authenticate. 
 
 ## What is JWT?
 
 JWT is a very popular technology but comes with its share of controversy. Some say you should never use it. Others say JWT authentication is amazing. We think that JWT can be very helpful in some specific scenarios.
-If you want to know more aboout JWT, please read [this article](https://blog.logrocket.com/jwt-authentication-best-practices/). 
+If you want to know more about JWT, please read [this article](https://blog.logrocket.com/jwt-authentication-best-practices/). 
 
 Here is a short introduction into JWT:
 
-- JWT is an encoded and cryptographically signed URL, that contains an json object.
+- JWT is an encoded and cryptographically signed URL, that contains a JSON object.
 - This json object can contain any kind and amount of data. 
 - When a server receives this JWT it can guarantee the data it contains can be trusted because it's signed (not encrypted).
 - Both parties (sender and receiver) must know a shared secret that is used to sign the JWT request.
@@ -34,9 +34,9 @@ The token is the encoded json object with these elements:
 
 ## Examples how to use JWT and generate the login-link
 
-Every programming language offers libraries to sign JWTs. A good place to start looking for such a library is (https://jwt.io/libraries)[https://jwt.io/libraries].
+Every programming language offers libraries to sign JWTs. A good place to start looking for such a library is [https://jwt.io/libraries](https://jwt.io/libraries).
 
-Here is an example with PHP and the (firebase-library)[https://github.com/firebase/php-jwt]:
+Here is an example with PHP and the [firebase-library](https://github.com/firebase/php-jwt):
 
 ```php
 // This code generates an URL to login as the user defined in user_id.

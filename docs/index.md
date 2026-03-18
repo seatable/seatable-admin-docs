@@ -2,7 +2,7 @@
 
 ## Who is this Manual for?
 
-You want to run your own **SeaTable Server**, then this Seatable Admin Manual (Manual) is the place to be!
+You want to run your own **SeaTable Server**, then this SeaTable Admin Manual (Manual) is the place to be!
 
 
 !!! warning "Various IT skills are mandatory"
@@ -19,7 +19,7 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
 ??? tip "SeaTable Dedicated: private SAAS"
 
-    [SeaTable Dedicated](https://seatable.com/dedicated/) is a custom SeaTable Server instance for you and your team operated by the SeaTable exports. You define which URL to use, which logo or color code should greet your users.
+    [SeaTable Dedicated](https://seatable.com/dedicated/) is a custom SeaTable Server instance for you and your team operated by the SeaTable experts. You define which URL to use, which logo or color code should greet your users.
 
     **Important**: SeaTable Dedicated requires a minimum of 100 Users.
 
@@ -42,13 +42,13 @@ You found an error in the Manual or you see the need to elaborate on a topic, pl
 
 ## What is SeaTable?
 
-SeaTable is a no-code database and app-building platform. At the first glimpse it looks like an online spreadsheet selection like google sheets, but under the hood it offers so much more. SeaTable helps you to record and manage all kinds of scattered information. Use Filters, Sortings or Group to work corabolative with friends and collegues. Visualize any data with various plugins like Kanban, Gallery or Calendar.
+SeaTable is a no-code database and app-building platform. At the first glimpse it looks like an online spreadsheet solution like Google Sheets, but under the hood it offers so much more. SeaTable helps you to record and manage all kinds of scattered information. Use Filters, Sortings or Group to work collaboratively with friends and colleagues. Visualize any data with various plugins like Kanban, Gallery or Calendar.
 
 With APIs and SDKs, you can quickly scale to your needs, automate data processing and automate business processes.
 
-Main features includes:
+Main features include:
 
-- A spreadsheet like interface to records data supporting collaboratively editing.
+- A spreadsheet like interface to record data supporting collaborative editing.
 - A form app to collect data from outside.
 - Mobile ready UI to be used on browsers in mobile system to view and collect data.
 - Comprehensive API and SDK for adding extensions.
@@ -74,7 +74,7 @@ The _Advanced Setup_ section doesn't entail a distinct installation method; rath
 
 ### Login Page
 
-Every user accessing SeaTable via the browser must undergo authentication, typically through a combination of email and password. However, SeaTable goes beyond traditional methods, offering support for advanced authentication protocols such as LDAP, OAuth, and SAML. This ensures flexibility and security in user authentication, catering to diverse organizational needs and preferences
+Every user accessing SeaTable via the browser must undergo authentication, typically through a combination of email and password. However, SeaTable goes beyond traditional methods, offering support for advanced authentication protocols such as LDAP, OAuth, and SAML. This ensures flexibility and security in user authentication, catering to diverse organizational needs and preferences.
 
 ![SeaTable Login Page](assets/images/screenshot_seatable_login.png)
 

@@ -26,7 +26,7 @@ If you are using custom TLS/SSL certificates (not managed by Let’s Encrypt), y
 
 ## 3. Transfer URLs Inside Bases
 
-Changing the domain cause images or files stored in bases to become unreadable. To fix existing links to these assets in file/image columns, SeaTable provides a management command that replaces all image and file URLs from the old domain with the new one.
+Changing the domain causes images or files stored in bases to become unreadable. To fix existing links to these assets in file/image columns, SeaTable provides a management command that replaces all image and file URLs from the old domain with the new one.
 
 Open a shell inside the SeaTable container:
 

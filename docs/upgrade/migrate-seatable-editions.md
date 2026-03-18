@@ -1,6 +1,6 @@
 # Migrate between SeaTable Editions
 
-The migration between SeaTable Enteprise Edition and SeaTable Developer Edition is easy and possible at any time. Please make sure that you only migrate between the same major and minor versions:
+The migration between SeaTable Enterprise Edition and SeaTable Developer Edition is easy and possible at any time. Please make sure that you only migrate between the same major and minor versions:
 
 - 3.3.7 Enterprise Edition :material-chevron-double-right: 3.3.0 Developer Edition is :white_check_mark:
 - 3.2.0 Developer Edition :material-chevron-double-right: 3.2.6 Enterprise Edition is :white_check_mark:

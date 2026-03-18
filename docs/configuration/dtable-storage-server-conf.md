@@ -57,7 +57,7 @@ This section is used to configure the storage backend.
 
 | Parameter | Description                                                     | Default     |
 | --------- | --------------------------------------------------------------- | ----------- |
-| `type`    | The type of storage backend. Options are `filesystem` and `s3`. | `fileystem` |
+| `type`    | The type of storage backend. Options are `filesystem` and `s3`. | `filesystem` |
 
 Depending on the chosen storage backend, there are additional settings:
 
@@ -73,7 +73,7 @@ Depending on the chosen storage backend, there are additional settings:
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | `bucket`             | The bucket name for the S3 backend.                                                                                                    |         |
 | `key_id`             | The access key id for the bucket.                                                                                                      |         |
-| `key`                | The secret access key fro the bucket.                                                                                                  |         |
+| `key`                | The secret access key for the bucket.                                                                                                  |         |
 | `use_v4_signature`   | Whether to use v4 signature. For a S3-compatible storage, it should be `false`.                                                        |         |
 | `aws_region`         | The AWS region (only when v4 signature is used).                                                                                       |         |
 | `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.       |         |
@@ -96,7 +96,7 @@ Depending on the chosen storage backend, there are additional settings:
 By default, SeaTable creates daily snapshots for changed bases, deleting snapshots older than 180 days. The cleanup
 
 **Since version 5.2**, SeaTable offers a tiered retention strategy for snapshots. This approach balances recent, detailed backups with efficient long-term storage.
-For example, setting `keep_days = 180` and `keep_frequency_days = 7` would retail:
+For example, setting `keep_days = 180` and `keep_frequency_days = 7` would retain:
 
 - Daily snapshots for the past week
 - Monthly snapshots for the past six months, except for the past week.

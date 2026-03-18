@@ -136,7 +136,7 @@ When utilizing a file or image column in your base, the actual files are stored 
 
 ### dtable-storage-server
 
-The dtable-storage-server is a simple abstract layer upon the chosen storage. SeaTable Server support file system and S3-compatible object storage.
+The dtable-storage-server is a simple abstract layer upon the chosen storage. SeaTable Server supports file system and S3-compatible object storage.
 
 ### dtable-events
 
@@ -144,11 +144,11 @@ When actions are not executed immediately but with a time delay, SeaTable employ
 
 ### api-gateway
 
-The api-gateway is as a proxy for dtable-server and dtable-db. All API calls for [base operations](https://api.seatable.com/reference/getbaseinfo) are routed through this component. It also essential for the effective enforcement of API rate and request limits.
+The api-gateway is a proxy for dtable-server and dtable-db. All API calls for [base operations](https://api.seatable.com/reference/getbaseinfo) are routed through this component. It is also essential for the effective enforcement of API rate and request limits.
 
 ## Container mariadb
 
-SeaTable uses MariaDB to store user, group and team information as well as metadata for bases. Additionally, MariaDB stores the operation log. The operation log (saved in the database table `dtable_db.operation_log`) is the base journal. It records all modifications made within all bases of the SeaTable Server instance. (While SeaTable stores all base modifications in MariaDB, but it doesn't store the actual base content. Instead, bases are managed within dtable-server and regularly persisted to dtable-storage-server for long-term storage.)
+SeaTable uses MariaDB to store user, group and team information as well as metadata for bases. Additionally, MariaDB stores the operation log. The operation log (saved in the database table `dtable_db.operation_log`) is the base journal. It records all modifications made within all bases of the SeaTable Server instance. (While SeaTable stores all base modifications in MariaDB, it doesn't store the actual base content. Instead, bases are managed within dtable-server and regularly persisted to dtable-storage-server for long-term storage.)
 
 SeaTable Server uses four database tables:
 
@@ -163,7 +163,7 @@ Redis, an in-memory data store, performs several tasks for a SeaTable Server ins
 
 - Caching for Django, which is used for SeaTable's web interface and all API endpoints
 - Cache application level data obtained from databases (e.g. session cache, user information cache, group and organization list cache)
-- Sending messages from dtable-web/dtable-server to dtable-events - it servers as an event queue to save internal tasks and statuses
+- Sending messages from dtable-web/dtable-server to dtable-events - it serves as an event queue to save internal tasks and statuses
 
 !!! warning "Redis has replaced Memcached"
 
@@ -201,7 +201,7 @@ SeaTable can, depending on the [configuration](../../installation/advanced/s3/),
 - seafile-data
 - avatars in seahub-data
 
-(The content of the data in db-data cannot be stored in S3 due to it ideosyncratic format.)
+(The content of the data in db-data cannot be stored in S3 due to its idiosyncratic format.)
 
 
 ## SeaTable Backends

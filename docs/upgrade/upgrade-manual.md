@@ -1,6 +1,6 @@
 # Upgrade manual
 
-Updating/Upgrade (we don't differenciate) a SeaTable Server should take just a few seconds. Simply pull the latest Docker images for all components, restart the containers, and let the system automatically handle necessary database updates. Within moments, all essential services of the SeaTable Server will be accessible.
+Updating/Upgrade (we don't differentiate) a SeaTable Server should take just a few seconds. Simply pull the latest Docker images for all components, restart the containers, and let the system automatically handle necessary database updates. Within moments, all essential services of the SeaTable Server will be accessible.
 
 !!! danger "No Rollback After Upgrade, Backup first!"
 
@@ -10,7 +10,7 @@ Updating/Upgrade (we don't differenciate) a SeaTable Server should take just a f
 
 ## How to update SeaTable Server
 
-Just ran this command to update SeaTable and all additional components.
+Just run this command to update SeaTable and all additional components.
 
 ```
 cd /opt/seatable-compose && \
@@ -31,7 +31,7 @@ docker compose up -d
 
 After some seconds your SeaTable Server should be reachable again. You can check the current version of your SeaTable Server opening the URL `https://<your-seatable-domain>/server-info`.
 
-Now, you should login as system administrator, switch to the system admin are, and update the plugins as well. You can find more information about the [updating the plugins here](../../configuration/plugins/).
+Now, you should login as system administrator, switch to the system admin area, and update the plugins as well. You can find more information about the [updating the plugins here](../../configuration/plugins/).
 
 ## Version specific changes and configurations
 
@@ -53,7 +53,7 @@ You can update from any version to the last one in one step. SeaTable v4.3 and n
 
 ## Update procedure with one single docker-compose.yml (deprecated)
 
-With version 4.3 we introduced a new way to install, update and maintain a SeaTable server. Before 4.3 you used to have one big docker-compose.yml. Even if it not mandatory to switch this setup, but we recommend it. Please check out this [article for more details](./migrate-seatable-release.md).
+With version 4.3 we introduced a new way to install, update and maintain a SeaTable server. Before 4.3 you used to have one big docker-compose.yml. Even if it is not mandatory to switch to this setup, we recommend it. Please check out this [article for more details](./migrate-seatable-release.md).
 
 Open your `docker-compose.yml` file and search for `seatable/seatable-enterprise:{tag}`. Replace the {tag} with the latest version and save the file.
 

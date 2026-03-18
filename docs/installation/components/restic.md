@@ -27,7 +27,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,restic.yml'/" /opt/seatable-com
 
 #### Configure your backup
 
-Every backup is encrypted with a password. Please make sure that you store this password at a save place, otherwise your backup will be worthless if you might need it.
+Every backup is encrypted with a password. Please make sure that you store this password at a safe place, otherwise your backup will be worthless if you might need it.
 
 ```bash
 pw=$(pwgen -s 40 1) && echo "Generated restic password: ${pw}"
@@ -40,9 +40,9 @@ echo -e "\n# restic-backup" >> /opt/seatable-compose/.env
 echo "RESTIC_PASSWORD=${pw}" >> /opt/seatable-compose/.env
 ```
 
-!!! tip "Local Backups are better then no backups"
+!!! tip "Local Backups are better than no backups"
 
-    This configuration will create daily snapshots including database dumps at your host system at `/opt/restic/local`. This is a good start, but of cause we recommend that you store your backup remotely.
+    This configuration will create daily snapshots including database dumps at your host system at `/opt/restic/local`. This is a good start, but of course we recommend that you store your backup remotely.
 
 ??? success "Secure offsite backup with BorgBase"
 
