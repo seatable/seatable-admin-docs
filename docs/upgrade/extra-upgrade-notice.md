@@ -1,5 +1,13 @@
 # Extra upgrade notice
 
+## 6.1
+
+Several Docker image tags have been updated to newer versions. These changes are applied automatically when you pull the latest images. Remember to also update your [plugins](../configuration/plugins.md).
+
+??? warning "Python Pipeline requires explicit activation"
+
+    Starting with version 6.1, the default value for `ENABLE_PYTHON_SCRIPT` has been changed from `true` to `false`. If you use the Python Pipeline, you must ensure that `ENABLE_PYTHON_SCRIPT=true` is set in your `/opt/seatable-compose/.env` file. Without this setting, Python script execution will be disabled after the upgrade.
+
 ## 6.0
 
 **No special steps are required for this upgrade.**

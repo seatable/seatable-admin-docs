@@ -9,6 +9,7 @@ Currently, the following SeaTable components expose metrics in a [Prometheus](ht
 
 - api-gateway
 - dtable-db
+- caddy
 
 In addition, **Gunicorn** and **NGINX** can be configured to expose metrics in a different format. Exporters can be used to transform these into a Prometheus-compatible format.
 
@@ -334,6 +335,44 @@ curl -sS http://127.0.0.1:9113/metrics
   ```
 </details>
 
+### Caddy
+
+[Caddy](https://caddyserver.com/) natively supports exposing metrics in a Prometheus-compatible format. Since SeaTable uses [caddy-docker-proxy](https://github.com/lucaslorentz/caddy-docker-proxy), metrics can be enabled by adding Docker labels to the Caddy service.
+
+Create a `caddy-metrics.yml` file in your `/opt/seatable-compose` directory:
+
+```yaml
+services:
+  caddy:
+    labels:
+      caddy_0.metrics:
+      caddy_0.metrics.per_host:
+      caddy_1: ":2020"
+      caddy_1.metrics: /metrics
+    ports:
+      - 127.0.0.1:2020:2020
+    networks:
+      - o11y-net
+
+networks:
+  o11y-net:
+    name: o11y-net
+```
+
+These labels configure Caddy to collect per-host metrics and expose them on a dedicated, read-only endpoint on port 2020 (separate from the Caddy Admin API on port 2019).
+
+Add `caddy-metrics.yml` to the `COMPOSE_FILE` variable in your `.env` file and restart the containers:
+
+```bash
+docker compose up -d
+```
+
+You can test the metrics endpoint by running the following command on the host:
+
+```bash
+curl -sS http://127.0.0.1:2020/metrics
+```
+
 ## Scraping
 
 There are many ways to ingest the metrics into Prometheus.
@@ -403,6 +442,17 @@ prometheus.scrape "seatable_metrics" {
     username = env("SEATABLE_METRICS_USERNAME")
     password = env("SEATABLE_METRICS_PASSWORD")
   }
+
+  forward_to = [prometheus.remote_write.default.receiver]
+  scrape_interval = "15s"
+}
+
+// Caddy metrics do not use basic authentication and
+// therefore require a separate scrape configuration.
+prometheus.scrape "caddy_metrics" {
+  targets = [
+    {"__address__" = "caddy:2020", "instance" = "caddy"},
+  ]
 
   forward_to = [prometheus.remote_write.default.receiver]
   scrape_interval = "15s"
