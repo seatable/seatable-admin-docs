@@ -1,7 +1,20 @@
-# List of available environment variables
+# Overview
+
+SeaTable supports two configuration mechanisms:
+
+- Environment Variables
+- Configuration Files
+
+Environment variables can be used for the initial deployment and adjustment of the most important settings.
+The following pages denote the reference for the configuration file for each system component.
+
+# List of Available Environment Variables
 
 SeaTable supports environment variables for initial deployment and configuration of some settings. This is the complete list of supported settings. With every version, new variables will be added.
 Please note that this page only denotes environment variables used by SeaTable and its core components.
+
+Since these variables are already defined inside the `seatable-server.yml` file that you have downloaded during the [installation process](../installation/basic-setup.md),
+it is sufficient to set/modify these variables directly inside your `.env` file. There's no need to modify the `*.yml` files in order to adjust these settings.
 
 ```ini
 # components to be used
@@ -39,8 +52,13 @@ SEADOC_PORT=''
 PYTHON_SCHEDULER_URL='http://python-scheduler' # (13)!
 PYTHON_SCHEDULER_AUTH_TOKEN='topsecret'
 
+# SeaTable AI
+ENABLE_SEATABLE_AI='false' # (14)!
+SEATABLE_AI_SERVER_URL='http://seatable-ai:8888'
+
 # E-Mail
 SEATABLE_EMAIL_USE_TLS= # (12)!
+SEATABLE_EMAIL_USE_SSL=
 SEATABLE_EMAIL_HOST=
 SEATABLE_EMAIL_HOST_USER=
 SEATABLE_EMAIL_HOST_PASSWORD=
@@ -54,16 +72,8 @@ SEATABLE_TEMPLATE_BASE_API_TOKEN=
 SEATABLE_TEMPLATE_TABLE_NAME=
 SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE=
 
-# SeaTable Storage Server (Cleanup of snapshots)
-# not yet part of the seatable-server.yml
-#STORAGE_SERVER_ENABLE_SNAPSHOT_CLEANUP=
-#STORAGE_SERVER_SNAPSHOT_CLEANUP_AT=
-#STORAGE_SERVER_SNAPSHOT_KEEP_DAYS=
-#STORAGE_SERVER_SNAPSHOT_KEEP_FREQUENCY_DAYS=
-
 # Logging
 SEATABLE_LOG_LEVEL=INFO # (10)!
-#SEATABLE_LOG_TO_STDOUT=
 
 # Docker Images
 # You can use these variables to override the default images
@@ -89,6 +99,7 @@ SEATABLE_HELP_LINK=https://help.seatable.com # (11)!
 11. Please refer to [Manual Link](../customization/manual-in-nav.md) for more information.
 12. Please refer to [Email Sending](./sending-email.md) for more information.
 13. Please refer to [Python Pipeline](../installation/components/python-pipeline.md) for more information.
+14. Please refer to [SeaTable AI](../installation/components/seatable-ai.md) for more information.
 
 <!--
 TODO: add environment variables for cluster setup!

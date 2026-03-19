@@ -13,3 +13,11 @@ Before that version, universal app could be enabled with the following parameter
 ```bash
 ENABLE_UNIVERSAL_APP = True
 ```
+
+## Maps Page Type
+
+<!-- md:version 6.1 -->
+
+The "Maps" page type requires the configuration of an API key for Google Maps.
+It will only be visible once you've configured the variable `DTABLE_GOOGLE_MAP_KEY` inside `dtable_web_settings.py`.
+Please refer to the [this page](plugins.md#map-plugin) for detailed instructions.

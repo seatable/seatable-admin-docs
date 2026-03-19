@@ -1,6 +1,6 @@
 # Configuration of dtable-server
 
-This is a cheat sheet for the [dtable-server](/introduction/architecture/#dtable-server) configuration file `dtable_server_config.json`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-server](/introduction/architecture/#dtable-server). It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 
@@ -10,6 +10,34 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
     New configuration options will only apply after a restart of SeaTable.
 
+## Environment Variables
+
+This section lists the environment variables read by [dtable-server](/introduction/architecture/#dtable-server).
+
+Please note that these variables are not included in `seatable-server.yml` by default.
+We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
+Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
+
+```yaml
+services:
+  seatable-server:
+    environment:
+      - AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE=100
+```
+
+This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
+This ensures that SeaTable upgrades stay seamless.
+
+### Automations
+
+| Environment Variable                    | Description                                                                | Default |
+| --------------------------------------- | -------------------------------------------------------------------------- | ------- |
+| `AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE` | Limits the number of automations that can be triggered per base per minute | 1000    |
+
+## Configuration File
+
+The following section describes the structure and possible configuration values of the configuration file `dtable_server_config.json`.
+
 ??? abstract "Notes about the configuration file format"
 
     The configuration file uses the **JSON format** (JavaScript Object Notation), which is a lightweight, text-based format for storing and transmitting structured data. It consists of key-value pairs and nested objects, represented by curly braces {}. Comments are not supported in JSON.
@@ -18,15 +46,13 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
     JSON is strict about syntax, particularly with commas. Each key-value pair in an object must be separated by a comma, and there should be no trailing comma after the last key-value pair.
 
-## Example configuration
+**Example configuration**
 
 By default, `dtable_server_config.json` will be empty after the first startup of SeaTable:
 
 ```json
 {}
 ```
-
-## Available configuration options
 
 ### Redis
 
@@ -56,7 +82,7 @@ By default, `dtable_server_config.json` will be empty after the first startup of
 
 ### Row Limits
 
-Please note that increasing this value requires corresponding updates in `dtable_web_settings.py`, as detailed [here](../configuration/base-rows-limit.md).
+Please note that increasing this value requires corresponding updates in `dtable_web_settings.py`, as detailed [here](../base-rows-limit.md).
 
 | Parameter             | Description                                                                        | Default |
 | --------------------- | ---------------------------------------------------------------------------------- | ------- |
@@ -68,12 +94,6 @@ Please note that increasing this value requires corresponding updates in `dtable
 | Parameter       | Description                                                               | Default |
 | --------------- | ------------------------------------------------------------------------- | ------- |
 | `base_max_size` | Maximum size of a base's JSON file (excluding assets and big data) in MB. | 200     |
-
-### Automation Limits
-
-| Parameter                  | Description                                                                                                                                              | Default |
-| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `per_minute_trigger_limit` | Limits the number of automations that can be triggered per base per minute. This setting only works for SeaTable versions up to (and including) v6.0.10. | 50      |
 
 ### Expert Configuration
 
@@ -92,10 +112,15 @@ For more information on setting up a SeaTable cluster, which is typically suitab
 
 ## Deprecated settings
 
+### Automation Limits
+
+The setting `per_minute_trigger_limit`, which allowed limiting the number of automations that could be triggered per base per minute, has been removed in v6.1.
+You can use the environment variable `AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE` instead if you want to modify the default setting.
+
 ### MariaDB Database Connection
 
 `dtable-server` used to read the database connection settings from `dtable_server_config.json`.
-Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/environment-variables) instead.
+Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/overview) instead.
 
 | Parameter  | Description            | Default           |
 | ---------- | ---------------------- | ----------------- |
@@ -108,7 +133,7 @@ Since version 5.3, `dtable-server` reads these settings from [environment variab
 ### Redis Connection
 
 `dtable-server` used to read the Redis connection settings from `dtable_server_config.json`.
-Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/environment-variables) instead.
+Since version 5.3, `dtable-server` reads these settings from [environment variables](/configuration/overview) instead.
 
 | Parameter                     | Description                              | Default |
 | ----------------------------- | ---------------------------------------- | ------- |
@@ -120,7 +145,7 @@ Since version 5.3, `dtable-server` reads these settings from [environment variab
 ### Private Key
 
 Starting with version 5.3, it is no longer required to provide `private_key` that is used to sign JWTs inside the configuration file.
-`dtable-server` reads this value from the `JWT_PRIVATE_KEY` [environment variable](/configuration/environment-variables) instead.
+`dtable-server` reads this value from the `JWT_PRIVATE_KEY` [environment variable](/configuration/overview) instead.
 
 | Parameter     | Description                                                                                          | Default |
 | ------------- | ---------------------------------------------------------------------------------------------------- | ------- |

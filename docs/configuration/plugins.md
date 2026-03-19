@@ -55,6 +55,10 @@ The Map plugin works exclusively with the Google Maps Platform. To enable it, yo
 - Geocoding API
 - Maps Javascript API
 
+!!! note "Required for Map page type in universal apps"
+
+    The "Map" page type inside universal apps, which was introduced in SeaTable v6.1, will only be visible once you've configured the variable `DTABLE_GOOGLE_MAP_KEY`.
+
 Using two separate keys is recommended for security and cost control. While technically the same key could be used for both, separating them ensures that your Geocoding API key (which is expensive) is not exposed to end users.
 
 ```bash

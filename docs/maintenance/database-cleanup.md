@@ -4,11 +4,11 @@
 
 <!-- md:version 5.3 -->
 
-Since version 5.3, SeaTable automatically cleans up its database. A background task regularly removes outdated entries from tables that tend to accumulate unnecessary data and cause database bloat. For details on which tables are cleaned and the specific retention periods, refer to the [configuration of dtable-events](../configuration/dtable-events-conf.md#clean-db).
+Since version 5.3, SeaTable automatically cleans up its database. A background task regularly removes outdated entries from tables that tend to accumulate unnecessary data and cause database bloat. For details on which tables are cleaned and the specific retention periods, refer to the [configuration of dtable-events](../configuration/components/dtable-events.md#clean-db).
 
 !!! warning "Not enabled by default for updated systems"
 
-    Database cleanup is enabled by default for new SeaTable installations (version 5.3 and later). However, if you upgrade an existing system to 5.3, the cleanup feature is not activated automatically. In this case, you need to manually configure the [cleanup in dtable-events](../configuration/dtable-events-conf.md#clean-db).
+    Database cleanup is enabled by default for new SeaTable installations (version 5.3 and later). However, if you upgrade an existing system to 5.3, the cleanup feature is not activated automatically. In this case, you need to manually configure the [cleanup in dtable-events](../configuration/components/dtable-events.md#clean-db).
 
 ## Background information and manual cleanup
 
