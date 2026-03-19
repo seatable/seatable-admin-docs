@@ -52,6 +52,7 @@ The generated shared secret needs to be added to your `.env` file. Copy and past
 
 ```bash
 echo -e "\n# python-pipeline" >> /opt/seatable-compose/.env
+echo "ENABLE_PYTHON_SCRIPT=true" >> /opt/seatable-compose/.env
 echo "PYTHON_SCHEDULER_AUTH_TOKEN=${pw}" >> /opt/seatable-compose/.env
 ```
 
