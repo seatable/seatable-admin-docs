@@ -13,10 +13,13 @@ To release the storage space occupied by unused blocks, you have to run a **garb
 
 Add the following lines to `seafile.conf` to keep deleted files for only 60 days:
 
-```
+```ini
 [history]
 keep_days = 60
 ```
+
+The value of `keep_days` can have a significant impact on the number of objects stored on the filesystem or in S3.
+A lower value of `keep_days` will allow the garbage collector to remove more objects, reducing the storage requirements as well as the number of objects.
 
 ## Dry-run mode
 
@@ -66,6 +69,21 @@ Done.
 
 Run a garbage collection program without adding --dry-run option to actually remove garbage block.
 
-```
+```bash
 docker exec seatable-server /opt/seatable/scripts/seatable.sh gc
 ```
+
+### Removing FS Objects
+
+SeaTable uses Seafile to store assets that have been uploaded to bases. Internally, Seafile uses a [data model](https://manual.seafile.com/13.0/develop/data_model/) similar to Git, which consists of `commit`, `fs` and `block` objects.
+By default, `seatable.sh gc` will only remove garbage or unreferenced `block` objects. Objects of type `fs` (filesystem) won't be removed.
+
+You can add the `--rm-fs` commandline option to also remove garbaged or unreferenced `fs` objects:
+
+```bash
+docker exec seatable-server /opt/seatable/scripts/seatable.sh gc --rm-fs
+```
+
+!!! note "Ofelia add this commandline option by default"
+
+    If you use the included [Ofelia](../installation/components/ofelia.md) configuration to run the GC process, the `--rm-fs` flag is added by default.
