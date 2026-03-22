@@ -1,3 +1,7 @@
+---
+description: Clean up the SeaTable database by removing old operation logs, sessions, and other outdated records to reclaim disk space.
+---
+
 # Database Cleanup
 
 ## Automatic cleanup

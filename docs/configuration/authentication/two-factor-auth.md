@@ -1,3 +1,7 @@
+---
+description: Enable and configure two-factor authentication (2FA) with TOTP in SeaTable Server, globally or per user.
+---
+
 # Two-Factor Authentication
 
 Two-factor authentication (2FA) provides an extra layer of security against unauthorized access by requiring an additional piece of information besides **username and password**.

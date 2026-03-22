@@ -1,3 +1,7 @@
+---
+description: Set up and manage base templates in SeaTable Server so users can create new bases from predefined structures.
+---
+
 # Templates
 
 <!-- md:version 1.6 -->

@@ -1,3 +1,7 @@
+---
+description: Learn how SeaTable uses separate Docker Compose YAML files and a shared .env file for a modular, easy-to-manage deployment.
+---
+
 # Deployment Approach
 
 A SeaTable Server consists of multiple containers. Therefore let's talk about how you typically install such a system.

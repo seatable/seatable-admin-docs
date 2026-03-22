@@ -1,3 +1,7 @@
+---
+description: Migrate SeaTable Enterprise data from local storage to S3 object storage including snapshots, file columns, and avatars.
+---
+
 # Migration from local storage to S3
 
 <!-- md:flag enterprise -->

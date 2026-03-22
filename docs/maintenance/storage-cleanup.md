@@ -1,3 +1,7 @@
+---
+description: Run garbage collection on SeaTable Server to remove unused storage blocks and reclaim disk space.
+---
+
 # Storage Cleanup (Garbage Collection)
 
 SeaTable uses storage de-duplication technology to reduce storage usage. The underlying data blocks will not be removed immediately after you delete a file or a base. As a result, the number of unused data blocks will increase on SeaTable server.

@@ -1,3 +1,7 @@
+---
+description: Complete reference for dtable-db configuration in dtable-db.conf including storage, caching, SQL limits, and big data backup options.
+---
+
 # Configuration of dtable-db
 
 This is a cheat sheet for the [dtable-db](/introduction/architecture/#dtable-db) configuration file `dtable-db.conf`. It contains all possible settings that can be configured as well as their default values.

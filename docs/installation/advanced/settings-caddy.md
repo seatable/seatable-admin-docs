@@ -1,3 +1,7 @@
+---
+description: Advanced Caddy configuration for SeaTable including logging, preserving client IPs behind a front proxy, and more.
+---
+
 # Advanced Settings for Caddy
 
 ## Enabling Logging for Caddy Docker Proxy

@@ -1,3 +1,7 @@
+---
+description: Deploy SeaTable AI on a dedicated server with its own database and Redis connection for distributed setups.
+---
+
 # Standalone Deployment of SeaTable AI
 
 This guide describes the standalone deployment of `seatable-ai` on a dedicated server or virtual machine.

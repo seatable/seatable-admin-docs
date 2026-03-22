@@ -1,3 +1,7 @@
+---
+description: Install the tldraw-based whiteboard plugin for SeaTable Enterprise to enable collaborative drawing and brainstorming.
+---
+
 # Whiteboard (tldraw)
 
 <!-- md:version 5.2 -->

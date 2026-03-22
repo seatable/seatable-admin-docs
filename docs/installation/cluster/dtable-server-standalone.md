@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Deploy dtable-server on a separate node in your SeaTable cluster to offload base rendering from the main server.
 ---
 
 # Installation dtable-server as a standalone node

@@ -1,3 +1,7 @@
+---
+description: Replace the default SeaTable favicon with custom icons via the command line.
+---
+
 # Replace Favicon in SeaTable
 
 SeaTable allows you to easily replace the default SeaTable favicon with a custom one. SeaTable uses two favicons: a default one ![normal favicon](../assets/images/seatable-favicon.png){ width="24"} and a notification favicon ![notification favicon](../assets/images/seatable-notification.png){ width="24" } that appears when you have unread notifications.

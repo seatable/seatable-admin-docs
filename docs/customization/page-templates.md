@@ -1,3 +1,7 @@
+---
+description: Customize SeaTable's HTML page templates for login pages, error pages, and emails by overriding default files.
+---
+
 # SeaTable Frontend Modification
 
 With the help of [dtable_web_settings.py](../configuration/components/dtable-web.md) SeaTable offers a wealth of configuration options to enable or disable individual functions in the frontend or to customize the frontend to your own needs.

@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Deploy Zabbix Agent and Server alongside SeaTable to monitor system health and performance metrics.
 ---
 
 # Zabbix Monitoring

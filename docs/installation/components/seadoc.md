@@ -1,3 +1,7 @@
+---
+description: Deploy the SeaDoc editor to enable the Report Design plugin for creating multi-page documents in SeaTable Enterprise.
+---
+
 # Report Design (seadoc)
 
 <!-- md:version 5.3 -->

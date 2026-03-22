@@ -1,5 +1,6 @@
 ---
 status: new
+description: Configure Gunicorn as the WSGI server for SeaTable, including workers, threads, timeout, and bind address settings.
 ---
 
 # Configuration of Gunicorn

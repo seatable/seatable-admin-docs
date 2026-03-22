@@ -1,3 +1,7 @@
+---
+description: Configure the site title for your SeaTable Server via the web interface or dtable_web_settings.py.
+---
+
 # Site Title and Site Name
 
 **Site Title** and **Site Name** are two basic customization options. The **Title** is used in the browser tab and the **Name** is used in notifications or email messages.

@@ -1,3 +1,7 @@
+---
+description: Configure encrypted daily backups for your SeaTable Server using Restic with support for S3, Backblaze, and other targets.
+---
+
 # Restic Backup
 
 Running your own server always requires a reliable backup to secure your data. With this backup container, obtaining a daily backup is easy. We chose the backup software Restic for its numerous advantages:

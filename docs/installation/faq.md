@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Troubleshooting tips for common SeaTable Server issues including startup failures, Caddy, nginx, and DNS problems.
 ---
 
 ## Troubleshooting SeaTable Server

@@ -1,3 +1,7 @@
+---
+description: Enable Prometheus-compatible metrics for SeaTable components including api-gateway, dtable-db, Caddy, Gunicorn, and NGINX.
+---
+
 # Metrics
 
 <!-- md:version 6.0 -->

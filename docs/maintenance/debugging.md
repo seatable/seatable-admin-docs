@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Advanced debugging techniques for SeaTable Server including how to add custom error messages.
 ---
 
 # Advanced debugging by adding error messages

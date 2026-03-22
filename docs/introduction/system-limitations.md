@@ -1,3 +1,7 @@
+---
+description: SeaTable system limitations for rows, tables, columns, imports, exports, automations, and other configurable resource limits.
+---
+
 # System limitations
 
 The following limitations apply to SeaTable Server as well as SeaTable Cloud and SeaTable Dedicated, unless explicitly stated otherwise here or on the relevant product page.

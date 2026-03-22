@@ -1,3 +1,7 @@
+---
+description: Update your SeaTable Server domain by changing configuration files, SSL certificates, and internal file URLs.
+---
+
 # Changing Domain (URL)
 
 When changing the domain of your SeaTable Server, you must not only update configuration files but also ensure that all internal file and image URLs inside bases are updated. This section describes all necessary steps.

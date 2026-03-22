@@ -1,3 +1,7 @@
+---
+description: Overview of SeaTable authentication types including local database, LDAP, OAuth, SAML, and JWT, plus database structure for user management.
+---
+
 # Authentication
 
 SeaTable Server Enterprise Edition (SeaTable) supports multiple authentication types.

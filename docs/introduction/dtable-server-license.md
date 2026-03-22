@@ -1,3 +1,7 @@
+---
+description: End User License Agreement (EULA) for dtable-server, covering rights of use, obligations, warranty, and liability terms.
+---
+
 End User License Agreement for dtable-server
 
 Version: September 2020

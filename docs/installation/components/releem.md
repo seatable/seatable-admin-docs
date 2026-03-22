@@ -1,3 +1,7 @@
+---
+description: Set up Releem to monitor and automatically optimize MariaDB performance for your SeaTable Server installation.
+---
+
 # Releem
 
 **Releem** is a MySQL performance monitoring and tuning tool designed to optimize your MariaDB database. It operates alongside your database, collecting performance data and providing recommended configuration improvements. While Releem offers automated insights, experienced database professionals may prefer manual tuning for deeper control.

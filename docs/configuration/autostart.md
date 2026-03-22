@@ -1,3 +1,7 @@
+---
+description: Understand how SeaTable handles Docker container and service autostart, and when automatic startup is disabled.
+---
+
 # Autostart
 
 ## Autostart of the docker container

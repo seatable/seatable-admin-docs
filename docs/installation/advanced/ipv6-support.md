@@ -1,5 +1,6 @@
 ---
 status: new
+description: Enable IPv6 support in SeaTable by configuring Docker to assign IPv6 addresses to containers and log correct client IPs.
 ---
 
 # Activate IPv6 Support for SeaTable

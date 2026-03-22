@@ -1,3 +1,7 @@
+---
+description: Hardware requirements and GPU setup instructions for running self-hosted LLMs with SeaTable AI using NVIDIA GPUs.
+---
+
 <!-- md:version 6.0 -->
 
 # Prerequisites

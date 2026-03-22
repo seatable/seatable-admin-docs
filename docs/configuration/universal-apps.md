@@ -1,3 +1,7 @@
+---
+description: Enable and configure universal apps in SeaTable, including the Maps page type with Google Maps API integration.
+---
+
 # Universal apps
 
 <!-- md:version 3.3 -->

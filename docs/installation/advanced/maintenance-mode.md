@@ -1,3 +1,7 @@
+---
+description: Enable maintenance mode in SeaTable to restrict access during updates, showing a 503 page to all users except allowed IPs.
+---
+
 # Maintenance Mode
 
 Sometimes updates or changes in the configuration are necessary, and it's important to limit access to the server during this period. Enabling maintenance mode ensures that only dedicated IP addresses can access the server, while all other users see a simple maintenance page with a `503 Service Unavailable` status code.

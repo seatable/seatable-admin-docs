@@ -1,3 +1,7 @@
+---
+description: Enable SSE-C server-side encryption for SeaTable S3 buckets to encrypt base snapshots and file column data at rest.
+---
+
 # S3 Encryption
 
 <!-- md:flag enterprise -->

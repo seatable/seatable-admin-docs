@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Offload background tasks like automations, notifications, and dataset syncs to a dedicated dtable-events node.
 ---
 
 # dtable-events background Node

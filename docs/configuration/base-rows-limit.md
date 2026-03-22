@@ -1,3 +1,7 @@
+---
+description: Configure the maximum number of rows per base in SeaTable, including writable and loading limits for large datasets.
+---
+
 # Base supported rows limit
 
 By default, a base contains up to 100,000 rows (excluding archived rows). Above 100,000 rows, the base will become read-only. If more than 150,000 rows, the base will fail to load.

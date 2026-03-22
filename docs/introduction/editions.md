@@ -1,3 +1,7 @@
+---
+description: Comparison of SeaTable Server Enterprise and Developer editions, including licensing, features, and usage restrictions.
+---
+
 # SeaTable Server Editions
 
 There are two editions of SeaTable Server available for self hosting.

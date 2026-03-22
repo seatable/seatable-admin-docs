@@ -1,3 +1,7 @@
+---
+description: Complete reference for all api-gateway configuration options in dtable-api-gateway.conf including rate limits and cluster settings.
+---
+
 # Configuration of api-gateway
 
 This is a cheat sheet for the [api-gateway](/introduction/architecture/#api-gateway) configuration file `dtable-api-gateway.conf`. It contains all possible settings that can be configured as well as their default values.

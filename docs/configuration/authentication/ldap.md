@@ -1,3 +1,7 @@
+---
+description: Configure LDAP and Active Directory authentication and synchronization in SeaTable, including SASL support and combined LDAP/SAML setups.
+---
+
 # LDAP
 
 Lightweight Directory Access Protocol (LDAP) is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services. Microsoft's Active Directory (AD) is fully compatible with LDAP. For simplicity, this Manual refers to LDAP and AD when using the term LDAP unless explicitly stated otherwise.

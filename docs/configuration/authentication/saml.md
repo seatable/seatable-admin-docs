@@ -1,3 +1,7 @@
+---
+description: Configure SAML single sign-on in SeaTable with step-by-step guides for Azure AD, Okta, Auth0, and Authentik identity providers.
+---
+
 # SAML
 
 Security Assertion Markup Language (SAML) is an open standard for exchanging authentication and authorization data between parties. An important use case of SAML is web-browser single sign-on (SSO).

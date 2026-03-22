@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Move dtable-db to a dedicated node in your SeaTable cluster for improved scalability and reliability.
 ---
 
 # dtable-db Standalone

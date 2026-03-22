@@ -1,6 +1,7 @@
 ---
 search: 
   exclude: true
+description: Deploy dtable-web on a standalone node in a SeaTable cluster setup.
 ---
 
 # dtable-web

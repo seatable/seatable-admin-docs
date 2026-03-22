@@ -1,3 +1,7 @@
+---
+description: Configure SMTP email sending in SeaTable Server for password resets, notifications, and admin messages.
+---
+
 # Sending Email Notifications on SeaTable
 
 SeaTable requires an external SMTP account to send emails. There are currently five types of emails that SeaTable sends:

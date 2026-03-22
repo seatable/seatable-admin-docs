@@ -1,3 +1,7 @@
+---
+description: Configure dtable-storage-server for filesystem or S3 storage backends, snapshot retention, and automated cleanup in SeaTable.
+---
+
 # Configuration of dtable-storage-server
 
 This is a cheat sheet for the possible configuration options of [dtable-storage-server](/introduction/architecture/#dtable-storage-server). It contains all possible settings that can be configured as well as their default values.

@@ -1,3 +1,7 @@
+---
+description: Fix SeaTable container communication issues on networks without hairpin NAT by configuring local DNS with dnsmasq.
+---
+
 # Running SeaTable without Hairpin NAT
 
 Some networks and routers do not support hairpin NAT (also called NAT loopback or NAT reflection). This prevents Docker containers from resolving and accessing SeaTable via its external hostname from within the local network. Without a workaround, this breaks internal container-to-container communication, causing failures like Python scripts (e.g., automation tasks) and PDF generation to stop working.

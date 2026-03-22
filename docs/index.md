@@ -1,3 +1,7 @@
+---
+description: Official SeaTable Server admin manual covering installation, configuration, upgrade, and maintenance for self-hosted deployments.
+---
+
 # Welcome to the SeaTable Admin Manual
 
 ## Who is this Manual for?

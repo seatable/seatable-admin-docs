@@ -1,3 +1,7 @@
+---
+description: Install, update, and configure SeaTable plugins via the web interface, ZIP upload, or API, including Google Maps setup.
+---
+
 # Plugins
 
 SeaTable Server supports plugins. Plugins provide additional visualization or interaction possibilities within a SeaTable base. Examples of SeaTable plugins include the Gallery, the Map or the Kanban board, providing users with versatile options to visualize their data.

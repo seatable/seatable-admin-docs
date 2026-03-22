@@ -1,3 +1,7 @@
+---
+description: Overview of SeaTable Server UI customization options including colors, logos, favicons, and HTML templates.
+---
+
 # UI Customization in SeaTable
 
 SeaTable Server offers numerous options for tailoring the system to your specific needs. This includes customization of colors, logos, images, emails and HTML templates. While most customization tasks can be performed via the command line interface, system administrators also have the ability to make certain changes directly through the web interface.

@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Hardware, network, and software requirements for deploying a SeaTable cluster, including recommendations for 1,000+ users.
 ---
 
 # Requirements

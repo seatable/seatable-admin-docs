@@ -1,3 +1,7 @@
+---
+description: Configure the Seafile file server (seaf-server) in SeaTable including fileserver port, worker threads, and file history retention.
+---
+
 # Configuration of Seafile
 
 This is a cheat sheet for the [seaf-server](/introduction/architecture/#seaf-server) configuration file `seafile.conf`. It contains all possible settings that can be configured as well as their default values.

@@ -1,3 +1,7 @@
+---
+description: Install n8n alongside SeaTable to connect your bases with hundreds of apps and build powerful automation workflows.
+---
+
 # Automation platform n8n
 
 SeaTable empowers users and teams to store, manage, and visualize structured data efficiently, offering multiple data input options from manual entry to web forms and a comprehensive API. This flexibility ensures seamless data collection while allowing users to define automated workflows with triggers and actions.

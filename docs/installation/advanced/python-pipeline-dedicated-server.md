@@ -1,3 +1,7 @@
+---
+description: Deploy the SeaTable Python Pipeline on a dedicated server to free up resources and improve security on the main server.
+---
+
 # Python Pipeline on a separate server
 
 If your user base on your Seatable Server is growing, one of the first components that you could move to a separate server is the python pipeline. This frees up resources for the main server and it increases the security because customer python code is not executed on the main server.

@@ -1,3 +1,7 @@
+---
+description: Configure additional subdomains for SeaTable components like n8n using Caddy instead of accessing them via port numbers.
+---
+
 # Additional Subdomain
 
 By default SeaTable and all additional components use one single public available domain. This manual explains what to do if you want to make an additional component like n8n available via (sub)domain instead of a port. This article describes the necessary change to the existing caddy container. If you want to use a complete different proxy, please refer the the article ...

@@ -1,3 +1,7 @@
+---
+description: Complete reference for dtable-server configuration including row limits, base size limits, persistence, and automation rate settings.
+---
+
 # Configuration of dtable-server
 
 This is a cheat sheet for the possible configuration options of [dtable-server](/introduction/architecture/#dtable-server). It contains all possible settings that can be configured as well as their default values.

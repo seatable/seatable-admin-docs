@@ -1,3 +1,7 @@
+---
+description: Deploy SeaTable AI to enable AI-powered automation steps like summarize, classify, OCR, and extract using external LLM providers.
+---
+
 # SeaTable AI Integration
 
 <!-- md:version 6.0 -->

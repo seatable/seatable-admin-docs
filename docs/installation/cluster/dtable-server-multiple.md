@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Scale SeaTable horizontally by running multiple dtable-server instances with proxy-based routing by base UUID.
 ---
 
 # Installation multiple dtable-servers

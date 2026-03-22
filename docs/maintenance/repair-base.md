@@ -1,3 +1,7 @@
+---
+description: Repair and prune SeaTable bases from the command line to fix structural issues and reduce base size.
+---
+
 # Repair/Prune a base from the command line
 
 SeaTable provides a repair script that can be executed from the command line to fix/repair typical problems with a base:

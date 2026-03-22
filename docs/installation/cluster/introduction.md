@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Learn when to use a SeaTable cluster setup vs. single-node installation, including naming conventions and signs of overload.
 ---
 
 # Introduction to the Cluster Setup

@@ -1,3 +1,7 @@
+---
+description: Complete guide to backing up and restoring a SeaTable Server, including MariaDB dumps, base data, and configuration files.
+---
+
 # Backup and Recovery
 
 If you decide to run your own SeaTable Server, it is essential to ensure that you have a backup in place.

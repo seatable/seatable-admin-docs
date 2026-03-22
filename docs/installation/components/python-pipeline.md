@@ -1,3 +1,7 @@
+---
+description: Install the Python Pipeline to run Python scripts directly within SeaTable for data automation and manipulation.
+---
+
 # Python Pipeline
 
 To run Python scripts directly within SeaTable, you need to install the Python Pipeline — an environment utilizing Docker containers for script execution and result retrieval. Thanks to SeaTable's Python API, querying and manipulating data in a SeaTable base is super easy.

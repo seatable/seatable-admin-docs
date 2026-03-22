@@ -1,3 +1,7 @@
+---
+description: Install OnlyOffice Documentserver with SeaTable Enterprise for real-time collaborative editing of office documents.
+---
+
 # Deploy ONLYOFFICE Documentserver
 
 <!-- md:version 3.0 -->

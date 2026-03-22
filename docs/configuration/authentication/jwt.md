@@ -1,3 +1,7 @@
+---
+description: Enable JWT-based authentication in SeaTable for server-to-server login using a shared secret key and signed tokens.
+---
+
 # JSON Web Tokens
 
 JSON Web Tokens (=JWT) is another authentication type SeaTable provides. It is used by the SeaTable API but it can also be used to allow server-to-server authentication. JWTs are used for example if you switch from [SeaTable Cloud](https://cloud.seatable.io) to the [team administration](https://account.seatable.io) without the need to re-authenticate. 

@@ -1,3 +1,7 @@
+---
+description: Install Collabora Online (CODE) with SeaTable Enterprise for real-time collaborative editing of office documents.
+---
+
 # Collabora Online
 
 <!-- md:version 4.3 -->

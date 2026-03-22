@@ -1,3 +1,7 @@
+---
+description: Customize Caddy security headers, Content-Security-Policy, and cookie settings for your SeaTable Server deployment.
+---
+
 # Security settings
 
 ## Accept headers

@@ -1,3 +1,7 @@
+---
+description: Customize the email notification templates for password resets, sharing notifications, and other events in SeaTable.
+---
+
 # Customize Email Notifications
 
 **Note:** Subject line may vary between different releases, this is based on Release 2.0.1. Restart Seahub so that your changes take effect.

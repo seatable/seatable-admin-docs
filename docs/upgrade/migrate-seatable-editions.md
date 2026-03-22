@@ -1,3 +1,7 @@
+---
+description: Migrate between SeaTable Enterprise Edition and Developer Edition by switching Docker images and license files.
+---
+
 # Migrate between SeaTable Editions
 
 The migration between SeaTable Enterprise Edition and SeaTable Developer Edition is easy and possible at any time. Please make sure that you only migrate between the same major and minor versions:

@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Set up the basic SeaTable cluster node with external MariaDB, Redis, and S3 object storage instead of local services.
 ---
 
 # Basic Setup of a SeaTable Cluster

@@ -1,3 +1,7 @@
+---
+description: Install Gatus to provide a real-time status page and alerting for your SeaTable Server and its core components.
+---
+
 # Gatus
 
 [Gatus](https://github.com/TwiN/gatus) provides your users with a real-time status page for your SeaTable Server and alerts you if any core components become unreachable. By default Gatus monitors the following components:

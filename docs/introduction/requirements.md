@@ -1,3 +1,7 @@
+---
+description: Hardware, software, and network requirements for self-hosting SeaTable Server, including supported platforms and minimum specs.
+---
+
 # Requirements
 
 One of the main advantages of SeaTable against other solutions is, that you can run SeaTable on your own hardware or on any server you like. Still there are some requirements:

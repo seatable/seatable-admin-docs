@@ -1,3 +1,7 @@
+---
+description: Change the target URL of the Manual link in SeaTable's navigation bar using dtable_web_settings.py.
+---
+
 # Custom manual
 
 By default SeaTable presents a "Manual" link on its home page. Starting with version v4.4 this link points to <https://help.seatable.com> but in all former versions, the link opened only a blank new browser tab.

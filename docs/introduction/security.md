@@ -1,3 +1,7 @@
+---
+description: SeaTable Server security measures including web security, network segmentation, vulnerability scanning, and compliance ratings.
+---
+
 # Security measures
 
 Security is more than just activating a function or implementing a web-application firewall. Security is an ongoing process with a holistic view on all relevant topics. We try to define sensible default values implementing best practices to improve the security without creating too many restrictions that might produce problems with some older clients.

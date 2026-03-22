@@ -1,3 +1,7 @@
+---
+description: Configure AI credit limits and token pricing per model in SeaTable to track and control AI usage across users and teams.
+---
+
 # AI Token Pricing
 
 ## AI Credits

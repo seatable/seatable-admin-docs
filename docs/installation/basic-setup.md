@@ -1,3 +1,7 @@
+---
+description: Step-by-step guide to install SeaTable Server with Docker and Caddy on a single Linux node, accessible via HTTPS.
+---
+
 # Single-Node installation of SeaTable Server
 
 This manual will guide you through the process of installing a SeaTable Server instance with Caddy as proxy. By the end of it, you'll have a SeaTable Server instance that is accessible via HTTPS under your custom domain.

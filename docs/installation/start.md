@@ -1,3 +1,7 @@
+---
+description: Get started with SeaTable Server installation using Docker. Choose between single-node or cluster deployment on Linux.
+---
+
 # Introduction to SeaTable Server Installation
 
 SeaTable is the world leading self hosted no-code platform. You can run SeaTable on consumer or enterprise-grade hardware and a variety of operating systems and architectures. The installation always uses Docker and the docker compose plugin. This guide outlines the installation process for SeaTable Server (Enterprise and Developer Edition) on a Linux OS using Docker.

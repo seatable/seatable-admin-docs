@@ -1,3 +1,7 @@
+---
+description: Install Ofelia to schedule automated maintenance tasks like garbage collection and filesystem checks for SeaTable.
+---
+
 # Ofelia
 
 <!-- md:version 6.0 -->

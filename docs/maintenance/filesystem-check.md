@@ -1,3 +1,7 @@
+---
+description: Use the seaf-fsck tool to check, repair, and export SeaTable file system libraries after data corruption.
+---
+
 # File System Check
 
 On the server side, SeaTable stores the files in the libraries in an internal format. SeaTable has its own representation of directories and files (similar to Git).

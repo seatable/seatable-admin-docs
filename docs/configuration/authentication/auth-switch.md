@@ -1,3 +1,7 @@
+---
+description: Migrate SeaTable users between authentication types such as local database, LDAP, SAML, and OAuth with database modifications.
+---
+
 # Switch authentication type
 
 SeaTable Server supports [multiple authentication types](./overview.md). Switching between the types is possible, but any switch requires modifications of SeaTable's databases.

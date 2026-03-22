@@ -1,3 +1,7 @@
+---
+description: Find SeaTable support resources including documentation, community forum, YouTube tutorials, and enterprise support options.
+---
+
 # Get support
 
 Next to this administration manual there are more documentations available. To learn more about how to use SeaTable as a user, how to use the SeaTable API, the possibilities to develop your own plugins or scripts in SeaTable, please refer to their respective manuals:

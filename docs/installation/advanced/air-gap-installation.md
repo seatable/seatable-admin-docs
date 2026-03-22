@@ -1,3 +1,7 @@
+---
+description: Install SeaTable in an air-gapped environment without internet, covering certificates, local registries, and plugins.
+---
+
 # Air gap installation
 
 Air gap installation means that your SeaTable server has no connection to the internet and runs air gapped on the local network. This is feasible for high-security environments but it should be obvious that such a setup requires additional configurations and is not an easy task.

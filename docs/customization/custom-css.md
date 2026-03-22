@@ -1,3 +1,7 @@
+---
+description: Add custom CSS to your SeaTable Server to hide or modify UI elements, with practical examples included.
+---
+
 # Custom CSS
 
 SeaTable provides the flexibility to incorporate custom CSS code, allowing users to either conceal specific elements or modify their behavior. This article showcases several examples of what you can achieve with CSS customization.

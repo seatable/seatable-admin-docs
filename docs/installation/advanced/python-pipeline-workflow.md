@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Understand the internal workflow of SeaTable's Python Pipeline, from script execution to result delivery across components.
 ---
 
 # Workflow of the Python Pipeline in a nutshell

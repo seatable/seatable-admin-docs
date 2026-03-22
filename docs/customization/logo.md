@@ -1,3 +1,7 @@
+---
+description: Replace the default SeaTable Server logo via the web interface or command line with a custom image.
+---
+
 # Logo
 
 The Logo of your SeaTable server can easily be replaced via the web interface or the command line.

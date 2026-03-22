@@ -1,5 +1,6 @@
 ---
 status: new
+description: Customize the Nginx configuration for SeaTable Server using custom config files that persist across updates.
 ---
 
 # Configuration of Nginx

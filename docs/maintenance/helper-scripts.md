@@ -1,5 +1,6 @@
 ---
 status: new
+description: Shell scripts for common SeaTable admin tasks like activating users, querying user stats, and dumping databases.
 ---
 
 # Helper Scripts

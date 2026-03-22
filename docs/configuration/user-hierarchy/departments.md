@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Configure departments in SeaTable, an extension of groups that adds a dedicated column type for organizational structures.
 ---
 
 # Departments

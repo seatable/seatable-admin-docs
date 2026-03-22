@@ -1,3 +1,7 @@
+---
+description: Deploy Ollama alongside SeaTable to run self-hosted LLMs for AI features. Suitable for basic testing and evaluation.
+---
+
 <!-- md:version 6.0 -->
 
 # Ollama

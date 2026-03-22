@@ -1,3 +1,7 @@
+---
+description: Configure Python Pipeline resource limits, timeouts, logging, and security settings through environment variables.
+---
+
 ## Configuration
 
 The Python Pipeline can be configured through environment variables for further customization. The available parameters inside your `.env` file are:

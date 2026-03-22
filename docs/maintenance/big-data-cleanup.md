@@ -1,3 +1,7 @@
+---
+description: Reclaim disk space from unused or deleted big data storage in SeaTable using garbage collection and flatten commands.
+---
+
 # Big Data Cleanup
 
 <!-- md:version 6.0 -->

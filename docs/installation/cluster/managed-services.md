@@ -1,6 +1,7 @@
 ---
 search: 
   exclude: true
+description: Use managed cloud services for MariaDB, Redis, and S3 in a SeaTable cluster deployment.
 ---
 
 # Managed services

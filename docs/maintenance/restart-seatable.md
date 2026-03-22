@@ -1,5 +1,6 @@
 ---
 status: new
+description: How to restart the SeaTable service or the entire Docker container to apply configuration changes.
 ---
 
 # Restarting the SeaTable service

@@ -1,3 +1,7 @@
+---
+description: Configure Caddy to use DNS-01 challenge for Let's Encrypt certificates when ports 80/443 are not publicly reachable.
+---
+
 # Using Let's Encrypt with DNS Challenge (caddy-dns) Instead of HTTP Ports 80/443
 
 By default, SeaTable uses Caddy with the HTTP-01 challenge method to automatically request and renew a Let's Encrypt certificate. This approach requires that ports **80** and **443** are publicly reachable so that Let's Encrypt can validate domain ownership.

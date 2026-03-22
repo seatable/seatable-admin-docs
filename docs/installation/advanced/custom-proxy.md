@@ -1,3 +1,7 @@
+---
+description: Replace Caddy with a custom reverse proxy like nginx, Traefik, or HAProxy for SeaTable Server and additional components.
+---
+
 # Replace caddy with another proxy
 
 The Single-Node Installation describes an installation of a SeaTable server with the webserver caddy. We decided to use Caddy because it simplifies the handling of let's encrypt certificates.

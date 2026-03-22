@@ -1,3 +1,7 @@
+---
+description: Use custom SSL/TLS certificates with SeaTable's Caddy web server instead of the default Let's Encrypt certificates.
+---
+
 # Custom root certificates
 
 By default, Seatable uses Let's Encrypt to generate valid certificates for public access. However, Caddy also provides an easy way to use custom certificates. This section assumes that you intend to use a **valid (standard or wildcard) certificate issued by a widely trusted certificate authority**.  

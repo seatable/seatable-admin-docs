@@ -1,3 +1,7 @@
+---
+description: Configure SeaTable Server to run with HTTP only, without HTTPS/SSL, during or after installation.
+---
+
 # Force http only for your SeaTable Server
 
 ## Force http during installation

@@ -1,3 +1,7 @@
+---
+description: Configure dtable-events for automations, email notifications, LDAP sync, virus scanning, and database cleanup in SeaTable Server.
+---
+
 # Configuration of dtable-events
 
 This is a cheat sheet for the possible configuration options of [dtable-events](/introduction/architecture/#dtable-events). It contains all possible settings that can be configured as well as their default values.

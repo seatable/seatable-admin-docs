@@ -1,3 +1,7 @@
+---
+description: Install Uptime Kuma on your SeaTable server to monitor service availability and get notified about downtime.
+---
+
 # Uptime Kuma
 
 This guide shows how to activate Uptime Kuma on a one node seatable server.

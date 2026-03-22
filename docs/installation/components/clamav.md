@@ -1,3 +1,7 @@
+---
+description: Deploy ClamAV with SeaTable Enterprise to automatically scan uploaded files and images for viruses.
+---
+
 # Deploy ClamAV with SeaTable
 
 <!-- md:version 5.2 -->

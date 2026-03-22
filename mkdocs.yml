@@ -2,14 +2,14 @@ site_name: SeaTable Admin Manual
 site_url: https://admin.seatable.com/
 site_author: SeaTable GmbH
 site_description: >
-  Official SeaTable Admin Manual.
+  Admin documentation for SeaTable — installation, configuration, authentication, upgrade, maintenance, and cluster deployment guide.
 
 # Repository
 repo_name: seatable/seatable-admin-docs
 repo_url: https://github.com/seatable/seatable-admin-docs/
 
 # Copyright
-copyright: Copyright &copy; 2022 - 2024 SeaTable GmbH
+copyright: Copyright &copy; 2022 - 2026 SeaTable GmbH
 
 # Configuration
 theme:
@@ -88,6 +88,7 @@ plugins:
 
 hooks:
   - overrides/hooks/shortcodes.py
+  - overrides/hooks/sitemap_xsl.py
 
 # Customization
 extra:

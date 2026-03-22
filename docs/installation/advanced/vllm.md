@@ -1,3 +1,7 @@
+---
+description: Deploy vLLM as a production-ready LLM inference engine for SeaTable AI with high-concurrency support and GPU acceleration.
+---
+
 <!-- md:version 6.0 -->
 
 # vLLM

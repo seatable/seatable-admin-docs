@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Overview of SeaTable Server and Nginx log file locations, log rotation configuration, and customization options.
 ---
 
 # Logs

@@ -1,3 +1,7 @@
+---
+description: Migrate from a single docker-compose.yml to the multi-YAML /opt/seatable-compose setup introduced in v4.3.
+---
+
 # Migrate to new installation method
 
 <!-- md:version 4.3.10 -->

@@ -1,3 +1,7 @@
+---
+description: Reset user passwords or create a new admin account in SeaTable Server via the system admin area or command line.
+---
+
 # Password Reset
 
 #### User Management

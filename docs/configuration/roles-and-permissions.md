@@ -1,3 +1,7 @@
+---
+description: Define user and admin roles with custom permissions and quotas in SeaTable Enterprise Edition.
+---
+
 # Roles and Permissions
 
 <!-- md:version 1.0 -->

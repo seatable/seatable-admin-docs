@@ -1,3 +1,7 @@
+---
+description: Configure SeaTable to use a standalone or managed MariaDB database instead of the default Docker container.
+---
+
 # Standalone Database
 
 Managed Database is an often used managed service. SeaTable can easily be configured to use a separate database. We recommend to initialize SeaTable with the default mariadb container. Then dump the database, load the dump to a separate database, update the `.env` file and restart SeaTable. Due to this assumption, this manual is the same for a new SeaTable Server or a service where you want to migrate the database.

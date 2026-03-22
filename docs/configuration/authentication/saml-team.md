@@ -2,6 +2,7 @@
 status: wip
 #search:
 #  exclude: true
+description: Configure per-team SAML identity providers for multi-tenancy SeaTable environments with role permissions and cookie settings.
 ---
 
 # SAML Authentication (for multi-tenancy environments)

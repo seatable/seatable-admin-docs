@@ -1,3 +1,7 @@
+---
+description: Integrate SeaTable with Seafile to attach files from Seafile libraries in SeaTable file columns.
+---
+
 # Integrate with Seafile
 
 <!-- md:version 4.0 -->

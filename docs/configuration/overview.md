@@ -1,3 +1,7 @@
+---
+description: Complete reference of SeaTable environment variables and configuration files for server setup and customization.
+---
+
 # Overview
 
 SeaTable supports two configuration mechanisms:

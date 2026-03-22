@@ -1,3 +1,7 @@
+---
+description: Understand SeaTable's SECRET_KEY and PRIVATE_KEY, their roles in session management, and why they should not be changed.
+---
+
 # Secrets Management
 
 ## SECRET_KEY

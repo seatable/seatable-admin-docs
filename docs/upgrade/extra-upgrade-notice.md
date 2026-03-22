@@ -1,3 +1,7 @@
+---
+description: Version-specific upgrade notices and required configuration changes for each SeaTable Server release.
+---
+
 # Extra upgrade notice
 
 ## 6.1

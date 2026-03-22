@@ -1,3 +1,7 @@
+---
+description: Configure dtable-web settings for user management, registration, passwords, API throttling, and other SeaTable web interface options.
+---
+
 # dtable web settings
 
 You need to [restart SeaTable](../../maintenance/restart-seatable.md) so that your changes take effect.

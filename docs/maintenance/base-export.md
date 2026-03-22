@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Export and import SeaTable bases from the command line as .dtable files or complete folders including big data.
 ---
 
 # Exporting a Base from the Command Line

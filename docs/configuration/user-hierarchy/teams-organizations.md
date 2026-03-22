@@ -1,5 +1,6 @@
 ---
 status: wip
+description: Configure teams and organizations in SeaTable to isolate user groups with separate visibility and permissions.
 ---
 
 # Teams / Organizations (like in cloud.seatable.io)

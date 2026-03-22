@@ -1,3 +1,7 @@
+---
+description: Step-by-step instructions to upgrade SeaTable Server using Docker Compose, including update paths and version-specific notes.
+---
+
 # Upgrade manual
 
 Updating/Upgrade (we don't differentiate) a SeaTable Server should take just a few seconds. Simply pull the latest Docker images for all components, restart the containers, and let the system automatically handle necessary database updates. Within moments, all essential services of the SeaTable Server will be accessible.

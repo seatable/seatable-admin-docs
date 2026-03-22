@@ -1,3 +1,7 @@
+---
+description: Change SeaTable's default orange main color to a custom color using CSS via the web interface or config file.
+---
+
 # Change the main color
 
 SeaTable has an orange main color with the color-code `#FF8000`. If this color does not match your custom logo, it might be useful to replace this main color with another color of your choice.

@@ -1,3 +1,7 @@
+---
+description: Overview of SeaTable Server's Docker-based architecture, including container layout, ports, and component interactions.
+---
+
 # Architecture
 
 ## Overview

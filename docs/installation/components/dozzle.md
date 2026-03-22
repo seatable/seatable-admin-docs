@@ -1,5 +1,6 @@
 ---
 status: new
+description: Install Dozzle for real-time web-based Docker log viewing and debugging of your SeaTable Server containers.
 ---
 
 # Dozzle
