@@ -937,7 +937,7 @@ SeaTable Enterprise requires a license to start.
 
 Run the following command, replacing `me@example.com` with your valid email address. Shortly after, you'll receive an email with instructions to download your license to the current directory.
 
-```
+```bash
 curl https://get.seatable.com/license/me@example.com
 # ... follow the steps in the email ...
 ```
@@ -1218,7 +1218,7 @@ docker compose up -d
 
 After a few seconds, check `https://<your-seatable-url>:6239/ping`. You should see:
 
-```
+```json
 {"status":"pong"}
 ```
 
@@ -1297,7 +1297,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,n8n.yml'/" /opt/seatable-compos
 
 Now let's create initial secrets and write them into the .env file.
 
-```
+```bash
 echo -e "\n# n8n" >> /opt/seatable-compose/.env
 echo "N8N_ENCRYPTION_KEY=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 echo "POSTGRES_PASSWORD=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
@@ -1396,7 +1396,7 @@ docker compose up -d
 
 After a few seconds, check `https://<your-seatable-url>:6240`. You should see:
 
-```
+```text
 Welcome to sdoc-server. The current version is ...
 ```
 
@@ -1620,7 +1620,7 @@ Copy the following code block in this file:
 
 Mount this config file into your onlyoffice block in your `docker-compose.yml`.
 
-```
+```yaml
   volumes:
       - /opt/onlyoffice/logs:/var/log/onlyoffice
       - /opt/onlyoffice/data:/var/www/onlyoffice/Data
@@ -1630,7 +1630,7 @@ Mount this config file into your onlyoffice block in your `docker-compose.yml`.
 
 Restart OnlyOffice to load the new configuration.
 
-```
+```bash
 docker compose up -d
 ```
 
@@ -1715,7 +1715,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,gatus.yml'/" /opt/seatable-comp
 
 To start Gatus for the first time, run:
 
-```
+```bash
 cd /opt/seatable-compose && \
 docker compose up -d
 ```
@@ -1728,7 +1728,7 @@ Open `https://<your-seatable-server-hostname>/status` or `https://<your-seatable
 
 Email notifications are preconfigured. You only need to provide the following environment variables in your `.env` file:
 
-```
+```bash
 GATUS_EMAIL_USERNAME=
 GATUS_EMAIL_PASSWORD=
 GATUS_EMAIL_HOST=
@@ -1799,7 +1799,7 @@ Alternatively, you can change the command and adapt it to your needs.
 
 To start **Dozzle** for the first time, run:
 
-```
+```bash
 cd /opt/seatable-compose && \
 docker compose up -d
 ```
@@ -1942,7 +1942,7 @@ After starting the Releem agent, it will begin collecting performance metrics fr
 
     Add the following volume to your `docker-compose.yml` for the MariaDB service:
 
-    ```
+    ```yaml
     ---
     services:
     mariadb:
@@ -2254,7 +2254,7 @@ Source: https://admin.seatable.com/installation/faq/
 
     Execute `docker logs seatable-server`. This should result in:
 
-    ```
+    ```text
     2024-02-04 12:59:17 Start server
     SeaTable started
     2024-02-04 12:59:21 For more startup information, please check the /opt/seatable/logs/init.log
@@ -2265,13 +2265,13 @@ Source: https://admin.seatable.com/installation/faq/
 
     Another check might be:
 
-    ```
+    ```bash
     docker exec -it seatable-server curl http://127.0.0.1:8000/server-info/
     ```
 
     This should return:
 
-    ```
+    ```json
     {"version":"4.3.8","edition":"enterprise edition"}
     ```
 
@@ -2288,7 +2288,7 @@ Source: https://admin.seatable.com/installation/faq/
 
     Execute `docker ps`. This should be the result:
 
-    ```
+    ```text
     CONTAINER ID   IMAGE                               STATUS                NAMES
     0411d977eb25   seatable/seatable-enterprise:4.3.8  Up 3 days (healthy)   seatable-server
     ```
@@ -2299,13 +2299,13 @@ Source: https://admin.seatable.com/installation/faq/
 
     There might be a misconfiguration of `nginx.conf`. nginx provides a configuration checker.
 
-    ```
+    ```bash
     docker exec -it seatable-server nginx -t
     ```
 
     It should look like:
 
-    ```
+    ```text
     nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
     nginx: configuration file /etc/nginx/nginx.conf test is successful
     ```
@@ -2314,7 +2314,7 @@ Source: https://admin.seatable.com/installation/faq/
 
 ??? question "Check Caddy"
 
-    ```
+    ```bash
     docker logs caddy
     ```
 
@@ -2352,7 +2352,7 @@ Source: https://admin.seatable.com/installation/faq/
 
     In the `seatable-server.yml` file, the SeaTable license file is mounted into the container:
 
-    ``` 
+    ```yaml
     - type: bind
       source: "./seatable-license.txt"
       target: "/shared/seatable/seatable-license.txt"
@@ -2365,7 +2365,7 @@ Source: https://admin.seatable.com/installation/faq/
 
     Stop the SeaTable container, remove the directory that Docker created by mistake: and restart SeaTable.
 
-    ```
+    ```bash
     docker stop seatable-server
     rm -r /opt/seatable-server/seatable/seatable-license.txt
     docker start seatable-server
@@ -2423,7 +2423,7 @@ While this does not cause immediate service disruptions, it presents some challe
 
 The solution is straightforward. Add the following parameter to your Docker network configuration (for example, in caddy.yml):
 
-```
+```yaml
 networks:
   frontend-net:
     name: frontend-net
@@ -2586,14 +2586,14 @@ The exact configuration depends on your DNS provider. In most cases, the API tok
 
 === "Hetzner"
 
-    ```
+    ```text
     caddy_0.tls.dns: "hetzner ${HETZNER_DNS_TOKEN:?Variable is not set or empty}"
     caddy_0.tls.propagation_delay: 30s
     ```
 
 === "Cloudflare"
 
-    ```
+    ```text
     caddy_0.tls.dns: "cloudflare {CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
     ```
 
@@ -2607,14 +2607,14 @@ Add the generated token to your `.env` file, for example:
 
 === "Hetzner"
 
-    ```
+    ```ini
     # Caddy DNS-01 challenge
     HETZNER_DNS_TOKEN=your_token_here
     ```
 
 === "Cloudflare"
 
-    ```
+    ```ini
     # Caddy DNS-01 challenge
     CLOUDFLARE_API_TOKEN=your_token_here
     ```
@@ -2869,7 +2869,7 @@ If you are running your own server, you have the option to modify these security
 
 To adjust these settings, you can modify the `seatable-server.yml` file located at `/opt/seatable-compose/seatable-server.yml`. The default configuration might look like this:
 
-```
+```yaml
 caddy.header.Content-Security-Policy: "`
     block-all-mixed-content;
     default-src 'none';
@@ -2923,7 +2923,7 @@ Here's how to configure such a maintenance page using Caddy:
 5. Open your `.env` file and replace `seatable-server.yml` with `maintenance.yml` (in the variable `COMPOSE_FILE`)
 6. Run `docker compose up -d`
 
-```
+```yaml
 ...
     labels:
       caddy: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
@@ -2946,7 +2946,7 @@ All other users will see a maintenance page displaying the following message:
 
 To disable maintenance mode, update your `.env` file by replacing `maintenance.yml` with `seatable-server.yml`. Then, run the command:
 
-```
+```bash
 docker-compose up -d
 ```
 
@@ -3597,7 +3597,7 @@ To use S3, switch the type to `type = s3`. Depending on whether you are using AW
 
     AWS requires only a few settings. `key_id` and `key` are used to provide S3 authentication. You can find the `key_id` and `key` in the *Security Credentials* section of your AWS account page.
 
-    ```
+    ```ini
     [storage backend]
     type = s3
     bucket = ...
@@ -3609,7 +3609,7 @@ To use S3, switch the type to `type = s3`. Depending on whether you are using AW
 
     Create the bucket and an IAM Key for accessing the S3 storage from exoscale.
 
-    ```
+    ```ini
     [storage backend]
     type = s3
     bucket = your-bucket-name
@@ -3626,7 +3626,7 @@ To use S3, switch the type to `type = s3`. Depending on whether you are using AW
 
     Create the bucket and an IAM Key for accessing the S3 storage from Hetzner.
 
-    ```
+    ```ini
     [storage backend]
     type = s3
     bucket = your-bucket-name
@@ -3643,7 +3643,7 @@ To use S3, switch the type to `type = s3`. Depending on whether you are using AW
 
     Use the following settings to connect to your S3 compatible storage.
 
-    ```
+    ```ini
     [storage backend]
     type = s3
     bucket = ...
@@ -3666,7 +3666,7 @@ S3 Object storage for file and picture columns is configured in `/opt/seatable-s
 
 === "AWS"
 
-    ```
+    ```ini
     [commit_object_backend]
     name = s3
     bucket = my-commit-objects
@@ -3699,7 +3699,7 @@ S3 Object storage for file and picture columns is configured in `/opt/seatable-s
 
 === "exoscale"
 
-    ```
+    ```ini
     [commit_object_backend]
     name = s3
     bucket = your-bucket-name
@@ -3733,7 +3733,7 @@ S3 Object storage for file and picture columns is configured in `/opt/seatable-s
 
 === "Hetzner"
 
-    ```
+    ```ini
     [commit_object_backend]
     name = s3
     bucket = your-bucket-name
@@ -3767,7 +3767,7 @@ S3 Object storage for file and picture columns is configured in `/opt/seatable-s
 
 === "S3 compatible storage"
 
-    ```
+    ```ini
     [commit_object_backend]
     name = s3
     bucket = my-commit-objects
@@ -3799,7 +3799,7 @@ S3 Object storage for file and picture columns is configured in `/opt/seatable-s
 
     === "redis"
 
-        ```
+        ```ini
         [redis]
         redis_host = redis
         redis_port = 6379
@@ -3808,7 +3808,7 @@ S3 Object storage for file and picture columns is configured in `/opt/seatable-s
 
     === "memcached"
 
-        ```
+        ```ini
         [memcached]
         memcached_options = --SERVER=memcached --POOL-MIN=10 --POOL-MAX=100
         ```
@@ -3839,7 +3839,7 @@ Here are some examples on how to configure the S3 bucket for avatars.
 
     You can find the value for `S3_ACCESS_KEY_ID` and `S3_SECRET_ACCESS_KEY` in the *Security Credentials* section of your AWS account page.
 
-    ```
+    ```python
     AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
     S3_ENDPOINT_URL = 'https://s3.example.com'
     S3_REGION = 'eu-west-1'
@@ -3852,7 +3852,7 @@ Here are some examples on how to configure the S3 bucket for avatars.
 
     Create the bucket and an IAM Key for accessing the S3 storage from exoscale.
 
-    ```
+    ```python
     AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
     S3_ENDPOINT_URL = 'https://sos-de-fra-1.exo.io'
     S3_ACCESS_KEY_ID = ''
@@ -3864,7 +3864,7 @@ Here are some examples on how to configure the S3 bucket for avatars.
 
     Create the bucket and an IAM Key for accessing the S3 storage from Hetzner.
 
-    ```
+    ```python
     AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
     S3_ENDPOINT_URL = 'https://fsn1.your-objectstorage.com'
     S3_ACCESS_KEY_ID = ''
@@ -3876,7 +3876,7 @@ Here are some examples on how to configure the S3 bucket for avatars.
 
     Use the following settings to connect to your S3 compatible storage.
 
-    ```
+    ```python
     AVATAR_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
     S3_ENDPOINT_URL = 'https://sos-de-fra-1.exo.io'
     S3_ACCESS_KEY_ID = ''
@@ -3960,7 +3960,7 @@ After the migration is done, you can delete the old avatars directories below `/
 
     Security header configuration in your `seatable-server.yml` might prevent this and you need your S3 url to the Content-Security-Policy.
 
-    ```
+    ```text
     caddy.header.Content-Security-Policy:
         ...
         img-src 'self' data: blob: ... <your-S3-url>
@@ -4164,13 +4164,13 @@ PYTHON_RUNNER_IMAGE='custom-python-runner:1.0'
 
 After updating the .env file, restart your SeaTable setup with:
 
-```
+```bash
 docker compose up -d
 ```
 
 You can verify that your custom image is being used by running:
 
-```
+```bash
 docker ps
 ```
 
@@ -4178,7 +4178,7 @@ docker ps
 
 Run this Python script within SeaTable to confirm that your required packages are available:
 
-```
+```python
 import importlib.metadata
 
 distributions = importlib.metadata.distributions()
@@ -4503,7 +4503,7 @@ curl -sS https://$SEATABLE_SERVER_HOSTNAME/api-gateway/metrics --user "<username
 
 <details>
 <summary>Example Output</summary>
-  ```
+  ```text
   # HELP api_gateway_base_cache_hit_ratio Total base cache hit ratio
   # TYPE api_gateway_base_cache_hit_ratio gauge
   api_gateway_base_cache_hit_ratio 0.6086956521739131
@@ -4555,7 +4555,7 @@ docker exec seatable-server curl -sS http://localhost:7777/metrics --user "<user
 
 <details>
 <summary>Example Output</summary>
-  ```
+  ```text
   # HELP dtable_db_archive_task_count Number of currently running import tasks
   # TYPE dtable_db_archive_task_count gauge
   dtable_db_archive_task_count 0
@@ -4660,7 +4660,7 @@ curl -sS 127.0.0.1:9102/metrics
 
 <details>
 <summary>Example Output</summary>
-  ```
+  ```text
   # HELP gunicorn_request_duration Metric autogenerated by statsd_exporter.
   # TYPE gunicorn_request_duration histogram
   gunicorn_request_duration_bucket{le="0.005"} 7
@@ -4695,7 +4695,7 @@ curl -sS 127.0.0.1:9102/metrics
 In order to expose basic metrics regarding the number of connections and handled requests, the `ngx_http_stub_status_module` module must be enabled.
 You can achieve this by adding the following configuration block at the bottom of the NGINX configuration file, which is located at `/opt/seatable-compose/config/seatable-config.conf`:
 
-```
+```nginx
 server {
     listen 8080;
 
@@ -4715,7 +4715,7 @@ docker exec -it seatable-server nginx -t
 
 This should return the following output:
 
-```
+```text
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
@@ -4765,7 +4765,7 @@ curl -sS http://127.0.0.1:9113/metrics
 
 <details>
 <summary>Example Output</summary>
-  ```
+  ```text
   # HELP nginx_connections_accepted Accepted client connections
   # TYPE nginx_connections_accepted counter
   nginx_connections_accepted 8
@@ -5029,7 +5029,7 @@ The cross-domain permissions must be set. This can be done by adding the "Access
 
 Add the following code block to the configuration file `seafile.conf` in `/etc/nginx/sites-available/` or `seafile.nginx.conf` in `/etc/nginx/sites-enabled` (the exact filename and path depend on your Seafile version and installation method):
 
-```
+```nginx
     location / {
         add_header Access-Control-Allow-Origin *;
         if ($request_method = 'OPTIONS') {
@@ -5090,7 +5090,7 @@ However, as the number of users and the complexity of the bases increase, bottle
     SeaTable checks every 30 seconds whether its individual components are reachable. If a component does not respond within 20 seconds, the corresponding service is automatically stopped and restarted.
     You will see such events in `logs/monitor.log`, for example:
 
-    ```
+    ```text
     [2025-07-01 11:12:56] [WARNING] Ping error, kill dtable-server
     ```
 
@@ -5186,7 +5186,7 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
 
     Update your `.env` file to include the required variables for `REDIS` and `MARIADB`. Set passwords, IPs, and usernames according to your environment. This ensures that your SeaTable Server connects to these external services.
 
-    ```
+    ```bash
     # components to be used; IMPORTANT: there should be no space between
     # the files names!
     COMPOSE_FILE='caddy.yml,dtable-web.yml'
@@ -5226,7 +5226,7 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
 
     Example configuration:
 
-    ```
+    ```yaml
     ---
     services:
       seatable-server:
@@ -5291,7 +5291,7 @@ Prepare a new node with Docker installed, and copy the following files from your
 
 Open the `.env` file on the new node and ensure that the `COMPOSE_FILE` variable references only a single YAML file, like this:
 
-```
+```bash
 COMPOSE_FILE='dtable-db.yml'
 ```
 
@@ -5313,7 +5313,7 @@ Apply the following required changes to this file:
 
     Add or update the following environment variables to ensure only `dtable-db` is enabled:
 
-    ```
+    ```yaml
     environment:
       #... all default environment variables in seatable-server.yml ...
       # this node should only run dtable-db, all other services are disabled
@@ -5331,7 +5331,7 @@ Apply the following required changes to this file:
 
     The `dtable-db` node must be accessible to other nodes. Add the following to the `seatable-server` service:
 
-    ```
+    ```yaml
     ports:
       - 7777:7777
     ```
@@ -5340,7 +5340,7 @@ Apply the following required changes to this file:
 
     Node-to-node communication uses the internal network. Ensure all nodes can reach each other by adding their names and private IP addresses:
 
-    ```
+    ```yaml
     extra_hosts:
       - "dtable-web:10.0.0.2"
       - "dtable-db:10.0.0.3"
@@ -5348,7 +5348,7 @@ Apply the following required changes to this file:
 
 For reference, here is an example of what your `dtable-db.yml` might look like (do not copy and paste directly — adapt as needed):
 
-```
+```yaml
 ---
 services:
   seatable-server:
@@ -5387,7 +5387,7 @@ networks:
 
 Now, start dtable-db for the first time and monitor the logs:
 
-```
+```bash
 docker compose up -d
 ```
 
@@ -5406,7 +5406,7 @@ After the first start of `dtable-db` you need to make the following changes to n
     - set `host` to 0.0.0.0 that other nodes can reach dtable-db.
     - add `[dtable cache]` to tell `dtable-db` where to find `dtable-server`.
 
-    ```
+    ```ini
     [general]
     host = 0.0.0.0
 
@@ -5418,13 +5418,13 @@ After the first start of `dtable-db` you need to make the following changes to n
 
 Now it is time to restart dtable-db and verify that the service is running and port 7777 is exposed. Simply run:
 
-```
+```bash
 curl 127.0.0.1:7777/ping/
 ```
 
 You should receive the following response:
 
-```
+```json
 {"ret":"pong"}
 ```
 
@@ -5437,7 +5437,7 @@ These are the changes, you have to do.
 
     Open `/opt/seatable-compose/dtable-web.yml` and make these changes:
 
-    ```
+    ```yaml
     environment:
       - ENABLE_DTABLE_DB=false
     extra_hosts:
@@ -5451,7 +5451,7 @@ These are the changes, you have to do.
 
     Create a new configuration file `conf/dtable-api-gateway.conf` and add these lines to tell this node, where to find `dtable-db`
 
-    ```
+    ```ini
     [dtable-db]
     server_address = "http://dtable-db:7777"
     ```
@@ -5460,7 +5460,7 @@ These are the changes, you have to do.
 
     Open the configuration file `/conf/dtable_web_settings.py` and add this line:
 
-    ```
+    ```python
     INNER_DTABLE_DB_URL = 'http://dtable-db:7777/'
     ```
 
@@ -5468,7 +5468,7 @@ These are the changes, you have to do.
 
     Open the configuration file `conf/dtable_server_config.json` and add this line. Make sure, that it is valid json, meaning the last key-value pair, does not have a comma at the end.
 
-    ```
+    ```json
     "dtable_db_service_url": "http://dtable-db:7777"
     ```
 
@@ -5503,7 +5503,7 @@ Prepare a new node with Docker installed, and copy the following files from one 
 
 Edit the `.env` file on the new node and ensure the `COMPOSE_FILE` variable references only a single YAML file:
 
-```
+```bash
 COMPOSE_FILE='seatable-server-standalone.yml'
 ```
 
@@ -5521,7 +5521,7 @@ Apply the following required changes to this file:
 
     Add or update the following environment variables to ensure only the `dtable-server` is enabled:
 
-    ```
+    ```yaml
     environment:
       #... all default environment variables in seatable-server.yml ...
       # this node should only run dtable-server, all other services are disabled
@@ -5539,7 +5539,7 @@ Apply the following required changes to this file:
 
     The `dtable-server` node must be accessible to other nodes. Add the following to the `seatable-server` service:
 
-    ```
+    ```yaml
     ports:
       - 5000:5000
     ```
@@ -5548,7 +5548,7 @@ Apply the following required changes to this file:
 
     Node-to-node communication uses the internal network. Ensure all nodes can reach each other by adding their names and private IP addresses:
 
-    ```
+    ```yaml
     extra_hosts:
       - "dtable-web:10.0.0.2"
       - "dtable-db:10.0.0.3"
@@ -5559,7 +5559,7 @@ Apply the following required changes to this file:
 
 For reference, here is an example of what your `dtable-server-standalone.yml` might look like. Do not copy and paste directly — adapt to your environment as needed.
 
-```
+```yaml
 ---
 services:
   seatable-server:
@@ -5599,7 +5599,7 @@ networks:
 
 Now, start `dtable-server` for the first time and monitor the logs:
 
-```
+```bash
 docker compose up -d
 ```
 
@@ -5615,7 +5615,7 @@ After the first start of `dtable-server`, make the following changes to the newl
 
     Open `conf/dtable_server_config.json` and add these entries:
 
-    ```
+    ```json
     {
         "dtable_db_service_url": "http://dtable-db:7777",
         "dtable_web_service_url": "http://dtable-web:8000" 
@@ -5624,7 +5624,7 @@ After the first start of `dtable-server`, make the following changes to the newl
 
 Now it is time to restart dtable-server and verify that the service is running, port 5000 is exposed and a `pong` is returned:
 
-```
+```bash
 curl 127.0.0.1:5000/ping/
 ```
 
@@ -5636,7 +5636,7 @@ Now that `dtable-server` is running on a separate node, update `dtable-web` to u
 
     Open `/opt/seatable-compose/dtable-web.yml` and make these changes:
 
-    ```
+    ```yaml
     environment:
       - ENABLE_DTABLE_SERVER=false
     extra_hosts:
@@ -5651,7 +5651,7 @@ Now that `dtable-server` is running on a separate node, update `dtable-web` to u
 
     Open the configuration file `conf/dtable-api-gateway.conf` and add these lines to specify the location of `dtable-server`:
 
-    ```
+    ```ini
     [dtable-server]
     server_address = "http://dtable-server:5000"
     ```
@@ -5660,7 +5660,7 @@ Now that `dtable-server` is running on a separate node, update `dtable-web` to u
 
     Open `/conf/dtable_web_settings.py` and add:
 
-    ```
+    ```python
     INNER_DTABLE_SERVER_URL = 'http://dtable-server:5000/'
     ```
 
@@ -5672,7 +5672,7 @@ Specify the location of `dtable-server` in `dtable-db` as well.
 
      Find the relevant section and update the value:
 
-    ```
+    ```ini
     [dtable cache]
     dtable_server_url = "http://dtable-server:5000"
     ```
@@ -5719,7 +5719,7 @@ To ensure consistency, implement a **fixed mapping of bases to dtable-servers** 
 
 2. **Update the private network configuration**: Add the IP address of the new server to the `extra_hosts` section on all nodes.
 
-    ```
+    ```yaml
       extra_hosts:
         - "dtable-web:10.0.0.2"
         - "dtable-db:10.0.0.3"
@@ -5737,7 +5737,7 @@ To route requests to the correct `dtable-server`, add a **proxy component** (usi
 
 Create `/opt/seatable-compose/dtable-server-proxy.yml` on `dtable-web`:
 
-```
+```yaml
 ---
 services:
   dtable-server-proxy:
@@ -5771,7 +5771,7 @@ networks:
 
 Create `/opt/seatable-compose/nginx-proxy.conf` on `dtable-web`. This configuration defines two upstream servers and a routing map:
 
-```
+```nginx
 worker_processes auto;
 
 events {
@@ -5832,7 +5832,7 @@ You can adapt the routing logic as needed, for example by splitting bases differ
 
     Edit `conf/gunicorn.py` and update the bind address:
 
-    ```
+    ```python
     bind = '0.0.0.0:8000'
     ```
 
@@ -5840,7 +5840,7 @@ You can adapt the routing logic as needed, for example by splitting bases differ
 
     Edit `conf/dtable_web_settings.py` and set:
 
-    ```
+    ```python
     INNER_DTABLE_SERVER = 'http://dtable-web:5000/'
     ```
 
@@ -5848,7 +5848,7 @@ You can adapt the routing logic as needed, for example by splitting bases differ
 
     Edit `/opt/seatable-compose/config/seatable-nginx.conf` to update ping endpoints:
 
-    ```
+    ```bash
     # ping endpoints
     location = /dtable-server/ping/ {
         proxy_pass http://dtable-web:5000/ping/;
@@ -5868,7 +5868,7 @@ Since the routing logic has changed, update `dtable-db` so it always uses the pr
 
     Edit `conf/dtable-db` and set:
 
-    ```
+    ```ini
     [dtable cache]
     dtable_server_url = "http://dtable-web:5000"
     ```
@@ -5939,7 +5939,7 @@ SeaTable allows you to **split dtable-events**, moving background tasks to a ded
 
 3. **Edit the `.env` file** on the new node and set the `COMPOSE_FILE` variable to reference only a single YAML file:
 
-    ```
+    ```bash
     COMPOSE_FILE='dtable-events.yml'
     ```
 
@@ -5961,7 +5961,7 @@ Apply the following required changes:
 
     Add or update the following environment variables to ensure only `dtable-event` is enabled:
 
-    ```
+    ```yaml
     environment:
       # necessary for dtable-events (background)
       - ENABLE_DTABLE_EVENTS=true
@@ -5980,7 +5980,7 @@ Apply the following required changes:
 
     Ensure all nodes can reach each other by adding their names and private IP addresses:
 
-    ```
+    ```yaml
     extra_hosts:
       - "dtable-web:10.0.0.2"
       - "dtable-db:10.0.0.3"
@@ -5993,7 +5993,7 @@ Apply the following required changes:
 
 *Do not copy and paste directly — adapt as needed:*
 
-```
+```yaml
 ---
 services:
   seatable-server:
@@ -6032,7 +6032,7 @@ networks:
 
 Start `dtable-events` for the first time and monitor the logs:
 
-```
+```bash
 docker compose up -d
 ```
 
@@ -6056,7 +6056,7 @@ Now that background tasks are handled by the new node, you should disable them o
 
 Open `/opt/seatable-compose/dtable-web.yml` and add the following to the environment variables:
 
-```
+```bash
 DTABLE_EVENTS_TASK_MODE=foreground
 ```
 
@@ -6567,7 +6567,7 @@ Starting from version 3.4, for private deployment users, if your application sce
 
 `dtable_server_config.json`
 
-```
+```json
 {
    "base_writable_limit": 100000,
    "base_max_rows_limit": 150000
@@ -6580,7 +6580,7 @@ Among them, base_writable_limit is used to limit the rows written into the base.
 
 `dtable_web_settings.py`
 
-```
+```python
 BASE_WRITABLE_LIMIT = 100000
 ```
 
@@ -6700,7 +6700,7 @@ The database tables shown in the following sections are for illustrative purpose
 
 The table EmailUser stores all user accounts of a SeaTable Server with the account status and privileges for every user account. Additionally, the table also contains the (hashed) passwords for all users that authenticate directly against SeaTable.
 
-```
+```sql
 mysql> select email,is_staff,is_active,left(passwd,25) from ccnet_db.EmailUser;
 +---------------------------------------------+----------+-----------+---------------------------+
 | email                                       | is_staff | is_active | left(passwd,20)           |
@@ -6733,7 +6733,7 @@ The last three users in the sample table above are users authenticating using ei
 
 The table `profile_profile`, as the name indicates, contains profile information for every user in the system such as nickname, interface language, and contact email address. Every record in the table `EmailUser` has its correspondence in `profile_profile`.
 
-```
+```sql
 mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.profile_profile;
 +---------------------------------------------+--------------+-----------+-------------------+----------+
 | user                                        | nickname     | lang_code | contact_email     | login_id |
@@ -6763,7 +6763,7 @@ mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.prof
 
 The table `social_auth_usersocialauth` is critical for external authentication with LDAP, SAML, or OAuth. This table maps the user's SeaTable username to its unique identifiers from the identity providers. Every record in the table `EmailUser` without a password must have at least one correspondence in this table to be able to log into SeaTable using _external authentication_.
 
-```
+```sql
 mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 +---------------------------------------------+----------------+--------------------------------------+
 | username                                    | provider       | uid                                  |
@@ -6782,7 +6782,7 @@ mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 
 This table stores the user IDs. Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.
 
-```
+```sql
 mysql> select * from dtable_db.id_in_org_tuple;
 +---------------------------------------------+-----------+--------+
 | virtual_id                                  | id_in_org | org_id |
@@ -6816,13 +6816,13 @@ A TOTP app such as Google Authenticator or [2FAS](https://2fas.com/) is required
 
 To enable 2FA, add the following configuration in the configuration file `dtable_web_settings.py`:
 
-```
+```python
 ENABLE_TWO_FACTOR_AUTH = True # Default value is False.
 ```
 
 Optionally, 2FA can be enforced for all users. If you wish to do that, add the following configuration to `dtable_web_settings`:
 
-```
+```python
 ENABLE_FORCE_2FA_TO_ALL_USERS = True # Default value is False.
 ```
 
@@ -6869,7 +6869,7 @@ To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtab
 
 This is a simple sample configuration:
 
-```
+```python
 ENABLE_LDAP = True
 LDAP_PROVIDER = 'ldap'
 LDAP_SERVER_URL = 'ldap://192.168.0.10'
@@ -6925,7 +6925,7 @@ To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the
 
 Additionally, the following parameters must be added to `dtable-events.conf`:
 
-```
+```ini
 [LDAP SYNC]
 enabled = true
 sync_interval = 60  # The unit is seconds
@@ -6937,7 +6937,7 @@ In some situations, it is useful to configure LDAP - especially LDAP Sync - and 
 
 Add the following parameter to `dtable_web_settings.py` to instruct SeaTable to use the same `username` no matter if a user (as identified by its `uid`) authenticates via LDAP or SAML.
 
-```
+```python
 LDAP_SAML_USE_SAME_UID = True
 ```
 
@@ -6953,7 +6953,7 @@ First, register the Client App on the OAuth authorization server (such as [Githu
 
 Add the following configuration to dtable_web_settings.py:
 
-```
+```python
 ENABLE_OAUTH = True
 OAUTH_ENABLE_INSECURE_TRANSPORT = True
 OAUTH_PROVIDER_DOMAIN = 'github.com'
@@ -6983,7 +6983,7 @@ See more in <https://requests-oauthlib.readthedocs.io/en/latest/examples/example
 **note:**
 
 If you use Google OAuth2 login, the OAUTH_SCOPE configuration should be configured as follows:
-```
+```python
 OAUTH_SCOPE = ["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
 ```
 
@@ -7070,13 +7070,13 @@ The IdP's certificate must be saved on the SeaTable Server. The volume of the Se
 
 The default host path for the SeaTable Docker container is `/opt/seatable-server/` which is mapped to `/shared/` in the container. It is recommended to create a directory here. If you decide to create the directory elsewhere - which you can - you'll need to account for the custom path in the following steps.
 
-```
+```bash
 $ mkdir /opt/seatable-server/certs/
 ```
 
 Change into the directory, create a file idp.crt, and open the file with a text editor of your choice (here nano):
 
-```
+```bash
 $ cd /opt/seatable-server/certs/
 $ touch idp.crt
 $ nano idp.crt
@@ -7086,7 +7086,7 @@ Paste the content of the certificate in the text editor and save the edits.
 
 Note: You can check the validity of the certificate file using openssl:
 
-```
+```bash
 $ openssl x509 -in idp.crt -noout -dates
 ```
 
@@ -7094,7 +7094,7 @@ $ openssl x509 -in idp.crt -noout -dates
 
 Create SeaTable's certificate and key using openssl. The two files must be placed in the same directory as the IdP's certificate.
 
-```
+```bash
 $ cd /opt/seatable-server/certs/
 $ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout sp.key -out sp.crt
 ```
@@ -7115,7 +7115,7 @@ To enable SAML, add the following parameters to `dtable_web_settings.py`, custom
 
 This is a sample configuration. Adapt the values to your needs.
 
-```
+```python
 ENABLE_SAML = True
 SAML_PROVIDER_IDENTIFIER = 'MySAMLProvider'
 SAML_REMOTE_METADATA_URL = 'https://login.microsoftonline.com/xxx/federationmetadata/2007-06/federationmetadata.xml?appid=xxx'
@@ -7160,7 +7160,7 @@ Step 3 - SAML Certificates: Note the App Federation Metadata URL and download th
 
 Proceed with the [upload of the certificate file to SeaTable](#uploading-the-idp's-certificate-to-seaTable). The SAML configuration in `dtable_web_settings.py` should look like this:
 
-```
+```python
 ENABLE_SAML = True
 SAML_PROVIDER_IDENTIFIER = 'Azure'
 SAML_REMOTE_METADATA_URL = 'https://login.microsoftonline.com/826f1810-ccc9-.../federationmetadata/2007-06/federationmetadata.xml?appid=...'
@@ -7432,7 +7432,7 @@ Here is a short introduction into JWT:
 ## How to configure and use JWT?
 
 To enable the login with JWTs you have to define a secret key in your `dtable_web_settings.py` and restart the SeaTable service:
-```
+```python
 SSO_SECRET_KEY = 'your-shared-secret-like-a38B232XQJLx392871#2DEF_dowfWE#_39dwefidWFwLw39fDFEF='
 ```
 
@@ -7507,7 +7507,7 @@ This example shows how to migrate the user with the username `12ae56789f1e4c8d8e
 
 This is what the database looks like before these commands must be executed:
 
-```
+```sql
 mysql> select email,left(passwd,25) from EmailUser where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 +---------------------------------------------+------------------------------+
 | email                                       | left(passwd,25)              |
@@ -7525,7 +7525,7 @@ mysql> insert into social_auth_usersocialauth \
 
 Afterwards the databases should look like this:
 
-```
+```sql
 mysql> select email,passwd from EmailUser where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 +---------------------------------------------+------- +
 | email                                       | passwd |
@@ -8466,7 +8466,7 @@ You can also modify some of the config items as system administrator via web int
 
 ## Basic settings
 
-```
+```python
 # for dtable-server
 ## The private key is used to authenticate between DTable Web and DTable Server
 ## DTABLE_SERVER_URL is for telling DTable Web the DTable Server's URL
@@ -8678,7 +8678,7 @@ SYNC_COMMON_DATASET_INTERVAL = 5 * 60 # in seconds, 300 is the default value
 
 After opening a base, the first 300 collaborators and the first 100 external application accounts are loaded by default. These data are used to select collaborators in the collaborator column. If you need to load more collaborators, you can modify the following parameters.
 
-```
+```python
 DTABLE_RELATED_USERS_PER_PAGE = 300
 DTABLE_APP_USERS_PER_PAGE = 100
 ```
@@ -8687,7 +8687,7 @@ DTABLE_APP_USERS_PER_PAGE = 100
 
 To embed bases into other webpages using an iframe, the following options must be added to support user login:
 
-```
+```python
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
@@ -8824,7 +8824,7 @@ Gunicorn is used within the SeaTable Docker container as the WSGI server that ru
 
 A typical Gunicorn configuration file is created automatically by SeaTable during the first startup:
 
-```
+```python
 daemon = True
 workers = 5
 threads = 5
@@ -9080,7 +9080,7 @@ The first step is you use the following color picker and select a new main color
 
     <input type="color" id="cc_v5.3" onchange="update_custom_color('v5.3')" value="#ff8000" style="width:100px">
     <div id="cc_output_v5.3">
-    ```
+    ```css
     Select a color and the css code will be created...
     ```
     </div>
@@ -9132,7 +9132,7 @@ The first step is you use the following color picker and select a new main color
 
     <input type="color" id="cc_v4.3" onchange="update_custom_color('v4.3')" value="#ff8000" style="width:100px">
     <div id="cc_output_v4.3">
-    ```
+    ```css
     Select a color and the css code will be created...
     ```
     </div>
@@ -9366,7 +9366,7 @@ Imagine you want to replace the login page of SeaTable with something fancier. H
 
 This step must be done only once. It generates the setup that you can start overwrite existing html-files from SeaTable with your own ones. You need the folder to save the copies outside of your docker container and you need a symlink that SeaTable can find your custom files.
 
-```
+```bash
 cd /opt/seatable-server/seatable/seahub-data
 mkdir -p custom/templates/registration
 docker exec -it seatable-server ln -s /shared/seatable/seahub-data/custom /opt/seatable/seatable-server-latest/dtable-web/media/custom
@@ -9374,7 +9374,7 @@ docker exec -it seatable-server ln -s /shared/seatable/seahub-data/custom /opt/s
 
 ### 2. Copy the original login.html to your custom folder
 
-```
+```bash
 $ docker cp seatable-server:/opt/seatable/seatable-server-latest/dtable-web/seahub/templates/registration/login.html /opt/seatable/seatable-data/seatable/seahub-data/custom/templates/registration/login.html
 ```
 
@@ -9388,7 +9388,7 @@ Now you can start editing your login.html. Otherwise you can take one of these e
 
 Copy the following content to your login.html. As you can see, the login page was reduced to the maximum. There is no box around the input fields, there is no _language selector_, no _single sign on_, no _signup_ or _forget password_. Error messages are still shown and security features like _CSRF_ and _Captcha_ is still part of the login page.
 
-```
+```html
 {% extends "base_clean.html" %}
 {% load i18n %}
 {% block private_style %}
@@ -9550,7 +9550,7 @@ Updating/Upgrade (we don't differentiate) a SeaTable Server should take just a f
 
 Just run this command to update SeaTable and all additional components.
 
-```
+```bash
 cd /opt/seatable-compose && \
 wget -c https://github.com/seatable/seatable-release/releases/latest/download/seatable-compose.tar.gz \
 -O - | tar -xz -C /opt/seatable-compose && \
@@ -9620,20 +9620,20 @@ This part of the manual is only for older version, meaning if you are updating t
 
     Run the following command to get the latest version of Seatable.
 
-    ```
+    ```bash
     docker pull seatable/seatable-enterprise:{tag}
     ```
 
     Stop the currently running SeaTable container.
 
-    ```
+    ```bash
     docker compose down
 
     ```
 
     Then modify SeaTable version in "docker-compose.yml". And start a new SeaTable container.
 
-    ```
+    ```bash
     docker compose up -d
     ```
 
@@ -9643,7 +9643,7 @@ This part of the manual is only for older version, meaning if you are updating t
 
     Login to the SeaTable container. Then execute the upgrade statement (replace the version numbers accordingly).
 
-    ```
+    ```bash
     # Example of the required commands to update from 3.2.6 to 3.5.10
     docker exec -it seatable /bin/bash
 
@@ -9654,7 +9654,7 @@ This part of the manual is only for older version, meaning if you are updating t
 
     If the above commands failed to execute for some reasons, (for example, you are using external database instead of the default one started by docker-compose), you can execute the database upgrade commands manually as below:
 
-    ```
+    ```bash
     docker exec -it seatable /bin/bash
 
     cd /opt/seatable/seatable-server-latest/sql/mysql/upgrade
@@ -9897,7 +9897,7 @@ Of course, you can skip this script and make the changes manually. The following
 
     If the Memcached container is still running, you can now stop it and remove it.
 
-    ```
+    ```bash
     docker stop memcached
     ```
 
@@ -10134,13 +10134,13 @@ There are no version-specific changes required.
 
     1. For new installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
 
-    ```
+    ```bash
     docker exec -d seatable /shared/seatable/scripts/seatable.sh init
     ```
 
     dtable-storage-server.conf is as follows
 
-    ```
+    ```ini
     [general]
     log_dir = /opt/seatable/logs
     temp_file_dir = /tmp/tmp-storage-data
@@ -10158,7 +10158,7 @@ There are no version-specific changes required.
 
     In dtable_web_settings.py
 
-    ```
+    ```python
     NEW_DTABLE_IN_STORAGE_SERVER = True
     ```
 
@@ -10166,7 +10166,7 @@ There are no version-specific changes required.
 
     In `dtable-db.conf`
 
-    ```
+    ```ini
     [backup]
     dtable_storage_server_url = http://127.0.0.1:6666
     backup_interval = 1440
@@ -10193,7 +10193,7 @@ There are no version-specific changes required.
 
     In dtable_web_settings.py
 
-    ```
+    ```python
     SESSION_COOKIE_SAMESITE = None
                 |
                 V
@@ -10211,7 +10211,7 @@ There are no version-specific changes required.
 
     In 2.3 version, we made a small change to dtable-db configuration. If you're upgrading from older versions, you have to manually add below option to conf/dtable-db.conf:
 
-    ```
+    ```ini
     [general]
     ......
     log_dir = /shared/seatable/logs
@@ -10221,7 +10221,7 @@ There are no version-specific changes required.
 
     It's also suggested to change the `total_cache_size` option to a larger value (e.g. 500MB, depending on how much memory you have):
 
-    ```
+    ```ini
     [dtable cache]
     ......
     total_cache_size = 500
@@ -10231,7 +10231,7 @@ There are no version-specific changes required.
 
     You also need to add access information to dtable-server MySQL database. (You have to change below options based on your conf/dtable-server.json)
 
-    ```
+    ```ini
     [database]
     host = 127.0.0.1
     user = root
@@ -10241,13 +10241,13 @@ There are no version-specific changes required.
 
     Add `DTABLE_DB_URL` to dtable_web_settings.py
 
-    ```
+    ```python
     DTABLE_DB_URL = 'https://<your-domain>/dtable-db/'
     ```
 
     Add dtable-db configuration to nginx.conf
 
-    ```
+    ```nginx
         location /dtable-db/ {
             proxy_pass         http://127.0.0.1:7777/;
             proxy_redirect     off;
@@ -10270,7 +10270,7 @@ There are no version-specific changes required.
 
     Add a new file conf/dtable-db.conf with the following contents and modify `private_key` according to your instance:
 
-    ```
+    ```ini
     [general]
     host = 127.0.0.1
     port = 7777
@@ -10473,7 +10473,7 @@ Additionally, the two variables SEATABLE_ADMIN_EMAIL and SEATABLE_ADMIN_PASSWORD
 
     ``` python
     SEATABLE_IMAGE='seatable/seatable-developer:latest' # (1)!
-    ```
+    ```bash
 
     1.  Instead of using the latest tag, you can select any specific version from [https://hub.docker.com/r/seatable/seatable-developer/tags](https://hub.docker.com/r/seatable/seatable-developer/tags).
 
@@ -10671,7 +10671,7 @@ This article details what should and must be included in your backup, providing 
 
 If you set up your SeaTable server according to this manual, your server should have a folder structure similar to the following.
 
-```
+```text
 /opt
 ├── caddy
 │   ├── ...
@@ -10866,7 +10866,7 @@ docker exec -i "mariadb" "/usr/bin/mariadb" -u"root" -p'<your_mysql_password>' d
 
 Simply copy all files back to their original position.
 
-```
+```bash
 rsync -az /opt/seatable-backup/seatable /opt/seatable-server
 rsync -az /opt/seatable-backup/seatable-compose /opt
 ```
@@ -10875,7 +10875,7 @@ rsync -az /opt/seatable-backup/seatable-compose /opt
 
 To restore the big data, you can execute the following command. This will recreate the sql-like database structure from the dumps inside the `storage-data` folder.
 
-```
+```bash
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh restore-all
 ```
 
@@ -10976,7 +10976,7 @@ This command has two advantages over the above command:
 1. It will make sure all pending operations be applied to the base before clearing the logs.
 2. It will clear the logs in small batch, avoiding consuming too much database resource in a short time.
 
-```
+```bash
 $ docker exec seatable-server /opt/seatable/scripts/seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_operation_log
 ```
 
@@ -11240,7 +11240,7 @@ docker exec seatable-server /opt/seatable/scripts/seatable.sh gc --dry-run
 
 The output should look like:
 
-```
+```text
 Starting seafserv-gc, please wait ...
 2021-04-27 14:30:13 gc-core.c(904): Database is MySQL/Postgre/Oracle, use online GC.
 2021-04-27 14:30:13 gc-core.c(928): Using up to 1 threads to run GC.
@@ -11310,7 +11310,7 @@ Using the `ncdu` tool is recommended, as it shows the storage usage per folder.
 
 Example output:
 
-```
+```text
 --- /opt/dtable-db/seatable/db-data ------------------------------------------
   135.4 MiB [##########################] /9ba24950-cd00-42dc-b5e9-233f3de2c2b6
    54.0 MiB [##########                ] /281b15c1-2a12-4da3-814d-145cb703a55b
@@ -11341,7 +11341,7 @@ This command reclaims unreferenced data blocks and cleans up invalid references 
 
 After running garbage collection, you may see log warnings such as:
 
-```
+```text
 Unable to read: Key: xxx, file with ID not found
 ```
 
@@ -11370,7 +11370,7 @@ SeaTable server comes with a seaf-fsck tool to help you recover from this corrup
 
 We provide a seaf-fsck.sh script. The seaf-fsck tool accepts the following arguments:
 
-```
+```bash
 docker exec -it seatable-server /opt/seatable/seatable-server-latest/seaf-fsck.sh [--repair|-r] [--export|-E export_path] [repo_id_1 [repo_id_2 ...]]
 
 ```
@@ -11388,14 +11388,14 @@ There are three modes of operation for seaf-fsck:
 
 Running seaf-fsck.sh without any arguments will run a **read-only** integrity check for all tables.
 
-```
+```bash
 docker exec -it seatable-server /opt/seatable/seatable-server-latest/seaf-fsck.sh
 
 ```
 
 If you want to check integrity for specific tables, just append the library id's as arguments:
 
-```
+```bash
 cd seafile-server-latest
 ./seaf-fsck.sh [library-id1] [library-id2] ...
 
@@ -11403,7 +11403,7 @@ cd seafile-server-latest
 
 The output looks like:
 
-```
+```text
 [02/13/15 16:21:07] fsck.c(470): Running fsck for repo ca1a860d-e1c1-4a52-8123-0bf9def8697f.
 [02/13/15 16:21:07] fsck.c(413): Checking file system integrity of repo fsck(ca1a860d)...
 [02/13/15 16:21:07] fsck.c(35): Dir 9c09d937397b51e1283d68ee7590cd9ce01fe4c9 is missing.
@@ -11420,7 +11420,7 @@ The corrupted files and directories are reported.
 
 Sometimes you can see output like the following:
 
-```
+```text
 [02/13/15 16:36:11] Commit 6259251e2b0dd9a8e99925ae6199cbf4c134ec10 is missing
 [02/13/15 16:36:11] fsck.c(476): Repo ca1a860d HEAD commit is corrupted, need to restore to an old version.
 [02/13/15 16:36:11] fsck.c(314): Scanning available commits...
@@ -11441,7 +11441,7 @@ Corruption repair in seaf-fsck basically works in two steps:
 
 Running the following command repairs all the libraries:
 
-```
+```bash
 cd seafile-server-latest
 ./seaf-fsck.sh --repair
 
@@ -11449,7 +11449,7 @@ cd seafile-server-latest
 
 Most of time you run the read-only integrity check first, to find out which libraries are corrupted. And then you repair specific libraries with the following command:
 
-```
+```bash
 cd seafile-server-latest
 ./seaf-fsck.sh --repair [library-id1] [library-id2] ...
 
@@ -11472,7 +11472,7 @@ Since version 4.2.0, you can use seaf-fsck to export all the files in libraries 
 
 The command syntax is
 
-```
+```bash
 cd seafile-server-latest
 ./seaf-fsck.sh --export top_export_path [library-id1] [library-id2] ...
 
@@ -11516,7 +11516,7 @@ Changing the domain causes images or files stored in bases to become unreadable.
 
 Open a shell inside the SeaTable container:
 
-```
+```bash
 docker exec -it seatable-server bash
 cd /opt/seatable/seatable-server-latest/dtable-web
 ```
@@ -11525,25 +11525,25 @@ Run one of the following commands:
 
 ??? success "For all bases"
 
-    ```
+    ```bash
     seatable.sh python-env ./manage.py domain_transfer -all -od <old domain> -nd <new domain>
     ```
 
     To change the domain from `https://old.example.com` to `https://new.example.com`, run:
 
-    ```
+    ```bash
     seatable.sh python-env ./manage.py domain_transfer -all -od https://old.example.com -nd https://new.example.com
     ```
 
 ??? success "For a single base"
 
-    ```
+    ```bash
     seatable.sh python-env ./manage.py domain_transfer -uuid <:base uuid> -od <old domain> -nd <new domain>
     ```
 
     To change the domain for a base with UUID `695fa115-4927-4be1-b5b6-fbbbabd43b72` from `https://old.example.com` to `https://new.example.com`, run:
 
-    ```
+    ```bash
     seatable.sh python-env ./manage.py domain_transfer -uuid 695fa115-4927-4be1-b5b6-fbbbabd43b72 -od https://old.example.com -nd https://new.example.com
     ```
 
@@ -11585,7 +11585,7 @@ Replace `<base_uuid>` with your actual base UUID.
 
 To export only the structured base data and omit all assets (images, files), use the `--ignore-asset` option:
 
-```
+```bash
 seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py export_dtable <base_uuid> --ignore-asset true
 ```
 
@@ -11681,7 +11681,7 @@ This can free up quite a lot of space if you have deleted columns with lots of v
 
 For the execution you need the `base_uuid`.
 
-```
+```bash
 docker exec -it seatable-server bash
 cd /templates
 seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py repair_base <base_uuid>
@@ -11756,7 +11756,7 @@ The Nginx logs are under `/shared/nginx-logs`, or `/Your SeaTable data volume/ng
 
 SeaTable's Docker container executes nightly log rotation cron jobs for both SeaTable and nginx logs. The cron jobs are configured as follows:
 
-```
+```text
 54 23 * * * /usr/sbin/logrotate -vf /templates/logrotate-conf/seatable-nginx 2>> /opt/seatable/logs/logrotate.log
 55 23 * * * /usr/sbin/logrotate -vf /templates/logrotate-conf/seatable 2>> /opt/seatable/logs/logrotate.log
 ```
@@ -11765,7 +11765,7 @@ SeaTable's Docker container executes nightly log rotation cron jobs for both Sea
 
 The log rotation configuration is straightforward and includes the following parameters:
 
-```
+```json
 {
         daily
         missingok
@@ -11816,7 +11816,7 @@ All relevant configuration files are located in `/templates/logrotate-conf` with
 
 To modify the log rotation settings, you can mount a custom configuration file using Docker Compose. Add the following snippet to your yml-file:
 
-```
+```yaml
 services:
   seatable-server:
     image: ...
@@ -11989,7 +11989,7 @@ Simply provide the user's contact email address as a parameter:
 
 === "Output"
 
-    ```
+    ```text
     --------------
     UPDATE ccnet_db.EmailUser SET is_active = 1 WHERE email = (SELECT user FROM dtable_db.profile_profile WHERE contact_email = 'user@email.com')
     --------------
@@ -12014,7 +12014,7 @@ Simply provide the user's email address as a parameter:
 
 === "Output"
 
-    ```
+    ```text
     --------------
     UPDATE ccnet_db.EmailUser SET is_active = 0 WHERE email = (SELECT user FROM dtable_db.profile_profile WHERE contact_email = 'user@email.com')
     --------------
@@ -12038,7 +12038,7 @@ This script will print your current license limit and query the database for the
 
 === "Output"
 
-    ```
+    ```text
     User limit according to license file: 3
 
     Users in database:
@@ -12063,7 +12063,7 @@ This script will give you an interactive shell inside the MariaDB container. You
 
 === "Output"
 
-    ```
+    ```text
     Welcome to the MariaDB monitor.  Commands end with ; or \g.
     Your MariaDB connection id is 73
     Server version: 11.4.3-MariaDB-ubu2404 mariadb.org binary distribution
@@ -12087,13 +12087,13 @@ This script will dump all three databases (`ccnet_db`, `dtable_db` and `seahub_d
 
 === "Output"
 
-    ```
+    ```text
     Success: Dumped databases into /opt/seatable-backup
     ```
 
 === "Created Files"
 
-    ```
+    ```text
     total 228
     -rw-r--r-- 1 root root  12184 May 23 11:30 ccnet_db-2025-05-23-11-30-27.sql
     -rw-r--r-- 1 root root 177499 May 23 11:30 dtable_db-2025-05-23-11-30-27.sql
