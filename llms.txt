@@ -1,0 +1,202 @@
+# SeaTable Admin Manual
+
+> Admin documentation for SeaTable — installation, configuration, authentication, upgrade, maintenance, and cluster deployment guide.
+
+## Sections
+
+### Introduction
+
+- [Introduction](https://admin.seatable.com/): Official SeaTable Server admin manual covering installation, configuration, upgrade, and maintenance for self-hosted deployments.
+- [Architecture](https://admin.seatable.com/introduction/architecture/): Overview of SeaTable Server's Docker-based architecture, including container layout, ports, and component interactions.
+- [Security](https://admin.seatable.com/introduction/security/): SeaTable Server security measures including web security, network segmentation, vulnerability scanning, and compliance ratings.
+- [Requirements](https://admin.seatable.com/introduction/requirements/): Hardware, software, and network requirements for self-hosting SeaTable Server, including supported platforms and minimum specs.
+- [System Limitations](https://admin.seatable.com/introduction/system-limitations/): SeaTable system limitations for rows, tables, columns, imports, exports, automations, and other configurable resource limits.
+- [Server Editions](https://admin.seatable.com/introduction/editions/): Comparison of SeaTable Server Enterprise and Developer editions, including licensing, features, and usage restrictions.
+- [EULA (dtable-server)](https://admin.seatable.com/introduction/dtable-server-license/): End User License Agreement (EULA) for dtable-server, covering rights of use, obligations, warranty, and liability terms.
+- [Get Support](https://admin.seatable.com/introduction/get-support/): Find SeaTable support resources including documentation, community forum, YouTube tutorials, and enterprise support options.
+- [Changelog](https://admin.seatable.com/introduction/server-changelog/): Links to SeaTable Server changelogs, release notes, API changelog, and upgrade notices for administrators.
+
+### Installation
+
+- [How to start](https://admin.seatable.com/installation/start/): Get started with SeaTable Server installation using Docker. Choose between single-node or cluster deployment on Linux.
+- [Our deployment approach](https://admin.seatable.com/installation/deployment-approach/): Learn how SeaTable uses separate Docker Compose YAML files and a shared .env file for a modular, easy-to-manage deployment.
+
+### Single-Node Deployment
+
+- [SeaTable Server](https://admin.seatable.com/installation/basic-setup/): Step-by-step guide to install SeaTable Server with Docker and Caddy on a single Linux node, accessible via HTTPS.
+- [SeaTable AI](https://admin.seatable.com/installation/components/seatable-ai/): Deploy SeaTable AI to enable AI-powered automation steps like summarize, classify, OCR, and extract using external LLM providers.
+- [Python Pipeline](https://admin.seatable.com/installation/components/python-pipeline/): Install the Python Pipeline to run Python scripts directly within SeaTable for data automation and manipulation.
+- [Whiteboard](https://admin.seatable.com/installation/components/whiteboard/): Install the tldraw-based whiteboard plugin for SeaTable Enterprise to enable collaborative drawing and brainstorming.
+- [n8n](https://admin.seatable.com/installation/components/n8n/): Install n8n alongside SeaTable to connect your bases with hundreds of apps and build powerful automation workflows.
+- [Report Design](https://admin.seatable.com/installation/components/seadoc/): Deploy the SeaDoc editor to enable the Report Design plugin for creating multi-page documents in SeaTable Enterprise.
+- [Backup](https://admin.seatable.com/installation/components/restic/): Configure encrypted daily backups for your SeaTable Server using Restic with support for S3, Backblaze, and other targets.
+- [Ofelia](https://admin.seatable.com/installation/components/ofelia/): Install Ofelia to schedule automated maintenance tasks like garbage collection and filesystem checks for SeaTable.
+- [Antivirus](https://admin.seatable.com/installation/components/clamav/): Deploy ClamAV with SeaTable Enterprise to automatically scan uploaded files and images for viruses.
+- [FAQ / Troubleshooting](https://admin.seatable.com/installation/faq/): Troubleshooting tips for common SeaTable Server issues including startup failures, Caddy, nginx, and DNS problems.
+
+### Office Editors
+
+- [Collabora](https://admin.seatable.com/installation/components/collabora/): Install Collabora Online (CODE) with SeaTable Enterprise for real-time collaborative editing of office documents.
+- [OnlyOffice](https://admin.seatable.com/installation/components/onlyoffice/): Install OnlyOffice Documentserver with SeaTable Enterprise for real-time collaborative editing of office documents.
+
+### Monitoring
+
+- [Gatus](https://admin.seatable.com/installation/components/gatus/): Install Gatus to provide a real-time status page and alerting for your SeaTable Server and its core components.
+- [Dozzle](https://admin.seatable.com/installation/components/dozzle/): Install Dozzle for real-time web-based Docker log viewing and debugging of your SeaTable Server containers.
+- [Uptime Kuma](https://admin.seatable.com/installation/components/uptime-kuma/): Install Uptime Kuma on your SeaTable server to monitor service availability and get notified about downtime.
+- [Zabbix](https://admin.seatable.com/installation/components/zabbix/): Deploy Zabbix Agent and Server alongside SeaTable to monitor system health and performance metrics.
+- [Releem](https://admin.seatable.com/installation/components/releem/): Set up Releem to monitor and automatically optimize MariaDB performance for your SeaTable Server installation.
+
+### Webserver
+
+- [Activate IPv6](https://admin.seatable.com/installation/advanced/ipv6-support/): Enable IPv6 support in SeaTable by configuring Docker to assign IPv6 addresses to containers and log correct client IPs.
+- [Custom Reverse Proxy](https://admin.seatable.com/installation/advanced/custom-proxy/): Replace Caddy with a custom reverse proxy like nginx, Traefik, or HAProxy for SeaTable Server and additional components.
+- [DNS-01 Challenge](https://admin.seatable.com/installation/advanced/webserver-dns-challenge/): Configure Caddy to use DNS-01 challenge for Let's Encrypt certificates when ports 80/443 are not publicly reachable.
+- [Custom Certificates](https://admin.seatable.com/installation/advanced/custom-certificates/): Use custom SSL/TLS certificates with SeaTable's Caddy web server instead of the default Let's Encrypt certificates.
+- [Force HTTP](https://admin.seatable.com/installation/advanced/http-only/): Configure SeaTable Server to run with HTTP only, without HTTPS/SSL, during or after installation.
+- [Additional Subdomains](https://admin.seatable.com/installation/advanced/additional-subdomains/): Configure additional subdomains for SeaTable components like n8n using Caddy instead of accessing them via port numbers.
+- [Air Gap Installation](https://admin.seatable.com/installation/advanced/air-gap-installation/): Install SeaTable in an air-gapped environment without internet, covering certificates, local registries, and plugins.
+- [Webserver Security](https://admin.seatable.com/installation/advanced/webserver-security/): Customize Caddy security headers, Content-Security-Policy, and cookie settings for your SeaTable Server deployment.
+- [Maintenance Mode](https://admin.seatable.com/installation/advanced/maintenance-mode/): Enable maintenance mode in SeaTable to restrict access during updates, showing a 503 page to all users except allowed IPs.
+- [Advanced Settings for Caddy](https://admin.seatable.com/installation/advanced/settings-caddy/): Advanced Caddy configuration for SeaTable including logging, preserving client IPs behind a front proxy, and more.
+
+### SeaTable AI
+
+- [SeaTable AI (standalone)](https://admin.seatable.com/installation/advanced/seatable-ai-standalone/): Deploy SeaTable AI on a dedicated server with its own database and Redis connection for distributed setups.
+- [AI Token Pricing](https://admin.seatable.com/installation/advanced/seatable-ai-token-pricing/): Configure AI credit limits and token pricing per model in SeaTable to track and control AI usage across users and teams.
+
+### LLM Self-Hosting
+
+- [Prerequisites](https://admin.seatable.com/installation/advanced/seatable-ai-prerequisites/): Hardware requirements and GPU setup instructions for running self-hosted LLMs with SeaTable AI using NVIDIA GPUs.
+- [Ollama](https://admin.seatable.com/installation/advanced/ollama/): Deploy Ollama alongside SeaTable to run self-hosted LLMs for AI features. Suitable for basic testing and evaluation.
+- [vLLM](https://admin.seatable.com/installation/advanced/vllm/): Deploy vLLM as a production-ready LLM inference engine for SeaTable AI with high-concurrency support and GPU acceleration.
+
+### S3 Object Storage
+
+- [Configuration](https://admin.seatable.com/installation/advanced/s3/): Configure SeaTable Enterprise to use S3-compatible object storage for base snapshots, file columns, and avatars.
+- [Migration](https://admin.seatable.com/installation/advanced/s3-migration/): Migrate SeaTable Enterprise data from local storage to S3 object storage including snapshots, file columns, and avatars.
+- [Encryption](https://admin.seatable.com/installation/advanced/s3-encryption/): Enable SSE-C server-side encryption for SeaTable S3 buckets to encrypt base snapshots and file column data at rest.
+
+### Python Pipeline
+
+- [Custom Python Runner](https://admin.seatable.com/installation/advanced/python-pipeline-custom-python-runner/): Build a custom SeaTable Python Runner Docker image with additional Python packages for the Python Pipeline.
+- [Separate Python Pipeline](https://admin.seatable.com/installation/advanced/python-pipeline-dedicated-server/): Deploy the SeaTable Python Pipeline on a dedicated server to free up resources and improve security on the main server.
+- [Configure Python Pipeline](https://admin.seatable.com/installation/advanced/python-pipeline-configuration/): Configure Python Pipeline resource limits, timeouts, logging, and security settings through environment variables.
+- [Python Pipeline Workflow](https://admin.seatable.com/installation/advanced/python-pipeline-workflow/): Understand the internal workflow of SeaTable's Python Pipeline, from script execution to result delivery across components.
+
+### Network Issues
+
+- [Running SeaTable without Hairpin NAT](https://admin.seatable.com/installation/advanced/hairpin-nat/): Fix SeaTable container communication issues on networks without hairpin NAT by configuring local DNS with dnsmasq.
+
+### Advanced Topics
+
+- [Metrics](https://admin.seatable.com/installation/advanced/metrics/): Enable Prometheus-compatible metrics for SeaTable components including api-gateway, dtable-db, Caddy, Gunicorn, and NGINX.
+- [MariaDB (standalone)](https://admin.seatable.com/installation/advanced/database-standalone/): Configure SeaTable to use a standalone or managed MariaDB database instead of the default Docker container.
+- [Seafile (external)](https://admin.seatable.com/installation/advanced/seafile/): Integrate SeaTable with Seafile to attach files from Seafile libraries in SeaTable file columns.
+
+### Cluster Deployment
+
+- [Introduction](https://admin.seatable.com/installation/cluster/introduction/): Learn when to use a SeaTable cluster setup vs. single-node installation, including naming conventions and signs of overload.
+- [Requirements](https://admin.seatable.com/installation/cluster/requirements/): Hardware, network, and software requirements for deploying a SeaTable cluster, including recommendations for 1,000+ users.
+
+### Step-by-step guide
+
+- [Basic setup](https://admin.seatable.com/installation/cluster/basic-setup-with-external-services/): Set up the basic SeaTable cluster node with external MariaDB, Redis, and S3 object storage instead of local services.
+- [dtable-db (standalone)](https://admin.seatable.com/installation/cluster/dtable-db-standalone/): Move dtable-db to a dedicated node in your SeaTable cluster for improved scalability and reliability.
+- [dtable-server (standalone)](https://admin.seatable.com/installation/cluster/dtable-server-standalone/): Deploy dtable-server on a separate node in your SeaTable cluster to offload base rendering from the main server.
+- [dtable-server (two or more)](https://admin.seatable.com/installation/cluster/dtable-server-multiple/): Scale SeaTable horizontally by running multiple dtable-server instances with proxy-based routing by base UUID.
+- [dtable-events (standalone)](https://admin.seatable.com/installation/cluster/dtable-events-background-node/): Offload background tasks like automations, notifications, and dataset syncs to a dedicated dtable-events node.
+
+### Configuration
+
+- [Plugins](https://admin.seatable.com/configuration/plugins/): Install, update, and configure SeaTable plugins via the web interface, ZIP upload, or API, including Google Maps setup.
+- [Email Sending](https://admin.seatable.com/configuration/sending-email/): Configure SMTP email sending in SeaTable Server for password resets, notifications, and admin messages.
+- [Roles and Permissions](https://admin.seatable.com/configuration/roles-and-permissions/): Define user and admin roles with custom permissions and quotas in SeaTable Enterprise Edition.
+- [Universal Apps](https://admin.seatable.com/configuration/universal-apps/): Enable and configure universal apps in SeaTable, including the Maps page type with Google Maps API integration.
+- [Autostart](https://admin.seatable.com/configuration/autostart/): Understand how SeaTable handles Docker container and service autostart, and when automatic startup is disabled.
+- [Base Rows Limit](https://admin.seatable.com/configuration/base-rows-limit/): Configure the maximum number of rows per base in SeaTable, including writable and loading limits for large datasets.
+- [Overview](https://admin.seatable.com/configuration/overview/): Complete reference of SeaTable environment variables and configuration files for server setup and customization.
+
+### User Hierarchy
+
+- [Overview](https://admin.seatable.com/configuration/user-hierarchy/overview/): Overview of SeaTable's user hierarchy including users, groups, teams/organizations, and departments.
+- [Groups](https://admin.seatable.com/configuration/user-hierarchy/groups/): Groups in SeaTable are enabled by default and can be restricted through user role configuration.
+- [Teams/Organizations](https://admin.seatable.com/configuration/user-hierarchy/teams-organizations/): Configure teams and organizations in SeaTable to isolate user groups with separate visibility and permissions.
+- [Departments](https://admin.seatable.com/configuration/user-hierarchy/departments/): Configure departments in SeaTable, an extension of groups that adds a dedicated column type for organizational structures.
+
+### Authentication
+
+- [Overview](https://admin.seatable.com/configuration/authentication/overview/): Overview of SeaTable authentication types including local database, LDAP, OAuth, SAML, and JWT, plus database structure for user management.
+- [Switch authentication](https://admin.seatable.com/configuration/authentication/auth-switch/): Migrate SeaTable users between authentication types such as local database, LDAP, SAML, and OAuth with database modifications.
+
+### Methods
+
+- [Two Factor Authentication](https://admin.seatable.com/configuration/authentication/two-factor-auth/): Enable and configure two-factor authentication (2FA) with TOTP in SeaTable Server, globally or per user.
+- [LDAP](https://admin.seatable.com/configuration/authentication/ldap/): Configure LDAP and Active Directory authentication and synchronization in SeaTable, including SASL support and combined LDAP/SAML setups.
+- [OAuth](https://admin.seatable.com/configuration/authentication/oauth/): Set up OAuth single sign-on in SeaTable with providers like GitHub or Google by configuring dtable_web_settings.py.
+- [SAML](https://admin.seatable.com/configuration/authentication/saml/): Configure SAML single sign-on in SeaTable with step-by-step guides for Azure AD, Okta, Auth0, and Authentik identity providers.
+- [SAML for teams](https://admin.seatable.com/configuration/authentication/saml-team/): Configure per-team SAML identity providers for multi-tenancy SeaTable environments with role permissions and cookie settings.
+- [JWT-Token](https://admin.seatable.com/configuration/authentication/jwt/): Enable JWT-based authentication in SeaTable for server-to-server login using a shared secret key and signed tokens.
+
+### Components
+
+- [dtable-api-gateway](https://admin.seatable.com/configuration/components/dtable-api-gateway/): Complete reference for all api-gateway configuration options in dtable-api-gateway.conf including rate limits and cluster settings.
+- [dtable-db](https://admin.seatable.com/configuration/components/dtable-db/): Complete reference for dtable-db configuration in dtable-db.conf including storage, caching, SQL limits, and big data backup options.
+- [dtable-events](https://admin.seatable.com/configuration/components/dtable-events/): Configure dtable-events for automations, email notifications, LDAP sync, virus scanning, and database cleanup in SeaTable Server.
+- [dtable-server](https://admin.seatable.com/configuration/components/dtable-server/): Complete reference for dtable-server configuration including row limits, base size limits, persistence, and automation rate settings.
+- [dtable-storage-server](https://admin.seatable.com/configuration/components/dtable-storage-server/): Configure dtable-storage-server for filesystem or S3 storage backends, snapshot retention, and automated cleanup in SeaTable.
+- [dtable-web](https://admin.seatable.com/configuration/components/dtable-web/): Configure dtable-web settings for user management, registration, passwords, API throttling, and other SeaTable web interface options.
+- [seafile](https://admin.seatable.com/configuration/components/seafile/): Configure the Seafile file server (seaf-server) in SeaTable including fileserver port, worker threads, and file history retention.
+- [gunicorn](https://admin.seatable.com/configuration/components/gunicorn/): Configure Gunicorn as the WSGI server for SeaTable, including workers, threads, timeout, and bind address settings.
+- [nginx](https://admin.seatable.com/configuration/components/nginx/): Customize the Nginx configuration for SeaTable Server using custom config files that persist across updates.
+
+### UI Customization
+
+- [Overview](https://admin.seatable.com/customization/overview/): Overview of SeaTable Server UI customization options including colors, logos, favicons, and HTML templates.
+- [Site Title](https://admin.seatable.com/customization/site-title/): Configure the site title for your SeaTable Server via the web interface or dtable_web_settings.py.
+- [Logo](https://admin.seatable.com/customization/logo/): Replace the default SeaTable Server logo via the web interface or command line with a custom image.
+- [Favicon](https://admin.seatable.com/customization/favicon/): Replace the default SeaTable favicon with custom icons via the command line.
+- [Manual Link](https://admin.seatable.com/customization/manual-in-nav/): Change the target URL of the Manual link in SeaTable's navigation bar using dtable_web_settings.py.
+- [Navigation Items](https://admin.seatable.com/customization/nav-items/): Add custom navigation items with icons to SeaTable's sidebar using the CUSTOM_NAV_ITEMS setting.
+- [Main Color](https://admin.seatable.com/customization/main-color/): Change SeaTable's default orange main color to a custom color using CSS via the web interface or config file.
+- [Custom CSS](https://admin.seatable.com/customization/custom-css/): Add custom CSS to your SeaTable Server to hide or modify UI elements, with practical examples included.
+- [Templates](https://admin.seatable.com/customization/templates/): Set up and manage base templates in SeaTable Server so users can create new bases from predefined structures.
+- [Page Templates](https://admin.seatable.com/customization/page-templates/): Customize SeaTable's HTML page templates for login pages, error pages, and emails by overriding default files.
+
+### Upgrade
+
+- [How to upgrade](https://admin.seatable.com/upgrade/upgrade-manual/): Step-by-step instructions to upgrade SeaTable Server using Docker Compose, including update paths and version-specific notes.
+- [Extra Upgrade Notices](https://admin.seatable.com/upgrade/extra-upgrade-notice/): Version-specific upgrade notices and required configuration changes for each SeaTable Server release.
+
+### Migrations
+
+- [Switch SeaTable Edition](https://admin.seatable.com/upgrade/migrate-seatable-editions/): Migrate between SeaTable Enterprise Edition and Developer Edition by switching Docker images and license files.
+- [Switch Installation Method (v4.3)](https://admin.seatable.com/upgrade/migrate-seatable-release/): Migrate from a single docker-compose.yml to the multi-YAML /opt/seatable-compose setup introduced in v4.3.
+
+### Maintenance
+
+- [Restart SeaTable](https://admin.seatable.com/maintenance/restart-seatable/): How to restart the SeaTable service or the entire Docker container to apply configuration changes.
+- [Backup and Recovery](https://admin.seatable.com/maintenance/backup-recovery/): Complete guide to backing up and restoring a SeaTable Server, including MariaDB dumps, base data, and configuration files.
+- [Clean Database](https://admin.seatable.com/maintenance/database-cleanup/): Clean up the SeaTable database by removing old operation logs, sessions, and other outdated records to reclaim disk space.
+- [Clean Storage](https://admin.seatable.com/maintenance/storage-cleanup/): Run garbage collection on SeaTable Server to remove unused storage blocks and reclaim disk space.
+- [Clean Big Data](https://admin.seatable.com/maintenance/big-data-cleanup/): Reclaim disk space from unused or deleted big data storage in SeaTable using garbage collection and flatten commands.
+- [Filesystem check](https://admin.seatable.com/maintenance/filesystem-check/): Use the seaf-fsck tool to check, repair, and export SeaTable file system libraries after data corruption.
+- [Change URL](https://admin.seatable.com/maintenance/domain-change/): Update your SeaTable Server domain by changing configuration files, SSL certificates, and internal file URLs.
+- [Export Base](https://admin.seatable.com/maintenance/base-export/): Export and import SeaTable bases from the command line as .dtable files or complete folders including big data.
+- [Repair Base](https://admin.seatable.com/maintenance/repair-base/): Repair and prune SeaTable bases from the command line to fix structural issues and reduce base size.
+- [Password reset](https://admin.seatable.com/maintenance/password-reset/): Reset user passwords or create a new admin account in SeaTable Server via the system admin area or command line.
+- [Logging](https://admin.seatable.com/maintenance/logs/): Overview of SeaTable Server and Nginx log file locations, log rotation configuration, and customization options.
+- [Add custom error messages](https://admin.seatable.com/maintenance/debugging/): Advanced debugging techniques for SeaTable Server including how to add custom error messages.
+- [Secrets Management](https://admin.seatable.com/maintenance/secrets/): Understand SeaTable's SECRET_KEY and PRIVATE_KEY, their roles in session management, and why they should not be changed.
+- [Helper Scripts](https://admin.seatable.com/maintenance/helper-scripts/): Shell scripts for common SeaTable admin tasks like activating users, querying user stats, and dumping databases.
+
+## Complete Content
+
+- [llms-full.txt](https://admin.seatable.com/llms-full.txt): Complete admin manual with all pages and configuration references
+
+## Optional
+
+- [SeaTable Website](https://seatable.com): Product website with features, pricing, and use cases
+- [REST API Reference](https://api.seatable.com): Interactive REST API documentation with all endpoints
+- [Developer Manual](https://developer.seatable.com): Client libraries, SQL reference, and plugin development
+- [Community Forum](https://forum.seatable.com): Community support, discussions, and feature requests
