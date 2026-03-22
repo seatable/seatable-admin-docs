@@ -36,7 +36,7 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
 This Manual covers all relevant admin topics, from installation, configuration, upgrade, and maintenance, and provides background information on software architecture, requirements, and development.
 
-This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://help.seatable.com/).
+This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://seatable.com/help/).
 
 If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.com) and the [API Reference](https://api.seatable.com).
 
@@ -346,7 +346,7 @@ This configuration approach delivers good results, that are confirmed by known s
 - A+ from [https://www.ssllabs.com/](https://www.ssllabs.com/ssltest/analyze.html?d=cloud.seatable.io)
 - A from [https://securityheaders.com/](https://securityheaders.com/?q=https%3A%2F%2Fcloud.seatable.io)
 - 100% from [internet.nl](https://internet.nl/site/cloud.seatable.io/)
-- 80/100 or B+ from [https://observatory.mozilla.org/](https://observatory.mozilla.org/analyze/cloud.seatable.io)
+- 80/100 or B+ from [https://observatory.mozilla.org/](https://developer.mozilla.org/en-US/observatory/analyze?host=cloud.seatable.io)
 
 ## Network security
 
@@ -518,7 +518,7 @@ SeaTable developer edition should not be used to provide SaaS service or as a pa
 
 ## License and limitations of SeaTable Enterprise Edition
 
-The SeaTable Enterprise Edition is released under a proprietary license. You find the EULA at <https://seatable.com/eula>.
+The SeaTable Enterprise Edition is released under a proprietary license. You find the EULA at <https://seatable.com/eula/>.
 
 ---
 
@@ -621,11 +621,11 @@ Source: https://admin.seatable.com/introduction/get-support/
 
 Next to this administration manual there are more documentations available. To learn more about how to use SeaTable as a user, how to use the SeaTable API, the possibilities to develop your own plugins or scripts in SeaTable, please refer to their respective manuals:
 
-- [SeaTable User Manual](https://help.seatable.com)
+- [SeaTable User Manual](https://seatable.com/help/)
 - [SeaTable Developer Manual](https://developer.seatable.com)
 - [SeaTable API Reference](https://api.seatable.com)
 
-See the [official SeaTable channel](https://youtube.com/seatable) on YouTube for tutorials, guides and overviews. Visit [our blog](https://seatable.com/blog/) for latest news and to learn more about what is going on in and around SeaTable.
+See the [official SeaTable channel](https://www.youtube.com/seatable) on YouTube for tutorials, guides and overviews. Visit [our blog](https://seatable.com/blog/) for latest news and to learn more about what is going on in and around SeaTable.
 
 At any time you could have a look at the SeaTable [Community Forum](https://forum.seatable.com) to share your experience with other users or report issues or bugs.
 
@@ -1589,7 +1589,7 @@ If this does not happen, execute `docker compose logs onlyoffice -f` to get more
 
 ## Advanced: Custom settings
 
-The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file called `local-production-linux.json` to [force some settings](https://helpcenter.onlyoffice.com/installation/docs-developer-configuring.aspx).
+The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file called `local-production-linux.json` to [force some settings](https://helpcenter.onlyoffice.com/docs/installation/docs-developer-configuring.aspx).
 
 Create a configuration file in the newly created directory:
 
@@ -2024,7 +2024,7 @@ echo "RESTIC_PASSWORD=${pw}" >> /opt/seatable-compose/.env
 
 To use another backup target then the local path `/opt/restic/local` you have to provide the additional environment variable `RESTIC_REPOSITORY`. Some backends require additional environment variables for authentication.
 
-Here are some examples. For more details, refer to the [official restic documentation](https://restic.readthedocs.io/).
+Here are some examples. For more details, refer to the [official restic documentation](https://restic.readthedocs.io/en/stable/).
 
 === "REST Server"
 
@@ -4922,7 +4922,7 @@ prometheus.scrape "caddy_metrics" {
 
 ## Grafana Dashboard
 
-We have published a [Grafana dashboard](https://grafana.com/grafana/dashboards/24942) that displays these metrics.
+We have published a [Grafana dashboard](https://grafana.com/grafana/dashboards/24942-seatable-dashboard/) that displays these metrics.
 You can import this dashboard into your Grafana instance by specifying its ID (`24942`).
 
 ![Grafana Dashboard](../../assets/images/grafana-dashboard.png)
@@ -6100,7 +6100,7 @@ In the event that a new version becomes available, a button will appear on the p
 
 If your server lacks internet connectivity, you can still install Plugins by downloading them as ZIP files to your local PC and subsequently uploading them to the SeaTable Server.
 
-The complete plugin archive can be found at the following URL: <https://cloud.seatable.io/apps/custom/plugin-archive>.
+The complete plugin archive can be found at the following URL: <https://cloud.seatable.io/apps/custom/plugin-archive/>.
 
 ![Upload Plugins manually](../assets/images/seatable-plugins-upload.png)
 
@@ -6883,8 +6883,8 @@ Some tips on how to select LDAP_BASE_DN and LDAP_ADMIN_DN:
 
 - To determine your LDAP_BASE_DN attribute, you first need to open the graphical interface of the domain manager and browse your organizational structure.
 - If you want all users in the system to be able to access SeaTable, you can use 'cn=users,dc=yourdomain,dc=com' as the BASE option (need to replace your domain name).
-- If you only want people in a certain department to be able to access, you can limit the scope to a certain OU. You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is `staffs`, you can run `dsquery ou -name staff`. More information can be found [here](https://technet.microsoft.com/en-us/library/cc770509.aspx).
-- Although AD supports the use of usernames in email address format as `LDAP_ADMIN_DN` such as administrator@example.com, it sometimes does not correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is `seatableuser`, run `dsquery user -name seatableuser` to find the user. More information can be found [here](https://technet.microsoft.com/en-us/library/cc725702.aspx).
+- If you only want people in a certain department to be able to access, you can limit the scope to a certain OU. You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is `staffs`, you can run `dsquery ou -name staff`. More information can be found [here](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc770509(v=ws.11)).
+- Although AD supports the use of usernames in email address format as `LDAP_ADMIN_DN` such as administrator@example.com, it sometimes does not correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is `seatableuser`, run `dsquery user -name seatableuser` to find the user. More information can be found [here](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc725702(v=ws.11)).
 
 The following parameters are also available, but optional:
 
@@ -6997,7 +6997,7 @@ The Redirect URL, Authorization callback URL in Github, such as: https\://test.s
 
 #### **OAUTH_AUTHORIZATION_URL、OAUTH_TOKEN_URL、OAUTH_USER_INFO_URL、OAUTH_SCOPE**
 
-Set these values according to the document of OAuth provider, for GitHub, please check [https://docs.github.com/en/developers/apps/authorizing-oauth-app](https://docs.github.com/en/developers/apps/authorizing-oauth-apps)
+Set these values according to the document of OAuth provider, for GitHub, please check [https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
 
 #### **OAUTH_ATTRIBUTE_MAP**
 
@@ -7140,7 +7140,7 @@ Check `dtable_web.log` for troubleshooting info if authentication fails.
 
 ## Configuration Azure
 
-Browse to 'Azure Active Directory' and select 'Enterprise Applications'. In the 'Enterprise applications | All Applications' pane, click on 'New application' to open the 'Browse Azure AD Gallery'. Hit 'Create your own application', enter the name of the application in the input field (e.g. SeaTable), and click 'Create'. (For more information on [how to add an enterprise application](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal) or [how to create and assign a user account to an enterprise application](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal-assign-users), see Microsoft's Azure product documentation.) Azure will then create the application and open its overview page (see screenshot below).
+Browse to 'Azure Active Directory' and select 'Enterprise Applications'. In the 'Enterprise applications | All Applications' pane, click on 'New application' to open the 'Browse Azure AD Gallery'. Hit 'Create your own application', enter the name of the application in the input field (e.g. SeaTable), and click 'Create'. (For more information on [how to add an enterprise application](https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/add-application-portal) or [how to create and assign a user account to an enterprise application](https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/add-application-portal-assign-users), see Microsoft's Azure product documentation.) Azure will then create the application and open its overview page (see screenshot below).
 
 ![Azure AD Enterprise Application](../../assets/images/auto-upload/Authentication_SAML_AzureAD_EnterpriseApplication_Seatable.png)
 
@@ -7449,7 +7449,7 @@ The token is the encoded json object with these elements:
 
 ## Examples how to use JWT and generate the login-link
 
-Every programming language offers libraries to sign JWTs. A good place to start looking for such a library is [https://jwt.io/libraries](https://jwt.io/libraries).
+Every programming language offers libraries to sign JWTs. A good place to start looking for such a library is [https://www.jwt.io/libraries](https://www.jwt.io/libraries).
 
 Here is an example with PHP and the [firebase-library](https://github.com/firebase/php-jwt):
 
@@ -7653,7 +7653,7 @@ SEATABLE_REDIS_IMAGE=
 IMAGE_CADDY=
 
 # Miscellaneous
-SEATABLE_HELP_LINK=https://help.seatable.com # (11)!
+SEATABLE_HELP_LINK=https://seatable.com/help/ # (11)!
 ```
 
 1.  COMPOSE_FILE is a comma separated list of files **without spaces**. This list defines which components should run on this server.
@@ -9009,7 +9009,7 @@ Source: https://admin.seatable.com/customization/manual-in-nav/
 
 # Custom manual
 
-By default SeaTable presents a "Manual" link on its home page. Starting with version v4.4 this link points to <https://help.seatable.com> but in all former versions, the link opened only a blank new browser tab.
+By default SeaTable presents a "Manual" link on its home page. Starting with version v4.4 this link points to <https://seatable.com/help> but in all former versions, the link opened only a blank new browser tab.
 
 ![SeaTable Manual link in main navigation](../assets/images/customization_manual.png)
 
@@ -9020,7 +9020,7 @@ Luckily it is super easy to change the behaviour of this manual link and to chan
 Open the configuration file `dtable_web_settings.py` located at `/opt/seatable-server/seatable/conf/` and add this configuration line. Change the value to your needs.
 
 ```bash
-HELP_LINK = 'https://help.seatable.com/'
+HELP_LINK = 'https://seatable.com/help/'
 ```
 
 Don't forget to restart SeaTable service.
