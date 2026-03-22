@@ -15,7 +15,7 @@ This configuration approach delivers good results, that are confirmed by known s
 - A+ from [https://www.ssllabs.com/](https://www.ssllabs.com/ssltest/analyze.html?d=cloud.seatable.io)
 - A from [https://securityheaders.com/](https://securityheaders.com/?q=https%3A%2F%2Fcloud.seatable.io)
 - 100% from [internet.nl](https://internet.nl/site/cloud.seatable.io/)
-- 80/100 or B+ from [https://observatory.mozilla.org/](https://observatory.mozilla.org/analyze/cloud.seatable.io)
+- 80/100 or B+ from [https://observatory.mozilla.org/](https://developer.mozilla.org/en-US/observatory/analyze?host=cloud.seatable.io)
 
 ## Network security
 

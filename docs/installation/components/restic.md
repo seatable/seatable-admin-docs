@@ -64,7 +64,7 @@ echo "RESTIC_PASSWORD=${pw}" >> /opt/seatable-compose/.env
 
 To use another backup target then the local path `/opt/restic/local` you have to provide the additional environment variable `RESTIC_REPOSITORY`. Some backends require additional environment variables for authentication.
 
-Here are some examples. For more details, refer to the [official restic documentation](https://restic.readthedocs.io/).
+Here are some examples. For more details, refer to the [official restic documentation](https://restic.readthedocs.io/en/stable/).
 
 === "REST Server"
 

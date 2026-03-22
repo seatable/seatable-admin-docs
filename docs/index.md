@@ -34,7 +34,7 @@ If you want to use SeaTable, but you don't want to run your own server, SeaTable
 
 This Manual covers all relevant admin topics, from installation, configuration, upgrade, and maintenance, and provides background information on software architecture, requirements, and development.
 
-This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://help.seatable.com/).
+This Manual is NO **user** manual. For information about how to use SeaTable, please refer to the [user documentation](https://seatable.com/help/).
 
 If you are a **developer** looking for development resources, please check out the [Developer Manual](https://developer.seatable.com) and the [API Reference](https://api.seatable.com).
 

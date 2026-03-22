@@ -30,7 +30,7 @@ In the event that a new version becomes available, a button will appear on the p
 
 If your server lacks internet connectivity, you can still install Plugins by downloading them as ZIP files to your local PC and subsequently uploading them to the SeaTable Server.
 
-The complete plugin archive can be found at the following URL: <https://cloud.seatable.io/apps/custom/plugin-archive>.
+The complete plugin archive can be found at the following URL: <https://cloud.seatable.io/apps/custom/plugin-archive/>.
 
 ![Upload Plugins manually](../assets/images/seatable-plugins-upload.png)
 

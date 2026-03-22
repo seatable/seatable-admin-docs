@@ -38,7 +38,7 @@ The token is the encoded json object with these elements:
 
 ## Examples how to use JWT and generate the login-link
 
-Every programming language offers libraries to sign JWTs. A good place to start looking for such a library is [https://jwt.io/libraries](https://jwt.io/libraries).
+Every programming language offers libraries to sign JWTs. A good place to start looking for such a library is [https://www.jwt.io/libraries](https://www.jwt.io/libraries).
 
 Here is an example with PHP and the [firebase-library](https://github.com/firebase/php-jwt):
 

@@ -81,7 +81,7 @@ If this does not happen, execute `docker compose logs onlyoffice -f` to get more
 
 ## Advanced: Custom settings
 
-The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file called `local-production-linux.json` to [force some settings](https://helpcenter.onlyoffice.com/installation/docs-developer-configuring.aspx).
+The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file called `local-production-linux.json` to [force some settings](https://helpcenter.onlyoffice.com/docs/installation/docs-developer-configuring.aspx).
 
 Create a configuration file in the newly created directory:
 

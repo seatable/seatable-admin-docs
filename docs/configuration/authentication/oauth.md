@@ -53,7 +53,7 @@ The Redirect URL, Authorization callback URL in Github, such as: https\://test.s
 
 #### **OAUTH_AUTHORIZATION_URL、OAUTH_TOKEN_URL、OAUTH_USER_INFO_URL、OAUTH_SCOPE**
 
-Set these values according to the document of OAuth provider, for GitHub, please check [https://docs.github.com/en/developers/apps/authorizing-oauth-app](https://docs.github.com/en/developers/apps/authorizing-oauth-apps)
+Set these values according to the document of OAuth provider, for GitHub, please check [https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
 
 #### **OAUTH_ATTRIBUTE_MAP**
 

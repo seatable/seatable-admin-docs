@@ -28,4 +28,4 @@ SeaTable developer edition should not be used to provide SaaS service or as a pa
 
 ## License and limitations of SeaTable Enterprise Edition
 
-The SeaTable Enterprise Edition is released under a proprietary license. You find the EULA at <https://seatable.com/eula>.
+The SeaTable Enterprise Edition is released under a proprietary license. You find the EULA at <https://seatable.com/eula/>.
