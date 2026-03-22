@@ -8,6 +8,16 @@ exclude = [
   "^https://deploy\\.seatable-demo\\.de",
   "^ldap://",
   "^file:///",
+  # Example/placeholder URLs
+  "^https://login\\.microsoftonline\\.com/xxx",
+  # XML namespace URIs (not real URLs)
+  "^http://schemas\\.xmlsoap\\.org",
+  # External sites with unstable availability
+  "^https://ldapwiki\\.com",
+  # API reference anchors that return 404 for direct link checks
+  "^https://api\\.seatable\\.com/reference/",
+  # Links with .md extension (valid in MkDocs, 404 on live site checked separately)
+  "admin\\.seatable\\.com.*\\.md$",
 ]
 
 # Accept these status codes as valid
@@ -15,3 +25,6 @@ accept = [200, 204, 301, 302, 403, 429]
 
 # Skip fragment checking
 include_fragments = false
+
+# Maximum number of redirects
+max_redirects = 10
