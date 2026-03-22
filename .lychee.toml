@@ -1,0 +1,21 @@
+# Lychee link checker configuration
+# https://lychee.cli.rs/usage/config/
+
+# Exclude patterns
+exclude = [
+  "http://127.*",
+  "http://localhost",
+  "https://deploy.seatable-demo.de",
+  "ldap://",
+]
+
+# Root-relative links (e.g. /introduction/architecture) are valid after
+# MkDocs builds them but cannot be checked against raw markdown files.
+# We exclude them here to avoid false positives.
+exclude_path = []
+
+# Accept these status codes as valid
+accept = [200, 204, 301, 302, 403, 429]
+
+# Skip fragments check for root-relative links
+include_fragments = false

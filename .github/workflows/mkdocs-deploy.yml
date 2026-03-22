@@ -22,7 +22,7 @@ jobs:
       - name: Check links in markdown files
         uses: lycheeverse/lychee-action@v2
         with:
-          args: "--verbose --no-progress --root-dir docs --exclude 'http://127*' --exclude 'http://localhost' './docs/**/*.md'"
+          args: "--verbose --no-progress --root-dir docs './docs/**/*.md'"
           fail: true
 
   deploy:
