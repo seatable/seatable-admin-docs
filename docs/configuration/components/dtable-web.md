@@ -10,7 +10,7 @@ You can also modify some of the config items as system administrator via web int
 
 ## Basic settings
 
-```
+```python
 # for dtable-server
 ## The private key is used to authenticate between DTable Web and DTable Server
 ## DTABLE_SERVER_URL is for telling DTable Web the DTable Server's URL
@@ -223,7 +223,7 @@ SYNC_COMMON_DATASET_INTERVAL = 5 * 60 # in seconds, 300 is the default value
 
 After opening a base, the first 300 collaborators and the first 100 external application accounts are loaded by default. These data are used to select collaborators in the collaborator column. If you need to load more collaborators, you can modify the following parameters.
 
-```
+```python
 DTABLE_RELATED_USERS_PER_PAGE = 300
 DTABLE_APP_USERS_PER_PAGE = 100
 ```
@@ -232,7 +232,7 @@ DTABLE_APP_USERS_PER_PAGE = 100
 
 To embed bases into other webpages using an iframe, the following options must be added to support user login:
 
-```
+```python
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'

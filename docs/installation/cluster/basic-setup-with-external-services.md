@@ -20,7 +20,7 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
 
     Update your `.env` file to include the required variables for `REDIS` and `MARIADB`. Set passwords, IPs, and usernames according to your environment. This ensures that your SeaTable Server connects to these external services.
 
-    ```
+    ```bash
     # components to be used; IMPORTANT: there should be no space between
     # the files names!
     COMPOSE_FILE='caddy.yml,dtable-web.yml'
@@ -60,7 +60,7 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
 
     Example configuration:
 
-    ```
+    ```yaml
     ---
     services:
       seatable-server:

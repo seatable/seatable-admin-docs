@@ -56,7 +56,7 @@ After starting the Releem agent, it will begin collecting performance metrics fr
 
     Add the following volume to your `docker-compose.yml` for the MariaDB service:
 
-    ```
+    ```yaml
     ---
     services:
     mariadb:

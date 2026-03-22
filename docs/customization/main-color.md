@@ -24,7 +24,7 @@ The first step is you use the following color picker and select a new main color
 
     <input type="color" id="cc_v5.3" onchange="update_custom_color('v5.3')" value="#ff8000" style="width:100px">
     <div id="cc_output_v5.3">
-    ```
+    ```css
     Select a color and the css code will be created...
     ```
     </div>
@@ -76,7 +76,7 @@ The first step is you use the following color picker and select a new main color
 
     <input type="color" id="cc_v4.3" onchange="update_custom_color('v4.3')" value="#ff8000" style="width:100px">
     <div id="cc_output_v4.3">
-    ```
+    ```css
     Select a color and the css code will be created...
     ```
     </div>

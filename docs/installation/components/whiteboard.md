@@ -44,7 +44,7 @@ docker compose up -d
 
 After a few seconds, check `https://<your-seatable-url>:6239/ping`. You should see:
 
-```
+```json
 {"status":"pong"}
 ```
 

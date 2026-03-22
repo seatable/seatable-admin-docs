@@ -46,7 +46,7 @@ docker compose up -d
 
 After a few seconds, check `https://<your-seatable-url>:6240`. You should see:
 
-```
+```text
 Welcome to sdoc-server. The current version is ...
 ```
 

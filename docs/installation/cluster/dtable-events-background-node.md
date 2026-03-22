@@ -41,7 +41,7 @@ SeaTable allows you to **split dtable-events**, moving background tasks to a ded
 
 3. **Edit the `.env` file** on the new node and set the `COMPOSE_FILE` variable to reference only a single YAML file:
 
-    ```
+    ```bash
     COMPOSE_FILE='dtable-events.yml'
     ```
 
@@ -63,7 +63,7 @@ Apply the following required changes:
 
     Add or update the following environment variables to ensure only `dtable-event` is enabled:
 
-    ```
+    ```yaml
     environment:
       # necessary for dtable-events (background)
       - ENABLE_DTABLE_EVENTS=true
@@ -82,7 +82,7 @@ Apply the following required changes:
 
     Ensure all nodes can reach each other by adding their names and private IP addresses:
 
-    ```
+    ```yaml
     extra_hosts:
       - "dtable-web:10.0.0.2"
       - "dtable-db:10.0.0.3"
@@ -95,7 +95,7 @@ Apply the following required changes:
 
 *Do not copy and paste directly — adapt as needed:*
 
-```
+```yaml
 ---
 services:
   seatable-server:
@@ -134,7 +134,7 @@ networks:
 
 Start `dtable-events` for the first time and monitor the logs:
 
-```
+```bash
 docker compose up -d
 ```
 
@@ -158,7 +158,7 @@ Now that background tasks are handled by the new node, you should disable them o
 
 Open `/opt/seatable-compose/dtable-web.yml` and add the following to the environment variables:
 
-```
+```bash
 DTABLE_EVENTS_TASK_MODE=foreground
 ```
 

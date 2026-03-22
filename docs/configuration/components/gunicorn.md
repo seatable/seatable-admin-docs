@@ -15,7 +15,7 @@ Gunicorn is used within the SeaTable Docker container as the WSGI server that ru
 
 A typical Gunicorn configuration file is created automatically by SeaTable during the first startup:
 
-```
+```python
 daemon = True
 workers = 5
 threads = 5

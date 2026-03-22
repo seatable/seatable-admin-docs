@@ -18,7 +18,7 @@ Prepare a new node with Docker installed, and copy the following files from one 
 
 Edit the `.env` file on the new node and ensure the `COMPOSE_FILE` variable references only a single YAML file:
 
-```
+```bash
 COMPOSE_FILE='seatable-server-standalone.yml'
 ```
 
@@ -36,7 +36,7 @@ Apply the following required changes to this file:
 
     Add or update the following environment variables to ensure only the `dtable-server` is enabled:
 
-    ```
+    ```yaml
     environment:
       #... all default environment variables in seatable-server.yml ...
       # this node should only run dtable-server, all other services are disabled
@@ -54,7 +54,7 @@ Apply the following required changes to this file:
 
     The `dtable-server` node must be accessible to other nodes. Add the following to the `seatable-server` service:
 
-    ```
+    ```yaml
     ports:
       - 5000:5000
     ```
@@ -63,7 +63,7 @@ Apply the following required changes to this file:
 
     Node-to-node communication uses the internal network. Ensure all nodes can reach each other by adding their names and private IP addresses:
 
-    ```
+    ```yaml
     extra_hosts:
       - "dtable-web:10.0.0.2"
       - "dtable-db:10.0.0.3"
@@ -74,7 +74,7 @@ Apply the following required changes to this file:
 
 For reference, here is an example of what your `dtable-server-standalone.yml` might look like. Do not copy and paste directly — adapt to your environment as needed.
 
-```
+```yaml
 ---
 services:
   seatable-server:
@@ -114,7 +114,7 @@ networks:
 
 Now, start `dtable-server` for the first time and monitor the logs:
 
-```
+```bash
 docker compose up -d
 ```
 
@@ -130,7 +130,7 @@ After the first start of `dtable-server`, make the following changes to the newl
 
     Open `conf/dtable_server_config.json` and add these entries:
 
-    ```
+    ```json
     {
         "dtable_db_service_url": "http://dtable-db:7777",
         "dtable_web_service_url": "http://dtable-web:8000" 
@@ -139,7 +139,7 @@ After the first start of `dtable-server`, make the following changes to the newl
 
 Now it is time to restart dtable-server and verify that the service is running, port 5000 is exposed and a `pong` is returned:
 
-```
+```bash
 curl 127.0.0.1:5000/ping/
 ```
 
@@ -151,7 +151,7 @@ Now that `dtable-server` is running on a separate node, update `dtable-web` to u
 
     Open `/opt/seatable-compose/dtable-web.yml` and make these changes:
 
-    ```
+    ```yaml
     environment:
       - ENABLE_DTABLE_SERVER=false
     extra_hosts:
@@ -167,7 +167,7 @@ Now that `dtable-server` is running on a separate node, update `dtable-web` to u
 
     Open the configuration file `conf/dtable-api-gateway.conf` and add these lines to specify the location of `dtable-server`:
 
-    ```
+    ```ini
     [dtable-server]
     server_address = "http://dtable-server:5000"
     ```
@@ -176,7 +176,7 @@ Now that `dtable-server` is running on a separate node, update `dtable-web` to u
 
     Open `/conf/dtable_web_settings.py` and add:
 
-    ```
+    ```python
     INNER_DTABLE_SERVER_URL = 'http://dtable-server:5000/'
     ```
 
@@ -188,7 +188,7 @@ Specify the location of `dtable-server` in `dtable-db` as well.
 
      Find the relevant section and update the value:
 
-    ```
+    ```ini
     [dtable cache]
     dtable_server_url = "http://dtable-server:5000"
     ```

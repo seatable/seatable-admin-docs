@@ -34,7 +34,7 @@ Changing the domain causes images or files stored in bases to become unreadable.
 
 Open a shell inside the SeaTable container:
 
-```
+```bash
 docker exec -it seatable-server bash
 cd /opt/seatable/seatable-server-latest/dtable-web
 ```
@@ -43,25 +43,25 @@ Run one of the following commands:
 
 ??? success "For all bases"
 
-    ```
+    ```bash
     seatable.sh python-env ./manage.py domain_transfer -all -od <old domain> -nd <new domain>
     ```
 
     To change the domain from `https://old.example.com` to `https://new.example.com`, run:
 
-    ```
+    ```bash
     seatable.sh python-env ./manage.py domain_transfer -all -od https://old.example.com -nd https://new.example.com
     ```
 
 ??? success "For a single base"
 
-    ```
+    ```bash
     seatable.sh python-env ./manage.py domain_transfer -uuid <:base uuid> -od <old domain> -nd <new domain>
     ```
 
     To change the domain for a base with UUID `695fa115-4927-4be1-b5b6-fbbbabd43b72` from `https://old.example.com` to `https://new.example.com`, run:
 
-    ```
+    ```bash
     seatable.sh python-env ./manage.py domain_transfer -uuid 695fa115-4927-4be1-b5b6-fbbbabd43b72 -od https://old.example.com -nd https://new.example.com
     ```
 

@@ -22,7 +22,7 @@ Simply provide the user's contact email address as a parameter:
 
 === "Output"
 
-    ```
+    ```text
     --------------
     UPDATE ccnet_db.EmailUser SET is_active = 1 WHERE email = (SELECT user FROM dtable_db.profile_profile WHERE contact_email = 'user@email.com')
     --------------
@@ -47,7 +47,7 @@ Simply provide the user's email address as a parameter:
 
 === "Output"
 
-    ```
+    ```text
     --------------
     UPDATE ccnet_db.EmailUser SET is_active = 0 WHERE email = (SELECT user FROM dtable_db.profile_profile WHERE contact_email = 'user@email.com')
     --------------
@@ -71,7 +71,7 @@ This script will print your current license limit and query the database for the
 
 === "Output"
 
-    ```
+    ```text
     User limit according to license file: 3
 
     Users in database:
@@ -96,7 +96,7 @@ This script will give you an interactive shell inside the MariaDB container. You
 
 === "Output"
 
-    ```
+    ```text
     Welcome to the MariaDB monitor.  Commands end with ; or \g.
     Your MariaDB connection id is 73
     Server version: 11.4.3-MariaDB-ubu2404 mariadb.org binary distribution
@@ -120,13 +120,13 @@ This script will dump all three databases (`ccnet_db`, `dtable_db` and `seahub_d
 
 === "Output"
 
-    ```
+    ```text
     Success: Dumped databases into /opt/seatable-backup
     ```
 
 === "Created Files"
 
-    ```
+    ```text
     total 228
     -rw-r--r-- 1 root root  12184 May 23 11:30 ccnet_db-2025-05-23-11-30-27.sql
     -rw-r--r-- 1 root root 177499 May 23 11:30 dtable_db-2025-05-23-11-30-27.sql

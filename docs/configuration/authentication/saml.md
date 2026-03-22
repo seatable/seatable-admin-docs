@@ -63,13 +63,13 @@ The IdP's certificate must be saved on the SeaTable Server. The volume of the Se
 
 The default host path for the SeaTable Docker container is `/opt/seatable-server/` which is mapped to `/shared/` in the container. It is recommended to create a directory here. If you decide to create the directory elsewhere - which you can - you'll need to account for the custom path in the following steps.
 
-```
+```bash
 $ mkdir /opt/seatable-server/certs/
 ```
 
 Change into the directory, create a file idp.crt, and open the file with a text editor of your choice (here nano):
 
-```
+```bash
 $ cd /opt/seatable-server/certs/
 $ touch idp.crt
 $ nano idp.crt
@@ -79,7 +79,7 @@ Paste the content of the certificate in the text editor and save the edits.
 
 Note: You can check the validity of the certificate file using openssl:
 
-```
+```bash
 $ openssl x509 -in idp.crt -noout -dates
 ```
 
@@ -87,7 +87,7 @@ $ openssl x509 -in idp.crt -noout -dates
 
 Create SeaTable's certificate and key using openssl. The two files must be placed in the same directory as the IdP's certificate.
 
-```
+```bash
 $ cd /opt/seatable-server/certs/
 $ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout sp.key -out sp.crt
 ```
@@ -108,7 +108,7 @@ To enable SAML, add the following parameters to `dtable_web_settings.py`, custom
 
 This is a sample configuration. Adapt the values to your needs.
 
-```
+```python
 ENABLE_SAML = True
 SAML_PROVIDER_IDENTIFIER = 'MySAMLProvider'
 SAML_REMOTE_METADATA_URL = 'https://login.microsoftonline.com/xxx/federationmetadata/2007-06/federationmetadata.xml?appid=xxx'
@@ -155,7 +155,7 @@ Step 3 - SAML Certificates: Note the App Federation Metadata URL and download th
 
 Proceed with the [upload of the certificate file to SeaTable](#uploading-the-idp's-certificate-to-seaTable). The SAML configuration in `dtable_web_settings.py` should look like this:
 
-```
+```python
 ENABLE_SAML = True
 SAML_PROVIDER_IDENTIFIER = 'Azure'
 SAML_REMOTE_METADATA_URL = 'https://login.microsoftonline.com/826f1810-ccc9-.../federationmetadata/2007-06/federationmetadata.xml?appid=...'

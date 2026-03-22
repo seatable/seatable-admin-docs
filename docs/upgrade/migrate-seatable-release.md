@@ -98,7 +98,7 @@ Additionally, the two variables SEATABLE_ADMIN_EMAIL and SEATABLE_ADMIN_PASSWORD
 
     ``` python
     SEATABLE_IMAGE='seatable/seatable-developer:latest' # (1)!
-    ```
+    ```bash
 
     1.  Instead of using the latest tag, you can select any specific version from [https://hub.docker.com/r/seatable/seatable-developer/tags](https://hub.docker.com/r/seatable/seatable-developer/tags).
 

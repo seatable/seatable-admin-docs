@@ -8,7 +8,7 @@ First, register the Client App on the OAuth authorization server (such as [Githu
 
 Add the following configuration to dtable_web_settings.py:
 
-```
+```python
 ENABLE_OAUTH = True
 OAUTH_ENABLE_INSECURE_TRANSPORT = True
 OAUTH_PROVIDER_DOMAIN = 'github.com'
@@ -38,7 +38,7 @@ See more in <https://requests-oauthlib.readthedocs.io/en/latest/examples/example
 **note:**
 
 If you use Google OAuth2 login, the OAUTH_SCOPE configuration should be configured as follows:
-```
+```python
 OAUTH_SCOPE = ["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
 ```
 

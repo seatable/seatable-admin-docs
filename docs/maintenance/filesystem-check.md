@@ -14,7 +14,7 @@ SeaTable server comes with a seaf-fsck tool to help you recover from this corrup
 
 We provide a seaf-fsck.sh script. The seaf-fsck tool accepts the following arguments:
 
-```
+```bash
 docker exec -it seatable-server /opt/seatable/seatable-server-latest/seaf-fsck.sh [--repair|-r] [--export|-E export_path] [repo_id_1 [repo_id_2 ...]]
 
 ```
@@ -34,14 +34,14 @@ There are three modes of operation for seaf-fsck:
 
 Running seaf-fsck.sh without any arguments will run a **read-only** integrity check for all tables.
 
-```
+```bash
 docker exec -it seatable-server /opt/seatable/seatable-server-latest/seaf-fsck.sh
 
 ```
 
 If you want to check integrity for specific tables, just append the library id's as arguments:
 
-```
+```bash
 cd seafile-server-latest
 ./seaf-fsck.sh [library-id1] [library-id2] ...
 
@@ -49,7 +49,7 @@ cd seafile-server-latest
 
 The output looks like:
 
-```
+```text
 [02/13/15 16:21:07] fsck.c(470): Running fsck for repo ca1a860d-e1c1-4a52-8123-0bf9def8697f.
 [02/13/15 16:21:07] fsck.c(413): Checking file system integrity of repo fsck(ca1a860d)...
 [02/13/15 16:21:07] fsck.c(35): Dir 9c09d937397b51e1283d68ee7590cd9ce01fe4c9 is missing.
@@ -66,7 +66,7 @@ The corrupted files and directories are reported.
 
 Sometimes you can see output like the following:
 
-```
+```text
 [02/13/15 16:36:11] Commit 6259251e2b0dd9a8e99925ae6199cbf4c134ec10 is missing
 [02/13/15 16:36:11] fsck.c(476): Repo ca1a860d HEAD commit is corrupted, need to restore to an old version.
 [02/13/15 16:36:11] fsck.c(314): Scanning available commits...
@@ -87,7 +87,7 @@ Corruption repair in seaf-fsck basically works in two steps:
 
 Running the following command repairs all the libraries:
 
-```
+```bash
 cd seafile-server-latest
 ./seaf-fsck.sh --repair
 
@@ -95,7 +95,7 @@ cd seafile-server-latest
 
 Most of time you run the read-only integrity check first, to find out which libraries are corrupted. And then you repair specific libraries with the following command:
 
-```
+```bash
 cd seafile-server-latest
 ./seaf-fsck.sh --repair [library-id1] [library-id2] ...
 
@@ -118,7 +118,7 @@ Since version 4.2.0, you can use seaf-fsck to export all the files in libraries 
 
 The command syntax is
 
-```
+```bash
 cd seafile-server-latest
 ./seaf-fsck.sh --export top_export_path [library-id1] [library-id2] ...
 

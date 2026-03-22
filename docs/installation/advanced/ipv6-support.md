@@ -49,7 +49,7 @@ While this does not cause immediate service disruptions, it presents some challe
 
 The solution is straightforward. Add the following parameter to your Docker network configuration (for example, in caddy.yml):
 
-```
+```yaml
 networks:
   frontend-net:
     name: frontend-net

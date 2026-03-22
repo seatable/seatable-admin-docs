@@ -98,14 +98,14 @@ The exact configuration depends on your DNS provider. In most cases, the API tok
 
 === "Hetzner"
 
-    ```
+    ```text
     caddy_0.tls.dns: "hetzner ${HETZNER_DNS_TOKEN:?Variable is not set or empty}"
     caddy_0.tls.propagation_delay: 30s
     ```
 
 === "Cloudflare"
 
-    ```
+    ```text
     caddy_0.tls.dns: "cloudflare {CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
     ```
 
@@ -119,14 +119,14 @@ Add the generated token to your `.env` file, for example:
 
 === "Hetzner"
 
-    ```
+    ```ini
     # Caddy DNS-01 challenge
     HETZNER_DNS_TOKEN=your_token_here
     ```
 
 === "Cloudflare"
 
-    ```
+    ```ini
     # Caddy DNS-01 challenge
     CLOUDFLARE_API_TOKEN=your_token_here
     ```

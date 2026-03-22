@@ -17,7 +17,7 @@ Starting from version 3.4, for private deployment users, if your application sce
 
 `dtable_server_config.json`
 
-```
+```json
 {
    "base_writable_limit": 100000,
    "base_max_rows_limit": 150000
@@ -30,7 +30,7 @@ Among them, base_writable_limit is used to limit the rows written into the base.
 
 `dtable_web_settings.py`
 
-```
+```python
 BASE_WRITABLE_LIMIT = 100000
 ```
 

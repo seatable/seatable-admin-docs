@@ -17,7 +17,7 @@ Here's how to configure such a maintenance page using Caddy:
 5. Open your `.env` file and replace `seatable-server.yml` with `maintenance.yml` (in the variable `COMPOSE_FILE`)
 6. Run `docker compose up -d`
 
-```
+```yaml
 ...
     labels:
       caddy: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
@@ -40,7 +40,7 @@ All other users will see a maintenance page displaying the following message:
 
 To disable maintenance mode, update your `.env` file by replacing `maintenance.yml` with `seatable-server.yml`. Then, run the command:
 
-```
+```bash
 docker-compose up -d
 ```
 

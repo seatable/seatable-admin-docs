@@ -46,13 +46,13 @@ PYTHON_RUNNER_IMAGE='custom-python-runner:1.0'
 
 After updating the .env file, restart your SeaTable setup with:
 
-```
+```bash
 docker compose up -d
 ```
 
 You can verify that your custom image is being used by running:
 
-```
+```bash
 docker ps
 ```
 
@@ -60,7 +60,7 @@ docker ps
 
 Run this Python script within SeaTable to confirm that your required packages are available:
 
-```
+```python
 import importlib.metadata
 
 distributions = importlib.metadata.distributions()

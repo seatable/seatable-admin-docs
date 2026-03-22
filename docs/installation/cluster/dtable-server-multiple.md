@@ -29,7 +29,7 @@ To ensure consistency, implement a **fixed mapping of bases to dtable-servers** 
 
 2. **Update the private network configuration**: Add the IP address of the new server to the `extra_hosts` section on all nodes.
 
-    ```
+    ```yaml
       extra_hosts:
         - "dtable-web:10.0.0.2"
         - "dtable-db:10.0.0.3"
@@ -47,7 +47,7 @@ To route requests to the correct `dtable-server`, add a **proxy component** (usi
 
 Create `/opt/seatable-compose/dtable-server-proxy.yml` on `dtable-web`:
 
-```
+```yaml
 ---
 services:
   dtable-server-proxy:
@@ -81,7 +81,7 @@ networks:
 
 Create `/opt/seatable-compose/nginx-proxy.conf` on `dtable-web`. This configuration defines two upstream servers and a routing map:
 
-```
+```nginx
 worker_processes auto;
 
 events {
@@ -142,7 +142,7 @@ You can adapt the routing logic as needed, for example by splitting bases differ
 
     Edit `conf/gunicorn.py` and update the bind address:
 
-    ```
+    ```python
     bind = '0.0.0.0:8000'
     ```
 
@@ -150,7 +150,7 @@ You can adapt the routing logic as needed, for example by splitting bases differ
 
     Edit `conf/dtable_web_settings.py` and set:
 
-    ```
+    ```python
     INNER_DTABLE_SERVER = 'http://dtable-web:5000/'
     ```
 
@@ -158,7 +158,7 @@ You can adapt the routing logic as needed, for example by splitting bases differ
 
     Edit `/opt/seatable-compose/config/seatable-nginx.conf` to update ping endpoints:
 
-    ```
+    ```bash
     # ping endpoints
     location = /dtable-server/ping/ {
         proxy_pass http://dtable-web:5000/ping/;
@@ -178,7 +178,7 @@ Since the routing logic has changed, update `dtable-db` so it always uses the pr
 
     Edit `conf/dtable-db` and set:
 
-    ```
+    ```ini
     [dtable cache]
     dtable_server_url = "http://dtable-web:5000"
     ```

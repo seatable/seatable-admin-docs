@@ -22,7 +22,7 @@ This article details what should and must be included in your backup, providing 
 
 If you set up your SeaTable server according to this manual, your server should have a folder structure similar to the following.
 
-```
+```text
 /opt
 ├── caddy
 │   ├── ...
@@ -229,7 +229,7 @@ docker exec -i "mariadb" "/usr/bin/mariadb" -u"root" -p'<your_mysql_password>' d
 
 Simply copy all files back to their original position.
 
-```
+```bash
 rsync -az /opt/seatable-backup/seatable /opt/seatable-server
 rsync -az /opt/seatable-backup/seatable-compose /opt
 ```
@@ -238,6 +238,6 @@ rsync -az /opt/seatable-backup/seatable-compose /opt
 
 To restore the big data, you can execute the following command. This will recreate the sql-like database structure from the dumps inside the `storage-data` folder.
 
-```
+```bash
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh restore-all
 ```

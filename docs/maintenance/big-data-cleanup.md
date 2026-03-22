@@ -15,7 +15,7 @@ Using the `ncdu` tool is recommended, as it shows the storage usage per folder.
 
 Example output:
 
-```
+```text
 --- /opt/dtable-db/seatable/db-data ------------------------------------------
   135.4 MiB [##########################] /9ba24950-cd00-42dc-b5e9-233f3de2c2b6
    54.0 MiB [##########                ] /281b15c1-2a12-4da3-814d-145cb703a55b
@@ -46,7 +46,7 @@ This command reclaims unreferenced data blocks and cleans up invalid references 
 
 After running garbage collection, you may see log warnings such as:
 
-```
+```text
 Unable to read: Key: xxx, file with ID not found
 ```
 

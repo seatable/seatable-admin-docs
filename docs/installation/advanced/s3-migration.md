@@ -82,7 +82,7 @@ After the migration is done, you can delete the old avatars directories below `/
 
     Security header configuration in your `seatable-server.yml` might prevent this and you need your S3 url to the Content-Security-Policy.
 
-    ```
+    ```text
     caddy.header.Content-Security-Policy:
         ...
         img-src 'self' data: blob: ... <your-S3-url>

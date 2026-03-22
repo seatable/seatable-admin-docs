@@ -14,13 +14,13 @@ A TOTP app such as Google Authenticator or [2FAS](https://2fas.com/) is required
 
 To enable 2FA, add the following configuration in the configuration file `dtable_web_settings.py`:
 
-```
+```python
 ENABLE_TWO_FACTOR_AUTH = True # Default value is False.
 ```
 
 Optionally, 2FA can be enforced for all users. If you wish to do that, add the following configuration to `dtable_web_settings`:
 
-```
+```python
 ENABLE_FORCE_2FA_TO_ALL_USERS = True # Default value is False.
 ```
 

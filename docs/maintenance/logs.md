@@ -41,7 +41,7 @@ The Nginx logs are under `/shared/nginx-logs`, or `/Your SeaTable data volume/ng
 
 SeaTable's Docker container executes nightly log rotation cron jobs for both SeaTable and nginx logs. The cron jobs are configured as follows:
 
-```
+```text
 54 23 * * * /usr/sbin/logrotate -vf /templates/logrotate-conf/seatable-nginx 2>> /opt/seatable/logs/logrotate.log
 55 23 * * * /usr/sbin/logrotate -vf /templates/logrotate-conf/seatable 2>> /opt/seatable/logs/logrotate.log
 ```
@@ -50,7 +50,7 @@ SeaTable's Docker container executes nightly log rotation cron jobs for both Sea
 
 The log rotation configuration is straightforward and includes the following parameters:
 
-```
+```json
 {
         daily
         missingok
@@ -101,7 +101,7 @@ All relevant configuration files are located in `/templates/logrotate-conf` with
 
 To modify the log rotation settings, you can mount a custom configuration file using Docker Compose. Add the following snippet to your yml-file:
 
-```
+```yaml
 services:
   seatable-server:
     image: ...

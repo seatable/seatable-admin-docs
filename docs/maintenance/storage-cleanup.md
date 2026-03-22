@@ -35,7 +35,7 @@ docker exec seatable-server /opt/seatable/scripts/seatable.sh gc --dry-run
 
 The output should look like:
 
-```
+```text
 Starting seafserv-gc, please wait ...
 2021-04-27 14:30:13 gc-core.c(904): Database is MySQL/Postgre/Oracle, use online GC.
 2021-04-27 14:30:13 gc-core.c(928): Using up to 1 threads to run GC.

@@ -17,7 +17,7 @@ description: Troubleshooting tips for common SeaTable Server issues including st
 
     Execute `docker logs seatable-server`. This should result in:
 
-    ```
+    ```text
     2024-02-04 12:59:17 Start server
     SeaTable started
     2024-02-04 12:59:21 For more startup information, please check the /opt/seatable/logs/init.log
@@ -28,13 +28,13 @@ description: Troubleshooting tips for common SeaTable Server issues including st
 
     Another check might be:
 
-    ```
+    ```bash
     docker exec -it seatable-server curl http://127.0.0.1:8000/server-info/
     ```
 
     This should return:
 
-    ```
+    ```json
     {"version":"4.3.8","edition":"enterprise edition"}
     ```
 
@@ -51,7 +51,7 @@ description: Troubleshooting tips for common SeaTable Server issues including st
 
     Execute `docker ps`. This should be the result:
 
-    ```
+    ```text
     CONTAINER ID   IMAGE                               STATUS                NAMES
     0411d977eb25   seatable/seatable-enterprise:4.3.8  Up 3 days (healthy)   seatable-server
     ```
@@ -62,13 +62,13 @@ description: Troubleshooting tips for common SeaTable Server issues including st
 
     There might be a misconfiguration of `nginx.conf`. nginx provides a configuration checker.
 
-    ```
+    ```bash
     docker exec -it seatable-server nginx -t
     ```
 
     It should look like:
 
-    ```
+    ```text
     nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
     nginx: configuration file /etc/nginx/nginx.conf test is successful
     ```
@@ -77,7 +77,7 @@ description: Troubleshooting tips for common SeaTable Server issues including st
 
 ??? question "Check Caddy"
 
-    ```
+    ```bash
     docker logs caddy
     ```
 
@@ -145,7 +145,7 @@ security headers vielleicth im Bereich Proxy.
 
     In the `seatable-server.yml` file, the SeaTable license file is mounted into the container:
 
-    ``` 
+    ```yaml
     - type: bind
       source: "./seatable-license.txt"
       target: "/shared/seatable/seatable-license.txt"
@@ -158,7 +158,7 @@ security headers vielleicth im Bereich Proxy.
 
     Stop the SeaTable container, remove the directory that Docker created by mistake: and restart SeaTable.
 
-    ```
+    ```bash
     docker stop seatable-server
     rm -r /opt/seatable-server/seatable/seatable-license.txt
     docker start seatable-server

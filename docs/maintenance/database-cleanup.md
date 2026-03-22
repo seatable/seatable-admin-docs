@@ -103,7 +103,7 @@ This command has two advantages over the above command:
 1. It will make sure all pending operations be applied to the base before clearing the logs.
 2. It will clear the logs in small batch, avoiding consuming too much database resource in a short time.
 
-```
+```bash
 $ docker exec seatable-server /opt/seatable/scripts/seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py clean_operation_log
 ```
 

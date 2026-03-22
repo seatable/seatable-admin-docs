@@ -38,7 +38,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,n8n.yml'/" /opt/seatable-compos
 
 Now let's create initial secrets and write them into the .env file.
 
-```
+```bash
 echo -e "\n# n8n" >> /opt/seatable-compose/.env
 echo "N8N_ENCRYPTION_KEY=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env
 echo "POSTGRES_PASSWORD=$(pwgen -s 40 1)" >> /opt/seatable-compose/.env

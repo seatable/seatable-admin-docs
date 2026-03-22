@@ -31,7 +31,7 @@ This example shows how to migrate the user with the username `12ae56789f1e4c8d8e
 
 This is what the database looks like before these commands must be executed:
 
-```
+```sql
 mysql> select email,left(passwd,25) from EmailUser where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 +---------------------------------------------+------------------------------+
 | email                                       | left(passwd,25)              |
@@ -49,7 +49,7 @@ mysql> insert into social_auth_usersocialauth \
 
 Afterwards the databases should look like this:
 
-```
+```sql
 mysql> select email,passwd from EmailUser where email = '12ae56789f1e4c8d8e1c31415867317c@auth.local';
 +---------------------------------------------+------- +
 | email                                       | passwd |

@@ -35,7 +35,7 @@ To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtab
 
 This is a simple sample configuration:
 
-```
+```python
 ENABLE_LDAP = True
 LDAP_PROVIDER = 'ldap'
 LDAP_SERVER_URL = 'ldap://192.168.0.10'
@@ -91,7 +91,7 @@ To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the
 
 Additionally, the following parameters must be added to `dtable-events.conf`:
 
-```
+```ini
 [LDAP SYNC]
 enabled = true
 sync_interval = 60  # The unit is seconds
@@ -103,7 +103,7 @@ In some situations, it is useful to configure LDAP - especially LDAP Sync - and 
 
 Add the following parameter to `dtable_web_settings.py` to instruct SeaTable to use the same `username` no matter if a user (as identified by its `uid`) authenticates via LDAP or SAML.
 
-```
+```python
 LDAP_SAML_USE_SAME_UID = True
 ```
 

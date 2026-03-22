@@ -58,7 +58,7 @@ Alternatively, you can change the command and adapt it to your needs.
 
 To start **Dozzle** for the first time, run:
 
-```
+```bash
 cd /opt/seatable-compose && \
 docker compose up -d
 ```

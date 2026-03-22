@@ -15,7 +15,7 @@ This can free up quite a lot of space if you have deleted columns with lots of v
 
 For the execution you need the `base_uuid`.
 
-```
+```bash
 docker exec -it seatable-server bash
 cd /templates
 seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py repair_base <base_uuid>

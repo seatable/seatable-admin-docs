@@ -182,7 +182,7 @@ SeaTable Enterprise requires a license to start.
 
 Run the following command, replacing `me@example.com` with your valid email address. Shortly after, you'll receive an email with instructions to download your license to the current directory.
 
-```
+```bash
 curl https://get.seatable.com/license/me@example.com
 # ... follow the steps in the email ...
 ```

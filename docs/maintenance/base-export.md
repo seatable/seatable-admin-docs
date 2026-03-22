@@ -37,7 +37,7 @@ Replace `<base_uuid>` with your actual base UUID.
 
 To export only the structured base data and omit all assets (images, files), use the `--ignore-asset` option:
 
-```
+```bash
 seatable.sh python-env /opt/seatable/seatable-server-latest/dtable-web/manage.py export_dtable <base_uuid> --ignore-asset true
 ```
 

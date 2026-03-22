@@ -27,7 +27,7 @@ The cross-domain permissions must be set. This can be done by adding the "Access
 
 Add the following code block to the configuration file `seafile.conf` in `/etc/nginx/sites-available/` or `seafile.nginx.conf` in `/etc/nginx/sites-enabled` (the exact filename and path depend on your Seafile version and installation method):
 
-```
+```nginx
     location / {
         add_header Access-Control-Allow-Origin *;
         if ($request_method = 'OPTIONS') {

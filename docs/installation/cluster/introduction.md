@@ -42,7 +42,7 @@ However, as the number of users and the complexity of the bases increase, bottle
     SeaTable checks every 30 seconds whether its individual components are reachable. If a component does not respond within 20 seconds, the corresponding service is automatically stopped and restarted.
     You will see such events in `logs/monitor.log`, for example:
 
-    ```
+    ```text
     [2025-07-01 11:12:56] [WARNING] Ping error, kill dtable-server
     ```
 

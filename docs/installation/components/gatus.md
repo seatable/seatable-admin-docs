@@ -33,7 +33,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,gatus.yml'/" /opt/seatable-comp
 
 To start Gatus for the first time, run:
 
-```
+```bash
 cd /opt/seatable-compose && \
 docker compose up -d
 ```
@@ -46,7 +46,7 @@ Open `https://<your-seatable-server-hostname>/status` or `https://<your-seatable
 
 Email notifications are preconfigured. You only need to provide the following environment variables in your `.env` file:
 
-```
+```bash
 GATUS_EMAIL_USERNAME=
 GATUS_EMAIL_PASSWORD=
 GATUS_EMAIL_HOST=

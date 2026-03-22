@@ -49,7 +49,7 @@ Imagine you want to replace the login page of SeaTable with something fancier. H
 
 This step must be done only once. It generates the setup that you can start overwrite existing html-files from SeaTable with your own ones. You need the folder to save the copies outside of your docker container and you need a symlink that SeaTable can find your custom files.
 
-```
+```bash
 cd /opt/seatable-server/seatable/seahub-data
 mkdir -p custom/templates/registration
 docker exec -it seatable-server ln -s /shared/seatable/seahub-data/custom /opt/seatable/seatable-server-latest/dtable-web/media/custom
@@ -57,7 +57,7 @@ docker exec -it seatable-server ln -s /shared/seatable/seahub-data/custom /opt/s
 
 ### 2. Copy the original login.html to your custom folder
 
-```
+```bash
 $ docker cp seatable-server:/opt/seatable/seatable-server-latest/dtable-web/seahub/templates/registration/login.html /opt/seatable/seatable-data/seatable/seahub-data/custom/templates/registration/login.html
 ```
 
@@ -71,7 +71,7 @@ Now you can start editing your login.html. Otherwise you can take one of these e
 
 Copy the following content to your login.html. As you can see, the login page was reduced to the maximum. There is no box around the input fields, there is no _language selector_, no _single sign on_, no _signup_ or _forget password_. Error messages are still shown and security features like _CSRF_ and _Captcha_ is still part of the login page.
 
-```
+```html
 {% extends "base_clean.html" %}
 {% load i18n %}
 {% block private_style %}

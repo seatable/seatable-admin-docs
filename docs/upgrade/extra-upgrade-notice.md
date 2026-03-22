@@ -219,7 +219,7 @@ Of course, you can skip this script and make the changes manually. The following
 
     If the Memcached container is still running, you can now stop it and remove it.
 
-    ```
+    ```bash
     docker stop memcached
     ```
 
@@ -456,13 +456,13 @@ There are no version-specific changes required.
 
     1. For new installation, dtable-storage-server.conf will be generated automatically. For upgrade from 2.x, you need to generate the config file manually
 
-    ```
+    ```bash
     docker exec -d seatable /shared/seatable/scripts/seatable.sh init
     ```
 
     dtable-storage-server.conf is as follows
 
-    ```
+    ```ini
     [general]
     log_dir = /opt/seatable/logs
     temp_file_dir = /tmp/tmp-storage-data
@@ -480,7 +480,7 @@ There are no version-specific changes required.
 
     In dtable_web_settings.py
 
-    ```
+    ```python
     NEW_DTABLE_IN_STORAGE_SERVER = True
     ```
 
@@ -488,7 +488,7 @@ There are no version-specific changes required.
 
     In `dtable-db.conf`
 
-    ```
+    ```ini
     [backup]
     dtable_storage_server_url = http://127.0.0.1:6666
     backup_interval = 1440
@@ -515,7 +515,7 @@ There are no version-specific changes required.
 
     In dtable_web_settings.py
 
-    ```
+    ```python
     SESSION_COOKIE_SAMESITE = None
                 |
                 V
@@ -533,7 +533,7 @@ There are no version-specific changes required.
 
     In 2.3 version, we made a small change to dtable-db configuration. If you're upgrading from older versions, you have to manually add below option to conf/dtable-db.conf:
 
-    ```
+    ```ini
     [general]
     ......
     log_dir = /shared/seatable/logs
@@ -543,7 +543,7 @@ There are no version-specific changes required.
 
     It's also suggested to change the `total_cache_size` option to a larger value (e.g. 500MB, depending on how much memory you have):
 
-    ```
+    ```ini
     [dtable cache]
     ......
     total_cache_size = 500
@@ -553,7 +553,7 @@ There are no version-specific changes required.
 
     You also need to add access information to dtable-server MySQL database. (You have to change below options based on your conf/dtable-server.json)
 
-    ```
+    ```ini
     [database]
     host = 127.0.0.1
     user = root
@@ -563,13 +563,13 @@ There are no version-specific changes required.
 
     Add `DTABLE_DB_URL` to dtable_web_settings.py
 
-    ```
+    ```python
     DTABLE_DB_URL = 'https://<your-domain>/dtable-db/'
     ```
 
     Add dtable-db configuration to nginx.conf
 
-    ```
+    ```nginx
         location /dtable-db/ {
             proxy_pass         http://127.0.0.1:7777/;
             proxy_redirect     off;
@@ -592,7 +592,7 @@ There are no version-specific changes required.
 
     Add a new file conf/dtable-db.conf with the following contents and modify `private_key` according to your instance:
 
-    ```
+    ```ini
     [general]
     host = 127.0.0.1
     port = 7777

@@ -112,7 +112,7 @@ Copy the following code block in this file:
 
 Mount this config file into your onlyoffice block in your `docker-compose.yml`.
 
-```
+```yaml
   volumes:
       - /opt/onlyoffice/logs:/var/log/onlyoffice
       - /opt/onlyoffice/data:/var/www/onlyoffice/Data
@@ -122,7 +122,7 @@ Mount this config file into your onlyoffice block in your `docker-compose.yml`.
 
 Restart OnlyOffice to load the new configuration.
 
-```
+```bash
 docker compose up -d
 ```
 

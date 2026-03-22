@@ -16,7 +16,7 @@ Updating/Upgrade (we don't differentiate) a SeaTable Server should take just a f
 
 Just run this command to update SeaTable and all additional components.
 
-```
+```bash
 cd /opt/seatable-compose && \
 wget -c https://github.com/seatable/seatable-release/releases/latest/download/seatable-compose.tar.gz \
 -O - | tar -xz -C /opt/seatable-compose && \
@@ -90,20 +90,20 @@ This part of the manual is only for older version, meaning if you are updating t
 
     Run the following command to get the latest version of Seatable.
 
-    ```
+    ```bash
     docker pull seatable/seatable-enterprise:{tag}
     ```
 
     Stop the currently running SeaTable container.
 
-    ```
+    ```bash
     docker compose down
 
     ```
 
     Then modify SeaTable version in "docker-compose.yml". And start a new SeaTable container.
 
-    ```
+    ```bash
     docker compose up -d
     ```
 
@@ -113,7 +113,7 @@ This part of the manual is only for older version, meaning if you are updating t
 
     Login to the SeaTable container. Then execute the upgrade statement (replace the version numbers accordingly).
 
-    ```
+    ```bash
     # Example of the required commands to update from 3.2.6 to 3.5.10
     docker exec -it seatable /bin/bash
 
@@ -124,7 +124,7 @@ This part of the manual is only for older version, meaning if you are updating t
 
     If the above commands failed to execute for some reasons, (for example, you are using external database instead of the default one started by docker-compose), you can execute the database upgrade commands manually as below:
 
-    ```
+    ```bash
     docker exec -it seatable /bin/bash
 
     cd /opt/seatable/seatable-server-latest/sql/mysql/upgrade

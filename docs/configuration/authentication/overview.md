@@ -51,7 +51,7 @@ The database tables shown in the following sections are for illustrative purpose
 
 The table EmailUser stores all user accounts of a SeaTable Server with the account status and privileges for every user account. Additionally, the table also contains the (hashed) passwords for all users that authenticate directly against SeaTable.
 
-```
+```sql
 mysql> select email,is_staff,is_active,left(passwd,25) from ccnet_db.EmailUser;
 +---------------------------------------------+----------+-----------+---------------------------+
 | email                                       | is_staff | is_active | left(passwd,20)           |
@@ -84,7 +84,7 @@ The last three users in the sample table above are users authenticating using ei
 
 The table `profile_profile`, as the name indicates, contains profile information for every user in the system such as nickname, interface language, and contact email address. Every record in the table `EmailUser` has its correspondence in `profile_profile`.
 
-```
+```sql
 mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.profile_profile;
 +---------------------------------------------+--------------+-----------+-------------------+----------+
 | user                                        | nickname     | lang_code | contact_email     | login_id |
@@ -114,7 +114,7 @@ mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.prof
 
 The table `social_auth_usersocialauth` is critical for external authentication with LDAP, SAML, or OAuth. This table maps the user's SeaTable username to its unique identifiers from the identity providers. Every record in the table `EmailUser` without a password must have at least one correspondence in this table to be able to log into SeaTable using _external authentication_.
 
-```
+```sql
 mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 +---------------------------------------------+----------------+--------------------------------------+
 | username                                    | provider       | uid                                  |
@@ -133,7 +133,7 @@ mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 
 This table stores the user IDs. Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.
 
-```
+```sql
 mysql> select * from dtable_db.id_in_org_tuple;
 +---------------------------------------------+-----------+--------+
 | virtual_id                                  | id_in_org | org_id |

@@ -6,7 +6,7 @@ description: Use managed cloud services for MariaDB, Redis, and S3 in a SeaTable
 
 # Managed services
 
-```
+```bash
 # components to be used; IMPORTANT: there should be no space between the files names !
 COMPOSE_FILE='mariadb.yml,redis.yml,s3.yml'
 COMPOSE_PATH_SEPARATOR=','
@@ -22,7 +22,7 @@ REDIS_PASSWORD='xxx'
 
 ## S3 with minio
 
-```
+```yaml
 ---
 services:
   caddy:
@@ -74,7 +74,7 @@ networks:
 
 ## Redis
 
-```
+```yaml
 ---
 services:
   redis:
@@ -104,7 +104,7 @@ networks:
 
 ## Mariadb
 
-```
+```yaml
 ---
 services:
   mariadb:
