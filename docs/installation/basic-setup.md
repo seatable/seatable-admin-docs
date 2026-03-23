@@ -200,19 +200,25 @@ docker compose up -d
 If the initialization completes successfully, you can open your web browser and access your SeaTable Server instance using the URL specified in the `.env` file.
 Sign in using the credentials you provided in the same file.
 
+!!! success "HTTPS is automatic"
+
+    Caddy automatically obtains and renews Let's Encrypt certificates for the domain configured in your `.env` file. No manual certificate management is required. If you need to use custom certificates instead, see [Custom Certificates](./advanced/custom-certificates.md).
+
 :partying_face: **Congratulations!** You've completed the basic setup of SeaTable Server.
 
 ## Next steps
 
-Your SeaTable journey has just begun! While you can dive straight into SeaTable, creating bases, adding users, utilizing the API, and more, there's an array of possibilities to explore. Here are a few examples:
+Your SeaTable Server is running — here are the recommended next steps:
 
-- Expand functionality by installing additional components like the [Python Pipeline](./components/python-pipeline.md) or [n8n](./components/n8n.md).
-- Integrate [Plugins](../configuration/plugins.md) into your SeaTable Server to enable users to utilize them within a base.
-- Configure your server to enable [email notifications](../configuration/sending-email.md), [templates](../customization/templates.md), or [Single Sign-On (SSO)](../configuration/authentication/saml.md).
-- For troubleshooting or queries during installation, refer to the [FAQ section](./faq.md) for assistance.
+!!! warning "Set up backups before going to production"
 
-This manual covers a range of topics, from **advanced cluster installations** to detailed **configuration options**. Take your time to explore these possibilities. If you can't find what you need or require assistance, consider posting in the community forum.
+    Before you start using SeaTable productively, make sure to set up a [backup procedure](../maintenance/backup-recovery.md). For single-node servers, the [Restic backup container](./components/restic.md) provides an easy automated solution.
 
-Encounter an issue or need clarity? Feel free to create a post on the [SeaTable community forum](https://forum.seatable.com). We're here to assist and improve this manual based on your feedback.
+- **Email**: Configure [email sending](../configuration/sending-email.md) so SeaTable can send notifications and password reset emails.
+- **Plugins**: Install [plugins](../configuration/plugins.md) to enable additional views like Gallery, Map, or Kanban.
+- **Components**: Expand functionality with the [Python Pipeline](./components/python-pipeline.md), [n8n](./components/n8n.md), or [office editors](./components/collabora.md).
+- **Authentication**: Set up [Single Sign-On](../configuration/authentication/saml.md) or [LDAP](../configuration/authentication/ldap.md) for centralized user management.
+- **Monitoring**: Add [Gatus](./components/gatus.md) or [Uptime Kuma](./components/uptime-kuma.md) to monitor your instance.
+- **Troubleshooting**: Check the [FAQ](./faq.md) if you run into issues.
 
-For sure you can also contribute directly and create a pull request at GitHub.
+This manual covers everything from **advanced cluster installations** to detailed **configuration options**. If you can't find what you need, post in the [SeaTable community forum](https://forum.seatable.com) or contribute directly via pull request on GitHub.

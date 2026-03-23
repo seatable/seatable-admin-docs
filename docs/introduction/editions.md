@@ -6,9 +6,26 @@ description: Comparison of SeaTable Server Enterprise and Developer editions, in
 
 There are two editions of SeaTable Server available for self hosting.
 
-- **Enterprise Edition**: almost no limitation for storage, row numbers and API calls and have advanced permissions and user management features. It is meant for large teams to use SeaTable in both ways. Users can use it in the cloud or self-hosted.
+- **Enterprise Edition**: The full-featured edition with advanced permissions, custom roles, Big Data archiving, and enterprise authentication. Requires a license (free for up to 3 users).
 
-- **Developer Edition**: for users that want to use SeaTable as database and heavily using APIs and scripts. The developer edition has no limit on storage, row numbers and API calls, but can support at most 200 concurrent connections to dtable-server.
+- **Developer Edition**: For developers and small teams using SeaTable as a database backend via APIs and scripts. No license required, but limited to 200 concurrent connections to dtable-server and without enterprise features.
+
+## Feature comparison
+
+| Feature | Developer | Enterprise |
+|---|:---:|:---:|
+| Storage, rows, API calls | Unlimited | Unlimited |
+| Concurrent connections (dtable-server) | 200 | Unlimited |
+| Advanced permissions (column/row level) | - | Yes |
+| Advanced customization | - | Yes |
+| External apps | - | Yes |
+| Row archiving (Big Data) | - | Yes |
+| Custom user roles & quotas | - | Yes |
+| Custom admin roles | - | Yes |
+| Universal App (HTML pages) | - | Yes |
+| Prometheus metrics endpoint | - | Yes |
+| License required | No | Yes (free for up to 3 users) |
+| SaaS usage permitted | No | No |
 
 ## License and limitation of SeaTable Developer Edition
 
