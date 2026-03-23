@@ -293,7 +293,3 @@ nav:
       - Add custom error messages: maintenance/debugging.md
       - Secrets Management: maintenance/secrets.md
       - Helper Scripts: maintenance/helper-scripts.md
-#  - Migration:
-#      - Mysql: config/ccnet-conf.md
-#      - Postgres: config/ccnet-conf.md
-#      - Airtable: config/ccnet-conf.md
