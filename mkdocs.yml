@@ -292,4 +292,5 @@ nav:
       - Logging: maintenance/logs.md
       - Add custom error messages: maintenance/debugging.md
       - Secrets Management: maintenance/secrets.md
+      - MariaDB Tuning: maintenance/mariadb-tuning.md
       - Helper Scripts: maintenance/helper-scripts.md
