@@ -18,4 +18,4 @@ Open the configuration file `dtable_web_settings.py` located at `/opt/seatable-s
 HELP_LINK = 'https://seatable.com/help/'
 ```
 
-Don't forget to restart SeaTable service.
+Don't forget to [restart SeaTable service](../maintenance/restart-seatable.md).
