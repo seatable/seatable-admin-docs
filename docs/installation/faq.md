@@ -35,7 +35,7 @@ description: Troubleshooting tips for common SeaTable Server issues including st
     This should return:
 
     ```json
-    {"version":"4.3.8","edition":"enterprise edition"}
+    {"version":"6.1.3","edition":"enterprise edition"}
     ```
 
     If you don't see this, SeaTable Service is definitely not running. Try to [restart the service](../maintenance/restart-seatable.md) and check the logs for more details.
@@ -53,7 +53,7 @@ description: Troubleshooting tips for common SeaTable Server issues including st
 
     ```text
     CONTAINER ID   IMAGE                               STATUS                NAMES
-    0411d977eb25   seatable/seatable-enterprise:4.3.8  Up 3 days (healthy)   seatable-server
+    0411d977eb25   seatable/seatable-enterprise:6.1.3  Up 3 days (healthy)   seatable-server
     ```
 
     If the container is not (healthy), you can be sure, that something is wrong with the container.

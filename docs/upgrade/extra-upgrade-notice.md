@@ -238,7 +238,7 @@ Of course, you can skip this script and make the changes manually. The following
 
 ??? info "New Whiteboard plugin"
 
-    The Excalidraw-based whiteboard plugin introduced in v5.0 is now deprecated and will be removed in v5.3. We've developed a new whiteboard plugin using [tldraw](https://tldraw.dev), which requires an additional Docker container on your SeaTable server.
+    The Excalidraw-based whiteboard plugin introduced in v5.0 was deprecated and removed in v5.3. A new whiteboard plugin using [tldraw](https://tldraw.dev) has been developed, which requires an additional Docker container on your SeaTable server.
 
     For installation, follow the instructions available [here](../installation/components/whiteboard.md). You can easily copy and paste your drawings from the old plugin to the new one. If you have any problems, please report at the [forum](https://forum.seatable.com).
 
