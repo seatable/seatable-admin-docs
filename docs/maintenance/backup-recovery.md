@@ -212,32 +212,66 @@ This section covers typical custom cases and provides additional advanced topics
 
 ## Restore
 
-To restore your server, simply install a fresh new SeaTable Server and then import the mariadb dumps and copy all the user data.
+The following steps guide you through a complete restore of your SeaTable Server. They assume you are restoring to a fresh server with the backup available at `/opt/seatable-backup/`. If you are restoring to the same server, skip step 1.
 
-### Restore the databases
+### 1. Install a fresh SeaTable Server
+
+Follow the [basic setup](../../installation/basic-setup.md) up to and including `docker compose up -d`. Wait for the initial setup to complete successfully, then stop all containers:
 
 ```bash
-# replace <your_mysql_password> with your actual MySQL password (might be still present in /opt/seatable-compose/.env)
-# beware that this method will expose your mysql password in the process list and shell history of the docker host
-
-docker exec -i "mariadb" "/usr/bin/mariadb" -u"root" -p'<your_mysql_password>' ccnet_db < /opt/seatable-backup/ccnet_db.sql
-docker exec -i "mariadb" "/usr/bin/mariadb" -u"root" -p'<your_mysql_password>' seafile_db < /opt/seatable-backup/seafile_db.sql
-docker exec -i "mariadb" "/usr/bin/mariadb" -u"root" -p'<your_mysql_password>' dtable_db < /opt/seatable-backup/dtable_db.sql
+cd /opt/seatable-compose
+docker compose down
 ```
 
-### Restore the SeaTable data and deployment settings
+### 2. Restore the databases
 
-Simply copy all files back to their original position.
+Start only MariaDB and wait a few seconds for it to be ready:
+
+```bash
+docker compose up -d mariadb
+```
+
+Then import the database dumps:
+
+```bash
+source /opt/seatable-compose/.env
+docker exec -i mariadb mariadb -uroot -p${MARIADB_PASSWORD} ccnet_db < /opt/seatable-backup/ccnet_db.sql
+docker exec -i mariadb mariadb -uroot -p${MARIADB_PASSWORD} seafile_db < /opt/seatable-backup/seafile_db.sql
+docker exec -i mariadb mariadb -uroot -p${MARIADB_PASSWORD} dtable_db < /opt/seatable-backup/dtable_db.sql
+```
+
+### 3. Restore files and configuration
+
+Copy the base data and deployment settings back to their original locations:
 
 ```bash
 rsync -az /opt/seatable-backup/seatable /opt/seatable-server
 rsync -az /opt/seatable-backup/seatable-compose /opt
 ```
 
-### Restore the dtable-db data
-
-To restore the big data, you can execute the following command. This will recreate the sql-like database structure from the dumps inside the `storage-data` folder.
+### 4. Start SeaTable and restore Big Data
 
 ```bash
+cd /opt/seatable-compose
+docker compose up -d
 docker exec -it seatable-server /opt/seatable/scripts/seatable.sh restore-all
 ```
+
+The `restore-all` command recreates the Big Data database structure from the dumps in the `storage-data` folder.
+
+### 5. Verify the restore
+
+- Open SeaTable in the browser and log in with your admin account
+- Check that bases and their content are accessible
+- Verify that file and image columns load correctly
+- Open a base with Big Data views and confirm the data is present
+
+!!! warning "Restoring to a different URL?"
+
+    If your new server uses a different domain than the original, you must run the [domain change procedure](./domain-change.md) after the restore. Otherwise, assets from file and image columns will not be accessible.
+
+!!! warning "Take care of PLUGINS_REPO_ID"
+
+    During the initial startup, SeaTable writes a variable called `PLUGIN_REPO_ID` to `dtable_web_settings.py`. This variable references a hidden library that stores plugin installation files.
+
+    When restoring, you have two options: either keep the existing value from your backup (ensuring the corresponding repository exists in dtable-storage), or delete the value from `dtable_web_settings.py` and let SeaTable generate a new one on the next start.
