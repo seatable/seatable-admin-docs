@@ -227,7 +227,7 @@ Of course, you can skip this script and make the changes manually. The following
 
      If you're using S3 object storage for files and pictures AND have Memcached configured in your `seafile.conf` file, it is crucial that you update your configuration. Otherwise you can ignore this notice.
 
-    Please follow the instructions in our help article about [caching for S3](../../installation/advanced/s3/#s3-for-files-and-pictures).
+    Please follow the instructions in our help article about [caching for S3](../../installation/advanced/s3.md#s3-for-files-and-pictures).
 
 ??? info "New Snapshot and Backup Retention Strategy"
 

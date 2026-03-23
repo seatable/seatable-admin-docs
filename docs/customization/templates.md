@@ -75,13 +75,13 @@ To ensure optimal display in the SeaTable **main template**, please provide two 
 
 Now it's time to create your initial bases, which you'll offer as templates. As recommended, organize these templates within folders.
 
-Once you've created your bases, you'll need to generate **external links** for each base and paste them into your master template base. Refer to this help article from the user documentation on [how to create external links](https://seatable.io/docs/freigaben/externer-link-erklaert/?lang=auto).
+Once you've created your bases, you'll need to generate **external links** for each base and paste them into your master template base. Refer to this help article from the user documentation on [how to create external links](https://seatable.com/help/external-link-explained-seatable).
 
 You can add more templates to your **main template** base at any time. They'll be immediately accessible to all users, and no restart is required.
 
 ## Generate an API Token for Your Base
 
-Now that you've set up your master base and created some template bases, it's time to generate an API token for the master base. Refer to this help article from the user documentation on [how to create an API token](https://seatable.io/docs/seatable-api/erzeugen-eines-api-tokens/?lang=auto).
+Now that you've set up your master base and created some template bases, it's time to generate an API token for the master base. Refer to this help article from the user documentation on [how to create an API token](https://seatable.com/help/create-api-tokens).
 
 Make sure to note down the API token as you'll need it for the next step.
 

@@ -1,6 +1,4 @@
 ---
-search: 
-  exclude: true
 description: Use managed cloud services for MariaDB, Redis, and S3 in a SeaTable cluster deployment.
 ---
 
@@ -15,7 +13,7 @@ COMPOSE_PATH_SEPARATOR=','
 TIME_ZONE='Europe/Berlin'
 
 # database
-SEATABLE_MYSQL_ROOT_PASSWORD='xxx'
+MARIADB_PASSWORD='xxx'
 REDIS_PASSWORD='xxx'
 
 ```

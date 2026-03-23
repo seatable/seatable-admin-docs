@@ -4,7 +4,7 @@ description: Complete reference for dtable-db configuration in dtable-db.conf in
 
 # Configuration of dtable-db
 
-This is a cheat sheet for the [dtable-db](/introduction/architecture/#dtable-db) configuration file `dtable-db.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the [dtable-db](/introduction/architecture.md#dtable-db) configuration file `dtable-db.conf`. It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 

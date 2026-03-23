@@ -4,7 +4,7 @@ description: Configure the Seafile file server (seaf-server) in SeaTable includi
 
 # Configuration of Seafile
 
-This is a cheat sheet for the [seaf-server](/introduction/architecture/#seaf-server) configuration file `seafile.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the [seaf-server](/introduction/architecture.md#seaf-server) configuration file `seafile.conf`. It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 

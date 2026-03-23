@@ -9,7 +9,7 @@ This guide describes the standalone deployment of `seatable-ai` on a dedicated s
 ## Prerequisites
 
 - You have successfully installed [Docker and Docker-Compose](../basic-setup.md#install-docker-and-docker-compose-plugin)
-- You have [downloaded the latest `.yml` files](../basic-setup.md#1-create-basic-structure) from the `seatable-release` GitHub repository
+- You have [downloaded the latest `.yml` files](../basic-setup.md#create-basic-structure) from the `seatable-release` GitHub repository
 - The hosts destined to run `seatable-ai` and other SeaTable components are attached to the same private network
 
 ## SeaTable AI Configuration

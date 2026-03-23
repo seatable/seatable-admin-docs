@@ -4,7 +4,7 @@ description: Complete reference for dtable-server configuration including row li
 
 # Configuration of dtable-server
 
-This is a cheat sheet for the possible configuration options of [dtable-server](/introduction/architecture/#dtable-server). It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-server](/introduction/architecture.md#dtable-server). It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
 
@@ -16,7 +16,7 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 ## Environment Variables
 
-This section lists the environment variables read by [dtable-server](/introduction/architecture/#dtable-server).
+This section lists the environment variables read by [dtable-server](/introduction/architecture.md#dtable-server).
 
 Please note that these variables are not included in `seatable-server.yml` by default.
 We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.

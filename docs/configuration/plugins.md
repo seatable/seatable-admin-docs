@@ -6,7 +6,7 @@ description: Install, update, and configure SeaTable plugins via the web interfa
 
 SeaTable Server supports plugins. Plugins provide additional visualization or interaction possibilities within a SeaTable base. Examples of SeaTable plugins include the Gallery, the Map or the Kanban board, providing users with versatile options to visualize their data.
 
-Discover a comprehensive list of publicly available plugins and learn how to leverage them in our [user documentation](https://seatable.io/docs/plugins/alle-plugins-in-der-uebersicht/?lang=auto).
+Discover a comprehensive list of publicly available plugins and learn how to leverage them in our [user documentation](https://seatable.com/help/plugins-overview).
 
 Typically, installation of a plugin requires action from the system administrator on the SeaTable server. Once installed, any user can easily activate the plugin within their base, unlocking its full potential.
 

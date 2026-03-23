@@ -35,7 +35,7 @@ docker compose up -d
 
 After some seconds your SeaTable Server should be reachable again. You can check the current version of your SeaTable Server opening the URL `https://<your-seatable-domain>/server-info`.
 
-Now, you should login as system administrator, switch to the system admin area, and update the plugins as well. You can find more information about the [updating the plugins here](../../configuration/plugins/).
+Now, you should login as system administrator, switch to the system admin area, and update the plugins as well. You can find more information about the [updating the plugins here](../../configuration/plugins.md).
 
 ## Version specific changes and configurations
 

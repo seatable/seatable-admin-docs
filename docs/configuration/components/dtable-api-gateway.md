@@ -4,7 +4,7 @@ description: Complete reference for all api-gateway configuration options in dta
 
 # Configuration of api-gateway
 
-This is a cheat sheet for the [api-gateway](/introduction/architecture/#api-gateway) configuration file `dtable-api-gateway.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the [api-gateway](/introduction/architecture.md#api-gateway) configuration file `dtable-api-gateway.conf`. It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all.
 

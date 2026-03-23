@@ -76,7 +76,7 @@ Do you want to execute your first Python script in SeaTable? Nothing easier than
 
 - Login to your SeaTable Server.
 - Create a new base and open it.
-- Add a Python script with the content `print("Hello World")` and execute it. If you don't know how to do this, check out our [user manual](https://seatable.io/docs/javascript-python/anlegen-und-loeschen-eines-skriptes/?lang=auto).
+- Add a Python script with the content `print("Hello World")` and execute it. If you don't know how to do this, check out our [user manual](https://seatable.com/help/create-delete-script-seatable).
 
 If everything went well, you should see the output `Hello World`.
 
