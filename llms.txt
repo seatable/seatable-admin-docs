@@ -98,6 +98,7 @@
 
 - [Introduction](https://admin.seatable.com/installation/cluster/introduction/): Learn when to use a SeaTable cluster setup vs. single-node installation, including naming conventions and signs of overload.
 - [Requirements](https://admin.seatable.com/installation/cluster/requirements/): Hardware, network, and software requirements for deploying a SeaTable cluster, including recommendations for 1,000+ users.
+- [Managed Services](https://admin.seatable.com/installation/cluster/managed-services/): Use managed cloud services for MariaDB, Redis, and S3 in a SeaTable cluster deployment.
 
 ### Step-by-step guide
 
@@ -120,9 +121,9 @@
 ### User Hierarchy
 
 - [Overview](https://admin.seatable.com/configuration/user-hierarchy/overview/): Overview of SeaTable's user hierarchy including users, groups, teams/organizations, and departments.
-- [Groups](https://admin.seatable.com/configuration/user-hierarchy/groups/): Groups in SeaTable are enabled by default and can be restricted through user role configuration.
+- [Groups](https://admin.seatable.com/configuration/user-hierarchy/groups/): Groups in SeaTable allow users to share bases and collaborate, with configurable limits and roles.
 - [Teams/Organizations](https://admin.seatable.com/configuration/user-hierarchy/teams-organizations/): Configure teams and organizations in SeaTable to isolate user groups with separate visibility and permissions.
-- [Departments](https://admin.seatable.com/configuration/user-hierarchy/departments/): Configure departments in SeaTable, an extension of groups that adds a dedicated column type for organizational structures.
+- [Departments](https://admin.seatable.com/configuration/user-hierarchy/departments/): Configure departments in SeaTable to add hierarchical organizational structures with automatic membership inheritance.
 
 ### Authentication
 
@@ -183,11 +184,12 @@
 - [Filesystem check](https://admin.seatable.com/maintenance/filesystem-check/): Use the seaf-fsck tool to check, repair, and export SeaTable file system libraries after data corruption.
 - [Change URL](https://admin.seatable.com/maintenance/domain-change/): Update your SeaTable Server domain by changing configuration files, SSL certificates, and internal file URLs.
 - [Export Base](https://admin.seatable.com/maintenance/base-export/): Export and import SeaTable bases from the command line as .dtable files or complete folders including big data.
-- [Repair Base](https://admin.seatable.com/maintenance/repair-base/): Repair and prune SeaTable bases from the command line to fix structural issues and reduce base size.
+- [Repair Base](https://admin.seatable.com/maintenance/repair-base/): Repair and prune SeaTable bases from the command line or web UI to fix structural issues and reduce base size.
 - [Password reset](https://admin.seatable.com/maintenance/password-reset/): Reset user passwords or create a new admin account in SeaTable Server via the system admin area or command line.
 - [Logging](https://admin.seatable.com/maintenance/logs/): Overview of SeaTable Server and Nginx log file locations, log rotation configuration, and customization options.
 - [Add custom error messages](https://admin.seatable.com/maintenance/debugging/): Advanced debugging techniques for SeaTable Server including how to add custom error messages.
 - [Secrets Management](https://admin.seatable.com/maintenance/secrets/): Understand SeaTable's SECRET_KEY and PRIVATE_KEY, their roles in session management, and why they should not be changed.
+- [MariaDB Tuning](https://admin.seatable.com/maintenance/mariadb-tuning/): Optimize MariaDB performance for SeaTable Server with custom configuration settings.
 - [Helper Scripts](https://admin.seatable.com/maintenance/helper-scripts/): Shell scripts for common SeaTable admin tasks like activating users, querying user stats, and dumping databases.
 
 ## Complete Content
