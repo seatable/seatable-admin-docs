@@ -77,6 +77,13 @@ These must be configured inside your `.env` file:
     SEATABLE_AI_LLM_KEY=<your API key>
     SEATABLE_AI_LLM_MODEL=<your deployment name>
     ```
+=== "Gemini / Google AI Studio"
+    ```ini
+    SEATABLE_AI_LLM_TYPE=gemini
+    # Leave SEATABLE_AI_LLM_URL unset
+    SEATABLE_AI_LLM_KEY=<your LLM access key>
+    SEATABLE_AI_LLM_MODEL=<your model-id>
+    ```
 === "Ollama"
     ```ini
     SEATABLE_AI_LLM_TYPE=ollama
