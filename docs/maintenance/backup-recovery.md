@@ -6,11 +6,11 @@ description: Complete guide to backing up and restoring a SeaTable Server, inclu
 
 If you decide to run your own SeaTable Server, it is essential to ensure that you have a backup in place.
 
-To understand what needs to be backed up, you must first understand the architecture of a SeaTable Server. If you have not yet read the [relevant chapter](../../introduction/architecture.md), please do so now.
+To understand what needs to be backed up, you must first understand the architecture of a SeaTable Server. If you have not yet read the [relevant chapter](../introduction/architecture.md), please do so now.
 
 !!! success "Backup container for single-node server"
 
-    For single-node servers, we offer a [user-friendly backup container](../../installation/components/restic.md) that simplifies the process. Even with this tool, it is important to read this article to gain a thorough understanding of SeaTable backup procedures.
+    For single-node servers, we offer a [user-friendly backup container](../installation/components/restic.md) that simplifies the process. Even with this tool, it is important to read this article to gain a thorough understanding of SeaTable backup procedures.
 
 This article details what should and must be included in your backup, providing you with the knowledge to create your own backup procedure.
 
@@ -69,7 +69,7 @@ Let us clarify where you find which content and how we should backup them.
 
 !!! warning "Base data is not stored in the MariaDB database"
 
-    A common misunderstanding is the assumption that the content of SeaTable bases is stored in the MariaDB container. This is not the case. Refer to the chapter about [SeaTable architecture](../../introduction/architecture.md) for more details.
+    A common misunderstanding is the assumption that the content of SeaTable bases is stored in the MariaDB container. This is not the case. Refer to the chapter about [SeaTable architecture](../introduction/architecture.md) for more details.
 
 SeaTable creates three databases in the `mariadb` Docker container, storing these kind of data types:
 
@@ -176,7 +176,7 @@ This section covers typical custom cases and provides additional advanced topics
 
 ??? success "S3 Object storage instead of local storage"
 
-    If you're using [S3 Object Storage](../../installation/advanced/s3.md) instead of local storage, the folders `storage-data` and `seafile-data` aren't stored on the local file system. Instead, all data is stored in four S3 buckets. Three buckets `fs`, `commits` and `blocks` contain assets from file/image column and `storage` contains the base data.
+    If you're using [S3 Object Storage](../installation/advanced/s3.md) instead of local storage, the folders `storage-data` and `seafile-data` aren't stored on the local file system. Instead, all data is stored in four S3 buckets. Three buckets `fs`, `commits` and `blocks` contain assets from file/image column and `storage` contains the base data.
 
     A recommended backup method would be to implement an S3 sync with active versioning and lifecycle management.
 
@@ -216,7 +216,7 @@ The following steps guide you through a complete restore of your SeaTable Server
 
 ### 1. Install a fresh SeaTable Server
 
-Follow the [basic setup](../../installation/basic-setup.md) up to and including `docker compose up -d`. Wait for the initial setup to complete successfully, then stop all containers:
+Follow the [basic setup](../installation/basic-setup.md) up to and including `docker compose up -d`. Wait for the initial setup to complete successfully, then stop all containers:
 
 ```bash
 cd /opt/seatable-compose
