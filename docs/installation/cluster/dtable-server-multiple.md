@@ -177,10 +177,10 @@ Create `/opt/seatable-compose/dtable-server-proxy.yml` on `dtable-web`:
     }
 
     :5000 {
-            metrics /metrics
-
             # Use route to disable internal reordering of directives
             route {
+                    metrics /metrics
+
                     # Static paths are proxied to dtable-server:5000
                     @staticPaths {
                             path /ping/ /api/v1/admin/sys-info/
