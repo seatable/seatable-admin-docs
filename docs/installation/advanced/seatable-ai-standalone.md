@@ -37,6 +37,8 @@ REDIS_PASSWORD=
 # This private key must have the same value as the JWT_PRIVATE_KEY variable on other SeaTable nodes
 JWT_PRIVATE_KEY=
 
+SECRET_KEY=
+
 # Public URL of your SeaTable server
 SEATABLE_SERVER_URL=https://seatable.your-domain.com
 
