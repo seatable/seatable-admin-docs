@@ -49,6 +49,8 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
 
     # shared secret for secure communication
     JWT_PRIVATE_KEY='topsecret'
+
+    SECRET_KEY='anothertopsecret'
     ```
 
 ??? success "Remove Redis and Mariadb from your YAML file."
