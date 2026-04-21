@@ -48,6 +48,8 @@ REDIS_PASSWORD='topsecret'
 
 JWT_PRIVATE_KEY='topsecret' # (8)!
 
+SECRET_KEY='anothertopsecret' # (15)!
+
 # SeaDoc
 ENABLE_SEADOC='false'
 SEADOC_PORT=''
@@ -104,6 +106,7 @@ SEATABLE_HELP_LINK=https://seatable.com/help/ # (11)!
 12. Please refer to [Email Sending](./sending-email.md) for more information.
 13. Please refer to [Python Pipeline](../installation/components/python-pipeline.md) for more information.
 14. Please refer to [SeaTable AI](../installation/components/seatable-ai.md) for more information.
+15. This secret key is used to Django in SeaTable.
 
 <!--
 TODO: add environment variables for cluster setup!
