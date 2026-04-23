@@ -4,6 +4,13 @@ description: Version-specific upgrade notices and required configuration changes
 
 # Extra upgrade notice
 
+## 6.2
+
+- SECRET_KEY aus dtable_web_settings.py in .env 
+- wenn rollen verwendet, dann: `sed -i "s/'scripts_running_limit'/'scripts_running_limit_per_user'/" /opt/dtable-web/seatable/conf/dtable_web_settings.py`
+- env anstelle von configurationsdateien - diese sollten bis auf dtable_web_settings.py sogar weg!
+für uns: dokumentation von "kopiere die yml vollständig" in patch-yamls.
+
 ## 6.1
 
 Several Docker image tags have been updated to newer versions. These changes are applied automatically when you pull the latest images. Remember to also update your [plugins](../configuration/plugins.md).
