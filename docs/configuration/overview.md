@@ -79,7 +79,7 @@ SEATABLE_TEMPLATE_TABLE_NAME=
 SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE=
 
 # Logging
-SEATABLE_LOG_LEVEL=INFO # (10)!
+LOG_LEVEL=INFO # (10)!
 
 # Docker Images
 # You can use these variables to override the default images
