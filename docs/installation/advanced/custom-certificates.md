@@ -99,10 +99,10 @@ If you only mount your own certificate, the runner will no longer trust any publ
 
 ```bash
 cat /etc/ssl/certs/ca-certificates.crt /opt/caddy/certs/cert.pem \
-  > /opt/caddy/certs/runner-ca-bundle.crt
+  > /opt/seatable-compose/runner-ca-bundle.crt
 ```
 
-Repeat this step whenever your custom certificate is renewed.
+The bundle is placed next to your compose files and `.env` so that it is co-located with the configuration that references it. Repeat this step whenever your custom certificate is renewed.
 
 ### Configure the python-starter
 
@@ -112,7 +112,7 @@ Add the following to your `custom-python-pipeline.yml` (create it if it does not
 services:
   python-starter:
     environment:
-      - PYTHON_RUNNER_OTHER_OPTIONS=["--volume=/opt/caddy/certs/runner-ca-bundle.crt:/etc/ssl/certs/runner-ca-bundle.crt:ro","--env=REQUESTS_CA_BUNDLE=/etc/ssl/certs/runner-ca-bundle.crt"]
+      - PYTHON_RUNNER_OTHER_OPTIONS=["--volume=/opt/seatable-compose/runner-ca-bundle.crt:/etc/ssl/certs/runner-ca-bundle.crt:ro","--env=REQUESTS_CA_BUNDLE=/etc/ssl/certs/runner-ca-bundle.crt"]
 ```
 
 !!! info "Syntax of PYTHON_RUNNER_OTHER_OPTIONS"
