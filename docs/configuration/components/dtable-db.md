@@ -94,6 +94,14 @@ These settings allow configuring how data stored inside the big data backend is 
       This method provides detailed recent backups and efficient long-term storage, balancing data granularity with space conservation.
       For example, setting `DTABLE_DB_BACKUP_KEEP_DAYS=180` and `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS=7` would keep daily backups for the past week, then monthly backups for the past six months (except for the past week).
 
+### Metrics
+
+| Environment Variable                  | Description                                                          | Default |
+| ------------------------------------- | -------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_METRICS_ENABLE_BASIC_AUTH` | Whether basic authentication is enabled for the `/metrics` endpoint. | false   |
+| `DTABLE_DB_METRICS_USERNAME`          | Username for basic authentication for the `/metrics` endpoint.       |         |
+| `DTABLE_DB_METRICS_PASSWORD`          | Password for basic authentication for the `/metrics` endpoint.       |         |
+
 ## Configuration File (Legacy)
 
 !!! warning "Configuration file is not read anymore from v6.2 onwards"
