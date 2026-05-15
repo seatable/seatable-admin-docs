@@ -4,11 +4,10 @@ description: Configure dtable-events for automations, email notifications, LDAP 
 
 # Configuration of dtable-events
 
-This is a cheat sheet for the possible configuration options of [dtable-events](/introduction/architecture.md#dtable-events). It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-events](../../introduction/architecture.md#dtable-events).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
@@ -16,7 +15,9 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 ## Environment Variables
 
-This section lists the environment variables read by [dtable-events](/introduction/architecture.md#dtable-events).
+<!-- md:version 6.2 -->
+
+This section lists the environment variables read by [dtable-events](../../introduction/architecture.md#dtable-events).
 
 Please note that these variables are not included in `seatable-server.yml` by default.
 We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
@@ -42,6 +43,67 @@ This ensures that SeaTable upgrades stay seamless.
 
 By default, these settings will limit a single team to 25% of the available automation running time (calculated by `AUTOMATION_WORKERS * AUTOMATION_RATE_LIMIT_WINDOW_SECS`) within 5 minutes.
 
+### Common Dataset Syncer
+
+SeaTable runs every hour this event to check for pending dataset syncs. The job processes datasets that need syncing based on their interval (per_day, per_hour) and validity.
+
+| Environment Variable            | Description                                   | Default |
+| ------------------------------- | --------------------------------------------- | ------- |
+| `COMMON_DATASET_SYNCER_ENABLED` | Enables or disables the common dataset syncer | true    |
+
+### Database Cleanup
+
+**Enabled** by default since v6.2.
+
+This setting controls whether SeaTable runs automated database cleanup tasks at 00:30 every day.
+Enabling this task ensures that your database stays lean and performs well. It also prevents the server from running out of disk space, since operation logs can take up quite a lot of space.
+
+In addition, the retention periods for the different database tables can be customized.
+Setting any value to `0` or `-1` causes the cleanup task to be skipped for the corresponding database table.
+
+| Environment Variable                                | Description                                                                | Default |
+| --------------------------------------------------- | -------------------------------------------------------------------------- | ------- |
+| `CLEAN_DB_ENABLED`                                  | Enables the automated database cleanup tasks                               | true    |
+| `CLEAN_DB_KEEP_DTABLE_SNAPSHOT_DAYS`                | Retention period for snapshot entries in the database (in days)            | 365     |
+| `CLEAN_DB_KEEP_ACTIVITIES_DAYS`                     | Retention period for activities (in days)                                  | 30      |
+| `CLEAN_DB_KEEP_OPERATION_LOG_DAYS`                  | Retention period for operation log entries (in days)                       | 14      |
+| `CLEAN_DB_KEEP_DELETE_OPERATION_LOG_DAYS`           | Retention period for delete operations in the operation log (in days)      | 30      |
+| `CLEAN_DB_KEEP_DTABLE_DB_OP_LOG_DAYS`               | Retention period for operation log entries inserted by dtable-db (in days) | 30      |
+| `CLEAN_DB_KEEP_NOTIFICATIONS_USERNOTIFICATION_DAYS` | Retention period for user notifications (in days)                          | 30      |
+| `CLEAN_DB_KEEP_DTABLE_NOTIFICATIONS_DAYS`           | Retention period for base notifications (in days)                          | 30      |
+| `CLEAN_DB_KEEP_SESSION_LOG_DAYS`                    | Retention period for session log entries (in days)                         | 30      |
+| `CLEAN_DB_KEEP_AUTO_RULES_TASK_LOG_DAYS`            | Retention period for automation rule logs (in days)                        | 30      |
+| `CLEAN_DB_KEEP_USER_ACTIVITY_STATISTICS_DAYS`       | Retention period for user activity statistics (in days)                    | 0       |
+| `CLEAN_DB_KEEP_DTABLE_APP_PAGES_OPERATION_LOG_DAYS` | Retention period for app pages operation log entries (in days)             | 14      |
+| `CLEAN_DB_KEEP_EMAIL_SENDING_LOG_DAYS`              | Retention period for log entries regarding sent emails (in days)           | 30      |
+| `CLEAN_DB_KEEP_SYSADMIN_EXTRA_USERLOGINLOG_DAYS`    | Retention period for login logs (in days)                                  | 30      |
+
+### Email Notices
+
+SeaTable runs this task every hour to send base email notifications for base updates to the users. It also generates the log file `dtable_updates_sender.log`.
+
+| Environment Variable   | Description                                                  | Default |
+| ---------------------- | ------------------------------------------------------------ | ------- |
+| `EMAIL_SENDER_ENABLED` | Enables or disables the email notifications for base updates | true    |
+
+### Email Syncer
+
+SeaTable runs this event at the 30th minute of every hour. The job processes email sync tasks defined in a base by the user.
+
+| Environment Variable       | Description                                                      | Default |
+| -------------------------- | ---------------------------------------------------------------- | ------- |
+| `EMAIL_SYNCER_ENABLED`     | Enables or disables the email syncer                             | true    |
+| `EMAIL_SYNCER_MAX_WORKERS` | Maximum number of worker threads for processing email sync tasks | 5       |
+
+### LDAP Sync
+
+SeaTable is able to sync LDAP accounts. This requires additional settings in `dtable_web_settings.py`. Please refer to [LDAP Authentication](../authentication/ldap.md).
+
+| Environment Variable | Description                                                                              | Default |
+| -------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `LDAP_SYNC_ENABLED`  | Enables or disables the LDAP sync                                                        | false   |
+| `LDAP_SYNC_INTERVAL` | Specifies the interval at which the LDAP synchronization process should run (in seconds) | 3600    |
+
 ### PDF Generation
 
 | Environment Variable               | Description                                               | Default |
@@ -49,7 +111,36 @@ By default, these settings will limit a single team to 25% of the available auto
 | `CONVERT_PDF_BROWSERS`             | Number of browser processes started to generate PDF files | 2       |
 | `CONVERT_PDF_SESSIONS_PER_BROWSER` | Number of sessions per browser instance                   | 3       |
 
-## Configuration File
+### Virus Scan
+
+**Disabled** by default.
+
+This section configures how files are scanned for viruses:
+
+- Whether scanning is enabled
+- The command used to scan files
+- Return codes indicating infected or clean files
+- Limits on file size and extensions to skip
+- Concurrency settings
+
+| Parameter                    | Description                                                      | Default                                                   |
+| ---------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------- |
+| `VIRUS_SCAN_ENABLED`         | Enables or disables virus scanning                               | false                                                     |
+| `VIRUS_SCAN_SCAN_COMMAND`    | Command used for virus scanning (e.g. `clamscan`)                |                                                           |
+| `VIRUS_SCAN_VIRUS_CODE`      | Return codes indicating a file is infected (e.g. 0)              |                                                           |
+| `VIRUS_SCAN_NONVIRUS_CODE`   | Return codes indicating a file is clean (e.g. 1)                 |                                                           |
+| `VIRUS_SCAN_SCAN_INTERVAL`   | The interval at which the virus scan runs (in minutes)           | 60                                                        |
+| `VIRUS_SCAN_SCAN_SIZE_LIMIT` | Maximum file size to scan (in MB); larger files are skipped      | 20                                                        |
+| `VIRUS_SCAN_SCAN_SKIP_EXT`   | Comma-separated list of file extensions to exclude from scanning | `.bmp,.gif,.ico,.png,.jpg,.mp3,.mp4,.wav,.avi,.rmvb,.mkv` |
+| `VIRUS_SCAN_THREADS`         | Number of threads for parallel scanning                          | 4                                                         |
+
+## Configuration File (Legacy)
+
+!!! warning "Configuration file is not read anymore from v6.2 onwards"
+
+    `dtable-events.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
 
 The following section describes the structure and possible configuration values of the configuration file `dtable-events.conf`.
 
