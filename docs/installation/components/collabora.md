@@ -114,10 +114,21 @@ SEATABLE_SERVER_HOSTNAME=<your-collabora-url>
 COLLABORA_PORT=443
 ```
 
-Have a look at collabora.yml and uncomment and update the value of `aliasgroup1`.
+You'll also have to add an additional `custom-collabora.yml` file that contains the following override:
+
+```yaml
+services:
+  collabora:
+    environment:
+      # Comma-separated list of domains that can access Collabora, e.g. https://cloud.seatable.io
+      - aliasgroup1=""
+```
+
+Remember to add this `custom-collabora.yml` file to the `COMPOSE_FILE` variable.
 
 ### Configuration of SeaTable server
 
 Now update the `dtable_web_settings.py` on your SeaTable Server.
 
-In addition you have to extend the caddy security headers. Add the URL of your Collabora host to the variables `form-action` and `frame-src` in your `custom-seatable-server.yml`. Don't forget to restart all containers.
+You'll also have to configure the `COLLABORA_HOSTNAME` variable inside your `.env` file.
+This will cause the `Content-Security-Policy` header returned by Caddy to contain the correct values for the Collabora hostname.
