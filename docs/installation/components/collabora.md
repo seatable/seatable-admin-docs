@@ -88,7 +88,17 @@ mkdir /opt/collabora
 chmod 777 /opt/collabora
 ```
 
-Now make a copy of the collabora.yml and uncomment the _volumes_ definition in your `custom-collabora.yml`.
+Now create a `custom-collabora.yml` file with the following volume definition:
+
+```yaml
+services:
+  collabora:
+    volumes:
+      - "${COLLABORA_PATH:-/opt/collabora}/logs:/opt/cool/logs/"
+```
+
+Specifying this override in a separate file and adding `custom-collabora.yml` to the `COMPOSE_FILE` variable inside your `.env` file ensures that your modifications are preserved across version upgrades of SeaTable.
+You can read our [guide](../../configuration/customizations.md) for more information regarding this mechanism.
 
 ## Advanced: Collabora on a separate host and URL
 
