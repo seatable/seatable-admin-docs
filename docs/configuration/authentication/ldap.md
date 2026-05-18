@@ -49,8 +49,8 @@ Some tips on how to select LDAP_BASE_DN and LDAP_ADMIN_DN:
 
 - To determine your LDAP_BASE_DN attribute, you first need to open the graphical interface of the domain manager and browse your organizational structure.
 - If you want all users in the system to be able to access SeaTable, you can use 'cn=users,dc=yourdomain,dc=com' as the BASE option (need to replace your domain name).
-- If you only want people in a certain department to be able to access, you can limit the scope to a certain OU. You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is `staffs`, you can run `dsquery ou -name staff`. More information can be found [here](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc770509(v=ws.11)).
-- Although AD supports the use of usernames in email address format as `LDAP_ADMIN_DN` such as administrator@example.com, it sometimes does not correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is `seatableuser`, run `dsquery user -name seatableuser` to find the user. More information can be found [here](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc725702(v=ws.11)).
+- If you only want people in a certain department to be able to access, you can limit the scope to a certain OU. You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is `staffs`, you can run `dsquery ou -name staff`. More information can be found [here](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc770509(v=ws.11)>).
+- Although AD supports the use of usernames in email address format as `LDAP_ADMIN_DN` such as administrator@example.com, it sometimes does not correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is `seatableuser`, run `dsquery user -name seatableuser` to find the user. More information can be found [here](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc725702(v=ws.11)>).
 
 The following parameters are also available, but optional:
 
@@ -61,8 +61,8 @@ The following parameters are also available, but optional:
 | LDAP_USER_ROLE_ATTR       | Name of user role in the LDAP server                                                                                                                                   | Attribute name, e.g. `title`                                          |
 | LDAP_USER_FIRST_NAME_ATTR | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                               | Attribute name, e.g. `givenName`                                      |
 | LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                              | Attribute name, e.g. `sn`                                             |
-| LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                       | `True` or `False`                                                      |
-| LDAP_SAML_USE_SAME_UID    | Option to allow users to log in via LDAP and SAML using the same username                                                                                              | `True` or `False`                                                      |
+| LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                       | `True` or `False`                                                     |
+| LDAP_SAML_USE_SAME_UID    | Option to allow users to log in via LDAP and SAML using the same username                                                                                              | `True` or `False`                                                     |
 | LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is '' |                                                                       |
 | LDAP_EMPLOYEE_ID_ATTR     | ID of the employee                                                                                                                                                     | Attribute name, e.g. `33`                                             |
 
@@ -80,22 +80,34 @@ To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the
 
 | Parameter                  | Description                                                                                             | Values                                                                                                                                 |
 | -------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| LDAP_SYNC_GROUP            | On/off switch for group sync                                                                            | `True` or `False`                                                                                                                       |
+| LDAP_SYNC_GROUP            | On/off switch for group sync                                                                            | `True` or `False`                                                                                                                      |
 | LDAP_GROUP_MEMBER_ATTR     | Attribute used when syncing group members                                                               | For most directory servers, the attributes is "member", which is the default value. For "posixGroup", it should be set to "memberUid". |
 | LDAP_GROUP_MEMBER_UID_ATTR | User attribute set in 'memberUid' option, which is used in "posixGroup"; default value is `uid`         |                                                                                                                                        |
 | LDAP_USER_OBJECT_CLASS     | Name of the class used to search for user objects; default value is `person`                            |                                                                                                                                        |
 | LDAP_GROUP_OBJECT_CLASS    | Name of the class used to search for group objects; default value is `group`                            | For LDAP: `groupOfNames`, `groupOfUniqueNames`, `posixGroup`<br />For AD: `group`                                                      |
 | LDAP_GROUP_UUID_ATTR       | ...; default value is `ObjectGUID`                                                                      | For LDAP: refer to https://ldapwiki.com/wiki/Universally%20Unique%20Identifier<br />For AD: `ObjectGUID`                               |
-| SYNC_GROUP_AS_DEPARTMENT   | Option to sync LDAP groups as departments rather than SeaTable groups                                   | `True` or `False`                                                                                                                       |
+| SYNC_GROUP_AS_DEPARTMENT   | Option to sync LDAP groups as departments rather than SeaTable groups                                   | `True` or `False`                                                                                                                      |
 | LDAP_DEPARTMENT_NAME_ATTR  | Name of the department when SYNC_GROUP_AS_DEPARTMENT = True, the default department name is the OU name | Object name, e.g. `description`                                                                                                        |
 
-Additionally, the following parameters must be added to `dtable-events.conf`:
+Depending on your SeaTable version, additional settings must be configured:
 
-```ini
-[LDAP SYNC]
-enabled = true
-sync_interval = 60  # The unit is seconds
-```
+=== "SeaTable <= v6.1"
+    The following parameters must be added to `dtable-events.conf`:
+
+    ```ini
+    [LDAP SYNC]
+    enabled = true
+    sync_interval = 60  # The unit is seconds
+    ```
+=== "SeaTable v6.2+"
+    Two environment variables must be configured.
+    Please read our [guide](../../configuration/customizations.md) that explains how to configure these additional environment variables before proceeding.
+
+    ```ini
+    LDAP_SYNC_ENABLED=true
+    # Specified in seconds
+    LDAP_SYNC_INTERVAL=3600
+    ```
 
 ## LDAP and SAML
 
