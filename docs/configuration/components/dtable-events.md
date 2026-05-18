@@ -18,20 +18,7 @@ The default values provided here are best-effort (not built automatically). They
 <!-- md:version 6.2 -->
 
 This section lists the environment variables read by [dtable-events](../../introduction/architecture.md#dtable-events).
-
-Please note that these variables are not included in `seatable-server.yml` by default.
-We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
-Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
-
-```yaml
-services:
-  seatable-server:
-    environment:
-      - AUTOMATION_WORKERS=10
-```
-
-This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
-This ensures that SeaTable upgrades stay seamless.
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
 ### Automations
 

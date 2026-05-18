@@ -65,6 +65,7 @@ If your `python-runner` containers require access to an additional host director
 However, this variable is not part of the `python-pipeline.yml` file by default.
 You should therefore create an additional `custom-python-pipeline.yml` file with the following contents to extend the default definition of the `python-starter` service.
 Docker Compose will automatically merge these two definitions together.
+You can read [our guide](../../configuration/customizations.md) for more information regarding this topic.
 
 ```yaml
 services:
