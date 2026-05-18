@@ -99,26 +99,17 @@ All relevant configuration files are located in `/templates/logrotate-conf` with
 
 ### Customizing Logrotate Configuration
 
-To modify the log rotation settings, you can mount a custom configuration file using Docker Compose. Add the following snippet to your yml-file:
+To modify the log rotation settings, you can mount a custom configuration file using Docker Compose.
+In order to ensure that this modification is preserved across version upgrades, you should **not** modify the default `.yml` files that we distribute as part of the installation process.
+Please read our guide on how to [customize the configuration](../configuration/customizations.md) of your SeaTable instance before proceeding.
+
+In order to customize the configuration file used by `logrotate`, you can specify a volume mount definition inside a `custom-seatable-server.yml` file:
 
 ```yaml
 services:
   seatable-server:
-    image: ...
-    ...
     volumes:
-      - "./logrotate-seatable-custom.conf:/templates/logrotate-conf/seatable:ro"
-      ...
-
+      - ./logrotate-seatable-custom.conf:/templates/logrotate-conf/seatable:ro
 ```
 
-!!! warning "Don't change the default YML-files"
-
-    Avoid making changes directly to `seatable-server.yml`, as this file will be overwritten during updates. Instead, use a separate custom configuration file mounted via Docker Compose.
-
-    ```bash
-    # create a custom copy
-    cp seatable-server.yml custom-seatable-server.yml
-
-    # Don't forget to update the filename in your .env
-    ```
+Do not forget to add this file to the `COMPOSE_FILE` variable inside your `.env` file.

@@ -247,6 +247,7 @@ nav:
           - Switch authentication: configuration/authentication/auth-switch.md
       - Configuration:
           - Overview: configuration/overview.md
+          - Customizations: configuration/customizations.md
           - Components:
               - dtable-api-gateway: configuration/components/dtable-api-gateway.md
               - dtable-db: configuration/components/dtable-db.md

@@ -14,11 +14,11 @@ SeaTable's default MariaDB configuration works well for small installations. For
 
 The most impactful setting is `innodb_buffer_pool_size` — the memory area where InnoDB caches table data and indexes. As a rule of thumb, set it to **50–70% of your server's available RAM** after accounting for SeaTable and other services.
 
-| Setting | Default | Recommendation | Purpose |
-|---|---|---|---|
-| `innodb_buffer_pool_size` | 128M | 50–70% of available RAM | Cache for table data and indexes |
-| `innodb_log_file_size` | 48M | 256M | Redo log size, improves write performance |
-| `max_connections` | 151 | 200–300 | Max concurrent database connections |
+| Setting                   | Default | Recommendation          | Purpose                                   |
+| ------------------------- | ------- | ----------------------- | ----------------------------------------- |
+| `innodb_buffer_pool_size` | 128M    | 50–70% of available RAM | Cache for table data and indexes          |
+| `innodb_log_file_size`    | 48M     | 256M                    | Redo log size, improves write performance |
+| `max_connections`         | 151     | 200–300                 | Max concurrent database connections       |
 
 ## Apply custom settings
 
@@ -35,17 +35,16 @@ max_connections         = 200
 
 ### 2. Mount the configuration file
 
-Create a `custom-mariadb.yml` in `/opt/seatable-compose/`:
+Since the default definition of the `mariadb` service inside `seatable-server.yml` [should not be modified](../configuration/customizations.md), you should instead create a file named `custom-mariadb.yml` in `/opt/seatable-compose/` that only contains the configuration override:
 
 ```yaml
----
 services:
   mariadb:
     volumes:
-      - "./99-mariadb-custom.cnf:/etc/mysql/conf.d/99-mariadb-custom.cnf"
+      - ./99-mariadb-custom.cnf:/etc/mysql/conf.d/99-mariadb-custom.cnf
 ```
 
-Add `custom-mariadb.yml` to the `COMPOSE_FILE` variable in your `.env` file.
+Add `custom-mariadb.yml` to the `COMPOSE_FILE` variable in your `.env` file. This ensures that `seatable-server.yml` and `custom-mariadb.yml` are [merged together](../configuration/customizations.md).
 
 ### 3. Restart MariaDB
 
@@ -64,8 +63,8 @@ docker exec -it mariadb mariadb -uroot -p${MARIADB_PASSWORD} -e "SHOW VARIABLES 
 
 ## Sizing examples
 
-| Server RAM | Other services | Recommended `innodb_buffer_pool_size` |
-|---|---|---|
-| 8 GB | SeaTable only | 2–4G |
-| 16 GB | SeaTable + Python Pipeline | 6–8G |
-| 32 GB | SeaTable + multiple components | 12–16G |
+| Server RAM | Other services                 | Recommended `innodb_buffer_pool_size` |
+| ---------- | ------------------------------ | ------------------------------------- |
+| 8 GB       | SeaTable only                  | 2–4G                                  |
+| 16 GB      | SeaTable + Python Pipeline     | 6–8G                                  |
+| 32 GB      | SeaTable + multiple components | 12–16G                                |
