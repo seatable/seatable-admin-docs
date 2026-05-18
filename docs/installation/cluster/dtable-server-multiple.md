@@ -41,96 +41,170 @@ To ensure consistency, implement a **fixed mapping of bases to dtable-servers** 
 
 ## Adding a Proxy to Distribute Requests
 
-To route requests to the correct `dtable-server`, add a **proxy component** (using nginx), called `dtable-server-proxy`. Deploy this on the `dtable-web` node.
+To route requests to the correct `dtable-server`, add a **proxy component** (using either NGINX or Caddy), called `dtable-server-proxy`. Deploy this on the `dtable-web` node.
 
 ### Create the Proxy Service
 
 Create `/opt/seatable-compose/dtable-server-proxy.yml` on `dtable-web`:
 
-```yaml
----
-services:
-  dtable-server-proxy:
-    image: nginx:1.27.5-alpine
-    container_name: dtable-server-proxy
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./nginx-proxy.conf:/etc/nginx/nginx.conf:ro
-    networks:
-      - frontend-net
-    extra_hosts:
-      - "dtable-web:10.0.0.2"
-      - "dtable-db:10.0.0.3"
-      - "dtable-server:10.0.0.4"
-      - "dtable-server-2:10.0.0.5
-    logging:
-      driver: json-file
-      options:
-        # Maximum size per file
-        max-size: 10m
-        # Maximum number of files
-        max-file: 3
+=== "NGINX"
+    ```yaml
+    services:
+      dtable-server-proxy:
+        image: nginx:1.27.5-alpine
+        container_name: dtable-server-proxy
+        restart: unless-stopped
+        ports:
+          - "5000:5000"
+        volumes:
+          - ./nginx-proxy.conf:/etc/nginx/nginx.conf:ro
+        networks:
+          - frontend-net
+        extra_hosts:
+          - "dtable-web:10.0.0.2"
+          - "dtable-db:10.0.0.3"
+          - "dtable-server:10.0.0.4"
+          - "dtable-server-2:10.0.0.5"
+        logging:
+          driver: json-file
+          options:
+            # Maximum size per file
+            max-size: 10m
+            # Maximum number of files
+            max-file: 3
 
-networks:
-  frontend-net:
-    name: frontend-net
-```
+      networks:
+        frontend-net:
+          name: frontend-net
+    ```
+=== "Caddy"
+    ```yaml
+    services:
+      dtable-server-proxy:
+        image: caddy:2.11.2-alpine
+        container_name: dtable-server-proxy
+        restart: unless-stopped
+        ports:
+          - 5000:5000
+        volumes:
+          - ./Caddyfile:/etc/caddy/Caddyfile:ro
+        networks:
+          - backend-seatable-net
+        healthcheck:
+          test: ["CMD-SHELL", "curl --fail http://localhost:2019/metrics || exit 1"]
+          start_period: 20s
+          interval: 20s
+          timeout: 5s
+          retries: 3
+        extra_hosts:
+          - "dtable-web:10.0.0.2"
+          - "dtable-db:10.0.0.3"
+          - "dtable-server:10.0.0.4"
+          - "dtable-server-2:10.0.0.5"
+        logging:
+          driver: json-file
+          options:
+            max-size: 10m
+            max-file: 3
+    ```
 
-### Configure nginx Routing
+### Configure Routing
 
-Create `/opt/seatable-compose/nginx-proxy.conf` on `dtable-web`. This configuration defines two upstream servers and a routing map:
+=== "NGINX"
+    Create `/opt/seatable-compose/nginx-proxy.conf` on `dtable-web`.
 
-```nginx
-worker_processes auto;
+    This configuration defines two upstream servers and a routing map:
 
-events {
-  worker_connections 4096;
-}
+    ```nginx
+    worker_processes auto;
 
-http {
-  access_log off;
-  error_log /dev/stdout warn;
+    events {
+      worker_connections 4096;
+    }
 
-  # dtable-server 1
-  upstream dtable_server_a_z {
-    server dtable-server:5000;
-    keepalive 15;
-  }
+    http {
+      access_log off;
+      error_log /dev/stdout warn;
 
-  # dtable-server 2
-  upstream dtable_server_0_9 {
-    server dtable-server-2:5000;
-    keepalive 15;
-  }
+      # dtable-server 1
+      upstream dtable_server_a_z {
+        server dtable-server:5000;
+        keepalive 15;
+      }
 
-  # Map to dynamically determine the upstream server based on the UUID in the URL
-  map $request_uri $dtable_upstream {
-    default                                  dtable_server_a_z;    # Default to the a-z server
-    "~*ff84e1a1-66e2"                        dtable_server_0_9;    # force this base to server 2
-    "~*([a-zA-Z])([0-9a-f]{7}-[0-9a-f]{4})"  dtable_server_a_z;
-    "~*([0-9])([0-9a-f]{7}-[0-9a-f]{4})"     dtable_server_0_9;
-  }
+      # dtable-server 2
+      upstream dtable_server_0_9 {
+        server dtable-server-2:5000;
+        keepalive 15;
+      }
 
-server {
-  server_name _;
-  listen 5000;
+      # Map to dynamically determine the upstream server based on the UUID in the URL
+      map $request_uri $dtable_upstream {
+        default                                  dtable_server_a_z;    # Default to the a-z server
+        "~*ff84e1a1-66e2"                        dtable_server_0_9;    # force this base to server 2
+        "~*([a-zA-Z])([0-9a-f]{7}-[0-9a-f]{4})"  dtable_server_a_z;
+        "~*([0-9])([0-9a-f]{7}-[0-9a-f]{4})"     dtable_server_0_9;
+      }
 
-  location / {
-    proxy_pass http://$dtable_upstream;
-    proxy_set_header X-Upstream-Server $dtable_upstream;
-    client_max_body_size 100m;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection upgrade;
-    access_log /tmp/access.log;
-    error_log /tmp/error.log;
-  }
-}
-}
-```
+      server {
+        server_name _;
+        listen 5000;
 
-You can adapt the routing logic as needed, for example by splitting bases differently or forcing specific `base_uuid`s to a particular server.
+        location / {
+          proxy_pass http://$dtable_upstream;
+          proxy_set_header X-Upstream-Server $dtable_upstream;
+          client_max_body_size 100m;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection upgrade;
+          access_log /tmp/access.log;
+          error_log /tmp/error.log;
+        }
+      }
+    }
+    ```
+
+    You can adapt the routing logic as needed, for example by splitting bases differently or forcing specific `base_uuid`s to a particular server.
+
+=== "Caddy"
+
+    Create `/opt/seatable-compose/Caddyfile` on `dtable-web`:
+
+    ```Caddyfile
+    {
+        # Enable metrics
+        metrics
+    }
+
+    :5000 {
+            # Use route to disable internal reordering of directives
+            route {
+                    metrics /metrics
+
+                    # Static paths are proxied to dtable-server:5000
+                    @staticPaths {
+                            path /ping/ /api/v1/admin/sys-info/
+                    }
+                    reverse_proxy @staticPaths dtable-server:5000
+
+                    request_body {
+                            max_size 100MB
+                    }
+
+                    # We cannot use Caddy's path_regexp matcher since this does not check query parameters
+                    # However, clients connect to dtable-server using /socket.io?dtable_uuid=<UUID> so
+                    # we rely on Caddy's CEL (Common Expression Language) instead to match against the full URI
+                    @dtable_09 `{http.request.orig_uri}.matches('[0-9][0-9a-f]{7}-[0-9a-f]{4}')`
+                    @dtable_az `{http.request.orig_uri}.matches('[a-zA-Z][0-9a-f]{7}-[0-9a-f]{4}')`
+
+                    reverse_proxy @dtable_az dtable-server:5000
+                    reverse_proxy @dtable_09 dtable-server-2:5000
+
+                    # Respond with 404 if nothing matches
+                    respond 404
+            }
+    }
+    ```
 
 ## Required Configuration Changes
 
@@ -189,7 +263,7 @@ To ensure no bases remain in memory on the dtable-servers, **restart both server
 
 !!! danger "Unloading is crucial"
 
-    Any time you modify the proxy logic in your nginx configuration, you must restart all dtable-servers. Since `dtable-server` can keep bases in memory for up to 24 hours, failing to restart may result in data loss or inconsistencies.
+    Any time you modify the proxy logic in your nginx/Caddy configuration, you must restart all dtable-servers. Since `dtable-server` can keep bases in memory for up to 24 hours, failing to restart may result in data loss or inconsistencies.
 
 ## Verify your setup
 
@@ -208,5 +282,5 @@ Use the following tests to confirm your configuration:
 Congratulations! Your setup now uses two dtable-servers, laying the foundation for even greater scalability. To add additional dtable-servers, repeat these steps:
 
 - Set up another dtable-server.
-- Add the new upstream to `nginx.conf` (dtable-server-proxy).
+- Add the new upstream to `nginx.conf` or `Caddyfile` (dtable-server-proxy).
 - Restart all dtable-servers to clear their memory.
