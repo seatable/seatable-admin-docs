@@ -30,19 +30,24 @@ docker stop mariadb
 
 ## Don't start mariadb container
 
-Create a copy of `seatable-server.yml` and rename it to `custom-seatable-server.yml`.
-You should remove the `mariadb` service definition and update the `depends_on` declaration for the `seatable-server` service to ensure that it can start up.
+To disable the `mariadb` service and patch the `depends_on` declaration for the `seatable-server` service, you should create a `custom-seatable-server.yml` file:
 
-```bash
+```yaml
 services:
   seatable-server:
-    depends_on:
-      mariadb:                        # < remove
-        condition: service_healthy    # < remove
+    # Patch depends_on to ensure that seatable-server can start up
+    # Note: The "!override" syntax requires at least Docker Compose v2.24.4
+    depends_on: !override
+      redis:
+        condition: service_healthy
 
-  mariadb:                            # remove complete service
-    ...                               # with all lines
+  mariadb:
+    profiles:
+      - never
 ```
+
+Make sure to include this `custom-seatable-server.yml` in the `COMPOSE_FILE` variable in your `.env` file.
+You can read our [guide] for more information on how this merging process of multiple configuration files works and the rationale behind it.
 
 ## Update environment variables
 
