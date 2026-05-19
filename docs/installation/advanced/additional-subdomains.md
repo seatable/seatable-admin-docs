@@ -10,7 +10,7 @@ By default SeaTable and all additional components use one single public availabl
 
 Look at `n8n.yml` to get an understanding of how caddy is configured to make n8n accessable via port 6231.
 
-```bash
+```yaml
 services:
   caddy:
     ports:
@@ -29,28 +29,21 @@ In the n8n.yml we add an additional port to the caddy container by adding an add
 
 The following example assumes that you want to access n8n not anymore via the port 6231 but with the URL `n8n.example.com`.
 
-1. Make a copy of the n8n.yml and name it e.g. custom-n8n.yml.
-2. Replace n8n.yml with custom-n8n.yml in your .env in COMPOSE_FILE.
-3. Replace the caddy part of the custom-n8n.yml in this way.
+1. Create `custom-n8n.yml` to extend the default definition of the `n8n` service.
+2. Insert the following block into `custom-n8n.yml`:
+    ```yaml
+    services:
+      n8n:
+        labels:
+          caddy: n8n.example.com
+          caddy.reverse_proxy: "{{upstreams 5678}}"
+    ```
+3. Add `custom-n8n.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
+
+This configures Caddy to proxy all requests for `n8n.example.com` to port 5678 of the `n8n` service.
+
+Apply the changes by running the following command inside `/opt/seatable-compose`:
 
 ```bash
-services:
-  caddy:
-    labels:
-      caddy: n8n.example.com
-      caddy.reverse_proxy: "{{upstream 6231}}"
+docker compose up -d
 ```
-
-This configures caddy to proxy all requests to n8n.example.com to the port 6231, in this case n8n.
-
-Restart all docker containers with the following command to enforce this new setting.
-
-!!! danger "All containers have to be restarted"
-
-    It is not sufficient to restart only the container that should use a separate domain. The caddy container has to be restarted to. `docker compose` will not detect any change of the caddy.yml, therefore we recommend to stop and restart all containers with these commands.
-
-    ```bash
-    cd /opt/seatable-compose && \
-    docker compose down && \
-    docker compose up -d
-    ```
