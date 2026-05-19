@@ -48,7 +48,8 @@ openssl rand -base64 24
 <!-- md:version 6.1 -->
 
 From version 6.1 onwards, SeaTable supports reading S3 configuration from environment variables.
-While the previous approach [via configuration files](#configuration-files) is still supported, we recommend using environment variables since this has numerous advantages:
+The previous approach [via configuration files](#configuration-files-legacy) is only supported until (and including) version 6.1.
+Using environment variables has numerous advantages:
 
 - All relevant credentials are configured inside your `.env` file instead of being distributed between different configuration files
 - Configuration based on environment variables allows for a declarative deployment using S3, which was not previously possible
@@ -70,7 +71,13 @@ You must restart SeaTable after applying this configuration change:
 docker compose up -d
 ```
 
-### Configuration Files
+### Configuration Files (Legacy)
+
+!!! warning "`dtable-storage-server.conf` is not read anymore from v6.2 onwards"
+
+    `dtable-storage-server.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please use [environment variables](#environment-variables) instead to configure S3 encryption.
 
 Instead of using environment variables, you can also use the previous approach of configuring the encryption key inside the configuration files.
 To encrypt both base snapshots and assets, you must configure a valid encryption key in **two locations**:
@@ -156,4 +163,10 @@ Afterwards, you must update the bucket names inside `dtable-storage-server.conf`
 
 ```bash
 docker restart seatable-server
+```
+
+In case you're using environment variables in order to configure S3, you'll have to update the bucket names and apply the configuration changes by running the following command inside `/opt/seatable-compose`:
+
+```bash
+docker compose up -d
 ```
