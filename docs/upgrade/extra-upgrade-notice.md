@@ -11,6 +11,13 @@ description: Version-specific upgrade notices and required configuration changes
 - env anstelle von configurationsdateien - diese sollten bis auf dtable_web_settings.py sogar weg!
 für uns: dokumentation von "kopiere die yml vollständig" in patch-yamls.
 
+??? warning "Included n8n deployment: PostgreSQL 11 -> 16"
+
+    The following section is only relevant if you have deployed n8n alongside SeaTable using the included `n8n.yml` file.
+    We've upgraded the PostgreSQL version of the documented n8n deployment from version 11 to version 16.
+    This requires dumping and restoring your PostgreSQL database **before** running the upgrade.
+    Please follow the steps outlined in the [PostgreSQL docs](https://www.postgresql.org/docs/current/upgrading.html).
+
 ## 6.1
 
 Several Docker image tags have been updated to newer versions. These changes are applied automatically when you pull the latest images. Remember to also update your [plugins](../configuration/plugins.md).
