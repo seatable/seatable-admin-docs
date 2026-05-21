@@ -24,6 +24,12 @@ Give [n8n](https://n8n.io) a try, and we guarantee you'll fall in love with it j
 
 This article shows you how to install **n8n** (Community Edition) on your SeaTable server.
 
+!!! warning "Deployment does not include external task runners"
+
+    This deployment does not include any [external task runners](https://docs.n8n.io/hosting/configuration/task-runners/).
+    These allow executing user-provided JavaScript and Python code within n8n workflows.
+    Please refer to the [n8n docs](https://docs.n8n.io/hosting/configuration/task-runners/) for instructions on how to deploy external task runners.
+
 #### Change the .env file
 
 Like with all additional components you first have to add the `n8n.yml` to the `COMPOSE_FILE` variable in your `.env` file.
