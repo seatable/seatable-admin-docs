@@ -81,14 +81,11 @@ The expected output should appear as follows.
 └── zabbix.yml
 ```
 
-!!! warning "Don't change the default YML-files"
+!!! warning "Don't modify the default YML-files"
 
-    Generally, there's no need to make changes to the YML-files. Modifications should only be made by experienced Docker administrators. If you do, it is recommended to duplicate the file(s) first and rename the file(s) because the default yml files are overwritten with the next update.
-
-    ```bash
-    # create a custom copy
-    cp n8n.yml custom-n8n.yml
-    ```
+    Generally, there's no need to make changes to the YML-files. Customizations should only be made by experienced Docker administrators.
+    Please read our guide that describes how the [configuration can be customized](../configuration/customizations.md).
+    This ensures that version upgrades stay seamless since the default `.yml` files are **overwritten with each upgrade**.
 
 #### 2. Add secrets
 

@@ -1,5 +1,4 @@
 ---
-status: new
 description: Customize the Nginx configuration for SeaTable Server using custom config files that persist across updates.
 ---
 
@@ -13,18 +12,32 @@ The reason for this change is that SeaTable updates often require modifications 
 
 ## Customizing Nginx Configuration
 
-When you update SeaTable, all default files in `/opt/seatable-compose` will be overwritten. This includes all changes that you may do in `nginx.conf` and `seatable-server.yml`. To preserve your custom configurations, follow these steps:
+When you update SeaTable, all default files in `/opt/seatable-compose` will be overwritten.
+This includes all changes that you may do in `nginx.conf` and `seatable-server.yml`.
+You should read our guide that explains how to [customize the configuration](../customizations.md) of your instance before proceeding.
 
-1. **Create Custom Copies:**  
-   Make a copy of the `nginx.conf` and `seatable-server.yml` files, for example as `custom-nginx.conf` and `custom-seatable-server.yml` in your compose folder (`/opt/seatable-compose`).
+To preserve your custom configuration settings, follow these steps:
 
-2. **Edit the Custom Files:**  
-   Make any necessary changes to your custom configuration files.  
-   **Note:** All future modifications should be made to these custom files, not the original files.
+1. **Create a Copy:**
+   Make a copy of the `seatable-nginx.conf` file (e.g. `custom-seatable-nginx.conf`) in your compose folder (`/opt/seatable-compose`).
 
-3. **Update the .env File:**  
-   In your `.env` file, update the `COMPOSE_FILES` variable to include your `custom-seatable-server.yml` file.
+2. **Edit the Custom File:**
+   Make any necessary changes to your custom NGINX configuration file.
+   **Note:** All future modifications should be made to this custom file to ensure that your modifications are preserved across version upgrades.
 
-After making changes, [restart the SeaTable container](../../maintenance/restart-seatable.md) for your changes to take effect.
+3. **Mount the Custom Config File:**
+   Create a `custom-seatable-server.yml` file that contains a volume mount for your custom NGINX file:
+   ```yaml
+   services:
+     seatable-server:
+       volumes:
+         - ./custom-seatable-nginx.conf:/etc/nginx/sites-enabled/default
+   ```
 
-This ensures that your custom configuration is used instead of the original files.
+4. **Update the .env File:**
+   In your `.env` file, update the `COMPOSE_FILE` variable to include your `custom-seatable-server.yml` file (if this is not already the case).
+
+5. **Apply the Changes:**
+   Run `docker compose up -d` inside the directory `/opt/seatable-compose` in a terminal for your changes to take effect.
+
+This ensures that your custom configuration is used instead of the original file.

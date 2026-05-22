@@ -4,11 +4,10 @@ description: Complete reference for dtable-server configuration including row li
 
 # Configuration of dtable-server
 
-This is a cheat sheet for the possible configuration options of [dtable-server](/introduction/architecture.md#dtable-server). It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-server](../../introduction/architecture.md#dtable-server).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
@@ -16,21 +15,10 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 ## Environment Variables
 
-This section lists the environment variables read by [dtable-server](/introduction/architecture.md#dtable-server).
+<!-- md:version 6.2 -->
 
-Please note that these variables are not included in `seatable-server.yml` by default.
-We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
-Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
-
-```yaml
-services:
-  seatable-server:
-    environment:
-      - AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE=100
-```
-
-This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
-This ensures that SeaTable upgrades stay seamless.
+This section lists the environment variables read by [dtable-server](../../introduction/architecture.md#dtable-server).
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
 ### Automations
 
@@ -38,7 +26,29 @@ This ensures that SeaTable upgrades stay seamless.
 | --------------------------------------- | -------------------------------------------------------------------------- | ------- |
 | `AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE` | Limits the number of automations that can be triggered per base per minute | 1000    |
 
-## Configuration File
+### Persistence
+
+**FIXME: SAVE_INTERVAL cannot be configured through ENV**
+
+### Service URLs
+
+**FIXME: Service URLs cannot be configured through ENV**
+
+### Row Limits
+
+**FIXME: Row limits cannot be configured through ENV**
+
+### Base Size Limit
+
+**FIXME: Base size limit cannot be configured through ENV**
+
+## Configuration File (Legacy)
+
+!!! warning "Configuration file is not read anymore from v6.2 onwards"
+
+    `dtable_server_config.json` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
 
 The following section describes the structure and possible configuration values of the configuration file `dtable_server_config.json`.
 

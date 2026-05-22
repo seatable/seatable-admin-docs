@@ -1,18 +1,101 @@
 ---
-description: Complete reference for dtable-db configuration in dtable-db.conf including storage, caching, SQL limits, and big data backup options.
+description: Complete reference for dtable-db configuration including storage, caching, SQL limits, and big data backup options.
 ---
 
 # Configuration of dtable-db
 
-This is a cheat sheet for the [dtable-db](/introduction/architecture.md#dtable-db) configuration file `dtable-db.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-db](../../introduction/architecture.md#dtable-db).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
     New configuration options will only apply after a restart of SeaTable.
+
+## Environment Variables
+
+<!-- md:version 6.2 -->
+
+This section lists the environment variables read by [dtable-db](../../introduction/architecture.md#dtable-db).
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
+
+### General
+
+| Environment Variable                | Description                                                                                                                        | Default |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_HOST`                    | The address dtable-db listens on.                                                                                                  | 0.0.0.0 |
+| `DTABLE_DB_PORT`                    | The port dtable-db listens on.                                                                                                     | 7777    |
+| `DTABLE_DB_SLOW_QUERY_THRESHOLD`    | If the processing time exceeds this threshold, a slow log will be recorded in addition to the normal log. Unit is in milliseconds. | 1000    |
+| `DTABLE_DB_ROW_UPDATE_LIMIT`        | Sets the rate or row updates, deletes, and inserts per second and per base.                                                        | 5000    |
+| `DTABLE_DB_GLOBAL_ROW_UPDATE_LIMIT` | Sets the global rate of row updates, deletes, and inserts per minute, affecting SQL and API operations.                            | 30000   |
+| `DTABLE_DB_QUERY_PER_MINUTE_LIMIT`  | Sets the total max. of API calls per minute for the entire system. The default is suitable for most cases.                         | 50000   |
+
+### Storage
+
+These settings define where the database files for bases with activated big data backend are stored and when old data is cleaned:
+
+| Environment Variable           | Description                                                   | Default               |
+| ------------------------------ | ------------------------------------------------------------- | --------------------- |
+| `DTABLE_DB_DATA_DIR`           | Location of the data directory inside the container.          | /opt/seatable/db-data |
+| `DTABLE_DB_STORAGE_CLEANUP_AT` | The execution time of clean up deleted data. Format is hh:mm. | 00:00                 |
+
+### DTable Cache
+
+| Environment Variable         | Description                        | Default               |
+| ---------------------------- | ---------------------------------- | --------------------- |
+| `INNER_DTABLE_SERVER_URL`    | URL of the dtable-server instance. | http://127.0.0.1:5000 |
+| `DTABLE_DB_TOTAL_CACHE_SIZE` | The base cache size in MB.         | 2000                  |
+
+### SQL
+
+General configuration options of the output of the SQL endpoint:
+
+| Environment Variable                   | Description                                                                                                    | Default |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_SQL_DEFAULT_RESULT_ROWS`    | Maximal number of rows returned by a query if there's no `LIMIT` specified.                                    | 100     |
+| `DTABLE_DB_SQL_RESULT_ROWS_HARD_LIMIT` | Maximal number of rows returned in one query (system wide). Overrides any larger `LIMIT` value in a query.     | 10000   |
+| `DTABLE_DB_SQL_EXEC_COST_HARD_LIMIT`   | Maximal execution cost of a query. If the estimated cost of a query exceeds this limit, the query is rejected. | 5000000 |
+
+### Backup
+
+These settings allow configuring how data stored inside the big data backend is backed up:
+
+| Environment Variable                   | Description                                                                                                                                                                  | Default |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_BACKUP_AT`                  | The execution time of backup. Format is `hh:mm`.                                                                                                                             | 02:00   |
+| `DTABLE_DB_BACKUP_KEEP_NUM`            | The number of backups that will be kept, oldest backups will be removed.                                                                                                     | 3       |
+| `DTABLE_DB_BACKUP_KEEP_DAYS`           | Specifies the retention period for backups in days. Older backups are deleted. Overrides `DTABLE_DB_BACKUP_KEEP_NUM` if set; otherwise, `DTABLE_DB_BACKUP_KEEP_NUM` is used. | 0       |
+| `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS` | Specifies daily backup period. After this, only one backup per month is kept. Requires `DTABLE_DB_BACKUP_KEEP_DAYS` to be set and > `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS`.  | 0       |
+
+**FIXME: dtable-storage-server URL is no longer configurable!?**
+
+!!! warning "Two different backup methods: which should I choose?"
+
+    SeaTable offers two backup approaches:
+
+    - The first uses `DTABLE_DB_BACKUP_KEEP_NUM`, creating daily backups whenever changes were made and retaining a fixed number of the most recent ones, deleting the oldest when the limit is reached. Note that no new backup will be created if no changes were made to a base. This is the default option.
+
+    - The second approach, using `DTABLE_DB_BACKUP_KEEP_DAYS` and `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS`, offers a tiered retention strategy.
+      It creates daily backups for the recent period specified by `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS`, then switches to monthly backups for the older period.
+      This method provides detailed recent backups and efficient long-term storage, balancing data granularity with space conservation.
+      For example, setting `DTABLE_DB_BACKUP_KEEP_DAYS=180` and `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS=7` would keep daily backups for the past week, then monthly backups for the past six months (except for the past week).
+
+### Metrics
+
+| Environment Variable                  | Description                                                          | Default |
+| ------------------------------------- | -------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_METRICS_ENABLE_BASIC_AUTH` | Whether basic authentication is enabled for the `/metrics` endpoint. | false   |
+| `DTABLE_DB_METRICS_USERNAME`          | Username for basic authentication for the `/metrics` endpoint.       |         |
+| `DTABLE_DB_METRICS_PASSWORD`          | Password for basic authentication for the `/metrics` endpoint.       |         |
+
+## Configuration File (Legacy)
+
+!!! warning "Configuration file is not read anymore from v6.2 onwards"
+
+    `dtable-db.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
 
 ??? abstract "Notes about the configuration file format"
 
@@ -24,7 +107,7 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 The following options are grouped by their sections.
 
-## Example configuration
+**Example Configuration**
 
 This is a typical configuration file, created automatically on the first startup by SeaTable.
 
@@ -44,8 +127,6 @@ dtable_server_url = "http://127.0.0.1:5000"
 dtable_storage_server_url = "http://127.0.0.1:6666"
 keep_backup_num = 3
 ```
-
-## Available configuration options
 
 ### `[general]`
 
