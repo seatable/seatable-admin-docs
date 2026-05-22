@@ -11,6 +11,14 @@ description: Version-specific upgrade notices and required configuration changes
 - env anstelle von configurationsdateien - diese sollten bis auf dtable_web_settings.py sogar weg!
 für uns: dokumentation von "kopiere die yml vollständig" in patch-yamls.
 
+??? warning "Configuration of email settings inside the configuration file is deprecated"
+
+    The configuration of email settings inside the `dtable_web_settings.py` config file has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../configuration/sending-email.md).
+
+http://localhost:8000/configuration/sending-email/
+
 ??? warning "Included n8n deployment: PostgreSQL 11 -> 16"
 
     The following section is only relevant if you have deployed n8n alongside SeaTable using the included `n8n.yml` file.

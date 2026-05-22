@@ -20,7 +20,9 @@ There are two ways to configure this SMTP account for system wide emails.
 
     <!-- md:version 4.4 -->
 
-    The SeaTable Server image supports auto configuration via environment variables. Add these variables to your .env file to configure the SMTP account.
+    The SeaTable Server image supports auto configuration via environment variables.
+    This is the **preferred approach**.
+    Add these variables to your .env file to configure the SMTP account:
 
     | Environment variable           | Description                                                    | Example values                 |
     | ------------------------------ | -------------------------------------------------------------- | ------------------------------ |
@@ -35,7 +37,13 @@ There are two ways to configure this SMTP account for system wide emails.
 
     See the examples at the end of this article for easy copy-and-paste use.
 
-=== "Configuration file"
+=== "Configuration file (deprecated)"
+
+    !!! warning "Configuration via `dtable_web_settings.py` is deprecated"
+
+        The configuration of email settings via `dtable_web_settings.py` is deprecated since v6.2.
+
+        Please migrate to the environment variable-based configuration approach when **upgrading to v6.2**.
 
     Add the following lines to `dtable_web_settings.py` to enable email sending.
 
@@ -93,7 +101,7 @@ If you are using Gmail as email server, you can use the following settings.
     SEATABLE_SERVER_EMAIL = 'username@gmail.com'
     ```
 
-=== "Configuration file"
+=== "Configuration file (deprecated)"
 
     ```python
     EMAIL_USE_TLS = True
@@ -128,7 +136,7 @@ SeaTable Cloud uses the SMTP relay of Brevo.
     SEATABLE_SERVER_EMAIL = 'noreply@domain.com'
     ```
 
-=== "Configuration file"
+=== "Configuration file (deprecated)"
 
     ```ini
     EMAIL_USE_TLS = True
@@ -162,7 +170,7 @@ If you are using Infomaniak as email server, you can use the following settings.
     SEATABLE_SERVER_EMAIL='noreply@domain.com'
     ```
 
-=== "Configuration file" 
+=== "Configuration file (deprecated)"
 
     ```python
     EMAIL_USE_TLS = False
