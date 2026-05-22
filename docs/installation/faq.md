@@ -83,6 +83,10 @@ description: Troubleshooting tips for common SeaTable Server issues including st
 
     more info will follow.
 
+??? question "Check dtable-web"
+
+    Run the [`check-dtable-web.sh` script](../maintenance/helper-scripts.md#check-dtable-websh) in order to troubleshoot `dtable-web`.
+
 ??? question "Domain/DNS"
 
     execute `curl https://<your-seatable-server-domain>` or `ping <your-seatable-server-domain>` to get more details.
