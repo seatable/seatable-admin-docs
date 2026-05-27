@@ -105,6 +105,7 @@ To enable SAML, add the following parameters to `dtable_web_settings.py`, custom
 | SAML_REMOTE_METADATA_URL | URL of metadata.xml used by SAML IdP                        | URL, e.g. 'https://login.microsoftonline.com/xxx/federationmetadata/2007-06/federationmetadata.xml?appid=xxx'                                |
 | SAML_ATTRIBUTE_MAP       | Key-value pairs mapping SAML attributes to local attributes | Keys are the SAML attributes from the IdP; some IdPs use attribute like 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress' |
 | SAML_CERTS_DIR           | Path to certificates within the Seatable Docker container   | Path, e.g. /opt/seatable/seahub-data/certs                                                                                                   |
+| SAML_CREATE_UNKNOWN_USER | Enables/disables just-in-time user provisioning on first login (optional)   | `True` (default) or `False`. With `False`, existing users can still log in, but no new accounts are created                                  |
 
 This is a sample configuration. Adapt the values to your needs.
 
@@ -119,6 +120,10 @@ SAML_ATTRIBUTE_MAP = {
 }
 SAML_CERTS_DIR = '/shared/certs'
 ```
+
+!!! note "Controlling auto-provisioning"
+
+    By default SeaTable creates a user account on the first successful SAML login (`SAML_CREATE_UNKNOWN_USER = True`). To stop new accounts from being created while keeping existing SSO users working, set `SAML_CREATE_UNKNOWN_USER = False`. New users must then be provisioned in SeaTable beforehand (by an administrator or via import).
 
 !!! warning "Details about the SAML_ATTRIBUTE_MAP"
 
