@@ -62,3 +62,15 @@ The correspondence between the user fields obtained from the OAuth authorization
 * uid: the unique identifier for SeaTable identify a user from the OAuth provider.
 * name: the name of a user in SeaTable
 * contact_email: a user's contact email in SeaTable
+
+#### **OAUTH_CREATE_UNKNOWN_USER**
+
+Controls just-in-time (JIT) user provisioning. Default is `True`: a SeaTable account is created automatically the first time a user authenticates successfully via OAuth. Set it to `False` to disable auto-provisioning — users who already have a SeaTable account continue to log in via OAuth, but users without an existing account are rejected and **no** account is created:
+
+```python
+OAUTH_CREATE_UNKNOWN_USER = False
+```
+
+Use this when account eligibility is governed outside of SeaTable (for example by your identity provider or an identity-governance system). With auto-provisioning disabled, new users must exist in SeaTable beforehand — created by an administrator or via import — before their first login.
+
+A related option, `OAUTH_ACTIVATE_USER_AFTER_CREATION` (default `True`), keeps auto-provisioning on but creates new users in an inactive state that requires admin approval; set it to `False` for that behavior.
