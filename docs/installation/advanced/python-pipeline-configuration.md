@@ -6,6 +6,10 @@ description: Configure Python Pipeline resource limits, timeouts, logging, and s
 
 The Python Pipeline can be configured through environment variables for further customization. The available parameters inside your `.env` file are:
 
+!!! warning "Security hardening"
+
+    Python scripts execute as user-supplied code. Beyond the parameters below, review the [security considerations on the installation page](../components/python-pipeline.md#installation) — in particular the risk of scripts reaching the cloud metadata endpoint and harvesting the host's machine-identity credentials.
+
 ### Resources
 
 | Parameter                                 | Description                                                                                                                                                                                                                          | Default             |
