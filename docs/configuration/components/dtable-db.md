@@ -68,8 +68,6 @@ These settings allow configuring how data stored inside the big data backend is 
 | `DTABLE_DB_BACKUP_KEEP_DAYS`           | Specifies the retention period for backups in days. Older backups are deleted. Overrides `DTABLE_DB_BACKUP_KEEP_NUM` if set; otherwise, `DTABLE_DB_BACKUP_KEEP_NUM` is used. | 0       |
 | `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS` | Specifies daily backup period. After this, only one backup per month is kept. Requires `DTABLE_DB_BACKUP_KEEP_DAYS` to be set and > `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS`.  | 0       |
 
-**FIXME: dtable-storage-server URL is no longer configurable!?**
-
 !!! warning "Two different backup methods: which should I choose?"
 
     SeaTable offers two backup approaches:
@@ -80,6 +78,11 @@ These settings allow configuring how data stored inside the big data backend is 
       It creates daily backups for the recent period specified by `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS`, then switches to monthly backups for the older period.
       This method provides detailed recent backups and efficient long-term storage, balancing data granularity with space conservation.
       For example, setting `DTABLE_DB_BACKUP_KEEP_DAYS=180` and `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS=7` would keep daily backups for the past week, then monthly backups for the past six months (except for the past week).
+
+!!! warning "dtable-storage-server URL is no longer configurable as of v6.2"
+
+    The URL for `dtable-storage-server` is no longer configurable. As a consequence, `dtable-storage-server` must always run inside the same container as `dtable-db`.
+    This only matters in case SeaTable is deployed inside a cluster/as a distributed system.
 
 ### Metrics
 
