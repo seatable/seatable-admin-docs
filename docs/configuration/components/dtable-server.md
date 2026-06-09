@@ -28,19 +28,30 @@ Please read our guide that explains how you can [customize the configuration](..
 
 ### Persistence
 
-**FIXME: SAVE_INTERVAL cannot be configured through ENV**
+| Environment Variable | Description                                                             | Default |
+| -------------------- | ----------------------------------------------------------------------- | ------- |
+| `SAVE_INTERVAL`      | Auto-save interval for modified bases, in milliseconds. (300000 = 5min) | 300000  |
 
 ### Service URLs
 
-**FIXME: Service URLs cannot be configured through ENV**
+| Environment Variable              | Description            | Default                |
+| --------------------------------- | ---------------------- | ---------------------- |
+| `INNER_DTABLE_WEB_SERVICE_URL`    | dtable-web service URL | http://127.0.0.1:8000/ |
+| `INNER_DTABLE_DB_URL`             | dtable-db service URL  | http://127.0.0.1:7777/ |
+| `INNER_DTABLE_STORAGE_SERVER_URL` | dtable-db service URL  | http://127.0.0.1:6666/ |
 
 ### Row Limits
 
-**FIXME: Row limits cannot be configured through ENV**
+| Environment Variable  | Description                                                                        | Default |
+| --------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `BASE_WRITABLE_LIMIT` | Soft limit for rows in a base. Exceeding this shows an error in the web interface. | 100000  |
+| `BASE_MAX_ROWS_LIMIT` | Hard limit for rows in a base. Server prevents any writes beyond this number.      | 150000  |
 
 ### Base Size Limit
 
-**FIXME: Base size limit cannot be configured through ENV**
+| Environment Variable | Description                                                              | Default |
+| -------------------- | ------------------------------------------------------------------------ | ------- |
+| `BASE_MAX_SIZE`      | Maximum size of a base's JSON file (excluding assets and big data) in MB | 200     |
 
 ## Configuration File (Legacy)
 
@@ -117,7 +128,7 @@ It is not recommended to change these values
 | --------------------------- | -------------------------------------------------------------------------------------- | ------- |
 | `worker_threads_num`        | Number of worker threads serving list rows API (for custom shares or view shares only) | 2       |
 | `worker_threads_rows_limit` | Maximum rows, returned in custom shares or view shares                                 | 50000   |
-| `rows_api_max_limit`        | Maximum number of rows returned by calling list rows API in dtable-server               | 1000    |
+| `rows_api_max_limit`        | Maximum number of rows returned by calling list rows API in dtable-server              | 1000    |
 | `redirect_list_rows_api`    | Redirect API requests to the API-Gateway.                                              | false   |
 
 ### Cluster Setup
