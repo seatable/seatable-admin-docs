@@ -71,7 +71,7 @@ Since `seatable-ai` is now running on a separate host or virtual machine, the fo
 
 ```ini
 ENABLE_SEATABLE_AI=true
-SEATABLE_AI_SERVER_URL='http://seatable-ai.example.com:8888'
+INNER_SEATABLE_AI_SERVER_URL='http://seatable-ai.example.com:8888'
 ```
 
 Restart the `seatable-server` service and test your SeaTable AI:
