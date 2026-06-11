@@ -41,7 +41,7 @@ Then add SeaTable AI server configurations in `.env`:
 ENABLE_SEATABLE_AI=true
 ```
 
-#### LLM Provider Configuration
+### LLM Provider Configuration
 
 SeaTable AI will use AI functions in conjunction with a Large Language Model (LLM) service.
 
@@ -55,9 +55,13 @@ SeaTable AI will use AI functions in conjunction with a Large Language Model (LL
     This requires the chosen model to support image input and recognition (e.g. for running OCR as part of automations).
 
 The following section showcases the required configuration settings for the most popular hosted LLM services.
-These must be configured inside your `.env` file:
 
-<a id="llm-configuration"></a>
+The configuration approach depends on your SeaTable version:
+
+#### SeaTable v6.0 + v6.1
+
+For SeaTable v6.0 and v6.1, the LLM provider is configured inside the `.env` file:
+
 === "OpenAI"
     ```ini
     SEATABLE_AI_LLM_TYPE=openai
@@ -115,7 +119,94 @@ These must be configured inside your `.env` file:
     SEATABLE_AI_LLM_MODEL=...
     ```
 
-#### LLM Timeout Configuration (Optional)
+#### SeaTable v6.2+
+
+SeaTable v6.2 and later versions require you to configure the LLM provider inside the `/opt/seatable-server/seatable/conf/seatable_config.yaml` file **on the host**. The LLM provider configuration is now placed inside a `.yaml` file to allow configuring different providers/models for different AI functions.
+If the file does not exist yet, simply create it.
+
+=== "OpenAI"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: openai
+          key: <your openai LLM access key>
+          model: gpt-4o-mini # recommended
+    ```
+=== "Deepseek"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: deepseek
+          key: <your LLM access key>
+          model: deepseek-chat # recommended
+    ```
+=== "Azure OpenAI"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: azure
+          url: # your deployment url, leave blank to use default endpoint
+          key: <your API key>
+          model: <your deployment name>
+    ```
+=== "Gemini / Google AI Studio"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: gemini
+          key: <your LLM access key>
+          model: <your model-id>
+    ```
+=== "Ollama"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: ollama
+          url: <your LLM endpoint>
+          key: <your LLM access key>
+          model: <your model-id>
+    ```
+=== "HuggingFace"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: huggingface
+          url: <your huggingface API endpoint>
+          key: <your huggingface API key>
+          model: <model provider>/<model-id>
+    ```
+=== "Self-Hosted Proxy Server"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: proxy
+          url: <your proxy url>
+          key: <your proxy virtual key> # optional
+          model: <model-id>
+    ```
+=== "Other"
+    If you are using an LLM service with ***OpenAI-compatible endpoints***, you should set `type` to `other` or `openai`, and set other LLM configuration settings as necessary:
+
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: ...
+          url: ...
+          key: ...
+          model: ...
+    ```
+
+!!! warning "Configuration changes require a container restart"
+
+    The `seatable-ai` container will **not** be automatically restarted when running `docker compose up -d` if you've only made changes to the `seatable_config.yaml` config file.
+    Docker Compose does not watch files inside volume mounts, therefore a manual recreation of the container (via `--force-recreate`) is necessary whenever you're making configuration changes:
+
+    ```bash
+    cd /opt/seatable-compose
+    docker compose up -d --force-recreate seatable-ai
+    ```
+
+### LLM Timeout Configuration (Optional)
 
 <!-- md:version 6.1 -->
 

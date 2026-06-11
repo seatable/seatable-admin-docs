@@ -45,12 +45,6 @@ INNER_DTABLE_SERVER_URL=http://dtable-server:5000
 
 # Cluster-internal URL of dtable-db
 INNER_DTABLE_DB_URL=http://dtable-db:7777
-
-# LLM
-SEATABLE_AI_LLM_TYPE=
-SEATABLE_AI_LLM_URL=
-SEATABLE_AI_LLM_KEY=
-SEATABLE_AI_LLM_MODEL=
 ```
 
 !!! warning "Ports are not exposed by default"
