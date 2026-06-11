@@ -134,20 +134,9 @@ Perfect! Your local vLLM deployment is ready to use.
 
 ## SeaTable AI Configuration
 
-To use vLLM for AI-based automation inside SeaTable, add the following settings to the `.env` file on the host where SeaTable AI is deployed:
+Please refer to the [LLM provider configuration](../components/seatable-ai.md#llm-provider-configuration) docs.
 
-```ini
-SEATABLE_AI_LLM_TYPE='hosted_vllm'
-
-SEATABLE_AI_LLM_URL='https://<YOUR_VLLM_HOSTNAME>/v1'
-
-# API key for requests to vLLM (use the same key as above)
-SEATABLE_AI_LLM_KEY=''
-
-# Model identifier from HuggingFace
-# (e.g. RedHatAI/gemma-3-12b-it-quantized.w4a16)
-SEATABLE_AI_LLM_MODEL=''
-```
+**Note:** The type must be set to `hosted_vllm` and the URL must be set to `https://<YOUR_VLLM_HOSTNAME>/v1` when using vLLM for AI-based automations within SeaTable.
 
 Remember to restart SeaTable AI after making any changes.
 
@@ -155,16 +144,18 @@ Remember to restart SeaTable AI after making any changes.
 
 ### Send a request
 
-You can send your first request to vLLM with the following example from the command line of the **SeaTable AI container**. 
-This makes sure that all your environment variables are correctly set and that the ip address of SeaTable AI is part of the list of allowed IP addresses configured with `VLLM_ALLOWED_IPS`. 
+You can send your first request to vLLM with the following example from the command line of the host/VM that runs the **SeaTable AI container**.
+This makes sure that the IP address of SeaTable AI is part of the list of allowed IP addresses configured with `VLLM_ALLOWED_IPS`.
+
+Make sure to replace `YOUR_VLLM_HOSTNAME`, `YOUR_VLLM_KEY` and `YOUR_VLLM_MODEL` with the appropriate values:
 
 ```bash
 docker exec -i seatable-ai bash -s <<EOF
-curl -fsSL \$SEATABLE_AI_LLM_URL/chat/completions \
+curl -fsSL https://YOUR_VLLM_HOSTNAME/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer \$SEATABLE_AI_LLM_KEY" \
+  -H "Authorization: Bearer YOUR_VLLM_KEY" \
   -d '{  
-    "model": "$SEATABLE_AI_LLM_MODEL",
+    "model": "YOUR_LLM_MODEL",
     "messages": [                                                     
       {"role": "system", "content": "You are a helpful assistant."},    
       {"role": "user", "content": "How many inhabitants does Germany have?"}
