@@ -58,7 +58,7 @@ PYTHON_SCHEDULER_AUTH_TOKEN='topsecret'
 
 # SeaTable AI
 ENABLE_SEATABLE_AI='false' # (14)!
-SEATABLE_AI_SERVER_URL='http://seatable-ai:8888'
+INNER_SEATABLE_AI_SERVER_URL='http://seatable-ai:8888'
 
 # E-Mail
 SEATABLE_EMAIL_USE_TLS= # (12)!
