@@ -11,26 +11,14 @@ You can also modify some of the config items as system administrator via web int
 ## Basic settings
 
 ```python
-# for dtable-server
-## The private key is used to authenticate between DTable Web and DTable Server
-## DTABLE_SERVER_URL is for telling DTable Web the DTable Server's URL
-## DTABLE_SOCKET_URL is for telling DTable Web the web socket URL of DTable Server
-DTABLE_PRIVATE_KEY = 'xxxxx'
-DTABLE_SERVER_URL = 'https://seatable.yourdomain.com/dtable-server/'
-DTABLE_SOCKET_URL = 'https://seatable.yourdomain.com/'
-
 # The URL of dtable-web that for users to visit your SeaTable server
 DTABLE_WEB_SERVICE_URL = 'https://seatable.yourdomain.com/'
-
-# The help link URL
-HELP_LINK = 'https://seatable.com/help/'
 
 # The file server URL
 FILE_SERVER_ROOT = 'https://seatable.yourdomain.com/seafhttp/'
 
 # Redirect URL when logout，if not set, it will redirect to the SeaTable default page of logout
 LOGOUT_REDIRECT_URL = 'https://example.com/<your-own-logout-page>'
-
 ```
 
 If you changed your domain, the URLs in above settings must be changed accordingly.
@@ -162,7 +150,6 @@ SITE_NAME = 'SeaTable'
 
 # Browser tab's title
 SITE_TITLE = 'Private SeaTable'
-
 
 # Configure user help pages
 HELP_LINK = 'https://seatable.com/help/'
