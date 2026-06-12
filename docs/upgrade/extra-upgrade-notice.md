@@ -30,6 +30,12 @@ für uns: dokumentation von "kopiere die yml vollständig" in patch-yamls.
     Please note that this bucket must be publicly accessible via HTTP(S) since the user avatars are loaded directly from this bucket.
     You can find more detailed information in this [article](../installation/advanced/s3.md).
 
+??? warning "Configuration of base with custom templates must be migrated to environment variables"
+
+    The configuration of a custom base that can be used to define [base templates](../customization/templates.md) inside `dtable_web_settings.py` has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../customization/templates.md).
+
 ??? warning "Included n8n deployment: PostgreSQL 11 -> 16"
 
     The following section is only relevant if you have deployed n8n alongside SeaTable using the included `n8n.yml` file.
