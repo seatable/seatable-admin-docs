@@ -4,11 +4,10 @@ description: Configure dtable-storage-server for filesystem or S3 storage backen
 
 # Configuration of dtable-storage-server
 
-This is a cheat sheet for the possible configuration options of [dtable-storage-server](/introduction/architecture.md#dtable-storage-server). It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-storage-server](../../introduction/architecture.md#dtable-storage-server).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
@@ -16,21 +15,35 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 ## Environment Variables
 
-This section lists the environment variables read by [dtable-storage-server](/introduction/architecture.md#dtable-storage-server).
+<!-- md:version 6.2 -->
 
-Please note that these variables are not included in `seatable-server.yml` by default.
-We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
-Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
+This section lists the environment variables read by [dtable-storage-server](../../introduction/architecture.md#dtable-storage-server).
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
-```yaml
-services:
-  seatable-server:
-    environment:
-      - STORAGE_SERVER_SNAPSHOT_KEEP_DAYS=720
-```
+### General
 
-This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
-This ensures that SeaTable upgrades stay seamless.
+| Environment Variable  | Description                                   | Default |
+| --------------------- | --------------------------------------------- | ------- |
+| `STORAGE_SERVER_HOST` | The address dtable-storage-server listens on. | 0.0.0.0 |
+| `STORAGE_SERVER_PORT` | The port dtable-storage-server listens on.    | 6666    |
+
+### Storage Backend
+
+| Environment Variable          | Description                                                     | Default    |
+| ----------------------------- | --------------------------------------------------------------- | ---------- |
+| `STORAGE_SERVER_BACKEND_TYPE` | The type of storage backend. Options are `filesystem` and `s3`. | filesystem |
+
+Depending on the chosen storage backend, there are additional settings:
+
+#### Filesystem Backend
+
+| Environment Variable     | Description                      | Default                    |
+| ------------------------ | -------------------------------- | -------------------------- |
+| `STORAGE_SERVER_FS_PATH` | The filepath of storage backend. | /opt/seatable/storage-data |
+
+#### S3 Backend
+
+Please refer to the [S3 docs](../../installation/advanced/s3.md).
 
 ### Snapshots
 
@@ -41,7 +54,13 @@ This ensures that SeaTable upgrades stay seamless.
 | `STORAGE_SERVER_SNAPSHOT_KEEP_DAYS`           | Specifies the snapshot retention period in days. Older snapshots are deleted.                                                                                                                                                                | 180     |
 | `STORAGE_SERVER_SNAPSHOT_KEEP_FREQUENCY_DAYS` | Specifies daily snapshot period for changed bases. After this, only one snapshot per month is kept. Default is 0 (always daily). Requires `STORAGE_SERVER_SNAPSHOT_KEEP_DAYS` to be set and > `STORAGE_SERVER_SNAPSHOT_KEEP_FREQUENCY_DAYS`. | 0       |
 
-## Configuration File
+## Configuration File (Legacy)
+
+!!! warning "Configuration file is not read anymore from v6.2 onwards"
+
+    `dtable-storage-server.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
 
 ??? abstract "Notes about the configuration file format"
 
@@ -86,8 +105,8 @@ This section contains general settings about the `dtable-storage-server` service
 
 This section is used to configure the storage backend.
 
-| Parameter | Description                                                     | Default     |
-| --------- | --------------------------------------------------------------- | ----------- |
+| Parameter | Description                                                     | Default      |
+| --------- | --------------------------------------------------------------- | ------------ |
 | `type`    | The type of storage backend. Options are `filesystem` and `s3`. | `filesystem` |
 
 Depending on the chosen storage backend, there are additional settings:
@@ -100,16 +119,16 @@ Depending on the chosen storage backend, there are additional settings:
 
 #### S3 Storage Backend
 
-| Parameter            | Description                                                                                                                            | Default |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `bucket`             | The bucket name for the S3 backend.                                                                                                    |         |
-| `key_id`             | The access key id for the bucket.                                                                                                      |         |
-| `key`                | The secret access key for the bucket.                                                                                                  |         |
-| `use_v4_signature`   | Whether to use v4 signature. For a S3-compatible storage, it should be `false`.                                                        |         |
-| `aws_region`         | The AWS region (only when v4 signature is used).                                                                                       |         |
-| `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.       |         |
-| `path_style_request` | Whether to use path style requests. For a S3-compatible storage, it should be `true`.                                                  |         |
-| `use_https`          | Whether to use https.                                                                                                                  |         |
+| Parameter            | Description                                                                                                                               | Default |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `bucket`             | The bucket name for the S3 backend.                                                                                                       |         |
+| `key_id`             | The access key id for the bucket.                                                                                                         |         |
+| `key`                | The secret access key for the bucket.                                                                                                     |         |
+| `use_v4_signature`   | Whether to use v4 signature. For a S3-compatible storage, it should be `false`.                                                           |         |
+| `aws_region`         | The AWS region (only when v4 signature is used).                                                                                          |         |
+| `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.          |         |
+| `path_style_request` | Whether to use path style requests. For a S3-compatible storage, it should be `true`.                                                     |         |
+| `use_https`          | Whether to use https.                                                                                                                     |         |
 | `sse_c_key`          | Use [server-side encryption with customer-provided keys](../../installation/advanced/s3-encryption.md) (SSE-C). This setting is optional. |         |
 
 ### `[snapshot]`

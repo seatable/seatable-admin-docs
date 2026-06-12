@@ -42,14 +42,9 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,ollama.yml'/" /opt/seatable-com
 
 ### Configuration
 
-In order to use Ollama to execute AI-based automation steps inside SeaTable, you must add the following configuration settings to your `.env` file:
+Please refer to the [LLM provider configuration](../components/seatable-ai.md#llm-provider-configuration) docs.
 
-```ini
-SEATABLE_AI_LLM_TYPE='ollama_chat'
-SEATABLE_AI_LLM_URL='http://ollama:11434'
-# Choose a model: https://ollama.com/library
-SEATABLE_AI_LLM_MODEL='gemma3:12b'
-```
+The URL must be set to `http://ollama:11434` in case you're deploying Ollama on the same host/VM as SeaTable.
 
 ### Start Ollama
 

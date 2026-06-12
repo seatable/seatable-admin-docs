@@ -4,6 +4,45 @@ description: Version-specific upgrade notices and required configuration changes
 
 # Extra upgrade notice
 
+## 6.2
+
+- SECRET_KEY aus dtable_web_settings.py in .env 
+- wenn rollen verwendet, dann: `sed -i "s/'scripts_running_limit'/'scripts_running_limit_per_user'/" /opt/dtable-web/seatable/conf/dtable_web_settings.py`
+- env anstelle von configurationsdateien - diese sollten bis auf dtable_web_settings.py sogar weg!
+für uns: dokumentation von "kopiere die yml vollständig" in patch-yamls.
+
+??? warning "Configuration of email settings inside the configuration file is deprecated"
+
+    The configuration of email settings inside the `dtable_web_settings.py` config file has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../configuration/sending-email.md).
+
+??? warning "S3 configuration must be migrated to environment variables"
+
+    The configuration of S3 bucket names and credentials inside the configuration files has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../installation/advanced/s3.md).
+
+??? warning "S3 configuration requires an additional bucket"
+
+    If you're using S3 to store bases, files and pictures, you'll now have to configure an additional bucket for user avatars.
+    This can be achieved by setting the `S3_AVATAR_BUCKET` environment variable inside your `.env` file.
+    Please note that this bucket must be publicly accessible via HTTP(S) since the user avatars are loaded directly from this bucket.
+    You can find more detailed information in this [article](../installation/advanced/s3.md).
+
+??? warning "Configuration of base with custom templates must be migrated to environment variables"
+
+    The configuration of a custom base that can be used to define [base templates](../customization/templates.md) inside `dtable_web_settings.py` has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../customization/templates.md).
+
+??? warning "Included n8n deployment: PostgreSQL 11 -> 16"
+
+    The following section is only relevant if you have deployed n8n alongside SeaTable using the included `n8n.yml` file.
+    We've upgraded the PostgreSQL version of the documented n8n deployment from version 11 to version 16.
+    This requires dumping and restoring your PostgreSQL database **before** running the upgrade.
+    Please follow the steps outlined in the [PostgreSQL docs](https://www.postgresql.org/docs/current/upgrading.html).
+
 ## 6.1
 
 Several Docker image tags have been updated to newer versions. These changes are applied automatically when you pull the latest images. Remember to also update your [plugins](../configuration/plugins.md).

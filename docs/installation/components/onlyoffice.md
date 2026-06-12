@@ -81,16 +81,15 @@ If this does not happen, execute `docker compose logs onlyoffice -f` to get more
 
 ## Advanced: Custom settings
 
-The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file called `local-production-linux.json` to [force some settings](https://helpcenter.onlyoffice.com/docs/installation/docs-developer-configuring.aspx).
+The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file to [force some settings](https://helpcenter.onlyoffice.com/docs/installation/docs-developer-configuring.aspx).
 
-Create a configuration file in the newly created directory:
+Create a configuration file in `/opt/seatable-compose`:
 
 ```bash
-cd /opt/onlyoffice
-nano local-production-linux.json
+nano onlyoffice-config.json
 ```
 
-Copy the following code block in this file:
+Copy the following code block into this file:
 
 ```json
 {
@@ -110,17 +109,19 @@ Copy the following code block in this file:
 }
 ```
 
-Mount this config file into your onlyoffice block in your `docker-compose.yml`.
+Create `custom-onlyoffice.yml` to mount the config file into the container:
 
 ```yaml
-  volumes:
-      - /opt/onlyoffice/logs:/var/log/onlyoffice
-      - /opt/onlyoffice/data:/var/www/onlyoffice/Data
-      - /opt/onlyoffice/lib:/var/lib/onlyoffice
-      - /opt/oods/DocumentServer/local-production-linux.json:/etc/onlyoffice/documentserver/local-production-linux.json
+services:
+  onlyoffice:
+    volumes:
+      - ./onlyoffice-config.json:/etc/onlyoffice/documentserver/local-production-linux.json
 ```
 
-Restart OnlyOffice to load the new configuration.
+**Note:** Using a dedicated `.yml` file instead of modifying the default `onlyoffice.yml` file ensures that any modifications are preserved across version upgrades of SeaTable.
+You can read our [guide](../../configuration/customizations.md) for detailed information on how this works.
+
+Add `custom-onlyoffice.yml` to the `COMPOSE_FILE` variable and restart OnlyOffice to load the new configuration:
 
 ```bash
 docker compose up -d
@@ -128,7 +129,7 @@ docker compose up -d
 
 ## Advanced: OnlyOffice on a separate host and URL
 
-It is not that difficult to install OnlyOffice on a separate host to free the resources of the main server. This manual assumes that onlyoffice will be accessible by a separate public available URL.
+It is not that difficult to install OnlyOffice on a separate host to free the resources of the main server. This manual assumes that OnlyOffice will be accessible via a separate public URL.
 
 ### Install OnlyOffice
 
@@ -152,20 +153,25 @@ Now execute `docker-compose up -d` and on this server only caddy and OnlyOffice 
 
 ### Configure SeaTable to use this new OnlyOffice host.
 
-The next step is to tell SeaTable where it can access OnlyOffice. Update the settings in `dtable_web_settings.py` accordingly. Make sure to use the exact same shared secret and use the public available URL of the OnlyOffice server.
+The next step is to tell SeaTable where it can access OnlyOffice. Update the settings in `dtable_web_settings.py` accordingly. Make sure to use the exact same shared secret and use the public URL of the OnlyOffice server.
 
-In addition you have to extend the caddy security headers. Add the URL of your Onlyoffice host to the variables `script-src-elem` and `frame-src` in your `custom-seatable-server.yml`. Don't forget to restart all containers.
+You'll also have to configure the `ONLYOFFICE_HOSTNAME` variable inside your `.env` file.
+This will cause the `Content-Security-Policy` header returned by Caddy to contain the correct values for the OnlyOffice hostname.
+
+Remember to run `docker compose up -d` in order to apply the changes.
 
 ### Use Certificate store
 
 If you are working with self signed or low trust certificates, there is an easy way to put your certificates to the onlyoffice container truststore. You can just mount your certificate to the onlyoffice container. 
 
-```bash
+Create an additional `custom-onlyoffice.yml` file and add this file to the `COMPOSE_FILE` variable.
+
+The file should contain the following contents:
+
+```yaml
 services:
   onlyoffice:
-    ...
     volumes:
-      ...
       # mount certificates to onlyoffice container
       - ./ca-certificates.crt:/var/www/onlyoffice/Data/certs/tls.crt:ro
 ```
