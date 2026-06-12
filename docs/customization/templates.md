@@ -87,31 +87,15 @@ Make sure to note down the API token as you'll need it for the next step.
 
 ## Activate templates in SeaTable
 
-Equipped with API token and your template base, you can activate the templates in your SeaTable Server. There are two ways to do this:
+Equipped with API token and your template base, you can activate the templates in your SeaTable Server.
+The SeaTable Server image supports auto configuration via environment variables. Add these variables to your .env file.
 
-=== "Environment variables"
-
-    <!-- md:version 4.4 -->
-
-    The SeaTable Server image supports auto configuration via environment variables. Add these variables to your .env file.
-
-    | Environment variable                        | Description                                     | Example values          |
-    | ------------------------------------------- | ----------------------------------------------- | ----------------------- |
-    | `SEATABLE_SHOW_TEMPLATES_LINK`              | Activate to show the link on the home page      | `true` or leave empty   |
-    | `SEATABLE_TEMPLATE_BASE_API_TOKEN`          | API token of the base containing your templates | `759...3a05f8`          |
-    | `SEATABLE_TEMPLATE_TABLE_NAME`              | Name of the table containing your templates     | `Table1` or `Templates` |
-    | `SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE` | Allow the creation of new bases from templates  | `true` or leave empty.  |
-
-=== "Configuration file"
-
-    Add the following lines to `dtable_web_settings.py`.
-
-    ```bash
-    SHOW_TEMPLATES_LINK = True
-    TEMPLATE_BASE_API_TOKEN = 'replace-with-your-api-token'
-    TEMPLATE_TABLE_NAME = 'templates'
-    ENABLE_CREATE_BASE_FROM_TEMPLATE = True
-    ```
+| Environment variable                        | Description                                     | Example values          |
+| ------------------------------------------- | ----------------------------------------------- | ----------------------- |
+| `SEATABLE_SHOW_TEMPLATES_LINK`              | Activate to show the link on the home page      | `true` or leave empty   |
+| `SEATABLE_TEMPLATE_BASE_API_TOKEN`          | API token of the base containing your templates | `759...3a05f8`          |
+| `SEATABLE_TEMPLATE_TABLE_NAME`              | Name of the table containing your templates     | `Table1` or `Templates` |
+| `SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE` | Allow the creation of new bases from templates  | `true` or leave empty.  |
 
 Restart SeaTable service to activate your templates.
 
