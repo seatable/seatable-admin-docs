@@ -30,6 +30,12 @@ für uns: dokumentation von "kopiere die yml vollständig" in patch-yamls.
     Please note that this bucket must be publicly accessible via HTTP(S) since the user avatars are loaded directly from this bucket.
     You can find more detailed information in this [article](../installation/advanced/s3.md).
 
+??? warning "LLM provider configuration must be migrated to `seatable_config.yaml`"
+
+    If you've deployed [SeaTable AI](../installation/components/seatable-ai.md) alongside SeaTable, you'll now have to migrate the LLM provider configuration
+    to the new `seatable_config.yaml` config file. This is required since SeaTable AI now supports multiple LLM providers.
+    You can find more detailed information in this [article](../installation/components/seatable-ai.md#llm-provider-configuration).
+
 ??? warning "Configuration of base with custom templates must be migrated to environment variables"
 
     The configuration of a custom base that can be used to define [base templates](../customization/templates.md) inside `dtable_web_settings.py` has been deprecated.
