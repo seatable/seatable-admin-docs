@@ -4,73 +4,108 @@ description: Set up OAuth single sign-on in SeaTable with providers like GitHub 
 
 # OAuth
 
-First, register the Client App on the OAuth authorization server (such as [Github](https://github.com/settings/developers)), remember the Client ID and Client Secret, and set the Redirect Uri (Authorization callback URL in Github).
+OAuth 2.0 is an open standard for delegated authorization that is widely used for single sign-on (SSO). SeaTable can authenticate users against any OAuth 2.0 provider that exposes the standard authorization, token, and user-info endpoints, such as GitHub or Google.
 
-Add the following configuration to dtable_web_settings.py:
+SeaTable's OAuth support is part of the Enterprise Edition. Unlike the [SAML](./saml.md) integration, the OAuth provider is not configured through a metadata document; instead, you enter the provider's endpoints manually.
+
+## Registering the application in the provider
+
+First, register a client application on the OAuth provider (for example on [GitHub](https://github.com/settings/developers)). During registration:
+
+- Note the **Client ID** and **Client Secret**.
+- Set the **Redirect URI** (called "Authorization callback URL" on GitHub) to `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/oauth/callback/`.
+
+## Configuration
+
+To enable OAuth, add the following parameters to `dtable_web_settings.py`, customize the values to your environment, and [restart SeaTable](../../maintenance/restart-seatable.md).
+
+The following parameters are **required**:
+
+| Parameter               | Description                                                                                                  | Values                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| ENABLE_OAUTH            | On/off switch for authentication via OAuth                                                                    | `True` or `False`                                                |
+| OAUTH_CLIENT_ID         | The Client ID obtained when registering the application                                                       | Alphanumeric string                                              |
+| OAUTH_CLIENT_SECRET     | The Client Secret obtained when registering the application                                                   | Alphanumeric string                                              |
+| OAUTH_PROVIDER_DOMAIN   | Name SeaTable uses internally to distinguish OAuth from other login methods and stored as the `provider`      | Alphanumeric string, e.g. `github.com`                           |
+| OAUTH_AUTHORIZATION_URL | The provider's authorization endpoint                                                                         | URL, e.g. `https://github.com/login/oauth/authorize`            |
+| OAUTH_TOKEN_URL         | The provider's token endpoint                                                                                 | URL, e.g. `https://github.com/login/oauth/access_token`         |
+| OAUTH_USER_INFO_URL     | The provider's user-info endpoint                                                                             | URL, e.g. `https://api.github.com/user`                         |
+| OAUTH_REDIRECT_URL      | The redirect URI registered in the provider (must match exactly)                                              | URL ending in `/oauth/callback/`                                |
+| OAUTH_ATTRIBUTE_MAP     | Mapping of the user fields returned by the provider to the user fields in SeaTable (see below)                | Key-value pairs                                                  |
+
+The following parameters are **optional**:
+
+| Parameter                          | Description                                                                                                                                                                             | Values                                  |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| OAUTH_SCOPE                        | The scopes requested from the provider; default value is ''                                                                                                                            | List of strings, e.g. `["user"]`        |
+| OAUTH_ENABLE_INSECURE_TRANSPORT    | Allows OAuth over plain HTTP for setups without HTTPS. Required by the underlying `requests-oauthlib` library when no TLS is configured; default value is `False`                       | `True` or `False`                       |
+| OAUTH_ACCESS_TOKEN_IN_URI          | Passes the access token in the query string of the user-info request. Some providers require this; default value is `False`                                                            | `True` or `False`                       |
+| OAUTH_CREATE_UNKNOWN_USER          | Just-in-time provisioning: create a SeaTable account on first successful login; default value is `True`                                                                                 | `True` or `False`                       |
+| OAUTH_ACTIVATE_USER_AFTER_CREATION | Whether auto-provisioned users are active immediately. Set to `False` to create them inactive and require administrator approval; default value is `True`                              | `True` or `False`                       |
+
+This is a sample configuration for GitHub:
 
 ```python
 ENABLE_OAUTH = True
 OAUTH_ENABLE_INSECURE_TRANSPORT = True
 OAUTH_PROVIDER_DOMAIN = 'github.com'
-OAUTH_CLIENT_ID = "wd529b3b2ae8320e06fr"
-OAUTH_CLIENT_SECRET = "8159c3dcc8ef197cc3bbd94ff6cf101c93ba6d8r"
-OAUTH_REDIRECT_URL = 'https://test.seatable.cn/oauth/callback/'
+OAUTH_CLIENT_ID = 'your-client-id'
+OAUTH_CLIENT_SECRET = 'your-client-secret'
+OAUTH_REDIRECT_URL = 'https://<YOUR_SEATABLE_SERVER_HOSTNAME>/oauth/callback/'
 OAUTH_AUTHORIZATION_URL = 'https://github.com/login/oauth/authorize'
 OAUTH_TOKEN_URL = 'https://github.com/login/oauth/access_token'
 OAUTH_USER_INFO_URL = 'https://api.github.com/user'
-OAUTH_SCOPE = ["user",]
+OAUTH_SCOPE = ["user"]
 OAUTH_ATTRIBUTE_MAP = {
     "id": "uid",
     "name": "name",
     "email": "contact_email",
 }
-
 ```
 
-The meaning of configuration option is as follows:
+### OAUTH_ATTRIBUTE_MAP
 
-#### **ENABLE_OAUTH_INSECURE_TRANSPORT**
+`OAUTH_ATTRIBUTE_MAP` maps the fields returned by the provider's user-info endpoint to the fields in SeaTable. Each entry has the form `"<provider field>": "<seatable field>"`, where the two sides behave differently:
 
-If https is not configured, you can add it in dtable_web_settings.py `ENABLE_OAUTH_INSECURE_TRANSPORT = True`.
+- The **key** (left side) is the field name as your provider delivers it, and this is the side you adjust. GitHub, for example, returns the fields `id`, `name`, and `email`.
+- The **value** (right side) is the SeaTable target field and is fixed. SeaTable only recognizes the values listed below; any other value is ignored.
 
-See more in <https://requests-oauthlib.readthedocs.io/en/latest/examples/examples.html>
+So if your provider returns the email address in a field called `mail`, you change only the key, as in `"mail": "contact_email"`.
 
-**note:**
+| SeaTable field (value) | Required | Description                                                                                                  |
+| ---------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| uid                    | yes      | The unique identifier by which SeaTable recognizes a returning user. It must never change over the user's lifetime; if it changes, SeaTable creates a new user. |
+| name                   | no       | The display name (nickname) of the user in SeaTable                                                          |
+| contact_email          | no       | The contact email address of the user in SeaTable                                                            |
+| user_role              | no       | The role assigned to the user in SeaTable                                                                    |
+| employee_id            | no       | The user's ID within the organization (stored as `id_in_org`)                                                |
 
-If you use Google OAuth2 login, the OAUTH_SCOPE configuration should be configured as follows:
-```python
-OAUTH_SCOPE = ["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
-```
+!!! tip "Controlling auto-provisioning"
 
+    By default SeaTable creates a user account on the first successful OAuth login (`OAUTH_CREATE_UNKNOWN_USER = True`). To stop new accounts from being created while keeping existing OAuth users working, set `OAUTH_CREATE_UNKNOWN_USER = False`. New users must then be provisioned in SeaTable beforehand, either by an administrator or via import.
 
-#### **OAUTH_PROVIDER**
+    To keep auto-provisioning on but have new accounts created in an inactive state that requires administrator approval, set `OAUTH_ACTIVATE_USER_AFTER_CREATION = False`.
 
-SeaTable uses this configuration to distinguish OAuth from other login methods, such as: github.com.
+## Provider notes
 
-#### **OAUTH_REDIRECT_URL**
-
-The Redirect URL, Authorization callback URL in Github, such as: https\://test.seatable.cn/oauth/callback/
-
-#### **OAUTH_AUTHORIZATION_URL、OAUTH_TOKEN_URL、OAUTH_USER_INFO_URL、OAUTH_SCOPE**
-
-Set these values according to the document of OAuth provider, for GitHub, please check [https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
-
-#### **OAUTH_ATTRIBUTE_MAP**
-
-The correspondence between the user fields obtained from the OAuth authorization server and the user fields in SeaTable.
-
-* uid: the unique identifier for SeaTable identify a user from the OAuth provider.
-* name: the name of a user in SeaTable
-* contact_email: a user's contact email in SeaTable
-
-#### **OAUTH_CREATE_UNKNOWN_USER**
-
-Controls just-in-time (JIT) user provisioning. Default is `True`: a SeaTable account is created automatically the first time a user authenticates successfully via OAuth. Set it to `False` to disable auto-provisioning — users who already have a SeaTable account continue to log in via OAuth, but users without an existing account are rejected and **no** account is created:
+When configuring Google as the OAuth provider, the scope must be set as follows:
 
 ```python
-OAUTH_CREATE_UNKNOWN_USER = False
+OAUTH_SCOPE = [
+    "openid",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+]
 ```
 
-Use this when account eligibility is governed outside of SeaTable (for example by your identity provider or an identity-governance system). With auto-provisioning disabled, new users must exist in SeaTable beforehand — created by an administrator or via import — before their first login.
+Set the authorization, token, and user-info URLs as well as the scope according to the documentation of your OAuth provider. For GitHub, see [Authorizing OAuth apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps).
 
-A related option, `OAUTH_ACTIVATE_USER_AFTER_CREATION` (default `True`), keeps auto-provisioning on but creates new users in an inactive state that requires admin approval; set it to `False` for that behavior.
+## Custom OAuth (advanced)
+
+For providers that cannot be handled by the standard configuration above, SeaTable offers a custom OAuth mode. When `ENABLE_CUSTOM_OAUTH = True`, SeaTable loads custom `custom_oauth_login` and `custom_oauth_callback` functions from `seatable_custom_functions.custom_oauth` in the `conf` directory, allowing you to implement provider-specific login and callback logic yourself.
+
+```python
+ENABLE_CUSTOM_OAUTH = True
+```
+
+This is an advanced extension point intended for special integrations and requires you to provide the custom Python module. If the module cannot be imported, SeaTable silently falls back to standard OAuth handling.

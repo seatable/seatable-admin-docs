@@ -57,12 +57,13 @@ The following parameters are also available, but optional:
 | Parameter                 | Description                                                                                                                                                            | Values                                                                |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | LDAP_FILTER               | Filter for users who can log in, e.g. a certain security group                                                                                                         | LDAP filter, e.g. 'memberOf=CN=group,CN=developers,DC=example,DC=com' |
-| LDAP_GROUP_FILTER         |                                                                                                                                                                        |                                                                       |
+| LDAP_USER_UNIQUE_ID       | LDAP attribute whose value is stored as the user's `uid` in `social_auth_usersocialauth` and used to recognize a returning user. Choose an attribute that never changes over the user's lifetime, because if it changes, SeaTable treats the user as new. Binary GUID/UUID values are decoded automatically; default value is '' | Attribute name, e.g. `objectGUID` (AD) or `entryUUID` (OpenLDAP)       |
+| LDAP_GROUP_FILTER         | Additional filter applied when searching for groups to synchronize (group sync only). Combined with the group object class as `(&(objectClass=<LDAP_GROUP_OBJECT_CLASS>)(<LDAP_GROUP_FILTER>))`. Leave empty to sync all groups of that class; default value is ''                                                       | LDAP filter, e.g. `cn=SeaTable*`                                      |
 | LDAP_USER_ROLE_ATTR       | Name of user role in the LDAP server                                                                                                                                   | Attribute name, e.g. `title`                                          |
 | LDAP_USER_FIRST_NAME_ATTR | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                               | Attribute name, e.g. `givenName`                                      |
 | LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                              | Attribute name, e.g. `sn`                                             |
 | LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                       | `True` or `False`                                                      |
-| LDAP_SAML_USE_SAME_UID    | Option to allow users to log in via LDAP and SAML using the same username                                                                                              | `True` or `False`                                                      |
+| LDAP_SAML_USE_SAME_UID    | Use SAML for login and LDAP only for synchronization, mapping both to one shared account; disables interactive LDAP login (see [LDAP and SAML](#ldap-and-saml))         | `True` or `False`                                                      |
 | LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is '' |                                                                       |
 | LDAP_EMPLOYEE_ID_ATTR     | ID of the employee                                                                                                                                                     | Attribute name, e.g. `33`                                             |
 
@@ -99,12 +100,40 @@ sync_interval = 60  # The unit is seconds
 
 ## LDAP and SAML
 
-In some situations, it is useful to configure LDAP - especially LDAP Sync - and SAML as authentication providers. In this case, SeaTable must be prevented from creating two different users (as identified by the `username`) for one and the same `uid` when the person authenticates via LDAP and SAML, which would be the default behavior.
+In some situations it is useful to use **SAML for authentication** and **LDAP for synchronization** at the same time. A typical example is a setup where users sign in through an Identity Provider (IdP) via SAML SSO, while the user and group information is provisioned and kept up to date from your LDAP directory.
 
-Add the following parameter to `dtable_web_settings.py` to instruct SeaTable to use the same `username` no matter if a user (as identified by its `uid`) authenticates via LDAP or SAML.
+Without further configuration, SeaTable would treat the LDAP identity and the SAML identity of one and the same person as two different users. Each of them would receive its own `username`, and SeaTable would create two separate accounts. To prevent this, add the following parameter to `dtable_web_settings.py`:
 
 ```python
 LDAP_SAML_USE_SAME_UID = True
 ```
 
-When enabled, SeaTable creates an additional record for the authenticating user in social_auth_usersocialauth when the user logs in using LDAP. This record maps the `username` to the `uid` for the SAML provider.
+### What this setting does
+
+When `LDAP_SAML_USE_SAME_UID = True`:
+
+- **Interactive login via LDAP is disabled.** Users authenticate **only via SAML**. An attempt to log in with LDAP credentials fails with the generic message "Incorrect account or password". This is by design, and nothing is written to `dtable_web.log`.
+- **LDAP is used for synchronization only.** The [LDAP Sync](#ldap-synchronisation) job provisions the accounts and keeps users and groups up to date.
+- For every user it provisions, LDAP Sync additionally writes a record into `social_auth_usersocialauth` for the SAML provider that maps the user's `username` to the same `uid`. This bridge record is what lets the subsequent SAML login resolve to the account created by LDAP Sync instead of creating a second one.
+
+The three building blocks therefore play these roles:
+
+| Component | Role in combined mode                                            |
+| --------- | --------------------------------------------------------------- |
+| SAML      | The only interactive login method                               |
+| LDAP Sync | Provisions accounts and groups, and writes the SAML bridge record |
+| LDAP Auth | Disabled (its connection settings are still required by LDAP Sync) |
+
+### Requirements
+
+- **LDAP Sync must be configured and enabled** (see [LDAP Synchronisation](#ldap-synchronisation)). The LDAP connection parameters (`LDAP_SERVER_URL`, `LDAP_ADMIN_DN`, `LDAP_ADMIN_PASSWORD`, `LDAP_BASE_DN`, …) are still required, because the sync job uses them. This applies even though interactive LDAP authentication is off.
+- **The IdP must send the same `uid` as LDAP.** The value the IdP sends as the SAML `uid` (typically the NameID) must be exactly the value of the LDAP attribute used as the user's login identifier (`LDAP_LOGIN_ATTR`, e.g. `sAMAccountName`).
+- **The comparison is case-sensitive.** While `sAMAccountName` is case-insensitive in Active Directory, the `uid` match in `social_auth_usersocialauth` is case-sensitive. If LDAP provides `jdoe` and the IdP sends `JDoe`, the two will not match and a second account is created.
+
+### Typical setup procedure
+
+1. Configure and test [SAML](./saml.md) on its own with a test user, then delete that test account again.
+2. Configure [LDAP Synchronisation](#ldap-synchronisation).
+3. Set `LDAP_SAML_USE_SAME_UID = True` and [restart SeaTable](../../maintenance/restart-seatable.md).
+4. Let the sync job run (or wait for the configured `sync_interval`) so the accounts and their SAML bridge records exist.
+5. Users sign in via SAML. Do not offer the LDAP login form in this mode, because an LDAP login attempt always fails by design.
