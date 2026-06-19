@@ -7137,6 +7137,12 @@ Additionally, SeaTable supports the following external authentication types:
 
 Finally, users can also authenticate using [JWT](./jwt.md), which may be interesting for some special use cases.
 
+    The local database authentication is always available, which means that an administrator can always sign in with a local password. In addition, you can enable several external methods at the same time.
+
+    By default, each method identifies a user by its own `uid` and creates a **separate** account with a separate `username`. This also happens when LDAP, SAML, or OAuth refer to the same physical person. There is one exception: LDAP and SAML can be tied to a **single shared account** with `LDAP_SAML_USE_SAME_UID`, in which case SAML handles login and LDAP handles synchronization only. See [LDAP › LDAP and SAML](./ldap.md#ldap-and-saml). OAuth has no comparable account-sharing option.
+
+    Note also that the login page exposes a single **Single Sign-On** button: if both SAML and OAuth are enabled, it always routes to SAML.
+
 ## Username
 
 SeaTable assigns every user a unique `username`, regardless of the authentication type used. The `username` serves as a key to link the different SQL database tables.
@@ -7157,16 +7163,16 @@ SeaTable's databases encompass almost 100 tables. Four of those are relevant for
 
 | Database  | Table                                                           |
 | :-------- | :-------------------------------------------------------------- |
-| ccnet_db  | [EmailUser](#table-emailuser)                                   |
-| dtable_db | [profile_profile](#table-profile_profile)                       |
-| dtable_db | [social_auth_usersocialauth](#table-social_auth_usersocialauth) |
-| dtable_db | [id_in_org_tuple](#table-id_in_org_tuple)                       |
+| ccnet_db  | [`EmailUser`](#table-emailuser)                                   |
+| dtable_db | [`profile_profile`](#table-profile_profile)                       |
+| dtable_db | [`social_auth_usersocialauth`](#table-social_auth_usersocialauth) |
+| dtable_db | [`id_in_org_tuple`](#table-id_in_org_tuple)                       |
 
-Note: The table LDAPUsers in ccnet_db is no longer used.
+Note: The table `LDAPUsers` in `ccnet_db` is no longer used.
 
 The database tables shown in the following sections are for illustrative purposes only. Yet, they represent a possible system configuration and are internally consistent.
 
-### Table EmailUser
+### Table `EmailUser`
 
 The table EmailUser stores all user accounts of a SeaTable Server with the account status and privileges for every user account. Additionally, the table also contains the (hashed) passwords for all users that authenticate directly against SeaTable.
 
@@ -7199,7 +7205,7 @@ A `!` instead of a hash value means that the user uses _external authentication_
 
 The last three users in the sample table above are users authenticating using either LDAP, OAuth, or SAML.
 
-### Table profile_profile
+### Table `profile_profile`
 
 The table `profile_profile`, as the name indicates, contains profile information for every user in the system such as nickname, interface language, and contact email address. Every record in the table `EmailUser` has its correspondence in `profile_profile`.
 
@@ -7222,14 +7228,13 @@ mysql> select user,nickname,lang_code,contact_email,login_id from dtable_db.prof
 
 `login_id` is an alternative to the username that the user can use to log in. The `login_id` can only be set via [SeaTable API](https://api.seatable.com/reference/update-user) and not in system administration in SeaTable's web interface.
 
-> **Three valid combos for default authentication**
->
-> Users authenticating against the local database can use the following three combinations to login:
-> \1) `contact_email` + `password`
-> \2) `login_id` + `password`
-> \3) `username` + `password`
+    Users authenticating against the local database can use the following three combinations to login:
 
-### Table social_auth_usersocialauth
+    1. `contact_email` + `password`
+    2. `login_id` + `password`
+    3. `username` + `password`
+
+### Table `social_auth_usersocialauth`
 
 The table `social_auth_usersocialauth` is critical for external authentication with LDAP, SAML, or OAuth. This table maps the user's SeaTable username to its unique identifiers from the identity providers. Every record in the table `EmailUser` without a password must have at least one correspondence in this table to be able to log into SeaTable using _external authentication_.
 
@@ -7248,7 +7253,7 @@ mysql> select username,provider,uid from dtable_db.social_auth_usersocialauth;
 
 `uid` in this table is the unique identifier as communicated by the external authentication service. The `uid` has to be provided by the external authentication method and allows to match the users from the external service with the users inside SeaTable. This `uid` must not be changed over the lifetime of the user (despite name, email address, ... changes) If the `uid` changes, SeaTable considers the user as a new user and creates a new `username` accordingly.
 
-### Table id_in_org_tuple
+### Table `id_in_org_tuple`
 
 This table stores the user IDs. Because setting a user ID is optional, this table can be significantly shorter than all the other three tables.
 
@@ -7325,7 +7330,7 @@ Additionally, LDAP in SeaTable can be configured to work seamlessly with SAML.
 
 ## LDAP Authentication
 
-To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtable_web_settings.py`, customize to your environment, and restart the SeaTable service:
+To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtable_web_settings.py`, customize to your environment, and [restart SeaTable](../../maintenance/restart-seatable.md):
 
 | Parameter           | Description                                                                                                               | Values                                          |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
@@ -7360,13 +7365,14 @@ The following parameters are also available, but optional:
 
 | Parameter                 | Description                                                                                                                                                            | Values                                                                |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| LDAP_FILTER               | Filter for users who can log in, e.g. a certain security group                                                                                                         | LDAP filter, e.g. 'memberOf=CN=group,CN=developers,DC=example,DC=com' |
-| LDAP_GROUP_FILTER         |                                                                                                                                                                        |                                                                       |
+| LDAP_FILTER               | Filter for users who can log in, e.g. a certain security group                                                                                                         | LDAP filter, e.g. `memberOf=CN=SeaTable_Users,…` |
+| LDAP_USER_UNIQUE_ID       | LDAP attribute whose value is stored as the user's `uid` in `social_auth_usersocialauth` and used to recognize a returning user. Choose an attribute that never changes over the user's lifetime, because if it changes, SeaTable treats the user as new. Binary GUID/UUID values are decoded automatically; default value is '' | Attribute name, e.g. `objectGUID` (AD) or `entryUUID` (OpenLDAP)       |
+| LDAP_GROUP_FILTER         | Additional filter applied when searching for groups to synchronize (group sync only). It is combined with the configured group object class using a logical AND. Leave empty to sync all groups of that class; default value is ''                                                       | LDAP filter, e.g. `cn=SeaTable*`                                      |
 | LDAP_USER_ROLE_ATTR       | Name of user role in the LDAP server                                                                                                                                   | Attribute name, e.g. `title`                                          |
 | LDAP_USER_FIRST_NAME_ATTR | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                               | Attribute name, e.g. `givenName`                                      |
 | LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                              | Attribute name, e.g. `sn`                                             |
 | LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                       | `True` or `False`                                                      |
-| LDAP_SAML_USE_SAME_UID    | Option to allow users to log in via LDAP and SAML using the same username                                                                                              | `True` or `False`                                                      |
+| LDAP_SAML_USE_SAME_UID    | Use SAML for login and LDAP only for synchronization, mapping both to one shared account; disables interactive LDAP login (see [LDAP and SAML](#ldap-and-saml))         | `True` or `False`                                                      |
 | LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is '' |                                                                       |
 | LDAP_EMPLOYEE_ID_ATTR     | ID of the employee                                                                                                                                                     | Attribute name, e.g. `33`                                             |
 
@@ -7389,7 +7395,7 @@ To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the
 | LDAP_GROUP_MEMBER_UID_ATTR | User attribute set in 'memberUid' option, which is used in "posixGroup"; default value is `uid`         |                                                                                                                                        |
 | LDAP_USER_OBJECT_CLASS     | Name of the class used to search for user objects; default value is `person`                            |                                                                                                                                        |
 | LDAP_GROUP_OBJECT_CLASS    | Name of the class used to search for group objects; default value is `group`                            | For LDAP: `groupOfNames`, `groupOfUniqueNames`, `posixGroup`<br />For AD: `group`                                                      |
-| LDAP_GROUP_UUID_ATTR       | ...; default value is `ObjectGUID`                                                                      | For LDAP: refer to https://ldapwiki.com/wiki/Universally%20Unique%20Identifier<br />For AD: `ObjectGUID`                               |
+| LDAP_GROUP_UUID_ATTR       | ...; default value is `ObjectGUID`                                                                      | For LDAP: refer to [UUID](https://ldapwiki.com/wiki/Universally%20Unique%20Identifier)<br />For AD: `ObjectGUID`                               |
 | SYNC_GROUP_AS_DEPARTMENT   | Option to sync LDAP groups as departments rather than SeaTable groups                                   | `True` or `False`                                                                                                                       |
 | LDAP_DEPARTMENT_NAME_ATTR  | Name of the department when SYNC_GROUP_AS_DEPARTMENT = True, the default department name is the OU name | Object name, e.g. `description`                                                                                                        |
 
@@ -7403,15 +7409,43 @@ sync_interval = 60  # The unit is seconds
 
 ## LDAP and SAML
 
-In some situations, it is useful to configure LDAP - especially LDAP Sync - and SAML as authentication providers. In this case, SeaTable must be prevented from creating two different users (as identified by the `username`) for one and the same `uid` when the person authenticates via LDAP and SAML, which would be the default behavior.
+In some situations it is useful to use **SAML for authentication** and **LDAP for synchronization** at the same time. A typical example is a setup where users sign in through an Identity Provider (IdP) via SAML SSO, while the user and group information is provisioned and kept up to date from your LDAP directory.
 
-Add the following parameter to `dtable_web_settings.py` to instruct SeaTable to use the same `username` no matter if a user (as identified by its `uid`) authenticates via LDAP or SAML.
+Without further configuration, SeaTable would treat the LDAP identity and the SAML identity of one and the same person as two different users. Each of them would receive its own `username`, and SeaTable would create two separate accounts. To prevent this, add the following parameter to `dtable_web_settings.py`:
 
 ```python
 LDAP_SAML_USE_SAME_UID = True
 ```
 
-When enabled, SeaTable creates an additional record for the authenticating user in social_auth_usersocialauth when the user logs in using LDAP. This record maps the `username` to the `uid` for the SAML provider.
+### What this setting does
+
+When `LDAP_SAML_USE_SAME_UID = True`:
+
+- **Interactive login via LDAP is disabled.** Users authenticate **only via SAML**. An attempt to log in with LDAP credentials fails with the generic message "Incorrect account or password". This is by design, and nothing is written to `dtable_web.log`.
+- **LDAP is used for synchronization only.** The [LDAP Sync](#ldap-synchronisation) job provisions the accounts and keeps users and groups up to date.
+- For every user it provisions, LDAP Sync additionally writes a record into `social_auth_usersocialauth` for the SAML provider that maps the user's `username` to the same `uid`. This bridge record is what lets the subsequent SAML login resolve to the account created by LDAP Sync instead of creating a second one.
+
+The three building blocks therefore play these roles:
+
+| Component | Role in combined mode                                            |
+| --------- | --------------------------------------------------------------- |
+| SAML      | The only interactive login method                               |
+| LDAP Sync | Provisions accounts and groups, and writes the SAML bridge record |
+| LDAP Auth | Disabled (its connection settings are still required by LDAP Sync) |
+
+### Requirements
+
+- **LDAP Sync must be configured and enabled** (see [LDAP Synchronisation](#ldap-synchronisation)). The LDAP connection parameters (`LDAP_SERVER_URL`, `LDAP_ADMIN_DN`, `LDAP_ADMIN_PASSWORD`, `LDAP_BASE_DN`, …) are still required, because the sync job uses them. This applies even though interactive LDAP authentication is off.
+- **The IdP must send the same `uid` as LDAP.** The value the IdP sends as the SAML `uid` (typically the NameID) must be exactly the value of the LDAP attribute used as the user's login identifier (`LDAP_LOGIN_ATTR`, e.g. `sAMAccountName`).
+- **The comparison is case-sensitive.** While `sAMAccountName` is case-insensitive in Active Directory, the `uid` match in `social_auth_usersocialauth` is case-sensitive. If LDAP provides `jdoe` and the IdP sends `JDoe`, the two will not match and a second account is created.
+
+### Typical setup procedure
+
+1. Configure and test [SAML](./saml.md) on its own with a test user, then delete that test account again.
+2. Configure [LDAP Synchronisation](#ldap-synchronisation).
+3. Set `LDAP_SAML_USE_SAME_UID = True` and [restart SeaTable](../../maintenance/restart-seatable.md).
+4. Let the sync job run (or wait for the configured `sync_interval`) so the accounts and their SAML bridge records exist.
+5. Users sign in via SAML. Do not offer the LDAP login form in this mode, because an LDAP login attempt always fails by design.
 
 ---
 
@@ -7419,75 +7453,117 @@ Source: https://admin.seatable.com/configuration/authentication/oauth/
 
 # OAuth
 
-First, register the Client App on the OAuth authorization server (such as [Github](https://github.com/settings/developers)), remember the Client ID and Client Secret, and set the Redirect Uri (Authorization callback URL in Github).
+OAuth 2.0 is an open standard for delegated authorization that is widely used for single sign-on (SSO). SeaTable can authenticate users against any OAuth 2.0 provider that exposes the standard authorization, token, and user-info endpoints, such as GitHub or Google.
 
-Add the following configuration to dtable_web_settings.py:
+Unlike the [SAML](./saml.md) integration, the OAuth provider is not configured through a metadata document; instead, you enter the provider's endpoints manually.
+
+## Registering the application in the provider
+
+First, register a client application on the OAuth provider (for example on [GitHub](https://github.com/settings/developers)). During registration:
+
+- Note the **Client ID** and **Client Secret**.
+- Set the **Redirect URI** (called "Authorization callback URL" on GitHub) to `https://<YOUR_SEATABLE_SERVER_HOSTNAME>/oauth/callback/`.
+
+## Configuration
+
+To enable OAuth, add the following parameters to `dtable_web_settings.py`, customize the values to your environment, and [restart SeaTable](../../maintenance/restart-seatable.md).
+
+The following parameters are **required**:
+
+| Parameter               | Description                                                                                                  | Values                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| ENABLE_OAUTH            | On/off switch for authentication via OAuth                                                                    | `True` or `False`                                                |
+| OAUTH_CLIENT_ID         | The Client ID obtained when registering the application                                                       | Alphanumeric string                                              |
+| OAUTH_CLIENT_SECRET     | The Client Secret obtained when registering the application                                                   | Alphanumeric string                                              |
+| OAUTH_PROVIDER_DOMAIN   | Name SeaTable uses internally to distinguish OAuth from other login methods and stored as the `provider`      | Alphanumeric string, e.g. `github.com`                           |
+| OAUTH_AUTHORIZATION_URL | The provider's authorization endpoint                                                                         | URL, e.g. `https://github.com/login/oauth/authorize`            |
+| OAUTH_TOKEN_URL         | The provider's token endpoint                                                                                 | URL, e.g. `https://github.com/login/oauth/access_token`         |
+| OAUTH_USER_INFO_URL     | The provider's user-info endpoint                                                                             | URL, e.g. `https://api.github.com/user`                         |
+| OAUTH_REDIRECT_URL      | The redirect URI registered in the provider (must match exactly)                                              | URL ending in `/oauth/callback/`                                |
+| OAUTH_ATTRIBUTE_MAP     | Mapping of the user fields returned by the provider to the user fields in SeaTable (see below)                | Key-value pairs                                                  |
+
+The following parameters are **optional**:
+
+| Parameter                          | Description                                                                                                                                                                             | Values                                  |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| OAUTH_SCOPE                        | The scopes requested from the provider; default value is ''                                                                                                                            | List of strings, e.g. `["user"]`        |
+| OAUTH_ENABLE_INSECURE_TRANSPORT    | Allows OAuth over plain HTTP for setups without HTTPS. Required by the underlying `requests-oauthlib` library when no TLS is configured; default value is `False`                       | `True` or `False`                       |
+| OAUTH_ACCESS_TOKEN_IN_URI          | Passes the access token in the query string of the user-info request. Some providers require this; default value is `False`                                                            | `True` or `False`                       |
+| OAUTH_CREATE_UNKNOWN_USER          | Just-in-time provisioning: create a SeaTable account on first successful login; default value is `True`                                                                                 | `True` or `False`                       |
+| OAUTH_ACTIVATE_USER_AFTER_CREATION | Whether auto-provisioned users are active immediately. Set to `False` to create them inactive and require administrator approval; default value is `True`                              | `True` or `False`                       |
+
+This is a sample configuration for GitHub:
 
 ```python
 ENABLE_OAUTH = True
 OAUTH_ENABLE_INSECURE_TRANSPORT = True
 OAUTH_PROVIDER_DOMAIN = 'github.com'
-OAUTH_CLIENT_ID = "wd529b3b2ae8320e06fr"
-OAUTH_CLIENT_SECRET = "8159c3dcc8ef197cc3bbd94ff6cf101c93ba6d8r"
-OAUTH_REDIRECT_URL = 'https://test.seatable.cn/oauth/callback/'
+OAUTH_CLIENT_ID = 'your-client-id'
+OAUTH_CLIENT_SECRET = 'your-client-secret'
+OAUTH_REDIRECT_URL = 'https://<YOUR_SEATABLE_SERVER_HOSTNAME>/oauth/callback/'
 OAUTH_AUTHORIZATION_URL = 'https://github.com/login/oauth/authorize'
 OAUTH_TOKEN_URL = 'https://github.com/login/oauth/access_token'
 OAUTH_USER_INFO_URL = 'https://api.github.com/user'
-OAUTH_SCOPE = ["user",]
+OAUTH_SCOPE = ["user"]
 OAUTH_ATTRIBUTE_MAP = {
     "id": "uid",
     "name": "name",
     "email": "contact_email",
 }
-
 ```
 
-The meaning of configuration option is as follows:
+### OAUTH_ATTRIBUTE_MAP
 
-#### **ENABLE_OAUTH_INSECURE_TRANSPORT**
+`OAUTH_ATTRIBUTE_MAP` maps the fields returned by the provider's user-info endpoint to the fields in SeaTable. Each entry has the form `"<provider field>": "<seatable field>"`, where the two sides behave differently:
 
-If https is not configured, you can add it in dtable_web_settings.py `ENABLE_OAUTH_INSECURE_TRANSPORT = True`.
+- The **key** (left side) is the field name as your provider delivers it, and this is the side you adjust. GitHub, for example, returns the fields `id`, `name`, and `email`.
+- The **value** (right side) is the SeaTable target field and is fixed. SeaTable only recognizes the values listed below; any other value is ignored.
 
-See more in <https://requests-oauthlib.readthedocs.io/en/latest/examples/examples.html>
+So if your provider returns the email address in a field called `mail`, you change only the key, as in `"mail": "contact_email"`.
 
-**note:**
+| SeaTable field (value) | Required | Description                                                                                                  |
+| ---------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| uid                    | yes      | The unique identifier by which SeaTable recognizes a returning user. It must never change over the user's lifetime; if it changes, SeaTable creates a new user. |
+| name                   | no       | The display name (nickname) of the user in SeaTable                                                          |
+| contact_email          | no       | The contact email address of the user in SeaTable                                                            |
+| user_role              | no       | The role assigned to the user in SeaTable                                                                    |
+| employee_id            | no       | The user's ID within the organization (stored as `id_in_org`)                                                |
 
-If you use Google OAuth2 login, the OAUTH_SCOPE configuration should be configured as follows:
-```python
-OAUTH_SCOPE = ["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
-```
+    By default SeaTable creates a user account on the first successful OAuth login (`OAUTH_CREATE_UNKNOWN_USER = True`). To stop new accounts from being created while keeping existing OAuth users working, set `OAUTH_CREATE_UNKNOWN_USER = False`. New users must then be provisioned in SeaTable beforehand, either by an administrator or via import.
 
-#### **OAUTH_PROVIDER**
+    To keep auto-provisioning on but have new accounts created in an inactive state that requires administrator approval, set `OAUTH_ACTIVATE_USER_AFTER_CREATION = False`.
 
-SeaTable uses this configuration to distinguish OAuth from other login methods, such as: github.com.
+## Provider notes
 
-#### **OAUTH_REDIRECT_URL**
-
-The Redirect URL, Authorization callback URL in Github, such as: https\://test.seatable.cn/oauth/callback/
-
-#### **OAUTH_AUTHORIZATION_URL、OAUTH_TOKEN_URL、OAUTH_USER_INFO_URL、OAUTH_SCOPE**
-
-Set these values according to the document of OAuth provider, for GitHub, please check [https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
-
-#### **OAUTH_ATTRIBUTE_MAP**
-
-The correspondence between the user fields obtained from the OAuth authorization server and the user fields in SeaTable.
-
-* uid: the unique identifier for SeaTable identify a user from the OAuth provider.
-* name: the name of a user in SeaTable
-* contact_email: a user's contact email in SeaTable
-
-#### **OAUTH_CREATE_UNKNOWN_USER**
-
-Controls just-in-time (JIT) user provisioning. Default is `True`: a SeaTable account is created automatically the first time a user authenticates successfully via OAuth. Set it to `False` to disable auto-provisioning — users who already have a SeaTable account continue to log in via OAuth, but users without an existing account are rejected and **no** account is created:
+When configuring Google as the OAuth provider, the scope must be set as follows:
 
 ```python
-OAUTH_CREATE_UNKNOWN_USER = False
+OAUTH_SCOPE = [
+    "openid",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+]
 ```
 
-Use this when account eligibility is governed outside of SeaTable (for example by your identity provider or an identity-governance system). With auto-provisioning disabled, new users must exist in SeaTable beforehand — created by an administrator or via import — before their first login.
+Set the authorization, token, and user-info URLs as well as the scope according to the documentation of your OAuth provider. For GitHub, see [Authorizing OAuth apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps).
 
-A related option, `OAUTH_ACTIVATE_USER_AFTER_CREATION` (default `True`), keeps auto-provisioning on but creates new users in an inactive state that requires admin approval; set it to `False` for that behavior.
+## Testing
+
+After restarting, navigate to the login page of your SeaTable Server, click on **Single Sign-On**, and try to log in. If the configuration is correct, you are redirected to the provider's login. After a successful login you are redirected back to SeaTable.
+
+Check `dtable_web.log` for troubleshooting information if authentication fails.
+
+    The login page exposes a single **Single Sign-On** button that routes to one method only. If both SAML and OAuth are enabled at the same time, this button always goes to SAML, and OAuth is never reached through it. Enable only one of the two for interactive login.
+
+## Custom OAuth (advanced)
+
+For providers that cannot be handled by the standard configuration above, SeaTable offers a custom OAuth mode. When `ENABLE_CUSTOM_OAUTH = True`, SeaTable loads custom `custom_oauth_login` and `custom_oauth_callback` functions from `seatable_custom_functions.custom_oauth` in the `conf` directory, allowing you to implement provider-specific login and callback logic yourself.
+
+```python
+ENABLE_CUSTOM_OAUTH = True
+```
+
+This is an advanced extension point intended for special integrations and requires you to provide the custom Python module. If the module cannot be imported, SeaTable silently falls back to standard OAuth handling.
 
 ---
 
@@ -7505,7 +7581,7 @@ This document assumes that you have a basic understanding of SAML and that you u
 
 SeaTable supports SSO with SAML. Specifically, SeaTable supports SAML's IdP-init and SP-init authentication flows.
 
-Besides basic authentication and authorization, SeaTable's SAML implementation also allows to have additional attributes be set by the IdP. Specifically, the following five attributes are supported:
+Besides basic authentication and authorization, SeaTable's SAML implementation also allows additional attributes to be set by the IdP. Specifically, the following five SeaTable fields can be populated from IdP attributes:
 
 | Attribute     | Description                    | Stored in database table                                                               | ... in column |
 | ------------- | ------------------------------ | -------------------------------------------------------------------------------------- | ------------- |
@@ -7515,7 +7591,7 @@ Besides basic authentication and authorization, SeaTable's SAML implementation a
 | employee_id   | User ID (optional)             | [dtable_db.id_in_org_tuple](./overview.md#table-id_in_org_tuple)                       | id_in_org     |
 | user_role     | Name of the role (optional)    | ccnet_db.UserRole                                                                      | role          |
 
-SeaTable also supports the side-by-side configuration of SAML and LDAP. For more information, see [LDAP](./ldap.md).
+SeaTable also supports using SAML for authentication together with LDAP for synchronization. For more information, see [LDAP › LDAP and SAML](./ldap.md#ldap-and-saml).
 
 ## Configuration
 
@@ -7585,15 +7661,15 @@ Once the command has finished, the directory contains three files: `idp.crt`, `s
 
 ### Modifying the config file in SeaTable
 
-To enable SAML, add the following parameters to `dtable_web_settings.py`, customize the values to your environment, and restart the SeaTable service:
+To enable SAML, add the following parameters to `dtable_web_settings.py`, customize the values to your environment, and [restart SeaTable](../../maintenance/restart-seatable.md):
 
 | Parameter                | Description                                                 | Values                                                                                                                                       |
 | ------------------------ | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | ENABLE_SAML              | On/off switch for authentication via SAML                   | `True` or `False`                                                                                                                            |
-| SAML_PROVIDER_IDENTIFIER | Name for SAML provider used internally by SeaTable          | Alphanumeric string, e.g. "Azure", "Auth0" or "Authentik"                                                                                    |
-| SAML_REMOTE_METADATA_URL | URL of metadata.xml used by SAML IdP                        | URL, e.g. 'https://login.microsoftonline.com/xxx/federationmetadata/2007-06/federationmetadata.xml?appid=xxx'                                |
-| SAML_ATTRIBUTE_MAP       | Key-value pairs mapping SAML attributes to local attributes | Keys are the SAML attributes from the IdP; some IdPs use attribute like 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress' |
-| SAML_CERTS_DIR           | Path to certificates within the Seatable Docker container   | Path, e.g. /opt/seatable/seahub-data/certs                                                                                                   |
+| SAML_PROVIDER_IDENTIFIER | Name for SAML provider used internally by SeaTable          | Alphanumeric string, e.g. `Azure`, `Auth0`, `Authentik`                                                                                      |
+| SAML_REMOTE_METADATA_URL | URL of metadata.xml used by SAML IdP                        | URL of the IdP metadata.xml (see example below)                                                                                              |
+| SAML_ATTRIBUTE_MAP       | Key-value pairs mapping SAML attributes to local attributes | Key-value pairs (see example below)                                                                                                          |
+| SAML_CERTS_DIR           | Path to certificates within the Seatable Docker container   | Path, e.g. `/shared/certs`                                                                                                                   |
 | SAML_CREATE_UNKNOWN_USER | Enables/disables just-in-time user provisioning on first login (optional)   | `True` (default) or `False`. With `False`, existing users can still log in, but no new accounts are created                                  |
 
 This is a sample configuration. Adapt the values to your needs.
@@ -7612,8 +7688,12 @@ SAML_CERTS_DIR = '/shared/certs'
 
     By default SeaTable creates a user account on the first successful SAML login (`SAML_CREATE_UNKNOWN_USER = True`). To stop new accounts from being created while keeping existing SSO users working, set `SAML_CREATE_UNKNOWN_USER = False`. New users must then be provisioned in SeaTable beforehand (by an administrator or via import).
 
-    The `SAML_ATTRIBUTE_MAP` defines the values provided by the IdP that SeaTable uses to create a user or update the user's profile.
-    Key is the uid which is the unique identifier from the identity providers (not the username within SeaTable). The value of the uid should never change over the life cycle of the user. If you choose the email address as uid and the address changes, SeaTable will create a new user the next time the user logs in.
+    `SAML_ATTRIBUTE_MAP` maps the attributes (claims) sent by your IdP to the fields in SeaTable. Each entry has the form `"<idp attribute>": "<seatable field>"`, where the two sides behave differently:
+
+    - The **key** (left side) is the attribute name as your IdP sends it, and this is the side you adjust. It is often a claim URI such as `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress`.
+    - The **value** (right side) is the SeaTable target field and is fixed. SeaTable only recognizes the five values listed above (`uid`, `contact_email`, `name`, `employee_id`, `user_role`); any other value is ignored.
+
+    The `uid` is the unique identifier from the IdP (not the username within SeaTable) and must never change over the life cycle of the user. If you map a changing value such as the email address to `uid` and that value later changes, SeaTable creates a new user on the next login.
 
 ### Testing
 
@@ -7916,7 +7996,7 @@ Here is a short introduction into JWT:
 
 ## How to configure and use JWT?
 
-To enable the login with JWTs you have to define a secret key in your `dtable_web_settings.py` and restart the SeaTable service:
+To enable the login with JWTs you have to define a secret key in your `dtable_web_settings.py` and [restart SeaTable](../../maintenance/restart-seatable.md):
 ```python
 SSO_SECRET_KEY = 'your-shared-secret-like-a38B232XQJLx392871#2DEF_dowfWE#_39dwefidWFwLw39fDFEF='
 ```
@@ -8038,14 +8118,7 @@ Then you can reset the user's password, e.g. via the web interface. The user wil
 
 ## Use LDAP and SAML together
 
-SeaTable supports since version 3.5 to use SAML and LDAP together for one user. To activate this function the following configuration has to be set in `dtable_web_settings.py`.
-
-```bash
-# Enable that SAML and LDAP use the same username
-LDAP_SAML_USE_SAME_UID = True
-```
-
-More details about this option will follow soon.
+Using SAML for authentication together with LDAP for synchronization is not a migration between authentication types but a permanent combined setup, available since SeaTable 3.5. It is enabled with `LDAP_SAML_USE_SAME_UID` and described in detail under [LDAP › LDAP and SAML](./ldap.md#ldap-and-saml).
 
 ---
 
