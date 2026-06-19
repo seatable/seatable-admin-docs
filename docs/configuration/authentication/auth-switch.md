@@ -77,11 +77,4 @@ Then you can reset the user's password, e.g. via the web interface. The user wil
 
 ## Use LDAP and SAML together
 
-SeaTable supports since version 3.5 to use SAML and LDAP together for one user. To activate this function the following configuration has to be set in `dtable_web_settings.py`.
-
-```bash
-# Enable that SAML and LDAP use the same username
-LDAP_SAML_USE_SAME_UID = True
-```
-
-More details about this option will follow soon.
+Using SAML for authentication together with LDAP for synchronization is not a migration between authentication types but a permanent combined setup, available since SeaTable 3.5. It is enabled with `LDAP_SAML_USE_SAME_UID` and described in detail under [LDAP › LDAP and SAML](./ldap.md#ldap-and-saml).

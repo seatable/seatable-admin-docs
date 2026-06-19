@@ -4,6 +4,8 @@ description: Configure SAML single sign-on in SeaTable with step-by-step guides 
 
 # SAML
 
+<!-- md:flag enterprise -->
+
 Security Assertion Markup Language (SAML) is an open standard for exchanging authentication and authorization data between parties. An important use case of SAML is web-browser single sign-on (SSO).
 
 This document assumes that you have a basic understanding of SAML and that you understand the related terminology.
@@ -16,7 +18,7 @@ This document assumes that you have a basic understanding of SAML and that you u
 
 SeaTable supports SSO with SAML. Specifically, SeaTable supports SAML's IdP-init and SP-init authentication flows.
 
-Besides basic authentication and authorization, SeaTable's SAML implementation also allows to have additional attributes be set by the IdP. Specifically, the following five attributes are supported:
+Besides basic authentication and authorization, SeaTable's SAML implementation also allows additional attributes to be set by the IdP. Specifically, the following five SeaTable fields can be populated from IdP attributes:
 
 | Attribute     | Description                    | Stored in database table                                                               | ... in column |
 | ------------- | ------------------------------ | -------------------------------------------------------------------------------------- | ------------- |
@@ -26,7 +28,7 @@ Besides basic authentication and authorization, SeaTable's SAML implementation a
 | employee_id   | User ID (optional)             | [dtable_db.id_in_org_tuple](./overview.md#table-id_in_org_tuple)                       | id_in_org     |
 | user_role     | Name of the role (optional)    | ccnet_db.UserRole                                                                      | role          |
 
-SeaTable also supports the side-by-side configuration of SAML and LDAP. For more information, see [LDAP](./ldap.md).
+SeaTable also supports using SAML for authentication together with LDAP for synchronization. For more information, see [LDAP › LDAP and SAML](./ldap.md#ldap-and-saml).
 
 ## Configuration
 
@@ -96,15 +98,15 @@ Once the command has finished, the directory contains three files: `idp.crt`, `s
 
 ### Modifying the config file in SeaTable
 
-To enable SAML, add the following parameters to `dtable_web_settings.py`, customize the values to your environment, and restart the SeaTable service:
+To enable SAML, add the following parameters to `dtable_web_settings.py`, customize the values to your environment, and [restart SeaTable](../../maintenance/restart-seatable.md):
 
 | Parameter                | Description                                                 | Values                                                                                                                                       |
 | ------------------------ | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | ENABLE_SAML              | On/off switch for authentication via SAML                   | `True` or `False`                                                                                                                            |
-| SAML_PROVIDER_IDENTIFIER | Name for SAML provider used internally by SeaTable          | Alphanumeric string, e.g. "Azure", "Auth0" or "Authentik"                                                                                    |
-| SAML_REMOTE_METADATA_URL | URL of metadata.xml used by SAML IdP                        | URL, e.g. 'https://login.microsoftonline.com/xxx/federationmetadata/2007-06/federationmetadata.xml?appid=xxx'                                |
-| SAML_ATTRIBUTE_MAP       | Key-value pairs mapping SAML attributes to local attributes | Keys are the SAML attributes from the IdP; some IdPs use attribute like 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress' |
-| SAML_CERTS_DIR           | Path to certificates within the Seatable Docker container   | Path, e.g. /opt/seatable/seahub-data/certs                                                                                                   |
+| SAML_PROVIDER_IDENTIFIER | Name for SAML provider used internally by SeaTable          | Alphanumeric string, e.g. `Azure`, `Auth0`, `Authentik`                                                                                      |
+| SAML_REMOTE_METADATA_URL | URL of metadata.xml used by SAML IdP                        | URL of the IdP metadata.xml (see example below)                                                                                              |
+| SAML_ATTRIBUTE_MAP       | Key-value pairs mapping SAML attributes to local attributes | Key-value pairs (see example below)                                                                                                          |
+| SAML_CERTS_DIR           | Path to certificates within the Seatable Docker container   | Path, e.g. `/shared/certs`                                                                                                                   |
 | SAML_CREATE_UNKNOWN_USER | Enables/disables just-in-time user provisioning on first login (optional)   | `True` (default) or `False`. With `False`, existing users can still log in, but no new accounts are created                                  |
 
 This is a sample configuration. Adapt the values to your needs.
@@ -121,14 +123,18 @@ SAML_ATTRIBUTE_MAP = {
 SAML_CERTS_DIR = '/shared/certs'
 ```
 
-!!! note "Controlling auto-provisioning"
+!!! tip "Controlling auto-provisioning"
 
     By default SeaTable creates a user account on the first successful SAML login (`SAML_CREATE_UNKNOWN_USER = True`). To stop new accounts from being created while keeping existing SSO users working, set `SAML_CREATE_UNKNOWN_USER = False`. New users must then be provisioned in SeaTable beforehand (by an administrator or via import).
 
-!!! warning "Details about the SAML_ATTRIBUTE_MAP"
+!!! warning "Understanding the SAML_ATTRIBUTE_MAP"
 
-    The `SAML_ATTRIBUTE_MAP` defines the values provided by the IdP that SeaTable uses to create a user or update the user's profile.
-    Key is the uid which is the unique identifier from the identity providers (not the username within SeaTable). The value of the uid should never change over the life cycle of the user. If you choose the email address as uid and the address changes, SeaTable will create a new user the next time the user logs in.
+    `SAML_ATTRIBUTE_MAP` maps the attributes (claims) sent by your IdP to the fields in SeaTable. Each entry has the form `"<idp attribute>": "<seatable field>"`, where the two sides behave differently:
+
+    - The **key** (left side) is the attribute name as your IdP sends it, and this is the side you adjust. It is often a claim URI such as `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress`.
+    - The **value** (right side) is the SeaTable target field and is fixed. SeaTable only recognizes the five values listed above (`uid`, `contact_email`, `name`, `employee_id`, `user_role`); any other value is ignored.
+
+    The `uid` is the unique identifier from the IdP (not the username within SeaTable) and must never change over the life cycle of the user. If you map a changing value such as the email address to `uid` and that value later changes, SeaTable creates a new user on the next login.
 
 ### Testing
 

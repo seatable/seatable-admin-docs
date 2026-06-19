@@ -20,7 +20,7 @@ Here is a short introduction into JWT:
 
 ## How to configure and use JWT?
 
-To enable the login with JWTs you have to define a secret key in your `dtable_web_settings.py` and restart the SeaTable service:
+To enable the login with JWTs you have to define a secret key in your `dtable_web_settings.py` and [restart SeaTable](../../maintenance/restart-seatable.md):
 ```python
 SSO_SECRET_KEY = 'your-shared-secret-like-a38B232XQJLx392871#2DEF_dowfWE#_39dwefidWFwLw39fDFEF='
 ```
