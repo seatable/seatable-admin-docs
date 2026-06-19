@@ -22,6 +22,8 @@ Finally, users can also authenticate using [JWT](./jwt.md), which may be interes
 
     By default, each method identifies a user by its own `uid` and creates a **separate** account with a separate `username`. This also happens when LDAP, SAML, or OAuth refer to the same physical person. There is one exception: LDAP and SAML can be tied to a **single shared account** with `LDAP_SAML_USE_SAME_UID`, in which case SAML handles login and LDAP handles synchronization only. See [LDAP › LDAP and SAML](./ldap.md#ldap-and-saml). OAuth has no comparable account-sharing option.
 
+    Note also that the login page exposes a single **Single Sign-On** button: if both SAML and OAuth are enabled, it always routes to SAML.
+
 ## Username
 
 SeaTable assigns every user a unique `username`, regardless of the authentication type used. The `username` serves as a key to link the different SQL database tables.

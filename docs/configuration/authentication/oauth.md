@@ -102,6 +102,16 @@ OAUTH_SCOPE = [
 
 Set the authorization, token, and user-info URLs as well as the scope according to the documentation of your OAuth provider. For GitHub, see [Authorizing OAuth apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps).
 
+## Testing
+
+After restarting, navigate to the login page of your SeaTable Server, click on **Single Sign-On**, and try to log in. If the configuration is correct, you are redirected to the provider's login. After a successful login you are redirected back to SeaTable.
+
+Check `dtable_web.log` for troubleshooting information if authentication fails.
+
+!!! warning "SAML takes precedence over OAuth"
+
+    The login page exposes a single **Single Sign-On** button that routes to one method only. If both SAML and OAuth are enabled at the same time, this button always goes to SAML, and OAuth is never reached through it. Enable only one of the two for interactive login.
+
 ## Custom OAuth (advanced)
 
 For providers that cannot be handled by the standard configuration above, SeaTable offers a custom OAuth mode. When `ENABLE_CUSTOM_OAUTH = True`, SeaTable loads custom `custom_oauth_login` and `custom_oauth_callback` functions from `seatable_custom_functions.custom_oauth` in the `conf` directory, allowing you to implement provider-specific login and callback logic yourself.
