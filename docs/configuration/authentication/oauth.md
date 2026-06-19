@@ -4,9 +4,11 @@ description: Set up OAuth single sign-on in SeaTable with providers like GitHub 
 
 # OAuth
 
+<!-- md:flag enterprise -->
+
 OAuth 2.0 is an open standard for delegated authorization that is widely used for single sign-on (SSO). SeaTable can authenticate users against any OAuth 2.0 provider that exposes the standard authorization, token, and user-info endpoints, such as GitHub or Google.
 
-SeaTable's OAuth support is part of the Enterprise Edition. Unlike the [SAML](./saml.md) integration, the OAuth provider is not configured through a metadata document; instead, you enter the provider's endpoints manually.
+Unlike the [SAML](./saml.md) integration, the OAuth provider is not configured through a metadata document; instead, you enter the provider's endpoints manually.
 
 ## Registering the application in the provider
 

@@ -4,6 +4,8 @@ description: Configure SAML single sign-on in SeaTable with step-by-step guides 
 
 # SAML
 
+<!-- md:flag enterprise -->
+
 Security Assertion Markup Language (SAML) is an open standard for exchanging authentication and authorization data between parties. An important use case of SAML is web-browser single sign-on (SSO).
 
 This document assumes that you have a basic understanding of SAML and that you understand the related terminology.
@@ -96,7 +98,7 @@ Once the command has finished, the directory contains three files: `idp.crt`, `s
 
 ### Modifying the config file in SeaTable
 
-To enable SAML, add the following parameters to `dtable_web_settings.py`, customize the values to your environment, and restart the SeaTable service:
+To enable SAML, add the following parameters to `dtable_web_settings.py`, customize the values to your environment, and [restart SeaTable](../../maintenance/restart-seatable.md):
 
 | Parameter                | Description                                                 | Values                                                                                                                                       |
 | ------------------------ | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |

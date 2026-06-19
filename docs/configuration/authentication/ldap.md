@@ -4,6 +4,8 @@ description: Configure LDAP and Active Directory authentication and synchronizat
 
 # LDAP
 
+<!-- md:flag enterprise -->
+
 Lightweight Directory Access Protocol (LDAP) is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services. Microsoft's Active Directory (AD) is fully compatible with LDAP. For simplicity, this Manual refers to LDAP and AD when using the term LDAP unless explicitly stated otherwise.
 
 This document assumes that you have a basic understanding of LDAP and that you understand the related terminology.
@@ -21,7 +23,7 @@ Additionally, LDAP in SeaTable can be configured to work seamlessly with SAML.
 
 ## LDAP Authentication
 
-To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtable_web_settings.py`, customize to your environment, and restart the SeaTable service:
+To enable LDAP Authentication (LDAP Auth), add the following parameters to `dtable_web_settings.py`, customize to your environment, and [restart SeaTable](../../maintenance/restart-seatable.md):
 
 | Parameter           | Description                                                                                                               | Values                                          |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
