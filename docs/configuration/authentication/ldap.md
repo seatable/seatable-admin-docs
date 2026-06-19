@@ -4,8 +4,6 @@ description: Configure LDAP and Active Directory authentication and synchronizat
 
 # LDAP
 
-<!-- md:flag enterprise -->
-
 Lightweight Directory Access Protocol (LDAP) is an open, vendor-neutral, industry standard application protocol for accessing and maintaining distributed directory information services. Microsoft's Active Directory (AD) is fully compatible with LDAP. For simplicity, this Manual refers to LDAP and AD when using the term LDAP unless explicitly stated otherwise.
 
 This document assumes that you have a basic understanding of LDAP and that you understand the related terminology.
@@ -79,6 +77,8 @@ To enable LDAP authentication via SASL, add the following parameters to `dtable_
 
 ## LDAP Synchronisation
 
+<!-- md:flag enterprise -->
+
 To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the following parameters added to `dtable_web_settings`:
 
 | Parameter                  | Description                                                                                             | Values                                                                                                                                 |
@@ -101,6 +101,8 @@ sync_interval = 60  # The unit is seconds
 ```
 
 ## LDAP and SAML
+
+<!-- md:flag enterprise -->
 
 In some situations it is useful to use **SAML for authentication** and **LDAP for synchronization** at the same time. A typical example is a setup where users sign in through an Identity Provider (IdP) via SAML SSO, while the user and group information is provisioned and kept up to date from your LDAP directory.
 
