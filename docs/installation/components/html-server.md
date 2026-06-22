@@ -1,13 +1,12 @@
 ---
-# FIXME:
-description:
+description: Deploy the SeaTable HTML Server to serve custom HTML pages inside universal apps.
 ---
 
 # HTML Server
 
 <!-- md:version 6.2 -->
 
-**FIXME:**
+The HTML Server component is required in order to render custom HTML pages inside universal apps.
 
 ## Deployment
 
@@ -26,27 +25,24 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seatable-html-server.yml'/" /op
 
 ### SeaTable Server Configuration
 
-**FIXME:**
+In order to enable the HTML page type within universal apps, the following configuration settings must be placed inside `/opt/seatable-server/seatable/conf/dtable_web_settings.py` on the host.
+Simply replace `YOUR_SEATABLE_DOMAIN` with your hostname:
 
 ```python
 ENABLE_UNIVERSAL_APP_HTML_PAGES = True
-ENABLE_HTML_PAGES_AI_AGENT = True
-# FIXME: Read from SEATABLE_SERVER_PROTOCOL and SEATABLE_SERVER_HOSTNAME?
 DTABLE_HTML_PAGES_SERVER_URL = 'https://YOUR_SEATABLE_DOMAIN/app-server/'
 ```
 
-Do not forget to apply the configuration changes by recreating the `seatable-server` container:
+Do not forget to apply the configuration changes by restarting the `seatable-server` container:
 
 ```bash
-cd /opt/seatable-compose
-docker compose up -d --force-recreate seatable-server
+docker compose restart seatable-server
 ```
 
 ### S3 Configuration
 
 This step is only necessary in case you have configured the [S3 backend](../advanced/s3.md) for files and pictures.
-
-**FIXME:**
+Since the HTML Server component directly accesses these buckets, it needs access to the S3 credentials.
 
 Create `custom-seatable-html-server.yml` with the following contents to add the required environment variables to the `seatable-html-server` service:
 
@@ -68,7 +64,7 @@ services:
       - S3_SSE_C_KEY=${S3_SSE_C_KEY:-}
 ```
 
-Add `custom-seatable-html-server.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
+Then, simply add `custom-seatable-html-server.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
 
 ### Start HTML Server
 
