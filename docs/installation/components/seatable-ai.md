@@ -206,6 +206,48 @@ If the file does not exist yet, simply create it.
     docker compose up -d --force-recreate seatable-ai
     ```
 
+##### Multiple LLM Providers
+
+<!-- md:version 6.2 -->
+
+Since version 6.2, SeaTable AI supports the configuration of multiple LLM providers for different purposes.
+Simply configure multiple providers under `global.LLM_MODELS` within `seatable_config.yaml`.
+
+The following `seatable_config.yaml` example configures two LLM providers:
+
+- A self-hosted model (using vLLM) with `tier: low`
+- A hosted Mistral model is used for more complex tasks (`tier: high`)
+
+The second block (`seatable-ai.FEATURE_MODEL_TIER`) is used to configure the required tier level for each AI functionality.
+In this example, the configuration ensures that the self-hosted model is used for OCR, text summarization, classification and extraction tasks,
+while the cloud-hosted Mistral model will be used for custom prompts.
+
+```yaml
+global:
+  LLM_MODELS:
+    - type: hosted_vllm
+      model: <model>
+      tier: low
+      url: <url>
+      key: <key>
+    - type: mistral
+      model: <model>
+      tier: high
+      key: <key>
+
+seatable-ai:
+  FEATURE_MODEL_TIER:
+    ocr: low
+    text_summarize: low
+    classification: low
+    extract: low
+    custom: high
+```
+
+!!! info "Allowed values for `tier`"
+
+    `tier` supports the following values: `low`, `medium` and `high`
+
 ### LLM Timeout Configuration (Optional)
 
 <!-- md:version 6.1 -->
