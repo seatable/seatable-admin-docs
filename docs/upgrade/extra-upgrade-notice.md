@@ -6,10 +6,45 @@ description: Version-specific upgrade notices and required configuration changes
 
 ## 6.2
 
-- SECRET_KEY aus dtable_web_settings.py in .env 
-- wenn rollen verwendet, dann: `sed -i "s/'scripts_running_limit'/'scripts_running_limit_per_user'/" /opt/dtable-web/seatable/conf/dtable_web_settings.py`
-- env anstelle von configurationsdateien - diese sollten bis auf dtable_web_settings.py sogar weg!
-für uns: dokumentation von "kopiere die yml vollständig" in patch-yamls.
+Version v6.2 requires various configuration updates.
+In order to make the upgrade process easier, we have added a script to the release artifact that you'll be downloading as part of the upgrade process.
+
+You can run the script by executing the following command:
+
+```bash
+cd /opt/seatable-compose
+./migrate/migrate_6.1_6.2.sh
+```
+
+!!! info "Script can be executed multiple times"
+
+    The script can be executed multiple times.
+    You can use this mechanism to check whether you've already migrated all required configuration settings and removed the deprecated configuration files.
+    In addition, the script creates a backup of the whole `conf/` directory inside `/opt/seatable-server/seatable/` at the beginning of every execution.
+
+The script handles the following steps **automatically**:
+
+- Moving the `SECRET_KEY` variable from `dtable_web_settings.py` to the `.env` file
+- Cleaning up unused configuration settings from `dtable_web_settings.py`
+
+In addition, the script checks your current configuration files and lists required **manual changes**:
+
+- The four configuration files `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed**
+    - Any non-default settings must be **migrated to environment variables**
+    - If you haven't modified the configuration files, there's no need to set additional environment variables
+- If you've enabled S3 storage for base snapshots and assets, you'll need to migrate these configuration settings to environment variables
+- If you've enabled SeaTable AI, the LLM provider configuration must be migrated into the new `seatable_config.yaml` configuration file
+    - This is necessary in order to allow the configuration of _multiple_ LLM providers for different tasks
+
+---
+
+### List of Changes
+
+??? warning "Four configuration files have been deprecated"
+
+    The four configuration files `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed** prior to upgrading to SeaTable v6.2.
+    Any non-default settings must be **migrated to environment variables**
+    If you haven't modified the configuration files, there's no need to set additional environment variables.
 
 ??? warning "Configuration of email settings inside the configuration file is deprecated"
 
@@ -48,6 +83,15 @@ für uns: dokumentation von "kopiere die yml vollständig" in patch-yamls.
     We've upgraded the PostgreSQL version of the documented n8n deployment from version 11 to version 16.
     This requires dumping and restoring your PostgreSQL database **before** running the upgrade.
     Please follow the steps outlined in the [PostgreSQL docs](https://www.postgresql.org/docs/current/upgrading.html).
+
+??? info "Change to the quota configuration for Python scripts"
+
+    The `scripts_running_limit` quota has been renamed to `scripts_running_limit_per_user`.
+    Please note that your installation is only affected if you've explicitly configured user roles and set the `scripts_running_limit` quota.
+
+    As a result, this quota now applies _per user_, while the total quota within a team will be shared across all team users.
+
+    Please refer to [Roles and Permissions](../configuration/roles-and-permissions.md) for more information on all quotas.
 
 ## 6.1
 
