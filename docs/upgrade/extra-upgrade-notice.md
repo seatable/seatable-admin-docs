@@ -29,7 +29,7 @@ The script handles the following steps **automatically**:
 
 In addition, the script checks your current configuration files and lists required **manual changes**:
 
-- The four configuration files `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed**
+- The configuration files `dtable-api-gateway.conf`, `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed**
     - Any non-default settings must be **migrated to environment variables**
     - If you haven't modified the configuration files, there's no need to set additional environment variables
 - If you've enabled S3 storage for base snapshots and assets, you'll need to migrate these configuration settings to environment variables
@@ -40,11 +40,19 @@ In addition, the script checks your current configuration files and lists requir
 
 ### List of Changes
 
-??? warning "Four configuration files have been deprecated"
+??? warning "Multiple configuration files have been deprecated"
 
-    The four configuration files `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed** prior to upgrading to SeaTable v6.2.
+    The configuration files `dtable-api-gateway.conf`, `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed** prior to upgrading to SeaTable v6.2.
     Any non-default settings must be **migrated to environment variables**
     If you haven't modified the configuration files, there's no need to set additional environment variables.
+
+    You can find more information on the page for each individual component:
+
+    - [api-gateway](../configuration/components/dtable-api-gateway.md)
+    - [dtable-db](../configuration/components/dtable-db.md)
+    - [dtable-events](../configuration/components/dtable-events.md)
+    - [dtable-server](../configuration/components/dtable-server.md)
+    - [dtable-storage-server](../configuration/components/dtable-storage-server.md)
 
 ??? warning "Configuration of email settings inside the configuration file is deprecated"
 
