@@ -21,18 +21,32 @@ Simply copy and paste (:material-content-copy:) the following code into your com
 sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,clamav.yml'/" /opt/seatable-compose/.env
 ```
 
-### Configure `dtable-events.conf`
+### Configure dtable-events
 
-Add the following configuration to the `dtable-events.conf` file to enable virus scanning:
+Depending on your SeaTable version, this is done either through a config file or through environment variables:
 
-```conf
-[VIRUS SCAN]
-enabled = true
-scan_command = clamdscan
-scan_interval = 60
-virus_code = 1
-nonvirus_code = 0
-```
+=== "SeaTable <= v6.1"
+    Add the following configuration to the `dtable-events.conf` file to enable virus scanning:
+
+    ```ini
+    [VIRUS SCAN]
+    enabled = true
+    scan_command = clamdscan
+    scan_interval = 60
+    virus_code = 1
+    nonvirus_code = 0
+    ```
+=== "SeaTable v6.2+"
+    You'll have to configure a few additional environment variables.
+    Please read our [guide](../../configuration/customizations.md) that explains how to configure these additional environment variables before proceeding.
+
+    ```ini
+    VIRUS_SCAN_ENABLED=true
+    VIRUS_SCAN_SCAN_COMMAND=clamdscan
+    VIRUS_SCAN_SCAN_INTERVAL=60
+    VIRUS_SCAN_VIRUS_CODE=1
+    VIRUS_SCAN_NONVIRUS_CODE=0
+    ```
 
 ### Start ClamAV
 
@@ -67,7 +81,7 @@ You can choose to either ignore the finding or delete the infected asset.
 
 ### Additional Configuration Options
 
-ClamAV offers advanced configuration options in dtable-events.conf, such as:
+ClamAV offers advanced configuration options in `dtable-events.conf`/through environment variables, such as:
 
 - **Scan interval**: Adjust how often scans are performed.
 - **File size limit**: Set a maximum size for scanned files.
@@ -83,7 +97,3 @@ The ClamAV Docker container uses Freshclam to update its virus signature databas
 ## E-Mail notification
 
 Email notifications for virus detection will be available in a future update.
-
-
-
-

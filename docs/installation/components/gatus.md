@@ -61,7 +61,8 @@ Each variable is self-explanatory.
 
 Gatus uses two configuration files: `/opt/seatable-compose/gatus.yml` and `/opt/seatable-compose/config/gatus-config.yml`. 
 
-To ensure your changes persist after updates, create copies of these files (e.g., custom-....yml) and update the references accordingly.
+To ensure that your changes persist after updates, you should not modify the original versions of these files.
+Instead, we recommend that you create an additional `custom-gatus.yml` file that contains a volume mount which mounts your own version of `gatus-config.yml` into the Gatus container.
+Please read our [guide](../../configuration/customizations.md) on how this works before proceeding.
 
 For all available configuration options, see the [Gatus GitHub repository](https://github.com/TwiN/gatus).
-

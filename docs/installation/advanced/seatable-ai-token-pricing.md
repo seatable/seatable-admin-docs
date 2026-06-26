@@ -19,7 +19,12 @@ Please refer to the documentation on [user quotas](../../configuration/roles-and
 
 ## Pricing Configuration
 
-In order to accurately track the number of AI credits used by users and organizations, you must configure token pricing inside `/opt/seatable-server/seatable/conf/dtable_web_settings.py`.
+In order to accurately track the number of AI credits used by users and organizations, you must configure token pricing.
+The configuration approach depends on your SeaTable version:
+
+### SeaTable v6.0 + v6.1
+
+Token pricing is configured inside `/opt/seatable-server/seatable/conf/dtable_web_settings.py`.
 This can be achieved by configuring the `AI_PRICES` variable, which is a dictionary that maps model identifiers (e.g `gpt-4o-mini`) to token pricing **per thousand tokens**:
 
 ```py
@@ -34,3 +39,34 @@ AI_PRICES = {
 !!! warning "Model Identifiers"
     The dictionary key must match **the exact value** of the chosen AI Model, which is configured through the `SEATABLE_AI_LLM_MODEL` variable inside your `.env` file.
     In case of a mismatch, AI usage will not count towards any configured credit limits!
+
+### SeaTable v6.2+
+
+Token pricing is configured inside `/opt/seatable-server/seatable/conf/seatable_config.yaml`.
+If the file does not exist yet, simply create it.
+
+!!! warning "Token pricing is now configured per 1 million tokens"
+
+    Since version 6.2, token pricing is configured **per 1 million tokens** (previously: per 1000 tokens).
+    This change aligns SeaTable's behavior with the behavior of most other AI-enhanced applications.
+
+```yaml
+global:
+  LLM_MODELS:
+    - type: ...
+      key: ...
+      model: ...
+      price:
+        # Price per 1M tokens
+        input_tokens: 1
+        output_tokens: 5
+```
+
+Remember to restart the `seatable-server` container (since token pricing is handled by `dtable-events`, which runs inside the `seatable-server` container) by running the following command:
+
+```bash
+cd /opt/seatable-compose
+docker compose up -d --force-recreate seatable-server
+```
+
+**Note:** The `--force-recreate` flag ensures that the container is restarted even if its `.yml` file or environment variables haven't changed.

@@ -13,20 +13,31 @@ Base rows are limited for the following technical reasons:
 
 Starting from version 3.4, for private deployment users, if your application scenario needs to support more than 100,000 rows in a base, but the storage space occupied by the base itself is not large (for example, it contains a large number of blank cells), you can modify the server's configuration, to support more than 100,000 rows.
 
-#### dtable-server
+## dtable-server
 
-`dtable_server_config.json`
+The configuration depends on your SeaTable version::
 
-```json
-{
-   "base_writable_limit": 100000,
-   "base_max_rows_limit": 150000
-}
-```
+=== "SeaTable <= v6.1"
+    The following parameters must be added to `dtable_server_config.json`:
 
-Among them, base_writable_limit is used to limit the rows written into the base. base_max_rows_limit is used to control when the rows in the base is greater than the number, the server refuses to load the base into memory. base_max_rows_limit needs to be greater than base_writable_limit.
+      ```json
+      {
+         "base_writable_limit": 100000,
+         "base_max_rows_limit": 150000
+      }
+      ```
+=== "SeaTable v6.2+"
+    Two environment variables must be configured.
+    Please read our [guide](./customizations.md) that explains how to configure these additional environment variables before proceeding.
 
-#### dtable-web
+    ```ini
+    BASE_WRITABLE_LIMIT=100000
+    BASE_MAX_ROWS_LIMIT=150000
+    ```
+
+Among them, `base_writable_limit` is used to limit the rows written into the base. `base_max_rows_limit` is used to control when the rows in the base is greater than the number, the server refuses to load the base into memory. `base_max_rows_limit` needs to be greater than `base_writable_limit`.
+
+## dtable-web
 
 `dtable_web_settings.py`
 

@@ -48,6 +48,8 @@ REDIS_PASSWORD='topsecret'
 
 JWT_PRIVATE_KEY='topsecret' # (8)!
 
+SECRET_KEY='anothertopsecret' # (15)!
+
 # SeaDoc
 ENABLE_SEADOC='false'
 SEADOC_PORT=''
@@ -58,7 +60,7 @@ PYTHON_SCHEDULER_AUTH_TOKEN='topsecret'
 
 # SeaTable AI
 ENABLE_SEATABLE_AI='false' # (14)!
-SEATABLE_AI_SERVER_URL='http://seatable-ai:8888'
+INNER_SEATABLE_AI_SERVER_URL='http://seatable-ai:8888'
 
 # E-Mail
 SEATABLE_EMAIL_USE_TLS= # (12)!
@@ -77,7 +79,7 @@ SEATABLE_TEMPLATE_TABLE_NAME=
 SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE=
 
 # Logging
-SEATABLE_LOG_LEVEL=INFO # (10)!
+LOG_LEVEL=INFO # (10)!
 
 # Docker Images
 # You can use these variables to override the default images
@@ -104,6 +106,7 @@ SEATABLE_HELP_LINK=https://seatable.com/help/ # (11)!
 12. Please refer to [Email Sending](./sending-email.md) for more information.
 13. Please refer to [Python Pipeline](../installation/components/python-pipeline.md) for more information.
 14. Please refer to [SeaTable AI](../installation/components/seatable-ai.md) for more information.
+15. This secret key is used by the Django framework, which [`dtable-web`](../configuration/components/dtable-web.md) is based on.
 
 <!--
 TODO: add environment variables for cluster setup!

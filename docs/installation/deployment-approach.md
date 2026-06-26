@@ -24,9 +24,10 @@ Instead of handling one extensive `docker-compose.yml` file, we present a more s
 
 Think of the `.env` file as a recipe for your setup and the yml files are like ingredients.
 
-!!! danger "Create copy for custom changes of the yml files"
+!!! danger "Do not modify the default `.yml` files"
 
-    Generally, there's no need to modify the YAML files. We provide updated YAML files with each new SeaTable version. However, if you wish to make alterations, create a copy and name it something like `custom-<original-name>.yml`.
+    The default `.yml` files **should not be modified** since they will be overwritten during the [upgrade process](../upgrade/upgrade-manual.md).
+    However, if you wish to make alterations, read our guide on how to [customize your installation](../configuration/customizations.md) to ensure that version upgrades stay seamless.
 
 You can configure components in the `.env` file, determining which ones to install. Start with essential components like SeaTable Server and Caddy web proxy.
 

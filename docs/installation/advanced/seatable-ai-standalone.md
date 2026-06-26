@@ -37,6 +37,8 @@ REDIS_PASSWORD=
 # This private key must have the same value as the JWT_PRIVATE_KEY variable on other SeaTable nodes
 JWT_PRIVATE_KEY=
 
+SECRET_KEY=
+
 # Public URL of your SeaTable server
 SEATABLE_SERVER_URL=https://seatable.your-domain.com
 
@@ -45,12 +47,6 @@ INNER_DTABLE_SERVER_URL=http://dtable-server:5000
 
 # Cluster-internal URL of dtable-db
 INNER_DTABLE_DB_URL=http://dtable-db:7777
-
-# LLM
-SEATABLE_AI_LLM_TYPE=
-SEATABLE_AI_LLM_URL=
-SEATABLE_AI_LLM_KEY=
-SEATABLE_AI_LLM_MODEL=
 ```
 
 !!! warning "Ports are not exposed by default"
@@ -77,7 +73,7 @@ Since `seatable-ai` is now running on a separate host or virtual machine, the fo
 
 ```ini
 ENABLE_SEATABLE_AI=true
-SEATABLE_AI_SERVER_URL='http://seatable-ai.example.com:8888'
+INNER_SEATABLE_AI_SERVER_URL='http://seatable-ai.example.com:8888'
 ```
 
 Restart the `seatable-server` service and test your SeaTable AI:
