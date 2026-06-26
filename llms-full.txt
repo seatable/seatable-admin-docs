@@ -2408,6 +2408,17 @@ Source: https://admin.seatable.com/installation/faq/
 
     Ensure that the license file `seatable-license.txt` is present in `/opt/seatable-compose` before starting SeaTable again.
 
+??? question "How can I reload dtable-web/Gunicorn without restarting the container/all container processes?"
+
+    You can run the following command **inside** the `seatable-server` container to restart all Gunicorn workers:
+
+    ```bash
+    kill -HUP $(cat /opt/seatable/pids/dtable-web.pid)
+    ```
+
+    This sends a `SIGHUP` signal to the Gunicorn master process, whose PID is stored inside the file `/opt/seatable/pids/dtable-web.pid`.
+    This allows you to apply changes to `dtable_web_settings.py` without causing downtime or aborting active WebSocket connections.
+
 ---
 
 ## Webserver
