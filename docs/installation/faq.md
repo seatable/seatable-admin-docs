@@ -171,12 +171,13 @@ security headers vielleicth im Bereich Proxy.
     You can run the following command **inside** the `seatable-server` container to restart all Gunicorn workers:
 
     ```bash
-    kill -HUP $(cat /opt/seatable/pids/dtable-web.pid)
+    kill -HUP $(cat /var/run/dtable-web.pid)
     ```
 
-    This sends a `SIGHUP` signal to the Gunicorn master process, whose PID is stored inside the file `/opt/seatable/pids/dtable-web.pid`.
+    This sends a `SIGHUP` signal to the Gunicorn master process, whose PID is stored inside the file `/var/run/dtable-web.pid`.
     This allows you to apply changes to `dtable_web_settings.py` without causing downtime or aborting active WebSocket connections.
 
+    **Note:** In previous versions of SeaTable, the PID file was located at `/opt/seatable/pids/dtable-web.pid`.
 
 <!--
 - spaces in the COMPOSE_FILE
