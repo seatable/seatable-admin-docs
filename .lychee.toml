@@ -18,6 +18,8 @@ exclude = [
   "^https://api\\.seatable\\.com/reference/",
   # Links with .md extension (valid in MkDocs, 404 on live site checked separately)
   "admin\\.seatable\\.com.*\\.md$",
+  # nip.io wildcard DNS (example/placeholder hostnames)
+  "nip\\.io",
 ]
 
 # Accept these status codes as valid
