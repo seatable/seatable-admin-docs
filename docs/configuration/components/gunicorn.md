@@ -24,7 +24,7 @@ threads = 5
 bind = '127.0.0.1:8000'
 
 # Pid
-pidfile = '/opt/seatable/pids/dtable-web.pid'
+pidfile = '/var/run/dtable-web.pid'
 
 # for file upload, we need a longer timeout value (default is only 30s, too short)
 timeout = 1200
