@@ -2662,6 +2662,15 @@ The exact configuration depends on your DNS provider. In most cases, the API tok
     caddy_0.tls.dns: "cloudflare {CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
     ```
 
+    If you have deployed additional components such as [Collabora](../components/collabora.md) or [n8n](../components/n8n.md) that are directly exposed by Caddy
+    and they use the same hostname as your SeaTable installation, you need to also add the `caddy.tls.dns` label to these services.
+
+    Otherwise Caddy will log the following error:
+
+    ```
+    Removing invalid block: hostname appears in more than one automation policy, making certificate management ambiguous
+    ```
+
 ## Step 3: Create and Configure the DNS API Token
 
 Log in to your DNS provider’s account and generate an API token with permission to manage DNS records for the required zone.
