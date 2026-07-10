@@ -4584,7 +4584,7 @@ Currently, the following SeaTable components expose metrics in a [Prometheus](ht
 - dtable-db
 - caddy
 
-In addition, **Gunicorn** and **NGINX** can be configured to expose metrics in a different format. Exporters can be used to transform these into a Prometheus-compatible format.
+In addition, **Gunicorn**, **NGINX** and **Redis** can be configured to expose metrics in a different format. Exporters can be used to transform these into a Prometheus-compatible format.
 
 ## SeaTable Components
 
@@ -4957,6 +4957,69 @@ curl -sS http://127.0.0.1:9113/metrics
   # HELP nginx_up Status of the last metric scrape
   # TYPE nginx_up gauge
   nginx_up 1
+  ```
+</details>
+
+### Redis
+
+[`redis_exporter`](https://github.com/oliver006/redis_exporter) must be deployed alongside your Redis instance in order to expose the built-in Redis metrics in a Prometheus-compatible format.
+You can use the following `redis-exporter.yml` file to get started:
+
+```yaml
+services:
+  redis-exporter:
+    image: oliver006/redis_exporter:v1.86.0
+    container_name: redis-exporter
+    restart: unless-stopped
+    environment:
+      - REDIS_ADDR=redis://redis:6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?Variable is not set or empty}
+    networks:
+      - o11y-net
+    ports:
+      - 127.0.0.1:9121:9121
+
+  # redis-exporter needs to access Redis
+  redis:
+    networks:
+      - o11y-net
+
+networks:
+  o11y-net:
+    name: o11y-net
+```
+
+Remember to add `redis-exporter.yml` to the `COMPOSE_FILE` variable and start the exporter by running the following command:
+
+```bash
+docker compose up -d
+```
+
+You can test the metrics endpoint by running the following command on the host:
+
+```bash
+curl -sS http://127.0.0.1:9121/metrics
+```
+
+<details>
+<summary>Example Output</summary>
+  ```text
+  # HELP redis_commands_total Total number of calls per command
+  # TYPE redis_commands_total counter
+  redis_commands_total{cmd="auth"} 85122
+  redis_commands_total{cmd="client|setinfo"} 290
+  redis_commands_total{cmd="client|setname"} 116
+  redis_commands_total{cmd="command"} 0
+  redis_commands_total{cmd="command|docs"} 1
+  redis_commands_total{cmd="config|get"} 115
+  redis_commands_total{cmd="del"} 495856
+  redis_commands_total{cmd="exec"} 31
+  redis_commands_total{cmd="exists"} 13771
+  redis_commands_total{cmd="expire"} 155
+  redis_commands_total{cmd="get"} 6.876658e+06
+  redis_commands_total{cmd="hello"} 127
+  redis_commands_total{cmd="incrby"} 4
+  redis_commands_total{cmd="info"} 124
   ```
 </details>
 
