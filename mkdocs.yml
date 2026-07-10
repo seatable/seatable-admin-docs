@@ -272,6 +272,7 @@ nav:
       - Custom CSS: customization/custom-css.md
       - Templates: customization/templates.md
       - Page Templates: customization/page-templates.md
+      - Template Snippets: customization/template-snippets.md
 
   - Upgrade:
       - How to upgrade: upgrade/upgrade-manual.md
