@@ -26,7 +26,7 @@ exclude = [
 accept = [200, 204, 301, 302, 403, 429]
 
 # Skip fragment checking
-include_fragments = false
+include_fragments = "none"
 
 # Maximum number of redirects
 max_redirects = 10
