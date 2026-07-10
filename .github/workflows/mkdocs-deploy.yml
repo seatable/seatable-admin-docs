@@ -32,6 +32,7 @@ jobs:
       - name: Check links in markdown files
         uses: lycheeverse/lychee-action@v2
         with:
+          lycheeVersion: v0.24.2
           args: "--verbose --no-progress --root-dir docs --config .lychee.toml './docs/**/*.md'"
           fail: true
 
