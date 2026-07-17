@@ -73,7 +73,6 @@ Apply the following required changes:
       # should be disabled
       - ENABLE_DTABLE_DB=false
       - ENABLE_DTABLE_WEB=false
-      - ENABLE_DTABLE_SERVER=false
       - ENABLE_API_GATEWAY=false
       - SEATABLE_START_MODE=cluster
     ```
@@ -116,7 +115,6 @@ services:
       - ENABLE_SEAFILE_SERVER=true
       - ENABLE_DTABLE_DB=false
       - ENABLE_DTABLE_WEB=false
-      - ENABLE_DTABLE_SERVER=false
       - ENABLE_API_GATEWAY=false
       - SEATABLE_START_MODE=cluster
     extra_hosts:

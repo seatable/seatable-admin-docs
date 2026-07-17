@@ -11,105 +11,69 @@ The next step in building your SeaTable cluster is to move the `dtable-server` t
 
 ## Setting up a standalone dtable-server
 
-Prepare a new node with Docker installed, and copy the following files from one of your existing nodes to the new node:
-
-- `/opt/seatable-compose/.env`
-- `/opt/seatable-compose/seatable-license.txt`
-
-Edit the `.env` file on the new node and ensure the `COMPOSE_FILE` variable references only a single YAML file:
+Prepare a new node with Docker installed, and create a new directory for the configuration files:
 
 ```bash
-COMPOSE_FILE='seatable-server-standalone.yml'
+mkdir -p /opt/seatable-compose
+cd /opt/seatable-compose
 ```
 
-Copy `seatable-server.yml` to `seatable-server-standalone.yml` and make the following changes to configure it as a standalone `dtable-server`.
+You will need to create two files on this new node: `.env` and `dtable-server.yml`.
 
-### Required changes to `seatable-server-standalone.yml`
+### Create `.env`
 
-Apply the following required changes to this file:
+Create a `.env` file and populate it with the following content. Make sure to replace the placeholder values with the actual values from your cluster environment:
 
-??? success "Remove all services except seatable-server"
+```env
+COMPOSE_FILE='dtable-server.yml'
+COMPOSE_PATH_SEPARATOR=','
 
-    The standalone node only requires the `seatable-server` service. Remove all other services (such as redis, mariadb, or caddy).
+DTABLE_SERVER_IMAGE=seatable/dtable-server-js:7.0.0-testing
+TIME_ZONE='Europe/Berlin'
 
-??? success "Add additional environment variables"
+MARIADB_HOST=172.16.0.2
+MARIADB_PORT=3306
+MARIADB_USER=seatable
+MARIADB_PASSWORD=seatable_password
 
-    Add or update the following environment variables to ensure only the `dtable-server` is enabled:
+REDIS_HOST=172.16.0.3
+REDIS_PORT=6379
+REDIS_PASSWORD=
 
-    ```yaml
-    environment:
-      #... all default environment variables in seatable-server.yml ...
-      # this node should only run dtable-server, all other services are disabled
-      - ENABLE_DTABLE_DB=false
-      - ENABLE_DTABLE_STORAGE_SERVER=true
-      - ENABLE_SEAFILE_SERVER=false
-      - ENABLE_DTABLE_WEB=false
-      - ENABLE_DTABLE_SERVER=true
-      - ENABLE_DTABLE_EVENTS=false
-      - ENABLE_API_GATEWAY=false
-      - SEATABLE_START_MODE=cluster
-    ```
+JWT_PRIVATE_KEY=
+```
 
-??? success "Expose port 5000"
+### Create `dtable-server.yml`
 
-    The `dtable-server` node must be accessible to other nodes. Add the following to the `seatable-server` service:
-
-    ```yaml
-    ports:
-      - 5000:5000
-    ```
-
-??? success "Configure internal network communication"
-
-    Node-to-node communication uses the internal network. Ensure all nodes can reach each other by adding their names and private IP addresses:
-
-    ```yaml
-    extra_hosts:
-      - "dtable-web:10.0.0.2"
-      - "dtable-db:10.0.0.3"
-      - "dtable-server:10.0.0.4"
-    ```
-
-### Example: `dtable-server-standalone.yml`
-
-For reference, here is an example of what your `dtable-server-standalone.yml` might look like. Do not copy and paste directly — adapt to your environment as needed.
+Next, create the `dtable-server.yml` file to configure the standalone `dtable-server` instance. Node-to-node communication uses the internal network, so ensure you update `extra_hosts` with the correct IPs of your other cluster nodes if you use hostnames to connect.
 
 ```yaml
 ---
 services:
-  seatable-server:
-    image: ${SEATABLE_IMAGE:-seatable/seatable-enterprise:x.x.x}
+  dtable-server:
+    image: ${DTABLE_SERVER_IMAGE:-seatable/dtable-server-js:7.0.0-testing}
     restart: unless-stopped
-    container_name: seatable-server
+    container_name: dtable-server
     volumes:
       - "/opt/seatable-server:/shared"
-      - type: bind
-        source: "./seatable-license.txt"
-        target: "/shared/seatable/seatable-license.txt"
-        read_only: ${SEATABLE_LICENSE_FORCE_READ_ONLY:-false}
-    environment:
-      ...
-      ...
-      # this node should only run dtable-server
-      - ENABLE_DTABLE_DB=false
-      - ENABLE_DTABLE_STORAGE_SERVER=true
-      - ENABLE_SEAFILE_SERVER=false
-      - ENABLE_DTABLE_WEB=false
-      - ENABLE_DTABLE_SERVER=true
-      - ENABLE_DTABLE_EVENTS=false
-      - ENABLE_API_GATEWAY=false
-      - SEATABLE_START_MODE=cluster
     ports:
-      - 5000:5000
+      - "5000:5000"
+    environment:
+      - TIME_ZONE=${TIME_ZONE}
+      - SEATABLE_MYSQL_DB_HOST=${MARIADB_HOST:-mariadb}
+      - SEATABLE_MYSQL_DB_PORT=${MARIADB_PORT:-3306}
+      - SEATABLE_MYSQL_DB_USER=root
+      - SEATABLE_MYSQL_DB_PASSWORD=${MARIADB_PASSWORD:?Variable is not set or empty}
+      - SEATABLE_MYSQL_DB_DTABLE_DB_NAME=dtable_db
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY:?Variable is not set or empty}
+      - DTABLE_SERVER_CLUSTER_NODE_ID=${DTABLE_SERVER_CLUSTER_NODE_ID:-}
+      - DTABLE_SERVER_CLUSTER_LOCAL_NODE_URL=${DTABLE_SERVER_CLUSTER_LOCAL_NODE_URL:-}
     extra_hosts:
       - "dtable-web:10.0.0.2"
       - "dtable-db:10.0.0.3"
-      - "dtable-server:10.0.0.4"
-    networks:
-      - frontend-net
-networks:
-  frontend-net:
-    name: frontend-net
 ```
 
 Now, start `dtable-server` for the first time and monitor the logs:
@@ -161,7 +125,6 @@ Now that `dtable-server` is running on a separate node, update `dtable-web` to u
     ports:
       - "8000:8000"
     ```
-
 
 ??? success "Update API-Gateway"
 
