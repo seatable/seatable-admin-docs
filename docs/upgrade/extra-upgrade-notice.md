@@ -4,6 +4,10 @@ description: Version-specific upgrade notices and required configuration changes
 
 # Extra upgrade notice
 
+## 7.0
+
+We use a separate `dtable-server` image, and the `seatable` image no longer launches the `dtable-server` service. You simply need to update `seatable-server.yml` and the images, then start the service.
+
 ## 6.1
 
 Several Docker image tags have been updated to newer versions. These changes are applied automatically when you pull the latest images. Remember to also update your [plugins](../configuration/plugins.md).

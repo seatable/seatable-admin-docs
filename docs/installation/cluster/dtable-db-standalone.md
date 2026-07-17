@@ -48,7 +48,6 @@ Apply the following required changes to this file:
       - ENABLE_DTABLE_STORAGE_SERVER=true    # required for big data backup
       - ENABLE_SEAFILE_SERVER=false
       - ENABLE_DTABLE_WEB=false
-      - ENABLE_DTABLE_SERVER=false
       - ENABLE_DTABLE_EVENTS=false
       - ENABLE_API_GATEWAY=false
       - SEATABLE_START_MODE=cluster          # Don't run any database update processes
@@ -96,7 +95,6 @@ services:
       - ENABLE_DTABLE_STORAGE_SERVER=true
       - ENABLE_SEAFILE_SERVER=false
       - ENABLE_DTABLE_WEB=false
-      - ENABLE_DTABLE_SERVER=false
       - ENABLE_DTABLE_EVENTS=false
       - ENABLE_API_GATEWAY=false
       - SEATABLE_START_MODE=cluster
