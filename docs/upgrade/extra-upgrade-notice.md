@@ -40,6 +40,14 @@ In addition, the script checks your current configuration files and lists requir
 
 ### List of Changes
 
+??? danger "Breaking changes inside SeaTable's Python client"
+
+    This breaking change affects systems that make use of the [Python pipeline](../installation/components/python-pipeline.md) in order to run Python scripts (either manually or within automations).
+    The [Python client](https://developer.seatable.com/python/) included in the `seatable/seatable-python-runner` image has been upgraded to version 4.0.0.
+    This release includes breaking changes to the format of the `context` object and the response format of the `query()` method.
+
+    Please refer to the [forum post](https://forum.seatable.com/t/important-changes-related-to-python-client-in-seatable-6-2/7435) for more information.
+
 ??? warning "Multiple configuration files have been deprecated"
 
     The configuration files `dtable-api-gateway.conf`, `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed** prior to upgrading to SeaTable v6.2.
