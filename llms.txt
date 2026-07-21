@@ -25,6 +25,7 @@
 
 - [SeaTable Server](https://admin.seatable.com/installation/basic-setup/): Step-by-step guide to install SeaTable Server with Docker and Caddy on a single Linux node, accessible via HTTPS.
 - [SeaTable AI](https://admin.seatable.com/installation/components/seatable-ai/): Deploy SeaTable AI to enable AI-powered automation steps like summarize, classify, OCR, and extract using external LLM providers.
+- [HTML Server](https://admin.seatable.com/installation/components/html-server/): Deploy the SeaTable HTML Server to serve custom HTML pages inside universal apps.
 - [Python Pipeline](https://admin.seatable.com/installation/components/python-pipeline/): Install the Python Pipeline to run Python scripts directly within SeaTable for data automation and manipulation.
 - [Whiteboard](https://admin.seatable.com/installation/components/whiteboard/): Install the tldraw-based whiteboard plugin for SeaTable Enterprise to enable collaborative drawing and brainstorming.
 - [n8n](https://admin.seatable.com/installation/components/n8n/): Install n8n alongside SeaTable to connect your bases with hundreds of apps and build powerful automation workflows.
@@ -117,6 +118,7 @@
 - [Autostart](https://admin.seatable.com/configuration/autostart/): Understand how SeaTable handles Docker container and service autostart, and when automatic startup is disabled.
 - [Base Rows Limit](https://admin.seatable.com/configuration/base-rows-limit/): Configure the maximum number of rows per base in SeaTable, including writable and loading limits for large datasets.
 - [Overview](https://admin.seatable.com/configuration/overview/): Complete reference of SeaTable environment variables and configuration files for server setup and customization.
+- [Customizations](https://admin.seatable.com/configuration/customizations/): Customize the configuration of your SeaTable installation while ensuring that version upgrades stay seamless
 
 ### User Hierarchy
 
@@ -141,8 +143,8 @@
 
 ### Components
 
-- [dtable-api-gateway](https://admin.seatable.com/configuration/components/dtable-api-gateway/): Complete reference for all api-gateway configuration options in dtable-api-gateway.conf including rate limits and cluster settings.
-- [dtable-db](https://admin.seatable.com/configuration/components/dtable-db/): Complete reference for dtable-db configuration in dtable-db.conf including storage, caching, SQL limits, and big data backup options.
+- [dtable-api-gateway](https://admin.seatable.com/configuration/components/dtable-api-gateway/): Complete reference for all api-gateway configuration options including rate limits and cluster settings.
+- [dtable-db](https://admin.seatable.com/configuration/components/dtable-db/): Complete reference for dtable-db configuration including storage, caching, SQL limits, and big data backup options.
 - [dtable-events](https://admin.seatable.com/configuration/components/dtable-events/): Configure dtable-events for automations, email notifications, LDAP sync, virus scanning, and database cleanup in SeaTable Server.
 - [dtable-server](https://admin.seatable.com/configuration/components/dtable-server/): Complete reference for dtable-server configuration including row limits, base size limits, persistence, and automation rate settings.
 - [dtable-storage-server](https://admin.seatable.com/configuration/components/dtable-storage-server/): Configure dtable-storage-server for filesystem or S3 storage backends, snapshot retention, and automated cleanup in SeaTable.
@@ -163,6 +165,7 @@
 - [Custom CSS](https://admin.seatable.com/customization/custom-css/): Add custom CSS to your SeaTable Server to hide or modify UI elements, with practical examples included.
 - [Templates](https://admin.seatable.com/customization/templates/): Set up and manage base templates in SeaTable Server so users can create new bases from predefined structures.
 - [Page Templates](https://admin.seatable.com/customization/page-templates/): Customize SeaTable's HTML page templates for login pages, error pages, and emails by overriding default files.
+- [Template Snippets](https://admin.seatable.com/customization/template-snippets/): Inject custom JavaScript snippets into the dashboard, base and app templates
 
 ### Upgrade
 

@@ -461,32 +461,32 @@ The following limitations apply to SeaTable Server as well as SeaTable Cloud and
 
 For API-related limits, please see the SeaTable [API reference](https://api.seatable.com/reference/limits).
 
-| Category                 | Limitation Type                                     | Limit                                                                                                  | Additional Notes                                                                                                                                          |
-| :----------------------- | :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bases                    | Rows                                                | 100 000                                                                                                | The base becomes read-only when exceeding this limit. The limit can be modified in dtable_server_config.json.                                             |
-|                          | Rows 2                                              | 150 000                                                                                                | The base will fail to load when exceeding this limit. The limit can be modified in dtable_server_config.json.                                             |
-|                          | Archived rows                                       | no limit                                                                                               |                                                                                                                                                           |
-|                          | Tables                                              | 200                                                                                                    |                                                                                                                                                           |
-|                          | External links for bases                            | 100                                                                                                    |                                                                                                                                                           |
-|                          | External links for views                            | 100                                                                                                    |                                                                                                                                                           |
-|                          | Apps                                                | 100                                                                                                    |                                                                                                                                                           |
-|                          | Forms                                               | 100                                                                                                    |                                                                                                                                                           |
-| Tables                   | Columns                                             | 500                                                                                                    |                                                                                                                                                           |
-| External links           | External link viewing rate                          | 300/min                                                                                                |                                                                                                                                                           |
-| Import / export          | Size of a base being exported as a DTABLE file      | 100MB                                                                                                  | All files stored in a base can be viewed and deleted via File Management. The limit can be modified in dtable_web_settings.py (`DTABLE_EXPORT_MAX_SIZE`). |
-|                          | Import of a XLSX/CSV file                           | 50 000 records or 10MB                                                                                 |                                                                                                                                                           |
-|                          | Export of a table                                   | 10 000 records or 1,000,000 cells                                                                      |                                                                                                                                                           |
-|                          | Export of a view in table                           | 1 000 000 cells                                                                                        |                                                                                                                                                           |
-| Import / export big data | Import from XLSX to big data storage                | 500 000 records or 40MB                                                                                | The row limit can be modified in dtable_web_settings.py (`BIG_DATA_ROW_IMPORT_LIMIT`). The file size limit cannot be configured.                          |
-|                          | Update from XLSX to big data storage                | 500 000 records or 40MB                                                                                | The row limit can be modified in dtable_web_settings.py (`BIG_DATA_ROW_UPDATE_LIMIT`). The file size limit cannot be configured.                          |
-|                          | Export big data view to Excel                       | 250 000 records                                                                                        | The limit can be modified in dtable_web_settings.py (`ARCHIVE_VIEW_EXPORT_ROW_LIMIT`).                                                                    |
-| Groups                   | Group members                                       | 500                                                                                                    | The limit can be modified in dtable_web_settings.py (`GROUP_MEMBER_LIMIT`).                                                                               |
-|                          | Group bases                                         | 500                                                                                                    |                                                                                                                                                           |
-| Common datasets (CDS)    | Syncs of CDS                                        | Sync up to the first 50 000 records                                                                    |                                                                                                                                                           |
-|                          | Sync frequency                                      | 5 minutes                                                                                              | The limit can be modified in dtable_web_settings.py (`SYNC_COMMON_DATASET_INTERVAL`).                                                                     |
-| Automation rules         | Records meet specific conditions after modification | For batch modification, check the first 50 records. A rule can be triggered up to 10 times per minute. |                                                                                                                                                           |
-|                          | Add record                                          | For batch addition, check the first 50 records. A rule can be triggered up to 10 times per minute.     |                                                                                                                                                           |
-|                          | Run periodically on records meet conditions         | Lock a maximum of 200 rows and send a maximum of 50 emails in one trigger                              |                                                                                                                                                           |
+| Category                 | Limitation Type                                     | Limit                                                                                                  | Additional Notes                                                                                                                                                       |
+| :----------------------- | :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bases                    | Rows                                                | 100 000                                                                                                | The base becomes read-only when exceeding this limit. The limit can be modified in `dtable_server_config.json`/through the `BASE_WRITABLE_LIMIT` environment variable. |
+|                          | Rows 2                                              | 150 000                                                                                                | The base will fail to load when exceeding this limit. The limit can be modified in `dtable_server_config.json`/through the `BASE_MAX_ROWS_LIMIT` environment variable. |
+|                          | Archived rows                                       | no limit                                                                                               |                                                                                                                                                                        |
+|                          | Tables                                              | 200                                                                                                    |                                                                                                                                                                        |
+|                          | External links for bases                            | 100                                                                                                    |                                                                                                                                                                        |
+|                          | External links for views                            | 100                                                                                                    |                                                                                                                                                                        |
+|                          | Apps                                                | 100                                                                                                    |                                                                                                                                                                        |
+|                          | Forms                                               | 100                                                                                                    |                                                                                                                                                                        |
+| Tables                   | Columns                                             | 500                                                                                                    |                                                                                                                                                                        |
+| External links           | External link viewing rate                          | 300/min                                                                                                |                                                                                                                                                                        |
+| Import / export          | Size of a base being exported as a DTABLE file      | 100MB                                                                                                  | All files stored in a base can be viewed and deleted via File Management. The limit can be modified in dtable_web_settings.py (`DTABLE_EXPORT_MAX_SIZE`).              |
+|                          | Import of a XLSX/CSV file                           | 50 000 records or 10MB                                                                                 |                                                                                                                                                                        |
+|                          | Export of a table                                   | 10 000 records or 1,000,000 cells                                                                      |                                                                                                                                                                        |
+|                          | Export of a view in table                           | 1 000 000 cells                                                                                        |                                                                                                                                                                        |
+| Import / export big data | Import from XLSX to big data storage                | 500 000 records or 40MB                                                                                | The row limit can be modified in dtable_web_settings.py (`BIG_DATA_ROW_IMPORT_LIMIT`). The file size limit cannot be configured.                                       |
+|                          | Update from XLSX to big data storage                | 500 000 records or 40MB                                                                                | The row limit can be modified in dtable_web_settings.py (`BIG_DATA_ROW_UPDATE_LIMIT`). The file size limit cannot be configured.                                       |
+|                          | Export big data view to Excel                       | 250 000 records                                                                                        | The limit can be modified in dtable_web_settings.py (`ARCHIVE_VIEW_EXPORT_ROW_LIMIT`).                                                                                 |
+| Groups                   | Group members                                       | 500                                                                                                    | The limit can be modified in dtable_web_settings.py (`GROUP_MEMBER_LIMIT`).                                                                                            |
+|                          | Group bases                                         | 500                                                                                                    |                                                                                                                                                                        |
+| Common datasets (CDS)    | Syncs of CDS                                        | Sync up to the first 50 000 records                                                                    |                                                                                                                                                                        |
+|                          | Sync frequency                                      | 5 minutes                                                                                              | The limit can be modified in dtable_web_settings.py (`SYNC_COMMON_DATASET_INTERVAL`).                                                                                  |
+| Automation rules         | Records meet specific conditions after modification | For batch modification, check the first 50 records. A rule can be triggered up to 10 times per minute. |                                                                                                                                                                        |
+|                          | Add record                                          | For batch addition, check the first 50 records. A rule can be triggered up to 10 times per minute.     |                                                                                                                                                                        |
+|                          | Run periodically on records meet conditions         | Lock a maximum of 200 rows and send a maximum of 50 emails in one trigger                              |                                                                                                                                                                        |
 
 ---
 
@@ -732,7 +732,8 @@ Instead of handling one extensive `docker-compose.yml` file, we present a more s
 
 Think of the `.env` file as a recipe for your setup and the yml files are like ingredients.
 
-    Generally, there's no need to modify the YAML files. We provide updated YAML files with each new SeaTable version. However, if you wish to make alterations, create a copy and name it something like `custom-<original-name>.yml`.
+    The default `.yml` files **should not be modified** since they will be overwritten during the [upgrade process](../upgrade/upgrade-manual.md).
+    However, if you wish to make alterations, read our guide on how to [customize your installation](../configuration/customizations.md) to ensure that version upgrades stay seamless.
 
 You can configure components in the `.env` file, determining which ones to install. Start with essential components like SeaTable Server and Caddy web proxy.
 
@@ -861,12 +862,9 @@ The expected output should appear as follows.
 └── zabbix.yml
 ```
 
-    Generally, there's no need to make changes to the YML-files. Modifications should only be made by experienced Docker administrators. If you do, it is recommended to duplicate the file(s) first and rename the file(s) because the default yml files are overwritten with the next update.
-
-    ```bash
-    # create a custom copy
-    cp n8n.yml custom-n8n.yml
-    ```
+    Generally, there's no need to make changes to the YML-files. Customizations should only be made by experienced Docker administrators.
+    Please read our guide that describes how the [configuration can be customized](../configuration/customizations.md).
+    This ensures that version upgrades stay seamless since the default `.yml` files are **overwritten with each upgrade**.
 
 #### 2. Add secrets
 
@@ -878,6 +876,7 @@ Now use the command line tool `pwgen` to create secure passwords for your _admin
     sed -i "s/^MARIADB_PASSWORD=.*/MARIADB_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^REDIS_PASSWORD=.*/REDIS_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^JWT_PRIVATE_KEY=.*/JWT_PRIVATE_KEY=$(pwgen 40 1)/" .env
+    sed -i "s/^SECRET_KEY=.*/SECRET_KEY=$(pwgen 40 1)/" .env
 
 Alternatively, you can manually add your own passwords.
 
@@ -926,6 +925,8 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
     # shared secret for secure communication
     JWT_PRIVATE_KEY='anothersecret'
+
+    SECRET_KEY='anothertopsecret'
     ```
 
     1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
@@ -1030,7 +1031,7 @@ Then add SeaTable AI server configurations in `.env`:
 ENABLE_SEATABLE_AI=true
 ```
 
-#### LLM Provider Configuration
+### LLM Provider Configuration
 
 SeaTable AI will use AI functions in conjunction with a Large Language Model (LLM) service.
 
@@ -1040,9 +1041,13 @@ SeaTable AI will use AI functions in conjunction with a Large Language Model (LL
     This requires the chosen model to support image input and recognition (e.g. for running OCR as part of automations).
 
 The following section showcases the required configuration settings for the most popular hosted LLM services.
-These must be configured inside your `.env` file:
 
-<a id="llm-configuration"></a>
+The configuration approach depends on your SeaTable version:
+
+#### SeaTable v6.0 + v6.1
+
+For SeaTable v6.0 and v6.1, the LLM provider is configured inside the `.env` file:
+
 === "OpenAI"
     ```ini
     SEATABLE_AI_LLM_TYPE=openai
@@ -1100,7 +1105,130 @@ These must be configured inside your `.env` file:
     SEATABLE_AI_LLM_MODEL=...
     ```
 
-#### LLM Timeout Configuration (Optional)
+#### SeaTable v6.2+
+
+SeaTable v6.2 and later versions require you to configure the LLM provider inside the `/opt/seatable-server/seatable/conf/seatable_config.yaml` file **on the host**. The LLM provider configuration is now placed inside a `.yaml` file to allow configuring different providers/models for different AI functions.
+If the file does not exist yet, simply create it.
+
+=== "OpenAI"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: openai
+          key: <your openai LLM access key>
+          model: gpt-4o-mini # recommended
+    ```
+=== "Deepseek"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: deepseek
+          key: <your LLM access key>
+          model: deepseek-chat # recommended
+    ```
+=== "Azure OpenAI"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: azure
+          url: # your deployment url, leave blank to use default endpoint
+          key: <your API key>
+          model: <your deployment name>
+    ```
+=== "Gemini / Google AI Studio"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: gemini
+          key: <your LLM access key>
+          model: <your model-id>
+    ```
+=== "Ollama"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: ollama
+          url: <your LLM endpoint>
+          key: <your LLM access key>
+          model: <your model-id>
+    ```
+=== "HuggingFace"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: huggingface
+          url: <your huggingface API endpoint>
+          key: <your huggingface API key>
+          model: <model provider>/<model-id>
+    ```
+=== "Self-Hosted Proxy Server"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: proxy
+          url: <your proxy url>
+          key: <your proxy virtual key> # optional
+          model: <model-id>
+    ```
+=== "Other"
+    If you are using an LLM service with ***OpenAI-compatible endpoints***, you should set `type` to `other` or `openai`, and set other LLM configuration settings as necessary:
+
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: ...
+          url: ...
+          key: ...
+          model: ...
+    ```
+
+    The `seatable-ai` container will **not** be automatically restarted when running `docker compose up -d` if you've only made changes to the `seatable_config.yaml` config file.
+    Docker Compose does not watch files inside volume mounts, therefore a manual recreation of the container (via `--force-recreate`) is necessary whenever you're making configuration changes:
+
+    ```bash
+    cd /opt/seatable-compose
+    docker compose up -d --force-recreate seatable-ai
+    ```
+
+##### Multiple LLM Providers
+
+Since version 6.2, SeaTable AI supports the configuration of multiple LLM providers for different purposes.
+Simply configure multiple providers under `global.LLM_MODELS` within `seatable_config.yaml`.
+
+The following `seatable_config.yaml` example configures two LLM providers:
+
+- A self-hosted model (using vLLM) with `tier: low`
+- A hosted Mistral model is used for more complex tasks (`tier: high`)
+
+The second block (`seatable-ai.FEATURE_MODEL_TIER`) is used to configure the required tier level for each AI functionality.
+In this example, the configuration ensures that the self-hosted model is used for OCR, text summarization, classification and extraction tasks,
+while the cloud-hosted Mistral model will be used for custom prompts.
+
+```yaml
+global:
+  LLM_MODELS:
+    - type: hosted_vllm
+      model: <model>
+      tier: low
+      url: <url>
+      key: <key>
+    - type: mistral
+      model: <model>
+      tier: high
+      key: <key>
+
+seatable-ai:
+  FEATURE_MODEL_TIER:
+    ocr: low
+    text_summarize: low
+    classification: low
+    extract: low
+    custom: high
+```
+
+    `tier` supports the following values: `low`, `medium` and `high`
+
+### LLM Timeout Configuration (Optional)
 
 You can configure the communication timeout with the LLM service by specifying `SEATABLE_AI_LLM_TIMEOUT` in `.env` (the default is 180 seconds):
 
@@ -1118,6 +1246,83 @@ docker compose up -d
 ```
 
 Now SeaTable AI can be used.
+
+---
+
+Source: https://admin.seatable.com/installation/components/html-server/
+
+# HTML Server
+
+The HTML Server component is required in order to render custom HTML pages inside universal apps.
+
+## Deployment
+
+The easiest way to deploy the HTML Server is to deploy it on the same host as SeaTable Server.
+
+### Amend the .env file
+
+To install the HTML Server, include `seatable-html-server.yml` in the `COMPOSE_FILE` variable within your `.env` file.
+This instructs Docker-Compose to include the `seatable-html-server` service.
+
+Simply copy and paste (:material-content-copy:) the following code into your command line:
+
+```bash
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seatable-html-server.yml'/" /opt/seatable-compose/.env
+```
+
+### SeaTable Server Configuration
+
+In order to enable the HTML page type within universal apps, the following configuration settings must be placed inside `/opt/seatable-server/seatable/conf/dtable_web_settings.py` on the host.
+Simply replace `YOUR_SEATABLE_DOMAIN` with your hostname:
+
+```python
+ENABLE_UNIVERSAL_APP_HTML_PAGES = True
+DTABLE_HTML_PAGES_SERVER_URL = 'https://YOUR_SEATABLE_DOMAIN/app-server/'
+```
+
+Do not forget to apply the configuration changes by restarting the `seatable-server` container:
+
+```bash
+docker compose restart seatable-server
+```
+
+### S3 Configuration
+
+This step is only necessary in case you have configured the [S3 backend](../advanced/s3.md) for files and pictures.
+Since the HTML Server component directly accesses these buckets, it needs access to the S3 credentials.
+
+Create `custom-seatable-html-server.yml` with the following contents to add the required environment variables to the `seatable-html-server` service:
+
+```yaml
+services:
+  seatable-html-server:
+    environment:
+      - SEAF_SERVER_STORAGE_TYPE=s3
+      - S3_COMMIT_BUCKET=${S3_COMMIT_BUCKET:?Variable is not set or empty}
+      - S3_FS_BUCKET=${S3_FS_BUCKET:?Variable is not set or empty}
+      - S3_BLOCK_BUCKET=${S3_BLOCK_BUCKET:?Variable is not set or empty}
+      - S3_KEY_ID=${S3_KEY_ID:?Variable is not set or empty}
+      - S3_SECRET_KEY=${S3_SECRET_KEY:?Variable is not set or empty}
+      - S3_USE_V4_SIGNATURE=${S3_USE_V4_SIGNATURE:-true}
+      - S3_AWS_REGION=${S3_AWS_REGION:-us-east-1}
+      - S3_HOST=${S3_HOST:-}
+      - S3_USE_HTTPS=${S3_USE_HTTPS:-true}
+      - S3_PATH_STYLE_REQUEST=${S3_PATH_STYLE_REQUEST:-false}
+      - S3_SSE_C_KEY=${S3_SSE_C_KEY:-}
+```
+
+Then, simply add `custom-seatable-html-server.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
+
+### Start HTML Server
+
+One more step is necessary to download the Docker image for the HTML Server and start the container:
+
+```bash
+cd /opt/seatable-compose
+docker compose up -d
+```
+
+Now custom app pages can be created within universal apps.
 
 ---
 
@@ -1317,6 +1522,10 @@ Give [n8n](https://n8n.io) a try, and we guarantee you'll fall in love with it j
 ## Installation
 
 This article shows you how to install **n8n** (Community Edition) on your SeaTable server.
+
+    This deployment does not include any [external task runners](https://docs.n8n.io/hosting/configuration/task-runners/).
+    These allow executing user-provided JavaScript and Python code within n8n workflows.
+    Please refer to the [n8n docs](https://docs.n8n.io/hosting/configuration/task-runners/) for instructions on how to deploy external task runners.
 
 #### Change the .env file
 
@@ -1526,7 +1735,17 @@ mkdir /opt/collabora
 chmod 777 /opt/collabora
 ```
 
-Now make a copy of the collabora.yml and uncomment the _volumes_ definition in your `custom-collabora.yml`.
+Now create a `custom-collabora.yml` file with the following volume definition:
+
+```yaml
+services:
+  collabora:
+    volumes:
+      - "${COLLABORA_PATH:-/opt/collabora}/logs:/opt/cool/logs/"
+```
+
+Specifying this override in a separate file and adding `custom-collabora.yml` to the `COMPOSE_FILE` variable inside your `.env` file ensures that your modifications are preserved across version upgrades of SeaTable.
+You can read our [guide](../../configuration/customizations.md) for more information regarding this mechanism.
 
 ## Advanced: Collabora on a separate host and URL
 
@@ -1542,13 +1761,24 @@ SEATABLE_SERVER_HOSTNAME=<your-collabora-url>
 COLLABORA_PORT=443
 ```
 
-Have a look at collabora.yml and uncomment and update the value of `aliasgroup1`.
+You'll also have to add an additional `custom-collabora.yml` file that contains the following override:
+
+```yaml
+services:
+  collabora:
+    environment:
+      # Comma-separated list of domains that can access Collabora, e.g. https://cloud.seatable.io
+      - aliasgroup1=""
+```
+
+Remember to add this `custom-collabora.yml` file to the `COMPOSE_FILE` variable.
 
 ### Configuration of SeaTable server
 
 Now update the `dtable_web_settings.py` on your SeaTable Server.
 
-In addition you have to extend the caddy security headers. Add the URL of your Collabora host to the variables `form-action` and `frame-src` in your `custom-seatable-server.yml`. Don't forget to restart all containers.
+You'll also have to configure the `COLLABORA_HOSTNAME` variable inside your `.env` file.
+This will cause the `Content-Security-Policy` header returned by Caddy to contain the correct values for the Collabora hostname.
 
 ---
 
@@ -1624,16 +1854,15 @@ If this does not happen, execute `docker compose logs onlyoffice -f` to get more
 
 ## Advanced: Custom settings
 
-The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file called `local-production-linux.json` to [force some settings](https://helpcenter.onlyoffice.com/docs/installation/docs-developer-configuring.aspx).
+The following configuration options are only for OnlyOffice experts. You can create and mount a custom configuration file to [force some settings](https://helpcenter.onlyoffice.com/docs/installation/docs-developer-configuring.aspx).
 
-Create a configuration file in the newly created directory:
+Create a configuration file in `/opt/seatable-compose`:
 
 ```bash
-cd /opt/onlyoffice
-nano local-production-linux.json
+nano onlyoffice-config.json
 ```
 
-Copy the following code block in this file:
+Copy the following code block into this file:
 
 ```json
 {
@@ -1653,17 +1882,19 @@ Copy the following code block in this file:
 }
 ```
 
-Mount this config file into your onlyoffice block in your `docker-compose.yml`.
+Create `custom-onlyoffice.yml` to mount the config file into the container:
 
 ```yaml
-  volumes:
-      - /opt/onlyoffice/logs:/var/log/onlyoffice
-      - /opt/onlyoffice/data:/var/www/onlyoffice/Data
-      - /opt/onlyoffice/lib:/var/lib/onlyoffice
-      - /opt/oods/DocumentServer/local-production-linux.json:/etc/onlyoffice/documentserver/local-production-linux.json
+services:
+  onlyoffice:
+    volumes:
+      - ./onlyoffice-config.json:/etc/onlyoffice/documentserver/local-production-linux.json
 ```
 
-Restart OnlyOffice to load the new configuration.
+**Note:** Using a dedicated `.yml` file instead of modifying the default `onlyoffice.yml` file ensures that any modifications are preserved across version upgrades of SeaTable.
+You can read our [guide](../../configuration/customizations.md) for detailed information on how this works.
+
+Add `custom-onlyoffice.yml` to the `COMPOSE_FILE` variable and restart OnlyOffice to load the new configuration:
 
 ```bash
 docker compose up -d
@@ -1671,7 +1902,7 @@ docker compose up -d
 
 ## Advanced: OnlyOffice on a separate host and URL
 
-It is not that difficult to install OnlyOffice on a separate host to free the resources of the main server. This manual assumes that onlyoffice will be accessible by a separate public available URL.
+It is not that difficult to install OnlyOffice on a separate host to free the resources of the main server. This manual assumes that OnlyOffice will be accessible via a separate public URL.
 
 ### Install OnlyOffice
 
@@ -1695,20 +1926,25 @@ Now execute `docker-compose up -d` and on this server only caddy and OnlyOffice 
 
 ### Configure SeaTable to use this new OnlyOffice host.
 
-The next step is to tell SeaTable where it can access OnlyOffice. Update the settings in `dtable_web_settings.py` accordingly. Make sure to use the exact same shared secret and use the public available URL of the OnlyOffice server.
+The next step is to tell SeaTable where it can access OnlyOffice. Update the settings in `dtable_web_settings.py` accordingly. Make sure to use the exact same shared secret and use the public URL of the OnlyOffice server.
 
-In addition you have to extend the caddy security headers. Add the URL of your Onlyoffice host to the variables `script-src-elem` and `frame-src` in your `custom-seatable-server.yml`. Don't forget to restart all containers.
+You'll also have to configure the `ONLYOFFICE_HOSTNAME` variable inside your `.env` file.
+This will cause the `Content-Security-Policy` header returned by Caddy to contain the correct values for the OnlyOffice hostname.
+
+Remember to run `docker compose up -d` in order to apply the changes.
 
 ### Use Certificate store
 
 If you are working with self signed or low trust certificates, there is an easy way to put your certificates to the onlyoffice container truststore. You can just mount your certificate to the onlyoffice container. 
 
-```bash
+Create an additional `custom-onlyoffice.yml` file and add this file to the `COMPOSE_FILE` variable.
+
+The file should contain the following contents:
+
+```yaml
 services:
   onlyoffice:
-    ...
     volumes:
-      ...
       # mount certificates to onlyoffice container
       - ./ca-certificates.crt:/var/www/onlyoffice/Data/certs/tls.crt:ro
 ```
@@ -1778,7 +2014,9 @@ Each variable is self-explanatory.
 
 Gatus uses two configuration files: `/opt/seatable-compose/gatus.yml` and `/opt/seatable-compose/config/gatus-config.yml`. 
 
-To ensure your changes persist after updates, create copies of these files (e.g., custom-....yml) and update the references accordingly.
+To ensure that your changes persist after updates, you should not modify the original versions of these files.
+Instead, we recommend that you create an additional `custom-gatus.yml` file that contains a volume mount which mounts your own version of `gatus-config.yml` into the Gatus container.
+Please read our [guide](../../configuration/customizations.md) on how this works before proceeding.
 
 For all available configuration options, see the [Gatus GitHub repository](https://github.com/TwiN/gatus).
 
@@ -2208,18 +2446,32 @@ Simply copy and paste (:material-content-copy:) the following code into your com
 sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,clamav.yml'/" /opt/seatable-compose/.env
 ```
 
-### Configure `dtable-events.conf`
+### Configure dtable-events
 
-Add the following configuration to the `dtable-events.conf` file to enable virus scanning:
+Depending on your SeaTable version, this is done either through a config file or through environment variables:
 
-```conf
-[VIRUS SCAN]
-enabled = true
-scan_command = clamdscan
-scan_interval = 60
-virus_code = 1
-nonvirus_code = 0
-```
+=== "SeaTable <= v6.1"
+    Add the following configuration to the `dtable-events.conf` file to enable virus scanning:
+
+    ```ini
+    [VIRUS SCAN]
+    enabled = true
+    scan_command = clamdscan
+    scan_interval = 60
+    virus_code = 1
+    nonvirus_code = 0
+    ```
+=== "SeaTable v6.2+"
+    You'll have to configure a few additional environment variables.
+    Please read our [guide](../../configuration/customizations.md) that explains how to configure these additional environment variables before proceeding.
+
+    ```ini
+    VIRUS_SCAN_ENABLED=true
+    VIRUS_SCAN_SCAN_COMMAND=clamdscan
+    VIRUS_SCAN_SCAN_INTERVAL=60
+    VIRUS_SCAN_VIRUS_CODE=1
+    VIRUS_SCAN_NONVIRUS_CODE=0
+    ```
 
 ### Start ClamAV
 
@@ -2254,7 +2506,7 @@ You can choose to either ignore the finding or delete the infected asset.
 
 ### Additional Configuration Options
 
-ClamAV offers advanced configuration options in dtable-events.conf, such as:
+ClamAV offers advanced configuration options in `dtable-events.conf`/through environment variables, such as:
 
 - **Scan interval**: Adjust how often scans are performed.
 - **File size limit**: Set a maximum size for scanned files.
@@ -2371,6 +2623,10 @@ Source: https://admin.seatable.com/installation/faq/
     ```
 
     more info will follow.
+
+??? question "Check dtable-web"
+
+    Run the [`check-dtable-web.sh` script](../maintenance/helper-scripts.md#check-dtable-websh) in order to troubleshoot `dtable-web`.
 
 ??? question "Domain/DNS"
 
@@ -2740,21 +2996,23 @@ In the article, we assume that your certificates were saved as `cert.pem` and `k
 
 The caddy docker proxy container from [lucaslorentz](https://github.com/lucaslorentz/caddy-docker-proxy) supports dynamic configuration with labels.
 
-It is not recommended to make changes to the provides `seatable-server.yml`. Create a custom yml file and reference it in your .env file instead.
-Add the following line to your `custom-seatable-server.yml` to tell caddy to use your custom certificates. The label `caddy.tls` will tell caddy to use your custom certificates.
+The provided `seatable-server.yml` file **should not be modified** to ensure that version upgrades stay seamless.
+Instead, any customizations should be placed inside a dedicated `custom-seatable-server.yml` file.
+Please read our guide that explains how to [customize the configuration](../../configuration/customizations.md) of your SeaTable instance before proceeding.
 
-```bash
+This `custom-seatable-server.yml` file needs to contain overrides that advise Caddy to use your custom certificates.
+This is achieved through the `caddy.tls` label:
+
+```yaml
 # configuration of custom-seatable-server.yml
 services:
   seatable-server:
-    ...
     labels:
       caddy: ${SEATABLE_SERVER_HOSTNAME}
       caddy.tls: "/data/caddy/certs/cert.pem /data/caddy/certs/key.pem"
-      ...
 ```
 
-    If you're using a non-public url like "my-custom-setup.local", you have to make sure, that the docker container can resolve this DNS query. If you don't run your own DNS servers, you have to add `extras_hosts` to your `.yml` file.
+    If you're using a non-public url like "my-custom-setup.local", you have to make sure, that the docker container can resolve this DNS query. If you don't run your own DNS servers, you have to add `extra_hosts` to your `.yml` file.
 
 ## Add certificates to your truststore
 
@@ -2767,12 +3025,10 @@ This is relevant in two scenarios:
 
 To add a certificate, mount the `.crt` file into the container via your `custom-seatable-server.yml`. This works for seatable-server, python-scheduler, and python-starter.
 
-```bash
+```yaml
 services:
   seatable-server:
-    ...
     volumes:
-      ...
       - "/opt/caddy/certs/cert.pem:/usr/local/share/ca-certificates/cert.crt"
 ```
 
@@ -2818,13 +3074,12 @@ Restart the `python-starter` with `docker compose up -d` afterwards. To verify, 
 ## Self-signed certificates generated by Caddy
 
 Even if it is not recommended, it is possible to ask Caddy to use auto generated self-signed certificates.
-This can be achieved by adding these lines to your `custom-seatable-server.yml`.
+This can be achieved by adding the following lines to your `custom-seatable-server.yml`:
 
-```bash
+```yaml
 # configuration of custom-seatable-server.yml
 services:
   seatable-server:
-    ...
     labels:
       caddy: ${SEATABLE_SERVER_HOSTNAME}
       caddy.tls: "internal"
@@ -2885,7 +3140,7 @@ By default SeaTable and all additional components use one single public availabl
 
 Look at `n8n.yml` to get an understanding of how caddy is configured to make n8n accessable via port 6231.
 
-```bash
+```yaml
 services:
   caddy:
     ports:
@@ -2904,29 +3159,24 @@ In the n8n.yml we add an additional port to the caddy container by adding an add
 
 The following example assumes that you want to access n8n not anymore via the port 6231 but with the URL `n8n.example.com`.
 
-1. Make a copy of the n8n.yml and name it e.g. custom-n8n.yml.
-2. Replace n8n.yml with custom-n8n.yml in your .env in COMPOSE_FILE.
-3. Replace the caddy part of the custom-n8n.yml in this way.
+1. Create `custom-n8n.yml` to extend the default definition of the `n8n` service.
+2. Insert the following block into `custom-n8n.yml`:
+    ```yaml
+    services:
+      n8n:
+        labels:
+          caddy: n8n.example.com
+          caddy.reverse_proxy: "{{upstreams 5678}}"
+    ```
+3. Add `custom-n8n.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
+
+This configures Caddy to proxy all requests for `n8n.example.com` to port 5678 of the `n8n` service.
+
+Apply the changes by running the following command inside `/opt/seatable-compose`:
 
 ```bash
-services:
-  caddy:
-    labels:
-      caddy: n8n.example.com
-      caddy.reverse_proxy: "{{upstream 6231}}"
+docker compose up -d
 ```
-
-This configures caddy to proxy all requests to n8n.example.com to the port 6231, in this case n8n.
-
-Restart all docker containers with the following command to enforce this new setting.
-
-    It is not sufficient to restart only the container that should use a separate domain. The caddy container has to be restarted to. `docker compose` will not detect any change of the caddy.yml, therefore we recommend to stop and restart all containers with these commands.
-
-    ```bash
-    cd /opt/seatable-compose && \
-    docker compose down && \
-    docker compose up -d
-    ```
 
 ---
 
@@ -3160,6 +3410,8 @@ REDIS_PASSWORD=
 # This private key must have the same value as the JWT_PRIVATE_KEY variable on other SeaTable nodes
 JWT_PRIVATE_KEY=
 
+SECRET_KEY=
+
 # Public URL of your SeaTable server
 SEATABLE_SERVER_URL=https://seatable.your-domain.com
 
@@ -3168,12 +3420,6 @@ INNER_DTABLE_SERVER_URL=http://dtable-server:5000
 
 # Cluster-internal URL of dtable-db
 INNER_DTABLE_DB_URL=http://dtable-db:7777
-
-# LLM
-SEATABLE_AI_LLM_TYPE=
-SEATABLE_AI_LLM_URL=
-SEATABLE_AI_LLM_KEY=
-SEATABLE_AI_LLM_MODEL=
 ```
 
     By default, the ports of `dtable-server` (5000) and `dtable-db` (7777) are not exposed to the host. This requires a manual change inside the `.yml` file.
@@ -3198,7 +3444,7 @@ Since `seatable-ai` is now running on a separate host or virtual machine, the fo
 
 ```ini
 ENABLE_SEATABLE_AI=true
-SEATABLE_AI_SERVER_URL='http://seatable-ai.example.com:8888'
+INNER_SEATABLE_AI_SERVER_URL='http://seatable-ai.example.com:8888'
 ```
 
 Restart the `seatable-server` service and test your SeaTable AI:
@@ -3228,7 +3474,12 @@ Please refer to the documentation on [user quotas](../../configuration/roles-and
 
 ## Pricing Configuration
 
-In order to accurately track the number of AI credits used by users and organizations, you must configure token pricing inside `/opt/seatable-server/seatable/conf/dtable_web_settings.py`.
+In order to accurately track the number of AI credits used by users and organizations, you must configure token pricing.
+The configuration approach depends on your SeaTable version:
+
+### SeaTable v6.0 + v6.1
+
+Token pricing is configured inside `/opt/seatable-server/seatable/conf/dtable_web_settings.py`.
 This can be achieved by configuring the `AI_PRICES` variable, which is a dictionary that maps model identifiers (e.g `gpt-4o-mini`) to token pricing **per thousand tokens**:
 
 ```py
@@ -3242,6 +3493,35 @@ AI_PRICES = {
 
     The dictionary key must match **the exact value** of the chosen AI Model, which is configured through the `SEATABLE_AI_LLM_MODEL` variable inside your `.env` file.
     In case of a mismatch, AI usage will not count towards any configured credit limits!
+
+### SeaTable v6.2+
+
+Token pricing is configured inside `/opt/seatable-server/seatable/conf/seatable_config.yaml`.
+If the file does not exist yet, simply create it.
+
+    Since version 6.2, token pricing is configured **per 1 million tokens** (previously: per 1000 tokens).
+    This change aligns SeaTable's behavior with the behavior of most other AI-enhanced applications.
+
+```yaml
+global:
+  LLM_MODELS:
+    - type: ...
+      key: ...
+      model: ...
+      price:
+        # Price per 1M tokens
+        input_tokens: 1
+        output_tokens: 5
+```
+
+Remember to restart the `seatable-server` container (since token pricing is handled by `dtable-events`, which runs inside the `seatable-server` container) by running the following command:
+
+```bash
+cd /opt/seatable-compose
+docker compose up -d --force-recreate seatable-server
+```
+
+**Note:** The `--force-recreate` flag ensures that the container is restarted even if its `.yml` file or environment variables haven't changed.
 
 ---
 
@@ -3310,14 +3590,9 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,ollama.yml'/" /opt/seatable-com
 
 ### Configuration
 
-In order to use Ollama to execute AI-based automation steps inside SeaTable, you must add the following configuration settings to your `.env` file:
+Please refer to the [LLM provider configuration](../components/seatable-ai.md#llm-provider-configuration) docs.
 
-```ini
-SEATABLE_AI_LLM_TYPE='ollama_chat'
-SEATABLE_AI_LLM_URL='http://ollama:11434'
-# Choose a model: https://ollama.com/library
-SEATABLE_AI_LLM_MODEL='gemma3:12b'
-```
+The URL must be set to `http://ollama:11434` in case you're deploying Ollama on the same host/VM as SeaTable.
 
 ### Start Ollama
 
@@ -3461,20 +3736,9 @@ Perfect! Your local vLLM deployment is ready to use.
 
 ## SeaTable AI Configuration
 
-To use vLLM for AI-based automation inside SeaTable, add the following settings to the `.env` file on the host where SeaTable AI is deployed:
+Please refer to the [LLM provider configuration](../components/seatable-ai.md#llm-provider-configuration) docs.
 
-```ini
-SEATABLE_AI_LLM_TYPE='hosted_vllm'
-
-SEATABLE_AI_LLM_URL='https://<YOUR_VLLM_HOSTNAME>/v1'
-
-# API key for requests to vLLM (use the same key as above)
-SEATABLE_AI_LLM_KEY=''
-
-# Model identifier from HuggingFace
-# (e.g. RedHatAI/gemma-3-12b-it-quantized.w4a16)
-SEATABLE_AI_LLM_MODEL=''
-```
+**Note:** The type must be set to `hosted_vllm` and the URL must be set to `https://<YOUR_VLLM_HOSTNAME>/v1` when using vLLM for AI-based automations within SeaTable.
 
 Remember to restart SeaTable AI after making any changes.
 
@@ -3482,16 +3746,18 @@ Remember to restart SeaTable AI after making any changes.
 
 ### Send a request
 
-You can send your first request to vLLM with the following example from the command line of the **SeaTable AI container**. 
-This makes sure that all your environment variables are correctly set and that the ip address of SeaTable AI is part of the list of allowed IP addresses configured with `VLLM_ALLOWED_IPS`. 
+You can send your first request to vLLM with the following example from the command line of the host/VM that runs the **SeaTable AI container**.
+This makes sure that the IP address of SeaTable AI is part of the list of allowed IP addresses configured with `VLLM_ALLOWED_IPS`.
+
+Make sure to replace `YOUR_VLLM_HOSTNAME`, `YOUR_VLLM_KEY` and `YOUR_VLLM_MODEL` with the appropriate values:
 
 ```bash
 docker exec -i seatable-ai bash -s <<EOF
-curl -fsSL \$SEATABLE_AI_LLM_URL/chat/completions \
+curl -fsSL https://YOUR_VLLM_HOSTNAME/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer \$SEATABLE_AI_LLM_KEY" \
+  -H "Authorization: Bearer YOUR_VLLM_KEY" \
   -d '{  
-    "model": "$SEATABLE_AI_LLM_MODEL",
+    "model": "YOUR_LLM_MODEL",
     "messages": [                                                     
       {"role": "system", "content": "You are a helpful assistant."},    
       {"role": "user", "content": "How many inhabitants does Germany have?"}
@@ -3583,17 +3849,22 @@ Bases and avatars require one bucket, to store the content of picture and files 
         - seatable blocks
         - seatable$$$
 
+    While other S3 buckets used by SeaTable can remain private, the S3 bucket for avatars must be publicly readable.
+    Once avatars are saved to S3, they are accessed directly from the S3 storage.
+    Therefore, it is necessary to grant read access to everyone (anonymous access) while restricting write access to authenticated users with bucket credentials.
+
 ## Configuration Approach
 
 From version 6.1 onwards, SeaTable supports reading S3 configuration [from environment variables](#environment-variables).
-While the previous approach [via configuration files](#configuration-files) is still supported, we recommend using environment variables since this has numerous advantages:
+The previous approach [via configuration files](#configuration-files-legacy) is only supported until (and including) version 6.1.
+Using environment variables has numerous advantages:
 
 - All relevant credentials are configured inside your `.env` file instead of being distributed between different configuration files
 - Configuration based on environment variables allows for a declarative deployment using S3, which was not previously possible
 - Docker-Compose automatically detects changes to the values of environment variables when running `docker compose up -d` and restarts any dependent services
 
-    Please note that the approach based on environment variables **does not allow** enabling S3 only for base snapshots **or** files and pictures.
-    As soon as you include `seatable-s3.yml` into the `COMPOSE_FILE` variable, S3 will be enabled for base snapshots, files **and** pictures.
+    Please note that the approach based on environment variables **does not allow** enabling S3 only for base snapshots **or** files and pictures **or** avatars.
+    As soon as you include `seatable-s3.yml` into the `COMPOSE_FILE` variable, S3 will be enabled for base snapshots, files, pictures **and** avatars.
 
     There's no possibility to use different S3 access keys for the different buckets used by SeaTable.
 
@@ -3625,7 +3896,7 @@ While the previous approach [via configuration files](#configuration-files) is s
 
 ## Environment Variables
 
-To enable S3 storage for base snapshots, files and pictures, add `seatable-s3.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
+To enable S3 storage for base snapshots, files, pictures and avatars, add `seatable-s3.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
 This instructs Docker-Compose to extend the definition of the `seatable-server` service defined inside `seatable-server.yml`.
 
 Afterwards, you must configure a few environment variables inside your `.env` file. The following table contains examples for the most common object storage providers:
@@ -3639,6 +3910,7 @@ Afterwards, you must configure a few environment variables inside your `.env` fi
     S3_COMMIT_BUCKET=''
     S3_FS_BUCKET=''
     S3_BLOCK_BUCKET=''
+    S3_AVATAR_BUCKET=''
     S3_KEY_ID=''
     S3_SECRET_KEY=''
     ```
@@ -3652,6 +3924,7 @@ Afterwards, you must configure a few environment variables inside your `.env` fi
     S3_COMMIT_BUCKET=''
     S3_FS_BUCKET=''
     S3_BLOCK_BUCKET=''
+    S3_AVATAR_BUCKET=''
     S3_HOST='sos-de-fra-1.exo.io'
     S3_KEY_ID=''
     S3_SECRET_KEY=''
@@ -3667,6 +3940,7 @@ Afterwards, you must configure a few environment variables inside your `.env` fi
     S3_COMMIT_BUCKET=''
     S3_FS_BUCKET=''
     S3_BLOCK_BUCKET=''
+    S3_AVATAR_BUCKET=''
     S3_HOST='fsn1.your-objectstorage.com'
     S3_KEY_ID=''
     S3_SECRET_KEY=''
@@ -3682,6 +3956,7 @@ Afterwards, you must configure a few environment variables inside your `.env` fi
     S3_COMMIT_BUCKET=''
     S3_FS_BUCKET=''
     S3_BLOCK_BUCKET=''
+    S3_AVATAR_BUCKET=''
     S3_HOST=''
     S3_KEY_ID=''
     S3_SECRET_KEY=''
@@ -3691,9 +3966,13 @@ Afterwards, you must configure a few environment variables inside your `.env` fi
 
 Don't forget to restart SeaTable by running `docker compose up -d` inside your terminal.
 
-## Configuration Files
+## Configuration Files (Legacy)
 
-This section describes the configuration of S3 settings inside the configuration files `dtable-storage-server.conf` and `seafile.conf`.
+    `dtable-storage-server.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please use [environment variables](#environment-variables) instead to configure S3.
+
+This section describes the configuration of S3 settings inside the configuration files `dtable-storage-server.conf`, `seafile.conf` and `dtable_web_settings.py`.
 
 ### S3 for base snapshots
 
@@ -3923,11 +4202,9 @@ S3 Object storage for file and picture columns is configured in `/opt/seatable-s
         memcached_options = --SERVER=memcached --POOL-MIN=10 --POOL-MAX=100
         ```
 
-## S3 for avatars
+### S3 for avatars
 
 It is possible to store the avatar pictures in S3 instead of the local filesystem. SeaTable uses the [Django File Storage API for AWS S3](https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html).
-
-    It is currently not possible to configure the credentials for the avatar bucket via environment variables. This must always be done inside `dtable_web_settings.py`.
 
     While other S3 buckets used by SeaTable can remain private, the S3 bucket for avatars must be publicly readable. Once avatars are saved to S3, they are accessed directly from the S3 storage. Therefore, it is necessary to grant read access to everyone (anonymous access) while restricting write access to authenticated users with bucket credentials.
 
@@ -4118,7 +4395,8 @@ openssl rand -base64 24
 ### Environment Variables
 
 From version 6.1 onwards, SeaTable supports reading S3 configuration from environment variables.
-While the previous approach [via configuration files](#configuration-files) is still supported, we recommend using environment variables since this has numerous advantages:
+The previous approach [via configuration files](#configuration-files-legacy) is only supported until (and including) version 6.1.
+Using environment variables has numerous advantages:
 
 - All relevant credentials are configured inside your `.env` file instead of being distributed between different configuration files
 - Configuration based on environment variables allows for a declarative deployment using S3, which was not previously possible
@@ -4138,7 +4416,11 @@ You must restart SeaTable after applying this configuration change:
 docker compose up -d
 ```
 
-### Configuration Files
+### Configuration Files (Legacy)
+
+    `dtable-storage-server.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please use [environment variables](#environment-variables) instead to configure S3 encryption.
 
 Instead of using environment variables, you can also use the previous approach of configuring the encryption key inside the configuration files.
 To encrypt both base snapshots and assets, you must configure a valid encryption key in **two locations**:
@@ -4222,6 +4504,12 @@ Afterwards, you must update the bucket names inside `dtable-storage-server.conf`
 
 ```bash
 docker restart seatable-server
+```
+
+In case you're using environment variables in order to configure S3, you'll have to update the bucket names and apply the configuration changes by running the following command inside `/opt/seatable-compose`:
+
+```bash
+docker compose up -d
 ```
 
 ---
@@ -4452,6 +4740,7 @@ If your `python-runner` containers require access to an additional host director
 However, this variable is not part of the `python-pipeline.yml` file by default.
 You should therefore create an additional `custom-python-pipeline.yml` file with the following contents to extend the default definition of the `python-starter` service.
 Docker Compose will automatically merge these two definitions together.
+You can read [our guide](../../configuration/customizations.md) for more information regarding this topic.
 
 ```yaml
 services:
@@ -4590,22 +4879,7 @@ In addition, **Gunicorn**, **NGINX** and **Redis** can be configured to expose m
 
 ### api-gateway
 
-You can enable the `/metrics` endpoint and configure the basic auth credentials by adding the following configuration block inside `/opt/seatable-server/seatable/conf/dtable-api-gateway.conf`:
-
-```ini
-[metrics]
-enable_basic_auth = true
-username = "<username>"
-password = "<password>"
-```
-
-**Note:** SeaTable does not create the `dtable-api-gateway.conf` configuration file by default. If it does not exist yet, simply create it.
-
-Remember to restart SeaTable by running the following command:
-
-```bash
-docker restart seatable-server
-```
+Please refer to the [api-gateway docs](../../configuration/components/dtable-api-gateway.md#metrics) for instructions on how to enable metrics.
 
 You can test the metrics endpoint by running the following command on the host:
 
@@ -4642,20 +4916,7 @@ curl -sS https://$SEATABLE_SERVER_HOSTNAME/api-gateway/metrics --user "<username
 
 ### dtable-db
 
-You can enable the `/metrics` endpoint and configure the basic auth credentials by adding the following configuration block inside `/opt/seatable-server/seatable/conf/dtable-db.conf`:
-
-```ini
-[metrics]
-enable_basic_auth = true
-username = "<username>"
-password = "<password>"
-```
-
-Remember to restart SeaTable by running the following command:
-
-```bash
-docker restart seatable-server
-```
+Please refer to the [dtable-db docs](../../configuration/components/dtable-db.md#metrics) for instructions on how to enable metrics.
 
 You can test the metrics endpoint by running the following command on the host:
 
@@ -5187,19 +5448,24 @@ docker stop mariadb
 
 ## Don't start mariadb container
 
-Create a copy of `seatable-server.yml` and rename it to `custom-seatable-server.yml`.
-You should remove the `mariadb` service definition and update the `depends_on` declaration for the `seatable-server` service to ensure that it can start up.
+To disable the `mariadb` service and patch the `depends_on` declaration for the `seatable-server` service, you should create a `custom-seatable-server.yml` file:
 
-```bash
+```yaml
 services:
   seatable-server:
-    depends_on:
-      mariadb:                        # < remove
-        condition: service_healthy    # < remove
+    # Patch depends_on to ensure that seatable-server can start up
+    # Note: The "!override" syntax requires at least Docker Compose v2.24.4
+    depends_on: !override
+      redis:
+        condition: service_healthy
 
-  mariadb:                            # remove complete service
-    ...                               # with all lines
+  mariadb:
+    profiles:
+      - never
 ```
+
+Make sure to include this `custom-seatable-server.yml` in the `COMPOSE_FILE` variable in your `.env` file.
+You can read our [guide] for more information on how this merging process of multiple configuration files works and the rationale behind it.
 
 ## Update environment variables
 
@@ -5443,6 +5709,8 @@ Follow the [installation instructions for a single node](../basic-setup.md) up t
 
     # shared secret for secure communication
     JWT_PRIVATE_KEY='topsecret'
+
+    SECRET_KEY='anothertopsecret'
     ```
 
 ??? success "Remove Redis and Mariadb from your YAML file."
@@ -6639,7 +6907,9 @@ There are two ways to configure this SMTP account for system wide emails.
 
     
 
-    The SeaTable Server image supports auto configuration via environment variables. Add these variables to your .env file to configure the SMTP account.
+    The SeaTable Server image supports auto configuration via environment variables.
+    This is the **preferred approach**.
+    Add these variables to your .env file to configure the SMTP account:
 
     | Environment variable           | Description                                                    | Example values                 |
     | ------------------------------ | -------------------------------------------------------------- | ------------------------------ |
@@ -6654,7 +6924,13 @@ There are two ways to configure this SMTP account for system wide emails.
 
     See the examples at the end of this article for easy copy-and-paste use.
 
-=== "Configuration file"
+=== "Configuration file (deprecated)"
+
+    !!! warning "Configuration via `dtable_web_settings.py` is deprecated"
+
+        The configuration of email settings via `dtable_web_settings.py` is deprecated since v6.2.
+
+        Please migrate to the environment variable-based configuration approach when **upgrading to v6.2**.
 
     Add the following lines to `dtable_web_settings.py` to enable email sending.
 
@@ -6710,7 +6986,7 @@ If you are using Gmail as email server, you can use the following settings.
     SEATABLE_SERVER_EMAIL = 'username@gmail.com'
     ```
 
-=== "Configuration file"
+=== "Configuration file (deprecated)"
 
     ```python
     EMAIL_USE_TLS = True
@@ -6743,7 +7019,7 @@ SeaTable Cloud uses the SMTP relay of Brevo.
     SEATABLE_SERVER_EMAIL = 'noreply@domain.com'
     ```
 
-=== "Configuration file"
+=== "Configuration file (deprecated)"
 
     ```ini
     EMAIL_USE_TLS = True
@@ -6777,7 +7053,7 @@ If you are using Infomaniak as email server, you can use the following settings.
     SEATABLE_SERVER_EMAIL='noreply@domain.com'
     ```
 
-=== "Configuration file" 
+=== "Configuration file (deprecated)"
 
     ```python
     EMAIL_USE_TLS = False
@@ -6829,17 +7105,18 @@ The default value for all permissions is True. This means that if a permission i
 
 The following quotas are supported in user roles:
 
-| Quota                             | Added in version | Description                                                                                                                                                                                                                                  | Additional information                                                                                                                                             |
-| --------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| role_asset_quota                  | 1.0              | Total storage quota for all personal bases: '1G' means a limit of one gigabyte for files and images (assets); '' means no storage quota for assets                                                                                           | Assets in shared bases owned by another user and assets in group bases do not count against the storage quota. Does NOT apply to org users.                        |
-| row_limit                         | 1.0              | Total row limit for all personal bases: 10000 means a limit of 10 000 rows; -1 means no row limit                                                                                                                                            | Rows in shared bases owned by another user, rows in group bases, and rows in the big data storage do not count against the row limit. Does NOT apply to org users. |
-| big_data_row_limit                | 3.1              | Total row limit in big data storage for all bases: 100000 means a limit of 100 000 rows                                                                                                                                                      | This item is used for the role of teams rather than users. Does NOT apply to org users.                                                                            |
-| big_data_storage_quota            | 4.3              | Total storage quota for all bases in big data storage: '1G' means a limit of one gigabyte; '' means no storage quota for big data storage.                                                                                                   | Assets in rows in the big data storage do not count against this quota. This item is used for the role of teams rather than users. Does NOT apply to org users.    |
-| scripts_running_limit             | 2.3              | Total number of _Python_ scripts run within a month: 100 means 100 script runs per month; -1 means unlimited script runs                                                                                                                     | The script run counter is reset at the beginning of every month.                                                                                                   |
-| snapshot_days                     | 2.1              | Retention period for snapshots in days: 180 means a storage period of 180 days; no value means an unlimited retention period                                                                                                                 | Snapshots older than the retention period are automatically removed.                                                                                               |
-| share_limit                       |                  | Max number of users a base can be shared with: 100 means a base can be shared with 100 users                                                                                                                                                 |                                                                                                                                                                    |
-| ai_credit_per_user                | 6.0              | The maximum AI quota allowed per user per month (i.e., the maximum amount of tokens that can be used in a single month, converted into an amount. In team mode, the total quota within the team will be shared). `-1` means unlimited quota. |                                                                                                                                                                    |
-| monthly_automation_limit_per_user | 6.1              | The maximum number of automation executions per user per month. In team mode, the total number of allowed executions within the team will be shared. `-1` allows for an unlimited number of executions.                                      |                                                                                                                                                                    |
+| Quota                                  | Added in version | Description                                                                                                                                                                                                                                  | Additional information                                                                                                                                             |
+| -------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| role_asset_quota                       | 1.0              | Total storage quota for all personal bases: '1G' means a limit of one gigabyte for files and images (assets); '' means no storage quota for assets                                                                                           | Assets in shared bases owned by another user and assets in group bases do not count against the storage quota. Does NOT apply to org users.                        |
+| row_limit                              | 1.0              | Total row limit for all personal bases: 10000 means a limit of 10 000 rows; -1 means no row limit                                                                                                                                            | Rows in shared bases owned by another user, rows in group bases, and rows in the big data storage do not count against the row limit. Does NOT apply to org users. |
+| big_data_row_limit                     | 3.1              | Total row limit in big data storage for all bases: 100000 means a limit of 100 000 rows                                                                                                                                                      | This item is used for the role of teams rather than users. Does NOT apply to org users.                                                                            |
+| big_data_storage_quota                 | 4.3              | Total storage quota for all bases in big data storage: '1G' means a limit of one gigabyte; '' means no storage quota for big data storage.                                                                                                   | Assets in rows in the big data storage do not count against this quota. This item is used for the role of teams rather than users. Does NOT apply to org users.    |
+| scripts_running_limit **(Deprecated)** | 2.3              | Total number of _Python_ scripts run within a month: 100 means 100 script runs per month; -1 means unlimited script runs                                                                                                                     | The script run counter is reset at the beginning of every month. This quota can only be configured up until (and including) version 6.1.                           |
+| scripts_running_limit_per_user         | 6.2              | The maximum number of _Python_ script runs per user per month. In team mode, the total number of script runs within the team will be shared. `-1` allows for an unlimited number of script runs.                                             | The script run counter is reset at the beginning of every month.                                                                                                   |
+| snapshot_days                          | 2.1              | Retention period for snapshots in days: 180 means a storage period of 180 days; no value means an unlimited retention period                                                                                                                 | Snapshots older than the retention period are automatically removed.                                                                                               |
+| share_limit                            |                  | Max number of users a base can be shared with: 100 means a base can be shared with 100 users                                                                                                                                                 |                                                                                                                                                                    |
+| ai_credit_per_user                     | 6.0              | The maximum AI quota allowed per user per month (i.e., the maximum amount of tokens that can be used in a single month, converted into an amount. In team mode, the total quota within the team will be shared). `-1` means unlimited quota. |                                                                                                                                                                    |
+| monthly_automation_limit_per_user      | 6.1              | The maximum number of automation executions per user per month. In team mode, the total number of allowed executions within the team will be shared. `-1` allows for an unlimited number of executions.                                      |                                                                                                                                                                    |
 
 ### Standard User Roles
 
@@ -6864,7 +7141,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'row_limit': -1,
         'big_data_row_limit': -1,
         'big_data_storage_quota': '',
-        'scripts_running_limit': -1,
+        'scripts_running_limit_per_user': -1,
         'snapshot_days': 180,
         'share_limit': 100
     },
@@ -7008,20 +7285,31 @@ Base rows are limited for the following technical reasons:
 
 Starting from version 3.4, for private deployment users, if your application scenario needs to support more than 100,000 rows in a base, but the storage space occupied by the base itself is not large (for example, it contains a large number of blank cells), you can modify the server's configuration, to support more than 100,000 rows.
 
-#### dtable-server
+## dtable-server
 
-`dtable_server_config.json`
+The configuration depends on your SeaTable version::
 
-```json
-{
-   "base_writable_limit": 100000,
-   "base_max_rows_limit": 150000
-}
-```
+=== "SeaTable <= v6.1"
+    The following parameters must be added to `dtable_server_config.json`:
 
-Among them, base_writable_limit is used to limit the rows written into the base. base_max_rows_limit is used to control when the rows in the base is greater than the number, the server refuses to load the base into memory. base_max_rows_limit needs to be greater than base_writable_limit.
+      ```json
+      {
+         "base_writable_limit": 100000,
+         "base_max_rows_limit": 150000
+      }
+      ```
+=== "SeaTable v6.2+"
+    Two environment variables must be configured.
+    Please read our [guide](./customizations.md) that explains how to configure these additional environment variables before proceeding.
 
-#### dtable-web
+    ```ini
+    BASE_WRITABLE_LIMIT=100000
+    BASE_MAX_ROWS_LIMIT=150000
+    ```
+
+Among them, `base_writable_limit` is used to limit the rows written into the base. `base_max_rows_limit` is used to control when the rows in the base is greater than the number, the server refuses to load the base into memory. `base_max_rows_limit` needs to be greater than `base_writable_limit`.
+
+## dtable-web
 
 `dtable_web_settings.py`
 
@@ -7460,23 +7748,23 @@ Some tips on how to select LDAP_BASE_DN and LDAP_ADMIN_DN:
 
 - To determine your LDAP_BASE_DN attribute, you first need to open the graphical interface of the domain manager and browse your organizational structure.
 - If you want all users in the system to be able to access SeaTable, you can use 'cn=users,dc=yourdomain,dc=com' as the BASE option (need to replace your domain name).
-- If you only want people in a certain department to be able to access, you can limit the scope to a certain OU. You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is `staffs`, you can run `dsquery ou -name staff`. More information can be found [here](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc770509(v=ws.11)).
-- Although AD supports the use of usernames in email address format as `LDAP_ADMIN_DN` such as administrator@example.com, it sometimes does not correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is `seatableuser`, run `dsquery user -name seatableuser` to find the user. More information can be found [here](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc725702(v=ws.11)).
+- If you only want people in a certain department to be able to access, you can limit the scope to a certain OU. You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is `staffs`, you can run `dsquery ou -name staff`. More information can be found [here](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc770509(v=ws.11)>).
+- Although AD supports the use of usernames in email address format as `LDAP_ADMIN_DN` such as administrator@example.com, it sometimes does not correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is `seatableuser`, run `dsquery user -name seatableuser` to find the user. More information can be found [here](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc725702(v=ws.11)>).
 
 The following parameters are also available, but optional:
 
-| Parameter                 | Description                                                                                                                                                            | Values                                                                |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| LDAP_FILTER               | Filter for users who can log in, e.g. a certain security group                                                                                                         | LDAP filter, e.g. `memberOf=CN=SeaTable_Users,…` |
-| LDAP_USER_UNIQUE_ID       | LDAP attribute whose value is stored as the user's `uid` in `social_auth_usersocialauth` and used to recognize a returning user. Choose an attribute that never changes over the user's lifetime, because if it changes, SeaTable treats the user as new. Binary GUID/UUID values are decoded automatically; default value is '' | Attribute name, e.g. `objectGUID` (AD) or `entryUUID` (OpenLDAP)       |
-| LDAP_GROUP_FILTER         | Additional filter applied when searching for groups to synchronize (group sync only). It is combined with the configured group object class using a logical AND. Leave empty to sync all groups of that class; default value is ''                                                       | LDAP filter, e.g. `cn=SeaTable*`                                      |
-| LDAP_USER_ROLE_ATTR       | Name of user role in the LDAP server                                                                                                                                   | Attribute name, e.g. `title`                                          |
-| LDAP_USER_FIRST_NAME_ATTR | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                               | Attribute name, e.g. `givenName`                                      |
-| LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                              | Attribute name, e.g. `sn`                                             |
-| LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                       | `True` or `False`                                                      |
-| LDAP_SAML_USE_SAME_UID    | Use SAML for login and LDAP only for synchronization, mapping both to one shared account; disables interactive LDAP login (see [LDAP and SAML](#ldap-and-saml))         | `True` or `False`                                                      |
-| LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is '' |                                                                       |
-| LDAP_EMPLOYEE_ID_ATTR     | ID of the employee                                                                                                                                                     | Attribute name, e.g. `33`                                             |
+| Parameter                 | Description                                                                                                                                                                                                                                                                                                                      | Values                                                           |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| LDAP_FILTER               | Filter for users who can log in, e.g. a certain security group                                                                                                                                                                                                                                                                   | LDAP filter, e.g. `memberOf=CN=SeaTable_Users,…`                 |
+| LDAP_USER_UNIQUE_ID       | LDAP attribute whose value is stored as the user's `uid` in `social_auth_usersocialauth` and used to recognize a returning user. Choose an attribute that never changes over the user's lifetime, because if it changes, SeaTable treats the user as new. Binary GUID/UUID values are decoded automatically; default value is '' | Attribute name, e.g. `objectGUID` (AD) or `entryUUID` (OpenLDAP) |
+| LDAP_GROUP_FILTER         | Additional filter applied when searching for groups to synchronize (group sync only). It is combined with the configured group object class using a logical AND. Leave empty to sync all groups of that class; default value is ''                                                                                               | LDAP filter, e.g. `cn=SeaTable*`                                 |
+| LDAP_USER_ROLE_ATTR       | Name of user role in the LDAP server                                                                                                                                                                                                                                                                                             | Attribute name, e.g. `title`                                     |
+| LDAP_USER_FIRST_NAME_ATTR | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                                                                                                                                                                                         | Attribute name, e.g. `givenName`                                 |
+| LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                                                                                                                                                                                        | Attribute name, e.g. `sn`                                        |
+| LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                                                                                                                                                                                 | `True` or `False`                                                |
+| LDAP_SAML_USE_SAME_UID    | Use SAML for login and LDAP only for synchronization, mapping both to one shared account; disables interactive LDAP login (see [LDAP and SAML](#ldap-and-saml))                                                                                                                                                                  | `True` or `False`                                                |
+| LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is ''                                                                                                                                                           |                                                                  |
+| LDAP_EMPLOYEE_ID_ATTR     | ID of the employee                                                                                                                                                                                                                                                                                                               | Attribute name, e.g. `33`                                        |
 
 To enable LDAP authentication via SASL, add the following parameters to `dtable_web_settings.py`:
 
@@ -7492,22 +7780,34 @@ To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the
 
 | Parameter                  | Description                                                                                             | Values                                                                                                                                 |
 | -------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| LDAP_SYNC_GROUP            | On/off switch for group sync                                                                            | `True` or `False`                                                                                                                       |
+| LDAP_SYNC_GROUP            | On/off switch for group sync                                                                            | `True` or `False`                                                                                                                      |
 | LDAP_GROUP_MEMBER_ATTR     | Attribute used when syncing group members                                                               | For most directory servers, the attributes is "member", which is the default value. For "posixGroup", it should be set to "memberUid". |
 | LDAP_GROUP_MEMBER_UID_ATTR | User attribute set in 'memberUid' option, which is used in "posixGroup"; default value is `uid`         |                                                                                                                                        |
 | LDAP_USER_OBJECT_CLASS     | Name of the class used to search for user objects; default value is `person`                            |                                                                                                                                        |
 | LDAP_GROUP_OBJECT_CLASS    | Name of the class used to search for group objects; default value is `group`                            | For LDAP: `groupOfNames`, `groupOfUniqueNames`, `posixGroup`<br />For AD: `group`                                                      |
-| LDAP_GROUP_UUID_ATTR       | ...; default value is `ObjectGUID`                                                                      | For LDAP: refer to [UUID](https://ldapwiki.com/wiki/Universally%20Unique%20Identifier)<br />For AD: `ObjectGUID`                               |
-| SYNC_GROUP_AS_DEPARTMENT   | Option to sync LDAP groups as departments rather than SeaTable groups                                   | `True` or `False`                                                                                                                       |
+| LDAP_GROUP_UUID_ATTR       | ...; default value is `ObjectGUID`                                                                      | For LDAP: refer to [UUID](https://ldapwiki.com/wiki/Universally%20Unique%20Identifier)<br />For AD: `ObjectGUID`                       |
+| SYNC_GROUP_AS_DEPARTMENT   | Option to sync LDAP groups as departments rather than SeaTable groups                                   | `True` or `False`                                                                                                                      |
 | LDAP_DEPARTMENT_NAME_ATTR  | Name of the department when SYNC_GROUP_AS_DEPARTMENT = True, the default department name is the OU name | Object name, e.g. `description`                                                                                                        |
 
-Additionally, the following parameters must be added to `dtable-events.conf`:
+Depending on your SeaTable version, additional settings must be configured:
 
-```ini
-[LDAP SYNC]
-enabled = true
-sync_interval = 60  # The unit is seconds
-```
+=== "SeaTable <= v6.1"
+    The following parameters must be added to `dtable-events.conf`:
+
+    ```ini
+    [LDAP SYNC]
+    enabled = true
+    sync_interval = 60  # The unit is seconds
+    ```
+=== "SeaTable v6.2+"
+    Two environment variables must be configured.
+    Please read our [guide](../../configuration/customizations.md) that explains how to configure these additional environment variables before proceeding.
+
+    ```ini
+    LDAP_SYNC_ENABLED=true
+    # Specified in seconds
+    LDAP_SYNC_INTERVAL=3600
+    ```
 
 ## LDAP and SAML
 
@@ -7529,10 +7829,10 @@ When `LDAP_SAML_USE_SAME_UID = True`:
 
 The three building blocks therefore play these roles:
 
-| Component | Role in combined mode                                            |
-| --------- | --------------------------------------------------------------- |
-| SAML      | The only interactive login method                               |
-| LDAP Sync | Provisions accounts and groups, and writes the SAML bridge record |
+| Component | Role in combined mode                                              |
+| --------- | ------------------------------------------------------------------ |
+| SAML      | The only interactive login method                                  |
+| LDAP Sync | Provisions accounts and groups, and writes the SAML bridge record  |
 | LDAP Auth | Disabled (its connection settings are still required by LDAP Sync) |
 
 ### Requirements
@@ -8274,6 +8574,8 @@ REDIS_PASSWORD='topsecret'
 
 JWT_PRIVATE_KEY='topsecret' # (8)!
 
+SECRET_KEY='anothertopsecret' # (15)!
+
 # SeaDoc
 ENABLE_SEADOC='false'
 SEADOC_PORT=''
@@ -8284,7 +8586,7 @@ PYTHON_SCHEDULER_AUTH_TOKEN='topsecret'
 
 # SeaTable AI
 ENABLE_SEATABLE_AI='false' # (14)!
-SEATABLE_AI_SERVER_URL='http://seatable-ai:8888'
+INNER_SEATABLE_AI_SERVER_URL='http://seatable-ai:8888'
 
 # E-Mail
 SEATABLE_EMAIL_USE_TLS= # (12)!
@@ -8303,7 +8605,7 @@ SEATABLE_TEMPLATE_TABLE_NAME=
 SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE=
 
 # Logging
-SEATABLE_LOG_LEVEL=INFO # (10)!
+LOG_LEVEL=INFO # (10)!
 
 # Docker Images
 # You can use these variables to override the default images
@@ -8330,6 +8632,118 @@ SEATABLE_HELP_LINK=https://seatable.com/help/ # (11)!
 12. Please refer to [Email Sending](./sending-email.md) for more information.
 13. Please refer to [Python Pipeline](../installation/components/python-pipeline.md) for more information.
 14. Please refer to [SeaTable AI](../installation/components/seatable-ai.md) for more information.
+15. This secret key is used by the Django framework, which [`dtable-web`](../configuration/components/dtable-web.md) is based on.
+
+---
+
+Source: https://admin.seatable.com/configuration/customizations/
+
+# Customizations
+
+This page describes how administrators can customize the configuration of a given SeaTable installation while ensuring that future upgrades stay seamless.
+
+## Context
+
+The `.yml` files included in the artifact that is downloaded during the installation process already contain `environment:` blocks for the most important configuration settings.
+These are listed [here](./overview.md#list-of-available-environment-variables).
+
+If you need to modify any of these settings, it is sufficient to set/modify these variables directly inside your `.env` file.
+There's no need to modify the `.yml` files in order to adjust these settings.
+
+The `.yml` files included in the release artifact should **never** be modified since any changes made will be overwritten when following the [upgrade guide](../upgrade/upgrade-manual.md).
+This is caused by the fact that the `.yml` files in your `/opt/seatable-compose` directory are essentially replaced by the `.yml` files from the release artifact of the SeaTable version that you're upgrading to.
+
+## Mechanism
+
+In order to configure additional settings that are not listed on the [overview page](./overview.md#list-of-available-environment-variables), you can (and should) create an additional `custom-seatable-server.yml` file that only contains the customizations that are relevant to your installation.
+This has numerous benefits:
+
+- This file is not overwritten during the upgrade process
+- You do not introduce redundancy (i.e. that would be caused by copying the existing `seatable-server.yml` with all of its configuration settings)
+- All of the customizations made are easily visible inside a single file
+
+Simply follow the steps below:
+
+### Step 1
+
+Create `custom-seatable-server.yml` inside `/opt/seatable-compose` on the host.
+
+The most minimal version of this file looks like this:
+
+```yaml
+services:
+    seatable-server:
+```
+
+### Step 2
+
+Add `custom-seatable-server.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
+
+**Example:**
+
+A minimal SeaTable installation contains the following line inside the `.env` file (located at `/opt/seatable-compose/.env`):
+
+```ini
+COMPOSE_FILE='caddy.yml,seatable-server.yml'
+```
+
+Now simpli add `custom-seatable-server.yml` to the list of filenames that should be merged by Docker Compose.
+Additional filenames should be separated by a comma.
+
+```ini
+COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-seatable-server.yml'
+```
+
+### Step 3
+
+Apply the changes by running the following command inside a terminal:
+
+```bash
+cd /opt/seatable-compose
+docker compose up -d
+```
+
+Docker Compose will merge all of the files specified inside the `COMPOSE_FILE` variable and restart all services whose configuration has changed.
+This has an additional advantage: If a service's definition has not changed, it won't be unnecessarily restarted.
+
+## Examples
+
+### Adding an Environment Variable
+
+If you need to configure an additional environment variable that is not included in `seatable-server.yml` by default, you can achieve this by adding the following block inside `custom-seatable-server.yml`:
+
+```yaml
+services:
+  seatable-server:
+    environment:
+      - API_GATEWAY_BASE_API_LIMIT_PER_MINUTE=1000
+```
+
+### Adding a Volume Mount
+
+If you need to mount an additional file/directory (e.g. a custom NGINX config file) into the `seatable-server` container, you can achieve this by adding the following block inside `custom-seatable-server.yml`:
+
+```yaml
+services:
+  seatable-server:
+    volumes:
+      - ./custom-seatable-nginx.conf:/etc/nginx/sites-enabled/default
+```
+
+## Troubleshooting
+
+If the merging does not work as expected, you can use `docker compose config` to print the result of the internal merging to the console.
+Since this can cause quite a lot of output depending on the number of installed components, you can dump this into a file instead and open this inside a text editor:
+
+```bash
+docker compose config > /tmp/seatable-compose-config.yml
+```
+
+**Note:** `/tmp/seatable-compose-config.yml` will contain secret values since the `docker compose config` command prints the result of the configuration merging algorithm **after** all variables have been interpolated.
+
+## Additional Resources
+
+You can read more about the way multiple configuration files are merged together in the [Compose file reference](https://docs.docker.com/reference/compose-file/merge/).
 
 ---
 
@@ -8339,15 +8753,64 @@ Source: https://admin.seatable.com/configuration/components/dtable-api-gateway/
 
 # Configuration of api-gateway
 
-This is a cheat sheet for the [api-gateway](/introduction/architecture.md#api-gateway) configuration file `dtable-api-gateway.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of the [api-gateway](../../introduction/architecture.md#api-gateway).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
     New configuration options will only apply after a restart of SeaTable.
+
+## Environment Variables
+
+This section lists the environment variables read by the [api-gateway](../../introduction/architecture.md#api-gateway).
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
+
+### General
+
+| Environment Variable                    | Description                                         | Default |
+| --------------------------------------- | --------------------------------------------------- | ------- |
+| `API_GATEWAY_HOST`                      | The address the api-gateway listens on.             | 0.0.0.0 |
+| `API_GATEWAY_PORT`                      | The port the api-gateway listens on.                | 7780    |
+| `API_GATEWAY_MAX_BASE_CACHE_SIZE`       | Maximum base cache size in MB.                      | 1024    |
+| `API_GATEWAY_BASE_API_LIMIT_PER_MINUTE` | Limits the number of API calls per base per minute. | 500     |
+
+### dtable-db
+
+| Environment Variable  | Description                    | Default               |
+| --------------------- | ------------------------------ | --------------------- |
+| `INNER_DTABLE_DB_URL` | URL of the dtable-db instance. | http://127.0.0.1:7777 |
+
+### dtable-server
+
+| Environment Variable      | Description                        | Default               |
+| ------------------------- | ---------------------------------- | --------------------- |
+| `INNER_DTABLE_SERVER_URL` | URL of the dtable-server instance. | http://127.0.0.1:5000 |
+
+### Metrics
+
+| Environment Variable                    | Description                                                          | Default |
+| --------------------------------------- | -------------------------------------------------------------------- | ------- |
+| `API_GATEWAY_METRICS_ENABLE_BASIC_AUTH` | Whether basic authentication is enabled for the `/metrics` endpoint. | false   |
+| `API_GATEWAY_METRICS_USERNAME`          | Username for basic authentication for the `/metrics` endpoint.       |         |
+| `API_GATEWAY_METRICS_PASSWORD`          | Password for basic authentication for the `/metrics` endpoint.       |         |
+
+### Access Logs
+
+| Environment Variable                          | Description                                                                              | Default |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `API_GATEWAY_ENABLE_ACCESS_LOG`               | Whether the api-gateway logs information about incoming HTTP requests to a Redis stream. | false   |
+| `API_GATEWAY_ACCESS_LOG_REDIS_STREAM_KEY`     | Key of the Redis stream that will contain access log entries.                            |         |
+| `API_GATEWAY_ACCESS_LOG_REDIS_STREAM_MAX_LEN` | Maximum length of the Redis stream.                                                      | 100000  |
+
+## Configuration File (Legacy)
+
+    `dtable-api-gateway.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
+
+The following section describes the structure and possible configuration values of the configuration file `dtable-api-gateway.conf`.
 
 ??? abstract "Notes about the configuration file format"
 
@@ -8357,13 +8820,9 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
     When dealing with special characters like single quotes `'`, double quotes `"` or the hash symbol `#`, it's generally best to enclose the value in double quotes.
 
-The following options are grouped by their sections.
-
-## Example configuration
+**Example Configuration**
 
 SeaTable does not create the `dtable-api-gateway.conf` file by default. The `api-gateway` will use the default configuration values if the file does not exist.
-
-## Available configuration options
 
 ### `[general]`
 
@@ -8420,15 +8879,93 @@ Source: https://admin.seatable.com/configuration/components/dtable-db/
 
 # Configuration of dtable-db
 
-This is a cheat sheet for the [dtable-db](/introduction/architecture.md#dtable-db) configuration file `dtable-db.conf`. It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-db](../../introduction/architecture.md#dtable-db).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
     New configuration options will only apply after a restart of SeaTable.
+
+## Environment Variables
+
+This section lists the environment variables read by [dtable-db](../../introduction/architecture.md#dtable-db).
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
+
+### General
+
+| Environment Variable                | Description                                                                                                                        | Default |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_HOST`                    | The address dtable-db listens on.                                                                                                  | 0.0.0.0 |
+| `DTABLE_DB_PORT`                    | The port dtable-db listens on.                                                                                                     | 7777    |
+| `DTABLE_DB_SLOW_QUERY_THRESHOLD`    | If the processing time exceeds this threshold, a slow log will be recorded in addition to the normal log. Unit is in milliseconds. | 1000    |
+| `DTABLE_DB_ROW_UPDATE_LIMIT`        | Sets the rate or row updates, deletes, and inserts per second and per base.                                                        | 5000    |
+| `DTABLE_DB_GLOBAL_ROW_UPDATE_LIMIT` | Sets the global rate of row updates, deletes, and inserts per minute, affecting SQL and API operations.                            | 30000   |
+| `DTABLE_DB_QUERY_PER_MINUTE_LIMIT`  | Sets the total max. of API calls per minute for the entire system. The default is suitable for most cases.                         | 50000   |
+
+### Storage
+
+These settings define where the database files for bases with activated big data backend are stored and when old data is cleaned:
+
+| Environment Variable           | Description                                                   | Default               |
+| ------------------------------ | ------------------------------------------------------------- | --------------------- |
+| `DTABLE_DB_DATA_DIR`           | Location of the data directory inside the container.          | /opt/seatable/db-data |
+| `DTABLE_DB_STORAGE_CLEANUP_AT` | The execution time of clean up deleted data. Format is hh:mm. | 00:00                 |
+
+### DTable Cache
+
+| Environment Variable         | Description                        | Default               |
+| ---------------------------- | ---------------------------------- | --------------------- |
+| `INNER_DTABLE_SERVER_URL`    | URL of the dtable-server instance. | http://127.0.0.1:5000 |
+| `DTABLE_DB_TOTAL_CACHE_SIZE` | The base cache size in MB.         | 2000                  |
+
+### SQL
+
+General configuration options of the output of the SQL endpoint:
+
+| Environment Variable                   | Description                                                                                                    | Default |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_SQL_DEFAULT_RESULT_ROWS`    | Maximal number of rows returned by a query if there's no `LIMIT` specified.                                    | 100     |
+| `DTABLE_DB_SQL_RESULT_ROWS_HARD_LIMIT` | Maximal number of rows returned in one query (system wide). Overrides any larger `LIMIT` value in a query.     | 10000   |
+| `DTABLE_DB_SQL_EXEC_COST_HARD_LIMIT`   | Maximal execution cost of a query. If the estimated cost of a query exceeds this limit, the query is rejected. | 5000000 |
+
+### Backup
+
+These settings allow configuring how data stored inside the big data backend is backed up:
+
+| Environment Variable                   | Description                                                                                                                                                                  | Default |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_BACKUP_AT`                  | The execution time of backup. Format is `hh:mm`.                                                                                                                             | 02:00   |
+| `DTABLE_DB_BACKUP_KEEP_NUM`            | The number of backups that will be kept, oldest backups will be removed.                                                                                                     | 3       |
+| `DTABLE_DB_BACKUP_KEEP_DAYS`           | Specifies the retention period for backups in days. Older backups are deleted. Overrides `DTABLE_DB_BACKUP_KEEP_NUM` if set; otherwise, `DTABLE_DB_BACKUP_KEEP_NUM` is used. | 0       |
+| `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS` | Specifies daily backup period. After this, only one backup per month is kept. Requires `DTABLE_DB_BACKUP_KEEP_DAYS` to be set and > `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS`.  | 0       |
+
+    SeaTable offers two backup approaches:
+
+    - The first uses `DTABLE_DB_BACKUP_KEEP_NUM`, creating daily backups whenever changes were made and retaining a fixed number of the most recent ones, deleting the oldest when the limit is reached. Note that no new backup will be created if no changes were made to a base. This is the default option.
+
+    - The second approach, using `DTABLE_DB_BACKUP_KEEP_DAYS` and `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS`, offers a tiered retention strategy.
+      It creates daily backups for the recent period specified by `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS`, then switches to monthly backups for the older period.
+      This method provides detailed recent backups and efficient long-term storage, balancing data granularity with space conservation.
+      For example, setting `DTABLE_DB_BACKUP_KEEP_DAYS=180` and `DTABLE_DB_BACKUP_KEEP_FREQUENCY_DAYS=7` would keep daily backups for the past week, then monthly backups for the past six months (except for the past week).
+
+    The URL for `dtable-storage-server` is no longer configurable. As a consequence, `dtable-storage-server` must always run inside the same container as `dtable-db`.
+    This only matters in case SeaTable is deployed inside a cluster/as a distributed system.
+
+### Metrics
+
+| Environment Variable                  | Description                                                          | Default |
+| ------------------------------------- | -------------------------------------------------------------------- | ------- |
+| `DTABLE_DB_METRICS_ENABLE_BASIC_AUTH` | Whether basic authentication is enabled for the `/metrics` endpoint. | false   |
+| `DTABLE_DB_METRICS_USERNAME`          | Username for basic authentication for the `/metrics` endpoint.       |         |
+| `DTABLE_DB_METRICS_PASSWORD`          | Password for basic authentication for the `/metrics` endpoint.       |         |
+
+## Configuration File (Legacy)
+
+    `dtable-db.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
 
 ??? abstract "Notes about the configuration file format"
 
@@ -8440,7 +8977,7 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 The following options are grouped by their sections.
 
-## Example configuration
+**Example Configuration**
 
 This is a typical configuration file, created automatically on the first startup by SeaTable.
 
@@ -8460,8 +8997,6 @@ dtable_server_url = "http://127.0.0.1:5000"
 dtable_storage_server_url = "http://127.0.0.1:6666"
 keep_backup_num = 3
 ```
-
-## Available configuration options
 
 ### `[general]`
 
@@ -8570,11 +9105,10 @@ Source: https://admin.seatable.com/configuration/components/dtable-events/
 
 # Configuration of dtable-events
 
-This is a cheat sheet for the possible configuration options of [dtable-events](/introduction/architecture.md#dtable-events). It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-events](../../introduction/architecture.md#dtable-events).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
@@ -8582,21 +9116,8 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 ## Environment Variables
 
-This section lists the environment variables read by [dtable-events](/introduction/architecture.md#dtable-events).
-
-Please note that these variables are not included in `seatable-server.yml` by default.
-We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
-Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
-
-```yaml
-services:
-  seatable-server:
-    environment:
-      - AUTOMATION_WORKERS=10
-```
-
-This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
-This ensures that SeaTable upgrades stay seamless.
+This section lists the environment variables read by [dtable-events](../../introduction/architecture.md#dtable-events).
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
 ### Automations
 
@@ -8608,6 +9129,67 @@ This ensures that SeaTable upgrades stay seamless.
 
 By default, these settings will limit a single team to 25% of the available automation running time (calculated by `AUTOMATION_WORKERS * AUTOMATION_RATE_LIMIT_WINDOW_SECS`) within 5 minutes.
 
+### Common Dataset Syncer
+
+SeaTable runs every hour this event to check for pending dataset syncs. The job processes datasets that need syncing based on their interval (per_day, per_hour) and validity.
+
+| Environment Variable            | Description                                   | Default |
+| ------------------------------- | --------------------------------------------- | ------- |
+| `COMMON_DATASET_SYNCER_ENABLED` | Enables or disables the common dataset syncer | true    |
+
+### Database Cleanup
+
+**Enabled** by default since v6.2.
+
+This setting controls whether SeaTable runs automated database cleanup tasks at 00:30 every day.
+Enabling this task ensures that your database stays lean and performs well. It also prevents the server from running out of disk space, since operation logs can take up quite a lot of space.
+
+In addition, the retention periods for the different database tables can be customized.
+Setting any value to `0` or `-1` causes the cleanup task to be skipped for the corresponding database table.
+
+| Environment Variable                                | Description                                                                | Default |
+| --------------------------------------------------- | -------------------------------------------------------------------------- | ------- |
+| `CLEAN_DB_ENABLED`                                  | Enables the automated database cleanup tasks                               | true    |
+| `CLEAN_DB_KEEP_DTABLE_SNAPSHOT_DAYS`                | Retention period for snapshot entries in the database (in days)            | 365     |
+| `CLEAN_DB_KEEP_ACTIVITIES_DAYS`                     | Retention period for activities (in days)                                  | 30      |
+| `CLEAN_DB_KEEP_OPERATION_LOG_DAYS`                  | Retention period for operation log entries (in days)                       | 14      |
+| `CLEAN_DB_KEEP_DELETE_OPERATION_LOG_DAYS`           | Retention period for delete operations in the operation log (in days)      | 30      |
+| `CLEAN_DB_KEEP_DTABLE_DB_OP_LOG_DAYS`               | Retention period for operation log entries inserted by dtable-db (in days) | 30      |
+| `CLEAN_DB_KEEP_NOTIFICATIONS_USERNOTIFICATION_DAYS` | Retention period for user notifications (in days)                          | 30      |
+| `CLEAN_DB_KEEP_DTABLE_NOTIFICATIONS_DAYS`           | Retention period for base notifications (in days)                          | 30      |
+| `CLEAN_DB_KEEP_SESSION_LOG_DAYS`                    | Retention period for session log entries (in days)                         | 30      |
+| `CLEAN_DB_KEEP_AUTO_RULES_TASK_LOG_DAYS`            | Retention period for automation rule logs (in days)                        | 30      |
+| `CLEAN_DB_KEEP_USER_ACTIVITY_STATISTICS_DAYS`       | Retention period for user activity statistics (in days)                    | 0       |
+| `CLEAN_DB_KEEP_DTABLE_APP_PAGES_OPERATION_LOG_DAYS` | Retention period for app pages operation log entries (in days)             | 14      |
+| `CLEAN_DB_KEEP_EMAIL_SENDING_LOG_DAYS`              | Retention period for log entries regarding sent emails (in days)           | 30      |
+| `CLEAN_DB_KEEP_SYSADMIN_EXTRA_USERLOGINLOG_DAYS`    | Retention period for login logs (in days)                                  | 30      |
+
+### Email Notices
+
+SeaTable runs this task every hour to send base email notifications for base updates to the users. It also generates the log file `dtable_updates_sender.log`.
+
+| Environment Variable   | Description                                                  | Default |
+| ---------------------- | ------------------------------------------------------------ | ------- |
+| `EMAIL_SENDER_ENABLED` | Enables or disables the email notifications for base updates | true    |
+
+### Email Syncer
+
+SeaTable runs this event at the 30th minute of every hour. The job processes email sync tasks defined in a base by the user.
+
+| Environment Variable       | Description                                                      | Default |
+| -------------------------- | ---------------------------------------------------------------- | ------- |
+| `EMAIL_SYNCER_ENABLED`     | Enables or disables the email syncer                             | true    |
+| `EMAIL_SYNCER_MAX_WORKERS` | Maximum number of worker threads for processing email sync tasks | 5       |
+
+### LDAP Sync
+
+SeaTable is able to sync LDAP accounts. This requires additional settings in `dtable_web_settings.py`. Please refer to [LDAP Authentication](../authentication/ldap.md).
+
+| Environment Variable | Description                                                                              | Default |
+| -------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `LDAP_SYNC_ENABLED`  | Enables or disables the LDAP sync                                                        | false   |
+| `LDAP_SYNC_INTERVAL` | Specifies the interval at which the LDAP synchronization process should run (in seconds) | 3600    |
+
 ### PDF Generation
 
 | Environment Variable               | Description                                               | Default |
@@ -8615,7 +9197,34 @@ By default, these settings will limit a single team to 25% of the available auto
 | `CONVERT_PDF_BROWSERS`             | Number of browser processes started to generate PDF files | 2       |
 | `CONVERT_PDF_SESSIONS_PER_BROWSER` | Number of sessions per browser instance                   | 3       |
 
-## Configuration File
+### Virus Scan
+
+**Disabled** by default.
+
+This section configures how files are scanned for viruses:
+
+- Whether scanning is enabled
+- The command used to scan files
+- Return codes indicating infected or clean files
+- Limits on file size and extensions to skip
+- Concurrency settings
+
+| Parameter                    | Description                                                      | Default                                                   |
+| ---------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------- |
+| `VIRUS_SCAN_ENABLED`         | Enables or disables virus scanning                               | false                                                     |
+| `VIRUS_SCAN_SCAN_COMMAND`    | Command used for virus scanning (e.g. `clamscan`)                |                                                           |
+| `VIRUS_SCAN_VIRUS_CODE`      | Return codes indicating a file is infected (e.g. 0)              |                                                           |
+| `VIRUS_SCAN_NONVIRUS_CODE`   | Return codes indicating a file is clean (e.g. 1)                 |                                                           |
+| `VIRUS_SCAN_SCAN_INTERVAL`   | The interval at which the virus scan runs (in minutes)           | 60                                                        |
+| `VIRUS_SCAN_SCAN_SIZE_LIMIT` | Maximum file size to scan (in MB); larger files are skipped      | 20                                                        |
+| `VIRUS_SCAN_SCAN_SKIP_EXT`   | Comma-separated list of file extensions to exclude from scanning | `.bmp,.gif,.ico,.png,.jpg,.mp3,.mp4,.wav,.avi,.rmvb,.mkv` |
+| `VIRUS_SCAN_THREADS`         | Number of threads for parallel scanning                          | 4                                                         |
+
+## Configuration File (Legacy)
+
+    `dtable-events.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
 
 The following section describes the structure and possible configuration values of the configuration file `dtable-events.conf`.
 
@@ -8808,11 +9417,10 @@ Source: https://admin.seatable.com/configuration/components/dtable-server/
 
 # Configuration of dtable-server
 
-This is a cheat sheet for the possible configuration options of [dtable-server](/introduction/architecture.md#dtable-server). It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-server](../../introduction/architecture.md#dtable-server).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
@@ -8820,21 +9428,8 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 ## Environment Variables
 
-This section lists the environment variables read by [dtable-server](/introduction/architecture.md#dtable-server).
-
-Please note that these variables are not included in `seatable-server.yml` by default.
-We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
-Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
-
-```yaml
-services:
-  seatable-server:
-    environment:
-      - AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE=100
-```
-
-This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
-This ensures that SeaTable upgrades stay seamless.
+This section lists the environment variables read by [dtable-server](../../introduction/architecture.md#dtable-server).
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
 ### Automations
 
@@ -8842,7 +9437,38 @@ This ensures that SeaTable upgrades stay seamless.
 | --------------------------------------- | -------------------------------------------------------------------------- | ------- |
 | `AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE` | Limits the number of automations that can be triggered per base per minute | 1000    |
 
-## Configuration File
+### Persistence
+
+| Environment Variable | Description                                                             | Default |
+| -------------------- | ----------------------------------------------------------------------- | ------- |
+| `SAVE_INTERVAL`      | Auto-save interval for modified bases, in milliseconds. (300000 = 5min) | 300000  |
+
+### Service URLs
+
+| Environment Variable              | Description            | Default                |
+| --------------------------------- | ---------------------- | ---------------------- |
+| `INNER_DTABLE_WEB_SERVICE_URL`    | dtable-web service URL | http://127.0.0.1:8000/ |
+| `INNER_DTABLE_DB_URL`             | dtable-db service URL  | http://127.0.0.1:7777/ |
+| `INNER_DTABLE_STORAGE_SERVER_URL` | dtable-db service URL  | http://127.0.0.1:6666/ |
+
+### Row Limits
+
+| Environment Variable  | Description                                                                        | Default |
+| --------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `BASE_WRITABLE_LIMIT` | Soft limit for rows in a base. Exceeding this shows an error in the web interface. | 100000  |
+| `BASE_MAX_ROWS_LIMIT` | Hard limit for rows in a base. Server prevents any writes beyond this number.      | 150000  |
+
+### Base Size Limit
+
+| Environment Variable | Description                                                              | Default |
+| -------------------- | ------------------------------------------------------------------------ | ------- |
+| `BASE_MAX_SIZE`      | Maximum size of a base's JSON file (excluding assets and big data) in MB | 200     |
+
+## Configuration File (Legacy)
+
+    `dtable_server_config.json` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
 
 The following section describes the structure and possible configuration values of the configuration file `dtable_server_config.json`.
 
@@ -8911,7 +9537,7 @@ It is not recommended to change these values
 | --------------------------- | -------------------------------------------------------------------------------------- | ------- |
 | `worker_threads_num`        | Number of worker threads serving list rows API (for custom shares or view shares only) | 2       |
 | `worker_threads_rows_limit` | Maximum rows, returned in custom shares or view shares                                 | 50000   |
-| `rows_api_max_limit`        | Maximum number of rows returned by calling list rows API in dtable-server               | 1000    |
+| `rows_api_max_limit`        | Maximum number of rows returned by calling list rows API in dtable-server              | 1000    |
 | `redirect_list_rows_api`    | Redirect API requests to the API-Gateway.                                              | false   |
 
 ### Cluster Setup
@@ -8980,11 +9606,10 @@ Source: https://admin.seatable.com/configuration/components/dtable-storage-serve
 
 # Configuration of dtable-storage-server
 
-This is a cheat sheet for the possible configuration options of [dtable-storage-server](/introduction/architecture.md#dtable-storage-server). It contains all possible settings that can be configured as well as their default values.
+This is a cheat sheet for the possible configuration options of [dtable-storage-server](../../introduction/architecture.md#dtable-storage-server).
+It contains all possible settings that can be configured as well as their default values.
 
-The default values provided here are best-effort (not built automatically). They will be used, if no value is defined at all. It is not necessary the value, that is written in the configuration file on first startup.
-
-In the default values below, a value in the form `$XYZ` refers to an environment variable.
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
@@ -8992,21 +9617,33 @@ In the default values below, a value in the form `$XYZ` refers to an environment
 
 ## Environment Variables
 
-This section lists the environment variables read by [dtable-storage-server](/introduction/architecture.md#dtable-storage-server).
+This section lists the environment variables read by [dtable-storage-server](../../introduction/architecture.md#dtable-storage-server).
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
-Please note that these variables are not included in `seatable-server.yml` by default.
-We recommend that you do not modify the included `*.yml` files since any changes will be removed when upgrading SeaTable.
-Instead, add an additional `custom-seatable-server.yml` file that includes the additional environment variables:
+### General
 
-```yaml
-services:
-  seatable-server:
-    environment:
-      - STORAGE_SERVER_SNAPSHOT_KEEP_DAYS=720
-```
+| Environment Variable  | Description                                   | Default |
+| --------------------- | --------------------------------------------- | ------- |
+| `STORAGE_SERVER_HOST` | The address dtable-storage-server listens on. | 0.0.0.0 |
+| `STORAGE_SERVER_PORT` | The port dtable-storage-server listens on.    | 6666    |
 
-This file then needs to be added to the `COMPOSE_FILE` variable inside your `.env` file.
-This ensures that SeaTable upgrades stay seamless.
+### Storage Backend
+
+| Environment Variable          | Description                                                     | Default    |
+| ----------------------------- | --------------------------------------------------------------- | ---------- |
+| `STORAGE_SERVER_BACKEND_TYPE` | The type of storage backend. Options are `filesystem` and `s3`. | filesystem |
+
+Depending on the chosen storage backend, there are additional settings:
+
+#### Filesystem Backend
+
+| Environment Variable     | Description                      | Default                    |
+| ------------------------ | -------------------------------- | -------------------------- |
+| `STORAGE_SERVER_FS_PATH` | The filepath of storage backend. | /opt/seatable/storage-data |
+
+#### S3 Backend
+
+Please refer to the [S3 docs](../../installation/advanced/s3.md).
 
 ### Snapshots
 
@@ -9017,7 +9654,11 @@ This ensures that SeaTable upgrades stay seamless.
 | `STORAGE_SERVER_SNAPSHOT_KEEP_DAYS`           | Specifies the snapshot retention period in days. Older snapshots are deleted.                                                                                                                                                                | 180     |
 | `STORAGE_SERVER_SNAPSHOT_KEEP_FREQUENCY_DAYS` | Specifies daily snapshot period for changed bases. After this, only one snapshot per month is kept. Default is 0 (always daily). Requires `STORAGE_SERVER_SNAPSHOT_KEEP_DAYS` to be set and > `STORAGE_SERVER_SNAPSHOT_KEEP_FREQUENCY_DAYS`. | 0       |
 
-## Configuration File
+## Configuration File (Legacy)
+
+    `dtable-storage-server.conf` will not be read anymore after upgrading from v6.1 to v6.2.
+
+    Please migrate any custom settings to the respective [environment variables](#environment-variables).
 
 ??? abstract "Notes about the configuration file format"
 
@@ -9062,8 +9703,8 @@ This section contains general settings about the `dtable-storage-server` service
 
 This section is used to configure the storage backend.
 
-| Parameter | Description                                                     | Default     |
-| --------- | --------------------------------------------------------------- | ----------- |
+| Parameter | Description                                                     | Default      |
+| --------- | --------------------------------------------------------------- | ------------ |
 | `type`    | The type of storage backend. Options are `filesystem` and `s3`. | `filesystem` |
 
 Depending on the chosen storage backend, there are additional settings:
@@ -9076,16 +9717,16 @@ Depending on the chosen storage backend, there are additional settings:
 
 #### S3 Storage Backend
 
-| Parameter            | Description                                                                                                                            | Default |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `bucket`             | The bucket name for the S3 backend.                                                                                                    |         |
-| `key_id`             | The access key id for the bucket.                                                                                                      |         |
-| `key`                | The secret access key for the bucket.                                                                                                  |         |
-| `use_v4_signature`   | Whether to use v4 signature. For a S3-compatible storage, it should be `false`.                                                        |         |
-| `aws_region`         | The AWS region (only when v4 signature is used).                                                                                       |         |
-| `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.       |         |
-| `path_style_request` | Whether to use path style requests. For a S3-compatible storage, it should be `true`.                                                  |         |
-| `use_https`          | Whether to use https.                                                                                                                  |         |
+| Parameter            | Description                                                                                                                               | Default |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `bucket`             | The bucket name for the S3 backend.                                                                                                       |         |
+| `key_id`             | The access key id for the bucket.                                                                                                         |         |
+| `key`                | The secret access key for the bucket.                                                                                                     |         |
+| `use_v4_signature`   | Whether to use v4 signature. For a S3-compatible storage, it should be `false`.                                                           |         |
+| `aws_region`         | The AWS region (only when v4 signature is used).                                                                                          |         |
+| `host`               | The host address of S3 backend. Required for S3-compatible storage. Optional for AWS S3, but can be set to the endpoint you use.          |         |
+| `path_style_request` | Whether to use path style requests. For a S3-compatible storage, it should be `true`.                                                     |         |
+| `use_https`          | Whether to use https.                                                                                                                     |         |
 | `sse_c_key`          | Use [server-side encryption with customer-provided keys](../../installation/advanced/s3-encryption.md) (SSE-C). This setting is optional. |         |
 
 ### `[snapshot]`
@@ -9127,26 +9768,14 @@ You can also modify some of the config items as system administrator via web int
 ## Basic settings
 
 ```python
-# for dtable-server
-## The private key is used to authenticate between DTable Web and DTable Server
-## DTABLE_SERVER_URL is for telling DTable Web the DTable Server's URL
-## DTABLE_SOCKET_URL is for telling DTable Web the web socket URL of DTable Server
-DTABLE_PRIVATE_KEY = 'xxxxx'
-DTABLE_SERVER_URL = 'https://seatable.yourdomain.com/dtable-server/'
-DTABLE_SOCKET_URL = 'https://seatable.yourdomain.com/'
-
 # The URL of dtable-web that for users to visit your SeaTable server
 DTABLE_WEB_SERVICE_URL = 'https://seatable.yourdomain.com/'
-
-# The help link URL
-HELP_LINK = 'https://seatable.com/help/'
 
 # The file server URL
 FILE_SERVER_ROOT = 'https://seatable.yourdomain.com/seafhttp/'
 
 # Redirect URL when logout，if not set, it will redirect to the SeaTable default page of logout
 LOGOUT_REDIRECT_URL = 'https://example.com/<your-own-logout-page>'
-
 ```
 
 If you changed your domain, the URLs in above settings must be changed accordingly.
@@ -9519,21 +10148,35 @@ The reason for this change is that SeaTable updates often require modifications 
 
 ## Customizing Nginx Configuration
 
-When you update SeaTable, all default files in `/opt/seatable-compose` will be overwritten. This includes all changes that you may do in `nginx.conf` and `seatable-server.yml`. To preserve your custom configurations, follow these steps:
+When you update SeaTable, all default files in `/opt/seatable-compose` will be overwritten.
+This includes all changes that you may do in `nginx.conf` and `seatable-server.yml`.
+You should read our guide that explains how to [customize the configuration](../customizations.md) of your instance before proceeding.
 
-1. **Create Custom Copies:**  
-   Make a copy of the `nginx.conf` and `seatable-server.yml` files, for example as `custom-nginx.conf` and `custom-seatable-server.yml` in your compose folder (`/opt/seatable-compose`).
+To preserve your custom configuration settings, follow these steps:
 
-2. **Edit the Custom Files:**  
-   Make any necessary changes to your custom configuration files.  
-   **Note:** All future modifications should be made to these custom files, not the original files.
+1. **Create a Copy:**
+   Make a copy of the `seatable-nginx.conf` file (e.g. `custom-seatable-nginx.conf`) in your compose folder (`/opt/seatable-compose`).
 
-3. **Update the .env File:**  
-   In your `.env` file, update the `COMPOSE_FILES` variable to include your `custom-seatable-server.yml` file.
+2. **Edit the Custom File:**
+   Make any necessary changes to your custom NGINX configuration file.
+   **Note:** All future modifications should be made to this custom file to ensure that your modifications are preserved across version upgrades.
 
-After making changes, [restart the SeaTable container](../../maintenance/restart-seatable.md) for your changes to take effect.
+3. **Mount the Custom Config File:**
+   Create a `custom-seatable-server.yml` file that contains a volume mount for your custom NGINX file:
+   ```yaml
+   services:
+     seatable-server:
+       volumes:
+         - ./custom-seatable-nginx.conf:/etc/nginx/sites-enabled/default
+   ```
 
-This ensures that your custom configuration is used instead of the original files.
+4. **Update the .env File:**
+   In your `.env` file, update the `COMPOSE_FILE` variable to include your `custom-seatable-server.yml` file (if this is not already the case).
+
+5. **Apply the Changes:**
+   Run `docker compose up -d` inside the directory `/opt/seatable-compose` in a terminal for your changes to take effect.
+
+This ensures that your custom configuration is used instead of the original file.
 
 ---
 
@@ -9932,31 +10575,15 @@ Make sure to note down the API token as you'll need it for the next step.
 
 ## Activate templates in SeaTable
 
-Equipped with API token and your template base, you can activate the templates in your SeaTable Server. There are two ways to do this:
+Equipped with API token and your template base, you can activate the templates in your SeaTable Server.
+The SeaTable Server image supports auto configuration via environment variables. Add these variables to your .env file.
 
-=== "Environment variables"
-
-    
-
-    The SeaTable Server image supports auto configuration via environment variables. Add these variables to your .env file.
-
-    | Environment variable                        | Description                                     | Example values          |
-    | ------------------------------------------- | ----------------------------------------------- | ----------------------- |
-    | `SEATABLE_SHOW_TEMPLATES_LINK`              | Activate to show the link on the home page      | `true` or leave empty   |
-    | `SEATABLE_TEMPLATE_BASE_API_TOKEN`          | API token of the base containing your templates | `759...3a05f8`          |
-    | `SEATABLE_TEMPLATE_TABLE_NAME`              | Name of the table containing your templates     | `Table1` or `Templates` |
-    | `SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE` | Allow the creation of new bases from templates  | `true` or leave empty.  |
-
-=== "Configuration file"
-
-    Add the following lines to `dtable_web_settings.py`.
-
-    ```bash
-    SHOW_TEMPLATES_LINK = True
-    TEMPLATE_BASE_API_TOKEN = 'replace-with-your-api-token'
-    TEMPLATE_TABLE_NAME = 'templates'
-    ENABLE_CREATE_BASE_FROM_TEMPLATE = True
-    ```
+| Environment variable                        | Description                                     | Example values          |
+| ------------------------------------------- | ----------------------------------------------- | ----------------------- |
+| `SEATABLE_SHOW_TEMPLATES_LINK`              | Activate to show the link on the home page      | `true` or leave empty   |
+| `SEATABLE_TEMPLATE_BASE_API_TOKEN`          | API token of the base containing your templates | `759...3a05f8`          |
+| `SEATABLE_TEMPLATE_TABLE_NAME`              | Name of the table containing your templates     | `Table1` or `Templates` |
+| `SEATABLE_ENABLE_CREATE_BASE_FROM_TEMPLATE` | Allow the creation of new bases from templates  | `true` or leave empty.  |
 
 Restart SeaTable service to activate your templates.
 
@@ -10181,6 +10808,51 @@ In the HTML files you will see strings like `{% trans "Forgot password?" %}`. Th
 
 ---
 
+Source: https://admin.seatable.com/customization/template-snippets/
+
+# Template Snippets
+
+Since version v6.2, [`dtable-web`](../introduction/architecture.md#dtable-web) allows injecting a custom [Django template](https://docs.djangoproject.com/en/4.2/topics/templates/) snippet into certain HTML templates.
+This template snippet is included into the following HTML templates:
+
+| Template                      | Purpose                                     |
+| ----------------------------- | ------------------------------------------- |
+| `react_dtable.html`           | Used when rendering the SeaTable dashboard. |
+| `dtable_file_view_react.html` | Used when a base is opened.                 |
+| `base_for_external_app.html`  | Used when a universal app is opened.        |
+
+## Mounting the HTML file
+
+In order to inject a snippet, an additional volume mount must be added to the `seatable-server` service.
+You should use an [additional `.yml` file](../configuration/customizations.md) to accomplish this.
+
+```yaml
+services:
+  seatable-server:
+    volumes:
+      - ./custom_body_snippet.html:/shared/seatable/seahub-data/custom/templates/custom_body_snippet.html
+```
+
+The filename on the host may differ, but you must mount the file to this exact location.
+You can use Django's full templating capabilities inside the HTML file.
+
+Do not forget to restart the container once you're done:
+
+```bash
+cd /opt/seatable-compose
+docker compose up -d
+```
+
+## Use Cases
+
+Here are some use cases for this feature:
+
+- Web analytics
+- Error tracking
+- Customizing the UI via JavaScript
+
+---
+
 ## Upgrade
 
 Source: https://admin.seatable.com/upgrade/upgrade-manual/
@@ -10195,28 +10867,63 @@ Updating/Upgrade (we don't differentiate) a SeaTable Server should take just a f
 
 ## How to update SeaTable Server
 
-Just run this command to update SeaTable and all additional components.
+Updating SeaTable and all additional components involves the following steps:
+
+1. Updating the `.yml` files
+2. Following the extra upgrade notices for the target version
+3. Applying changes
+4. Updating the installed plugins
+
+These steps are explained in the following sections.
+
+### Updating the `.yml` files
+
+    The following command replaces all predefined `.yml` files in your `/opt/seatable-compose` folder.
+    It will not touch your .env file and any "custom" `.yml` files that contain overrides.
+
+    Please read our guide that describes how the [configuration can be customized](../configuration/customizations.md).
+    This ensures that version upgrades stay seamless.
+
+    If you've previously made changes to the predefined `.yml` files, make sure to save these changes and follow the [recommendations above](../configuration/customizations.md) instead.
+
+You can update all `.yml` files inside `/opt/seatable-compose` by running the following command:
 
 ```bash
 cd /opt/seatable-compose && \
 wget -c https://github.com/seatable/seatable-release/releases/latest/download/seatable-compose.tar.gz \
--O - | tar -xz -C /opt/seatable-compose && \
+-O - | tar -xz -C /opt/seatable-compose
+```
+
+Note that running this command does not **yet** affect running containers.
+
+### Extra upgrade notices
+
+Please review and follow the [extra upgrade notices](./extra-upgrade-notice.md) for the version you're upgrading to before proceeding.
+This ensures that SeaTable will start correctly after upgrading.
+
+    Upgrading to version v6.2 requires various configuration changes. Please carefully read the [extra upgrade notices](./extra-upgrade-notice.md)
+
+### Applying changes
+
+After addressing the version-specific changes in the [extra upgrade notices](./extra-upgrade-notice.md), you're ready to apply the changes to the `*.yml` files.
+This can be achieved by running the following commands:
+
+```bash
+cd /opt/seatable-compose
 docker compose pull
 docker compose down
 docker compose up -d
 ```
 
-    If your SeaTable Server fails to start after updating the YAML files, required update-specific changes may be missing. Please review and follow the [extra upgrade notices](./extra-upgrade-notice.md) and then run `docker compose up -d` again.
-
-    This command replaces all predefined yml files in your `/opt/seatable-compose` folder. It will not touch your .env file and your "custom" yml files. If you made some changes to the predefined yml files, make sure to save these changes and follow the recommendations to create custom copies in the future.
-
 After some seconds your SeaTable Server should be reachable again. You can check the current version of your SeaTable Server opening the URL `https://<your-seatable-domain>/server-info`.
 
-Now, you should login as system administrator, switch to the system admin area, and update the plugins as well. You can find more information about the [updating the plugins here](../configuration/plugins.md).
+Please refer to the [troubleshooting section](../installation/faq.md) of the admin manual in case you're running into issues.
 
-## Version specific changes and configurations
+### Updating plugins
 
-Some versions require specific configuration changes. Also new features might be introduced that needs specific configuration. Please check _after each update_ the [extra update notices](./extra-upgrade-notice.md).
+After updating SeaTable Server, you should update all installed plugins inside the system admin area.
+This ensures that you're running plugin versions that are compatible with your SeaTable Server version.
+You can find more information about the plugin update process [here](../configuration/plugins.md).
 
 ---
 
@@ -10329,6 +11036,109 @@ This part of the manual is only for older version, meaning if you are updating t
 Source: https://admin.seatable.com/upgrade/extra-upgrade-notice/
 
 # Extra upgrade notice
+
+## 6.2
+
+Version v6.2 requires various configuration updates.
+In order to make the upgrade process easier, we have added a script to the release artifact that you'll be downloading as part of the upgrade process.
+
+You can run the script by executing the following command:
+
+```bash
+cd /opt/seatable-compose
+./migrate/migrate_6.1_6.2.sh
+```
+
+    The script can be executed multiple times.
+    You can use this mechanism to check whether you've already migrated all required configuration settings and removed the deprecated configuration files.
+    In addition, the script creates a backup of the whole `conf/` directory inside `/opt/seatable-server/seatable/` at the beginning of every execution.
+
+The script handles the following steps **automatically**:
+
+- Moving the `SECRET_KEY` variable from `dtable_web_settings.py` to the `.env` file
+- Cleaning up unused configuration settings from `dtable_web_settings.py`
+
+In addition, the script checks your current configuration files and lists required **manual changes**:
+
+- The configuration files `dtable-api-gateway.conf`, `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed**
+    - Any non-default settings must be **migrated to environment variables**
+    - If you haven't modified the configuration files, there's no need to set additional environment variables
+- If you've enabled S3 storage for base snapshots and assets, you'll need to migrate these configuration settings to environment variables
+- If you've enabled SeaTable AI, the LLM provider configuration must be migrated into the new `seatable_config.yaml` configuration file
+    - This is necessary in order to allow the configuration of _multiple_ LLM providers for different tasks
+
+---
+
+### List of Changes
+
+??? danger "Breaking changes inside SeaTable's Python client"
+
+    This breaking change affects systems that make use of the [Python pipeline](../installation/components/python-pipeline.md) in order to run Python scripts (either manually or within automations).
+    The [Python client](https://developer.seatable.com/python/) included in the `seatable/seatable-python-runner` image has been upgraded to version 4.0.0.
+    This release includes breaking changes to the format of the `context` object and the response format of the `query()` method.
+
+    Please refer to the [forum post](https://forum.seatable.com/t/important-changes-related-to-python-client-in-seatable-6-2/7435) for more information.
+
+??? warning "Multiple configuration files have been deprecated"
+
+    The configuration files `dtable-api-gateway.conf`, `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed** prior to upgrading to SeaTable v6.2.
+    Any non-default settings must be **migrated to environment variables**
+    If you haven't modified the configuration files, there's no need to set additional environment variables.
+
+    You can find more information on the page for each individual component:
+
+    - [api-gateway](../configuration/components/dtable-api-gateway.md)
+    - [dtable-db](../configuration/components/dtable-db.md)
+    - [dtable-events](../configuration/components/dtable-events.md)
+    - [dtable-server](../configuration/components/dtable-server.md)
+    - [dtable-storage-server](../configuration/components/dtable-storage-server.md)
+
+??? warning "Configuration of email settings inside the configuration file is deprecated"
+
+    The configuration of email settings inside the `dtable_web_settings.py` config file has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../configuration/sending-email.md).
+
+??? warning "S3 configuration must be migrated to environment variables"
+
+    The configuration of S3 bucket names and credentials inside the configuration files has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../installation/advanced/s3.md).
+
+??? warning "S3 configuration requires an additional bucket"
+
+    If you're using S3 to store bases, files and pictures, you'll now have to configure an additional bucket for user avatars.
+    This can be achieved by setting the `S3_AVATAR_BUCKET` environment variable inside your `.env` file.
+    Please note that this bucket must be publicly accessible via HTTP(S) since the user avatars are loaded directly from this bucket.
+    You can find more detailed information in this [article](../installation/advanced/s3.md).
+
+??? warning "LLM provider configuration must be migrated to `seatable_config.yaml`"
+
+    If you've deployed [SeaTable AI](../installation/components/seatable-ai.md) alongside SeaTable, you'll now have to migrate the LLM provider configuration
+    to the new `seatable_config.yaml` config file. This is required since SeaTable AI now supports multiple LLM providers.
+    You can find more detailed information in this [article](../installation/components/seatable-ai.md#llm-provider-configuration).
+
+??? warning "Configuration of base with custom templates must be migrated to environment variables"
+
+    The configuration of a custom base that can be used to define [base templates](../customization/templates.md) inside `dtable_web_settings.py` has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../customization/templates.md).
+
+??? warning "Included n8n deployment: PostgreSQL 11 -> 16"
+
+    The following section is only relevant if you have deployed n8n alongside SeaTable using the included `n8n.yml` file.
+    We've upgraded the PostgreSQL version of the documented n8n deployment from version 11 to version 16.
+    This requires dumping and restoring your PostgreSQL database **before** running the upgrade.
+    Please follow the steps outlined in the [PostgreSQL docs](https://www.postgresql.org/docs/current/upgrading.html).
+
+??? info "Change to the quota configuration for Python scripts"
+
+    The `scripts_running_limit` quota has been renamed to `scripts_running_limit_per_user`.
+    Please note that your installation is only affected if you've explicitly configured user roles and set the `scripts_running_limit` quota.
+
+    As a result, this quota now applies _per user_, while the total quota within a team will be shared across all team users.
+
+    Please refer to [Roles and Permissions](../configuration/roles-and-permissions.md) for more information on all quotas.
 
 ## 6.1
 
@@ -12518,27 +13328,20 @@ All relevant configuration files are located in `/templates/logrotate-conf` with
 
 ### Customizing Logrotate Configuration
 
-To modify the log rotation settings, you can mount a custom configuration file using Docker Compose. Add the following snippet to your yml-file:
+To modify the log rotation settings, you can mount a custom configuration file using Docker Compose.
+In order to ensure that this modification is preserved across version upgrades, you should **not** modify the default `.yml` files that we distribute as part of the installation process.
+Please read our guide on how to [customize the configuration](../configuration/customizations.md) of your SeaTable instance before proceeding.
+
+In order to customize the configuration file used by `logrotate`, you can specify a volume mount definition inside a `custom-seatable-server.yml` file:
 
 ```yaml
 services:
   seatable-server:
-    image: ...
-    ...
     volumes:
-      - "./logrotate-seatable-custom.conf:/templates/logrotate-conf/seatable:ro"
-      ...
-
+      - ./logrotate-seatable-custom.conf:/templates/logrotate-conf/seatable:ro
 ```
 
-    Avoid making changes directly to `seatable-server.yml`, as this file will be overwritten during updates. Instead, use a separate custom configuration file mounted via Docker Compose.
-
-    ```bash
-    # create a custom copy
-    cp seatable-server.yml custom-seatable-server.yml
-
-    # Don't forget to update the filename in your .env
-    ```
+Do not forget to add this file to the `COMPOSE_FILE` variable inside your `.env` file.
 
 ---
 
@@ -12684,11 +13487,11 @@ SeaTable's default MariaDB configuration works well for small installations. For
 
 The most impactful setting is `innodb_buffer_pool_size` — the memory area where InnoDB caches table data and indexes. As a rule of thumb, set it to **50–70% of your server's available RAM** after accounting for SeaTable and other services.
 
-| Setting | Default | Recommendation | Purpose |
-|---|---|---|---|
-| `innodb_buffer_pool_size` | 128M | 50–70% of available RAM | Cache for table data and indexes |
-| `innodb_log_file_size` | 48M | 256M | Redo log size, improves write performance |
-| `max_connections` | 151 | 200–300 | Max concurrent database connections |
+| Setting                   | Default | Recommendation          | Purpose                                   |
+| ------------------------- | ------- | ----------------------- | ----------------------------------------- |
+| `innodb_buffer_pool_size` | 128M    | 50–70% of available RAM | Cache for table data and indexes          |
+| `innodb_log_file_size`    | 48M     | 256M                    | Redo log size, improves write performance |
+| `max_connections`         | 151     | 200–300                 | Max concurrent database connections       |
 
 ## Apply custom settings
 
@@ -12705,17 +13508,16 @@ max_connections         = 200
 
 ### 2. Mount the configuration file
 
-Create a `custom-mariadb.yml` in `/opt/seatable-compose/`:
+Since the default definition of the `mariadb` service inside `seatable-server.yml` [should not be modified](../configuration/customizations.md), you should instead create a file named `custom-mariadb.yml` in `/opt/seatable-compose/` that only contains the configuration override:
 
 ```yaml
----
 services:
   mariadb:
     volumes:
-      - "./99-mariadb-custom.cnf:/etc/mysql/conf.d/99-mariadb-custom.cnf"
+      - ./99-mariadb-custom.cnf:/etc/mysql/conf.d/99-mariadb-custom.cnf
 ```
 
-Add `custom-mariadb.yml` to the `COMPOSE_FILE` variable in your `.env` file.
+Add `custom-mariadb.yml` to the `COMPOSE_FILE` variable in your `.env` file. This ensures that `seatable-server.yml` and `custom-mariadb.yml` are [merged together](../configuration/customizations.md).
 
 ### 3. Restart MariaDB
 
@@ -12734,11 +13536,11 @@ docker exec -it mariadb mariadb -uroot -p${MARIADB_PASSWORD} -e "SHOW VARIABLES 
 
 ## Sizing examples
 
-| Server RAM | Other services | Recommended `innodb_buffer_pool_size` |
-|---|---|---|
-| 8 GB | SeaTable only | 2–4G |
-| 16 GB | SeaTable + Python Pipeline | 6–8G |
-| 32 GB | SeaTable + multiple components | 12–16G |
+| Server RAM | Other services                 | Recommended `innodb_buffer_pool_size` |
+| ---------- | ------------------------------ | ------------------------------------- |
+| 8 GB       | SeaTable only                  | 2–4G                                  |
+| 16 GB      | SeaTable + Python Pipeline     | 6–8G                                  |
+| 32 GB      | SeaTable + multiple components | 12–16G                                |
 
 ---
 
@@ -12872,6 +13674,25 @@ This script will dump all three databases (`ccnet_db`, `dtable_db` and `seahub_d
     -rw-r--r-- 1 root root  12184 May 23 11:30 ccnet_db-2025-05-23-11-30-27.sql
     -rw-r--r-- 1 root root 177499 May 23 11:30 dtable_db-2025-05-23-11-30-27.sql
     -rw-r--r-- 1 root root  38402 May 23 11:30 seafile_db-2025-05-23-11-30-27.sql
+    ```
+
+## Troubleshooting
+
+### check-dtable-web.sh
+
+This script allows you to check the status of `dtable-web`.
+This is helpful in case `dtable-web` does not start up since any fatal configuration errors are currently not logged to `dtable_web.log` or the container's stdout stream.
+
+=== "Input"
+
+    ```bash
+    ./tools/check-dtable-web.sh
+    ```
+
+=== "Output"
+
+    ```text
+    System check identified no issues (0 silenced).
     ```
 
 ---
