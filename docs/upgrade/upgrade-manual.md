@@ -14,32 +14,67 @@ Updating/Upgrade (we don't differentiate) a SeaTable Server should take just a f
 
 ## How to update SeaTable Server
 
-Just run this command to update SeaTable and all additional components.
+Updating SeaTable and all additional components involves the following steps:
+
+1. Updating the `.yml` files
+2. Following the extra upgrade notices for the target version
+3. Applying changes
+4. Updating the installed plugins
+
+These steps are explained in the following sections.
+
+### Updating the `.yml` files
+
+!!! danger "The default `.yml` files will be overwritten! Use additional `.yml` files instead."
+
+    The following command replaces all predefined `.yml` files in your `/opt/seatable-compose` folder.
+    It will not touch your .env file and any "custom" `.yml` files that contain overrides.
+
+    Please read our guide that describes how the [configuration can be customized](../configuration/customizations.md).
+    This ensures that version upgrades stay seamless.
+
+    If you've previously made changes to the predefined `.yml` files, make sure to save these changes and follow the [recommendations above](../configuration/customizations.md) instead.
+
+You can update all `.yml` files inside `/opt/seatable-compose` by running the following command:
 
 ```bash
 cd /opt/seatable-compose && \
 wget -c https://github.com/seatable/seatable-release/releases/latest/download/seatable-compose.tar.gz \
--O - | tar -xz -C /opt/seatable-compose && \
+-O - | tar -xz -C /opt/seatable-compose
+```
+
+Note that running this command does not **yet** affect running containers.
+
+### Extra upgrade notices
+
+Please review and follow the [extra upgrade notices](./extra-upgrade-notice.md) for the version you're upgrading to before proceeding.
+This ensures that SeaTable will start correctly after upgrading.
+
+!!! warning "Upgrading to v6.2 requires configuration changes"
+
+    Upgrading to version v6.2 requires various configuration changes. Please carefully read the [extra upgrade notices](./extra-upgrade-notice.md)
+
+### Applying changes
+
+After addressing the version-specific changes in the [extra upgrade notices](./extra-upgrade-notice.md), you're ready to apply the changes to the `*.yml` files.
+This can be achieved by running the following commands:
+
+```bash
+cd /opt/seatable-compose
 docker compose pull
 docker compose down
 docker compose up -d
 ```
 
-!!! warning "SeaTable does not start - follow extra upgrade notices first"
-
-    If your SeaTable Server fails to start after updating the YAML files, required update-specific changes may be missing. Please review and follow the [extra upgrade notices](./extra-upgrade-notice.md) and then run `docker compose up -d` again.
-
-!!! danger "The default yml files will be overwritten! Use custom files instead."
-
-    This command replaces all predefined yml files in your `/opt/seatable-compose` folder. It will not touch your .env file and your "custom" yml files. If you made some changes to the predefined yml files, make sure to save these changes and follow the recommendations to create custom copies in the future.
-
 After some seconds your SeaTable Server should be reachable again. You can check the current version of your SeaTable Server opening the URL `https://<your-seatable-domain>/server-info`.
 
-Now, you should login as system administrator, switch to the system admin area, and update the plugins as well. You can find more information about the [updating the plugins here](../configuration/plugins.md).
+Please refer to the [troubleshooting section](../installation/faq.md) of the admin manual in case you're running into issues.
 
-## Version specific changes and configurations
+### Updating plugins
 
-Some versions require specific configuration changes. Also new features might be introduced that needs specific configuration. Please check _after each update_ the [extra update notices](./extra-upgrade-notice.md).
+After updating SeaTable Server, you should update all installed plugins inside the system admin area.
+This ensures that you're running plugin versions that are compatible with your SeaTable Server version.
+You can find more information about the plugin update process [here](../configuration/plugins.md).
 
 ---
 

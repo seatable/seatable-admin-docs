@@ -21,22 +21,7 @@ In addition, **Gunicorn**, **NGINX** and **Redis** can be configured to expose m
 
 ### api-gateway
 
-You can enable the `/metrics` endpoint and configure the basic auth credentials by adding the following configuration block inside `/opt/seatable-server/seatable/conf/dtable-api-gateway.conf`:
-
-```ini
-[metrics]
-enable_basic_auth = true
-username = "<username>"
-password = "<password>"
-```
-
-**Note:** SeaTable does not create the `dtable-api-gateway.conf` configuration file by default. If it does not exist yet, simply create it.
-
-Remember to restart SeaTable by running the following command:
-
-```bash
-docker restart seatable-server
-```
+Please refer to the [api-gateway docs](../../configuration/components/dtable-api-gateway.md#metrics) for instructions on how to enable metrics.
 
 You can test the metrics endpoint by running the following command on the host:
 
@@ -73,20 +58,7 @@ curl -sS https://$SEATABLE_SERVER_HOSTNAME/api-gateway/metrics --user "<username
 
 ### dtable-db
 
-You can enable the `/metrics` endpoint and configure the basic auth credentials by adding the following configuration block inside `/opt/seatable-server/seatable/conf/dtable-db.conf`:
-
-```ini
-[metrics]
-enable_basic_auth = true
-username = "<username>"
-password = "<password>"
-```
-
-Remember to restart SeaTable by running the following command:
-
-```bash
-docker restart seatable-server
-```
+Please refer to the [dtable-db docs](../../configuration/components/dtable-db.md#metrics) for instructions on how to enable metrics.
 
 You can test the metrics endpoint by running the following command on the host:
 

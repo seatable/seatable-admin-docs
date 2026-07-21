@@ -133,3 +133,23 @@ This script will dump all three databases (`ccnet_db`, `dtable_db` and `seahub_d
     -rw-r--r-- 1 root root  38402 May 23 11:30 seafile_db-2025-05-23-11-30-27.sql
     ```
 
+## Troubleshooting
+
+### check-dtable-web.sh
+
+<!-- md:version 6.2 -->
+
+This script allows you to check the status of `dtable-web`.
+This is helpful in case `dtable-web` does not start up since any fatal configuration errors are currently not logged to `dtable_web.log` or the container's stdout stream.
+
+=== "Input"
+
+    ```bash
+    ./tools/check-dtable-web.sh
+    ```
+
+=== "Output"
+
+    ```text
+    System check identified no issues (0 silenced).
+    ```

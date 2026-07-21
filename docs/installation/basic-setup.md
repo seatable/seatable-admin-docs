@@ -81,14 +81,11 @@ The expected output should appear as follows.
 └── zabbix.yml
 ```
 
-!!! warning "Don't change the default YML-files"
+!!! warning "Don't modify the default YML-files"
 
-    Generally, there's no need to make changes to the YML-files. Modifications should only be made by experienced Docker administrators. If you do, it is recommended to duplicate the file(s) first and rename the file(s) because the default yml files are overwritten with the next update.
-
-    ```bash
-    # create a custom copy
-    cp n8n.yml custom-n8n.yml
-    ```
+    Generally, there's no need to make changes to the YML-files. Customizations should only be made by experienced Docker administrators.
+    Please read our guide that describes how the [configuration can be customized](../configuration/customizations.md).
+    This ensures that version upgrades stay seamless since the default `.yml` files are **overwritten with each upgrade**.
 
 #### 2. Add secrets
 
@@ -100,6 +97,7 @@ Now use the command line tool `pwgen` to create secure passwords for your _admin
     sed -i "s/^MARIADB_PASSWORD=.*/MARIADB_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^REDIS_PASSWORD=.*/REDIS_PASSWORD=$(pwgen 40 1)/" .env
     sed -i "s/^JWT_PRIVATE_KEY=.*/JWT_PRIVATE_KEY=$(pwgen 40 1)/" .env
+    sed -i "s/^SECRET_KEY=.*/SECRET_KEY=$(pwgen 40 1)/" .env
 
 Alternatively, you can manually add your own passwords.
 
@@ -150,6 +148,8 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
     # shared secret for secure communication
     JWT_PRIVATE_KEY='anothersecret'
+
+    SECRET_KEY='anothertopsecret'
     ```
 
     1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.

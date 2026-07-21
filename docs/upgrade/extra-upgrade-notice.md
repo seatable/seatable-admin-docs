@@ -4,6 +4,111 @@ description: Version-specific upgrade notices and required configuration changes
 
 # Extra upgrade notice
 
+## 6.2
+
+Version v6.2 requires various configuration updates.
+In order to make the upgrade process easier, we have added a script to the release artifact that you'll be downloading as part of the upgrade process.
+
+You can run the script by executing the following command:
+
+```bash
+cd /opt/seatable-compose
+./migrate/migrate_6.1_6.2.sh
+```
+
+!!! info "Script can be executed multiple times"
+
+    The script can be executed multiple times.
+    You can use this mechanism to check whether you've already migrated all required configuration settings and removed the deprecated configuration files.
+    In addition, the script creates a backup of the whole `conf/` directory inside `/opt/seatable-server/seatable/` at the beginning of every execution.
+
+The script handles the following steps **automatically**:
+
+- Moving the `SECRET_KEY` variable from `dtable_web_settings.py` to the `.env` file
+- Cleaning up unused configuration settings from `dtable_web_settings.py`
+
+In addition, the script checks your current configuration files and lists required **manual changes**:
+
+- The configuration files `dtable-api-gateway.conf`, `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed**
+    - Any non-default settings must be **migrated to environment variables**
+    - If you haven't modified the configuration files, there's no need to set additional environment variables
+- If you've enabled S3 storage for base snapshots and assets, you'll need to migrate these configuration settings to environment variables
+- If you've enabled SeaTable AI, the LLM provider configuration must be migrated into the new `seatable_config.yaml` configuration file
+    - This is necessary in order to allow the configuration of _multiple_ LLM providers for different tasks
+
+---
+
+### List of Changes
+
+??? danger "Breaking changes inside SeaTable's Python client"
+
+    This breaking change affects systems that make use of the [Python pipeline](../installation/components/python-pipeline.md) in order to run Python scripts (either manually or within automations).
+    The [Python client](https://developer.seatable.com/python/) included in the `seatable/seatable-python-runner` image has been upgraded to version 4.0.0.
+    This release includes breaking changes to the format of the `context` object and the response format of the `query()` method.
+
+    Please refer to the [forum post](https://forum.seatable.com/t/important-changes-related-to-python-client-in-seatable-6-2/7435) for more information.
+
+??? warning "Multiple configuration files have been deprecated"
+
+    The configuration files `dtable-api-gateway.conf`, `dtable-db.conf`, `dtable-events.conf`, `dtable-storage-server.conf` and `dtable_server_config.json` have been **deprecated** and **must be removed** prior to upgrading to SeaTable v6.2.
+    Any non-default settings must be **migrated to environment variables**
+    If you haven't modified the configuration files, there's no need to set additional environment variables.
+
+    You can find more information on the page for each individual component:
+
+    - [api-gateway](../configuration/components/dtable-api-gateway.md)
+    - [dtable-db](../configuration/components/dtable-db.md)
+    - [dtable-events](../configuration/components/dtable-events.md)
+    - [dtable-server](../configuration/components/dtable-server.md)
+    - [dtable-storage-server](../configuration/components/dtable-storage-server.md)
+
+??? warning "Configuration of email settings inside the configuration file is deprecated"
+
+    The configuration of email settings inside the `dtable_web_settings.py` config file has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../configuration/sending-email.md).
+
+??? warning "S3 configuration must be migrated to environment variables"
+
+    The configuration of S3 bucket names and credentials inside the configuration files has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../installation/advanced/s3.md).
+
+??? warning "S3 configuration requires an additional bucket"
+
+    If you're using S3 to store bases, files and pictures, you'll now have to configure an additional bucket for user avatars.
+    This can be achieved by setting the `S3_AVATAR_BUCKET` environment variable inside your `.env` file.
+    Please note that this bucket must be publicly accessible via HTTP(S) since the user avatars are loaded directly from this bucket.
+    You can find more detailed information in this [article](../installation/advanced/s3.md).
+
+??? warning "LLM provider configuration must be migrated to `seatable_config.yaml`"
+
+    If you've deployed [SeaTable AI](../installation/components/seatable-ai.md) alongside SeaTable, you'll now have to migrate the LLM provider configuration
+    to the new `seatable_config.yaml` config file. This is required since SeaTable AI now supports multiple LLM providers.
+    You can find more detailed information in this [article](../installation/components/seatable-ai.md#llm-provider-configuration).
+
+??? warning "Configuration of base with custom templates must be migrated to environment variables"
+
+    The configuration of a custom base that can be used to define [base templates](../customization/templates.md) inside `dtable_web_settings.py` has been deprecated.
+    Please switch to **environment variable**-based configuration instead.
+    You can find more detailed information in this [article](../customization/templates.md).
+
+??? warning "Included n8n deployment: PostgreSQL 11 -> 16"
+
+    The following section is only relevant if you have deployed n8n alongside SeaTable using the included `n8n.yml` file.
+    We've upgraded the PostgreSQL version of the documented n8n deployment from version 11 to version 16.
+    This requires dumping and restoring your PostgreSQL database **before** running the upgrade.
+    Please follow the steps outlined in the [PostgreSQL docs](https://www.postgresql.org/docs/current/upgrading.html).
+
+??? info "Change to the quota configuration for Python scripts"
+
+    The `scripts_running_limit` quota has been renamed to `scripts_running_limit_per_user`.
+    Please note that your installation is only affected if you've explicitly configured user roles and set the `scripts_running_limit` quota.
+
+    As a result, this quota now applies _per user_, while the total quota within a team will be shared across all team users.
+
+    Please refer to [Roles and Permissions](../configuration/roles-and-permissions.md) for more information on all quotas.
+
 ## 6.1
 
 Several Docker image tags have been updated to newer versions. These changes are applied automatically when you pull the latest images. Remember to also update your [plugins](../configuration/plugins.md).
