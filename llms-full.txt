@@ -11040,8 +11040,11 @@ Source: https://admin.seatable.com/upgrade/extra-upgrade-notice/
 ## 6.2
 
 Version v6.2 requires various configuration updates.
-In order to make the upgrade process easier, we have added a script to the release artifact that you'll be downloading as part of the upgrade process.
 
+    If you’re unsure how to apply the required changes or would like us to review your configuration, feel free to reply to [this thread in our community forum](https://forum.seatable.com/t/seatable-v6-2-upgrade-need-help-upgrading/7436).
+    We’ll be happy to help you update your deployment and ensure the upgrade goes smoothly.
+
+In order to make the upgrade process easier, we have added a script to the release artifact that you'll be downloading as part of the upgrade process.
 You can run the script by executing the following command:
 
 ```bash
