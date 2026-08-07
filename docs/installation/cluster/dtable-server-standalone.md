@@ -59,7 +59,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - TIME_ZONE=${TIME_ZONE}
+      - TZ=${TIME_ZONE}
       - SEATABLE_MYSQL_DB_HOST=${MARIADB_HOST:-mariadb}
       - SEATABLE_MYSQL_DB_PORT=${MARIADB_PORT:-3306}
       - SEATABLE_MYSQL_DB_USER=root
