@@ -18,6 +18,10 @@ mkdir -p /opt/seatable-compose
 cd /opt/seatable-compose
 ```
 
+Then copy the following files from your first node to this new node:
+
+- `/opt/seatable-compose/seatable-license.txt`
+
 You will need to create two files on this new node: `.env` and `dtable-server.yml`.
 
 ### Create `.env`
@@ -47,6 +51,8 @@ JWT_PRIVATE_KEY=
 
 Next, create the `dtable-server.yml` file to configure the standalone `dtable-server` instance. Node-to-node communication uses the internal network, so ensure you update `extra_hosts` with the correct IPs of your other cluster nodes if you use hostnames to connect.
 
+NOTE:
+
 ```yaml
 ---
 services:
@@ -56,6 +62,10 @@ services:
     container_name: dtable-server
     volumes:
       - "/opt/seatable-server:/shared"
+      - type: bind
+        source: "./seatable-license.txt"
+        target: "/shared/seatable/seatable-license.txt"
+        read_only: ${SEATABLE_LICENSE_FORCE_READ_ONLY:-true}
     ports:
       - "5000:5000"
     environment:
