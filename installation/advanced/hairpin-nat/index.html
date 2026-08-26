@@ -17,14 +17,14 @@
 sudo<span class=w> </span>apt<span class=w> </span>update
 sudo<span class=w> </span>apt<span class=w> </span>install<span class=w> </span>dnsmasq
 
-<span class=c1># Add SeaTable hostname resolution (replace &#39;seatable.example.com&#39; and gateway IP)</span>
-<span class=nb>echo</span><span class=w> </span><span class=s2>&quot;address=/seatable.example.com/172.17.0.1&quot;</span><span class=w> </span>&gt;&gt;<span class=w> </span>/etc/dnsmasq.conf
+<span class=c1># Add SeaTable hostname resolution (replace 'seatable.example.com' and gateway IP)</span>
+<span class=nb>echo</span><span class=w> </span><span class=s2>"address=/seatable.example.com/172.17.0.1"</span><span class=w> </span>&gt;&gt;<span class=w> </span>/etc/dnsmasq.conf
 
 <span class=c1># Restart dnsmasq</span>
 sudo<span class=w> </span>systemctl<span class=w> </span>restart<span class=w> </span>dnsmasq
 sudo<span class=w> </span>systemctl<span class=w> </span><span class=nb>enable</span><span class=w> </span>dnsmasq
 </code></pre></div> <h2 id=step-2-configure-docker-daemon>Step 2: Configure Docker Daemon<a class=headerlink href=#step-2-configure-docker-daemon title="Permanent link">&para;</a></h2> <p>Edit Docker's configuration and add the following configuration to use the local dnsmasq as resolver. If the file <code>/etc/docker/daemon.json</code> does not exist, create it. Instead of <code>8.8.8.8</code> you can use any other public DNS server.</p> <div class=highlight><pre><span></span><code><span class=o>{</span>
-<span class=w>  </span><span class=s2>&quot;dns&quot;</span>:<span class=w> </span><span class=o>[</span><span class=s2>&quot;127.0.0.1&quot;</span>,<span class=w> </span><span class=s2>&quot;8.8.8.8&quot;</span><span class=o>]</span>
+<span class=w>  </span><span class=s2>"dns"</span>:<span class=w> </span><span class=o>[</span><span class=s2>"127.0.0.1"</span>,<span class=w> </span><span class=s2>"8.8.8.8"</span><span class=o>]</span>
 <span class=o>}</span>
 </code></pre></div> <p>After saving, restart docker with <code>sudo systemctl restart docker</code></p> <h2 id=step-3-verify-and-restart-seatable>Step 3: Verify and Restart SeaTable<a class=headerlink href=#step-3-verify-and-restart-seatable title="Permanent link">&para;</a></h2> <p>Test resolution inside a container and restart SeaTable.</p> <div class=highlight><pre><span></span><code><span class=c1># Test DNS resolution (should resolve to gateway IP)</span>
 docker<span class=w> </span>run<span class=w> </span>--rm<span class=w> </span>--dns<span class=w> </span><span class=m>127</span>.0.0.1<span class=w> </span>busybox<span class=w> </span>nslookup<span class=w> </span>seatable.example.com

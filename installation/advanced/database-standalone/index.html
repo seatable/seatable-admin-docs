@@ -18,7 +18,7 @@
 </code></pre></div> <h2 id=dont-start-mariadb-container>Don't start mariadb container<a class=headerlink href=#dont-start-mariadb-container title="Permanent link">&para;</a></h2> <p>To disable the <code>mariadb</code> service and patch the <code>depends_on</code> declaration for the <code>seatable-server</code> service, you should create a <code>custom-seatable-server.yml</code> file:</p> <div class=highlight><pre><span></span><code><span class=nt>services</span><span class=p>:</span>
 <span class=w>  </span><span class=nt>seatable-server</span><span class=p>:</span>
 <span class=w>    </span><span class=c1># Patch depends_on to ensure that seatable-server can start up</span>
-<span class=w>    </span><span class=c1># Note: The &quot;!override&quot; syntax requires at least Docker Compose v2.24.4</span>
+<span class=w>    </span><span class=c1># Note: The "!override" syntax requires at least Docker Compose v2.24.4</span>
 <span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w> </span><span class=kt>!override</span>
 <span class=w>      </span><span class=nt>redis</span><span class=p>:</span>
 <span class=w>        </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">service_healthy</span>
