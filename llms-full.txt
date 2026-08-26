@@ -7151,7 +7151,7 @@ ENABLED_ROLE_PERMISSIONS = {
         'snapshot_days': 180
     },
     'guest': {
-        'ai_credit_per_user': -1.
+        'ai_credit_per_user': -1,
         'big_data_storage_quota': '',
         'can_add_dtable': False,
         'can_add_group': False,
