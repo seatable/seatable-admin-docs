@@ -427,7 +427,9 @@ function update_custom_color(version) {
   var codeElement = divElement.querySelector("code");
 
   if (version === "v6.2") {
-    var css_input = `#lang-context-selector li:hover {  background-color: ##maincolor##;}
+    var css_input = `/* custom-css for v6.2 generated on https://admin.seatable.com/customization/main-color/ */
+.btn-primary{--bs-btn-color:#fff !important;}
+#lang-context-selector li:hover {  background-color: ##maincolor##;}
 #quota-bar .usage {  display: inline-block;  height: 100%;  vertical-align: top;  background: ##maincolor##;}
 .a-simulate {  color: ##maincolor## !important;  text-decoration: none;  font-weight: normal;  cursor: pointer;}
 .access-control-qr-code-wrapper .qrcode-copy-btn:active,.access-control-qr-code-wrapper .qrcode-copy-btn:hover{background-color:##maincolor##!important;color:#fff}
