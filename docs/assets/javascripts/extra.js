@@ -429,7 +429,6 @@ function update_custom_color(version) {
   if (version === "v6.2") {
     var css_input = `/* custom-css for v6.2 generated on https://admin.seatable.com/customization/main-color/ */
 .btn-primary{--bs-btn-color:#fff !important;}
-
 #lang-context-selector li:hover {  background-color: ##maincolor##;}
 #quota-bar .usage {  display: inline-block;  height: 100%;  vertical-align: top;  background: ##maincolor##;}
 .a-simulate {  color: ##maincolor## !important;  text-decoration: none;  font-weight: normal;  cursor: pointer;}
