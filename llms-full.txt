@@ -7181,7 +7181,7 @@ If you want to modify the permissions and quotas of either or both standard role
 
 ### Custom User Roles
 
-You can add additional user roles by extending the codeblock in `dtable_web_settings.py`.
+You can add additional user roles by extending the codeblock in `dtable_web_settings.py`. A custom user role inherits all permissions and quotas of the role `default`; you only need to list the values that shall differ.
 
 To add a role `employee`, for example, add the following lines (beginning at `'employee'` and ending at `},` ) to the existing role definition.
 
@@ -7201,26 +7201,95 @@ Restart SeaTable for the new role to become available in SeaTable.
 
 Similar to a user role, an administrator role is comprised of several permissions, but no quotas.
 
+    User roles and administrator roles behave in opposite ways when a permission is not set: a user role grants everything that is not explicitly listed, an administrator role grants **nothing** that is not explicitly listed. Internally, every administrator role is merged onto a hidden role `dummy_admin` in which all permissions are set to `False`. Consequently, you must list every single permission that an administrator role shall have.
+
 ### Administrator Permissions
 
 The following permissions are supported in administrator roles:
 
-| Permission               | Added in version | Permission to ...                                                                             | Additional information |
-| ------------------------ | ---------------- | --------------------------------------------------------------------------------------------- | ---------------------- |
-| can_view_system_info     | 1.0              | See/access "Info" menu in System admin                                                        |                        |
-| can_view_statistic       | 1.0              | See/access "Statistic" menu in System admin                                                   |                        |
-| can_config_system        | 1.0              | See/access "Settings" menu in System admin                                                    |                        |
-| can_manage_user          | 1.0              | See/access "Users" menu in System admin                                                       |                        |
-| can_manage_group         | 1.0              | See/access "Groups" menu in System admin                                                      |                        |
-| can_manage_external_link | 1.0              | See/access "External links" menu in System admin                                              |                        |
-| can_view_admin_log       | 1.0              | See/access "Admin logs" menu in System admin                                                  |                        |
-| can_manage_user_log      | 1.0              | See/access the tab "Login logs" in "Audit logs" menu in System admin                          |                        |
-| can_manage_audit_log     | 1.0              | See/access the tabs "Action logs" and "File access logs" in "Audit logs" menu in System admin |                        |
-| can_manage_organization  | 1.0              | See/access "Organizations" menu in System admin                                               |                        |
+| Permission                  | Added in version | Permission to ...                                                                                        | Additional information                                                                                                                                                              |
+| --------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| can_view_system_info        | 1.0              | See/access "Info" menu in System admin                                                                   | The license cannot be uploaded with this permission alone.                                                                                                                          |
+| can_view_statistic          | 1.0              | See/access "Statistic" menu in System admin                                                              |                                                                                                                                                                                     |
+| can_config_system           | 1.0              | See/access "Settings" menu in System admin                                                               |                                                                                                                                                                                     |
+| can_manage_user             | 1.0              | See/access "Users" menu in System admin                                                                  |                                                                                                                                                                                     |
+| can_update_user             | 1.6              | See and modify the details of an individual user                                                         | Grants access to a single user account without granting the complete "Users" menu. An administrator with `can_manage_user` has these rights as well.                                 |
+| can_manage_group            | 1.0              | See/access "Groups" menu in System admin                                                                 |                                                                                                                                                                                     |
+| can_manage_external_link    | 1.0              | See/access "External links" menu in System admin                                                         |                                                                                                                                                                                     |
+| can_view_audit_log          | 5.1              | See/access "Audit logs" menu in System admin and its tabs "Action logs", "File access logs" and "Permission logs" | This permission controls the menu itself. Without it, the menu is hidden — even if `can_view_user_log` is set. The tabs besides "Login logs" additionally require the *user* permission `can_use_advanced_permissions`. |
+| can_view_user_log           | 1.0              | See/access the tabs "Login logs" and "Group member logs" in "Audit logs" menu in System admin             | Requires `can_view_audit_log` to make the menu visible.                                                                                                                             |
+| can_view_admin_log          | 1.0              | See/access "Admin logs" menu in System admin                                                             |                                                                                                                                                                                     |
+| can_manage_organization     | 2.0              | See/access "Organizations" menu in System admin                                                          | The menu is only shown if multi-tenancy is enabled.                                                                                                                                 |
+| can_update_organization     | 2.2              | See and modify the details of an individual organization                                                 | Grants access to a single organization without granting the complete "Organizations" menu. An administrator with `can_manage_organization` has these rights as well.                 |
+| can_manage_app              | 5.3              | See/access "Apps" menu in System admin                                                                   |                                                                                                                                                                                     |
+| other_permission            | 5.2              | See/access "Virus scan" menu in System admin                                                             | Despite its generic name, this permission currently only controls the virus scan records.                                                                                           |
+| can_manage_library          | 1.0              | Administer libraries via the API                                                                         | Inherited from Seafile. SeaTable's system administration has no "Libraries" menu, so this permission only guards the corresponding API endpoints.                                    |
+| can_manage_base             | 2.0              | Administer bases via the API                                                                             | The "Bases" menu is shown to the role `default_admin` only and cannot be granted to another role. This permission only guards the corresponding API endpoints.                       |
+| can_manage_form             | 2.0              | Administer forms via the API                                                                             | The "Forms" menu is shown to the role `default_admin` only and cannot be granted to another role. This permission only guards the corresponding API endpoints.                       |
+| can_manage_sys_notification | 2.0              | Administer system notifications via the API                                                              | The "Notifications" menu is shown to the role `default_admin` only and cannot be granted to another role. This permission only guards the corresponding API endpoints.               |
+| can_manage_plugin           | 2.0              | Administer plugins via the API                                                                           | The "Plugins" menu is shown to the role `default_admin` only and cannot be granted to another role. This permission only guards the corresponding API endpoints.                     |
+
+The default value for all permissions is False. This means that if a permission is not specifically set, the role does **not** grant the permission.
 
 ### Standard Administrator Roles
 
-SeaTable has four standard, preconfigured administrator roles `default admin`, `audit admin`, `daily admin` and `custom admin`. They can be used in the Users' section of the system administration without prior configuration.
+SeaTable has four standard, preconfigured administrator roles `default_admin`, `system_admin`, `daily_admin` and `audit_admin`. They can be used in the Users' section of the system administration without prior configuration.
+
+Only an administrator with the role `default_admin` can assign an administrator role to another administrator. All other administrator roles can see the role of an administrator, but not change it.
+
+The standard administrator roles are defined as follows:
+
+```python
+ENABLED_ADMIN_ROLE_PERMISSIONS = {
+    # can do everything
+    'default_admin': {
+        'can_view_system_info': True,
+        'can_view_statistic': True,
+        'can_config_system': True,
+        'can_manage_library': True,
+        'can_manage_user': True,
+        'can_update_user': True,
+        'can_manage_group': True,
+        'can_manage_external_link': True,
+        'can_view_user_log': True,
+        'can_view_audit_log': True,
+        'can_view_admin_log': True,
+        'can_manage_base': True,
+        'can_manage_app': True,
+        'can_manage_form': True,
+        'can_manage_organization': True,
+        'can_update_organization': True,
+        'can_manage_sys_notification': True,
+        'can_manage_plugin': True,
+        'other_permission': True,
+    },
+    # can ONLY access the "Info" and "Settings" menu
+    'system_admin': {
+        'can_view_system_info': True,
+        'can_config_system': True,
+    },
+    # can ONLY access the "Info", "Statistic", "Users", "Groups" and "Audit logs" menu
+    'daily_admin': {
+        'can_view_system_info': True,
+        'can_view_statistic': True,
+        'can_manage_library': True,
+        'can_manage_user': True,
+        'can_update_user': True,
+        'can_manage_group': True,
+        'can_view_user_log': True,
+        'can_view_audit_log': True,
+    },
+    # can ONLY access the "Info", "Audit logs" and "Admin logs" menu
+    'audit_admin': {
+        'can_view_system_info': True,
+        'can_view_admin_log': True,
+        'can_view_user_log': True,
+        'can_view_audit_log': True,
+    }
+}
+```
+
+If you want to modify the permissions of one or more standard administrator roles, copy-and-paste the above codeblock into `dtable_web_settings.py` and modify as per your needs. Restart SeaTable for the changes to take effect.
 
 ### Custom Administrator Roles
 
@@ -7237,6 +7306,12 @@ ENABLED_ADMIN_ROLE_PERMISSIONS = {
     }
 }
 ```
+
+Restart SeaTable for the new role to become available in SeaTable.
+
+    The four standard administrator roles (and the two standard user roles) have a translated display name in the web interface: `default_admin` is shown as "Default admin", `system_admin` as "System admin", `daily_admin` as "Daily admin" and `audit_admin` as "Audit admin".
+
+    For every other role, SeaTable falls back to the key you defined. A role `new_admin_role` therefore appears as `new_admin_role` in the role dropdown of the Users' section — underscores included. If you want a nice-looking entry, choose the key accordingly, e.g. `Support` instead of `support_admin_role`.
 
 ---
 
