@@ -20,9 +20,13 @@ flowchart TB
             B[seatable-server<br/>80]
             C[mariadb<br/>3306]
             D[redis<br/>6379]
+            E[automation-worker]
             A<-->B
             B<-->C
             B<-->D
+            B<-->E
+            E<-->C
+            E<-->D
         end
         F@{ shape: bow-rect, label: "Storage"}
     end
@@ -52,6 +56,7 @@ flowchart TB
             PSc[python-scheduler]
             PSt[python-starter]
             PR[python-runner]
+            AW[automation-worker]
             C<-->SS
             C<-->Tld
             C<-->OO
@@ -67,6 +72,9 @@ flowchart TB
             SS<-->Tld
             SS<-->CAV
             SS<-->PSc
+            SS<-->AW
+            AW<-->MDB
+            AW<-->R
         end
         F@{ shape: bow-rect, label: "Storage"}
     end
@@ -172,6 +180,12 @@ Redis, an in-memory data store, performs several tasks for a SeaTable Server ins
 !!! warning "Redis has replaced Memcached"
 
     In versions up to SeaTable Server 5.1, Memcached, an in-memory key-value store, was used to cache the Django framework.
+
+## Container automation-worker
+
+The `automation-worker` container is a dedicated component that executes automation rules. It reads pending automation tasks from Redis, runs the configured actions (e.g. sending emails, running Python scripts, generating PDFs or triggering AI-powered automations), and publishes the results back to Redis.
+
+The automation-worker connects to the containers `mariadb` and `redis` to read (and write). In addition, it accesses the inner services of the `seatable-server` container (such as dtable-server, dtable-db and dtable-web) when an automation action interacts with a base.
 
 ## Storage
 

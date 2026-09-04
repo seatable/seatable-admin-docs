@@ -250,6 +250,7 @@ nav:
           - Overview: configuration/overview.md
           - Customizations: configuration/customizations.md
           - Components:
+              - automation-worker: configuration/components/automation-worker.md
               - dtable-api-gateway: configuration/components/dtable-api-gateway.md
               - dtable-db: configuration/components/dtable-db.md
               - dtable-events: configuration/components/dtable-events.md
