@@ -26,6 +26,17 @@ Please read our guide that explains how you can [customize the configuration](..
 | --------------------------------------- | -------------------------------------------------------------------------- | ------- |
 | `AUTOMATION_RATE_LIMIT_PER_BASE_MINUTE` | Limits the number of automations that can be triggered per base per minute | 1000    |
 
+### Caching
+
+<!-- md:version 7.0 -->
+
+The Golang implementation of `dtable-server` supports configuration of the base cache size.
+Eviction happens based on an LRU (least recently used) policy.
+
+| Environment Variable             | Description                   | Default |
+| -------------------------------- | ----------------------------- | ------- |
+| `DTABLE_SERVER_TOTAL_CACHE_SIZE` | Size of the base cache in MB. | 2000    |
+
 ### Persistence
 
 | Environment Variable | Description                                                             | Default |
