@@ -4,7 +4,7 @@ description: Complete reference for dtable-server configuration including row li
 
 # Configuration of dtable-server
 
-This is a cheat sheet for the possible configuration options of [dtable-server](../../introduction/architecture.md#dtable-server).
+This is a cheat sheet for the possible configuration options of [dtable-server](../../introduction/architecture.md#container-dtable-server).
 It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
@@ -17,7 +17,7 @@ The default values provided here are best-effort (not built automatically). They
 
 <!-- md:version 6.2 -->
 
-This section lists the environment variables read by [dtable-server](../../introduction/architecture.md#dtable-server).
+This section lists the environment variables read by [dtable-server](../../introduction/architecture.md#container-dtable-server).
 Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
 ### Automations
