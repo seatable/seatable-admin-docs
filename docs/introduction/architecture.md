@@ -21,12 +21,17 @@ flowchart TB
             C[mariadb<br/>3306]
             D[redis<br/>6379]
             E[automation-worker]
+            G[dtable-server<br/>5000]
             A<-->B
             B<-->C
             B<-->D
             B<-->E
+            B<-->G
             E<-->C
             E<-->D
+            E<-->G
+            G<-->C
+            G<-->D
         end
         F@{ shape: bow-rect, label: "Storage"}
     end
@@ -34,7 +39,7 @@ flowchart TB
 
 The numbers designate the ports used by the containers. Port 443 in the container `caddy` must be exposed. Port 80 must also be exposed when a Let's Encrypt SSL certificate is to be used.  All other ports are internal ports that are only available within the Docker network.
 
-All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, `automation-worker` and `mariadb` employ Docker volumes.
+All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, `dtable-server`, `automation-worker` and `mariadb` employ Docker volumes.
 
 In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
 
@@ -57,6 +62,7 @@ flowchart TB
             PSt[python-starter]
             PR[python-runner]
             AW[automation-worker]
+            DS[dtable-server<br/>5000]
             C<-->SS
             C<-->Tld
             C<-->OO
@@ -73,8 +79,12 @@ flowchart TB
             SS<-->CAV
             SS<-->PSc
             SS<-->AW
+            SS<-->DS
             AW<-->MDB
             AW<-->R
+            AW<-->DS
+            DS<-->MDB
+            DS<-->R
         end
         F@{ shape: bow-rect, label: "Storage"}
     end
@@ -134,10 +144,6 @@ All services in the container `seatable-server` connect to the containers `maria
 
 The task of the service dtable-web is to deliver all pages except for the bases themselves. This includes essential features such as the login page, home page, system administration area, team administration, personal settings, and API endpoints. All these functionalities are provided by dtable-web, which is built on the Django framework.
 
-### dtable-server
-
-When accessing a base, you'll be directed to the base editor, which is provided by the dtable-server service. This editor loads the base's content from a JSON file, presenting it in a familiar spreadsheet interface and enabling real-time collaborative work on all data within the base. Each modification is promptly saved to the operation log (stored in MariaDB), and within minutes, these changes are persisted as a JSON file and transmitted to dtable-storage-server for storage in the attached storage system.
-
 ### dtable-db
 
 dtable-db extends the functionality of dtable-server, offering an SQL-like query language to interact with base data. Additionally, it serves as the interface for accessing the Big Data Backend.
@@ -157,6 +163,14 @@ When actions are not executed immediately but with a time delay, SeaTable employ
 ### api-gateway
 
 The api-gateway is a proxy for dtable-server and dtable-db. All API calls for [base operations](https://api.seatable.com/reference/getbaseinfo) are routed through this component. It is also essential for the effective enforcement of API rate and request limits.
+
+## Container dtable-server
+
+<!-- md:version 7.0 -->
+
+When accessing a base, you'll be directed to the base editor, which is provided by the dtable-server service. This editor loads the base's content from a JSON file, presenting it in a familiar spreadsheet interface and enabling real-time collaborative work on all data within the base. Each modification is promptly saved to the operation log (stored in MariaDB), and within minutes, these changes are persisted as a JSON file and transmitted to dtable-storage-server for storage in the attached storage system.
+
+**Note:** Previously, `dtable-server` ran inside the `seatable-server` container. With version 7.0, it has been extracted to a dedicated container.
 
 ## Container automation-worker
 
