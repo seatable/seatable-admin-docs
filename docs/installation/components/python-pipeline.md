@@ -52,7 +52,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,python-pipeline.yml'/" /opt/sea
     When manually adding `python-pipeline.yml` to the `COMPOSE_FILE` variable using your preferred text editor, make sure that you do not enter a space (:material-keyboard-space:). After the modification, your `COMPOSE_FILE` variable should look like this:
 
     ```bash
-    COMPOSE_FILE='caddy.yml,seatable-server.yml,python-pipeline.yml'
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml,python-pipeline.yml'
     ```
 
 #### Generate a shared secret for secure communication
