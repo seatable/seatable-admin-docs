@@ -113,7 +113,6 @@ flowchart LR
     subgraph s[SeaTable Server Container]
         A[nginx<br/>80]
         B[dtable-web<br/>8000]
-        C[dtable-server<br/>5000]
         D[dtable-db<br/>7777]
         E[api-gateway<br/>7780]
         F[dtable-storage-server<br/>6666]
@@ -122,13 +121,9 @@ flowchart LR
         A<-- / -->B
         A<-- /api-gateway -->E
         A<-- /seafhttp -->H
-        B<-->C
         B<-->D
         B<-->F
-        E<-->C
         E<-->D
-        C<-->F
-        C<-->G
         D<-->F
         D<-->G
     end
