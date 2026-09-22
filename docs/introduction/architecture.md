@@ -178,7 +178,7 @@ When accessing a base, you'll be directed to the base editor, which is provided 
 
 The `automation-worker` container is a dedicated component that executes automation rules. It reads pending automation tasks from Redis, runs the configured actions (e.g. sending emails, running Python scripts, generating PDFs or triggering AI-powered automations), and publishes the results back to Redis.
 
-The automation-worker connects to the containers `mariadb` and `redis` to read (and write). In addition, it accesses the inner services of the `seatable-server` container (such as dtable-server, dtable-db and dtable-web) when an automation action interacts with a base.
+The automation-worker connects to the containers `mariadb` and `redis` to read (and write). In addition, it accesses the container `dtable-server` and the inner services of the `seatable-server` container (such as dtable-db and dtable-web) when an automation action interacts with a base.
 
 ## Container mariadb
 
