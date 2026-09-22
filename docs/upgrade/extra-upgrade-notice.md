@@ -4,6 +4,44 @@ description: Version-specific upgrade notices and required configuration changes
 
 # Extra upgrade notice
 
+## 7.0
+
+Version v7.0 splits two components out of the `seatable-server` container into **dedicated containers**.
+Both of them are required, so you have to add `dtable-server.yml` and `automation-worker.yml` to the `COMPOSE_FILE` variable inside your `/opt/seatable-compose/.env` file before starting the upgraded instance:
+
+```bash
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml'
+```
+
+??? warning "dtable-server now runs in its own container"
+
+    Up to v6.2, `dtable-server` was one of the services inside the `seatable-server` container.
+    Starting with v7.0, it runs in a dedicated container and must be activated by adding `dtable-server.yml` to the `COMPOSE_FILE` variable.
+
+    Please also note that customizations of `dtable-server` (e.g. environment variables such as `BASE_MAX_ROWS_LIMIT`) now belong to the `dtable-server` service instead of the `seatable-server` service.
+    If you use a `custom-seatable-server.yml` file, move these settings to a `custom-dtable-server.yml` file and add it to the `COMPOSE_FILE` variable.
+
+    Please refer to the [configuration of dtable-server](../configuration/components/dtable-server.md) for more information.
+
+??? warning "Automation rules require the new automation-worker container"
+
+    Automation rules are no longer executed inside the `seatable-server` container.
+    The new `automation-worker` container is a dedicated component that reads pending automation tasks from Redis, runs the configured actions and publishes the results back to Redis.
+
+    Add `automation-worker.yml` to the `COMPOSE_FILE` variable to activate it.
+
+    Please refer to [this page](../introduction/architecture.md#container-automation-worker) for more information.
+
+??? warning "Ping endpoints of `dtable-db` and `dtable-server` are no longer exposed"
+
+    The `/dtable-server/ping/` and `/dtable-db/ping/` endpoints are not proxied by NGINX anymore and now return a 404 error.
+    If you monitor these URLs from outside, remove them from your monitoring configuration.
+
+??? info "MariaDB starts with an increased `max-allowed-packet`"
+
+    MariaDB is now started with `--max-allowed-packet=32M`, which mitigates issues with very large operations (e.g. importing large tables from XLSX files).
+    This is part of `seatable-server.yml` and applied automatically. No action is required on your side.
+
 ## 6.2
 
 Version v6.2 requires various configuration updates.
