@@ -34,7 +34,7 @@ You can configure components in the `.env` file, determining which ones to insta
 Example in the `.env` file:
 
 ```bash
-COMPOSE_FILE='caddy.yml,seatable-server.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml'
 ```
 
 By adding or removing yml files from this list, you control the composition during runtime, eliminating the need for a single, extensive `docker-compose.yml` file.
