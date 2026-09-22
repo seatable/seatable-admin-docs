@@ -48,14 +48,14 @@ Add `custom-seatable-server.yml` to the `COMPOSE_FILE` variable inside your `.en
 A minimal SeaTable installation contains the following line inside the `.env` file (located at `/opt/seatable-compose/.env`):
 
 ```ini
-COMPOSE_FILE='caddy.yml,seatable-server.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml'
 ```
 
 Now simpli add `custom-seatable-server.yml` to the list of filenames that should be merged by Docker Compose.
 Additional filenames should be separated by a comma.
 
 ```ini
-COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-seatable-server.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml,custom-seatable-server.yml'
 ```
 
 ### Step 3

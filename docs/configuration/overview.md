@@ -22,7 +22,7 @@ it is sufficient to set/modify these variables directly inside your `.env` file.
 
 ```ini
 # components to be used
-COMPOSE_FILE='caddy.yml,seatable-server.yml' # (1)!
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml' # (1)!
 COMPOSE_PATH_SEPARATOR=','
 
 # system settings
