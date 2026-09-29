@@ -60,11 +60,19 @@ description: Troubleshooting tips for common SeaTable Server issues including st
 
 ??? question "Check dtable-server"
 
-    You can check the status of `dtable-server` by executing the following curl request:
+    You can check the status of `dtable-server` by executing the following command:
 
-    ```bash
-    curl https://$SEATABLE_SERVER_HOSTNAME/dtable-server/ping/
-    ```
+    === "Version 6.2 and earlier"
+
+        ```bash
+        curl https://$SEATABLE_SERVER_HOSTNAME/dtable-server/ping/
+        ```
+
+    === "Version 7.0 and later"
+
+        ```bash
+        docker exec -it dtable-server curl http://127.0.0.1:5000/ping/
+        ```
 
     If `dtable-server` does not reply, it might be stuck in a reboot loop.
     This can happen if too many large bases are loaded at once or too many pending operations need to be replayed.
@@ -73,7 +81,7 @@ description: Troubleshooting tips for common SeaTable Server issues including st
     As a workaround, you can increase the timeout for the healthcheck request to give `dtable-server` more time to load bases and apply pending operations.
     This can be achieved by increasing the value of the `DTABLE_SERVER_PING_TIMEOUT` environment variable (the default is `20`).
 
-    **Note:** This variable is not part of the default `seatable-server.yml` file, so you need to include an additional `.yml` file in order to configure this variable.
+    **Note:** This variable is not part of the default `seatable-server.yml` (v6.2 and earlier)/`dtable-server.yml` (v7.0 and later) file, so you need to include an additional `.yml` file in order to configure this variable.
 
 ??? question "Check nginx"
 
