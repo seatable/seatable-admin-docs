@@ -175,6 +175,17 @@ If the file does not exist yet, simply create it.
           key: <your huggingface API key>
           model: <model provider>/<model-id>
     ```
+=== "Infomaniak"
+    ```yaml
+    global:
+      LLM_MODELS:
+        - type: openai
+          # You can get the product ID from the Infomaniak API
+          # https://developer.infomaniak.com/docs/api/get/1/ai
+          url: https://api.infomaniak.com/2/ai/{PRODUCT_ID}/openai/v1
+          key: <token>
+          model: <model>
+    ```
 === "Self-Hosted Proxy Server"
     ```yaml
     global:
