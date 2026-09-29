@@ -19,7 +19,7 @@ nano /opt/seatable-compose/.env
 Your COMPOSE_FILE variable should look something like this:
 
 ```bash
-COMPOSE_FILE='seatable-docker-proxy.yml,seatable-server.yml,uptime-kuma.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml,uptime-kuma.yml'
 ```
 
 ### Update the compose project

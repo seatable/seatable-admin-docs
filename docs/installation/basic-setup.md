@@ -126,7 +126,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
     ``` python
     # components to be used
-    COMPOSE_FILE='caddy.yml,seatable-server.yml' # (1)!
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml' # (1)!
     COMPOSE_PATH_SEPARATOR=','
 
     # system settings
@@ -152,7 +152,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
     SECRET_KEY='anothertopsecret'
     ```
 
-    1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
+    1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml`, `seatable-server.yml`, `dtable-server.yml` and `automation-worker.yml` at the beginning. You will add more components at a later time.
     2.  A [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) is available on Wikipedia.
     3.  SEATABLE_SERVER_HOSTNAME is the (sub)domain (without http:// or https://) under which the server is accessible on (at least) port 80 and 443.
         <br>If you want to use a public IP address (e.g. 5.35.28.112), you can use the free service [nip.io](https://nip.io/). In this case, enter your your-ip.nip.io address (e.g. 5.35.28.112.nip.io).
