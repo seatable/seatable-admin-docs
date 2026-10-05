@@ -11,22 +11,29 @@ Sometimes updates or changes in the configuration are necessary, and it's import
 Here's how to configure such a maintenance page using Caddy:
 
 1. Go to `/opt/seatable-compose/`
-2. Create a copy of your `seatable-server.yml` and name it `maintenance.yml`
-3. Replace the current labels of your SeaTable Server with the following labels.
-4. Replace `<your-allowed-ip>` with one IP address, that should have access to your server.
-5. Open your `.env` file and replace `seatable-server.yml` with `maintenance.yml` (in the variable `COMPOSE_FILE`)
-6. Run `docker compose up -d`
+2. Create a new file `maintenance.yml` with the following content.
+3. Replace `<your-allowed-ip>` with the IP address that should have access to your server. Multiple IP addresses can be separated by spaces.
+4. Open your `.env` file and add `maintenance.yml` as the **last** entry of the variable `COMPOSE_FILE`.
+5. Run `docker compose up -d`
 
 ```yaml
-...
+---
+services:
+  seatable-server:
     labels:
-      caddy: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
-      caddy.@blocked: 'not remote_ip <your-allowed-ip> private_ranges'
-      caddy.respond: '@blocked "SeaTable Cloud is currently undergoing maintenance. The service will be restored shortly. Thank you for your patience." 503'
-      caddy.header.Retry-After: 3600
-      caddy.reverse_proxy: "{{upstreams 80}}"
-...
+      caddy_0.@maintenance: "not remote_ip <your-allowed-ip> private_ranges"
+      caddy_0.handle: "@maintenance"
+      caddy_0.handle.header: "Retry-After 3600"
+      caddy_0.handle.respond: '"This SeaTable Server is currently undergoing maintenance. The service will be restored shortly. Thank you for your patience." 503'
 ```
+
+Docker Compose merges these labels with the labels of `seatable-server.yml`, so all other settings like the security headers stay active.
+
+`private_ranges` ensures that components on the same host, like Collabora Online or the Python Pipeline, can still reach your SeaTable Server.
+
+!!! warning "Use handle, not respond"
+
+    Older versions of this article used `respond` without `handle`. With this configuration, paths that are routed to other containers (e.g. `/app-server/*` of the [HTML server](../components/html-server.md)) stayed accessible during the maintenance. `handle` blocks these paths as well. Read more in [IP Access Restriction](./ip-access-restriction.md).
 
 ## How does maintenance look like
 
@@ -38,10 +45,10 @@ All other users will see a maintenance page displaying the following message:
 
 ## Disable Maintenance Mode
 
-To disable maintenance mode, update your `.env` file by replacing `maintenance.yml` with `seatable-server.yml`. Then, run the command:
+To disable maintenance mode, remove `maintenance.yml` from the variable `COMPOSE_FILE` in your `.env` file. Then, run the command:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 Your SeaTable server will once again be accessible to all users.
