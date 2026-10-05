@@ -80,6 +80,19 @@ plugins:
         "maintain/seatable_fsck.md": "maintenance/filesystem-check.md"
         "maintain/clean_database.md": "maintenance/database-cleanup.md"
         "maintain/backup_recovery.md": "maintenance/backup-recovery.md"
+        "authentication/saml.md": "configuration/authentication/saml.md"
+        "config/enterprise/saml.md": "configuration/authentication/saml.md"
+        "config/sending_email.md": "configuration/sending-email.md"
+        "config/customize_email_notifications.md": "configuration/sending-email.md"
+        "config/templates_and_manual.md": "customization/templates.md"
+        "config/dtable_export_max_size.md": "configuration/components/dtable-web.md#base-export-limit"
+        "config/integrate-with-seafile.md": "configuration/components/seafile.md"
+        "upgrade/upgrade_manual.md": "upgrade/upgrade-manual.md"
+        "installation-rework/advanced/custom_proxy.md": "installation/advanced/custom-proxy.md"
+        "installation-rework/advanced/custom_certificates.md": "installation/advanced/custom-certificates.md"
+        "configuration/dtable-storage-server-conf.md": "configuration/components/dtable-storage-server.md"
+        "configuration/dtable-server-config.md": "configuration/components/dtable-server.md"
+        "requirements.md": "introduction/requirements.md"
   - git-committers:
       repository: seatable/seatable-admin-docs
       branch: main
