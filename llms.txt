@@ -58,6 +58,7 @@
 - [Additional Subdomains](https://admin.seatable.com/installation/advanced/additional-subdomains/): Configure additional subdomains for SeaTable components like n8n using Caddy instead of accessing them via port numbers.
 - [Air Gap Installation](https://admin.seatable.com/installation/advanced/air-gap-installation/): Install SeaTable in an air-gapped environment without internet, covering certificates, local registries, and plugins.
 - [Webserver Security](https://admin.seatable.com/installation/advanced/webserver-security/): Customize Caddy security headers, Content-Security-Policy, and cookie settings for your SeaTable Server deployment.
+- [IP Access Restriction](https://admin.seatable.com/installation/advanced/ip-access-restriction/): Restrict access to your SeaTable Server to selected IP addresses (allowlist) or block single IP addresses (blocklist) with Caddy, while Let's Encrypt keeps working.
 - [Maintenance Mode](https://admin.seatable.com/installation/advanced/maintenance-mode/): Enable maintenance mode in SeaTable to restrict access during updates, showing a 503 page to all users except allowed IPs.
 - [Advanced Settings for Caddy](https://admin.seatable.com/installation/advanced/settings-caddy/): Advanced Caddy configuration for SeaTable including logging, preserving client IPs behind a front proxy, and more.
 
