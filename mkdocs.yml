@@ -189,6 +189,7 @@ nav:
               - Additional Subdomains: installation/advanced/additional-subdomains.md
               - Air Gap Installation: installation/advanced/air-gap-installation.md
               - Webserver Security: installation/advanced/webserver-security.md
+              - IP Access Restriction: installation/advanced/ip-access-restriction.md
               - Maintenance Mode: installation/advanced/maintenance-mode.md
               - Advanced Settings for Caddy: installation/advanced/settings-caddy.md
           - SeaTable AI:

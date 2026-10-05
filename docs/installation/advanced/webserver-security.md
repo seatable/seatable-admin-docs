@@ -48,3 +48,7 @@ Create a custom copy of your `seatable-server.yml` file and modify these setting
 ## DNSSEC
 
 It also requires DNSSEC from your domain hoster to get the best security measures.
+
+## IP access restriction
+
+If you want to limit access to your SeaTable Server to selected IP addresses, read [IP Access Restriction](./ip-access-restriction.md).
