@@ -259,6 +259,29 @@ seatable-ai:
 
     `tier` supports the following values: `low`, `medium` and `high`
 
+##### Reasoning Effort
+
+<!-- md:version 7.0 -->
+
+Since version 7.0, SeaTable AI allows you to configure the `reasoning_effort` for each LLM provider.
+This setting controls how much "thinking" a reasoning model performs before generating its response. Lower values result in faster responses and lower costs, while higher values can improve the results for more complex tasks.
+
+Simply add `reasoning_effort` to the corresponding entry under `global.LLM_MODELS` within `seatable_config.yaml`:
+
+```yaml
+global:
+  LLM_MODELS:
+    - type: openai
+      key: <your openai LLM access key>
+      model: <model-id>
+      reasoning_effort: low
+```
+
+!!! info "Supported values for `reasoning_effort`"
+
+    The value is passed to the LLM provider through [LiteLLM](https://docs.litellm.ai/docs/reasoning_content). Commonly supported values are `low`, `medium` and `high`.
+    Please note that the setting only has an effect on models that support reasoning. Refer to your provider's documentation for the values supported by your model.
+
 ### LLM Timeout Configuration (Optional)
 
 <!-- md:version 6.1 -->
