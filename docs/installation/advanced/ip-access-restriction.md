@@ -63,9 +63,9 @@ handle @blocked {
 
     If your server is located in a private network (e.g. your company LAN), `private_ranges` allows every client from this network. In this case, replace `private_ranges` with the Docker networks only (usually `172.16.0.0/12`) and add the allowed LAN addresses explicitly.
 
-### Step 2: Create `ip-allowlist.yml`
+### Step 2: Create `custom-ip-allowlist.yml`
 
-Create a new file `/opt/seatable-compose/ip-allowlist.yml` with the following content:
+Create a new file `/opt/seatable-compose/custom-ip-allowlist.yml` with the following content:
 
 ```yaml
 ---
@@ -85,12 +85,16 @@ This mounts the directory `caddy-snippets` into the Caddy container and imports 
 
     Please mount the directory and not only the file. Many editors (like vim) replace a file when saving it. A container with a single-file mount would continue to see the old version of your file.
 
-### Step 3: Add `ip-allowlist.yml` to your `.env` file
+### Step 3: Add `custom-ip-allowlist.yml` to your `.env` file
 
-`ip-allowlist.yml` must be the **last** entry of the `COMPOSE_FILE` variable inside your `.env` file:
+!!! tip "Existing installations"
+
+    Earlier versions of this guide used the name `ip-allowlist.yml`. You can keep this name, it works the same way.
+
+`custom-ip-allowlist.yml` must be the **last** entry of the `COMPOSE_FILE` variable inside your `.env` file:
 
 ```bash
-sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,ip-allowlist.yml'/" /opt/seatable-compose/.env
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,custom-ip-allowlist.yml'/" /opt/seatable-compose/.env
 ```
 
 ### Step 4: Apply the changes
@@ -124,7 +128,7 @@ Both commands must return `403`. From an allowed IP address, you get `302` and `
 
 ## Restrict additional components
 
-Components like Collabora Online or n8n are accessible via their own ports. Each component has its own Caddy configuration, which is not covered by the restriction of SeaTable Server. If you want to restrict these components as well, add their services to `ip-allowlist.yml`. Please note that these services use the label prefix `caddy` instead of `caddy_0`:
+Components like Collabora Online or n8n are accessible via their own ports. Each component has its own Caddy configuration, which is not covered by the restriction of SeaTable Server. If you want to restrict these components as well, add their services to `custom-ip-allowlist.yml`. Please note that these services use the label prefix `caddy` instead of `caddy_0`:
 
 ```yaml
 ---
