@@ -14,8 +14,13 @@ Caddy is configured with Docker labels. Every service that Caddy makes available
 
     Instead, create an additional `custom-<name>.yml` file that **only contains your changes**, and add it to the `COMPOSE_FILE` variable in your `.env` file, **after** the original file. Docker Compose merges both files. A label in your custom file adds a new setting or replaces the label with the same name. Read [Customizations](../../configuration/customizations.md) for details.
 
+    Keep all files that are already in the list and add your custom files at the end:
+
     ```ini
-    COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-caddy.yml,custom-seatable-server.yml'
+    # before
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,...'
+    # after
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,...,custom-caddy.yml,custom-seatable-server.yml'
     ```
 
 **Which label prefix to use**

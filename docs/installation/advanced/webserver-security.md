@@ -40,16 +40,18 @@ Replace the `...` with the current values from `seatable-server.yml`.
 
 ## Cookies
 
-With the default Caddy configuration, all cookies get the `Secure` flag, so browsers send them only over https. This is done by the `caddy_0.header.Set-Cookie` label in `seatable-server.yml`.
+By default, SeaTable sets its cookies without the `Secure` flag. With this flag, browsers send the cookies only over https. If your SeaTable Server uses https, add these options to `dtable_web_settings.py` and restart SeaTable:
 
-!!! important "Own proxy instead of Caddy"
+```python
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+```
 
-    If you [replaced Caddy with another proxy](./custom-proxy.md), your proxy must add the `Secure` flag, or you add these options to `dtable_web_settings.py`:
+!!! warning "Only for https"
 
-    ```python
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-    ```
+    Do not set these options if your SeaTable Server uses http (see [HTTP only](./http-only.md)). Browsers do not send `Secure` cookies over http, so nobody could log in anymore.
+
+If you use SAML or embed bases into other websites, you also need `SameSite=None`. Read [Embed bases into other webpages](../../configuration/components/dtable-web.md#embed-bases-into-other-webpages).
 
 ## DNSSEC
 

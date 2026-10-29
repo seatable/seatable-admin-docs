@@ -62,7 +62,9 @@ For `/dtable/external-apps-edit/`, only `Content-Security-Policy` must not be se
 
 **3. Cookies**
 
-Caddy adds `Secure` and `SameSite=None` to all cookies. `Secure` makes sure that browsers send cookies only over https. `SameSite=None` is only needed if you use SAML or embed bases into other websites. Otherwise you can leave the default of SeaTable (`SameSite=Lax`), which gives better protection against cross-site requests.
+SeaTable sets its cookies with `SameSite=Lax` and without the `Secure` flag. `Secure` makes sure that browsers send cookies only over https. Add it in your proxy (see the example below) or in `dtable_web_settings.py`, as described in [Security settings](./webserver-security.md#cookies).
+
+`SameSite=None` is only needed if you use SAML or [embed bases into other websites](../../configuration/components/dtable-web.md#embed-bases-into-other-webpages). Otherwise keep `SameSite=Lax`, which gives better protection against cross-site requests.
 
 **Example configuration for nginx**
 
