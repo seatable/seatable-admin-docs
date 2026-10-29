@@ -49,9 +49,9 @@ services:
 
 **Explanation**
 
-This label `caddy_0.log` enables logging for the service and outputs logs to `stdout`. Once configured, you can view the logs using standard Docker commands, such as `docker logs <container_name> ` or `docker compose logs seatable-server`.
+This label `caddy_0.log` enables the access log of Caddy for SeaTable Server. Caddy writes these logs to the output of the **Caddy container**, not of the SeaTable Server container. You can view them with `docker logs caddy`.
 
-These logs are specific to the service container (e.g., SeaTable Server). To view logs for the Caddy proxy itself, check the logs of the Caddy proxy container.
+Only requests to SeaTable Server are logged. Requests to other components (e.g. n8n or Collabora) are only logged if you add the `caddy.log` label to these services as well.
 
 ## Preserve the Original Client IP Behind a Front Proxy
 
