@@ -80,7 +80,7 @@ After the migration is done, you can delete the old avatars directories below `/
 
     After activating S3 for avatars, the avatars are loaded directly from the S3 storage like `<img src="https://s3.us-east-2.amazonaws.com/...">`.
 
-    Security header configuration in your `seatable-server.yml` might prevent this and you need your S3 url to the Content-Security-Policy.
+    The Content-Security-Policy from `seatable-server.yml` might prevent this. In this case, add your S3 url to the Content-Security-Policy in your `custom-seatable-server.yml`. Read [Security settings](./webserver-security.md#accept-headers) on how to do this.
 
     ```text
     caddy_0.header.Content-Security-Policy:

@@ -10,29 +10,33 @@ Our default deployment enforces strict security headers, which prevent the loadi
 
 If you are running your own server, you have the option to modify these security headers to allow additional sites to interact with your SeaTable server.
 
-To adjust these settings, you can modify the `seatable-server.yml` file located at `/opt/seatable-compose/seatable-server.yml`. The default configuration might look like this:
+The security headers are defined as `caddy_0.header.*` labels in `seatable-server.yml`. Do not change this file. Instead, override the header in a `custom-seatable-server.yml` file and add this file to the `COMPOSE_FILE` variable in your `.env` file, after `seatable-server.yml` (see [Advanced Settings for Caddy](./settings-caddy.md#how-to-customize-caddy)).
+
+!!! warning "Your label replaces the complete header"
+
+    A label in your custom file replaces the label with the same name. Copy the **current** value of `caddy_0.header.Content-Security-Policy` from your `seatable-server.yml` and only add the sources you need. Otherwise you lose the sources that SeaTable needs, for example for Collabora, OnlyOffice or maps. Check your custom value again after each update, because new versions may add sources.
+
+**Example Configuration**
+
+This example allows images from `images.example.com`:
 
 ```yaml
-caddy_0.header.Content-Security-Policy: "`
-    block-all-mixed-content;
-    default-src 'none';
-    style-src 'unsafe-inline' 'self';
-    script-src 'unsafe-inline' 'unsafe-eval' 'self';
-    script-src-elem 'unsafe-inline' 'self' ${SEATABLE_SERVER_HOSTNAME}:${ONLYOFFICE_PORT:-6233} maps.googleapis.com;
-    font-src 'self' data:;
-    img-src 'self' data: blob: https: market.seatable.io mt0.google.com maps.googleapis.com maps.gstatic.com;
-    form-action 'self' ${SEATABLE_SERVER_HOSTNAME}:${COLLABORA_PORT:-6232};
-    connect-src 'self' market.seatable.io https:;
-    frame-src 'self' ${SEATABLE_SERVER_HOSTNAME}:${COLLABORA_PORT:-6232} ${SEATABLE_SERVER_HOSTNAME}:${ONLYOFFICE_PORT:-6233};
-    frame-ancestors 'self';
-    worker-src 'self' blob:;
-    manifest-src 'self';
-    object-src 'self';
-    base-uri 'self'
-    `"
+# custom-seatable-server.yml
+---
+services:
+  seatable-server:
+    labels:
+      caddy_0.header.Content-Security-Policy: "`
+        block-all-mixed-content;
+        default-src 'none';
+        ...
+        img-src 'self' data: blob: https: market.seatable.io ... images.example.com;
+        ...
+        base-uri 'self'
+        `"
 ```
 
-Create a custom copy of your `seatable-server.yml` file and modify these settings according to your specific requirements. Don't forget to link the new yml file in your `.env` file.
+Replace the `...` with the current values from `seatable-server.yml`.
 
 ## Cookies
 

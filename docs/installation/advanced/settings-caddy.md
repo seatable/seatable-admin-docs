@@ -4,28 +4,52 @@ description: Advanced Caddy configuration for SeaTable including logging, preser
 
 # Advanced Settings for Caddy
 
+## How to Customize Caddy
+
+Caddy is configured with Docker labels. Every service that Caddy makes available has its own labels in its yml file, for example `seatable-server.yml` or `n8n.yml`.
+
+!!! warning "Do not modify the yml files of seatable-release"
+
+    Never change `caddy.yml`, `seatable-server.yml` or the other yml files directly, and do not copy them. They are replaced with every update, and a copy does not get future changes like new security headers.
+
+    Instead, create an additional `custom-<name>.yml` file that **only contains your changes**, and add it to the `COMPOSE_FILE` variable in your `.env` file, **after** the original file. Docker Compose merges both files. A label in your custom file adds a new setting or replaces the label with the same name. Read [Customizations](../../configuration/customizations.md) for details.
+
+    ```ini
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-caddy.yml,custom-seatable-server.yml'
+    ```
+
+**Which label prefix to use**
+
+The label prefix must match the prefix in the original yml file:
+
+| Service | Prefix | Used for |
+| --- | --- | --- |
+| `seatable-server` | `caddy_0` | SeaTable Server (`https://<your-seatable-server>`) |
+| `seatable-server` | `caddy_1` | Redirect from http to https (do not change) |
+| `caddy` | `caddy` | Global options of Caddy (no address) |
+| All other components (n8n, Collabora, OnlyOffice, ...) | `caddy` | The component |
+
+SeaTable Server needs two prefixes because it defines two configuration blocks. If you use `caddy.` instead of `caddy_0.` for SeaTable Server, Caddy creates an invalid second configuration block and ignores your setting.
+
 ## Enabling Logging for Caddy Docker Proxy
 
-To enable logging for the Lucas Lorentz Caddy Docker Proxy, you need to add a label to the **service container** (not the proxy container itself). For SeaTable Server, you can activate logging by adding the `caddy.log` label to your `seatable-server.yml` file.
+To enable logging for the Lucas Lorentz Caddy Docker Proxy, you need to add a label to the **service container** (not the proxy container itself). For SeaTable Server, you can activate logging by adding the `caddy_0.log` label to your `custom-seatable-server.yml` file.
 
 **Example Configuration**
 
-```bash
+```yaml
+# custom-seatable-server.yml
 ---
 services:
   seatable-server:
-    ...
     labels:
-      caddy_0: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
       # new: activate logs
-      caddy_0.log:
-      caddy_0.reverse_proxy: "{{upstreams 80}}"
-      ...
+      caddy_0.log: ""
 ```
 
 **Explanation**
 
-This label `caddy_0.log:` enables logging for the service and outputs logs to `stdout`. Once configured, you can view the logs using standard Docker commands, such as `docker logs <container_name> ` or `docker compose logs seatable-server`.
+This label `caddy_0.log` enables logging for the service and outputs logs to `stdout`. Once configured, you can view the logs using standard Docker commands, such as `docker logs <container_name> ` or `docker compose logs seatable-server`.
 
 These logs are specific to the service container (e.g., SeaTable Server). To view logs for the Caddy proxy itself, check the logs of the Caddy proxy container.
 
@@ -47,27 +71,30 @@ To fix this, Caddy must accept the `X-Forwarded-For` header, but **only from you
 
 **Example Configuration**
 
-Add the IP address (or network) of your front proxy to the **Caddy container** and forward only the verified client IP to the **SeaTable Server container**. Create a custom copy of `caddy.yml` and `seatable-server.yml` for these changes and link them in your `.env` file.
+Add the IP address (or network) of your front proxy to the **Caddy container** and forward only the verified client IP to the **SeaTable Server container**. You need two custom files:
 
-```bash
+```yaml
+# custom-caddy.yml
 ---
 services:
   caddy:
-    ...
     labels:
       # new: accept X-Forwarded-For only from your front proxy
       caddy.servers.trusted_proxies: "static 203.0.113.10/32"
       caddy.servers.trusted_proxies_strict: ""
+```
 
+```yaml
+# custom-seatable-server.yml
+---
+services:
   seatable-server:
-    ...
     labels:
-      caddy_0: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
-      caddy_0.reverse_proxy: "{{upstreams 80}}"
       # new: forward only the verified client ip to seatable nginx
       caddy_0.reverse_proxy.header_up: "X-Forwarded-For {client_ip}"
-      ...
 ```
+
+Add both files to the `COMPOSE_FILE` variable in your `.env` file, after `caddy.yml` and `seatable-server.yml`, and restart with `docker compose up -d`.
 
 **Explanation**
 

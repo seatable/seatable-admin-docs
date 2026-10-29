@@ -39,9 +39,9 @@ When using the DNS challenge:
     - A dedicated DNS API user  
     - Appropriate zone permissions  
 
-## Step 1: Replace the Default Caddy Configuration
+## Step 1: Build a Custom Caddy Image
 
-Instead of using the default `caddy.yml`, create a new YAML file that builds a custom Caddy container.
+Keep the default `caddy.yml` and create an additional `custom-caddy.yml` that only replaces the image of the Caddy container. All other settings (ports, volumes, networks) still come from `caddy.yml`, so you keep your certificates and get future changes of `caddy.yml` with each update.
 
 Your custom Caddy must include two plugins:
 
@@ -55,9 +55,12 @@ Even though ports 80 and 443 are still mapped internally, they do **not** need t
 Below is an example using the **Hetzner DNS plugin**:
 
 ```yaml
+# custom-caddy.yml
 ---
 services:
   caddy:
+    image: seatable-caddy-dns:local
+    pull_policy: build
     build:
       dockerfile_inline: |
         ARG CADDY_VERSION=2.10.2
@@ -72,47 +75,54 @@ services:
         COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
         CMD ["caddy", "docker-proxy"]
-    container_name: caddy
-    restart: unless-stopped
-    environment:
-      - CADDY_INGRESS_NETWORKS=frontend-net
-    networks:
-      - frontend-net
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./volumes/caddy:/data
-
-networks:
-  frontend-net:
-    name: frontend-net
 ```
+
+`pull_policy: build` makes sure that Docker Compose builds the image locally and does not try to download it.
+
+!!! tip "Earlier versions of this guide"
+
+    Earlier versions of this guide replaced `caddy.yml` with a complete custom file. If you use such a file, replace it with the `custom-caddy.yml` above and add `caddy.yml` again to your `COMPOSE_FILE`. The old file stored the certificates in another directory, so Caddy requests new certificates after the change.
 
 ## Step 2: Configure TLS for SeaTable
 
-Next, configure Caddy to use the DNS challenge by adding the `caddy_0.tls` labels to your SeaTable service definition.
+Next, configure Caddy to use the DNS challenge. Add the `caddy_0.tls` labels for SeaTable Server to your `custom-seatable-server.yml`:
 
 The exact configuration depends on your DNS provider. In most cases, the API token must have permission to manage DNS records for the corresponding zone.
 
 === "Hetzner"
 
-    ```text
-    caddy_0.tls.dns: "hetzner ${HETZNER_DNS_TOKEN:?Variable is not set or empty}"
-    caddy_0.tls.propagation_delay: 30s
+    ```yaml
+    # custom-seatable-server.yml
+    ---
+    services:
+      seatable-server:
+        labels:
+          caddy_0.tls.dns: "hetzner ${HETZNER_DNS_TOKEN:?Variable is not set or empty}"
+          caddy_0.tls.propagation_delay: 30s
     ```
 
 === "Cloudflare"
 
-    ```text
-    caddy_0.tls.dns: "cloudflare {CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
+    ```yaml
+    # custom-seatable-server.yml
+    ---
+    services:
+      seatable-server:
+        labels:
+          caddy_0.tls.dns: "cloudflare ${CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
     ```
+
+Add both files to the `COMPOSE_FILE` variable in your `.env` file, after the default files:
+
+```ini
+COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-caddy.yml,custom-seatable-server.yml'
+```
 
 !!! warning "Additional components require the same `caddy.tls.dns` label"
 
     If you have deployed additional components such as [Collabora](../components/collabora.md) or [n8n](../components/n8n.md) that are directly exposed by Caddy
     and they use the same hostname as your SeaTable installation, you need to also add the `caddy.tls.dns` label to these services.
+    Use a custom file for each component, for example `custom-n8n.yml` or `custom-collabora.yml`. These components use the prefix `caddy` (without `_0`).
 
     Otherwise Caddy will log the following error:
 
