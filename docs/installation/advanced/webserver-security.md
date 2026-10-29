@@ -40,11 +40,13 @@ Replace the `...` with the current values from `seatable-server.yml`.
 
 ## Cookies
 
-!!! important "Secure cookies require additional configuration"
+With the default Caddy configuration, all cookies get the `Secure` flag, so browsers send them only over https. This is done by the `caddy_0.header.Set-Cookie` label in `seatable-server.yml`.
 
-    To get these ratings, it is required to add two more options to `dtable_web_settings.py`. In one of the next versions, these parameters will probably be added by default.
+!!! important "Own proxy instead of Caddy"
 
-    ```bash
+    If you [replaced Caddy with another proxy](./custom-proxy.md), your proxy must add the `Secure` flag, or you add these options to `dtable_web_settings.py`:
+
+    ```python
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     ```

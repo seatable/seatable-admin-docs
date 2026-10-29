@@ -76,11 +76,11 @@ After successful migration, you can add `AVATAR_FILE_STORAGE = 'django_s3_storag
 
 After the migration is done, you can delete the old avatars directories below `/opt/seatable-server/seatable/seahub-data/avatars`. Don't delete the avatars folder itself and don't delete the default logos `default.png` and `app.png`. They are still used.
 
-!!! warning "Security headers might prevent the loading of the images"
+!!! note "Security headers might prevent the loading of the images"
 
     After activating S3 for avatars, the avatars are loaded directly from the S3 storage like `<img src="https://s3.us-east-2.amazonaws.com/...">`.
 
-    The Content-Security-Policy from `seatable-server.yml` might prevent this. In this case, add your S3 url to the Content-Security-Policy in your `custom-seatable-server.yml`. Read [Security settings](./webserver-security.md#accept-headers) on how to do this.
+    The default Content-Security-Policy in `seatable-server.yml` allows images from all `https:` urls, so S3 storage with https works without changes. If your S3 storage uses **http**, or if you use a stricter Content-Security-Policy, add your S3 url to the Content-Security-Policy in your `custom-seatable-server.yml`. Read [Security settings](./webserver-security.md#accept-headers) on how to do this.
 
     ```text
     caddy_0.header.Content-Security-Policy:
