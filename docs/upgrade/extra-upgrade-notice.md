@@ -37,6 +37,12 @@ COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.
     The `/dtable-server/ping/` and `/dtable-db/ping/` endpoints are not proxied by NGINX anymore and now return a 404 error.
     If you monitor these URLs from outside, remove them from your monitoring configuration.
 
+??? warning "Uptime Kuma is upgraded to version 2"
+
+    `uptime-kuma.yml` now uses Uptime Kuma 2 instead of 1.23. On the first start, Uptime Kuma migrates its database, which can take from minutes to hours.
+    Back up `/opt/uptime-kuma` before the upgrade and do not stop the container during the migration (`docker logs -f uptime-kuma` shows the progress).
+    See the [migration guide of Uptime Kuma](https://github.com/louislam/uptime-kuma/wiki/Migration-From-v1-To-v2) for details.
+
 ??? info "MariaDB starts with an increased `max-allowed-packet`"
 
     MariaDB is now started with `--max-allowed-packet=32M`, which mitigates issues with very large operations (e.g. importing large tables from XLSX files).
