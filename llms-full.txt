@@ -2839,7 +2839,9 @@ For `/dtable/external-apps-edit/`, only `Content-Security-Policy` must not be se
 
 **3. Cookies**
 
-Caddy adds `Secure` and `SameSite=None` to all cookies. `Secure` makes sure that browsers send cookies only over https. `SameSite=None` is only needed if you use SAML or embed bases into other websites. Otherwise you can leave the default of SeaTable (`SameSite=Lax`), which gives better protection against cross-site requests.
+SeaTable sets its cookies with `SameSite=Lax` and without the `Secure` flag. `Secure` makes sure that browsers send cookies only over https. Add it in your proxy (see the example below) or in `dtable_web_settings.py`, as described in [Security settings](./webserver-security.md#cookies).
+
+`SameSite=None` is only needed if you use SAML or [embed bases into other websites](../../configuration/components/dtable-web.md#embed-bases-into-other-webpages). Otherwise keep `SameSite=Lax`, which gives better protection against cross-site requests.
 
 **Example configuration for nginx**
 
@@ -3065,10 +3067,13 @@ The exact configuration depends on your DNS provider. In most cases, the API tok
           caddy_0.tls.dns: "cloudflare ${CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
     ```
 
-Add both files to the `COMPOSE_FILE` variable in your `.env` file, after the default files:
+Add both files at the end of the `COMPOSE_FILE` variable in your `.env` file. Keep all files that are already in the list:
 
 ```ini
-COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-caddy.yml,custom-seatable-server.yml'
+# before
+COMPOSE_FILE='caddy.yml,seatable-server.yml,...'
+# after
+COMPOSE_FILE='caddy.yml,seatable-server.yml,...,custom-caddy.yml,custom-seatable-server.yml'
 ```
 
     If you have deployed additional components such as [Collabora](../components/collabora.md) or [n8n](../components/n8n.md) that are directly exposed by Caddy
@@ -3409,14 +3414,16 @@ Replace the `...` with the current values from `seatable-server.yml`.
 
 ## Cookies
 
-With the default Caddy configuration, all cookies get the `Secure` flag, so browsers send them only over https. This is done by the `caddy_0.header.Set-Cookie` label in `seatable-server.yml`.
+By default, SeaTable sets its cookies without the `Secure` flag. With this flag, browsers send the cookies only over https. If your SeaTable Server uses https, add these options to `dtable_web_settings.py` and restart SeaTable:
 
-    If you [replaced Caddy with another proxy](./custom-proxy.md), your proxy must add the `Secure` flag, or you add these options to `dtable_web_settings.py`:
+```python
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+```
 
-    ```python
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-    ```
+    Do not set these options if your SeaTable Server uses http (see [HTTP only](./http-only.md)). Browsers do not send `Secure` cookies over http, so nobody could log in anymore.
+
+If you use SAML or embed bases into other websites, you also need `SameSite=None`. Read [Embed bases into other webpages](../../configuration/components/dtable-web.md#embed-bases-into-other-webpages).
 
 ## DNSSEC
 
@@ -3704,8 +3711,13 @@ Caddy is configured with Docker labels. Every service that Caddy makes available
 
     Instead, create an additional `custom-<name>.yml` file that **only contains your changes**, and add it to the `COMPOSE_FILE` variable in your `.env` file, **after** the original file. Docker Compose merges both files. A label in your custom file adds a new setting or replaces the label with the same name. Read [Customizations](../../configuration/customizations.md) for details.
 
+    Keep all files that are already in the list and add your custom files at the end:
+
     ```ini
-    COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-caddy.yml,custom-seatable-server.yml'
+    # before
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,...'
+    # after
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,...,custom-caddy.yml,custom-seatable-server.yml'
     ```
 
 **Which label prefix to use**
