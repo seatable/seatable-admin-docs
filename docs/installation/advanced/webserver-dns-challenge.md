@@ -112,10 +112,13 @@ The exact configuration depends on your DNS provider. In most cases, the API tok
           caddy_0.tls.dns: "cloudflare ${CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
     ```
 
-Add both files to the `COMPOSE_FILE` variable in your `.env` file, after the default files:
+Add both files at the end of the `COMPOSE_FILE` variable in your `.env` file. Keep all files that are already in the list:
 
 ```ini
-COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-caddy.yml,custom-seatable-server.yml'
+# before
+COMPOSE_FILE='caddy.yml,seatable-server.yml,...'
+# after
+COMPOSE_FILE='caddy.yml,seatable-server.yml,...,custom-caddy.yml,custom-seatable-server.yml'
 ```
 
 !!! warning "Additional components require the same `caddy.tls.dns` label"
