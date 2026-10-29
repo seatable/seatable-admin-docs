@@ -37,11 +37,17 @@ COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.
     The `/dtable-server/ping/` and `/dtable-db/ping/` endpoints are not proxied by NGINX anymore and now return a 404 error.
     If you monitor these URLs from outside, remove them from your monitoring configuration.
 
-??? warning "Uptime Kuma is upgraded to version 2"
+??? warning "Major upgrades of additional components"
 
-    `uptime-kuma.yml` now uses Uptime Kuma 2 instead of 1.23. On the first start, Uptime Kuma migrates its database, which can take from minutes to hours.
-    Back up `/opt/uptime-kuma` before the upgrade and do not stop the container during the migration (`docker logs -f uptime-kuma` shows the progress).
-    See the [migration guide of Uptime Kuma](https://github.com/louislam/uptime-kuma/wiki/Migration-From-v1-To-v2) for details.
+    Some additional components get a new major version. This only affects you if you use them. Back up their data before the upgrade.
+
+    | Component | Upgrade | What to know |
+    | --- | --- | --- |
+    | Uptime Kuma | 1.23 → 2.5 | The database is migrated on the first start. This can take from minutes to hours. Back up `/opt/uptime-kuma` and do not stop the container during the migration (`docker logs -f uptime-kuma` shows the progress). See the [migration guide](https://github.com/louislam/uptime-kuma/wiki/Migration-From-v1-To-v2). |
+    | Zabbix | 6.4 → 7.0 LTS | The database `zabbix` is upgraded automatically on the first start of `zabbix-server` (`docker logs -f zabbix-server` shows the progress). Zabbix 6.4 does not start with MariaDB 11.8. |
+    | Dozzle | 8 → 11 | Your existing `users.yml` keeps working. |
+    | Collabora Online | 25.04 → 26.04 | The image no longer contains a shell, so `docker exec -it collabora bash` does not work anymore. |
+    | OnlyOffice | 9.4 → 10.0 | `onlyoffice.yml` now uses the tag `10.0`, so you get new 10.0 patch releases with `docker compose pull`. |
 
 ??? info "MariaDB starts with an increased `max-allowed-packet`"
 
