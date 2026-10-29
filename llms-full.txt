@@ -2798,7 +2798,121 @@ You can use any proxy as long as your forward all traffic to the SeaTable Server
 
 Remove `caddy.yml` from COMPOSE_FILE from .env file. Restart all docker containers. Forward all traffic to the SeaTable Container via port 80.
 
-    Please be aware that SeaTable does not expose port 80 to the outside. Therefore your proxy has to be in the same docker network. Otherwise you have to expose port 80 of SeaTable Server.
+    Please be aware that SeaTable does not expose port 80 to the outside. Therefore your proxy has to be in the same docker network. Otherwise you have to expose port 80 of SeaTable Server, see [Proxy outside of the docker network](#proxy-outside-of-the-docker-network).
+
+## Required settings for your proxy
+
+Caddy does more than forwarding requests. It also sets security headers and the `X-Forwarded-*` headers that SeaTable relies on. If you replace Caddy, **your proxy must do this**. Otherwise your installation is less secure, for example the login page can be embedded in other websites (clickjacking), and IP based rate limits can be bypassed.
+
+The labels in `seatable-server.yml` are the reference for the required settings. Compare your proxy configuration with this file after each update.
+
+**1. Forwarded headers**
+
+| Header | Value | Why |
+| --- | --- | --- |
+| `Host` | the original host name | SeaTable builds links from it |
+| `X-Forwarded-For` | the client IP address, **replace** an existing value | SeaTable uses it for logs, rate limits and IP restrictions. If your proxy appends to a header sent by the client (nginx: `$proxy_add_x_forwarded_for`), anyone can send a fake IP address. |
+| `X-Forwarded-Proto` | `https` | SeaTable needs to know that the original request used https |
+
+Your proxy must also support WebSocket connections. SeaTable uses them for real-time collaboration.
+
+**2. Security headers**
+
+Set these headers on all responses, including error responses:
+
+- `Strict-Transport-Security`
+- `Referrer-Policy`
+- `X-Content-Type-Options`
+- `X-Frame-Options`
+- `Content-Security-Policy`
+
+Use the values of the `caddy_0.header.*` labels in `seatable-server.yml`. Some pages must be embeddable in other websites, for example forms and external links. For these paths, `X-Frame-Options` and `Content-Security-Policy` must not be set:
+
+- `/dtable/view-external-links/`
+- `/dtable/external-links/`
+- `/dtable/external-apps/`
+- `/dtable/forms/`
+- `/apps/custom/`
+- `/external-apps/`
+
+For `/dtable/external-apps-edit/`, only `Content-Security-Policy` must not be set.
+
+**3. Cookies**
+
+Caddy adds `Secure` and `SameSite=None` to all cookies. `Secure` makes sure that browsers send cookies only over https. `SameSite=None` is only needed if you use SAML or embed bases into other websites. Otherwise you can leave the default of SeaTable (`SameSite=Lax`), which gives better protection against cross-site requests.
+
+**Example configuration for nginx**
+
+This example shows the required settings for nginx. Replace the host name, the certificate paths and the Content-Security-Policy. It assumes that nginx runs in the same Docker network as SeaTable Server.
+
+Create a file `seatable-headers.conf` with the headers that all paths get:
+
+```nginx
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+add_header Referrer-Policy "same-origin" always;
+add_header X-Content-Type-Options "nosniff" always;
+```
+
+Then configure the server:
+
+```nginx
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+server {
+    listen 443 ssl;
+    server_name seatable.example.com;
+
+    ssl_certificate     /etc/nginx/certs/seatable.crt;
+    ssl_certificate_key /etc/nginx/certs/seatable.key;
+
+    proxy_http_version 1.1;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Forwarded-For   $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Upgrade           $http_upgrade;
+    proxy_set_header Connection        $connection_upgrade;
+    proxy_read_timeout 1200s;
+    client_max_body_size 0;
+
+    # add "samesite=none" only if you use SAML or embed bases
+    proxy_cookie_flags ~ secure;
+
+    location / {
+        include /etc/nginx/seatable-headers.conf;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        # copy the value from caddy_0.header.Content-Security-Policy in seatable-server.yml
+        add_header Content-Security-Policy "..." always;
+        proxy_pass http://seatable-server:80;
+    }
+
+    # app editor: frame protection, but no Content-Security-Policy
+    location /dtable/external-apps-edit/ {
+        include /etc/nginx/seatable-headers.conf;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        proxy_pass http://seatable-server:80;
+    }
+
+    # pages that can be embedded in other websites
+    location ~ ^/(dtable/(view-external-links|external-links|external-apps|forms)|apps/custom|external-apps)/ {
+        include /etc/nginx/seatable-headers.conf;
+        proxy_pass http://seatable-server:80;
+    }
+}
+```
+
+    If a `location` block contains an `add_header` directive, nginx ignores all `add_header` directives of the `server` block. This is why every `location` includes `seatable-headers.conf`.
+
+**Check the result**
+
+```bash
+curl -sI https://seatable.example.com/accounts/login/ | grep -i -E "strict|referrer|nosniff|x-frame|content-security"
+curl -sI https://seatable.example.com/does-not-exist | grep -i strict
+```
+
+All five headers must be present on the login page, and `Strict-Transport-Security` also on the 404 page.
 
 ## Custom proxy with additional components
 
@@ -2818,7 +2932,28 @@ In this case, you use another (sub)domain to access the service. You create a pr
 
 ## Proxy outside of the docker network
 
-To use a proxy outside of your Docker network, you’ll need to expose port 80 on your SeaTable server and route all traffic through it. Alternatively, you can expose a different port and forward it to the internal port 80 on Nginx.
+To use a proxy outside of your Docker network, you have to publish port 80 of SeaTable Server. Do this in a `custom-seatable-server.yml` file and add it to the `COMPOSE_FILE` variable in your `.env` file (see [Customizations](../../configuration/customizations.md)).
+
+    Docker bypasses the firewall of your host for published ports. With `ports: - 80:80`, everyone can reach SeaTable directly, without your proxy, its security headers and its https. Anyone can also send a fake `X-Forwarded-For` header.
+
+    Always bind the port to a specific address:
+
+    - Your proxy runs on the **same host**: bind the port to `127.0.0.1`.
+    - Your proxy runs on **another host**: bind the port to the internal IP address of your server and allow access only from your proxy, for example in the `DOCKER-USER` chain of your firewall.
+
+```yaml
+# custom-seatable-server.yml
+---
+services:
+  seatable-server:
+    ports:
+      # proxy on the same host
+      - "127.0.0.1:8080:80"
+      # or: proxy on another host, use the internal IP address of this server
+      # - "10.0.0.5:8080:80"
+```
+
+Your proxy then forwards all traffic to this address and port. The [required settings](#required-settings-for-your-proxy) apply in the same way.
 
 Because network configurations vary widely, it’s difficult to provide specific instructions for every setup. This approach requires familiarity with networking and routing concepts.
 
@@ -2859,9 +2994,9 @@ When using the DNS challenge:
     - A dedicated DNS API user  
     - Appropriate zone permissions  
 
-## Step 1: Replace the Default Caddy Configuration
+## Step 1: Build a Custom Caddy Image
 
-Instead of using the default `caddy.yml`, create a new YAML file that builds a custom Caddy container.
+Keep the default `caddy.yml` and create an additional `custom-caddy.yml` that only replaces the image of the Caddy container. All other settings (ports, volumes, networks) still come from `caddy.yml`, so you keep your certificates and get future changes of `caddy.yml` with each update.
 
 Your custom Caddy must include two plugins:
 
@@ -2875,9 +3010,12 @@ Even though ports 80 and 443 are still mapped internally, they do **not** need t
 Below is an example using the **Hetzner DNS plugin**:
 
 ```yaml
+# custom-caddy.yml
 ---
 services:
   caddy:
+    image: seatable-caddy-dns:local
+    pull_policy: build
     build:
       dockerfile_inline: |
         ARG CADDY_VERSION=2.10.2
@@ -2892,45 +3030,50 @@ services:
         COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
         CMD ["caddy", "docker-proxy"]
-    container_name: caddy
-    restart: unless-stopped
-    environment:
-      - CADDY_INGRESS_NETWORKS=frontend-net
-    networks:
-      - frontend-net
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./volumes/caddy:/data
-
-networks:
-  frontend-net:
-    name: frontend-net
 ```
+
+`pull_policy: build` makes sure that Docker Compose builds the image locally and does not try to download it.
+
+    Earlier versions of this guide replaced `caddy.yml` with a complete custom file. If you use such a file, replace it with the `custom-caddy.yml` above and add `caddy.yml` again to your `COMPOSE_FILE`. The old file stored the certificates in another directory, so Caddy requests new certificates after the change.
 
 ## Step 2: Configure TLS for SeaTable
 
-Next, configure Caddy to use the DNS challenge by adding the `caddy.tls` labels to your SeaTable service definition.
+Next, configure Caddy to use the DNS challenge. Add the `caddy_0.tls` labels for SeaTable Server to your `custom-seatable-server.yml`:
 
 The exact configuration depends on your DNS provider. In most cases, the API token must have permission to manage DNS records for the corresponding zone.
 
 === "Hetzner"
 
-    ```text
-    caddy_0.tls.dns: "hetzner ${HETZNER_DNS_TOKEN:?Variable is not set or empty}"
-    caddy_0.tls.propagation_delay: 30s
+    ```yaml
+    # custom-seatable-server.yml
+    ---
+    services:
+      seatable-server:
+        labels:
+          caddy_0.tls.dns: "hetzner ${HETZNER_DNS_TOKEN:?Variable is not set or empty}"
+          caddy_0.tls.propagation_delay: 30s
     ```
 
 === "Cloudflare"
 
-    ```text
-    caddy_0.tls.dns: "cloudflare {CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
+    ```yaml
+    # custom-seatable-server.yml
+    ---
+    services:
+      seatable-server:
+        labels:
+          caddy_0.tls.dns: "cloudflare ${CLOUDFLARE_API_TOKEN:?Variable is not set or empty}"
     ```
+
+Add both files to the `COMPOSE_FILE` variable in your `.env` file, after the default files:
+
+```ini
+COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-caddy.yml,custom-seatable-server.yml'
+```
 
     If you have deployed additional components such as [Collabora](../components/collabora.md) or [n8n](../components/n8n.md) that are directly exposed by Caddy
     and they use the same hostname as your SeaTable installation, you need to also add the `caddy.tls.dns` label to these services.
+    Use a custom file for each component, for example `custom-n8n.yml` or `custom-collabora.yml`. These components use the prefix `caddy` (without `_0`).
 
     Otherwise Caddy will log the following error:
 
@@ -3012,15 +3155,15 @@ Instead, any customizations should be placed inside a dedicated `custom-seatable
 Please read our guide that explains how to [customize the configuration](../../configuration/customizations.md) of your SeaTable instance before proceeding.
 
 This `custom-seatable-server.yml` file needs to contain overrides that advise Caddy to use your custom certificates.
-This is achieved through the `caddy.tls` label:
+This is achieved through the `caddy_0.tls` label:
 
 ```yaml
 # configuration of custom-seatable-server.yml
 services:
   seatable-server:
     labels:
-      caddy: ${SEATABLE_SERVER_HOSTNAME}
-      caddy.tls: "/data/caddy/certs/cert.pem /data/caddy/certs/key.pem"
+      caddy_0: ${SEATABLE_SERVER_HOSTNAME}
+      caddy_0.tls: "/data/caddy/certs/cert.pem /data/caddy/certs/key.pem"
 ```
 
     If you're using a non-public url like "my-custom-setup.local", you have to make sure, that the docker container can resolve this DNS query. If you don't run your own DNS servers, you have to add `extra_hosts` to your `.yml` file.
@@ -3092,8 +3235,8 @@ This can be achieved by adding the following lines to your `custom-seatable-serv
 services:
   seatable-server:
     labels:
-      caddy: ${SEATABLE_SERVER_HOSTNAME}
-      caddy.tls: "internal"
+      caddy_0: ${SEATABLE_SERVER_HOSTNAME}
+      caddy_0.tls: "internal"
 ```
 
 ## Problems with local IP
@@ -3238,35 +3381,39 @@ Our default deployment enforces strict security headers, which prevent the loadi
 
 If you are running your own server, you have the option to modify these security headers to allow additional sites to interact with your SeaTable server.
 
-To adjust these settings, you can modify the `seatable-server.yml` file located at `/opt/seatable-compose/seatable-server.yml`. The default configuration might look like this:
+The security headers are defined as `caddy_0.header.*` labels in `seatable-server.yml`. Do not change this file. Instead, override the header in a `custom-seatable-server.yml` file and add this file to the `COMPOSE_FILE` variable in your `.env` file, after `seatable-server.yml` (see [Advanced Settings for Caddy](./settings-caddy.md#how-to-customize-caddy)).
+
+    A label in your custom file replaces the label with the same name. Copy the **current** value of `caddy_0.header.Content-Security-Policy` from your `seatable-server.yml` and only add the sources you need. Otherwise you lose the sources that SeaTable needs, for example for Collabora, OnlyOffice or maps. Check your custom value again after each update, because new versions may add sources.
+
+**Example Configuration**
+
+This example allows images from `images.example.com`:
 
 ```yaml
-caddy.header.Content-Security-Policy: "`
-    block-all-mixed-content;
-    default-src 'none';
-    style-src 'unsafe-inline' 'self';
-    script-src 'unsafe-inline' 'unsafe-eval' 'self';
-    script-src-elem 'unsafe-inline' 'self' ${SEATABLE_SERVER_HOSTNAME}:${ONLYOFFICE_PORT:-6233} maps.googleapis.com;
-    font-src 'self' data:;
-    img-src 'self' data: blob: https: market.seatable.io mt0.google.com maps.googleapis.com maps.gstatic.com;
-    form-action 'self' ${SEATABLE_SERVER_HOSTNAME}:${COLLABORA_PORT:-6232};
-    connect-src 'self' market.seatable.io https:;
-    frame-src 'self' ${SEATABLE_SERVER_HOSTNAME}:${COLLABORA_PORT:-6232} ${SEATABLE_SERVER_HOSTNAME}:${ONLYOFFICE_PORT:-6233};
-    frame-ancestors 'self';
-    worker-src 'self' blob:;
-    manifest-src 'self';
-    object-src 'self';
-    base-uri 'self'
-    `"
+# custom-seatable-server.yml
+---
+services:
+  seatable-server:
+    labels:
+      caddy_0.header.Content-Security-Policy: "`
+        block-all-mixed-content;
+        default-src 'none';
+        ...
+        img-src 'self' data: blob: https: market.seatable.io ... images.example.com;
+        ...
+        base-uri 'self'
+        `"
 ```
 
-Create a custom copy of your `seatable-server.yml` file and modify these settings according to your specific requirements. Don't forget to link the new yml file in your `.env` file.
+Replace the `...` with the current values from `seatable-server.yml`.
 
 ## Cookies
 
-    To get these ratings, it is required to add two more options to `dtable_web_settings.py`. In one of the next versions, these parameters will probably be added by default.
+With the default Caddy configuration, all cookies get the `Secure` flag, so browsers send them only over https. This is done by the `caddy_0.header.Set-Cookie` label in `seatable-server.yml`.
 
-    ```bash
+    If you [replaced Caddy with another proxy](./custom-proxy.md), your proxy must add the `Secure` flag, or you add these options to `dtable_web_settings.py`:
+
+    ```python
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     ```
@@ -3338,9 +3485,9 @@ handle @blocked {
 
     If your server is located in a private network (e.g. your company LAN), `private_ranges` allows every client from this network. In this case, replace `private_ranges` with the Docker networks only (usually `172.16.0.0/12`) and add the allowed LAN addresses explicitly.
 
-### Step 2: Create `ip-allowlist.yml`
+### Step 2: Create `custom-ip-allowlist.yml`
 
-Create a new file `/opt/seatable-compose/ip-allowlist.yml` with the following content:
+Create a new file `/opt/seatable-compose/custom-ip-allowlist.yml` with the following content:
 
 ```yaml
 ---
@@ -3358,12 +3505,14 @@ This mounts the directory `caddy-snippets` into the Caddy container and imports 
 
     Please mount the directory and not only the file. Many editors (like vim) replace a file when saving it. A container with a single-file mount would continue to see the old version of your file.
 
-### Step 3: Add `ip-allowlist.yml` to your `.env` file
+### Step 3: Add `custom-ip-allowlist.yml` to your `.env` file
 
-`ip-allowlist.yml` must be the **last** entry of the `COMPOSE_FILE` variable inside your `.env` file:
+    Earlier versions of this guide used the name `ip-allowlist.yml`. You can keep this name, it works the same way.
+
+`custom-ip-allowlist.yml` must be the **last** entry of the `COMPOSE_FILE` variable inside your `.env` file:
 
 ```bash
-sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,ip-allowlist.yml'/" /opt/seatable-compose/.env
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,custom-ip-allowlist.yml'/" /opt/seatable-compose/.env
 ```
 
 ### Step 4: Apply the changes
@@ -3395,7 +3544,7 @@ Both commands must return `403`. From an allowed IP address, you get `302` and `
 
 ## Restrict additional components
 
-Components like Collabora Online or n8n are accessible via their own ports. Each component has its own Caddy configuration, which is not covered by the restriction of SeaTable Server. If you want to restrict these components as well, add their services to `ip-allowlist.yml`. Please note that these services use the label prefix `caddy` instead of `caddy_0`:
+Components like Collabora Online or n8n are accessible via their own ports. Each component has its own Caddy configuration, which is not covered by the restriction of SeaTable Server. If you want to restrict these components as well, add their services to `custom-ip-allowlist.yml`. Please note that these services use the label prefix `caddy` instead of `caddy_0`:
 
 ```yaml
 ---
@@ -3547,56 +3696,112 @@ Source: https://admin.seatable.com/installation/advanced/settings-caddy/
 
 # Advanced Settings for Caddy
 
+## How to Customize Caddy
+
+Caddy is configured with Docker labels. Every service that Caddy makes available has its own labels in its yml file, for example `seatable-server.yml` or `n8n.yml`.
+
+    Never change `caddy.yml`, `seatable-server.yml` or the other yml files directly, and do not copy them. They are replaced with every update, and a copy does not get future changes like new security headers.
+
+    Instead, create an additional `custom-<name>.yml` file that **only contains your changes**, and add it to the `COMPOSE_FILE` variable in your `.env` file, **after** the original file. Docker Compose merges both files. A label in your custom file adds a new setting or replaces the label with the same name. Read [Customizations](../../configuration/customizations.md) for details.
+
+    ```ini
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-caddy.yml,custom-seatable-server.yml'
+    ```
+
+**Which label prefix to use**
+
+The label prefix must match the prefix in the original yml file:
+
+| Service | Prefix | Used for |
+| --- | --- | --- |
+| `seatable-server` | `caddy_0` | SeaTable Server (`https://<your-seatable-server>`) |
+| `seatable-server` | `caddy_1` | Redirect from http to https (do not change) |
+| `caddy` | `caddy` | Global options of Caddy (no address) |
+| All other components (n8n, Collabora, OnlyOffice, ...) | `caddy` | The component |
+
+SeaTable Server needs two prefixes because it defines two configuration blocks. If you use `caddy.` instead of `caddy_0.` for SeaTable Server, Caddy creates an invalid second configuration block and ignores your setting.
+
 ## Enabling Logging for Caddy Docker Proxy
 
-To enable logging for the Lucas Lorentz Caddy Docker Proxy, you need to add a label to the **service container** (not the proxy container itself). For SeaTable Server, you can activate logging by adding the `caddy.log` label to your `seatable-server.yml` file.
+To enable logging for the Lucas Lorentz Caddy Docker Proxy, you need to add a label to the **service container** (not the proxy container itself). For SeaTable Server, you can activate logging by adding the `caddy_0.log` label to your `custom-seatable-server.yml` file.
 
 **Example Configuration**
 
-```bash
+```yaml
+# custom-seatable-server.yml
 ---
 services:
   seatable-server:
-    ...
     labels:
-      caddy: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
       # new: activate logs
-      caddy.log:
-      caddy.reverse_proxy: "{{upstreams 80}}"
-      ...
+      caddy_0.log: ""
 ```
 
 **Explanation**
 
-This label `caddy.log:` enables logging for the service and outputs logs to `stdout`. Once configured, you can view the logs using standard Docker commands, such as `docker logs <container_name> ` or `docker compose logs seatable-server`.
+This label `caddy_0.log` enables the access log of Caddy for SeaTable Server. Caddy writes these logs to the output of the **Caddy container**, not of the SeaTable Server container. You can view them with `docker logs caddy`.
 
-These logs are specific to the service container (e.g., SeaTable Server). To view logs for the Caddy proxy itself, check the logs of the Caddy proxy container.
+Only requests to SeaTable Server are logged. Requests to other components (e.g. n8n or Collabora) are only logged if you add the `caddy.log` label to these services as well.
 
 ## Preserve the Original Client IP Behind a Front Proxy
 
 If there is an additional reverse proxy (for example, a company-wide load balancer or a Cloudflare proxy) placed in front of your Caddy instance, you may notice that the SeaTable logs, web interface, or the underlying Nginx access logs only show the proxy’s IP address instead of the real client IP. This happens because Caddy treats the front proxy as the client and therefore forwards its IP instead of the external user's one.
 
-To fix this, you can configure Caddy to forward the original client’s IP address using the `X-Forwarded-For` header.
+To fix this, Caddy must accept the `X-Forwarded-For` header, but **only from your front proxy**.
+
+    An earlier version of this page recommended this label:
+
+    ```bash
+    caddy_0.reverse_proxy.header_up: "X-Forwarded-For {http.request.header.X-Forwarded-For}"
+    ```
+
+    **Please remove it** (older configurations may use the prefix `caddy.` instead of `caddy_0.`). With this label, Caddy forwards the header from any client. Anyone can send a fake IP address and bypass rate limits, the login protection and [IP access restrictions](./ip-access-restriction.md).
 
 **Example Configuration**
 
-```bash
+Add the IP address (or network) of your front proxy to the **Caddy container** and forward only the verified client IP to the **SeaTable Server container**. You need two custom files:
+
+```yaml
+# custom-caddy.yml
+---
+services:
+  caddy:
+    labels:
+      # new: accept X-Forwarded-For only from your front proxy
+      caddy.servers.trusted_proxies: "static 203.0.113.10/32"
+      caddy.servers.trusted_proxies_strict: ""
+```
+
+```yaml
+# custom-seatable-server.yml
 ---
 services:
   seatable-server:
-    ...
     labels:
-      caddy: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
-      caddy.reverse_proxy: "{{upstreams 80}}"
-      # new: forward external ip to seatable nginx
-      caddy.reverse_proxy.header_up: "X-Forwarded-For {http.request.header.X-Forwarded-For}"
+      # new: forward only the verified client ip to seatable nginx
+      caddy_0.reverse_proxy.header_up: "X-Forwarded-For {client_ip}"
 ```
+
+Add both files to the `COMPOSE_FILE` variable in your `.env` file, after `caddy.yml` and `seatable-server.yml`, and restart with `docker compose up -d`.
 
 **Explanation**
 
-The label `caddy.reverse_proxy.header_up: "X-Forwarded-For {http.request.header.X-Forwarded-For}"` instructs Caddy to copy the existing `X-Forwarded-For` header from the incoming HTTP request (added by the front proxy) and send it to the SeaTable Nginx container. As a result, SeaTable and its embedded Nginx will correctly log and display the original client IP address instead of the proxy’s IP.
+- `caddy.servers.trusted_proxies`: Caddy accepts the `X-Forwarded-For` header only from these addresses. Replace `203.0.113.10/32` with the address of your front proxy. You can add several addresses or networks, separated by spaces.
+- `caddy.servers.trusted_proxies_strict`: Caddy reads the header from right to left and stops at the first address that is not trusted. A value that the client has added itself is ignored, even if your front proxy appends to the header instead of replacing it.
+- `caddy_0.reverse_proxy.header_up`: SeaTable gets exactly one IP address, the client IP that Caddy has verified. Requests that do not come from a trusted proxy get the address of the direct client, as without this configuration.
 
-If there is no such header from the front proxy, Caddy will automatically generate one with the client’s own address. This ensures that IP forwarding works as expected in both single-proxy and multi-proxy setups.
+**Check the result**
+
+Send a request with a fake header, once through your front proxy and once directly to Caddy (if Caddy is reachable directly):
+
+```bash
+curl -H "X-Forwarded-For: 1.2.3.4" https://<your-seatable-server>/
+tail -n 1 /opt/seatable-server/nginx-logs/dtable-web.access.log
+```
+
+The first value in the log line must be your real IP address, not `1.2.3.4`.
+
+    These services use many IP ranges, and the ranges can change. Add all ranges of your provider (for Cloudflare see [cloudflare.com/ips](https://www.cloudflare.com/ips/)) and keep the list up to date. If an address is missing, SeaTable shows the proxy IP again. This is not a security problem, but your logs are less useful.
 
 ---
 
@@ -4574,10 +4779,10 @@ After the migration is done, you can delete the old avatars directories below `/
 
     After activating S3 for avatars, the avatars are loaded directly from the S3 storage like `<img src="https://s3.us-east-2.amazonaws.com/...">`.
 
-    Security header configuration in your `seatable-server.yml` might prevent this and you need your S3 url to the Content-Security-Policy.
+    The default Content-Security-Policy in `seatable-server.yml` allows images from all `https:` urls, so S3 storage with https works without changes. If your S3 storage uses **http**, or if you use a stricter Content-Security-Policy, add your S3 url to the Content-Security-Policy in your `custom-seatable-server.yml`. Read [Security settings](./webserver-security.md#accept-headers) on how to do this.
 
     ```text
-    caddy.header.Content-Security-Policy:
+    caddy_0.header.Content-Security-Policy:
         ...
         img-src 'self' data: blob: ... <your-S3-url>
     ```
