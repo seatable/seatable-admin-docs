@@ -13,7 +13,7 @@ If you are running your own server, you have the option to modify these security
 To adjust these settings, you can modify the `seatable-server.yml` file located at `/opt/seatable-compose/seatable-server.yml`. The default configuration might look like this:
 
 ```yaml
-caddy.header.Content-Security-Policy: "`
+caddy_0.header.Content-Security-Policy: "`
     block-all-mixed-content;
     default-src 'none';
     style-src 'unsafe-inline' 'self';

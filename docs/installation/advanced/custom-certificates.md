@@ -45,15 +45,15 @@ Instead, any customizations should be placed inside a dedicated `custom-seatable
 Please read our guide that explains how to [customize the configuration](../../configuration/customizations.md) of your SeaTable instance before proceeding.
 
 This `custom-seatable-server.yml` file needs to contain overrides that advise Caddy to use your custom certificates.
-This is achieved through the `caddy.tls` label:
+This is achieved through the `caddy_0.tls` label:
 
 ```yaml
 # configuration of custom-seatable-server.yml
 services:
   seatable-server:
     labels:
-      caddy: ${SEATABLE_SERVER_HOSTNAME}
-      caddy.tls: "/data/caddy/certs/cert.pem /data/caddy/certs/key.pem"
+      caddy_0: ${SEATABLE_SERVER_HOSTNAME}
+      caddy_0.tls: "/data/caddy/certs/cert.pem /data/caddy/certs/key.pem"
 ```
 
 !!! warning "DNS resolution must work inside the container"
@@ -131,8 +131,8 @@ This can be achieved by adding the following lines to your `custom-seatable-serv
 services:
   seatable-server:
     labels:
-      caddy: ${SEATABLE_SERVER_HOSTNAME}
-      caddy.tls: "internal"
+      caddy_0: ${SEATABLE_SERVER_HOSTNAME}
+      caddy_0.tls: "internal"
 ```
 
 ## Problems with local IP

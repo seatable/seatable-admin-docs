@@ -92,7 +92,7 @@ networks:
 
 ## Step 2: Configure TLS for SeaTable
 
-Next, configure Caddy to use the DNS challenge by adding the `caddy.tls` labels to your SeaTable service definition.
+Next, configure Caddy to use the DNS challenge by adding the `caddy_0.tls` labels to your SeaTable service definition.
 
 The exact configuration depends on your DNS provider. In most cases, the API token must have permission to manage DNS records for the corresponding zone.
 

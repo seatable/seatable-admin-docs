@@ -16,16 +16,16 @@ services:
   seatable-server:
     ...
     labels:
-      caddy: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
+      caddy_0: ${SEATABLE_SERVER_PROTOCOL:-https}://${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
       # new: activate logs
-      caddy.log:
-      caddy.reverse_proxy: "{{upstreams 80}}"
+      caddy_0.log:
+      caddy_0.reverse_proxy: "{{upstreams 80}}"
       ...
 ```
 
 **Explanation**
 
-This label `caddy.log:` enables logging for the service and outputs logs to `stdout`. Once configured, you can view the logs using standard Docker commands, such as `docker logs <container_name> ` or `docker compose logs seatable-server`.
+This label `caddy_0.log:` enables logging for the service and outputs logs to `stdout`. Once configured, you can view the logs using standard Docker commands, such as `docker logs <container_name> ` or `docker compose logs seatable-server`.
 
 These logs are specific to the service container (e.g., SeaTable Server). To view logs for the Caddy proxy itself, check the logs of the Caddy proxy container.
 
@@ -40,10 +40,10 @@ To fix this, Caddy must accept the `X-Forwarded-For` header, but **only from you
     An earlier version of this page recommended this label:
 
     ```bash
-    caddy.reverse_proxy.header_up: "X-Forwarded-For {http.request.header.X-Forwarded-For}"
+    caddy_0.reverse_proxy.header_up: "X-Forwarded-For {http.request.header.X-Forwarded-For}"
     ```
 
-    **Please remove it.** With this label, Caddy forwards the header from any client. Anyone can send a fake IP address and bypass rate limits, the login protection and [IP access restrictions](./ip-access-restriction.md).
+    **Please remove it** (older configurations may use the prefix `caddy.` instead of `caddy_0.`). With this label, Caddy forwards the header from any client. Anyone can send a fake IP address and bypass rate limits, the login protection and [IP access restrictions](./ip-access-restriction.md).
 
 **Example Configuration**
 
