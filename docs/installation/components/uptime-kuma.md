@@ -38,7 +38,6 @@ Your Uptime Kuma Container provides a Web UI to set up your Uptime Kuma Admin Us
 Paths:
 
 - https://deploy.seatable-demo.de/api2/ping/
-- https://deploy.seatable-demo.de/dtable-server/ping/
 - ...
 - https://deploy.seatable-demo.de:6231/healthz (n8n)
 - https://deploy.seatable-demo.de:6232/ (collabora online)
