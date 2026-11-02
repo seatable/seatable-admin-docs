@@ -1,5 +1,5 @@
 ---
-description: Deploy SeaTable AI to enable AI-powered automation steps like summarize, classify, OCR, and extract using external LLM providers.
+description: Deploy SeaTable AI to enable AI-powered features like automation steps (summarize, classify, OCR, extract) and AI-generated HTML pages using external LLM providers.
 ---
 
 # SeaTable AI Integration
@@ -7,15 +7,17 @@ description: Deploy SeaTable AI to enable AI-powered automation steps like summa
 <!-- md:version 6.0 -->
 
 SeaTable AI is a SeaTable extension that integrates AI functionality into SeaTable.
-Deploying SeaTable AI allows users to execute AI-based automation steps within SeaTable.
+Deploying SeaTable AI enables the following AI-powered features within SeaTable:
 
-At the time of writing, the following types of automation steps are supported:
-
-- **Summarize**
-- **Classify**
-- **OCR** (Optical character recognition)
-- **Extract**
-- **Custom** for individual use cases
+- **AI-based automation steps**: At the time of writing, the following types of automation steps are supported:
+    - **Summarize**
+    - **Classify**
+    - **OCR** (Optical character recognition)
+    - **Extract**
+    - **Custom** for individual use cases
+- **AI-generated HTML pages** inside universal apps (since version 7.0)
+    - This additionally requires the [HTML Server](html-server.md) component
+    - The [`ENABLE_HTML_PAGES_AI_AGENT`](html-server.md#ai-generated-html-pages) setting must be set to `True`
 
 ## Deployment
 

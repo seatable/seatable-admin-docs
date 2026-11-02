@@ -33,6 +33,19 @@ ENABLE_UNIVERSAL_APP_HTML_PAGES = True
 DTABLE_HTML_PAGES_SERVER_URL = 'https://YOUR_SEATABLE_DOMAIN/app-server/'
 ```
 
+#### AI-Generated HTML Pages
+
+<!-- md:version 7.0 -->
+
+Since version 7.0, SeaTable also allows generating HTML pages inside universal apps via AI.
+This feature requires a working [SeaTable AI](seatable-ai.md) deployment.
+
+To enable it, add the following setting to `dtable_web_settings.py` as well:
+
+```python
+ENABLE_HTML_PAGES_AI_AGENT = True
+```
+
 Do not forget to apply the configuration changes by restarting the `seatable-server` container:
 
 ```bash
