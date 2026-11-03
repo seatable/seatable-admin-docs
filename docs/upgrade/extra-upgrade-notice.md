@@ -7,10 +7,10 @@ description: Version-specific upgrade notices and required configuration changes
 ## 7.0
 
 Version v7.0 splits two components out of the `seatable-server` container into **dedicated containers**.
-Both of them are required, so you have to add `dtable-server.yml` and `automation-worker.yml` to the `COMPOSE_FILE` variable inside your `/opt/seatable-compose/.env` file before starting the upgraded instance:
+Both of them are required, so you have to add `dtable-server.yml` and `seatable-automation-worker.yml` to the `COMPOSE_FILE` variable inside your `/opt/seatable-compose/.env` file before starting the upgraded instance:
 
 ```bash
-COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml'
 ```
 
 ??? warning "dtable-server now runs in its own container"
@@ -23,14 +23,14 @@ COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,automation-worker.
 
     Please refer to the [configuration of dtable-server](../configuration/components/dtable-server.md) for more information.
 
-??? warning "Automation rules require the new automation-worker container"
+??? warning "Automation rules require the new seatable-automation-worker container"
 
     Automation rules are no longer executed inside the `seatable-server` container.
-    The new `automation-worker` container is a dedicated component that reads pending automation tasks from Redis, runs the configured actions and publishes the results back to Redis.
+    The new `seatable-automation-worker` container is a dedicated component that reads pending automation tasks from Redis, runs the configured actions and publishes the results back to Redis.
 
-    Add `automation-worker.yml` to the `COMPOSE_FILE` variable to activate it.
+    Add `seatable-automation-worker.yml` to the `COMPOSE_FILE` variable to activate it.
 
-    Please refer to [this page](../introduction/architecture.md#container-automation-worker) for more information.
+    Please refer to [this page](../introduction/architecture.md#container-seatable-automation-worker) for more information.
 
 ??? warning "Ping endpoints of `dtable-db` and `dtable-server` are no longer exposed"
 

@@ -1,26 +1,26 @@
 ---
-description: Complete reference for automation-worker configuration including workers and PDF generation settings.
+description: Complete reference for seatable-automation-worker configuration including workers and PDF generation settings.
 ---
 
-# Configuration of automation-worker
+# Configuration of seatable-automation-worker
 
-This is a cheat sheet for the possible configuration options of the [automation-worker](../../introduction/architecture.md#container-automation-worker).
+This is a cheat sheet for the possible configuration options of the [seatable-automation-worker](../../introduction/architecture.md#container-seatable-automation-worker).
 It contains all possible settings that can be configured as well as their default values.
 
-The automation-worker is a dedicated component that executes automation rules.
+The seatable-automation-worker is a dedicated component that executes automation rules.
 It reads pending automation tasks from Redis, runs the configured actions (e.g. sending emails, running Python scripts, generating PDFs or triggering AI-powered automations), and publishes the results back to Redis.
 
 The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
 
 ??? tip "Configuration changes require a restart"
 
-    New configuration options will only apply after a restart of the automation-worker.
+    New configuration options will only apply after a restart of the seatable-automation-worker.
 
 ## Environment Variables
 
 <!-- md:version 7.0 -->
 
-This section lists the environment variables read by the automation-worker.
+This section lists the environment variables read by the seatable-automation-worker.
 Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
 ### Workers

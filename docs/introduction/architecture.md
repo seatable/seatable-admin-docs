@@ -20,7 +20,7 @@ flowchart TB
             B[seatable-server<br/>80]
             C[mariadb<br/>3306]
             D[redis<br/>6379]
-            E[automation-worker]
+            E[seatable-automation-worker]
             G[dtable-server<br/>5000]
             A<-->B
             B<-->C
@@ -39,7 +39,7 @@ flowchart TB
 
 The numbers designate the ports used by the containers. Port 443 in the container `caddy` must be exposed. Port 80 must also be exposed when a Let's Encrypt SSL certificate is to be used.  All other ports are internal ports that are only available within the Docker network.
 
-All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, `dtable-server`, `automation-worker` and `mariadb` employ Docker volumes.
+All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, `dtable-server`, `seatable-automation-worker` and `mariadb` employ Docker volumes.
 
 In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
 
@@ -61,7 +61,7 @@ flowchart TB
             PSc[python-scheduler]
             PSt[python-starter]
             PR[python-runner]
-            AW[automation-worker]
+            AW[seatable-automation-worker]
             DS[dtable-server<br/>5000]
             C<-->SS
             C<-->Tld
@@ -167,13 +167,13 @@ When accessing a base, you'll be directed to the base editor, which is provided 
 
 **Note:** Previously, `dtable-server` ran inside the `seatable-server` container. With version 7.0, it has been extracted to a dedicated container.
 
-## Container automation-worker
+## Container seatable-automation-worker
 
 <!-- md:version 7.0 -->
 
-The `automation-worker` container is a dedicated component that executes automation rules. It reads pending automation tasks from Redis, runs the configured actions (e.g. sending emails, running Python scripts, generating PDFs or triggering AI-powered automations), and publishes the results back to Redis.
+The `seatable-automation-worker` container is a dedicated component that executes automation rules. It reads pending automation tasks from Redis, runs the configured actions (e.g. sending emails, running Python scripts, generating PDFs or triggering AI-powered automations), and publishes the results back to Redis.
 
-The automation-worker connects to the containers `mariadb` and `redis` to read (and write). In addition, it accesses the container `dtable-server` and the inner services of the `seatable-server` container (such as dtable-db and dtable-web) when an automation action interacts with a base.
+The seatable-automation-worker connects to the containers `mariadb` and `redis` to read (and write). In addition, it accesses the container `dtable-server` and the inner services of the `seatable-server` container (such as dtable-db and dtable-web) when an automation action interacts with a base.
 
 ## Container mariadb
 
