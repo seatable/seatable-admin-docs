@@ -37,6 +37,14 @@ COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automatio
     The `/dtable-server/ping/` and `/dtable-db/ping/` endpoints are not proxied by NGINX anymore and now return a 404 error.
     If you monitor these URLs from outside, remove them from your monitoring configuration.
 
+??? warning "`seatable-ai-standalone.yml` was removed"
+
+    This only affects you if the `COMPOSE_FILE` variable in your `.env` file contains `seatable-ai-standalone.yml`.
+
+    The file `seatable-ai-standalone.yml` is no longer part of the release artifact. Replace it with `seatable-ai.yml`.
+
+    Since `seatable-ai.yml` does not expose port 8888 to the host, you have to expose it manually via an [overrides file](../configuration/customizations.md).
+
 ??? warning "Major upgrades of additional components"
 
     Some additional components get a new major version. This only affects you if you use them. Back up their data before the upgrade.
