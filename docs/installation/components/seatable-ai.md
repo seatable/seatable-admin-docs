@@ -25,7 +25,7 @@ Deploying SeaTable AI enables the following AI-powered features within SeaTable:
 
     The SeaTable AI container does not provide any AI functionality by itself. It only manages the connection between SeaTable and an external large language model (LLM) service. You can connect it to a commercial provider (e.g., OpenAI, Deepseek) or to a self-hosted LLM running on your own infrastructure.
 
-The easiest way to deploy SeaTable AI is to deploy it on the same host as SeaTable Server. A standalone deployment (on a separate host or virtual machine) is explained [here](../advanced/seatable-ai-standalone.md).
+The easiest way to deploy SeaTable AI is to deploy it on the same host as SeaTable Server.
 
 ### Amend the .env file
 
