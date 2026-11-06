@@ -120,9 +120,18 @@ flowchart TB
             B[seatable-server<br/>80]
             C[mariadb<br/>3306]
             D[redis<br/>6379]
+            E[seatable-automation-worker]
+            G[dtable-server<br/>5000]
             A<-->B
             B<-->C
             B<-->D
+            B<-->E
+            B<-->G
+            E<-->C
+            E<-->D
+            E<-->G
+            G<-->C
+            G<-->D
         end
         F@{ shape: bow-rect, label: "Storage"}
     end
@@ -130,7 +139,7 @@ flowchart TB
 
 The numbers designate the ports used by the containers. Port 443 in the container `caddy` must be exposed. Port 80 must also be exposed when a Let's Encrypt SSL certificate is to be used.  All other ports are internal ports that are only available within the Docker network.
 
-All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, and `mariadb` employ Docker volumes.
+All Docker containers read from and write to local disk. The containers `caddy`, `seatable-server`, `dtable-server`, `seatable-automation-worker` and `mariadb` employ Docker volumes.
 
 In an extended setup, additional, optional Docker container can be deployed to add functionality to SeaTable Server. The diagram below describes all Docker containers and their interactions required for a SeaTable Server instance integrated with office editor, Python pipeline, virus scan, and whiteboard.
 
@@ -152,6 +161,8 @@ flowchart TB
             PSc[python-scheduler]
             PSt[python-starter]
             PR[python-runner]
+            AW[seatable-automation-worker]
+            DS[dtable-server<br/>5000]
             C<-->SS
             C<-->Tld
             C<-->OO
@@ -167,6 +178,13 @@ flowchart TB
             SS<-->Tld
             SS<-->CAV
             SS<-->PSc
+            SS<-->AW
+            SS<-->DS
+            AW<-->MDB
+            AW<-->R
+            AW<-->DS
+            DS<-->MDB
+            DS<-->R
         end
         F@{ shape: bow-rect, label: "Storage"}
     end
@@ -193,7 +211,6 @@ flowchart LR
     subgraph s[SeaTable Server Container]
         A[nginx<br/>80]
         B[dtable-web<br/>8000]
-        C[dtable-server<br/>5000]
         D[dtable-db<br/>7777]
         E[api-gateway<br/>7780]
         F[dtable-storage-server<br/>6666]
@@ -202,13 +219,9 @@ flowchart LR
         A<-- / -->B
         A<-- /api-gateway -->E
         A<-- /seafhttp -->H
-        B<-->C
         B<-->D
         B<-->F
-        E<-->C
         E<-->D
-        C<-->F
-        C<-->G
         D<-->F
         D<-->G
     end
@@ -221,10 +234,6 @@ All services in the container `seatable-server` connect to the containers `maria
 ### dtable-web
 
 The task of the service dtable-web is to deliver all pages except for the bases themselves. This includes essential features such as the login page, home page, system administration area, team administration, personal settings, and API endpoints. All these functionalities are provided by dtable-web, which is built on the Django framework.
-
-### dtable-server
-
-When accessing a base, you'll be directed to the base editor, which is provided by the dtable-server service. This editor loads the base's content from a JSON file, presenting it in a familiar spreadsheet interface and enabling real-time collaborative work on all data within the base. Each modification is promptly saved to the operation log (stored in MariaDB), and within minutes, these changes are persisted as a JSON file and transmitted to dtable-storage-server for storage in the attached storage system.
 
 ### dtable-db
 
@@ -245,6 +254,18 @@ When actions are not executed immediately but with a time delay, SeaTable employ
 ### api-gateway
 
 The api-gateway is a proxy for dtable-server and dtable-db. All API calls for [base operations](https://api.seatable.com/reference/getbaseinfo) are routed through this component. It is also essential for the effective enforcement of API rate and request limits.
+
+## Container dtable-server
+
+When accessing a base, you'll be directed to the base editor, which is provided by the dtable-server service. This editor loads the base's content from a JSON file, presenting it in a familiar spreadsheet interface and enabling real-time collaborative work on all data within the base. Each modification is promptly saved to the operation log (stored in MariaDB), and within minutes, these changes are persisted as a JSON file and transmitted to dtable-storage-server for storage in the attached storage system.
+
+**Note:** Previously, `dtable-server` ran inside the `seatable-server` container. With version 7.0, it has been extracted to a dedicated container.
+
+## Container seatable-automation-worker
+
+The `seatable-automation-worker` container is a dedicated component that executes automation rules. It reads pending automation tasks from Redis, runs the configured actions (e.g. sending emails, running Python scripts, generating PDFs or triggering AI-powered automations), and publishes the results back to Redis.
+
+The seatable-automation-worker connects to the containers `mariadb` and `redis` to read (and write). In addition, it accesses the container `dtable-server` and the inner services of the `seatable-server` container (such as dtable-db and dtable-web) when an automation action interacts with a base.
 
 ## Container mariadb
 
@@ -744,7 +765,7 @@ You can configure components in the `.env` file, determining which ones to insta
 Example in the `.env` file:
 
 ```bash
-COMPOSE_FILE='caddy.yml,seatable-server.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml'
 ```
 
 By adding or removing yml files from this list, you control the composition during runtime, eliminating the need for a single, extensive `docker-compose.yml` file.
@@ -907,7 +928,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
 
     ``` python
     # components to be used
-    COMPOSE_FILE='caddy.yml,seatable-server.yml' # (1)!
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml' # (1)!
     COMPOSE_PATH_SEPARATOR=','
 
     # system settings
@@ -933,7 +954,7 @@ Continue setting up your SeaTable server by adjusting only three more variables.
     SECRET_KEY='anothertopsecret'
     ```
 
-    1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml` and `seatable-server.yml` at the beginning. You will add more components at a later time.
+    1.  COMPOSE_FILE is a comma-separated list **without spaces**. This list defines which components the server runs. Leave `caddy.yml`, `seatable-server.yml`, `dtable-server.yml` and `seatable-automation-worker.yml` at the beginning. You will add more components at a later time.
     2.  A [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) is available on Wikipedia.
     3.  SEATABLE_SERVER_HOSTNAME is the (sub)domain (without http:// or https://) under which the server is accessible on (at least) port 80 and 443.
         <br>If you want to use a public IP address (e.g. 5.35.28.112), you can use the free service [nip.io](https://nip.io/). In this case, enter your your-ip.nip.io address (e.g. 5.35.28.112.nip.io).
@@ -1003,21 +1024,23 @@ Source: https://admin.seatable.com/installation/components/seatable-ai/
 # SeaTable AI Integration
 
 SeaTable AI is a SeaTable extension that integrates AI functionality into SeaTable.
-Deploying SeaTable AI allows users to execute AI-based automation steps within SeaTable.
+Deploying SeaTable AI enables the following AI-powered features within SeaTable:
 
-At the time of writing, the following types of automation steps are supported:
-
-- **Summarize**
-- **Classify**
-- **OCR** (Optical character recognition)
-- **Extract**
-- **Custom** for individual use cases
+- **AI-based automation steps**: At the time of writing, the following types of automation steps are supported:
+    - **Summarize**
+    - **Classify**
+    - **OCR** (Optical character recognition)
+    - **Extract**
+    - **Custom** for individual use cases
+- **AI-generated HTML pages** inside universal apps (since version 7.0)
+    - This additionally requires the [HTML Server](html-server.md) component
+    - The [`ENABLE_HTML_PAGES_AI_AGENT`](html-server.md#ai-generated-html-pages) setting must be set to `True`
 
 ## Deployment
 
     The SeaTable AI container does not provide any AI functionality by itself. It only manages the connection between SeaTable and an external large language model (LLM) service. You can connect it to a commercial provider (e.g., OpenAI, Deepseek) or to a self-hosted LLM running on your own infrastructure.
 
-The easiest way to deploy SeaTable AI is to deploy it on the same host as SeaTable Server. A standalone deployment (on a separate host or virtual machine) is explained [here](../advanced/seatable-ai-standalone.md).
+The easiest way to deploy SeaTable AI is to deploy it on the same host as SeaTable Server.
 
 ### Amend the .env file
 
@@ -1243,6 +1266,25 @@ seatable-ai:
 
     `tier` supports the following values: `low`, `medium` and `high`
 
+##### Reasoning Effort
+
+Since version 7.0, SeaTable AI allows you to configure the `reasoning_effort` for each LLM provider.
+This setting controls how much "thinking" a reasoning model performs before generating its response. Lower values result in faster responses and lower costs, while higher values can improve the results for more complex tasks.
+
+Simply add `reasoning_effort` to the corresponding entry under `global.LLM_MODELS` within `seatable_config.yaml`:
+
+```yaml
+global:
+  LLM_MODELS:
+    - type: openai
+      key: <your openai LLM access key>
+      model: <model-id>
+      reasoning_effort: low
+```
+
+    The value is passed to the LLM provider through [LiteLLM](https://docs.litellm.ai/docs/reasoning_content). Commonly supported values are `low`, `medium` and `high`.
+    Please note that the setting only has an effect on models that support reasoning. Refer to your provider's documentation for the values supported by your model.
+
 ### LLM Timeout Configuration (Optional)
 
 You can configure the communication timeout with the LLM service by specifying `SEATABLE_AI_LLM_TIMEOUT` in `.env` (the default is 180 seconds):
@@ -1293,6 +1335,17 @@ Simply replace `YOUR_SEATABLE_DOMAIN` with your hostname:
 ```python
 ENABLE_UNIVERSAL_APP_HTML_PAGES = True
 DTABLE_HTML_PAGES_SERVER_URL = 'https://YOUR_SEATABLE_DOMAIN/app-server/'
+```
+
+#### AI-Generated HTML Pages
+
+Since version 7.0, SeaTable also allows generating HTML pages inside universal apps via AI.
+This feature requires a working [SeaTable AI](seatable-ai.md) deployment.
+
+To enable it, add the following setting to `dtable_web_settings.py` as well:
+
+```python
+ENABLE_HTML_PAGES_AI_AGENT = True
 ```
 
 Do not forget to apply the configuration changes by restarting the `seatable-server` container:
@@ -1387,7 +1440,7 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,python-pipeline.yml'/" /opt/sea
     When manually adding `python-pipeline.yml` to the `COMPOSE_FILE` variable using your preferred text editor, make sure that you do not enter a space (:material-keyboard-space:). After the modification, your `COMPOSE_FILE` variable should look like this:
 
     ```bash
-    COMPOSE_FILE='caddy.yml,seatable-server.yml,python-pipeline.yml'
+    COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml,python-pipeline.yml'
     ```
 
 #### Generate a shared secret for secure communication
@@ -2117,7 +2170,7 @@ nano /opt/seatable-compose/.env
 Your COMPOSE_FILE variable should look something like this:
 
 ```bash
-COMPOSE_FILE='seatable-docker-proxy.yml,seatable-server.yml,uptime-kuma.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml,uptime-kuma.yml'
 ```
 
 ### Update the compose project
@@ -2136,7 +2189,6 @@ Your Uptime Kuma Container provides a Web UI to set up your Uptime Kuma Admin Us
 Paths:
 
 - https://deploy.seatable-demo.de/api2/ping/
-- https://deploy.seatable-demo.de/dtable-server/ping/
 - ...
 - https://deploy.seatable-demo.de:6231/healthz (n8n)
 - https://deploy.seatable-demo.de:6232/ (collabora online)
@@ -2599,11 +2651,19 @@ Source: https://admin.seatable.com/installation/faq/
 
 ??? question "Check dtable-server"
 
-    You can check the status of `dtable-server` by executing the following curl request:
+    You can check the status of `dtable-server` by executing the following command:
 
-    ```bash
-    curl https://$SEATABLE_SERVER_HOSTNAME/dtable-server/ping/
-    ```
+    === "Version 6.2 and earlier"
+
+        ```bash
+        curl https://$SEATABLE_SERVER_HOSTNAME/dtable-server/ping/
+        ```
+
+    === "Version 7.0 and later"
+
+        ```bash
+        docker exec -it dtable-server curl http://127.0.0.1:5000/ping/
+        ```
 
     If `dtable-server` does not reply, it might be stuck in a reboot loop.
     This can happen if too many large bases are loaded at once or too many pending operations need to be replayed.
@@ -2612,7 +2672,7 @@ Source: https://admin.seatable.com/installation/faq/
     As a workaround, you can increase the timeout for the healthcheck request to give `dtable-server` more time to load bases and apply pending operations.
     This can be achieved by increasing the value of the `DTABLE_SERVER_PING_TIMEOUT` environment variable (the default is `20`).
 
-    **Note:** This variable is not part of the default `seatable-server.yml` file, so you need to include an additional `.yml` file in order to configure this variable.
+    **Note:** This variable is not part of the default `seatable-server.yml` (v6.2 and earlier)/`dtable-server.yml` (v7.0 and later) file, so you need to include an additional `.yml` file in order to configure this variable.
 
 ??? question "Check nginx"
 
@@ -3823,89 +3883,6 @@ The first value in the log line must be your real IP address, not `1.2.3.4`.
 
 ## SeaTable AI
 
-Source: https://admin.seatable.com/installation/advanced/seatable-ai-standalone/
-
-# Standalone Deployment of SeaTable AI
-
-This guide describes the standalone deployment of `seatable-ai` on a dedicated server or virtual machine.
-
-## Prerequisites
-
-- You have successfully installed [Docker and Docker-Compose](../basic-setup.md#install-docker-and-docker-compose-plugin)
-- You have [downloaded the latest `.yml` files](../basic-setup.md#create-basic-structure) from the `seatable-release` GitHub repository
-- The hosts destined to run `seatable-ai` and other SeaTable components are attached to the same private network
-
-## SeaTable AI Configuration
-
-The following section outlines an `.env` file with the settings needed to run `seatable-ai`.
-These changes should be made inside `/opt/seatable-compose/.env`:
-
-```ini
-COMPOSE_FILE='seatable-ai-standalone.yml'
-COMPOSE_PATH_SEPARATOR=','
-
-# system settings
-TIME_ZONE='Europe/Berlin'
-
-# database
-MARIADB_HOST=
-MARIADB_PORT=3306
-MARIADB_PASSWORD=
-
-# redis
-REDIS_HOST=
-REDIS_PORT=6379
-REDIS_PASSWORD=
-
-# This private key must have the same value as the JWT_PRIVATE_KEY variable on other SeaTable nodes
-JWT_PRIVATE_KEY=
-
-SECRET_KEY=
-
-# Public URL of your SeaTable server
-SEATABLE_SERVER_URL=https://seatable.your-domain.com
-
-# Cluster-internal URL of dtable-server
-INNER_DTABLE_SERVER_URL=http://dtable-server:5000
-
-# Cluster-internal URL of dtable-db
-INNER_DTABLE_DB_URL=http://dtable-db:7777
-```
-
-    By default, the ports of `dtable-server` (5000) and `dtable-db` (7777) are not exposed to the host. This requires a manual change inside the `.yml` file.
-
-### LLM Provider Configuration
-
-Please refer to the documentation on [configuring your LLM provider of choice](../components/seatable-ai.md#llm-provider-configuration).
-These configuration details do not change depending on the deployment topology of `seatable-server` and `seatable-ai`.
-
-### Start SeaTable AI
-
-You can now start SeaTable AI by running the following command inside your terminal:
-
-```bash
-cd /opt/seatable-compose
-docker compose up -d
-```
-
-## Configuration of SeaTable Server
-
-Since `seatable-ai` is now running on a separate host or virtual machine, the following configuration changes must be made inside the `.env` file on the host running the `seatable-server` container:
-
-```ini
-ENABLE_SEATABLE_AI=true
-INNER_SEATABLE_AI_SERVER_URL='http://seatable-ai.example.com:8888'
-```
-
-Restart the `seatable-server` service and test your SeaTable AI:
-
-```bash
-cd /opt/seatable-compose
-docker compose up -d
-```
-
----
-
 Source: https://admin.seatable.com/installation/advanced/seatable-ai-token-pricing/
 
 # AI Token Pricing
@@ -4348,6 +4325,9 @@ Using environment variables has numerous advantages:
 
 To enable S3 storage for base snapshots, files, pictures and avatars, add `seatable-s3.yml` to the `COMPOSE_FILE` variable inside your `.env` file.
 This instructs Docker-Compose to extend the definition of the `seatable-server` service defined inside `seatable-server.yml`.
+
+    Starting from version 7.0, `seatable-s3.yml` also passes the required S3 environment variables to the `dtable-server` and `seatable-automation-worker` containers, not only to `seatable-server`.
+    No additional configuration is required.
 
 Afterwards, you must configure a few environment variables inside your `.env` file. The following table contains examples for the most common object storage providers:
 
@@ -8298,20 +8278,31 @@ Some tips on how to select LDAP_BASE_DN and LDAP_ADMIN_DN:
 - If you only want people in a certain department to be able to access, you can limit the scope to a certain OU. You can use the `dsquery` command-line tool to find the DN of the corresponding OU. For example, if the name of the OU is `staffs`, you can run `dsquery ou -name staff`. More information can be found [here](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc770509(v=ws.11)>).
 - Although AD supports the use of usernames in email address format as `LDAP_ADMIN_DN` such as administrator@example.com, it sometimes does not correctly recognize this format. At this point, you can use `dsquery` to find the DN of the user. For example, if the username is `seatableuser`, run `dsquery user -name seatableuser` to find the user. More information can be found [here](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc725702(v=ws.11)>).
 
+    After configuring LDAP, run `/opt/seatable-compose/tools/check-ldap.sh`. The script reads the LDAP settings from `/opt/seatable-server/seatable/conf/dtable_web_settings.py`, shows your attribute mapping, and prints an `ldapsearch` command that returns up to three entries. You then run this command yourself, because the script does not connect to the LDAP server.
+
+    `ldapsearch` must be installed on the host. On Debian-based distributions, install it with `sudo apt install ldap-utils`. The printed command contains `LDAP_ADMIN_PASSWORD` in plain text, so do not share the output.
+
 The following parameters are also available, but optional:
 
-| Parameter                 | Description                                                                                                                                                                                                                                                                                                                      | Values                                                           |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| LDAP_FILTER               | Filter for users who can log in, e.g. a certain security group                                                                                                                                                                                                                                                                   | LDAP filter, e.g. `memberOf=CN=SeaTable_Users,…`                 |
-| LDAP_USER_UNIQUE_ID       | LDAP attribute whose value is stored as the user's `uid` in `social_auth_usersocialauth` and used to recognize a returning user. Choose an attribute that never changes over the user's lifetime, because if it changes, SeaTable treats the user as new. Binary GUID/UUID values are decoded automatically; default value is '' | Attribute name, e.g. `objectGUID` (AD) or `entryUUID` (OpenLDAP) |
-| LDAP_GROUP_FILTER         | Additional filter applied when searching for groups to synchronize (group sync only). It is combined with the configured group object class using a logical AND. Leave empty to sync all groups of that class; default value is ''                                                                                               | LDAP filter, e.g. `cn=SeaTable*`                                 |
-| LDAP_USER_ROLE_ATTR       | Name of user role in the LDAP server                                                                                                                                                                                                                                                                                             | Attribute name, e.g. `title`                                     |
-| LDAP_USER_FIRST_NAME_ATTR | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                                                                                                                                                                                         | Attribute name, e.g. `givenName`                                 |
-| LDAP_USER_LAST_NAME_ATTR  | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                                                                                                                                                                                        | Attribute name, e.g. `sn`                                        |
-| LDAP_USER_NAME_REVERSE    | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                                                                                                                                                                                 | `True` or `False`                                                |
-| LDAP_SAML_USE_SAME_UID    | Use SAML for login and LDAP only for synchronization, mapping both to one shared account; disables interactive LDAP login (see [LDAP and SAML](#ldap-and-saml))                                                                                                                                                                  | `True` or `False`                                                |
-| LDAP_CONTACT_EMAIL_ATTR   | Alternative attribute as a mail address when LDAP_LOGIN_ATTR is not `mail`; the attribute overrides the email address imported through LOGIN_ATTR; default value is ''                                                                                                                                                           |                                                                  |
-| LDAP_EMPLOYEE_ID_ATTR     | ID of the employee                                                                                                                                                                                                                                                                                                               | Attribute name, e.g. `33`                                        |
+| Parameter                   | Description                                                                                                                                                                                                                                                                                                                                                                  | Values                                                           |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| LDAP_FILTER                 | Filter for users who can log in, e.g. a certain security group                                                                                                                                                                                                                                                                                                               | LDAP filter, e.g. `memberOf=CN=SeaTable_Users,…`                 |
+| LDAP_USER_UNIQUE_ID         | Additional LDAP attribute used to find an existing user when no account matches the value of LDAP_LOGIN_ATTR. It only matches accounts with a record in `social_auth_usersocialauth` whose `uid` already contains this value, because new accounts store the value of LDAP_LOGIN_ATTR as their `uid`. Binary GUID/UUID values are decoded automatically; default value is '' | Attribute name, e.g. `objectGUID` (AD) or `entryUUID` (OpenLDAP) |
+| LDAP_GROUP_FILTER           | Additional filter applied when searching for groups to synchronize (group sync only). It is combined with the configured group object class using a logical AND. Leave empty to sync all groups of that class; default value is ''                                                                                                                                           | LDAP filter, e.g. `cn=SeaTable*`                                 |
+| LDAP_USER_ROLE_ATTR         | Name of user role in the LDAP server                                                                                                                                                                                                                                                                                                                                         | Attribute name, e.g. `title`                                     |
+| LDAP_USER_FIRST_NAME_ATTR   | First part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                                                                                                                                                                                                                                     | Attribute name, e.g. `givenName`                                 |
+| LDAP_USER_LAST_NAME_ATTR    | Second part of the user's SeaTable nickname when nickname is spliced; default value is ''                                                                                                                                                                                                                                                                                    | Attribute name, e.g. `sn`                                        |
+| LDAP_USER_NAME_REVERSE      | Option to reverse order of first name and last name f spliced nickname; default value is `False`                                                                                                                                                                                                                                                                             | `True` or `False`                                                |
+| LDAP_SAML_USE_SAME_UID      | Use SAML for login and LDAP only for synchronization, mapping both to one shared account; disables interactive LDAP login (see [LDAP and SAML](#ldap-and-saml))                                                                                                                                                                                                              | `True` or `False`                                                |
+| LDAP_CONTACT_EMAIL_ATTR     | Attribute used as the user's contact email address. If it is not set, LDAP Auth uses the value entered at login. LDAP Sync has no such fallback, so set this attribute when using LDAP Sync; default value is ''                                                                                                                                                             | Attribute name, e.g. `mail`                                      |
+| LDAP_EMPLOYEE_ID_ATTR       | ID of the employee                                                                                                                                                                                                                                                                                                                                                           | Attribute name, e.g. `33`                                        |
+| LDAP_UPDATE_USER_WHEN_LOGIN | Whether the name and contact email address are updated from LDAP at login. A manually set contact email address is kept. Role and employee ID are always updated if LDAP provides them. This option does not affect LDAP Sync; default value is `True`                                                                                                                       | `True` or `False`                                                |
+
+    SeaTable builds the display name from LDAP_USER_FIRST_NAME_ATTR and LDAP_USER_LAST_NAME_ATTR. Setting one of them is sufficient, for example to an attribute that contains the full name. If neither provides a value, SeaTable displays the first part of the random `username` instead of a name.
+
+    SeaTable finds an LDAP user through the combination of `LDAP_PROVIDER` and the `uid` in `social_auth_usersocialauth`. For new accounts, the `uid` is the value of LDAP_LOGIN_ATTR.
+
+    If you change `LDAP_PROVIDER`, or if a user's value of LDAP_LOGIN_ATTR changes, SeaTable no longer finds the existing account and creates a new one. If the login value changes while LDAP Sync is enabled, the sync also deactivates the old account. The only exception is an account that also has a record matching LDAP_USER_UNIQUE_ID.
 
 To enable LDAP authentication via SASL, add the following parameters to `dtable_web_settings.py`:
 
@@ -8322,6 +8313,15 @@ To enable LDAP authentication via SASL, add the following parameters to `dtable_
 | SASL_AUTHC_ID_ATTR | User attribute used for [authentication identity mapping](https://www.openldap.org/doc/admin26/sasl.html#Mapping%20Authentication%20Identities) | Attribute name, e.g. `uid`, `cn`                                 |
 
 ## LDAP Synchronisation
+
+On each run, LDAP Sync does the following:
+
+- It creates an account for each new user found in the LDAP directory. New accounts are active unless `ACTIVATE_USER_WHEN_IMPORT = False` is set.
+- It updates the name, contact email address, role, and employee ID of existing users. A manually set contact email address is kept.
+- It deactivates accounts that the LDAP search no longer returns, for example because of a changed `LDAP_FILTER`. The accounts are not deleted, and the sync does not reactivate them.
+- If `LDAP_SYNC_GROUP` is enabled, it creates and renames synced groups and adds or removes their members.
+
+    If a synced group or department is no longer found in LDAP, SeaTable removes it, deletes its bases, and marks its workspace as deleted. This also applies if the group is only excluded by a changed `LDAP_GROUP_FILTER`. Check your filter before you change it.
 
 To enable LDAP synchronisation (LDAP Sync), LDAP Auth must be configured and the following parameters added to `dtable_web_settings`:
 
@@ -9095,7 +9095,7 @@ it is sufficient to set/modify these variables directly inside your `.env` file.
 
 ```ini
 # components to be used
-COMPOSE_FILE='caddy.yml,seatable-server.yml' # (1)!
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml' # (1)!
 COMPOSE_PATH_SEPARATOR=','
 
 # system settings
@@ -9231,14 +9231,14 @@ Add `custom-seatable-server.yml` to the `COMPOSE_FILE` variable inside your `.en
 A minimal SeaTable installation contains the following line inside the `.env` file (located at `/opt/seatable-compose/.env`):
 
 ```ini
-COMPOSE_FILE='caddy.yml,seatable-server.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml'
 ```
 
 Now simpli add `custom-seatable-server.yml` to the list of filenames that should be merged by Docker Compose.
 Additional filenames should be separated by a comma.
 
 ```ini
-COMPOSE_FILE='caddy.yml,seatable-server.yml,custom-seatable-server.yml'
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml,custom-seatable-server.yml'
 ```
 
 ### Step 3
@@ -9964,7 +9964,7 @@ Source: https://admin.seatable.com/configuration/components/dtable-server/
 
 # Configuration of dtable-server
 
-This is a cheat sheet for the possible configuration options of [dtable-server](../../introduction/architecture.md#dtable-server).
+This is a cheat sheet for the possible configuration options of [dtable-server](../../introduction/architecture.md#container-dtable-server).
 It contains all possible settings that can be configured as well as their default values.
 
 The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
@@ -9975,7 +9975,7 @@ The default values provided here are best-effort (not built automatically). They
 
 ## Environment Variables
 
-This section lists the environment variables read by [dtable-server](../../introduction/architecture.md#dtable-server).
+This section lists the environment variables read by [dtable-server](../../introduction/architecture.md#container-dtable-server).
 Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
 
 ### Automations
@@ -10645,6 +10645,42 @@ The following options are optional and can be used to further tweak Seafile:
     - `username`: Username for login to the database. You must provide this option.
     - `password`: Password for the database user. You must provide this option.
     - `db_name`: Database name used by `seafile_db`. You must provide this option.
+
+---
+
+Source: https://admin.seatable.com/configuration/components/seatable-automation-worker/
+
+# Configuration of seatable-automation-worker
+
+This is a cheat sheet for the possible configuration options of the [seatable-automation-worker](../../introduction/architecture.md#container-seatable-automation-worker).
+It contains all possible settings that can be configured as well as their default values.
+
+The seatable-automation-worker is a dedicated component that executes automation rules.
+It reads pending automation tasks from Redis, runs the configured actions (e.g. sending emails, running Python scripts, generating PDFs or triggering AI-powered automations), and publishes the results back to Redis.
+
+The default values provided here are best-effort (not built automatically). They will be used if no value is defined at all.
+
+??? tip "Configuration changes require a restart"
+
+    New configuration options will only apply after a restart of the seatable-automation-worker.
+
+## Environment Variables
+
+This section lists the environment variables read by the seatable-automation-worker.
+Please read our guide that explains how you can [customize the configuration](../customizations.md) of your SeaTable instance before you proceed.
+
+### Workers
+
+| Environment Variable | Description                                                            | Default |
+| -------------------- | ---------------------------------------------------------------------- | ------- |
+| `AUTOMATION_WORKERS` | Number of worker threads that process automation rule tasks from Redis | 5       |
+
+### PDF Generation
+
+| Environment Variable               | Description                                              | Default |
+| ---------------------------------- | -------------------------------------------------------- | ------- |
+| `CONVERT_PDF_BROWSERS`             | Number of browser processes started to generate PDF files | 2      |
+| `CONVERT_PDF_SESSIONS_PER_BROWSER` | Number of sessions per browser instance                   | 3       |
 
 ---
 
@@ -11596,6 +11632,64 @@ This part of the manual is only for older version, meaning if you are updating t
 Source: https://admin.seatable.com/upgrade/extra-upgrade-notice/
 
 # Extra upgrade notice
+
+## 7.0
+
+Version v7.0 splits two components out of the `seatable-server` container into **dedicated containers**.
+Both of them are required, so you have to add `dtable-server.yml` and `seatable-automation-worker.yml` to the `COMPOSE_FILE` variable inside your `/opt/seatable-compose/.env` file before starting the upgraded instance:
+
+```bash
+COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml'
+```
+
+??? warning "dtable-server now runs in its own container"
+
+    Up to v6.2, `dtable-server` was one of the services inside the `seatable-server` container.
+    Starting with v7.0, it runs in a dedicated container and must be activated by adding `dtable-server.yml` to the `COMPOSE_FILE` variable.
+
+    Please also note that customizations of `dtable-server` (e.g. environment variables such as `BASE_MAX_ROWS_LIMIT`) now belong to the `dtable-server` service instead of the `seatable-server` service.
+    If you use a `custom-seatable-server.yml` file, move these settings to a `custom-dtable-server.yml` file and add it to the `COMPOSE_FILE` variable.
+
+    Please refer to the [configuration of dtable-server](../configuration/components/dtable-server.md) for more information.
+
+??? warning "Automation rules require the new seatable-automation-worker container"
+
+    Automation rules are no longer executed inside the `seatable-server` container.
+    The new `seatable-automation-worker` container is a dedicated component that reads pending automation tasks from Redis, runs the configured actions and publishes the results back to Redis.
+
+    Add `seatable-automation-worker.yml` to the `COMPOSE_FILE` variable to activate it.
+
+    Please refer to [this page](../introduction/architecture.md#container-seatable-automation-worker) for more information.
+
+??? warning "Ping endpoints of `dtable-db` and `dtable-server` are no longer exposed"
+
+    The `/dtable-server/ping/` and `/dtable-db/ping/` endpoints are not proxied by NGINX anymore and now return a 404 error.
+    If you monitor these URLs from outside, remove them from your monitoring configuration.
+
+??? warning "`seatable-ai-standalone.yml` was removed"
+
+    This only affects you if the `COMPOSE_FILE` variable in your `.env` file contains `seatable-ai-standalone.yml`.
+
+    The file `seatable-ai-standalone.yml` is no longer part of the release artifact. Replace it with `seatable-ai.yml`.
+
+    Since `seatable-ai.yml` does not expose port 8888 to the host, you have to expose it manually via an [overrides file](../configuration/customizations.md).
+
+??? warning "Major upgrades of additional components"
+
+    Some additional components get a new major version. This only affects you if you use them. Back up their data before the upgrade.
+
+    | Component | Upgrade | What to know |
+    | --- | --- | --- |
+    | Uptime Kuma | 1.23 → 2.5 | The database is migrated on the first start. This can take from minutes to hours. Back up `/opt/uptime-kuma` and do not stop the container during the migration (`docker logs -f uptime-kuma` shows the progress). See the [migration guide](https://github.com/louislam/uptime-kuma/wiki/Migration-From-v1-To-v2). |
+    | Zabbix | 6.4 → 7.0 LTS | The database `zabbix` is upgraded automatically on the first start of `zabbix-server` (`docker logs -f zabbix-server` shows the progress). Zabbix 6.4 does not start with MariaDB 11.8. |
+    | Dozzle | 8 → 11 | Your existing `users.yml` keeps working. |
+    | Collabora Online | 25.04 → 26.04 | The image no longer contains a shell, so `docker exec -it collabora bash` does not work anymore. |
+    | OnlyOffice | 9.4 → 10.0 | `onlyoffice.yml` now uses the tag `10.0`, so you get new 10.0 patch releases with `docker compose pull`. |
+
+??? info "MariaDB starts with an increased `max-allowed-packet`"
+
+    MariaDB is now started with `--max-allowed-packet=32M`, which mitigates issues with very large operations (e.g. importing large tables from XLSX files).
+    This is part of `seatable-server.yml` and applied automatically. No action is required on your side.
 
 ## 6.2
 
