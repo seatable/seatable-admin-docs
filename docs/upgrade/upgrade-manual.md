@@ -54,6 +54,10 @@ This ensures that SeaTable will start correctly after upgrading.
 
     Upgrading to version v6.2 requires various configuration changes. Please carefully read the [extra upgrade notices](./extra-upgrade-notice.md)
 
+!!! warning "Upgrading to v7.0 requires configuration changes"
+
+    Upgrading to version v7.0 requires adding two new `.yml` files to the `COMPOSE_FILE` variable. Please carefully read the [extra upgrade notices](./extra-upgrade-notice.md).
+
 ### Applying changes
 
 After addressing the version-specific changes in the [extra upgrade notices](./extra-upgrade-notice.md), you're ready to apply the changes to the `*.yml` files.
