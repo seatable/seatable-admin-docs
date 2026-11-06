@@ -1,5 +1,5 @@
 ---
-description: Deploy SeaTable AI to enable AI-powered automation steps like summarize, classify, OCR, and extract using external LLM providers.
+description: Deploy SeaTable AI to enable AI-powered features like automation steps (summarize, classify, OCR, extract) and AI-generated HTML pages using external LLM providers.
 ---
 
 # SeaTable AI Integration
@@ -7,15 +7,17 @@ description: Deploy SeaTable AI to enable AI-powered automation steps like summa
 <!-- md:version 6.0 -->
 
 SeaTable AI is a SeaTable extension that integrates AI functionality into SeaTable.
-Deploying SeaTable AI allows users to execute AI-based automation steps within SeaTable.
+Deploying SeaTable AI enables the following AI-powered features within SeaTable:
 
-At the time of writing, the following types of automation steps are supported:
-
-- **Summarize**
-- **Classify**
-- **OCR** (Optical character recognition)
-- **Extract**
-- **Custom** for individual use cases
+- **AI-based automation steps**: At the time of writing, the following types of automation steps are supported:
+    - **Summarize**
+    - **Classify**
+    - **OCR** (Optical character recognition)
+    - **Extract**
+    - **Custom** for individual use cases
+- **AI-generated HTML pages** inside universal apps (since version 7.0)
+    - This additionally requires the [HTML Server](html-server.md) component
+    - The [`ENABLE_HTML_PAGES_AI_AGENT`](html-server.md#ai-generated-html-pages) setting must be set to `True`
 
 ## Deployment
 
@@ -23,7 +25,7 @@ At the time of writing, the following types of automation steps are supported:
 
     The SeaTable AI container does not provide any AI functionality by itself. It only manages the connection between SeaTable and an external large language model (LLM) service. You can connect it to a commercial provider (e.g., OpenAI, Deepseek) or to a self-hosted LLM running on your own infrastructure.
 
-The easiest way to deploy SeaTable AI is to deploy it on the same host as SeaTable Server. A standalone deployment (on a separate host or virtual machine) is explained [here](../advanced/seatable-ai-standalone.md).
+The easiest way to deploy SeaTable AI is to deploy it on the same host as SeaTable Server.
 
 ### Amend the .env file
 
@@ -258,6 +260,29 @@ seatable-ai:
 !!! info "Allowed values for `tier`"
 
     `tier` supports the following values: `low`, `medium` and `high`
+
+##### Reasoning Effort
+
+<!-- md:version 7.0 -->
+
+Since version 7.0, SeaTable AI allows you to configure the `reasoning_effort` for each LLM provider.
+This setting controls how much "thinking" a reasoning model performs before generating its response. Lower values result in faster responses and lower costs, while higher values can improve the results for more complex tasks.
+
+Simply add `reasoning_effort` to the corresponding entry under `global.LLM_MODELS` within `seatable_config.yaml`:
+
+```yaml
+global:
+  LLM_MODELS:
+    - type: openai
+      key: <your openai LLM access key>
+      model: <model-id>
+      reasoning_effort: low
+```
+
+!!! info "Supported values for `reasoning_effort`"
+
+    The value is passed to the LLM provider through [LiteLLM](https://docs.litellm.ai/docs/reasoning_content). Commonly supported values are `low`, `medium` and `high`.
+    Please note that the setting only has an effect on models that support reasoning. Refer to your provider's documentation for the values supported by your model.
 
 ### LLM Timeout Configuration (Optional)
 

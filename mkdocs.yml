@@ -88,6 +88,7 @@ plugins:
         "config/dtable_export_max_size.md": "configuration/components/dtable-web.md#base-export-limit"
         "config/integrate-with-seafile.md": "configuration/components/seafile.md"
         "upgrade/upgrade_manual.md": "upgrade/upgrade-manual.md"
+        "installation/advanced/seatable-ai-standalone.md": "installation/components/seatable-ai.md"
         "installation-rework/advanced/custom_proxy.md": "installation/advanced/custom-proxy.md"
         "installation-rework/advanced/custom_certificates.md": "installation/advanced/custom-certificates.md"
         "configuration/dtable-storage-server-conf.md": "configuration/components/dtable-storage-server.md"
@@ -206,7 +207,6 @@ nav:
               - Maintenance Mode: installation/advanced/maintenance-mode.md
               - Advanced Settings for Caddy: installation/advanced/settings-caddy.md
           - SeaTable AI:
-              - SeaTable AI (standalone): installation/advanced/seatable-ai-standalone.md
               - AI Token Pricing: installation/advanced/seatable-ai-token-pricing.md
               - LLM Self-Hosting:
                   - Prerequisites: installation/advanced/seatable-ai-prerequisites.md
@@ -271,6 +271,7 @@ nav:
               - dtable-storage-server: configuration/components/dtable-storage-server.md
               - dtable-web: configuration/components/dtable-web.md
               - seafile: configuration/components/seafile.md
+              - seatable-automation-worker: configuration/components/seatable-automation-worker.md
               - gunicorn: configuration/components/gunicorn.md
               - nginx: configuration/components/nginx.md
 
