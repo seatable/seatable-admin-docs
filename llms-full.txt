@@ -11499,6 +11499,8 @@ This ensures that SeaTable will start correctly after upgrading.
 
     Upgrading to version v6.2 requires various configuration changes. Please carefully read the [extra upgrade notices](./extra-upgrade-notice.md)
 
+    Upgrading to version v7.0 requires adding two new `.yml` files to the `COMPOSE_FILE` variable. Please carefully read the [extra upgrade notices](./extra-upgrade-notice.md).
+
 ### Applying changes
 
 After addressing the version-specific changes in the [extra upgrade notices](./extra-upgrade-notice.md), you're ready to apply the changes to the `*.yml` files.
@@ -11635,22 +11637,28 @@ Source: https://admin.seatable.com/upgrade/extra-upgrade-notice/
 
 ## 7.0
 
+The upgrade to v7.0 should be straightforward: Update the `.yml` files as usual, add the two new `.yml` files to the `COMPOSE_FILE` variable and apply the changes as described in the [upgrade manual](./upgrade-manual.md).
+
+What exactly you have to do:
+
 Version v7.0 splits two components out of the `seatable-server` container into **dedicated containers**.
 Both of them are required, so you have to add `dtable-server.yml` and `seatable-automation-worker.yml` to the `COMPOSE_FILE` variable inside your `/opt/seatable-compose/.env` file before starting the upgraded instance:
 
 ```bash
-COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automation-worker.yml'
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,dtable-server.yml'/" /opt/seatable-compose/.env
+sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seatable-automation-worker.yml'/" /opt/seatable-compose/.env
 ```
 
 ??? warning "dtable-server now runs in its own container"
 
     Up to v6.2, `dtable-server` was one of the services inside the `seatable-server` container.
     Starting with v7.0, it runs in a dedicated container and must be activated by adding `dtable-server.yml` to the `COMPOSE_FILE` variable.
+    Without it, SeaTable still starts, but bases can no longer be opened.
 
-    Please also note that customizations of `dtable-server` (e.g. environment variables such as `BASE_MAX_ROWS_LIMIT`) now belong to the `dtable-server` service instead of the `seatable-server` service.
-    If you use a `custom-seatable-server.yml` file, move these settings to a `custom-dtable-server.yml` file and add it to the `COMPOSE_FILE` variable.
+    Customizations of `dtable-server` (e.g. environment variables such as `BASE_MAX_ROWS_LIMIT`) now belong to the `dtable-server` service instead of the `seatable-server` service.
+    If you use a `custom-seatable-server.yml` file, move these settings to a `custom-dtable-server.yml` file and add it to the `COMPOSE_FILE` variable after `dtable-server.yml`.
 
-    Please refer to the [configuration of dtable-server](../configuration/components/dtable-server.md) for more information.
+    See [customizations](../configuration/customizations.md) and the [configuration of dtable-server](../configuration/components/dtable-server.md) for more information.
 
 ??? warning "Automation rules require the new seatable-automation-worker container"
 
@@ -11658,38 +11666,42 @@ COMPOSE_FILE='caddy.yml,seatable-server.yml,dtable-server.yml,seatable-automatio
     The new `seatable-automation-worker` container is a dedicated component that reads pending automation tasks from Redis, runs the configured actions and publishes the results back to Redis.
 
     Add `seatable-automation-worker.yml` to the `COMPOSE_FILE` variable to activate it.
+    Without it, automation rules are not executed.
 
-    Please refer to [this page](../introduction/architecture.md#container-seatable-automation-worker) for more information.
+    See the [architecture overview](../introduction/architecture.md#container-seatable-automation-worker) and the [configuration of seatable-automation-worker](../configuration/components/seatable-automation-worker.md) for more information.
 
-??? warning "Ping endpoints of `dtable-db` and `dtable-server` are no longer exposed"
+??? info "Ping endpoints of `dtable-db` and `dtable-server` are no longer exposed"
 
     The `/dtable-server/ping/` and `/dtable-db/ping/` endpoints are not proxied by NGINX anymore and now return a 404 error.
     If you monitor these URLs from outside, remove them from your monitoring configuration.
 
-??? warning "`seatable-ai-standalone.yml` was removed"
+??? info "`seatable-ai-standalone.yml` is no longer included"
 
-    This only affects you if the `COMPOSE_FILE` variable in your `.env` file contains `seatable-ai-standalone.yml`.
+    The release artifact no longer contains the file `seatable-ai-standalone.yml`.
+    If you reference it in the `COMPOSE_FILE` variable in your `.env` file, replace it with `seatable-ai.yml` or maintain your own compose file.
 
-    The file `seatable-ai-standalone.yml` is no longer part of the release artifact. Replace it with `seatable-ai.yml`.
+??? info "New versions of additional components"
 
-    Since `seatable-ai.yml` does not expose port 8888 to the host, you have to expose it manually via an [overrides file](../configuration/customizations.md).
-
-??? warning "Major upgrades of additional components"
-
-    Some additional components get a new major version. This only affects you if you use them. Back up their data before the upgrade.
+    We have updated some additional components to new versions. This only affects you if you use them.
+    The table lists what you should know about each one.
 
     | Component | Upgrade | What to know |
     | --- | --- | --- |
     | Uptime Kuma | 1.23 → 2.5 | The database is migrated on the first start. This can take from minutes to hours. Back up `/opt/uptime-kuma` and do not stop the container during the migration (`docker logs -f uptime-kuma` shows the progress). See the [migration guide](https://github.com/louislam/uptime-kuma/wiki/Migration-From-v1-To-v2). |
-    | Zabbix | 6.4 → 7.0 LTS | The database `zabbix` is upgraded automatically on the first start of `zabbix-server` (`docker logs -f zabbix-server` shows the progress). Zabbix 6.4 does not start with MariaDB 11.8. |
+    | Zabbix | 6.4 → 7.0 LTS | The database `zabbix` is upgraded automatically on the first start of `zabbix-server` (`docker logs -f zabbix-server` shows the progress). Back up the database before the upgrade. Zabbix 6.4 does not start with MariaDB 11.8. |
     | Dozzle | 8 → 11 | Your existing `users.yml` keeps working. |
     | Collabora Online | 25.04 → 26.04 | The image no longer contains a shell, so `docker exec -it collabora bash` does not work anymore. |
     | OnlyOffice | 9.4 → 10.0 | `onlyoffice.yml` now uses the tag `10.0`, so you get new 10.0 patch releases with `docker compose pull`. |
 
-??? info "MariaDB starts with an increased `max-allowed-packet`"
+??? info "Changed startup parameters and HTTP headers"
 
-    MariaDB is now started with `--max-allowed-packet=32M`, which mitigates issues with very large operations (e.g. importing large tables from XLSX files).
-    This is part of `seatable-server.yml` and applied automatically. No action is required on your side.
+    The default configuration of some components has changed:
+
+    - **MariaDB**: Started with `--max-allowed-packet=32M`, which mitigates issues with very large operations (e.g. importing large tables from XLSX files).
+    - **Caddy**: Compression with `gzip` and `zstd` is now enabled. The `X-XSS-Protection` header is changed from `1; mode=block` to `0`.
+    - **NGINX**: Additionally sets `X-Forwarded-Proto $http_x_forwarded_proto`.
+
+    These changes are applied automatically. No action is required on your side.
 
 ## 6.2
 
