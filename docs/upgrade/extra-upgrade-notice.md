@@ -39,6 +39,23 @@ sed -i "s/COMPOSE_FILE='\(.*\)'/COMPOSE_FILE='\1,seatable-automation-worker.yml'
 
     See the [architecture overview](../introduction/architecture.md#container-seatable-automation-worker) and the [configuration of seatable-automation-worker](../configuration/components/seatable-automation-worker.md) for more information.
 
+??? warning "SAML login requires an additional setting"
+
+    This only affects you if you have configured [SAML](../configuration/authentication/saml.md) in `dtable_web_settings.py`.
+    SAML configured by a team admin in the team settings ([SAML for Teams](../configuration/authentication/saml-team.md)) is not affected.
+
+    When a user logs in via SAML, SeaTable downloads the metadata of your identity provider (IdP) from `SAML_REMOTE_METADATA_URL`.
+    Starting with v7.0, SeaTable checks the signature of this metadata to make sure it really comes from your IdP.
+    For this check you have to tell SeaTable which certificate to use.
+    **Without an additional setting, the SAML login stops working after the upgrade.**
+
+    Add **one** of the following settings to `dtable_web_settings.py` and restart SeaTable:
+
+    - **Recommended:** `SAML_METADATA_CERT = '/shared/certs/idp.crt'`. SeaTable checks the metadata with this certificate. Use the certificate your IdP signs its metadata with. In most cases, this is the certificate that you already saved as `idp.crt`. This option only works if your IdP actually signs its metadata.
+    - **Alternative:** `SAML_METADATA_ALLOW_UNSIGNED = True`. SeaTable uses the metadata without checking it, just like in previous versions. This is less secure. Use it only if your IdP does not sign its metadata.
+
+    See [SAML › Verifying the IdP metadata](../configuration/authentication/saml.md#verifying-the-idp-metadata) for how to find out whether your IdP signs its metadata.
+
 ??? info "Ping endpoints of `dtable-db` and `dtable-server` are no longer exposed"
 
     The `/dtable-server/ping/` and `/dtable-db/ping/` endpoints are not proxied by NGINX anymore and now return a 404 error.

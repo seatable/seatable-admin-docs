@@ -107,6 +107,8 @@ To enable SAML, add the following parameters to `dtable_web_settings.py`, custom
 | SAML_REMOTE_METADATA_URL | URL of metadata.xml used by SAML IdP                        | URL of the IdP metadata.xml (see example below)                                                                                              |
 | SAML_ATTRIBUTE_MAP       | Key-value pairs mapping SAML attributes to local attributes | Key-value pairs (see example below)                                                                                                          |
 | SAML_CERTS_DIR           | Path to certificates within the Seatable Docker container   | Path, e.g. `/shared/certs`                                                                                                                   |
+| SAML_METADATA_CERT       | Certificate used to check the signature of the IdP metadata | Path within the container, e.g. `/shared/certs/idp.crt`. Required unless `SAML_METADATA_ALLOW_UNSIGNED` is set, see [below](#verifying-the-idp-metadata) |
+| SAML_METADATA_ALLOW_UNSIGNED | Uses the IdP metadata without checking its signature (optional) | `False` (default) or `True`. Only use `True` if your IdP does not sign its metadata                                                     |
 | SAML_CREATE_UNKNOWN_USER | Enables/disables just-in-time user provisioning on first login (optional)   | `True` (default) or `False`. With `False`, existing users can still log in, but no new accounts are created                                  |
 
 This is a sample configuration. Adapt the values to your needs.
@@ -121,6 +123,7 @@ SAML_ATTRIBUTE_MAP = {
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': 'name',
 }
 SAML_CERTS_DIR = '/shared/certs'
+SAML_METADATA_CERT = '/shared/certs/idp.crt'
 ```
 
 !!! tip "Controlling auto-provisioning"
@@ -135,6 +138,23 @@ SAML_CERTS_DIR = '/shared/certs'
     - The **value** (right side) is the SeaTable target field and is fixed. SeaTable only recognizes the five values listed above (`uid`, `contact_email`, `name`, `employee_id`, `user_role`); any other value is ignored.
 
     The `uid` is the unique identifier from the IdP (not the username within SeaTable) and must never change over the life cycle of the user. If you map a changing value such as the email address to `uid` and that value later changes, SeaTable creates a new user on the next login.
+
+### Verifying the IdP metadata
+
+When a user logs in, SeaTable downloads the metadata of your IdP from `SAML_REMOTE_METADATA_URL`. The metadata tells SeaTable, among other things, to which login page users are sent. To make sure the metadata really comes from your IdP and was not modified on the way, SeaTable checks its signature. You must configure one of the following two options, otherwise the SAML login does not work:
+
+- **`SAML_METADATA_CERT` (recommended):** The path to the certificate that your IdP uses to sign its metadata. In most cases this is the IdP's signing certificate that you already saved as `idp.crt`. If the metadata is not signed, or signed with a different certificate, the login fails.
+- **`SAML_METADATA_ALLOW_UNSIGNED = True`:** SeaTable uses the metadata without checking it. This was the behavior up to SeaTable 6.2. Only use this option if your IdP does not sign its metadata.
+
+To find out whether your IdP signs its metadata, download it and look for a signature:
+
+```bash
+curl -s '<SAML_REMOTE_METADATA_URL>' | grep -c 'SignatureValue'
+```
+
+If the command returns `0`, the metadata is not signed and you have to use `SAML_METADATA_ALLOW_UNSIGNED = True`. Any other number means that the metadata is signed and you can use `SAML_METADATA_CERT`.
+
+If the login fails, `dtable_web.log` contains a message that names the missing or wrong setting.
 
 ### Testing
 
@@ -178,6 +198,7 @@ SAML_ATTRIBUTE_MAP = {
     'jobtitle': 'user_role',            #optional
 }
 SAML_CERTS_DIR = '/shared/certs/'
+SAML_METADATA_CERT = '/shared/certs/idp.crt'
 ```
 
 Replace the value of the `SAML_REMOTE_METADATA_URL` with the URL obtained in step 3 above.
@@ -229,6 +250,8 @@ SAML_CERTS_DIR = '/shared/certs'
 
 Replace the value of the `SAML_REMOTE_METADATA_URL` variable with the URL obtained above.
 
+Also add `SAML_METADATA_CERT` or `SAML_METADATA_ALLOW_UNSIGNED`, depending on whether Okta signs its metadata. See [Verifying the IdP metadata](#verifying-the-idp-metadata).
+
 Restart the SeaTable service for the changes to take effect.
 
 ## Configuration Auth0
@@ -264,6 +287,8 @@ SAML_CERTS_DIR = '/shared/certs'
 ```
 
 Replace the value of the SAML_REMOTE_METADATA_URL variable with the URL obtained in step 2.
+
+Also add `SAML_METADATA_CERT` or `SAML_METADATA_ALLOW_UNSIGNED`, depending on whether Auth0 signs its metadata. See [Verifying the IdP metadata](#verifying-the-idp-metadata).
 
 Restart the SeaTable service for the changes to take effect.
 
@@ -327,5 +352,7 @@ SAML_CERTS_DIR = '/shared/certs'
 ```
 
 Replace the value of the SAML_REMOTE_METADATA_URL variable with the URL you obtained via the `curl` command.
+
+Also add `SAML_METADATA_CERT` or `SAML_METADATA_ALLOW_UNSIGNED`, depending on whether authentik signs its metadata. See [Verifying the IdP metadata](#verifying-the-idp-metadata).
 
 Restart the SeaTable service for the changes to take effect.
