@@ -11,7 +11,7 @@ SeaDoc is a Docker container required for the new SeaTable **Report Design** plu
 
 !!! example "Currently in Beta"
 
-    The **Report Design** plugin is currently in beta. We welcome your feedback. The official release is planned for version 6.0.
+    The **Report Design** plugin is currently in beta. We welcome your feedback. The official release is planned for a future version.
 
 ## Installation Requirements
 
